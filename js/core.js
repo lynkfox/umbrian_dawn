@@ -2075,7 +2075,7 @@ var tripwire = new function() {
 					continue;
 				}
 
-				if (columns[x].match(/(\d+[.|,]\d+(%))/) || columns[x].match(/(\d[.|,]?\d+\s(AU|km|m))/i)) { // Exclude scan % || AU
+				if (columns[x].match(/(\d+[.|,]\d+[ ](%))/) || columns[x].match(/(\d[.|,]?\d+\s(AU|AE|km|m))/i)) { // Exclude scan % || AU
 					continue;
 				}
 
