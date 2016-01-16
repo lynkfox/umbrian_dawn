@@ -2114,7 +2114,6 @@ var tripwire = new function() {
 				var scanner = rowParse(rows[row]);
 
 				if (scanner.id) {
-					console.log(scanner)
 					if ($.inArray(scanner.group, wormholeGroups) != -1) {
 						type = "Wormhole";
 						whType = "???";
