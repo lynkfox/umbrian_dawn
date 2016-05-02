@@ -152,7 +152,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 			<!-- Start Login -->
 			<div id="login" class="page">
 <?php if (isset($_SESSION['userID'])) { ?>
-				<h1>You're currently logged in as...</h1>
+				<h1>Your currently logged in as...</h1>
 				<div style="text-align: center;">
 					<img src="//image.eveonline.com/Character/<?= $_SESSION['characterID'] ?>_128.jpg" />
 					<p><?= $_SESSION['characterName'] ?></p>

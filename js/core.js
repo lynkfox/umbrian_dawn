@@ -2065,9 +2065,6 @@ var tripwire = new function() {
 		var rowParse = function(row) {
 			var scanner = {group: "", type: ""};
 			var columns = row.split("	"); // Split by tab
-			var validScanGroups = ["Cosmic Signature", "Cosmic Anomaly", "Kosmische Anomalie", "Kosmische Signatur"];
-			var validGroups = ["Wormhole", "Relic Site", "Gas Site", "Ore Site", "Data Site", "Combat Site",
-								"Wurmloch", "Reliktgebiet", "Gasgebiet", "Mineraliengebiet", "Datengebiet", "Kampfgebiet"];
 
 			for (var x in columns) {
 				if (columns[x].match(/([A-Z]{3}[-]\d{3})/)) {
@@ -2075,16 +2072,16 @@ var tripwire = new function() {
 					continue;
 				}
 
-				if (columns[x].match(/(\d+[.|,]\d+[ ](%))/) || columns[x].match(/(\d[.|,]?\d+\s(AU|AE|km|m))/i)) { // Exclude scan % || AU
+				if (columns[x].match(/(\d+[.|,]\d+(%))/) || columns[x].match(/(\d[.|,]?\d+\s(AU|km|m))/i)) { // Exclude scan % || AU
 					continue;
 				}
 
-				if ($.inArray(columns[x], validScanGroups) != -1) {
+				if (columns[x] == "Cosmic Signature" || columns[x] == "Cosmic Anomaly") {
 					scanner.scanGroup = columns[x];
 					continue;
 				}
 
-				if ($.inArray(columns[x], validGroups) != -1) {
+				if ($.inArray(columns[x], ["Wormhole", "Relic Site", "Gas Site", "Ore Site", "Data Site", "Combat Site"]) != -1) {
 					scanner.group = columns[x];
 					continue;
 				}
@@ -2105,25 +2102,20 @@ var tripwire = new function() {
 			var rows = data.split("\n");
 			var data = {"request": {"signatures": {"add": [], "update": []}}};
 			var ids = $.map(tripwire.client.signatures, function(sig) {return viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID});
-			var wormholeGroups = ["Wormhole", "Wurmloch"];
-			var siteGroups = ["Combat Site", "Kampfgebiet"];
-			var otherGroups = {"Gas Site": "Gas", "Data Site": "Data", "Relic Site": "Relic", "Ore Site": "Ore",
-								"Gasgebiet": "Gas", "Datengebiet": "Data", "Reliktgebiet": "Relic", "Mineraliengebiet": "Ore"};
 
 			for (var row in rows) {
 				var scanner = rowParse(rows[row]);
 
 				if (scanner.id) {
-					if ($.inArray(scanner.group, wormholeGroups) != -1) {
+					if (scanner.group == "Wormhole") {
 						type = "Wormhole";
 						whType = "???";
 						sigName = null;
-					} else if ($.inArray(scanner.group, siteGroups) != -1) {
+					} else if (scanner.group == "Combat Site") {
 						type = 'Sites';
 						sigName = scanner.type;
-					} else if (otherGroups[scanner.group] /*scanner.group == "Gas Site" || scanner.group == "Data Site" || scanner.group == "Relic Site" || scanner.group == "Ore Site"*/) {
-						//type = scanner.group.replace(' Site', '');
-						type = otherGroups[scanner.group];
+					} else if (scanner.group == "Gas Site" || scanner.group == "Data Site" || scanner.group == "Relic Site" || scanner.group == "Ore Site") {
+						type = scanner.group.replace(' Site', '');
 						sigName = scanner.type;
 					} else {
 						type = null;
