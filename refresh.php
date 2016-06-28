@@ -2,7 +2,7 @@
 //	======================================================
 //	File:		signatures.php
 //	Author:		Josh Glassmaker (Daimian Mercer)
-//	
+//
 //	======================================================
 
 // Verify access via Tripwire signon
@@ -218,14 +218,14 @@ if (isset($_REQUEST['undo'])) {
 	$stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
 	$stmt->bindValue(':systemID', $_REQUEST['systemID'], PDO::PARAM_STR);
 	$stmt->execute();
-	
+
 	foreach ($stmt->fetchAll(PDO::FETCH_OBJ) AS $row) {
 		if ($row->status == 'add') {
 			$query = "UPDATE _history_signatures SET status = 'undo:add', time = NOW() WHERE historyID = :historyID";
 			$stmt = $mysql->prepare($query);
 			$stmt->bindValue(':historyID', $row->historyID, PDO::PARAM_STR);
 			$stmt->execute();
-			
+
 			$query = 'SET @disable_trigger = 1';
 			$stmt = $mysql->prepare($query);
 			$stmt->execute();
@@ -332,7 +332,7 @@ if (isset($_REQUEST['undo'])) {
 			$stmt->execute();
 		}
 	}
-	
+
 } else if (isset($_REQUEST['redo'])) {
 	$query = "SELECT * FROM _history_signatures WHERE status IN ('undo:add', 'undo:update', 'undo:delete') AND userID = :userID AND mask = :mask AND (systemID = :systemID OR connectionID = :systemID) AND time = (SELECT time FROM _history_signatures WHERE status IN ('undo:add', 'undo:update', 'undo:delete') AND userID = :userID AND mask = :mask AND (systemID = :systemID OR connectionID = :systemID) AND DATE_ADD(time, INTERVAL 4 HOUR) > NOW() ORDER BY time DESC LIMIT 1)";
 	$stmt = $mysql->prepare($query);
@@ -532,7 +532,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$output['chain']['flares']['last_modified'] = date('m/d/Y H:i:s e', $result ? strtotime($result[0]->time) : time());
 
 	// Get Comments
-	$query = 'SELECT id, comment, DATE_FORMAT(created, \'%m/%d/%Y %H:%i:%s\') AS createdDate, c.characterName AS createdBy, DATE_FORMAT(modified, \'%m/%d/%Y %H:%i:%s\') AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
+	$query = 'SELECT id, comment, created AS createdDate, c.characterName AS createdBy, DATE_FORMAT(modified, \'%m/%d/%Y %H:%i:%s\') AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
@@ -580,7 +580,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 			$output['signatures'][$row->id] = $row;
 		}
 	}
-	
+
 	// Check if chain changed....
 	if ($chainCount !== null && $chainTime !== null) {
 		$query = 'SELECT COUNT(id) AS chainCount, MAX(time) as chainTime FROM signatures WHERE life IS NOT NULL AND (mask = :mask OR ((signatures.systemID = 31000005 OR signatures.connectionID = 31000005) AND mask = 273))';
@@ -653,7 +653,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	if ($commentCount != (int)$row->count || strtotime($commentTime) < strtotime($row->modified)) {
 		$output['comments'] = array();
 		// Get Comments
-		$query = 'SELECT id, comment, DATE_FORMAT(created, \'%m/%d/%Y %H:%i:%s\') AS createdDate, c.characterName AS createdBy, DATE_FORMAT(modified, \'%m/%d/%Y %H:%i:%s\') AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
+		$query = 'SELECT id, comment, created AS createdDate, c.characterName AS createdBy, DATE_FORMAT(modified, \'%m/%d/%Y %H:%i:%s\') AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
 		$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
@@ -669,5 +669,3 @@ $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
 echo json_encode($output);
 
 ?>
-
-
