@@ -46,7 +46,7 @@ if ($mode == 'save') {
 	$output['result'] = $stmt->execute();
 
 	if ($output['result']) {
-		$query = 'SELECT id, DATE_FORMAT(created, \'%m/%d/%Y %h:%i:%s\') AS createdDate, c.characterName AS createdBy, DATE_FORMAT(modified, \'%m/%d/%Y %h:%i:%s\') AS modifiedDate, m.characterName AS modifiedBy FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE id = :commentID AND maskID = :maskID';
+		$query = 'SELECT id, created AS createdDate, c.characterName AS createdBy, DATE_FORMAT(modified, \'%m/%d/%Y %h:%i:%s\') AS modifiedDate, m.characterName AS modifiedBy FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE id = :commentID AND maskID = :maskID';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':commentID', ($commentID ? $commentID : $mysql->lastInsertId()), PDO::PARAM_INT);
 		$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
