@@ -1,6 +1,6 @@
 <?php
 
-$server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.com' : $_SERVER['SERVER_NAME'];
+$server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.com' : $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
 
 ?>
 <!DOCTYPE html>
