@@ -426,7 +426,7 @@ var options = new function() {
 	this.grid = {igb: {}, oog: {}};
 	this.masks = {active: init.session.corporationID + ".2"};
 	this.chain = {typeFormat: null, classFormat: null, gridlines: true, active: 0, tabs: []};
-	this.signatures = {pasteLife: 72};
+	this.signatures = {pasteLife: 72, alignment: {sigID: "centerAlign", sigType: "centerAlign", sigAge: "centerAlign", leadsTo: "centerAlign", sigLife: "centerAlign", sigMass: "centerAlign"}};
 	this.buttons = {follow: false, chainWidget: {viewing: false, favorites: false}, signaturesWidget: {autoMapper: false}};
 
 	// Saves options in both cookie and database
@@ -2547,9 +2547,9 @@ var tripwire = new function() {
 
 	// Hanldes adding to Signatures section
 	// ToDo: Use native JS
-	this.addSig = function(add, options) {
-		var options = options || {};
-		var animate = typeof(options.animate) !== 'undefined' ? options.animate : true;
+	this.addSig = function(add, option) {
+		var option = option || {};
+		var animate = typeof(option.animate) !== 'undefined' ? option.animate : true;
 
 		if (add.mass) {
 			var nth = add.systemID == viewingSystemID ? add.nth : add.nth2;
@@ -2586,13 +2586,13 @@ var tripwire = new function() {
 			}
 
 			var row = "<tr data-id='"+add.id+"' data-tooltip=''>"
-				+ "<td>"+sigID+"</td>"
+				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+sigID+"</td>"
 				//+ "<td class='type-tooltip' title=\""+this.whTooltip(add)+"\">"+(nth>1?'&nbsp;&nbsp;&nbsp;':'')+(sigtype)+(nth>1?' '+nth:'')+"</td>"
-				+ "<td class='type-tooltip' data-tooltip=\""+this.whTooltip(add)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
-				+ "<td class=\"age-tooltip\" data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
-				+ "<td>"+system+"</td>"
-				+ "<td class='"+lifeClass+"'>"+add.life+"</td>"
-				+ "<td class='"+massClass+"'>"+add.mass+"</td>"
+				+ "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(add)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
+				+ "<td class=\"age-tooltip "+ options.signatures.alignment.sigAge +"\" data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
+				+ "<td class='"+ options.signatures.alignment.leadsTo +"'>"+system+"</td>"
+				+ "<td class='"+lifeClass+" "+ options.signatures.alignment.sigLife +"'>"+add.life+"</td>"
+				+ "<td class='"+massClass+" "+ options.signatures.alignment.sigMass +"'>"+add.mass+"</td>"
 				+ "<td><a href='' class='sigDelete'>X</a></td>"
 				+ "<td><a href='' class='sigEdit'><</a></td>"
 				+ "</tr>";
@@ -2600,10 +2600,10 @@ var tripwire = new function() {
 			var tr = $(row);
 		} else {
 			var row = "<tr data-id='"+add.id+"' data-tooltip=''>"
-				+ "<td>"+add.signatureID+"</td>"
-				+ "<td>"+add.type+"</td>"
-				+ "<td class='age-tooltip' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
-				+ "<td colspan='3'>"+(add.name?add.name:'')+"</td>"
+				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+add.signatureID+"</td>"
+				+ "<td class='"+ options.signatures.alignment.sigType +"'>"+add.type+"</td>"
+				+ "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
+				+ "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(add.name?add.name:'')+"</td>"
 				+ "<td><a href='' class='sigDelete'>X</a></td>"
 				+ "<td><a href='' class='sigEdit'><</a></td>"
 				+ "</tr>";
@@ -2683,13 +2683,13 @@ var tripwire = new function() {
 			}
 
 			var row = "<tr data-id='"+edit.id+"' data-tooltip=''>"
-				+ "<td>"+sigID+"</td>"
+				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+sigID+"</td>"
 				//+ "<td class='type-tooltip' title=\""+this.whTooltip(edit)+"\">"+(nth>1?'&nbsp;&nbsp;&nbsp;':'')+(sigtype)+(nth>1?' '+nth:'')+"</td>"
-				+ "<td class='type-tooltip' data-tooltip=\""+this.whTooltip(edit)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
-				+ "<td class=\"age-tooltip\" data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
-				+ "<td>"+system+"</td>"
-				+ "<td class='"+lifeClass+"'>"+edit.life+"</td>"
-				+ "<td class='"+massClass+"'>"+edit.mass+"</td>"
+				+ "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(edit)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
+				+ "<td class=\"age-tooltip "+ options.signatures.alignment.sigAge +"\" data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
+				+ "<td class='"+ options.signatures.alignment.leadsTo +"'>"+system+"</td>"
+				+ "<td class='"+lifeClass+" "+ options.signatures.alignment.sigLife +"'>"+edit.life+"</td>"
+				+ "<td class='"+massClass+" "+ options.signatures.alignment.sigMass +"'>"+edit.mass+"</td>"
 				+ "<td><a href='' class='sigDelete'>X</a></td>"
 				+ "<td><a href='' class='sigEdit'><</a></td>"
 				+ "</tr>";
@@ -2697,10 +2697,10 @@ var tripwire = new function() {
 			var tr = $(row);
 		} else {
 			var row = "<tr data-id='"+edit.id+"' data-tooltip=''>"
-				+ "<td>"+edit.signatureID+"</td>"
-				+ "<td>"+edit.type+"</td>"
-				+ "<td class='age-tooltip' data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
-				+ "<td colspan='3'>"+(edit.name?edit.name:'')+"</td>"
+				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+edit.signatureID+"</td>"
+				+ "<td class='"+ options.signatures.alignment.sigType +"'>"+edit.type+"</td>"
+				+ "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
+				+ "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(edit.name?edit.name:'')+"</td>"
 				+ "<td><a href='' class='sigDelete'>X</a></td>"
 				+ "<td><a href='' class='sigEdit'><</a></td>"
 				+ "</tr>";
@@ -4238,6 +4238,83 @@ $(document).on("click", "#overwrite", function() {
 	}
 
 	tripwire.refresh('refresh', data, success, always);
+});
+
+// Signature column context menu
+$("#signaturesWidget #sigTable thead").contextmenu({
+	delegate: "th.sortable",
+	menu: "#signatureColumnMenu",
+	select: function(e, ui) {
+		var col = $(ui.target).parent().parent().children().index($(ui.target).parent()) + 1;
+
+		switch(col) {
+			case 1:
+				colName = "sigID";
+				break;
+			case 2:
+				colName = "sigType";
+				break;
+			case 3:
+				colName = "sigAge";
+				break;
+			case 4:
+				colName = "leadsTo";
+				break;
+			case 5:
+				colName = "sigLife";
+				break;
+			case 6:
+				colName = "sigMass";
+				break;
+		}
+
+		switch(ui.cmd) {
+			case "leftAlign":
+				$("#signaturesWidget #sigTable tbody td:nth-child("+ col +")").removeClass("centerAlign rightAlign").addClass("leftAlign");
+				options.signatures.alignment[colName] = "leftAlign";
+				break;
+			case "centerAlign":
+				$("#signaturesWidget #sigTable tbody td:nth-child("+ col +")").removeClass("leftAlign rightAlign").addClass("centerAlign");
+				options.signatures.alignment[colName] = "centerAlign";
+				break;
+			case "rightAlign":
+				$("#signaturesWidget #sigTable tbody td:nth-child("+ col +")").removeClass("centerAlign leftAlign").addClass("rightAlign");
+				options.signatures.alignment[colName] = "rightAlign";
+				break;
+		}
+
+		options.save();
+	},
+	beforeOpen: function(e, ui) {
+		var col = $(ui.target).parent().parent().children().index($(ui.target).parent()) + 1;
+
+		switch(col) {
+			case 1:
+				colName = "sigID";
+				break;
+			case 2:
+				colName = "sigType";
+				break;
+			case 3:
+				colName = "sigAge";
+				break;
+			case 4:
+				colName = "leadsTo";
+				break;
+			case 5:
+				colName = "sigLife";
+				break;
+			case 6:
+				colName = "sigMass";
+				break;
+		}
+
+		$(this).contextmenu("enableEntry", "leftAlign", true);
+		$(this).contextmenu("enableEntry", "centerAlign", true);
+		$(this).contextmenu("enableEntry", "rightAlign", true);
+
+		$(this).contextmenu("enableEntry", options.signatures.alignment[colName], false);
+	}
 });
 
 // Chain Map Context Menu

@@ -976,6 +976,12 @@ if ($row = $stmt->fetchObject()) {
 		<li data-command="collapse"><a>Collapse</a></li>
 	</ul>
 
+	<ul id="signatureColumnMenu" class="hidden">
+		<li data-command="leftAlign"><a>Left align</a></li>
+		<li data-command="centerAlign"><a>Center align</a></li>
+		<li data-command="rightAlign"><a>Right align</a></li>
+	</ul>
+
 	<div id="chainTab" class="hidden">
 		<span class="tab">
 			<span class="name" data-tab=""></span>
