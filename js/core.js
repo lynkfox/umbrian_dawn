@@ -4250,7 +4250,7 @@ $(document).on("click", "#overwrite", function() {
 
 // Signature column context menu
 $("#signaturesWidget #sigTable thead").contextmenu({
-	delegate: "th",
+	delegate: "th.sortable",
 	menu: "#signatureColumnMenu",
 	select: function(e, ui) {
 		var col = $(ui.target).parent().parent().children().index($(ui.target).parent()) + 1;
