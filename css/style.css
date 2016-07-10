@@ -525,6 +525,20 @@ to { -o-transform: rotate(360deg); }
 	letter-spacing: 1px;
 }
 
+#sigTable td.leftAlign {
+	text-align: left;
+	padding-left: 1%;
+}
+
+#sigTable td.centerAlign {
+	text-align: center;
+}
+
+#sigTable td.rightAlign {
+	text-align: right;
+	padding-right: 1%;
+}
+
 .tablesorter .tablesorter-header {
 	cursor: pointer;
 	vertical-align: middle;
@@ -1115,7 +1129,7 @@ input[type=checkbox]:not(.selector) + label {
 	user-select: none;
 }
 
-#igbChainMenu, #oogChainMenu {
+#igbChainMenu, #oogChainMenu, #signatureColumnMenu {
 	z-index: 5;
 }
 
