@@ -2535,6 +2535,9 @@ var tripwire = new function() {
 
 			this.client = server;
 		}
+
+		// set the sig count in the UI
+		$("#signature-count").html(this.client.signatures.length || Object.size(this.client.signatures));
 	}
 
 	this.pastEOL = function() {
