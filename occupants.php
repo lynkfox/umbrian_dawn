@@ -26,7 +26,7 @@ header('Content-Type: application/json');
 $systemID = $_REQUEST['systemID'];
 $maskID = $_SESSION['mask'];
 
-$query = 'SELECT DISTINCT characterName, shipTypeName FROM active WHERE systemID = :systemID AND maskID = :maskID';
+$query = 'SELECT DISTINCT characterName, shipTypeName FROM active WHERE shipTypeName IS NOT NULL AND systemID = :systemID AND maskID = :maskID';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
 $stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
