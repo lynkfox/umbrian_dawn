@@ -30,6 +30,8 @@ function login_history($ip, $username, $method, $result) {
 $mode = 		isset($_REQUEST['mode'])?$_REQUEST['mode']:null;
 $selected = 	isset($_REQUEST['selected'])?$_REQUEST['selected']:null;
 $code = 		isset($_REQUEST['code'])?$_REQUEST['code']:null;
+$state =		isset($_REQUEST['state'])?$_REQUEST['state']:null;
+$login =		isset($_REQUEST['login'])?$_REQUEST['login']:null;
 
 if ($mode == 'login' || !$mode) {
 	$username 	= isset($_REQUEST['username'])?$_REQUEST['username']:(isset($_COOKIE['username'])?$_COOKIE['username']:null);
@@ -211,9 +213,8 @@ if ($mode == 'login' || !$mode) {
 	require('crest.class.php');
 	$CREST = new CREST();
 
-	if ($code) {
-		$characterID = $CREST->authenticate($code);
-		if ($characterID) {
+	if ($code && $state == 'evessologin') {
+		if ($characterID = $CREST->authenticate($code)) {
 			$query = 'SELECT id, username, password, accounts.ban, characterID, characterName, corporationID, corporationName, admin, super, options FROM accounts LEFT JOIN preferences ON id = preferences.userID LEFT JOIN characters ON id = characters.userID WHERE characterID = :characterID';
 			$stmt = $mysql->prepare($query);
 			$stmt->bindValue(':characterID', $characterID, PDO::PARAM_INT);
@@ -253,8 +254,25 @@ if ($mode == 'login' || !$mode) {
 
 		header('Location: ./?error=unknown#login#sso');
 		exit();
+	} else if ($code && $state == 'evessocrest') {
+		if ($characterID = $CREST->authenticate($code)) {
+			$query = 'INSERT INTO crest (characterID, accessToken, refreshToken, tokenExpire) VALUES (:characterID, :accessToken, :refreshToken, :tokenExpire) ON DUPLICATE KEY UPDATE accessToken = :accessToken, refreshToken = :refreshToken, tokenExpire = :tokenExpire';
+			$stmt = $mysql->prepare($query);
+			$stmt->bindValue(':characterID', $characterID, PDO::PARAM_INT);
+			$stmt->bindValue(':accessToken', $CREST->accessToken, PDO::PARAM_STR);
+			$stmt->bindValue(':refreshToken', $CREST->refreshToken, PDO::PARAM_STR);
+			$stmt->bindValue(':tokenExpire', $CREST->tokenExpire, PDO::PARAM_STR);
+			$stmt->execute();
+
+			header('Location: ./?system=');
+			exit();
+		}
 	} else {
-		$CREST->login();
+		if ($login == 'sso') {
+			$CREST->login();
+		} else if ($login == 'crest') {
+			$CREST->login('characterLocationRead', 'evessocrest');
+		}
 	}
 }
 

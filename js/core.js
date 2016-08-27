@@ -417,14 +417,13 @@ $(document).on("dialogclose", ".ui-dialog", function (event, ui) {
 	//if ($(".ui-dialog:visible").length == 0 && options.buttons.follow && viewingSystemID != tripwire.client.EVE.systemID)
 	//	window.location = "?system="+tripwire.client.EVE.systemName;
 });
-// -------------
 
 var options = new function() {
-	this.userID = init.session.userID;
+	this.userID = init.userID;
 	this.background = null;
 	this.favorites = [];
 	this.grid = {igb: {}, oog: {}};
-	this.masks = {active: init.session.corporationID + ".2"};
+	this.masks = {active: init.corporationID + ".2"};
 	this.chain = {typeFormat: null, classFormat: null, gridlines: true, active: 0, tabs: []};
 	this.signatures = {pasteLife: 72, alignment: {sigID: "centerAlign", sigType: "centerAlign", sigAge: "centerAlign", leadsTo: "centerAlign", sigLife: "centerAlign", sigMass: "centerAlign"}};
 	this.buttons = {follow: false, chainWidget: {viewing: false, favorites: false}, signaturesWidget: {autoMapper: false}};
@@ -514,7 +513,7 @@ var options = new function() {
 		}
 
 		// Characters in Options
-		$("#dialog-options #characters").html("<img src='https://image.eveonline.com/Character/"+init.session.characterID+"_64.jpg' />");
+		$("#dialog-options #characters").html("<img src='https://image.eveonline.com/Character/"+init.characterID+"_64.jpg' />");
 
 		// Active mask
 		$("#dialog-options input[name='mask']").filter("[value='"+this.masks.active+"']").attr("checked", true);
@@ -539,7 +538,7 @@ var options = new function() {
 	}
 
 	this.reset.defaults = JSON.parse(JSON.stringify(this.get()));
-	this.load(init && init.session.options ? init.session.options : null);
+	this.load(init && init.options ? init.options : null);
 }
 
 // Init code
@@ -581,7 +580,6 @@ var grid = $(".gridster ul").gridster({
     	},
     	stop: function(e, ui, $widget) {
     		//var width = parseInt($(".gridster").css("margin-left")) + this.container_width;
-    		//console.log(width);
     		//$("#wrapper").css({width: width + "px"})
     		switch ($widget.attr("id")) {
     			case "infoWidget":
@@ -1017,7 +1015,6 @@ var chain = new function() {
 
 			// Get node # in this line
 			var nodeIndex = Math.ceil(($node[0].cellIndex + 1) / 2 - 1);
-			//console.log(nodeIndex)
 
 			// applly to my top line
 			var $connector = $($node.parent().prev().children("td.google-visualization-orgchart-lineleft, td.google-visualization-orgchart-lineright")[nodeIndex]).addClass("left-"+mode+" right-"+mode);
@@ -1124,7 +1121,6 @@ var chain = new function() {
 					}
 
 					if (!skip) {
-						//if (system == 18) console.log(mode);
 						$(this).addClass("bottom-"+mode);
 					}
 				}
@@ -1724,6 +1720,7 @@ var tripwire = new function() {
 	this.activity = {};
 	this.timer;
 	this.xhr;
+	this.crest = {};
 	this.refreshRate = 5000;
 	this.connected = true;
 	this.ageFormat = "HM";
@@ -1889,6 +1886,7 @@ var tripwire = new function() {
 		data.mode = mode != "init" ? "refresh" : "init";
 		data.systemID = viewingSystemID;
 		data.instance = tripwire.instance;
+		data.crest = tripwire.crest;
 
 		this.xhr = $.ajax({
 			url: "refresh.php",
@@ -1899,6 +1897,14 @@ var tripwire = new function() {
 		}).done(function(data) {
 			if (data) {
 				tripwire.server = data;
+
+				if (data.crest) {
+					tripwire.crest.accessToken = data.crest.accessToken;
+					tripwire.crest.tokenExpire = data.crest.tokenExpire;
+					clearInterval(tripwire.crest.timer);
+					tripwire.crest.timer = setInterval("tripwire.crestLocation(init.characterID, tripwire.crest.accessToken);", 5000);
+					tripwire.crestLocation(init.characterID, tripwire.crest.accessToken);
+				}
 
 				if (data.sync) {
 					tripwire.serverTime.time = new Date(data.sync);
@@ -2285,7 +2291,6 @@ var tripwire = new function() {
 		if ($.map(chain.data.rawMap, function(sig) { return (sig.systemID == from && sig.connectionID == to) || (sig.connectionID == from && sig.systemID == to) ? sig : null })[0])
 			return false;
 
-		//console.log('automapper fu!');
 		var data = {"request": {"signatures": {"add": [], "update": []}}};
 		var sig, toClass = null;
 
@@ -2434,7 +2439,6 @@ var tripwire = new function() {
 				});
 			}
 		}
-		//console.log(sig)
 
 		if (sig.length == 0) {
 			data.request.signatures.add.push({
@@ -2475,6 +2479,7 @@ var tripwire = new function() {
 				// Link stuff
 				$("#link img").attr("src", "https://image.eveonline.com/Character/"+EVE.characterID+"_32.jpg");
 				$("#link #name").html(EVE.characterName);
+				$("#link #source").html(EVE.accessToken ? "via CREST" : "via IGB");
 			}
 
 			if (!$("#search").hasClass("active"))
@@ -2485,7 +2490,8 @@ var tripwire = new function() {
 		} else {
 			// Link stuff
 			$("#link img").attr("src", "");
-			$("#link #name").html("Open IGB to link data");
+			$("#link #name").html("Use the IGB or CREST");
+			$("#link #source").html("");
 
 			// Update current system
 			$("#EVEsystem").html("");
@@ -2835,6 +2841,45 @@ var tripwire = new function() {
 
 	}
 
+	this.crestLocation = function(characterID, accessToken) {
+		if (!characterID || !accessToken) {
+			tripwire.crest = {};
+			return false;
+		}
+
+		$.ajax({
+			url: "https://crest-tq.eveonline.com/characters/" + characterID + "/location/",
+			headers: {"Authorization": "Bearer "+ accessToken},
+			type: "GET",
+			dataType: "JSON"
+		}).success(function(data) {
+			$("#login #authCrest").html("<a href='https://community.eveonline.com/support/third-party-applications/#"+init.characterID+"'>Unauthorize CREST</a>");
+
+			if (!data.solarSystem) {
+				tripwire.crest.systemID = null;
+				tripwire.crest.systemName = null;
+				tripwire.crest.stationID = null;
+				tripwire.crest.stationName = null;
+				tripwire.crest.characterID = null;
+				tripwire.crest.characterName = null;
+
+				return false;
+			}
+
+			tripwire.crest.systemID = data.solarSystem.id;
+			tripwire.crest.systemName = data.solarSystem.name;
+			tripwire.crest.stationID = data.station ? data.station.id : null;
+			tripwire.crest.stationName = data.station ? data.station.name : null;
+			tripwire.crest.characterID = init.characterID;
+			tripwire.crest.characterName = init.characterName;
+
+			tripwire.EVE(tripwire.crest);
+		}).fail(function() {
+			tripwire.crest = {};
+			$("#login #authCrest").html("<a href='login.php?mode=sso&login=crest'>Authorize CREST</a>");
+		});
+	}
+
 	this.refresh = function(mode, data, successCallback, alwaysCallback) {
 		var mode = mode || 'refresh';
 
@@ -3172,8 +3217,6 @@ $("#admin").click(function(e) {
 					$("#dialog-admin [data-window='active-users'] #userTable tr[data-id]").remove();
 				}
 
-				//var time = window.performance.now();
-				//console.log(window.performance.now() - time);
 				$("div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane").html("Total: " + $("#dialog-admin [data-window='active-users'] #userTable tr[data-id]").length);
 			});
 
@@ -3339,7 +3382,7 @@ $(".options").click(function(e) {
 						+ '<label for="findp"><i data-icon="search" style="font-size: 3em; margin-left: 16px; margin-top: 16px; display: block;"></i></label>');
 					$("#dialog-options #masks #personal").append(node);
 
-					if (init.session.admin == "1") {
+					if (init.admin == "1") {
 						var node = $(''
 							+ '<input type="checkbox" name="find" id="findc" value="corporate" class="selector" disabled="disabled" />'
 							+ '<label for="findc"><i data-icon="search" style="font-size: 3em; margin-left: 16px; margin-top: 16px; display: block;"></i></label>');
@@ -3690,7 +3733,7 @@ $(".options").click(function(e) {
 											+ '<label for="findp"><i data-icon="search" style="font-size: 3em; margin-left: 16px; margin-top: 16px; display: block;"></i></label>');
 										$("#dialog-options #masks #personal").append(node);
 
-										if (init.session.admin == "1") {
+										if (init.admin == "1") {
 											var node = $(''
 												+ '<input type="checkbox" name="find" id="findc" value="corporate" class="selector" disabled="disabled" />'
 												+ '<label for="findc"><i data-icon="search" style="font-size: 3em; margin-left: 16px; margin-top: 16px; display: block;"></i></label>');
@@ -4028,7 +4071,7 @@ var OccupiedToolTips = new jBox("Tooltip", {
 			var chars = "<table>";
 
 			for (var x in data.occupants) {
-				chars += "<tr><td>"+data.occupants[x].characterName+"</td><td style='padding-left: 10px;'>"+data.occupants[x].shipTypeName+"</td></tr>";
+				chars += "<tr><td>"+data.occupants[x].characterName+"</td><td style='padding-left: 10px;'>"+(data.occupants[x].shipTypeName?data.occupants[x].shipTypeName:"")+"</td></tr>";
 			}
 
 			chars += "</table>";

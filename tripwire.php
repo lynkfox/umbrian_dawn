@@ -23,7 +23,13 @@ setcookie('loadedFromBrowserCache','false');
 require('db.inc.php');
 require('lib.inc.php');
 
-//Verify correct system otherwise goto default...
+// Track this system view
+$query = 'UPDATE userStats SET systemsViewed = systemsViewed + 1 WHERE userID = :userID';
+$stmt = $mysql->prepare($query);
+$stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
+$stmt->execute();
+
+// Verify correct system otherwise goto default...
 $query = "SELECT solarSystemName, systems.solarSystemID, regionName, regions.regionID FROM $eve_dump.mapSolarSystems systems LEFT JOIN $eve_dump.mapRegions regions ON regions.regionID = systems.regionID WHERE solarSystemName = :system";
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':system', $_REQUEST['system'], PDO::PARAM_STR);
@@ -78,7 +84,7 @@ if ($row = $stmt->fetchObject()) {
 		</span>
 		<span class="align-right">
 			<span id="login">
-				<h3><a id="user" href="">Login</a></h3>
+				<h3><a id="user" href=""><?= $_SESSION['characterName'] ?></a></h3>
 				<div id="panel">
 					<div id="content">
 						<div id="triangle"></div>
@@ -87,34 +93,28 @@ if ($row = $stmt->fetchObject()) {
 							<tr>
 								<td style="border-right: 1px solid gray;">
 									<table id="link">
-										<tr><th colspan="2">Link</th></tr>
+										<tr><th colspan="2">Tracking</th></tr>
 										<tr>
 											<td rowspan="4" style="vertical-align: top;"><img scr="" /></td>
-											<td id="name"></td>
+											<td id="name" class="text">&nbsp;</td>
 										</tr>
 										<tr>
-											<td>&nbsp;</td>
-										</tr>
-										<tr>
-											<td>&nbsp;</td>
-										</tr>
-										<tr>
-											<td>&nbsp;</td>
+											<td id="source" class="text">&nbsp;</td>
 										</tr>
 									</table>
 								</td>
 								<td>
 									<table id="account">
-										<tr><th colspan="2">Account</th></tr>
+										<tr><th colspan="2">Characters</th></tr>
 										<tr>
-											<td id="avatar" rowspan="4"></td>
-											<td id="characterName"></td>
+											<td id="avatar" rowspan="4"><img src="https://image.eveonline.com/Character/<?= $_SESSION['characterID'] ?>_64.jpg" /></td>
+											<td id="characterName" class="text"><?= $_SESSION['characterName'] ?></td>
 										</tr>
 										<tr>
-											<td>&nbsp;</td>
+											<td class="text"><?= $_SESSION['corporationName'] ?></td>
 										</tr>
 										<tr>
-											<td>&nbsp;</td>
+											<td id="authCrest" class="text"><a href="login.php?mode=sso&login=crest">Authorize CREST</a></td>
 										</tr>
 										<tr>
 											<td>&nbsp;</td>
@@ -494,6 +494,7 @@ if ($row = $stmt->fetchObject()) {
 				<ul>
 					<li data-window="default" class="active"><a href="#">Home</a></li>
 					<li data-window="active-users"><a href="#">Active Users</a></li>
+					<li data-window="access-list"><a href="#">Access List</a></li>
 				</ul>
 			</div>
 			<div class="window">
@@ -1011,25 +1012,7 @@ if ($row = $stmt->fetchObject()) {
 
 	<script type="text/javascript">
 
-		var init = null;
-
-		initAJAX = new XMLHttpRequest();
-		initAJAX.onreadystatechange = function() {
-			if (initAJAX.readyState == 4 && initAJAX.status == 200) {
-				init = JSON.parse(initAJAX.responseText);
-
-				if (init && init.trustCheck)
-					CCPEVE.requestTrust("https://*.eve-apps.com/*");
-
-				if (init && init.session.username) {
-					document.getElementById("user").innerHTML = init.session.characterName;
-					document.getElementById("characterName").innerHTML = init.session.characterName;
-					document.getElementById("avatar").innerHTML = '<img src="https://image.eveonline.com/Character/'+ init.session.characterID +'_64.jpg" />';
-				}
-			}
-		}
-		initAJAX.open("GET", "init.php?_=" + new Date().getTime(), false);
-		initAJAX.send();
+		var init = <?= json_encode($_SESSION) ?>;
 
 		// Google Analytics
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -1050,6 +1033,10 @@ if ($row = $stmt->fetchObject()) {
 		setTimeout("passiveHit()", 240000);
 
 	</script>
+
+	<!-- IGB Trust check -->
+	<?php if (isset($_SERVER['HTTP_EVE_TRUSTED']) && $_SERVER['HTTP_EVE_TRUSTED'] == 'No') {?> <script>alert("https://*.<?= $_SERVER['SERVER_NAME'] ?>/*");</script> <?php } ?>
+	<!-- IGB Trust check -->
 
 	<!-- JS Includes -->
 	<script type="text/javascript" src="//<?= $server ?>/js/combine.js"></script>
