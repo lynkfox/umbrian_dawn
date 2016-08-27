@@ -225,6 +225,14 @@ to { -o-transform: rotate(360deg); }
 	display: none;
 }
 
+#login img {
+	-webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+}
+
 #login #triangle {
 	position: absolute;
 	top: -5px;
@@ -265,10 +273,15 @@ to { -o-transform: rotate(360deg); }
 
 #login #content table td {
 	color: #555;
+	text-align: left;
 }
 
-#login #content table td input {
-	text-align: left;
+#login #content table .text {
+	padding: 0 10px 0 3px;
+}
+
+#login #content table td #logout {
+	float: right;
 }
 
 #login #content a {
