@@ -1035,7 +1035,7 @@ if ($row = $stmt->fetchObject()) {
 	</script>
 
 	<!-- IGB Trust check -->
-	<?php if (isset($_SERVER['HTTP_EVE_TRUSTED']) && $_SERVER['HTTP_EVE_TRUSTED'] == 'No') {?> <script>alert("https://*.<?= $_SERVER['SERVER_NAME'] ?>/*");</script> <?php } ?>
+	<?php if (isset($_SERVER['HTTP_EVE_TRUSTED']) && $_SERVER['HTTP_EVE_TRUSTED'] == 'No') {?> <script>CCPEVE.requestTrust("https://*.<?= $_SERVER['SERVER_NAME'] ?>/*");</script> <?php } ?>
 	<!-- IGB Trust check -->
 
 	<!-- JS Includes -->
