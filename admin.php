@@ -25,6 +25,13 @@ if ($mode == 'active-users' && (checkOwner($mask) || checkAdmin($mask))) {
 	$stmt->execute();
 
     $output['results'] = $stmt->fetchAll(PDO::FETCH_CLASS);
+} else if ($mode == 'access-list' && (checkOwner($mask) || checkAdmin($mask))) {
+	$query = 'SELECT c.characterID, c.characterName, c.corporationID, c.corporationName, c.admin, c.added FROM groups g INNER JOIN characters c ON g.eveID = c.corporationID WHERE g.eveType = 2 AND maskID = :mask UNION SELECT c.characterID, c.characterName, c.corporationID, c.corporationName, c.admin, c.added FROM groups g INNER JOIN characters c ON g.eveID = c.characterID WHERE g.eveType =  AND maskID = :mask';
+	$stmt = $mysql->prepare($query);
+	$stmt->bindValue(':mask', $mask);
+	$stmt->execute();
+
+    $output['results'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 }
 
 $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);

@@ -541,6 +541,26 @@ if ($row = $stmt->fetchObject()) {
 						</tbody>
 					</table>
 				</div>
+				<div data-window="access-list" class="hidden">
+					<table id="userTable" width="100%" cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th class="sortable">Character<i data-icon=""></i></th>
+								<th class="sortable">Corporation<i data-icon=""></i></th>
+								<th class="sortable">Admin Powers<i data-icon=""></i></th>
+								<th class="sortable">Date added<i data-icon=""></i></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="hidden">
+								<td class="account"></td>
+								<td class="character"></td>
+								<td class="system"></td>
+								<td class="shipName"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
