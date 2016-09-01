@@ -945,14 +945,13 @@ var chain = new function() {
 
 	this.occupied = function(data) {
 		/*	function for showing occupied icon  */
-		//var data = typeof(data) !== "undefined" ? data : this.data.occupied;
 
 		// Hide all icons instead of checking each one
-		$("#chainMap [data-icon='user']").addClass("invisible");//.hide();
+		$("#chainMap [data-icon='user']").addClass("invisible");
 
 		// Loop through passed data and show icons
 		for (var x in data) {
-			$("#chainMap [data-nodeid='"+data[x]+"'] [data-icon='user']").removeClass("invisible");//.show();
+			$("#chainMap [data-nodeid='"+data[x].systemID+"'] [data-icon='user']").removeClass("invisible").html("<span class='badge'>"+data[x].count+"</span>");
 		}
 
 		OccupiedToolTips.attach($("#chainMap [data-icon='user']:not(.invisible)"));

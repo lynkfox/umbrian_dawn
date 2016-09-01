@@ -2173,3 +2173,26 @@ div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane {
 	font-size: 16px;
 	color: #333;
 }
+
+#chainMap span.badge {
+	display: inline-block;
+	color: #bbb;
+	background-color: #222;
+	box-shadow: 0px 0px 6px 2px #111;
+	font-family: monospace;
+	padding: 2px 2px;
+	min-width: 8px;
+	font-size: 9px;
+	font-weight: 300;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	border-radius: 10px;
+}
+
+[data-icon="user"] .badge {
+	position: absolute;
+	top: -5px;
+	right: -10px;
+}

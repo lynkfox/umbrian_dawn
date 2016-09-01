@@ -568,11 +568,11 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$output['chain']['last_modified'] = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
 
 	// Get occupied systems
-	$query = 'SELECT DISTINCT systemID FROM active WHERE maskID = :maskID AND systemID IS NOT NULL';
+	$query = 'SELECT systemID, COUNT(characterID) AS count FROM active WHERE maskID = :maskID AND systemID IS NOT NULL GROUP BY systemID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
 	$stmt->execute();
-	$output['chain']['occupied'] = $stmt->fetchAll(PDO::FETCH_COLUMN);
+	$output['chain']['occupied'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
 	// Get flares
 	$query = 'SELECT systemID, flare, time FROM flares WHERE maskID = :maskID';
@@ -688,12 +688,13 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	}
 
 	// Get occupied systems
-	$query = 'SELECT DISTINCT systemID FROM active WHERE maskID = :maskID AND systemID IS NOT NULL';
+	$query = 'SELECT systemID, COUNT(characterID) AS count FROM active WHERE maskID = :maskID AND systemID IS NOT NULL GROUP BY systemID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
 	$stmt->execute();
-	if ($result = $stmt->fetchAll(PDO::FETCH_COLUMN))
+	if ($result = $stmt->fetchAll(PDO::FETCH_CLASS)) {
 		$output['chain']['occupied'] = $result;
+	}
 
 	// Check Comments
 	$query = 'SELECT COUNT(id) AS count, MAX(modified) AS modified FROM comments WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID';
