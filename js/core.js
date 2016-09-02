@@ -1652,7 +1652,7 @@ var chain = new function() {
 			// Apply current system style
 			$("#chainMap [data-nodeid='"+viewingSystemID+"']").parent().addClass("currentNode"); // 1ms
 
-			Tooltips.attach($("#chainMap .whEffect")); // 30ms
+			WormholeTypeToolTips.attach($("#chainMap .whEffect")); // 30ms
 			this.drawing = false;
 		}
 
@@ -1686,7 +1686,7 @@ var chain = new function() {
 		// Apply current system style
 		$("#chainMap [data-nodeid='"+viewingSystemID+"']").parent().addClass("currentNode");
 
-		Tooltips.attach($("#chainMap .whEffect"));
+		WormholeTypeToolTips.attach($("#chainMap .whEffect"));
 
 		chain.activity(chain.data.activity);
 
@@ -4048,18 +4048,24 @@ var Tooltips = new jBox("Tooltip", {
 	outside: "x"
 });
 
+var WormholeTypeToolTips = new jBox("Tooltip", {
+	attach: $("[data-tooltip]"),
+	getContent: "data-tooltip",
+	position: {x: "left", y: "center"},
+	outside: "x"
+});
+
 var OccupiedToolTips = new jBox("Tooltip", {
 	pointer: "top:-3",
 	position: {x: "right", y: "center"},
 	outside: "x",
 	animation: "move",
 	repositionOnOpen: true,
-	//closeOnMouseleave: true,
 	onOpen: function() {
 		var tooltip = this;
 		var systemID = $(this.source).closest("[data-nodeid]").data("nodeid");
 
-		tooltip.setContent("");
+		tooltip.setContent("&nbsp;");
 
 		$.ajax({
 			url: "occupants.php",
