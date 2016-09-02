@@ -1580,6 +1580,7 @@ i.closeIcon:hover {
 .jBox-container {
 	background: #333;
 	color: #CCC;
+	margin-top: 1px;
 }
 
 .jBox-content {
