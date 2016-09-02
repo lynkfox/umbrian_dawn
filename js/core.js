@@ -4049,7 +4049,7 @@ var Tooltips = new jBox("Tooltip", {
 });
 
 var WormholeTypeToolTips = new jBox("Tooltip", {
-	attach: $("[data-tooltip]"),
+	attach: $(".whEffect[data-tooltip]"),
 	getContent: "data-tooltip",
 	position: {x: "left", y: "center"},
 	outside: "x"
