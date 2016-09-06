@@ -2080,7 +2080,7 @@ var tripwire = new function() {
 					continue;
 				}
 
-				if (columns[x].match(/(\d+[.|,]\d+[ ](%))/) || columns[x].match(/(\d[.|,]?\d+\s(AU|AE|km|m))/i)) { // Exclude scan % || AU
+				if (columns[x].match(/(\d([.|,]\d)?[ ]?(%))/) || columns[x].match(/(\d[.|,]?\d+\s(AU|AE|km|m))/i)) { // Exclude scan % || AU
 					continue;
 				}
 
@@ -2126,8 +2126,7 @@ var tripwire = new function() {
 					} else if ($.inArray(scanner.group, siteGroups) != -1) {
 						type = 'Sites';
 						sigName = scanner.type;
-					} else if (otherGroups[scanner.group] /*scanner.group == "Gas Site" || scanner.group == "Data Site" || scanner.group == "Relic Site" || scanner.group == "Ore Site"*/) {
-						//type = scanner.group.replace(' Site', '');
+					} else if (otherGroups[scanner.group]) {
 						type = otherGroups[scanner.group];
 						sigName = scanner.type;
 					} else {
