@@ -4808,7 +4808,7 @@ $("body").on("click", ".commentSave, .commentCancel", function(e) {
 	$this.attr("disabled", "true");
 
 	if ($this.hasClass("commentSave")) {
-		var data = {"mode": "save", "commentID": $comment.data("id"), "systemID": viewingSystemID, "comment": CKEDITOR.instances[$comment.find(".commentBody").attr("id")].getData()};
+		var data = {"mode": "save", "commentID": $comment.data("id"), "systemID": $comment.find(".commentSticky").hasClass("active") ? 0 : viewingSystemID, "comment": CKEDITOR.instances[$comment.find(".commentBody").attr("id")].getData()};
 
 		$.ajax({
 			url: "comments.php",
