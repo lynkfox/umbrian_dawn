@@ -1514,7 +1514,7 @@ var chain = new function() {
 				systemType = "<span class='wh'>C1</span>";
 			else if (nodeClass > 6)
 				systemType = "<span class='wh'>C" + nodeClass + "</span>";
-			else if (typeof(tripwire.wormholes[node.child.type]) != "undefined")
+			else if (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo.split(" ").length > 1)
 				systemType = "<span class='wh'>C" + tripwire.wormholes[node.child.type].leadsTo.split(" ")[1] + "</span>";
 			else if (nodeSecurity >= 0.45 || node.child.name == "High-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "High-Sec" && !nodeSecurity))
 				systemType = "<span class='hisec'>HS</span>";
