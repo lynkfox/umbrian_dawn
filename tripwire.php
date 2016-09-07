@@ -493,7 +493,8 @@ if ($row = $stmt->fetchObject()) {
 				<!-- menu -->
 				<ul>
 					<li data-window="default" class="active"><a href="#">Home</a></li>
-					<li data-window="active-users"><a href="#">Active Users</a></li>
+					<li data-window="active-users" data-refresh="3000"><a href="#">Active Users</a></li>
+					<li data-window="user-stats"><a href="#">User Stats</a></li>
 					<li data-window="access-list"><a href="#">Access List</a></li>
 				</ul>
 			</div>
@@ -517,7 +518,7 @@ if ($row = $stmt->fetchObject()) {
 					<p>Thanks for using Tripwire, enjoy! :)</p>
 				</div>
 				<div data-window="active-users" class="hidden">
-					<table id="userTable" width="100%" cellpadding="0" cellspacing="0">
+					<table data-sortable="true" width="100%" cellpadding="0" cellspacing="0">
 						<thead>
 							<tr>
 								<th class="sortable">Account<i data-icon=""></i></th>
@@ -526,18 +527,62 @@ if ($row = $stmt->fetchObject()) {
 								<th class="sortable">Ship Name<i data-icon=""></i></th>
 								<th class="sortable">Ship Type<i data-icon=""></i></th>
 								<th class="sortable">Station<i data-icon=""></i></th>
-								<th class="sortable">Login<i data-icon=""></i></th>
+								<th class="sortable">Last Login<i data-icon=""></i></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr class="hidden">
-								<td class="account"></td>
-								<td class="character"></td>
-								<td class="system"></td>
-								<td class="shipName"></td>
-								<td class="shipType"></td>
-								<td class="station"></td>
-								<td class="login"></td>
+								<td data-col="accountCharacterName"></td>
+								<td data-col="characterName"></td>
+								<td data-col="systemName"></td>
+								<td data-col="shipName"></td>
+								<td data-col="shipTypeName"></td>
+								<td data-col="stationName"></td>
+								<td data-col="lastLogin" class="text-center"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div data-window="user-stats" class="hidden">
+					<table data-sortable="true" width="100%" cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th class="sortable">Character<i data-icon=""></i></th>
+								<th class="sortable">Corporation<i data-icon=""></i></th>
+								<th class="sortable">Signatures Added<i data-icon=""></i></th>
+								<th class="sortable">Systems Visited<i data-icon=""></i></th>
+								<th class="sortable">Systems Viewed<i data-icon=""></i></th>
+								<th class="sortable"># of Logins<i data-icon=""></i></th>
+								<th class="sortable">Last Login<i data-icon=""></i></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="hidden">
+								<td data-col="characterName"></td>
+								<td data-col="corporationName"></td>
+								<td data-col="sigCount" data-format="number" class="text-center"></td>
+								<td data-col="systemsVisited" data-format="number" class="text-center"></td>
+								<td data-col="systemsViewed" data-format="number" class="text-center"></td>
+								<td data-col="loginCount" data-format="number" class="text-center"></td>
+								<td data-col="lastLogin" class="text-center"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div data-window="access-list" class="hidden">
+					<table data-sortable="true" width="100%" cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th class="sortable">Character<i data-icon=""></i></th>
+								<th class="sortable">Corporation<i data-icon=""></i></th>
+								<th class="sortable">Date added<i data-icon=""></i></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="hidden">
+								<td data-col="characterName"></td>
+								<td data-col="corporationName"></td>
+								<td data-col="added" class="text-center"></td>
 							</tr>
 						</tbody>
 					</table>

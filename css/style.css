@@ -33,6 +33,18 @@ a:hover {
 	color: #FFF;
 }
 
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-center {
+	text-align: center;
+}
+
 #wrapper {
 	height: 100%;
 	overflow: auto;
@@ -2167,8 +2179,21 @@ td.google-visualization-orgchart-linenode[data-signatureid] {
 	color: orange;
 }
 
+div.ui-dialog[aria-describedby='dialog-admin'] .menu {
+	margin-right: 6px;
+	border-right: 1px solid #aaa;
+}
+
+div.ui-dialog[aria-describedby='dialog-admin'] .window [data-window] {
+	height: 100%;
+}
+
+div.ui-dialog[aria-describedby='dialog-admin'] .window table tbody tr:nth-child(even) td {
+	border-bottom: 1px solid #999;
+}
+
 div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane {
-	margin-left: 110px;
+	margin-left: 120px;
 	margin-top: 8px;
 	font-size: 16px;
 	color: #333;

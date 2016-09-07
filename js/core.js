@@ -3168,60 +3168,63 @@ $("#admin").click(function(e) {
 
 	if (!$("#dialog-admin").hasClass("ui-dialog-content")) {
 		var refreshTimer = null;
+		var $total = null;
+		var $ajax = null;
 
-		function refreshActiveUsers() {
-			$("div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane").html("Total: " + $("#dialog-admin [data-window='active-users'] #userTable tr[data-id]").length);
+		function refreshWindow() {
+			if ($ajax) $ajax.abort();
+			$total.html("Total: " + $("#dialog-admin .window .hasFocus table tr[data-id]").length);
 
-			$.ajax({
+			$ajax = $.ajax({
 				url: "admin.php",
 				type: "POST",
-				data: {mode: "active-users"},
+				data: {mode: $("#dialog-admin .menu .active").attr("data-window")},
 				dataType: "JSON"
 			}).success(function(data) {
 				if (data && data.results) {
 					var rows = data.results;
+					var ids = [];
+
 					for (var i = 0, l = rows.length; i < l; i++) {
-						var $row = $("#dialog-admin [data-window='active-users'] #userTable tbody tr[data-id='"+ rows[i].id +"']");
+						var $row = $("#dialog-admin .window .hasFocus tbody tr[data-id='"+ rows[i].id +"']");
+						ids.push(rows[i].id);
+
 						if ($row.length) {
-							$row.find(".account").html(rows[i].accountCharacterName);
-							$row.find(".character").html(rows[i].characterName || "&nbsp;");
-							$row.find(".system").html(rows[i].systemName || "&nbsp;");
-							$row.find(".shipName").html(rows[i].shipName || "&nbsp;");
-							$row.find(".shipType").html(rows[i].shipTypeName || "&nbsp;");
-							$row.find(".station").html(rows[i].stationName || "&nbsp;");
-							$row.find(".login").html(rows[i].lastLogin);
+							for (col in rows[i]) {
+								var $col = $row.find("[data-col='"+col+"']");
+								$col.html(($col.attr("data-format") == "number" ? numFormat(rows[i][col]) : rows[i][col]) || "&nbsp;");
+							}
 						} else {
-							$row = $("#dialog-admin [data-window='active-users'] tr.hidden").clone();
+							$row = $("#dialog-admin .window .hasFocus table tr.hidden").clone();
 							$row.attr("data-id", rows[i].id);
-							$row.find(".account").html(rows[i].accountCharacterName);
-							$row.find(".character").html(rows[i].characterName || "&nbsp;");
-							$row.find(".system").html(rows[i].systemName || "&nbsp;");
-							$row.find(".shipName").html(rows[i].shipName || "&nbsp;");
-							$row.find(".shipType").html(rows[i].shipTypeName || "&nbsp;");
-							$row.find(".station").html(rows[i].stationName || "&nbsp;");
-							$row.find(".login").html(rows[i].lastLogin);
+
+							for (col in rows[i]) {
+								var $col = $row.find("[data-col='"+col+"']");
+								$col.html(($col.attr("data-format") == "number" ? numFormat(rows[i][col]) : rows[i][col]) || "&nbsp;");
+							}
+
 							$row.removeClass("hidden");
-							$("#dialog-admin [data-window='active-users'] #userTable tbody").append($row);
+
+							$("#dialog-admin .window .hasFocus tbody").append($row);
 						}
 					}
 
-					var ids = $.map(data.results, function(user) { return user.id; });
-					$("#dialog-admin [data-window='active-users'] #userTable tr[data-id]").each(function() {
+					$("#dialog-admin .window .hasFocus table tr[data-id]").each(function() {
 						if ($.inArray($(this).data("id").toString(), ids) == -1) {
 							$(this).remove();
 						}
 					});
 
-					$("#dialog-admin [data-window='active-users'] #userTable").trigger("update", [true]);
+					$("#dialog-admin .window .hasFocus table").trigger("update", [true]);
 				} else {
-					$("#dialog-admin [data-window='active-users'] #userTable tr[data-id]").remove();
+					$("#dialog-admin .window .hasFocus table tr[data-id]").remove();
 				}
 
-				$("div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane").html("Total: " + $("#dialog-admin [data-window='active-users'] #userTable tr[data-id]").length);
+				$total.html("Total: " + $("#dialog-admin .window .hasFocus table tr[data-id]").length);
 			});
 
-			if ($("#dialog-admin").dialog("isOpen") && $("#dialog-admin .menu .active").attr("data-window") == "active-users") {
-				refreshTimer = setTimeout(refreshActiveUsers, 3000);
+			if ($("#dialog-admin").dialog("isOpen") && $("#dialog-admin .menu .active").attr("data-refresh")) {
+				refreshTimer = setTimeout(refreshWindow, $("#dialog-admin .menu .active").attr("data-refresh"));
 			}
 		}
 
@@ -3246,17 +3249,13 @@ $("#admin").click(function(e) {
 					$menuItem.addClass("active");
 					$("div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane").html("");
 
-					$("#dialog-admin .window [data-window]").hide();
-					$("#dialog-admin .window [data-window='"+ $menuItem.data("window") +"']").show();
+					$("#dialog-admin .window [data-window]").removeClass("hasFocus").hide();
+					$("#dialog-admin .window [data-window='"+ $menuItem.data("window") +"']").addClass("hasFocus").show();
 
-					switch ($menuItem.data("window")) {
-						case "active-users":
-							refreshActiveUsers();
-							break;
-					}
+					refreshWindow();
 				});
 
-				$("#dialog-admin [data-window='active-users'] #userTable").tablesorter({
+				$("#dialog-admin [data-sortable='true']").tablesorter({
 					sortReset: true,
 					widgets: ['saveSort'],
 					sortList: [[0,0]]
@@ -3264,15 +3263,11 @@ $("#admin").click(function(e) {
 
 				// dialog bottom tray
 				$($(this)[0].parentElement).find(".ui-dialog-buttonpane").append("<div class='ui-dialog-traypane'></div>");
+				$total = $("div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane");
 			},
 			open: function() {
 				$menuItem = $("#dialog-admin .menu li.active");
-
-				switch ($menuItem.data("window")) {
-					case "active-users":
-						refreshActiveUsers();
-						break;
-				}
+				refreshWindow();
 			},
 			close: function() {
 				clearTimeout(refreshTimer);
