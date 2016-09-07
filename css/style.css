@@ -285,7 +285,7 @@ to { -o-transform: rotate(360deg); }
 }
 
 #login #content a {
-	color: #DDD;
+	color: #666;
 }
 
 #login #content #error {

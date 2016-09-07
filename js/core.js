@@ -2847,14 +2847,14 @@ var tripwire = new function() {
 			return false;
 		}
 
+		$("#login #authCrest").html("<a href='https://community.eveonline.com/support/third-party-applications/#"+init.characterID+"'>Unauthorize CREST</a>");
+
 		$.ajax({
 			url: "https://crest-tq.eveonline.com/characters/" + characterID + "/location/",
 			headers: {"Authorization": "Bearer "+ accessToken},
 			type: "GET",
 			dataType: "JSON"
 		}).success(function(data) {
-			$("#login #authCrest").html("<a href='https://community.eveonline.com/support/third-party-applications/#"+init.characterID+"'>Unauthorize CREST</a>");
-
 			if (!data.solarSystem) {
 				tripwire.crest.systemID = null;
 				tripwire.crest.systemName = null;
