@@ -1862,7 +1862,7 @@ var tripwire = new function() {
 			data.sigTime = Object.maxTime(this.client.signatures, "time");
 
 			data.chainCount = Object.size(chain.data.rawMap);
-			data.chainTime = Object.maxTime(chain.data.rawMap, "time");// chain.data.last_modified;
+			data.chainTime = Object.maxTime(chain.data.rawMap, "time");
 
 			data.flareCount = chain.data.flares ? chain.data.flares.flares.length : 0;
 			data.flareTime = chain.data.flares ? chain.data.flares.last_modified : 0;
