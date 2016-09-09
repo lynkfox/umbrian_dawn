@@ -2842,7 +2842,7 @@ var tripwire = new function() {
 	}
 
 	this.crestLocation = function(characterID, accessToken) {
-		if (!characterID || !accessToken) {
+		if (!characterID || !accessToken || CCPEVE) {
 			tripwire.crest = {};
 			return false;
 		}
