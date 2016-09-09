@@ -417,16 +417,15 @@ $(document).on("dialogclose", ".ui-dialog", function (event, ui) {
 	//if ($(".ui-dialog:visible").length == 0 && options.buttons.follow && viewingSystemID != tripwire.client.EVE.systemID)
 	//	window.location = "?system="+tripwire.client.EVE.systemName;
 });
-// -------------
 
 var options = new function() {
-	this.userID = init.session.userID;
+	this.userID = init.userID;
 	this.background = null;
 	this.favorites = [];
 	this.grid = {igb: {}, oog: {}};
-	this.masks = {active: init.session.corporationID + ".2"};
+	this.masks = {active: init.corporationID + ".2"};
 	this.chain = {typeFormat: null, classFormat: null, gridlines: true, active: 0, tabs: []};
-	this.signatures = {pasteLife: 72};
+	this.signatures = {pasteLife: 72, alignment: {sigID: "centerAlign", sigType: "centerAlign", sigAge: "centerAlign", leadsTo: "centerAlign", sigLife: "centerAlign", sigMass: "centerAlign"}};
 	this.buttons = {follow: false, chainWidget: {viewing: false, favorites: false}, signaturesWidget: {autoMapper: false}};
 
 	// Saves options in both cookie and database
@@ -514,7 +513,7 @@ var options = new function() {
 		}
 
 		// Characters in Options
-		$("#dialog-options #characters").html("<img src='https://image.eveonline.com/Character/"+init.session.characterID+"_64.jpg' />");
+		$("#dialog-options #characters").html("<img src='https://image.eveonline.com/Character/"+init.characterID+"_64.jpg' />");
 
 		// Active mask
 		$("#dialog-options input[name='mask']").filter("[value='"+this.masks.active+"']").attr("checked", true);
@@ -539,7 +538,7 @@ var options = new function() {
 	}
 
 	this.reset.defaults = JSON.parse(JSON.stringify(this.get()));
-	this.load(init && init.session.options ? init.session.options : null);
+	this.load(init && init.options ? init.options : null);
 }
 
 // Init code
@@ -581,7 +580,6 @@ var grid = $(".gridster ul").gridster({
     	},
     	stop: function(e, ui, $widget) {
     		//var width = parseInt($(".gridster").css("margin-left")) + this.container_width;
-    		//console.log(width);
     		//$("#wrapper").css({width: width + "px"})
     		switch ($widget.attr("id")) {
     			case "infoWidget":
@@ -947,14 +945,13 @@ var chain = new function() {
 
 	this.occupied = function(data) {
 		/*	function for showing occupied icon  */
-		//var data = typeof(data) !== "undefined" ? data : this.data.occupied;
 
 		// Hide all icons instead of checking each one
-		$("#chainMap [data-icon='user']").addClass("invisible");//.hide();
+		$("#chainMap [data-icon='user']").addClass("invisible");
 
 		// Loop through passed data and show icons
 		for (var x in data) {
-			$("#chainMap [data-nodeid='"+data[x]+"'] [data-icon='user']").removeClass("invisible");//.show();
+			$("#chainMap [data-nodeid='"+data[x].systemID+"'] [data-icon='user']").removeClass("invisible").html("<span class='badge'>"+data[x].count+"</span>");
 		}
 
 		OccupiedToolTips.attach($("#chainMap [data-icon='user']:not(.invisible)"));
@@ -1017,7 +1014,6 @@ var chain = new function() {
 
 			// Get node # in this line
 			var nodeIndex = Math.ceil(($node[0].cellIndex + 1) / 2 - 1);
-			//console.log(nodeIndex)
 
 			// applly to my top line
 			var $connector = $($node.parent().prev().children("td.google-visualization-orgchart-lineleft, td.google-visualization-orgchart-lineright")[nodeIndex]).addClass("left-"+mode+" right-"+mode);
@@ -1124,7 +1120,6 @@ var chain = new function() {
 					}
 
 					if (!skip) {
-						//if (system == 18) console.log(mode);
 						$(this).addClass("bottom-"+mode);
 					}
 				}
@@ -1519,6 +1514,8 @@ var chain = new function() {
 				systemType = "<span class='wh'>C1</span>";
 			else if (nodeClass > 6)
 				systemType = "<span class='wh'>C" + nodeClass + "</span>";
+			else if (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo.split(" ").length > 1)
+				systemType = "<span class='wh'>C" + tripwire.wormholes[node.child.type].leadsTo.split(" ")[1] + "</span>";
 			else if (nodeSecurity >= 0.45 || node.child.name == "High-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "High-Sec" && !nodeSecurity))
 				systemType = "<span class='hisec'>HS</span>";
 			else if (nodeSecurity > 0.0 || node.child.name == "Low-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Low-Sec" && !nodeSecurity))
@@ -1657,7 +1654,7 @@ var chain = new function() {
 			// Apply current system style
 			$("#chainMap [data-nodeid='"+viewingSystemID+"']").parent().addClass("currentNode"); // 1ms
 
-			Tooltips.attach($("#chainMap .whEffect")); // 30ms
+			WormholeTypeToolTips.attach($("#chainMap .whEffect")); // 30ms
 			this.drawing = false;
 		}
 
@@ -1691,7 +1688,7 @@ var chain = new function() {
 		// Apply current system style
 		$("#chainMap [data-nodeid='"+viewingSystemID+"']").parent().addClass("currentNode");
 
-		Tooltips.attach($("#chainMap .whEffect"));
+		WormholeTypeToolTips.attach($("#chainMap .whEffect"));
 
 		chain.activity(chain.data.activity);
 
@@ -1724,6 +1721,7 @@ var tripwire = new function() {
 	this.activity = {};
 	this.timer;
 	this.xhr;
+	this.crest = {};
 	this.refreshRate = 5000;
 	this.connected = true;
 	this.ageFormat = "HM";
@@ -1874,7 +1872,7 @@ var tripwire = new function() {
 
 			data.activity = this.activity;
 		} else {
-			$.extend(this, $.ajax({url: "//"+ server +"/js/combine.json?v=0.7.0.1", async: false, dataType: "JSON"}).responseJSON);
+			$.extend(this, $.ajax({url: "//"+ server +"/js/combine.json?v=0.7.0.2", async: false, dataType: "JSON"}).responseJSON);
 
 			//this.wormholes = $.ajax({url: "js/wormholes.json", async: false, dataType: "JSON"}).responseJSON;
 			//this.map = $.ajax({url: "js/map.json", async: false, dataType: "JSON"}).responseJSON;
@@ -1889,6 +1887,7 @@ var tripwire = new function() {
 		data.mode = mode != "init" ? "refresh" : "init";
 		data.systemID = viewingSystemID;
 		data.instance = tripwire.instance;
+		data.crest = tripwire.crest;
 
 		this.xhr = $.ajax({
 			url: "refresh.php",
@@ -1899,6 +1898,14 @@ var tripwire = new function() {
 		}).done(function(data) {
 			if (data) {
 				tripwire.server = data;
+
+				if (data.crest) {
+					tripwire.crest.accessToken = data.crest.accessToken;
+					tripwire.crest.tokenExpire = data.crest.tokenExpire;
+					clearInterval(tripwire.crest.timer);
+					tripwire.crest.timer = setInterval("tripwire.crestLocation(init.characterID, tripwire.crest.accessToken);", 5000);
+					tripwire.crestLocation(init.characterID, tripwire.crest.accessToken);
+				}
 
 				if (data.sync) {
 					tripwire.serverTime.time = new Date(data.sync);
@@ -2075,7 +2082,7 @@ var tripwire = new function() {
 					continue;
 				}
 
-				if (columns[x].match(/(\d+[.|,]\d+[ ](%))/) || columns[x].match(/(\d[.|,]?\d+\s(AU|AE|km|m))/i)) { // Exclude scan % || AU
+				if (columns[x].match(/(\d([.|,]\d)?[ ]?(%))/) || columns[x].match(/(\d[.|,]?\d+\s(AU|AE|km|m))/i)) { // Exclude scan % || AU
 					continue;
 				}
 
@@ -2121,8 +2128,7 @@ var tripwire = new function() {
 					} else if ($.inArray(scanner.group, siteGroups) != -1) {
 						type = 'Sites';
 						sigName = scanner.type;
-					} else if (otherGroups[scanner.group] /*scanner.group == "Gas Site" || scanner.group == "Data Site" || scanner.group == "Relic Site" || scanner.group == "Ore Site"*/) {
-						//type = scanner.group.replace(' Site', '');
+					} else if (otherGroups[scanner.group]) {
 						type = otherGroups[scanner.group];
 						sigName = scanner.type;
 					} else {
@@ -2285,7 +2291,6 @@ var tripwire = new function() {
 		if ($.map(chain.data.rawMap, function(sig) { return (sig.systemID == from && sig.connectionID == to) || (sig.connectionID == from && sig.systemID == to) ? sig : null })[0])
 			return false;
 
-		//console.log('automapper fu!');
 		var data = {"request": {"signatures": {"add": [], "update": []}}};
 		var sig, toClass = null;
 
@@ -2434,7 +2439,6 @@ var tripwire = new function() {
 				});
 			}
 		}
-		//console.log(sig)
 
 		if (sig.length == 0) {
 			data.request.signatures.add.push({
@@ -2475,6 +2479,7 @@ var tripwire = new function() {
 				// Link stuff
 				$("#link img").attr("src", "https://image.eveonline.com/Character/"+EVE.characterID+"_32.jpg");
 				$("#link #name").html(EVE.characterName);
+				$("#link #source").html(EVE.accessToken ? "via CREST" : "via IGB");
 			}
 
 			if (!$("#search").hasClass("active"))
@@ -2485,7 +2490,8 @@ var tripwire = new function() {
 		} else {
 			// Link stuff
 			$("#link img").attr("src", "");
-			$("#link #name").html("Open IGB to link data");
+			$("#link #name").html("Use the IGB or CREST");
+			$("#link #source").html("");
 
 			// Update current system
 			$("#EVEsystem").html("");
@@ -2543,6 +2549,9 @@ var tripwire = new function() {
 
 			this.client = server;
 		}
+
+		// set the sig count in the UI
+		$("#signature-count").html(this.client.signatures.length || Object.size(this.client.signatures));
 	}
 
 	this.pastEOL = function() {
@@ -2552,9 +2561,9 @@ var tripwire = new function() {
 
 	// Hanldes adding to Signatures section
 	// ToDo: Use native JS
-	this.addSig = function(add, options) {
-		var options = options || {};
-		var animate = typeof(options.animate) !== 'undefined' ? options.animate : true;
+	this.addSig = function(add, option) {
+		var option = option || {};
+		var animate = typeof(option.animate) !== 'undefined' ? option.animate : true;
 
 		if (add.mass) {
 			var nth = add.systemID == viewingSystemID ? add.nth : add.nth2;
@@ -2591,13 +2600,13 @@ var tripwire = new function() {
 			}
 
 			var row = "<tr data-id='"+add.id+"' data-tooltip=''>"
-				+ "<td>"+sigID+"</td>"
+				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+sigID+"</td>"
 				//+ "<td class='type-tooltip' title=\""+this.whTooltip(add)+"\">"+(nth>1?'&nbsp;&nbsp;&nbsp;':'')+(sigtype)+(nth>1?' '+nth:'')+"</td>"
-				+ "<td class='type-tooltip' data-tooltip=\""+this.whTooltip(add)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
-				+ "<td class=\"age-tooltip\" data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
-				+ "<td>"+system+"</td>"
-				+ "<td class='"+lifeClass+"'>"+add.life+"</td>"
-				+ "<td class='"+massClass+"'>"+add.mass+"</td>"
+				+ "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(add)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
+				+ "<td class=\"age-tooltip "+ options.signatures.alignment.sigAge +"\" data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
+				+ "<td class='"+ options.signatures.alignment.leadsTo +"'>"+system+"</td>"
+				+ "<td class='"+lifeClass+" "+ options.signatures.alignment.sigLife +"'>"+add.life+"</td>"
+				+ "<td class='"+massClass+" "+ options.signatures.alignment.sigMass +"'>"+add.mass+"</td>"
 				+ "<td><a href='' class='sigDelete'>X</a></td>"
 				+ "<td><a href='' class='sigEdit'><</a></td>"
 				+ "</tr>";
@@ -2605,10 +2614,10 @@ var tripwire = new function() {
 			var tr = $(row);
 		} else {
 			var row = "<tr data-id='"+add.id+"' data-tooltip=''>"
-				+ "<td>"+add.signatureID+"</td>"
-				+ "<td>"+add.type+"</td>"
-				+ "<td class='age-tooltip' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
-				+ "<td colspan='3'>"+(add.name?add.name:'')+"</td>"
+				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+add.signatureID+"</td>"
+				+ "<td class='"+ options.signatures.alignment.sigType +"'>"+add.type+"</td>"
+				+ "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
+				+ "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(add.name?add.name:'')+"</td>"
 				+ "<td><a href='' class='sigDelete'>X</a></td>"
 				+ "<td><a href='' class='sigEdit'><</a></td>"
 				+ "</tr>";
@@ -2688,13 +2697,13 @@ var tripwire = new function() {
 			}
 
 			var row = "<tr data-id='"+edit.id+"' data-tooltip=''>"
-				+ "<td>"+sigID+"</td>"
+				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+sigID+"</td>"
 				//+ "<td class='type-tooltip' title=\""+this.whTooltip(edit)+"\">"+(nth>1?'&nbsp;&nbsp;&nbsp;':'')+(sigtype)+(nth>1?' '+nth:'')+"</td>"
-				+ "<td class='type-tooltip' data-tooltip=\""+this.whTooltip(edit)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
-				+ "<td class=\"age-tooltip\" data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
-				+ "<td>"+system+"</td>"
-				+ "<td class='"+lifeClass+"'>"+edit.life+"</td>"
-				+ "<td class='"+massClass+"'>"+edit.mass+"</td>"
+				+ "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(edit)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
+				+ "<td class=\"age-tooltip "+ options.signatures.alignment.sigAge +"\" data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
+				+ "<td class='"+ options.signatures.alignment.leadsTo +"'>"+system+"</td>"
+				+ "<td class='"+lifeClass+" "+ options.signatures.alignment.sigLife +"'>"+edit.life+"</td>"
+				+ "<td class='"+massClass+" "+ options.signatures.alignment.sigMass +"'>"+edit.mass+"</td>"
 				+ "<td><a href='' class='sigDelete'>X</a></td>"
 				+ "<td><a href='' class='sigEdit'><</a></td>"
 				+ "</tr>";
@@ -2702,10 +2711,10 @@ var tripwire = new function() {
 			var tr = $(row);
 		} else {
 			var row = "<tr data-id='"+edit.id+"' data-tooltip=''>"
-				+ "<td>"+edit.signatureID+"</td>"
-				+ "<td>"+edit.type+"</td>"
-				+ "<td class='age-tooltip' data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
-				+ "<td colspan='3'>"+(edit.name?edit.name:'')+"</td>"
+				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+edit.signatureID+"</td>"
+				+ "<td class='"+ options.signatures.alignment.sigType +"'>"+edit.type+"</td>"
+				+ "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
+				+ "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(edit.name?edit.name:'')+"</td>"
 				+ "<td><a href='' class='sigDelete'>X</a></td>"
 				+ "<td><a href='' class='sigEdit'><</a></td>"
 				+ "</tr>";
@@ -2830,6 +2839,45 @@ var tripwire = new function() {
 	// Handles when someone is editing a sig
 	this.sigEditing = function(sig) {
 
+	}
+
+	this.crestLocation = function(characterID, accessToken) {
+		if (!characterID || !accessToken) {
+			tripwire.crest = {};
+			return false;
+		}
+
+		$("#login #authCrest").html("<a href='https://community.eveonline.com/support/third-party-applications/#"+init.characterID+"'>Unauthorize CREST</a>");
+
+		$.ajax({
+			url: "https://crest-tq.eveonline.com/characters/" + characterID + "/location/",
+			headers: {"Authorization": "Bearer "+ accessToken},
+			type: "GET",
+			dataType: "JSON"
+		}).success(function(data) {
+			if (!data.solarSystem) {
+				tripwire.crest.systemID = null;
+				tripwire.crest.systemName = null;
+				tripwire.crest.stationID = null;
+				tripwire.crest.stationName = null;
+				tripwire.crest.characterID = null;
+				tripwire.crest.characterName = null;
+
+				return false;
+			}
+
+			tripwire.crest.systemID = data.solarSystem.id;
+			tripwire.crest.systemName = data.solarSystem.name;
+			tripwire.crest.stationID = data.station ? data.station.id : null;
+			tripwire.crest.stationName = data.station ? data.station.name : null;
+			tripwire.crest.characterID = init.characterID;
+			tripwire.crest.characterName = init.characterName;
+
+			tripwire.EVE(tripwire.crest);
+		}).fail(function() {
+			tripwire.crest = {};
+			$("#login #authCrest").html("<a href='login.php?mode=sso&login=crest'>Authorize CREST</a>");
+		});
 	}
 
 	this.refresh = function(mode, data, successCallback, alwaysCallback) {
@@ -3120,62 +3168,63 @@ $("#admin").click(function(e) {
 
 	if (!$("#dialog-admin").hasClass("ui-dialog-content")) {
 		var refreshTimer = null;
+		var $total = null;
+		var $ajax = null;
 
-		function refreshActiveUsers() {
-			$("div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane").html("Total: " + $("#dialog-admin [data-window='active-users'] #userTable tr[data-id]").length);
+		function refreshWindow() {
+			if ($ajax) $ajax.abort();
+			$total.html("Total: " + $("#dialog-admin .window .hasFocus table tr[data-id]").length);
 
-			$.ajax({
+			$ajax = $.ajax({
 				url: "admin.php",
 				type: "POST",
-				data: {mode: "active-users"},
+				data: {mode: $("#dialog-admin .menu .active").attr("data-window")},
 				dataType: "JSON"
 			}).success(function(data) {
 				if (data && data.results) {
 					var rows = data.results;
+					var ids = [];
+
 					for (var i = 0, l = rows.length; i < l; i++) {
-						var $row = $("#dialog-admin [data-window='active-users'] #userTable tbody tr[data-id='"+ rows[i].id +"']");
+						var $row = $("#dialog-admin .window .hasFocus tbody tr[data-id='"+ rows[i].id +"']");
+						ids.push(rows[i].id);
+
 						if ($row.length) {
-							$row.find(".account").html(rows[i].accountCharacterName);
-							$row.find(".character").html(rows[i].characterName || "&nbsp;");
-							$row.find(".system").html(rows[i].systemName || "&nbsp;");
-							$row.find(".shipName").html(rows[i].shipName || "&nbsp;");
-							$row.find(".shipType").html(rows[i].shipTypeName || "&nbsp;");
-							$row.find(".station").html(rows[i].stationName || "&nbsp;");
-							$row.find(".login").html(rows[i].lastLogin);
+							for (col in rows[i]) {
+								var $col = $row.find("[data-col='"+col+"']");
+								$col.html(($col.attr("data-format") == "number" ? numFormat(rows[i][col]) : rows[i][col]) || "&nbsp;");
+							}
 						} else {
-							$row = $("#dialog-admin [data-window='active-users'] tr.hidden").clone();
+							$row = $("#dialog-admin .window .hasFocus table tr.hidden").clone();
 							$row.attr("data-id", rows[i].id);
-							$row.find(".account").html(rows[i].accountCharacterName);
-							$row.find(".character").html(rows[i].characterName || "&nbsp;");
-							$row.find(".system").html(rows[i].systemName || "&nbsp;");
-							$row.find(".shipName").html(rows[i].shipName || "&nbsp;");
-							$row.find(".shipType").html(rows[i].shipTypeName || "&nbsp;");
-							$row.find(".station").html(rows[i].stationName || "&nbsp;");
-							$row.find(".login").html(rows[i].lastLogin);
+
+							for (col in rows[i]) {
+								var $col = $row.find("[data-col='"+col+"']");
+								$col.html(($col.attr("data-format") == "number" ? numFormat(rows[i][col]) : rows[i][col]) || "&nbsp;");
+							}
+
 							$row.removeClass("hidden");
-							$("#dialog-admin [data-window='active-users'] #userTable tbody").append($row);
+
+							$("#dialog-admin .window .hasFocus tbody").append($row);
 						}
 					}
 
-					var ids = $.map(data.results, function(user) { return user.id; });
-					$("#dialog-admin [data-window='active-users'] #userTable tr[data-id]").each(function() {
+					$("#dialog-admin .window .hasFocus table tr[data-id]").each(function() {
 						if ($.inArray($(this).data("id").toString(), ids) == -1) {
 							$(this).remove();
 						}
 					});
 
-					$("#dialog-admin [data-window='active-users'] #userTable").trigger("update", [true]);
+					$("#dialog-admin .window .hasFocus table").trigger("update", [true]);
 				} else {
-					$("#dialog-admin [data-window='active-users'] #userTable tr[data-id]").remove();
+					$("#dialog-admin .window .hasFocus table tr[data-id]").remove();
 				}
 
-				//var time = window.performance.now();
-				//console.log(window.performance.now() - time);
-				$("div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane").html("Total: " + $("#dialog-admin [data-window='active-users'] #userTable tr[data-id]").length);
+				$total.html("Total: " + $("#dialog-admin .window .hasFocus table tr[data-id]").length);
 			});
 
-			if ($("#dialog-admin").dialog("isOpen") && $("#dialog-admin .menu .active").attr("data-window") == "active-users") {
-				refreshTimer = setTimeout(refreshActiveUsers, 3000);
+			if ($("#dialog-admin").dialog("isOpen") && $("#dialog-admin .menu .active").attr("data-refresh")) {
+				refreshTimer = setTimeout(refreshWindow, $("#dialog-admin .menu .active").attr("data-refresh"));
 			}
 		}
 
@@ -3200,17 +3249,13 @@ $("#admin").click(function(e) {
 					$menuItem.addClass("active");
 					$("div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane").html("");
 
-					$("#dialog-admin .window [data-window]").hide();
-					$("#dialog-admin .window [data-window='"+ $menuItem.data("window") +"']").show();
+					$("#dialog-admin .window [data-window]").removeClass("hasFocus").hide();
+					$("#dialog-admin .window [data-window='"+ $menuItem.data("window") +"']").addClass("hasFocus").show();
 
-					switch ($menuItem.data("window")) {
-						case "active-users":
-							refreshActiveUsers();
-							break;
-					}
+					refreshWindow();
 				});
 
-				$("#dialog-admin [data-window='active-users'] #userTable").tablesorter({
+				$("#dialog-admin [data-sortable='true']").tablesorter({
 					sortReset: true,
 					widgets: ['saveSort'],
 					sortList: [[0,0]]
@@ -3218,15 +3263,11 @@ $("#admin").click(function(e) {
 
 				// dialog bottom tray
 				$($(this)[0].parentElement).find(".ui-dialog-buttonpane").append("<div class='ui-dialog-traypane'></div>");
+				$total = $("div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane");
 			},
 			open: function() {
 				$menuItem = $("#dialog-admin .menu li.active");
-
-				switch ($menuItem.data("window")) {
-					case "active-users":
-						refreshActiveUsers();
-						break;
-				}
+				refreshWindow();
 			},
 			close: function() {
 				clearTimeout(refreshTimer);
@@ -3336,7 +3377,7 @@ $(".options").click(function(e) {
 						+ '<label for="findp"><i data-icon="search" style="font-size: 3em; margin-left: 16px; margin-top: 16px; display: block;"></i></label>');
 					$("#dialog-options #masks #personal").append(node);
 
-					if (init.session.admin == "1") {
+					if (init.admin == "1") {
 						var node = $(''
 							+ '<input type="checkbox" name="find" id="findc" value="corporate" class="selector" disabled="disabled" />'
 							+ '<label for="findc"><i data-icon="search" style="font-size: 3em; margin-left: 16px; margin-top: 16px; display: block;"></i></label>');
@@ -3687,7 +3728,7 @@ $(".options").click(function(e) {
 											+ '<label for="findp"><i data-icon="search" style="font-size: 3em; margin-left: 16px; margin-top: 16px; display: block;"></i></label>');
 										$("#dialog-options #masks #personal").append(node);
 
-										if (init.session.admin == "1") {
+										if (init.admin == "1") {
 											var node = $(''
 												+ '<input type="checkbox" name="find" id="findc" value="corporate" class="selector" disabled="disabled" />'
 												+ '<label for="findc"><i data-icon="search" style="font-size: 3em; margin-left: 16px; margin-top: 16px; display: block;"></i></label>');
@@ -4003,18 +4044,24 @@ var Tooltips = new jBox("Tooltip", {
 	outside: "x"
 });
 
+var WormholeTypeToolTips = new jBox("Tooltip", {
+	attach: $(".whEffect[data-tooltip]"),
+	getContent: "data-tooltip",
+	position: {x: "left", y: "center"},
+	outside: "x"
+});
+
 var OccupiedToolTips = new jBox("Tooltip", {
 	pointer: "top:-3",
 	position: {x: "right", y: "center"},
 	outside: "x",
 	animation: "move",
 	repositionOnOpen: true,
-	//closeOnMouseleave: true,
 	onOpen: function() {
 		var tooltip = this;
 		var systemID = $(this.source).closest("[data-nodeid]").data("nodeid");
 
-		tooltip.setContent("");
+		tooltip.setContent("&nbsp;");
 
 		$.ajax({
 			url: "occupants.php",
@@ -4025,7 +4072,7 @@ var OccupiedToolTips = new jBox("Tooltip", {
 			var chars = "<table>";
 
 			for (var x in data.occupants) {
-				chars += "<tr><td>"+data.occupants[x].characterName+"</td><td style='padding-left: 10px;'>"+data.occupants[x].shipTypeName+"</td></tr>";
+				chars += "<tr><td>"+data.occupants[x].characterName+"</td><td style='padding-left: 10px;'>"+(data.occupants[x].shipTypeName?data.occupants[x].shipTypeName:"")+"</td></tr>";
 			}
 
 			chars += "</table>";
@@ -4243,6 +4290,83 @@ $(document).on("click", "#overwrite", function() {
 	}
 
 	tripwire.refresh('refresh', data, success, always);
+});
+
+// Signature column context menu
+$("#signaturesWidget #sigTable thead").contextmenu({
+	delegate: "th.sortable",
+	menu: "#signatureColumnMenu",
+	select: function(e, ui) {
+		var col = $(ui.target).parent().parent().children().index($(ui.target).parent()) + 1;
+
+		switch(col) {
+			case 1:
+				colName = "sigID";
+				break;
+			case 2:
+				colName = "sigType";
+				break;
+			case 3:
+				colName = "sigAge";
+				break;
+			case 4:
+				colName = "leadsTo";
+				break;
+			case 5:
+				colName = "sigLife";
+				break;
+			case 6:
+				colName = "sigMass";
+				break;
+		}
+
+		switch(ui.cmd) {
+			case "leftAlign":
+				$("#signaturesWidget #sigTable tbody td:nth-child("+ col +")").removeClass("centerAlign rightAlign").addClass("leftAlign");
+				options.signatures.alignment[colName] = "leftAlign";
+				break;
+			case "centerAlign":
+				$("#signaturesWidget #sigTable tbody td:nth-child("+ col +")").removeClass("leftAlign rightAlign").addClass("centerAlign");
+				options.signatures.alignment[colName] = "centerAlign";
+				break;
+			case "rightAlign":
+				$("#signaturesWidget #sigTable tbody td:nth-child("+ col +")").removeClass("centerAlign leftAlign").addClass("rightAlign");
+				options.signatures.alignment[colName] = "rightAlign";
+				break;
+		}
+
+		options.save();
+	},
+	beforeOpen: function(e, ui) {
+		var col = $(ui.target).parent().parent().children().index($(ui.target).parent()) + 1;
+
+		switch(col) {
+			case 1:
+				colName = "sigID";
+				break;
+			case 2:
+				colName = "sigType";
+				break;
+			case 3:
+				colName = "sigAge";
+				break;
+			case 4:
+				colName = "leadsTo";
+				break;
+			case 5:
+				colName = "sigLife";
+				break;
+			case 6:
+				colName = "sigMass";
+				break;
+		}
+
+		$(this).contextmenu("enableEntry", "leftAlign", true);
+		$(this).contextmenu("enableEntry", "centerAlign", true);
+		$(this).contextmenu("enableEntry", "rightAlign", true);
+
+		$(this).contextmenu("enableEntry", options.signatures.alignment[colName], false);
+	}
 });
 
 // Chain Map Context Menu
@@ -4681,7 +4805,7 @@ $("body").on("click", ".commentSave, .commentCancel", function(e) {
 	$this.attr("disabled", "true");
 
 	if ($this.hasClass("commentSave")) {
-		var data = {"mode": "save", "commentID": $comment.data("id"), "systemID": viewingSystemID, "comment": CKEDITOR.instances[$comment.find(".commentBody").attr("id")].getData()};
+		var data = {"mode": "save", "commentID": $comment.data("id"), "systemID": $comment.find(".commentSticky").hasClass("active") ? 0 : viewingSystemID, "comment": CKEDITOR.instances[$comment.find(".commentBody").attr("id")].getData()};
 
 		$.ajax({
 			url: "comments.php",

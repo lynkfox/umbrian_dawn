@@ -17,6 +17,7 @@ header('Content-Type: application/json');
 $startTime = microtime(true);
 
 require('db.inc.php');
+require('crest.class.php');
 
 /**
 // *********************
@@ -57,6 +58,57 @@ if ($checkMask[1] == 0 && $checkMask[0] != 0) {
 } else if ($checkMask[1] == 2 && $checkMask[0] != $_SESSION['corporationID']) {
 	// Force current corporation mask
 	$_SESSION['mask'] = $_SESSION['corporationID'] . '.2';
+}
+
+
+/**
+// *********************
+// CREST Location
+// *********************
+*/
+if ($_REQUEST['mode'] == 'init' || (isset($_REQUEST['crest']['tokenExpire']) && strtotime($_REQUEST['crest']['tokenExpire']) < time('-1 minute'))) {
+	$query = 'SELECT accessToken, refreshToken, tokenExpire FROM crest WHERE characterID = :characterID';
+	$stmt = $mysql->prepare($query);
+	$stmt->bindValue(':characterID', $_SESSION['characterID'], PDO::PARAM_INT);
+	$stmt->execute();
+	if ($row = $stmt->fetchObject()) {
+		if (strtotime($row->tokenExpire) < time('-1 minute')) {
+			// Get a new access token
+			$crest = new CREST();
+
+			if ($crest->refresh($row->refreshToken)) {
+				$query = 'UPDATE crest SET accessToken = :accessToken, refreshToken = :refreshToken, tokenExpire = :tokenExpire WHERE characterID = :characterID';
+				$stmt = $mysql->prepare($query);
+				$stmt->bindValue(':accessToken', $crest->accessToken, PDO::PARAM_STR);
+				$stmt->bindValue(':refreshToken', $crest->refreshToken, PDO::PARAM_STR);
+				$stmt->bindValue(':tokenExpire', $crest->tokenExpire, PDO::PARAM_STR);
+				$stmt->bindValue(':characterID', $_SESSION['characterID'], PDO::PARAM_STR);
+				$stmt->execute();
+
+				$output['crest']['accessToken'] = $crest->accessToken;
+				$output['crest']['tokenExpire'] = $crest->tokenExpire;
+			} else {
+				$query = 'DELETE FROM crest WHERE characterID = :characterID';
+				$stmt = $mysql->prepare($query);
+				$stmt->bindValue(':characterID', $_SESSION['characterID'], PDO::PARAM_INT);
+				$stmt->execute();
+			}
+		} else {
+			$output['crest']['accessToken'] = $row->accessToken;
+			$output['crest']['tokenExpire'] = $row->tokenExpire;
+		}
+	}
+}
+
+if (isset($_REQUEST['crest']['systemID']) && !empty($_REQUEST['crest']['systemID'])) {
+	$headers['systemID'] = isset($_REQUEST['crest']['systemID']) ? $_REQUEST['crest']['systemID'] : null;
+	$headers['systemName'] = isset($_REQUEST['crest']['systemName']) ? $_REQUEST['crest']['systemName'] : null;
+	$headers['stationID'] = isset($_REQUEST['crest']['stationID']) ? $_REQUEST['crest']['stationID'] : null;
+	$headers['stationName'] = isset($_REQUEST['crest']['stationName']) ? $_REQUEST['crest']['stationName'] : null;
+	$headers['characterID'] = isset($_REQUEST['crest']['characterID']) ? $_REQUEST['crest']['characterID'] : null;
+	$headers['characterName'] = isset($_REQUEST['crest']['characterName']) ? $_REQUEST['crest']['characterName'] : null;
+
+	$output['EVE'] = $_REQUEST['crest'];
 }
 
 /**
@@ -103,7 +155,7 @@ if (isset($_SERVER['HTTP_EVE_TRUSTED']) && $_SERVER['HTTP_EVE_TRUSTED'] == 'Yes'
 	} else {
 		$_SESSION['currentSystem'] = $headers['systemName'];
 	}
-} else {
+} else if (!isset($_REQUEST['crest']['systemID'])) {
 	$query = 'SELECT characterID, characterName, systemID, systemName, shipID, shipName, shipTypeID, shipTypeName, stationID, stationName FROM active WHERE userID = :userID AND maskID = :maskID AND characterID IS NOT NULL LIMIT 1';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
@@ -516,11 +568,11 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$output['chain']['last_modified'] = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
 
 	// Get occupied systems
-	$query = 'SELECT DISTINCT systemID FROM active WHERE maskID = :maskID AND systemID IS NOT NULL';
+	$query = 'SELECT systemID, COUNT(characterID) AS count FROM active WHERE maskID = :maskID AND systemID IS NOT NULL GROUP BY systemID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
 	$stmt->execute();
-	$output['chain']['occupied'] = $stmt->fetchAll(PDO::FETCH_COLUMN);
+	$output['chain']['occupied'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
 	// Get flares
 	$query = 'SELECT systemID, flare, time FROM flares WHERE maskID = :maskID';
@@ -636,12 +688,13 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	}
 
 	// Get occupied systems
-	$query = 'SELECT DISTINCT systemID FROM active WHERE maskID = :maskID AND systemID IS NOT NULL';
+	$query = 'SELECT systemID, COUNT(characterID) AS count FROM active WHERE maskID = :maskID AND systemID IS NOT NULL GROUP BY systemID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
 	$stmt->execute();
-	if ($result = $stmt->fetchAll(PDO::FETCH_COLUMN))
+	if ($result = $stmt->fetchAll(PDO::FETCH_CLASS)) {
 		$output['chain']['occupied'] = $result;
+	}
 
 	// Check Comments
 	$query = 'SELECT COUNT(id) AS count, MAX(modified) AS modified FROM comments WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID';

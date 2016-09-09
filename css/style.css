@@ -33,6 +33,18 @@ a:hover {
 	color: #FFF;
 }
 
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-center {
+	text-align: center;
+}
+
 #wrapper {
 	height: 100%;
 	overflow: auto;
@@ -225,6 +237,14 @@ to { -o-transform: rotate(360deg); }
 	display: none;
 }
 
+#login img {
+	-webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+}
+
 #login #triangle {
 	position: absolute;
 	top: -5px;
@@ -265,14 +285,19 @@ to { -o-transform: rotate(360deg); }
 
 #login #content table td {
 	color: #555;
-}
-
-#login #content table td input {
 	text-align: left;
 }
 
+#login #content table .text {
+	padding: 0 10px 0 3px;
+}
+
+#login #content table td #logout {
+	float: right;
+}
+
 #login #content a {
-	color: #DDD;
+	color: #666;
 }
 
 #login #content #error {
@@ -523,6 +548,20 @@ to { -o-transform: rotate(360deg); }
 #sigTable td:nth-child(1) {
 	font-family: "lucida";
 	letter-spacing: 1px;
+}
+
+#sigTable td.leftAlign {
+	text-align: left;
+	padding-left: 2px;
+}
+
+#sigTable td.centerAlign {
+	text-align: center;
+}
+
+#sigTable td.rightAlign {
+	text-align: right;
+	padding-right: 2px;
 }
 
 .tablesorter .tablesorter-header {
@@ -1115,7 +1154,7 @@ input[type=checkbox]:not(.selector) + label {
 	user-select: none;
 }
 
-#igbChainMenu, #oogChainMenu {
+#igbChainMenu, #oogChainMenu, #signatureColumnMenu {
 	z-index: 5;
 }
 
@@ -1553,11 +1592,11 @@ i.closeIcon:hover {
 .jBox-container {
 	background: #333;
 	color: #CCC;
+	min-height: 20px;
 }
 
 .jBox-content {
 	padding: 4px 5px;
-	//overflow: auto;
 	-webkit-transition: opacity .15s;
 	transition: opacity .15s;
 }
@@ -1598,7 +1637,7 @@ i.closeIcon:hover {
 .jBox-pointer-top { top: 0; }
 .jBox-pointer-bottom { bottom: 0; }
 .jBox-pointer-left { left: 0; }
-.jBox-pointer-right { right: 0; }
+.jBox-pointer-right { right: 2px; }
 
 .jBox-pointer-top,
 .jBox-pointer-bottom {
@@ -2140,9 +2179,45 @@ td.google-visualization-orgchart-linenode[data-signatureid] {
 	color: orange;
 }
 
+div.ui-dialog[aria-describedby='dialog-admin'] .menu {
+	margin-right: 6px;
+	border-right: 1px solid #aaa;
+}
+
+div.ui-dialog[aria-describedby='dialog-admin'] .window [data-window] {
+	height: 100%;
+}
+
+div.ui-dialog[aria-describedby='dialog-admin'] .window table tbody tr:nth-child(even) td {
+	border-bottom: 1px solid #999;
+}
+
 div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane {
-	margin-left: 110px;
+	margin-left: 120px;
 	margin-top: 8px;
 	font-size: 16px;
 	color: #333;
+}
+
+#chainMap span.badge {
+	display: inline-block;
+	color: #bbb;
+	background-color: #222;
+	box-shadow: 0px 0px 6px 2px #111;
+	font-family: monospace;
+	padding: 2px 2px;
+	min-width: 8px;
+	font-size: 9px;
+	font-weight: 300;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	border-radius: 10px;
+}
+
+[data-icon="user"] .badge {
+	position: absolute;
+	top: -5px;
+	right: -10px;
 }

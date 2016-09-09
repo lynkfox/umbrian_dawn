@@ -152,7 +152,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 			<!-- Start Login -->
 			<div id="login" class="page">
 <?php if (isset($_SESSION['userID'])) { ?>
-				<h1>You're currently logged in as...</h1>
+				<h1>Your currently logged in as...</h1>
 				<div style="text-align: center;">
 					<img src="//image.eveonline.com/Character/<?= $_SESSION['characterID'] ?>_128.jpg" />
 					<p><?= $_SESSION['characterName'] ?></p>
@@ -274,7 +274,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 							<br/>
 							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'account' ? '<p class="error">No Tripwire account for that character</p><br/>' : '' ?>
 							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'unknown' ? '<p class="error">Unknown error processing EVE SSO login</p><br/>' : '' ?>
-							<a href="login.php?mode=sso"><img src="//<?= $server ?>/images/landing/eve_sso.png"/></a>
+							<a href="login.php?mode=sso&login=sso"><img src="//<?= $server ?>/images/landing/eve_sso.png"/></a>
 						</center>
 					</div>
 				</div>

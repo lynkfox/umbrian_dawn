@@ -26,7 +26,7 @@ header('Content-Type: application/json');
 $systemID = $_REQUEST['systemID'];
 $maskID = $_SESSION['mask'];
 
-$query = 'SELECT DISTINCT characterName, shipTypeName FROM active WHERE systemID = :systemID AND maskID = :maskID';
+$query = 'SELECT DISTINCT characterName, (SELECT shipTypeName FROM active WHERE systemID = :systemID AND maskID = :maskID AND a.characterID = characterID ORDER BY shipTypeName DESC LIMIT 1) AS shipTypeName FROM active a WHERE systemID = :systemID AND maskID = :maskID';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
 $stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
