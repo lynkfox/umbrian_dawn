@@ -1872,7 +1872,7 @@ var tripwire = new function() {
 
 			data.activity = this.activity;
 		} else {
-			$.extend(this, $.ajax({url: "//"+ server +"/js/combine.json?v=0.7.0.1", async: false, dataType: "JSON"}).responseJSON);
+			$.extend(this, $.ajax({url: "//"+ server +"/js/combine.json?v=0.7.0.2", async: false, dataType: "JSON"}).responseJSON);
 
 			//this.wormholes = $.ajax({url: "js/wormholes.json", async: false, dataType: "JSON"}).responseJSON;
 			//this.map = $.ajax({url: "js/map.json", async: false, dataType: "JSON"}).responseJSON;
