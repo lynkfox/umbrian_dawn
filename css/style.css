@@ -49,6 +49,7 @@ a:hover {
 	height: 100%;
 	overflow: auto;
 
+	background-color: black;
 	background-image: url(../images/bg.jpg);
 	background-repeat: no-repeat;
 	background-position: center;
