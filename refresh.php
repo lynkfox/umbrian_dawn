@@ -584,7 +584,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$output['chain']['flares']['last_modified'] = date('m/d/Y H:i:s e', $result ? strtotime($result[0]->time) : time());
 
 	// Get Comments
-	$query = 'SELECT id, comment, created AS createdDate, c.characterName AS createdBy, DATE_FORMAT(modified, \'%m/%d/%Y %H:%i:%s\') AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
+	$query = 'SELECT id, comment, created AS createdDate, c.characterName AS createdBy, DATE_FORMAT(modified, \'%Y-%m-%d %h:%i:%s\') AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
@@ -706,7 +706,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	if ($commentCount != (int)$row->count || strtotime($commentTime) < strtotime($row->modified)) {
 		$output['comments'] = array();
 		// Get Comments
-		$query = 'SELECT id, comment, created AS createdDate, c.characterName AS createdBy, DATE_FORMAT(modified, \'%m/%d/%Y %H:%i:%s\') AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
+		$query = 'SELECT id, comment, created AS createdDate, c.characterName AS createdBy, DATE_FORMAT(modified, \'%Y-%m-%d %h:%i:%s\') AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
 		$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
