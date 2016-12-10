@@ -2841,6 +2841,34 @@ var tripwire = new function() {
 
 	}
 
+	this.multiLocation = function(characters) {
+    var locationRequests = [];
+    var altLocations = [];
+    $.each(characters, function(i, character) {
+      var altID = this.charID;
+      var currentSystem = this.systemID;
+      var request = $.ajax({
+        url: "https://crest-tq.eveonline.com/characters/" + altID + "/location/",
+        headers: {"Authorization": "Bearer "+ this.accessToken},
+        type: "GET",
+        dataType: "JSON",
+        success: function(data) {
+              altLocations.push({id: altID, location: data});
+              if (data.solarSystem && data.solarSystem.id != currentSystem && currentSystem != null) {
+                tripwire.autoMapper(currentSystem, data.solarSystem.id);
+              }
+            }
+        });
+        locationRequests.push(request);
+    });
+    $.when.apply(null, locationRequests).done( function() {
+      $.ajax({
+        url: "setLocation.php",
+        type: "POST",
+        data: {altLocations}
+      });
+    });
+  }
 	this.crestLocation = function(characterID, accessToken) {
 		if (!characterID || !accessToken) {
 			tripwire.crest = {};
@@ -2878,6 +2906,9 @@ var tripwire = new function() {
 			tripwire.crest = {};
 			$("#login #authCrest").html("<a href='login.php?mode=sso&login=crest'>Authorize CREST</a>");
 		});
+		if (tripwire.server.Alts) {
+			tripwire.multiLocation(tripwire.server.Alts);
+		}
 	}
 
 	this.refresh = function(mode, data, successCallback, alwaysCallback) {

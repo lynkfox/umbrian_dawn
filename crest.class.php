@@ -150,6 +150,21 @@ class CREST {
         return $location;
     }
 
+	public function characterInfo($characterID) {
+		$curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, self::$baseUrl . '/characters/'.$characterID.'/');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_USERAGENT, 'Tripwire 0.6.x daimian.mercer@gmail.com');
+
+        $result = curl_exec($curl);
+            if ($result === false) {
+                $this->lastError = curl_error($curl);
+                return false;
+            }
+            $response = json_decode($result);
+        $charName = isset($response->name) ? $response->name : null;
+            return $charName;
+        }
 }
 
 class location {
