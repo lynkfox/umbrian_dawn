@@ -671,20 +671,7 @@ if ($row = $stmt->fetchObject()) {
 					<tr>
 						<th>Background Image:</th>
 						<td>
-						<!-- Place background images in images/backgrounds. List will auto populate. Must click save at bottom of window to apply. -->
-							<select id="background-image" />
-							    <option value="">Default</option>															
-								<?php
-								$directory = 'images/backgrounds/';
-								$files = scandir( $directory ) ;
-								foreach( $files as $file ){
-								if ( ! is_dir( $file ) )
-								{
-								echo "<option value=".$directory.$file.">".$file."</option>";
-								}
-								}
-								?>								
-						</select>
+							<input type="text" id="background-image" maxlength="200" />
 						</td>
 					</tr>
 				</table>
