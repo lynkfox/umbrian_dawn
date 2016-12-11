@@ -991,8 +991,46 @@ if ($row = $stmt->fetchObject()) {
 	<ul id="igbChainMenu" class="hidden">
 		<li data-command="showInfo"><a>Show Info</a></li>
 		<li>
-		<li data-command="setDest"><a>Set Destination</a></li>
-		<li data-command="addWay"><a>Add Waypoint</a></li>
+			<li><a>Navigation</a>
+				<ul style="width: 10em;">
+					<?php
+					if (isset($_SESSION['altIDs'])){
+						$curaltIDs = json_decode($_SESSION['altIDs']);
+					?>
+					<li><a>Set Destination</a>
+					  <ul style="width: 10em;">
+						<li class="navCall" data-command="setDest" data-charID='<?=$_SESSION['characterID']?>'><a><?=$_SESSION['characterName']?></a></li>
+					<?php
+					  for($i = 0; $i < count(json_decode($_SESSION['altIDs'],true)); $i++){
+						$curAlt = json_decode($curaltIDs->$i);
+					?>
+						<li class="navCall" data-command="setDest" data-charID='<?=$curAlt->charID?>'><a><?=$curAlt->charName?></a></li>
+					<?php
+					  }
+					?>
+					  </ul>
+					</li>
+					<li><a>Add Waypoint</a>
+					  <ul style="width: 10em;">
+						<li class="navCall" data-command="addWay" data-charID='<?=$_SESSION['characterID']?>'><a><?=$_SESSION['characterName']?></a></li>
+					<?php
+					  for($i = 0; $i < count(json_decode($_SESSION['altIDs'],true)); $i++){
+						$curAlt = json_decode($curaltIDs->$i);
+					?>
+						<li class="navCall" data-command="addWay" data-charID='<?=$curAlt->charID?>'><a><?=$curAlt->charName?></a></li>
+					<?php
+					  }
+					?>
+					  </ul>
+					</li>
+					<?php
+					} else {
+					?>
+					  <li class="navCall" data-command="setDest" data-charID='<?=$_SESSION['characterID']?>'><a>Set Destination</a></li>
+					  <li class="navCall" data-command="addWay" data-charID='<?=$_SESSION['characterID']?>'><a>Add Waypoint</a></li>
+					<?php  } ?>
+				</ul>
+			</li>
 		<li data-command="showMap"><a>Show on Map</a></li>
 		<li>
 		<li><a>Flares</a>
@@ -1017,6 +1055,12 @@ if ($row = $stmt->fetchObject()) {
 			</ul>
 		</li>
 		<li>
+			<li><a>Navigation</a>
+			  <ul style="width: 10em;">
+				<li data-command="setDest"><a>Set Destination</a></li>
+				<li data-command="addWay"><a>Add Waypoint</a></li>
+			  </ul>
+			</li>
 		<li data-command="mass"><a>Mass</a></li>
 		<li data-command="rename"><a>Rename</a></li>
 		<li data-command="collapse"><a>Collapse</a></li>

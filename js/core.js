@@ -4387,10 +4387,34 @@ $("#chainMap").contextmenu({
 				CCPEVE.showInfo(5, id);
 				break;
 			case "setDest":
-				CCPEVE.setDestination(id);
+				var charID = ui.item.data("charid");
+				var useToken = null;
+				if(charID == init.characterID){
+					useToken = tripwire.crest.accessToken;
+				}else{
+					$.each(tripwire.server.Alts, function(i, character) {
+						if(charID == character.charID){
+							useToken = character.accessToken;
+							return false;
+						}
+					});
+				}
+				setDestCrest(charID, id, useToken);
 				break;
 			case "addWay":
-				CCPEVE.addWaypoint(id);
+				var charID = ui.item.data("charid");
+				 var useToken = null;
+				 if(charID == init.characterID){
+					 useToken = tripwire.crest.accessToken;
+				 }else{
+					 $.each(tripwire.server.Alts, function(i, character) {
+						 if(charID == character.charID){
+							 useToken = character.accessToken;
+							 return false;
+						 }
+					 });
+				 }
+				 setWayCrest(charID, id, useToken);
 				break;
 			case "showMap":
 				CCPEVE.showMap(id);
@@ -4417,26 +4441,18 @@ $("#chainMap").contextmenu({
 	},
 	beforeOpen: function(e, ui) {
 		var sigID = $(ui.target[0]).closest("[data-nodeid]").data("sigid") || null;
+		var id = $(ui.target[0]).closest("[data-nodeid]").data("nodeid");
+		$(this).contextmenu("replaceMenu", "#igbChainMenu");
 
-		if (CCPEVE) {
-			var id = $(ui.target[0]).closest("[data-nodeid]").data("nodeid");
-
-			// Switch to IG menu
-			$(this).contextmenu("replaceMenu", "#igbChainMenu");
-
-			// Add check for k-space (disable EVECCP functions)
-			if (tripwire.systems[id].regionID >= 11000000) {
-				$(this).contextmenu("enableEntry", "setDest", false);
-				$(this).contextmenu("enableEntry", "addWay", false);
-				$(this).contextmenu("enableEntry", "showMap", false);
-			} else {
-				$(this).contextmenu("enableEntry", "setDest", true);
-				$(this).contextmenu("enableEntry", "addWay", true);
-				$(this).contextmenu("enableEntry", "showMap", true);
-			}
+		// Add check for k-space
+		if (tripwire.systems[id].regionID >= 11000000) {
+			$(this).contextmenu("enableEntry", "setDest", false);
+			$(this).contextmenu("enableEntry", "addWay", false);
+			$(this).contextmenu("enableEntry", "showMap", false);
 		} else {
-			// Switch to OOG menu
-			$(this).contextmenu("replaceMenu", "#oogChainMenu");
+			$(this).contextmenu("enableEntry", "setDest", true);
+			$(this).contextmenu("enableEntry", "addWay", true);
+			$(this).contextmenu("enableEntry", "showMap", false);
 		}
 
 		if (sigID) {
@@ -4986,6 +5002,52 @@ if (window.location.href.indexOf("galileo") != -1) {
 
 //	 New non-refresh code
 
+function setDestCrest(characterID, systemID, accessToken){
+// Uses Crest characterNavigationWrite to clear all waypoints and then set waypoint "systemID" for the player "characterID".
+// The appropriate "accessToken" for "characterID" must be passed.
+
+
+	destination = {
+		clearOtherWaypoints: true,
+		first: true,
+		solarSystem: { href: "https://crest-tq.eveonline.com/solarsystems/" + systemID + "/", id: systemID }
+	};
+
+	$.ajax({
+		url : 'https://crest-tq.eveonline.com/characters/' + characterID + '/ui/autopilot/waypoints/',
+		contentType: "application/vnd.ccp.eve.PostWaypoint-v1+json",
+		type: "post",
+		data: JSON.stringify(destination),
+		headers: {
+			Authorization: 'Bearer ' + accessToken},
+		success: function () { },
+		async: false
+	});
+}
+
+function setWayCrest(characterID, systemID, accessToken){
+// Uses Crest characterNavigationWrite to set waypoint "systemID" for the player "characterID".
+// The appropriate "accessToken" for "characterID" must be passed.
+
+
+	destination = {
+		clearOtherWaypoints: false,
+		first: false,
+		solarSystem: { href: "https://crest-tq.eveonline.com/solarsystems/" + systemID + "/", id: systemID }
+	};
+
+	$.ajax({
+		url : 'https://crest-tq.eveonline.com/characters/' + characterID + '/ui/autopilot/waypoints/',
+		contentType: "application/vnd.ccp.eve.PostWaypoint-v1+json",
+		type: "post",
+		data: JSON.stringify(destination),
+		headers: {
+			Authorization: 'Bearer ' + accessToken},
+		success: function () { },
+		async: false
+	});
+}
+
 function systemChange(systemID, mode) {
 	if (mode != "init") {
 		$("#infoSecurity").removeClass();
@@ -5096,6 +5158,10 @@ function systemChange(systemID, mode) {
 
 	// Info Links
 	$("#infoWidget .infoLink").each(function() {
+		this.href = $(this).data("href").replace(/\$systemName/gi, tripwire.systems[systemID].name).replace(/\$systemID/gi, systemID);
+	});
+	// Info Links
+	$(".CrestButton .infoLink").each(function() {
 		this.href = $(this).data("href").replace(/\$systemName/gi, tripwire.systems[systemID].name).replace(/\$systemID/gi, systemID);
 	});
 }
