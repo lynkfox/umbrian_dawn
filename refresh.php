@@ -86,6 +86,7 @@ if ($_REQUEST['mode'] == 'init' || (isset($_REQUEST['crest']['tokenExpire']) && 
 				$stmt->execute();
 
 				$output['crest']['accessToken'] = $crest->accessToken;
+				$_SESSION['accessToken'] = $crest->accessToken;
 				$output['crest']['tokenExpire'] = $crest->tokenExpire;
 			} else {
 				$query = 'DELETE FROM crest WHERE characterID = :characterID';
@@ -95,6 +96,7 @@ if ($_REQUEST['mode'] == 'init' || (isset($_REQUEST['crest']['tokenExpire']) && 
 			}
 		} else {
 			$output['crest']['accessToken'] = $row->accessToken;
+			$_SESSION['accessToken'] = $crest->accessToken;
 			$output['crest']['tokenExpire'] = $row->tokenExpire;
 		}
 	}
@@ -156,10 +158,11 @@ if (isset($_SERVER['HTTP_EVE_TRUSTED']) && $_SERVER['HTTP_EVE_TRUSTED'] == 'Yes'
 		$_SESSION['currentSystem'] = $headers['systemName'];
 	}
 } else if (!isset($_REQUEST['crest']['systemID'])) {
-	$query = 'SELECT characterID, characterName, systemID, systemName, shipID, shipName, shipTypeID, shipTypeName, stationID, stationName FROM active WHERE userID = :userID AND maskID = :maskID AND characterID IS NOT NULL LIMIT 1';
+	$query = 'SELECT characterID, characterName, systemID, systemName, shipID, shipName, shipTypeID, shipTypeName, stationID, stationName FROM active WHERE userID = :userID AND maskID = :maskID AND characterID = :characterID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
 	$stmt->bindValue(':maskID', $_SESSION['mask'], PDO::PARAM_STR);
+	$stmt->bindValue(':characterID', $_SESSION['characterID'], PDO::PARAM_STR);
 	$stmt->execute();
 
 	if ($row = $stmt->fetchObject())
@@ -178,7 +181,7 @@ $instance		= isset($_REQUEST['instance']) ? $_REQUEST['instance'] : 0;
 $version		= isset($_SERVER['SERVER_NAME'])? explode('.', $_SERVER['SERVER_NAME'])[0] : die();
 $userID			= isset($_SESSION['userID']) ? $_SESSION['userID'] : die();
 $maskID			= isset($_SESSION['mask']) ? $_SESSION['mask'] : die();
-$characterID 	= isset($headers['characterID']) ? $headers['characterID'] : null;
+$characterID 	= isset($_SESSION['characterID']) ? $_SESSION['characterID'] : 0;
 $characterName 	= isset($headers['characterName']) ? $headers['characterName'] : null;
 $systemID 		= isset($headers['systemID']) ? $headers['systemID'] : null;
 $systemName 	= isset($headers['systemName']) ? $headers['systemName'] : null;
@@ -202,30 +205,6 @@ $stmt = $mysql->prepare($query);
 $stmt->bindValue(':instance', $instance, PDO::PARAM_STR);
 $stmt->execute();
 $stmt->rowCount() ? $output['notify'] = $stmt->fetchColumn() : null;
-
-$query = 'INSERT INTO active (ip, instance, session, userID, maskID, characterID, characterName, systemID, systemName, shipID, shipName, shipTypeID, shipTypeName, stationID, stationName, activity, version)
-			VALUES (:ip, :instance, :session, :userID, :maskID, :characterID, :characterName, :systemID, :systemName, :shipID, :shipName, :shipTypeID, :shipTypeName, :stationID, :stationName, :activity, :version)
-			ON DUPLICATE KEY UPDATE
-			maskID = :maskID, characterID = :characterID, characterName = :characterName, systemID = :systemID, systemName = :systemName, shipID = :shipID, shipName = :shipName, shipTypeID = :shipTypeID, shipTypeName = :shipTypeName, stationID = :stationID, stationName = :stationName, activity = :activity, version = :version, time = NOW(), notify = NULL';
-$stmt = $mysql->prepare($query);
-$stmt->bindValue(':ip', $ip, PDO::PARAM_STR);
-$stmt->bindValue(':instance', $instance, PDO::PARAM_STR);
-$stmt->bindValue(':session', session_id(), PDO::PARAM_STR);
-$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
-$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
-$stmt->bindValue(':characterID', $characterID, PDO::PARAM_INT);
-$stmt->bindValue(':characterName', $characterName, PDO::PARAM_STR);
-$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-$stmt->bindValue(':systemName', $systemName, PDO::PARAM_STR);
-$stmt->bindValue(':shipID', $shipID, PDO::PARAM_INT);
-$stmt->bindValue(':shipName', $shipName, PDO::PARAM_STR);
-$stmt->bindValue(':shipTypeID', $shipTypeID, PDO::PARAM_INT);
-$stmt->bindValue(':shipTypeName', $shipTypeName, PDO::PARAM_STR);
-$stmt->bindValue(':stationID', $stationID, PDO::PARAM_INT);
-$stmt->bindValue(':stationName', $stationName, PDO::PARAM_STR);
-$stmt->bindValue(':activity', $activity, PDO::PARAM_STR);
-$stmt->bindValue(':version', $version, PDO::PARAM_STR);
-$stmt->execute();
 
 $query = 'SELECT characters.characterName, activity FROM active INNER JOIN characters ON active.userID = characters.userID WHERE maskID = :maskID AND instance <> :instance AND activity IS NOT NULL AND activity <> ""';
 $stmt = $mysql->prepare($query);
@@ -257,6 +236,34 @@ if ($data) {
 	if (property_exists($data, 'signatures') && property_exists($data->signatures, 'update') && $data->signatures->update != null)
 		$output['result'] = $signatures->update($data->signatures->update);
 }
+
+// *********************
+// Active Tracking II: So things don't break edition~Aurorah
+// *********************
+
+$query = 'INSERT INTO active (ip, instance, session, userID, maskID, characterID, characterName, systemID, systemName, shipID, shipName, shipTypeID, shipTypeName, stationID, stationName, activity, version)
+			VALUES (:ip, :instance, :session, :userID, :maskID, :characterID, :characterName, :systemID, :systemName, :shipID, :shipName, :shipTypeID, :shipTypeName, :stationID, :stationName, :activity, :version)
+			ON DUPLICATE KEY UPDATE
+			maskID = :maskID, characterName = :characterName, systemID = :systemID, systemName = :systemName, shipID = :shipID, shipName = :shipName, shipTypeID = :shipTypeID, shipTypeName = :shipTypeName, stationID = :stationID, stationName = :stationName, activity = :activity, version = :version, time = NOW(), notify = NULL';
+$stmt = $mysql->prepare($query);
+$stmt->bindValue(':ip', $ip, PDO::PARAM_STR);
+$stmt->bindValue(':instance', $instance, PDO::PARAM_STR);
+$stmt->bindValue(':session', session_id(), PDO::PARAM_STR);
+$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
+$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+$stmt->bindValue(':characterID', $characterID, PDO::PARAM_INT);
+$stmt->bindValue(':characterName', $characterName, PDO::PARAM_STR);
+$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+$stmt->bindValue(':systemName', $systemName, PDO::PARAM_STR);
+$stmt->bindValue(':shipID', $shipID, PDO::PARAM_INT);
+$stmt->bindValue(':shipName', $shipName, PDO::PARAM_STR);
+$stmt->bindValue(':shipTypeID', $shipTypeID, PDO::PARAM_INT);
+$stmt->bindValue(':shipTypeName', $shipTypeName, PDO::PARAM_STR);
+$stmt->bindValue(':stationID', $stationID, PDO::PARAM_INT);
+$stmt->bindValue(':stationName', $stationName, PDO::PARAM_STR);
+$stmt->bindValue(':activity', $activity, PDO::PARAM_STR);
+$stmt->bindValue(':version', $version, PDO::PARAM_STR);
+$stmt->execute();
 
 /**
 // *********************
@@ -568,7 +575,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$output['chain']['last_modified'] = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
 
 	// Get occupied systems
-	$query = 'SELECT systemID, COUNT(characterID) AS count FROM active WHERE maskID = :maskID AND systemID IS NOT NULL GROUP BY systemID';
+	$query = 'SELECT systemID, COUNT(DISTINCT characterID) AS count FROM active WHERE maskID = :maskID AND systemID IS NOT NULL GROUP BY systemID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
 	$stmt->execute();
@@ -688,7 +695,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	}
 
 	// Get occupied systems
-	$query = 'SELECT systemID, COUNT(characterID) AS count FROM active WHERE maskID = :maskID AND systemID IS NOT NULL GROUP BY systemID';
+	$query = 'SELECT systemID, COUNT(DISTINCT characterID) AS count FROM active WHERE maskID = :maskID AND systemID IS NOT NULL GROUP BY systemID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
 	$stmt->execute();
@@ -717,8 +724,102 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	}
 }
 
+/*
+========
+========
+!!ALTS!!
+========
+========
+*/
+
+
+if(isset($_SESSION['altIDs'])){
+  $curaltIDs = json_decode($_SESSION['altIDs']);
+  for($i = 0; $i < count(json_decode($_SESSION['altIDs'],true)); $i++){
+    //Check and refresh token if needed.
+    $curAlt = json_decode($curaltIDs->$i);
+
+
+    $query = 'SELECT accessToken, refreshToken, tokenExpire FROM crest WHERE characterID = :characterID';
+    $stmt = $mysql->prepare($query);
+    $stmt->bindValue(':characterID', $curAlt->charID, PDO::PARAM_INT);
+    $stmt->execute();
+    if ($row = $stmt->fetchObject()) {
+      if (strtotime($row->tokenExpire) < time('-1 minute')) {
+        // Get a new access token
+        $crestAlt = new CREST();
+
+        if ($crestAlt->refresh($row->refreshToken)) {
+          $query = 'UPDATE crest SET accessToken = :accessToken, refreshToken = :refreshToken, tokenExpire = :tokenExpire WHERE characterID = :characterID';
+          $stmt = $mysql->prepare($query);
+          $stmt->bindValue(':accessToken', $crestAlt->accessToken, PDO::PARAM_STR);
+          $stmt->bindValue(':refreshToken', $crestAlt->refreshToken, PDO::PARAM_STR);
+          $stmt->bindValue(':tokenExpire', $crestAlt->tokenExpire, PDO::PARAM_STR);
+          $stmt->bindValue(':characterID', $curAlt->charID, PDO::PARAM_STR);
+          $stmt->execute();
+
+          $curAlt->accessToken = $crestAlt->accessToken;
+        }
+        else {
+          $query = 'DELETE FROM crest WHERE characterID = :characterID';
+          $stmt = $mysql->prepare($query);
+          $stmt->bindValue(':characterID', $curAlt->charID, PDO::PARAM_INT);
+          $stmt->execute();
+          $curAlt->accessToken = null;
+        }
+      }
+    }
+
+    $ipAlt         = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : die();
+    $instanceAlt     = isset($_REQUEST['instance']) ? $_REQUEST['instance'] : 0;
+    $versionAlt     = isset($_SERVER['SERVER_NAME'])? explode('.', $_SERVER['SERVER_NAME'])[0] : die();
+    $userIDAlt       = isset($_SESSION['userID']) ? $_SESSION['userID'] : die();
+    $maskIDAlt       = isset($_SESSION['mask']) ? $_SESSION['mask'] : die();
+    $characterIDAlt    = isset($curAlt->charID) ? $curAlt->charID : null;
+    $characterNameAlt    = isset($curAlt->charName) ? $curAlt->charName : null;
+    $systemIDAlt      = isset($curAlt->systemID) ? $curAlt->systemID : null;
+    $systemNameAlt    = isset($curAlt->systemName) ? $curAlt->systemName : null;
+    $shipIDAlt      = isset($curAlt->shipID) ? $curAlt->shipID : null;
+    $shipNameAlt      = isset($curAlt->shipName) ? $curAlt->shipName : null;
+    $shipTypeIDAlt    = isset($curAlt->shipTypeID) ? $curAlt->shipTypeID : null;
+    $shipTypeNameAlt    = isset($curAlt->shipTypeName) ? $curAlt->shipTypeName : null;
+    $stationIDAlt      = isset($curAlt->stationID) ? $curAlt->stationID : null;
+    $stationNameAlt    = isset($curAlt->stationName) ? $curAlt->stationName : null;
+    $activityAlt     = isset($_REQUEST['activity']) ? json_encode($_REQUEST['activity']) : null;
+
+    $output['Alts'][] = $curAlt;
+    //Place Alt Info
+
+
+    $query = 'INSERT INTO active (ip, instance, session, userID, maskID, characterID, characterName, systemID, systemName, shipID, shipName, shipTypeID, shipTypeName, stationID, stationName, activity, version)
+        VALUES (:ip, :instance, :session, :userID, :maskID, :characterID, :characterName, :systemID, :systemName, :shipID, :shipName, :shipTypeID, :shipTypeName, :stationID, :stationName, :activity, :version)
+        ON DUPLICATE KEY UPDATE
+        maskID = :maskID, characterID = :characterID, characterName = :characterName, systemID = :systemID, systemName = :systemName, shipID = :shipID, shipName = :shipName, shipTypeID = :shipTypeID, shipTypeName = :shipTypeName, stationID = :stationID, stationName = :stationName, activity = :activity, version = :version, time = NOW(), notify = NULL';
+    $stmt = $mysql->prepare($query);
+    $stmt->bindValue(':ip', $ipAlt , PDO::PARAM_STR);
+    $stmt->bindValue(':instance', $instanceAlt , PDO::PARAM_STR);
+    $stmt->bindValue(':session', session_id(), PDO::PARAM_STR);
+    $stmt->bindValue(':userID', $userIDAlt , PDO::PARAM_INT);
+    $stmt->bindValue(':maskID', $maskIDAlt , PDO::PARAM_STR);
+    $stmt->bindValue(':characterID', $characterIDAlt , PDO::PARAM_INT);
+    $stmt->bindValue(':characterName', $characterNameAlt , PDO::PARAM_STR);
+    $stmt->bindValue(':systemID', $systemIDAlt , PDO::PARAM_INT);
+    $stmt->bindValue(':systemName', $systemNameAlt , PDO::PARAM_STR);
+    $stmt->bindValue(':shipID', $shipIDAlt , PDO::PARAM_INT);
+    $stmt->bindValue(':shipName', $shipNameAlt , PDO::PARAM_STR);
+    $stmt->bindValue(':shipTypeID', $shipTypeIDAlt , PDO::PARAM_INT);
+    $stmt->bindValue(':shipTypeName', $shipTypeNameAlt , PDO::PARAM_STR);
+    $stmt->bindValue(':stationID', $stationIDAlt , PDO::PARAM_INT);
+    $stmt->bindValue(':stationName', $stationNameAlt , PDO::PARAM_STR);
+    $stmt->bindValue(':activity', $activityAlt , PDO::PARAM_STR);
+    $stmt->bindValue(':version', $versionAlt , PDO::PARAM_STR);
+    $stmt->execute();
+
+    $curaltIDs->$i = json_encode($curAlt,JSON_FORCE_OBJECT);
+  }
+  $_SESSION['altIDs'] = json_encode($curaltIDs,JSON_FORCE_OBJECT);
+}
+
 $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
-
 echo json_encode($output);
-
 ?>
