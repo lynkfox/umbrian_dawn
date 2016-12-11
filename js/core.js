@@ -1862,7 +1862,7 @@ var tripwire = new function() {
 			data.sigTime = Object.maxTime(this.client.signatures, "time");
 
 			data.chainCount = Object.size(chain.data.rawMap);
-			data.chainTime = Object.maxTime(chain.data.rawMap, "time");// chain.data.last_modified;
+			data.chainTime = Object.maxTime(chain.data.rawMap, "time");
 
 			data.flareCount = chain.data.flares ? chain.data.flares.flares.length : 0;
 			data.flareTime = chain.data.flares ? chain.data.flares.last_modified : 0;
@@ -2072,9 +2072,11 @@ var tripwire = new function() {
 		var rowParse = function(row) {
 			var scanner = {group: "", type: ""};
 			var columns = row.split("	"); // Split by tab
-			var validScanGroups = ["Cosmic Signature", "Cosmic Anomaly", "Kosmische Anomalie", "Kosmische Signatur"];
+			var validScanGroups = ["Cosmic Signature", "Cosmic Anomaly", "Kosmische Anomalie", "Kosmische Signatur", 
+									"Источники сигналов", "Космическая аномалия"];
 			var validGroups = ["Wormhole", "Relic Site", "Gas Site", "Ore Site", "Data Site", "Combat Site",
-								"Wurmloch", "Reliktgebiet", "Gasgebiet", "Mineraliengebiet", "Datengebiet", "Kampfgebiet"];
+								"Wurmloch", "Reliktgebiet", "Gasgebiet", "Mineraliengebiet", "Datengebiet", "Kampfgebiet",
+								"Червоточина", "АРТЕФАКТЫ: район поиска артефактов", "ГАЗ: район добычи газа", "РУДА: район добычи руды", "ДАННЫЕ: район сбора данных", "ОПАСНО: район повышенной опасности"];
 
 			for (var x in columns) {
 				if (columns[x].match(/([A-Z]{3}[-]\d{3})/)) {
@@ -2082,7 +2084,7 @@ var tripwire = new function() {
 					continue;
 				}
 
-				if (columns[x].match(/(\d([.|,]\d)?[ ]?(%))/) || columns[x].match(/(\d[.|,]?\d+\s(AU|AE|km|m))/i)) { // Exclude scan % || AU
+				if (columns[x].match(/(\d([.|,]\d)?[ ]?(%))/) || columns[x].match(/(\d[.|,]?\d+\s(AU|AE|km|m|а.е.|км|м))/i)) { // Exclude scan % || AU
 					continue;
 				}
 
@@ -2112,10 +2114,11 @@ var tripwire = new function() {
 			var rows = data.split("\n");
 			var data = {"request": {"signatures": {"add": [], "update": []}}};
 			var ids = $.map(tripwire.client.signatures, function(sig) {return viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID});
-			var wormholeGroups = ["Wormhole", "Wurmloch"];
-			var siteGroups = ["Combat Site", "Kampfgebiet"];
+			var wormholeGroups = ["Wormhole", "Wurmloch", "Червоточина"];
+			var siteGroups = ["Combat Site", "Kampfgebiet", "ОПАСНО: район повышенной опасности"];
 			var otherGroups = {"Gas Site": "Gas", "Data Site": "Data", "Relic Site": "Relic", "Ore Site": "Ore",
-								"Gasgebiet": "Gas", "Datengebiet": "Data", "Reliktgebiet": "Relic", "Mineraliengebiet": "Ore"};
+								"Gasgebiet": "Gas", "Datengebiet": "Data", "Reliktgebiet": "Relic", "Mineraliengebiet": "Ore",
+								"ГАЗ: район добычи газа": "Gas", "ДАННЫЕ: район сбора данных": "Data", "АРТЕФАКТЫ: район поиска артефактов": "Relic", "РУДА: район добычи руды": "Ore"};
 
 			for (var row in rows) {
 				var scanner = rowParse(rows[row]);
@@ -2842,7 +2845,7 @@ var tripwire = new function() {
 	}
 
 	this.crestLocation = function(characterID, accessToken) {
-		if (!characterID || !accessToken) {
+		if (!characterID || !accessToken || CCPEVE) {
 			tripwire.crest = {};
 			return false;
 		}
