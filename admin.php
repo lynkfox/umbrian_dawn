@@ -19,7 +19,7 @@ $mask = $_SESSION['mask'];
 $output = null;
 
 if ($mode == 'active-users' && (checkOwner($mask) || checkAdmin($mask))) {
-    $query = 'SELECT a.userID + instance AS id, c.characterID AS accountCharacterID, c.characterName AS accountCharacterName, a.characterID, a.characterName, systemID, systemName, shipName, shipTypeID, shipTypeName, stationID, stationName, lastLogin FROM active a INNER JOIN characters c ON a.userID = c.userID INNER JOIN userStats s ON a.userID = s.userID WHERE maskID = :mask';
+    $query = 'SELECT a.characterID + instance AS id, c.characterID AS accountCharacterID, c.characterName AS accountCharacterName, a.characterID, a.characterName, systemID, systemName, shipName, shipTypeID, shipTypeName, stationID, stationName, lastLogin FROM active a INNER JOIN characters c ON a.userID = c.userID INNER JOIN userStats s ON a.userID = s.userID WHERE maskID = :mask';
     $stmt = $mysql->prepare($query);
 	$stmt->bindValue(':mask', $mask);
 	$stmt->execute();

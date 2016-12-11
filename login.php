@@ -264,14 +264,64 @@ if ($mode == 'login' || !$mode) {
 			$stmt->bindValue(':tokenExpire', $CREST->tokenExpire, PDO::PARAM_STR);
 			$stmt->execute();
 
+			$_SESSION['accessToken'] = $crest->accessToken;
 			header('Location: ./?system=');
+			exit();
+		}
+	} else if ($code && $state == 'secondaryevessocrest') {
+		if ($characterID = $CREST->authenticate($code)) {
+			$query = 'INSERT INTO crest (characterID, accessToken, refreshToken, tokenExpire) VALUES (:characterID, :accessToken, :refreshToken, :tokenExpire) ON DUPLICATE KEY UPDATE accessToken = :accessToken, refreshToken = :refreshToken, tokenExpire = :tokenExpire';
+			$stmt = $mysql->prepare($query);
+			$stmt->bindValue(':characterID', $characterID, PDO::PARAM_INT);
+			$stmt->bindValue(':accessToken', $CREST->accessToken, PDO::PARAM_STR);
+			$stmt->bindValue(':refreshToken', $CREST->refreshToken, PDO::PARAM_STR);
+			$stmt->bindValue(':tokenExpire', $CREST->tokenExpire, PDO::PARAM_STR);
+			$stmt->execute();
+			$newchar = array(
+				'charID' => $characterID,
+				'charName' => $CREST->characterInfo($characterID),
+				'accessToken' => $CREST->accessToken,
+				'systemID' => null,
+				'systemName' => null,
+				'stationID' => null,
+				'stationName' => null
+			);
+			if (!isset($_SESSION['altIDs'])){
+				$curaltIDs = [];
+				array_push($curaltIDs,json_encode($newchar,JSON_FORCE_OBJECT));
+				$_SESSION['altIDs'] = json_encode($curaltIDs,JSON_FORCE_OBJECT);
+				header('Location: ./?system=');
+				exit();
+			}
+			else{
+				if($characterID == $_SESSION['characterID']){
+						header('Location: ./?system=');
+						exit();
+				}
+				$curaltIDs = json_decode($_SESSION['altIDs'],true);
+				foreach($curaltIDs as $altIDs){
+					$truealtIDs = json_decode($altIDs);
+					if ($truealtIDs->charID == $characterID){
+						header('Location: ./?system=InUse');
+						exit();
+					}
+				}
+				array_push($curaltIDs,json_encode($newchar,JSON_FORCE_OBJECT));
+				$_SESSION['altIDs'] = json_encode($curaltIDs,JSON_FORCE_OBJECT);
+				header('Location: ./?system=');
+				exit();
+			}
+		} else {
+			header('Location: ./?system=Failed');
 			exit();
 		}
 	} else {
 		if ($login == 'sso') {
 			$CREST->login();
 		} else if ($login == 'crest') {
-			$CREST->login('characterLocationRead', 'evessocrest');
+			$CREST->login('characterLocationRead characterNavigationWrite', 'evessocrest');
+		} else if ($login == 'secondarycrest') {
+				$CREST->login('characterLocationRead characterNavigationWrite', 'secondaryevessocrest');
 		}
 	}
 }

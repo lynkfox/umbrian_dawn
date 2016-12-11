@@ -117,6 +117,36 @@ if ($row = $stmt->fetchObject()) {
 											<td id="authCrest" class="text"><a href="login.php?mode=sso&login=crest">Authorize CREST</a></td>
 										</tr>
 										<tr>
+											<td id="authAnotherCrest" class="text"><a class="infoLink" href='login.php?mode=sso&login=secondarycrest'>Authorize Another Crest</a></td>
+										</tr>
+											<?php
+												if (isset($_SESSION['altIDs'])){
+													$curaltIDs = json_decode($_SESSION['altIDs']);
+													for($i = 0; $i < count(json_decode($_SESSION['altIDs'],true)); $i++){
+														$curAlt = json_decode($curaltIDs->$i);
+											?>
+										<tr>
+											<td id="avatar<?=$curAlt->charID ?>" rowspan="4"><img src="https://image.eveonline.com/Character/<?=$curAlt->charID ?>_64.jpg" /></td>
+											<td id="characterName" class="text"><?=$curAlt->charName ?></td>
+										</tr>
+										<tr>
+											<?php 		if(isset($curAlt->accessToken)){ ?>
+												<td id="characterLocation" class="text"><?=$curAlt->systemName ?></td>
+											<?php 		} else { ?>
+												<td id="nocrest" class="text">Crest expired.</td>
+											<?php 		} ?>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td class="text"><a href='logoff.php?altNum=<?=$i?>'>Logout <?=$curAlt->charName ?></a></td>
+										</tr>
+											<?php
+													}
+												}
+											?>
+										<tr>
 											<td>&nbsp;</td>
 										</tr>
 									</table>
@@ -991,8 +1021,46 @@ if ($row = $stmt->fetchObject()) {
 	<ul id="igbChainMenu" class="hidden">
 		<li data-command="showInfo"><a>Show Info</a></li>
 		<li>
-		<li data-command="setDest"><a>Set Destination</a></li>
-		<li data-command="addWay"><a>Add Waypoint</a></li>
+			<li><a>Navigation</a>
+				<ul style="width: 10em;">
+					<?php
+					if (isset($_SESSION['altIDs'])){
+						$curaltIDs = json_decode($_SESSION['altIDs']);
+					?>
+					<li><a>Set Destination</a>
+					  <ul style="width: 10em;">
+						<li class="navCall" data-command="setDest" data-charID='<?=$_SESSION['characterID']?>'><a><?=$_SESSION['characterName']?></a></li>
+					<?php
+					  for($i = 0; $i < count(json_decode($_SESSION['altIDs'],true)); $i++){
+						$curAlt = json_decode($curaltIDs->$i);
+					?>
+						<li class="navCall" data-command="setDest" data-charID='<?=$curAlt->charID?>'><a><?=$curAlt->charName?></a></li>
+					<?php
+					  }
+					?>
+					  </ul>
+					</li>
+					<li><a>Add Waypoint</a>
+					  <ul style="width: 10em;">
+						<li class="navCall" data-command="addWay" data-charID='<?=$_SESSION['characterID']?>'><a><?=$_SESSION['characterName']?></a></li>
+					<?php
+					  for($i = 0; $i < count(json_decode($_SESSION['altIDs'],true)); $i++){
+						$curAlt = json_decode($curaltIDs->$i);
+					?>
+						<li class="navCall" data-command="addWay" data-charID='<?=$curAlt->charID?>'><a><?=$curAlt->charName?></a></li>
+					<?php
+					  }
+					?>
+					  </ul>
+					</li>
+					<?php
+					} else {
+					?>
+					  <li class="navCall" data-command="setDest" data-charID='<?=$_SESSION['characterID']?>'><a>Set Destination</a></li>
+					  <li class="navCall" data-command="addWay" data-charID='<?=$_SESSION['characterID']?>'><a>Add Waypoint</a></li>
+					<?php  } ?>
+				</ul>
+			</li>
 		<li data-command="showMap"><a>Show on Map</a></li>
 		<li>
 		<li><a>Flares</a>
@@ -1017,6 +1085,12 @@ if ($row = $stmt->fetchObject()) {
 			</ul>
 		</li>
 		<li>
+			<li><a>Navigation</a>
+			  <ul style="width: 10em;">
+				<li data-command="setDest"><a>Set Destination</a></li>
+				<li data-command="addWay"><a>Add Waypoint</a></li>
+			  </ul>
+			</li>
 		<li data-command="mass"><a>Mass</a></li>
 		<li data-command="rename"><a>Rename</a></li>
 		<li data-command="collapse"><a>Collapse</a></li>
@@ -1079,10 +1153,6 @@ if ($row = $stmt->fetchObject()) {
 
 	</script>
 
-	<!-- IGB Trust check -->
-	<?php if (isset($_SERVER['HTTP_EVE_TRUSTED']) && $_SERVER['HTTP_EVE_TRUSTED'] == 'No') {?> <script>CCPEVE.requestTrust("https://*.<?= $_SERVER['SERVER_NAME'] ?>/*");</script> <?php } ?>
-	<!-- IGB Trust check -->
-
 	<!-- JS Includes -->
 	<script type="text/javascript" src="//<?= $server ?>/js/combine.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/ckeditor/ckeditor.js"></script>
@@ -1093,3 +1163,4 @@ if ($row = $stmt->fetchObject()) {
 
 </body>
 </html>
+<?php session_write_close(); ?>
