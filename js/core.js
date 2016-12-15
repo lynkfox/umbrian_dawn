@@ -2072,7 +2072,7 @@ var tripwire = new function() {
 		var rowParse = function(row) {
 			var scanner = {group: "", type: ""};
 			var columns = row.split("	"); // Split by tab
-			var validScanGroups = ["Cosmic Signature", "Cosmic Anomaly", "Kosmische Anomalie", "Kosmische Signatur", 
+			var validScanGroups = ["Cosmic Signature", "Cosmic Anomaly", "Kosmische Anomalie", "Kosmische Signatur",
 									"Источники сигналов", "Космическая аномалия"];
 			var validGroups = ["Wormhole", "Relic Site", "Gas Site", "Ore Site", "Data Site", "Combat Site",
 								"Wurmloch", "Reliktgebiet", "Gasgebiet", "Mineraliengebiet", "Datengebiet", "Kampfgebiet",
@@ -2283,8 +2283,8 @@ var tripwire = new function() {
 			return false;
 
 		// Is pilot in a pod?
-		if ($.inArray(parseInt(tripwire.client.EVE.shipTypeID), pods) >= 0)
-			return false;
+		// if ($.inArray(parseInt(tripwire.client.EVE.shipTypeID), pods) >= 0)
+		// 	return false;
 
 		// Is this a gate?
 		if (typeof(tripwire.map.shortest[from - 30000000]) != "undefined" && typeof(tripwire.map.shortest[from - 30000000][to - 30000000]) != "undefined")
