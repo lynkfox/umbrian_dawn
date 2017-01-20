@@ -15,6 +15,9 @@ session_start();
 setcookie('username', '', time() -3600, '/');
 setcookie('password', '', time() -3600, '/');
 
+$_SESSION = array();
+session_regenerate_id();
+
 session_destroy();
 
 header('Location: .');
