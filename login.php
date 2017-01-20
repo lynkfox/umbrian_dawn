@@ -264,7 +264,6 @@ if ($mode == 'login' || !$mode) {
 			$stmt->bindValue(':tokenExpire', $CREST->tokenExpire, PDO::PARAM_STR);
 			$stmt->execute();
 
-			$_SESSION['accessToken'] = $crest->accessToken;
 			header('Location: ./?system=');
 			exit();
 		}

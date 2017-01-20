@@ -88,7 +88,6 @@ if ($_REQUEST['mode'] == 'init' || (isset($_REQUEST['crest']['tokenExpire']) && 
 				$stmt->execute();
 
 				$output['crest']['accessToken'] = $crest->accessToken;
-				$_SESSION['accessToken'] = $crest->accessToken;
 				$output['crest']['tokenExpire'] = $crest->tokenExpire;
 			} else {
 				$query = 'DELETE FROM crest WHERE characterID = :characterID';
@@ -98,7 +97,6 @@ if ($_REQUEST['mode'] == 'init' || (isset($_REQUEST['crest']['tokenExpire']) && 
 			}
 		} else {
 			$output['crest']['accessToken'] = $row->accessToken;
-			$_SESSION['accessToken'] = $row->accessToken;
 			$output['crest']['tokenExpire'] = $row->tokenExpire;
 		}
 	}
