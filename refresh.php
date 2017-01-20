@@ -98,7 +98,7 @@ if ($_REQUEST['mode'] == 'init' || (isset($_REQUEST['crest']['tokenExpire']) && 
 			}
 		} else {
 			$output['crest']['accessToken'] = $row->accessToken;
-			$_SESSION['accessToken'] = $crest->accessToken;
+			$_SESSION['accessToken'] = $row->accessToken;
 			$output['crest']['tokenExpire'] = $row->tokenExpire;
 		}
 	}
