@@ -658,7 +658,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	if ($refresh['chainUpdate'] == true) {
 		$output['chain']['map'] = Array();
 
-		$query = "SELECT DISTINCT signatures.id, signatureID, system, systemID, connection, connectionID, sig2ID, type, nth, sig2Type, nth2, lifeLength, life, mass, time, typeBM, type2BM, classBM, class2BM, mask FROM signatures WHERE life IS NOT NULL AND (mask = :mask OR ((signatures.systemID = 31000005 OR signatures.connectionID = 31000005) AND mask = 273)) ORDER BY id ASC";
+		$query = "SELECT id, signatureID, system, systemID, connection, connectionID, sig2ID, type, nth, sig2Type, nth2, lifeLength, life, mass, time, typeBM, type2BM, classBM, class2BM, mask FROM signatures WHERE life IS NOT NULL AND (mask = :mask OR ((signatures.systemID = 31000005 OR signatures.connectionID = 31000005) AND mask = 273))";
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
 		$stmt->execute();
@@ -666,14 +666,13 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		$output['chain']['map'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
 		// System activity indicators
-		$query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND (mask = :mask OR ((sigs.systemID = 31000005 OR sigs.connectionID = 31000005) AND mask = 273))';
+		$query = 'SELECT systemID, shipJumps, podKills, shipKills, npcKills FROM eve_api.recentActivity api';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
 		$stmt->execute();
 
 		$output['chain']['activity'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
-		$query = 'SELECT MAX(time) AS last_modified FROM signatures WHERE life IS NOT NULL AND (mask = :mask OR ((signatures.systemID = 31000005 OR signatures.connectionID = 31000005) AND mask = 273))';
+		$query = 'SELECT time AS last_modified FROM signatures WHERE life IS NOT NULL AND (mask = :mask OR ((signatures.systemID = 31000005 OR signatures.connectionID = 31000005) AND mask = 273)) ORDER BY time DESC LIMIT 1';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
 		$stmt->execute();
