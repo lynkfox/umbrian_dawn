@@ -1,5 +1,13 @@
 <?php
   if (!session_id()) session_start();
+
+  if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+  	$_SESSION = array();
+  	session_regenerate_id();
+  	session_destroy();
+  	exit();
+  }
+
   if (isset($_SESSION['altIDs'])){
     $alts = json_decode($_SESSION['altIDs'], true);
     if(isset($_REQUEST['altLocations'])) {
@@ -36,4 +44,4 @@
       }
       $_SESSION['altIDs'] = json_encode($updated, JSON_FORCE_OBJECT);
     }
-  } 
+  }

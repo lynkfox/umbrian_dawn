@@ -1,12 +1,16 @@
 <?php
 
 if (!session_id()) session_start();
-session_write_close();
 
 // Check for login & admin permission - else kick
-if(!isset($_SESSION['userID'])){
+if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+	$_SESSION = array();
+	session_regenerate_id();
+	session_destroy();
 	exit();
 }
+
+session_write_close();
 
 require('db.inc.php');
 require('lib.inc.php');
