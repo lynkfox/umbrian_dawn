@@ -658,7 +658,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	if ($refresh['chainUpdate'] == true) {
 		$output['chain']['map'] = Array();
 
-		$query = "SELECT id, signatureID, system, systemID, connection, connectionID, sig2ID, type, nth, sig2Type, nth2, lifeLength, life, mass, time, typeBM, type2BM, classBM, class2BM, mask FROM signatures WHERE life IS NOT NULL AND (mask = :mask OR ((signatures.systemID = 31000005 OR signatures.connectionID = 31000005) AND mask = 273))";
+		$query = "SELECT DISTINCT signatures.id, signatureID, system, systemID, connection, connectionID, sig2ID, type, nth, sig2Type, nth2, lifeLength, life, mass, time, typeBM, type2BM, classBM, class2BM, mask FROM signatures WHERE life IS NOT NULL AND (mask = :mask OR ((signatures.systemID = 31000005 OR signatures.connectionID = 31000005) AND mask = 273)) ORDER BY id ASC";
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
 		$stmt->execute();
