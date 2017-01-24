@@ -20,10 +20,10 @@ $output = null;
 $query = 'SELECT players, status AS online, time FROM eve_api.serverStatus ORDER BY time DESC LIMIT 1';
 $stmt = $mysql->prepare($query);
 $stmt->execute();
-$result = $stmt->fetchAll(PDO::FETCH_CLASS);
+$result = $stmt->fetchObject();
 if ($result) {
-	$output = $result[0];
-	$output['time'] = strtotime($result[0]->time) - time() + 180;
+	$output = $result;
+	$output['time'] = strtotime($result->time) - time() + 180;
 }
 
 $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
