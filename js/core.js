@@ -1768,15 +1768,17 @@ var tripwire = new function() {
 			dataType: "JSON",
 			cache: false
 		}).done(function(data) {
-			if (!tripwire.serverStatus.data || tripwire.serverStatus.data.players !== data.players || tripwire.serverStatus.data.online !== data.online) {
-				$('#serverStatus').html("<span class='"+(data.online && data.players > 0 ? 'stable' : 'critical')+"'>TQ</span>: "+numFormat(data.players));
+			if (data.players) {
+				if (!tripwire.serverStatus.data || tripwire.serverStatus.data.players !== data.players || tripwire.serverStatus.data.online !== data.online) {
+					$('#serverStatus').html("<span class='"+(data.online && data.players > 0 ? 'stable' : 'critical')+"'>TQ</span>: "+numFormat(data.players));
 
-				if (tripwire.serverStatus.data) {
-					$("#serverStatus").effect('pulsate', {times: 5});
+					if (tripwire.serverStatus.data) {
+						$("#serverStatus").effect('pulsate', {times: 5});
+					}
 				}
-			}
 
-			tripwire.serverStatus.data = data;
+				tripwire.serverStatus.data = data;
+			}
 		}).always(function(data) {
 			if (data && data.time > 15) {
 				tripwire.serverStatus.time = data.time * 1000;
