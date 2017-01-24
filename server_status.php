@@ -22,7 +22,7 @@ $stmt = $mysql->prepare($query);
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_CLASS);
 if ($result) {
-	$output = $result;
+	$output = $result[0];
 	$output['time'] = strtotime($result[0]->time) - time() + 180;
 }
 
