@@ -129,7 +129,7 @@ $instance		= isset($_REQUEST['instance']) ? $_REQUEST['instance'] : 0;
 $version		= isset($_SERVER['SERVER_NAME'])? explode('.', $_SERVER['SERVER_NAME'])[0] : die();
 $userID			= isset($_SESSION['userID']) ? $_SESSION['userID'] : die();
 $maskID			= isset($_SESSION['mask']) ? $_SESSION['mask'] : die();
-$characterID 	= isset($_REQUEST['crest']['characterID']) ? $_REQUEST['crest']['characterID'] : null;
+$characterID 	= isset($_REQUEST['crest']['characterID']) ? $_REQUEST['crest']['characterID'] : 0;
 $characterName 	= isset($_REQUEST['crest']['characterName']) ? $_REQUEST['crest']['characterName'] : null;
 $systemID 		= isset($_REQUEST['crest']['systemID']) ? $_REQUEST['crest']['systemID'] : null;
 $systemName 	= isset($_REQUEST['crest']['systemName']) ? $_REQUEST['crest']['systemName'] : null;
@@ -730,7 +730,7 @@ if(isset($_SESSION['altIDs'])){
     $versionAlt     = isset($_SERVER['SERVER_NAME'])? explode('.', $_SERVER['SERVER_NAME'])[0] : die();
     $userIDAlt       = isset($_SESSION['userID']) ? $_SESSION['userID'] : die();
     $maskIDAlt       = isset($_SESSION['mask']) ? $_SESSION['mask'] : die();
-    $characterIDAlt    = isset($curAlt->charID) ? $curAlt->charID : null;
+    $characterIDAlt    = isset($curAlt->charID) ? $curAlt->charID : 0;
     $characterNameAlt    = isset($curAlt->charName) ? $curAlt->charName : null;
     $systemIDAlt      = isset($curAlt->systemID) ? $curAlt->systemID : null;
     $systemNameAlt    = isset($curAlt->systemName) ? $curAlt->systemName : null;
