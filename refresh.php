@@ -110,8 +110,9 @@ if (isset($_REQUEST['crest']['systemID']) && !empty($_REQUEST['crest']['systemID
 	$stmt->bindValue(':maskID', $_SESSION['mask'], PDO::PARAM_STR);
 	$stmt->bindValue(':characterID', $_SESSION['characterID'], PDO::PARAM_STR);
 	$stmt->execute();
+	$row = $stmt->fetchObject();
 
-	if ($row = $stmt->fetchObject()) {
+	if ($row && $row->systemID) {
 		$output['EVE'] = $row;
 	}
 }
