@@ -20,7 +20,7 @@ $output = null;
 $query = 'SELECT players, status AS online, time FROM eve_api.serverStatus ORDER BY time DESC LIMIT 1';
 $stmt = $mysql->prepare($query);
 $stmt->execute();
-$result = $stmt->fetchObject();
+$result = $stmt->fetch();
 if ($result) {
 	$output = $result;
 	$output['time'] = strtotime($result->time) - time() + 180;
