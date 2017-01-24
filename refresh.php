@@ -1,6 +1,6 @@
 <?php
 //	======================================================
-//	File:		signatures.php
+//	File:		refresh.php
 //	Author:		Josh Glassmaker (Daimian Mercer)
 //
 //	======================================================
@@ -62,7 +62,6 @@ if ($checkMask[1] == 0 && $checkMask[0] != 0) {
 	$_SESSION['mask'] = $_SESSION['corporationID'] . '.2';
 }
 
-
 /**
 // *********************
 // CREST Location
@@ -103,61 +102,8 @@ if ($_REQUEST['mode'] == 'init' || (isset($_REQUEST['crest']['tokenExpire']) && 
 }
 
 if (isset($_REQUEST['crest']['systemID']) && !empty($_REQUEST['crest']['systemID'])) {
-	$headers['systemID'] = isset($_REQUEST['crest']['systemID']) ? $_REQUEST['crest']['systemID'] : null;
-	$headers['systemName'] = isset($_REQUEST['crest']['systemName']) ? $_REQUEST['crest']['systemName'] : null;
-	$headers['stationID'] = isset($_REQUEST['crest']['stationID']) ? $_REQUEST['crest']['stationID'] : null;
-	$headers['stationName'] = isset($_REQUEST['crest']['stationName']) ? $_REQUEST['crest']['stationName'] : null;
-	$headers['characterID'] = isset($_REQUEST['crest']['characterID']) ? $_REQUEST['crest']['characterID'] : null;
-	$headers['characterName'] = isset($_REQUEST['crest']['characterName']) ? $_REQUEST['crest']['characterName'] : null;
-
 	$output['EVE'] = $_REQUEST['crest'];
-}
-
-/**
-// *********************
-// EVE IGB Headers
-// *********************
-*/
-if (isset($_SERVER['HTTP_EVE_TRUSTED']) && $_SERVER['HTTP_EVE_TRUSTED'] == 'Yes') {
-	$headers['systemID'] = 			$_SERVER['HTTP_EVE_SOLARSYSTEMID'];
-	$headers['systemName'] = 		$_SERVER['HTTP_EVE_SOLARSYSTEMNAME'];
-	$headers['constellationID'] = 	isset($_SERVER['HTTP_EVE_CONSTELLATIONID'])?$_SERVER['HTTP_EVE_CONSTELLATIONID']:null;
-	$headers['constellationName'] =	isset($_SERVER['HTTP_EVE_CONSTELLATIONNAME'])?$_SERVER['HTTP_EVE_CONSTELLATIONNAME']:null;
-	$headers['regionID'] = 			$_SERVER['HTTP_EVE_REGIONID'];
-	$headers['regionName'] = 		$_SERVER['HTTP_EVE_REGIONNAME'];
-	$headers['stationID'] =			isset($_SERVER['HTTP_EVE_STATIONID'])?$_SERVER['HTTP_EVE_STATIONID']:null;
-	$headers['stationName'] =		isset($_SERVER['HTTP_EVE_STATIONNAME'])?$_SERVER['HTTP_EVE_STATIONNAME']:null;
-	$headers['characterID'] =		isset($_SERVER['HTTP_EVE_CHARID'])?$_SERVER['HTTP_EVE_CHARID']:null;
-	$headers['characterName'] =		isset($_SERVER['HTTP_EVE_CHARNAME'])?$_SERVER['HTTP_EVE_CHARNAME']:null;
-	$headers['corporationID'] =		isset($_SERVER['HTTP_EVE_CORPID'])?$_SERVER['HTTP_EVE_CORPID']:null;
-	$headers['corporationName'] =	isset($_SERVER['HTTP_EVE_CORPNAME'])?$_SERVER['HTTP_EVE_CORPNAME']:null;
-	$headers['allianceID'] =		isset($_SERVER['HTTP_EVE_ALLIANCEID'])?$_SERVER['HTTP_EVE_ALLIANCEID']:null;
-	$headers['allianceName'] =		isset($_SERVER['HTTP_EVE_ALLIANCENAME'])?$_SERVER['HTTP_EVE_ALLIANCENAME']:null;
-	$headers['shipID'] =			isset($_SERVER['HTTP_EVE_SHIPID'])?$_SERVER['HTTP_EVE_SHIPID']:null;
-	$headers['shipName'] =			isset($_SERVER['HTTP_EVE_SHIPNAME'])?$_SERVER['HTTP_EVE_SHIPNAME']:null;
-	$headers['shipTypeID'] =		isset($_SERVER['HTTP_EVE_SHIPTYPEID'])?$_SERVER['HTTP_EVE_SHIPTYPEID']:null;
-	$headers['shipTypeName'] =		isset($_SERVER['HTTP_EVE_SHIPTYPENAME'])?$_SERVER['HTTP_EVE_SHIPTYPENAME']:null;
-
-	$output['EVE'] = $headers;
-
-	// Monitor current INGAME position
-	if (isset($_SESSION['currentSystem']) && $_SESSION['currentSystem'] != $headers['systemName']) {
-		$_SESSION['currentSystem'] = $headers['systemName'];
-
-		$query = 'INSERT INTO systemVisits (systemID, userID) VALUES (:systemID, :userID) ON DUPLICATE KEY UPDATE date = NOW()';
-		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
-		$stmt->bindValue(':systemID', $headers['systemID'], PDO::PARAM_INT);
-		$stmt->execute();
-
-		$query = 'UPDATE userStats SET systemsVisited = systemsVisited + 1 WHERE userID = :userID';
-		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
-		$stmt->execute();
-	} else {
-		$_SESSION['currentSystem'] = $headers['systemName'];
-	}
-} else if (!isset($_REQUEST['crest']['systemID'])) {
+} else {
 	$query = 'SELECT characterID, characterName, systemID, systemName, shipID, shipName, shipTypeID, shipTypeName, stationID, stationName FROM active WHERE userID = :userID AND maskID = :maskID AND characterID = :characterID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
@@ -165,8 +111,9 @@ if (isset($_SERVER['HTTP_EVE_TRUSTED']) && $_SERVER['HTTP_EVE_TRUSTED'] == 'Yes'
 	$stmt->bindValue(':characterID', $_SESSION['characterID'], PDO::PARAM_STR);
 	$stmt->execute();
 
-	if ($row = $stmt->fetchObject())
+	if ($row = $stmt->fetchObject()) {
 		$output['EVE'] = $row;
+	}
 }
 
 session_write_close();
@@ -181,25 +128,24 @@ $instance		= isset($_REQUEST['instance']) ? $_REQUEST['instance'] : 0;
 $version		= isset($_SERVER['SERVER_NAME'])? explode('.', $_SERVER['SERVER_NAME'])[0] : die();
 $userID			= isset($_SESSION['userID']) ? $_SESSION['userID'] : die();
 $maskID			= isset($_SESSION['mask']) ? $_SESSION['mask'] : die();
-$characterID 	= isset($_SESSION['characterID']) ? $_SESSION['characterID'] : 0;
-$characterName 	= isset($headers['characterName']) ? $headers['characterName'] : null;
-$systemID 		= isset($headers['systemID']) ? $headers['systemID'] : null;
-$systemName 	= isset($headers['systemName']) ? $headers['systemName'] : null;
-$shipID 		= isset($headers['shipID']) ? $headers['shipID'] : null;
-$shipName 		= isset($headers['shipName']) ? $headers['shipName'] : null;
-$shipTypeID 	= isset($headers['shipTypeID']) ? $headers['shipTypeID'] : null;
-$shipTypeName 	= isset($headers['shipTypeName']) ? $headers['shipTypeName'] : null;
-$stationID 		= isset($headers['stationID']) ? $headers['stationID'] : null;
-$stationName 	= isset($headers['stationName']) ? $headers['stationName'] : null;
+$characterID 	= isset($_REQUEST['crest']['characterID']) ? $_REQUEST['crest']['characterID'] : null;
+$characterName 	= isset($_REQUEST['crest']['characterName']) ? $_REQUEST['crest']['characterName'] : null;
+$systemID 		= isset($_REQUEST['crest']['systemID']) ? $_REQUEST['crest']['systemID'] : null;
+$systemName 	= isset($_REQUEST['crest']['systemName']) ? $_REQUEST['crest']['systemName'] : null;
+$shipID 		= isset($_REQUEST['crest']['$shipID']) ? $_REQUEST['crest']['$shipID'] : null;
+$shipName 		= isset($_REQUEST['crest']['$shipName']) ? $_REQUEST['crest']['$shipName'] : null;
+$shipTypeID 	= isset($_REQUEST['crest']['$shipTypeID']) ? $_REQUEST['crest']['$shipTypeID'] : null;
+$shipTypeName 	= isset($_REQUEST['crest']['$shipTypeName']) ? $_REQUEST['crest']['$shipTypeName'] : null;
+$stationID 		= isset($_REQUEST['crest']['stationID']) ? $_REQUEST['crest']['stationID'] : null;
+$stationName 	= isset($_REQUEST['crest']['stationName']) ? $_REQUEST['crest']['stationName'] : null;
 $activity 		= isset($_REQUEST['activity']) ? json_encode($_REQUEST['activity']) : null;
 $refresh 		= array('sigUpdate' => false, 'chainUpdate' => false);
 
 /**
 // *********************
-// Active Tracking
+// Server notifications & user activity
 // *********************
 */
-// Notification
 $query = 'SELECT notify FROM active WHERE instance = :instance AND notify IS NOT NULL';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':instance', $instance, PDO::PARAM_STR);
@@ -213,17 +159,18 @@ $stmt->bindValue(':instance', $instance, PDO::PARAM_STR);
 $stmt->execute();
 $stmt->rowCount() ? $output['activity'] = $stmt->fetchAll(PDO::FETCH_OBJ) : null;
 
-
+/**
 // *********************
-// Signatures update
+// Signatures
 // *********************
-
-require('signatures.php');
-$signatures = new signatures();
+*/
 $data = isset($_REQUEST['request']) ? json_decode(json_encode($_REQUEST['request'])) : null;
 //$data = json_decode(file_get_contents('php://input'));
 
 if ($data) {
+	require('signatures.php');
+	$signatures = new signatures();
+
 	if (property_exists($data, 'signatures') && property_exists($data->signatures, 'rename') && $data->signatures->rename != null)
 		$output['result'] = $signatures->rename($data->signatures->rename);
 
@@ -525,6 +472,11 @@ $stmt->bindValue(':systemID', $_REQUEST['systemID'], PDO::PARAM_STR);
 $stmt->execute();
 $stmt->rowCount() ? $output['redo'] = true : null;
 
+/**
+// *********************
+// Gathering data to output
+// *********************
+*/
 if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$output['signatures'] = Array();
 	$systemID = $_REQUEST['systemID'];
@@ -599,27 +551,29 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	while ($row = $stmt->fetchObject()) {
 		$output['comments'][] = array('id' => $row->id, 'comment' => $row->comment, 'created' => $row->createdDate, 'createdBy' => $row->createdBy, 'modified' => $row->modifiedDate, 'modifiedBy' => $row->modifiedBy, 'sticky' => $row->systemID == 0 ? true : false);
 	}
-} else if ((isset($_REQUEST['mode']) && ($_REQUEST['mode'] == 'refresh') || $refresh['sigUpdate'] == true || $refresh['chainUpdate'] == true)) {
+} else if ((isset($_REQUEST['mode']) && ($_REQUEST['mode'] == 'refresh')) || $refresh['sigUpdate'] == true || $refresh['chainUpdate'] == true) {
 	$sigCount 		= isset($_REQUEST['sigCount']) ? $_REQUEST['sigCount'] : null;
 	$sigTime 		= isset($_REQUEST['sigTime']) ? $_REQUEST['sigTime'] : null;
-	$chainCount = isset($_REQUEST['chainCount'])?$_REQUEST['chainCount']:null;
-	$chainTime = isset($_REQUEST['chainTime'])?$_REQUEST['chainTime']:null;
-	$flareCount = isset($_REQUEST['flareCount'])?$_REQUEST['flareCount']:null;
-	$flareTime = isset($_REQUEST['flareTime'])?$_REQUEST['flareTime']:null;
-	$commentCount = isset($_REQUEST['commentCount'])?$_REQUEST['commentCount']:null;
-	$commentTime = isset($_REQUEST['commentTime'])?$_REQUEST['commentTime']:null;
-	$systemID = isset($_REQUEST['systemID'])?$_REQUEST['systemID']:$data->systemID;
+	$chainCount		= isset($_REQUEST['chainCount'])?$_REQUEST['chainCount']:null;
+	$chainTime 		= isset($_REQUEST['chainTime'])?$_REQUEST['chainTime']:null;
+	$flareCount 	= isset($_REQUEST['flareCount'])?$_REQUEST['flareCount']:null;
+	$flareTime 		= isset($_REQUEST['flareTime'])?$_REQUEST['flareTime']:null;
+	$commentCount 	= isset($_REQUEST['commentCount'])?$_REQUEST['commentCount']:null;
+	$commentTime 	= isset($_REQUEST['commentTime'])?$_REQUEST['commentTime']:null;
+	$systemID 		= isset($_REQUEST['systemID'])?$_REQUEST['systemID']:null;
 
 	// Check if signatures changed....
-	$query = 'SELECT COUNT(id) AS count, MAX(time) AS modified FROM signatures WHERE (systemID = :systemID OR connectionID = :systemID) AND mask = :mask';
-	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-	$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-	$stmt->execute();
+	if ($refresh['sigUpdate'] == false) {
+		$query = 'SELECT COUNT(id) AS count, MAX(time) AS modified FROM signatures WHERE (systemID = :systemID OR connectionID = :systemID) AND mask = :mask';
+		$stmt = $mysql->prepare($query);
+		$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+		$stmt->execute();
 
-	$row = $stmt->fetchObject();
-	if ($sigCount != (int)$row->count || strtotime($sigTime) < strtotime($row->modified)) {
-		$refresh['sigUpdate'] = true;
+		$row = $stmt->fetchObject();
+		if ($sigCount != (int)$row->count || strtotime($sigTime) < strtotime($row->modified)) {
+			$refresh['sigUpdate'] = true;
+		}
 	}
 
 	if ($refresh['sigUpdate'] == true) {
@@ -641,7 +595,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	}
 
 	// Check if chain changed....
-	if ($chainCount !== null && $chainTime !== null) {
+	if ($refresh['chainUpdate'] == false && $chainCount !== null && $chainTime !== null) {
 		$query = 'SELECT COUNT(id) AS chainCount, MAX(time) as chainTime FROM signatures WHERE life IS NOT NULL AND (mask = :mask OR ((signatures.systemID = 31000005 OR signatures.connectionID = 31000005) AND mask = 273))';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
