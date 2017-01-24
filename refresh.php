@@ -528,7 +528,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$output['chain']['last_modified'] = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
 
 	// Get occupied systems
-	$query = 'SELECT systemID, COUNT(DISTINCT characterID) AS count FROM active WHERE maskID = :maskID AND systemID IS NOT NULL GROUP BY systemID';
+	$query = 'SELECT systemID, COUNT(DISTINCT characterID) AS count FROM active WHERE maskID = :maskID AND systemID IS NOT NULL AND characterID > 0 GROUP BY systemID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
 	$stmt->execute();
@@ -650,7 +650,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	}
 
 	// Get occupied systems
-	$query = 'SELECT systemID, COUNT(DISTINCT characterID) AS count FROM active WHERE maskID = :maskID AND systemID IS NOT NULL GROUP BY systemID';
+	$query = 'SELECT systemID, COUNT(DISTINCT characterID) AS count FROM active WHERE maskID = :maskID AND systemID IS NOT NULL AND characterID > 0 GROUP BY systemID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
 	$stmt->execute();
