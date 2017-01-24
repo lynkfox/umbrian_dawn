@@ -1,11 +1,15 @@
 <?php
 
 if (!session_id()) session_start();
-session_write_close();
 
-if(!isset($_SESSION['username'])) {
+if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+	$_SESSION = array();
+	session_regenerate_id();
+	session_destroy();
 	exit();
 }
+
+session_write_close();
 
 $startTime = microtime(true);
 

@@ -11,11 +11,15 @@
 //
 //***********************************************************
 if (!session_id()) session_start();
-session_write_close();
 
-if(!isset($_SESSION['username'])) {
+if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+	$_SESSION = array();
+	session_regenerate_id();
+	session_destroy();
 	exit();
 }
+
+session_write_close();
 
 $startTime = microtime(true);
 
@@ -34,7 +38,7 @@ if (isset($_REQUEST['flare']) && !empty($_REQUEST['flare'])) {
 	$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
 	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
 	$stmt->bindValue(':flare', $flare, PDO::PARAM_STR);
-	
+
 	$output['result'] = $stmt->execute()?true:$stmt->errorInfo();
 } else {
 	$systemID = $_REQUEST['systemID'];
@@ -43,7 +47,7 @@ if (isset($_REQUEST['flare']) && !empty($_REQUEST['flare'])) {
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
 	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-	
+
 	$output['result'] = $stmt->execute()?true:$stmt->errorInfo();
 }
 
