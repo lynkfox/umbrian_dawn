@@ -16,14 +16,12 @@ require('db.inc.php');
 header('Content-Type: application/json');
 
 $output = null;
-// $output['time'] = 0;
 
 $query = 'SELECT players, status AS online, time FROM eve_api.serverStatus ORDER BY time DESC LIMIT 1';
 $stmt = $mysql->prepare($query);
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_CLASS);
 if ($result) {
-	// $result[0]->time = strtotime($result[0]->time) - time() + 180;
 	$output = $result;
 	$output['time'] = strtotime($result[0]->time) - time() + 180;
 }
