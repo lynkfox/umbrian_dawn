@@ -1718,6 +1718,7 @@ var chain = new function() {
 var tripwire = new function() {
 	this.client = {signatures: {}};
 	this.server = {signatures: {}};
+	this.signatures = {history: [], undo: []};
 	this.activity = {};
 	this.timer;
 	this.xhr;
@@ -2913,6 +2914,48 @@ var tripwire = new function() {
 		});
 		if (tripwire.server.Alts) {
 			tripwire.multiLocation(tripwire.server.Alts);
+		}
+	}
+
+	this.undo = function() {
+
+	}
+
+	this.redo = function() {
+		if (tripwire.signatures.redo.length > 0) {
+			$("#redo").addClass("disable");
+			var lastIndex = tripwire.signatures.redo.length -1;
+			var data = {"request": {"signatures": {"add": [], "delete": [], "update": []}}};
+
+			for (var x in tripwire.signatures.redo[lastIndex]) {
+				var redoItem = tripwire.signatures.redo[lastIndex][x];
+
+				switch(redoItem.action) {
+					case "add":
+						data.request.signatures.delete.push(redoItem.signature);
+						break;
+					case "delete":
+						data.request.signatures.add.push(redoItem.signature);
+						break;
+					case "update":
+						data.request.signatures.update.push(redoItem.signature);
+						break;
+				}
+			}
+
+			var success = function(data) {
+				if (data.result == true) {
+					tripwire.signatures.redo.pop();
+				}
+			}
+
+			var always = function(data) {
+				if (tripwire.signatures.redo.length > 0) {
+					$("#redo").removeClass("disable");
+				}
+			}
+
+			tripwire.refresh('refresh', data, success, always);
 		}
 	}
 
