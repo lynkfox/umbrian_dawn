@@ -639,7 +639,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 
 			<div id="privacy" class="page">
 				<p>
-					This Privacy Policy governs the manner in which Tripwire collects, uses, maintains and discloses information collected from users (each, a "User") of the <a href="tripwire.eve-apps.com">tripwire.eve-apps.com</a> website ("Site"). This privacy policy applies to the Site and all products and services offered by Eon Studios.<br><br>
+					This Privacy Policy governs the manner in which Tripwire collects, uses, maintains and discloses information collected from users (each, a "User") of the <a href="http://tripwire.eve-apps.com">tripwire.eve-apps.com</a> website ("Site"). This privacy policy applies to the Site and all products and services offered by Eon Studios.<br><br>
 
 					<b>Personal identification information</b><br><br>
 
@@ -695,10 +695,9 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 					<b>Contacting us</b><br><br>
 
 					If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us at:<br>
-					<a href="tripwire.eve-apps.com">tripwire.eve-apps.com</a><br>
-					daimian.mercer@gmail.com<br>
+					<a href="mailto: daimian.mercer@gmail.com">daimian.mercer@gmail.com</a><br>
 					<br>
-					This document was last updated on December 15, 2014
+					This document was last updated on January 27, 2017
 				</p>
 			</div>
 			<div class="bottom_shadow"></div>
