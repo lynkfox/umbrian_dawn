@@ -345,7 +345,7 @@ if ($row = $stmt->fetchObject()) {
 				<tr>
 					<th>ID:</th>
 					<td colspan="3">
-						<input type="text" name="id" id="sigID" maxlength="3" size="3" />
+						<input type="text" name="signatureID" id="sigID" maxlength="3" size="3" />
 						<strong>- ###</strong>
 						<span style="float: right;">
 							<select id="sigType" name="type">
@@ -363,7 +363,7 @@ if ($row = $stmt->fetchObject()) {
 					<th><div>Life:</div></th>
 					<td colspan="3">
 						<div>
-							<select id="sigLife" name="life" data-tooltip="Length the signature will last">
+							<select id="sigLife" name="lifeLength" data-tooltip="Length the signature will last">
 								<option value="24">24 Hours</option>
 								<option value="48">48 Hours</option>
 								<option value="72">72 Hours</option>
@@ -437,7 +437,7 @@ if ($row = $stmt->fetchObject()) {
 				<tr>
 					<th>ID:</th>
 					<td colspan="2">
-						<input type="text" id="sigID" name="sigID" maxlength="3" size="3" />
+						<input type="text" id="sigID" name="signatureID" maxlength="3" size="3" />
 						<strong>- ###</strong>
 					</td>
 					<td style="float: right;">
@@ -455,7 +455,7 @@ if ($row = $stmt->fetchObject()) {
 					<th><div>Life:</div></th>
 					<td colspan="3">
 						<div>
-							<select id="sigLife" name="life">
+							<select id="sigLife" name="lifeLength">
 								<option value="24">24 Hours</option>
 								<option value="48">48 Hours</option>
 								<option value="72">72 Hours</option>

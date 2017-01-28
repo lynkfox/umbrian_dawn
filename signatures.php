@@ -8,7 +8,7 @@ class signatures {
 			$query = 'SET @disable_trigger = 1';
 			$stmt = $mysql->prepare($query);
 			$stmt->execute();
-			
+
 			$query = 'UPDATE signatures SET userID = :userID, time = NOW() WHERE id = :id AND mask = :mask';
 			$stmt = $mysql->prepare($query);
 			$stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -25,7 +25,7 @@ class signatures {
 			$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 			$stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
 			$success = @$stmt->execute();
-			
+
 			if ($success) {
 				$refresh['sigUpdate'] = $refresh['chainUpdate'] = true;
 			} else {
@@ -73,14 +73,16 @@ class signatures {
 	}
 
 	function add($sigs) {
-		global $mysql, $maskID, $userID, $refresh;
+		global $mysql, $maskID, $userID, $refresh, $output;
 		$sigs = is_array($sigs) ? $sigs : array($sigs);
 
 		foreach ($sigs AS $sig) {
+			$id 				= property_exists($sig, 'id') ? $sig->id : null;
 			$systemID			= $sig->systemID;
 			$systemName			= property_exists($sig, 'systemName') ? $sig->systemName : null;
-			$signatureID 		= strtoupper($sig->id);
+			$signatureID 		= strtoupper($sig->signatureID);
 			$signatureType 		= $sig->type;
+			$lifeTime  			= property_exists($sig, 'lifeTime') ? date('c', strtotime($sig->lifeTime)) : date('c');
 
 			if ($signatureType == 'Wormhole') {
 				$whType				= property_exists($sig, 'whType') ? strtoupper($sig->whType) : '???';
@@ -94,7 +96,7 @@ class signatures {
 				$class 				= property_exists($sig, 'class') ? $sig->class : null;
 				$class2				= property_exists($sig, 'class2') ? $sig->class2 : null;
 				$letters			= range('a', 'z');
-				
+
 				// BM stuff
 				if ($whType !== '???') {
 					//$query = 'SELECT typeBM FROM signatures WHERE (systemID = :systemID AND type = :type AND mask = :mask) OR (connectionID = :systemID AND sig2Type = :type AND mask = :mask)';
@@ -151,9 +153,10 @@ class signatures {
 					$class2BM = array(null);
 				}
 
-				$query = 'INSERT INTO signatures (signatureID, system, systemID, type, typeBM, sig2ID, sig2Type, type2BM, connection, connectionID, life, lifeTime, lifeLeft, lifeLength, mass, mask, time, class, class2, classBM, class2BM, userID)
-							VALUES (:signatureID, :system, :systemID, :type, :typeBM, :sig2ID, :sig2Type, :type2BM, :connection, :connectionID, :life, NOW(), DATE_ADD(NOW(), INTERVAL :lifeLength HOUR), :lifeLength, :mass, :mask, NOW(), :class, :class2, :classBM, :class2BM, :userID)';
+				$query = 'INSERT INTO signatures (id, signatureID, system, systemID, type, typeBM, sig2ID, sig2Type, type2BM, connection, connectionID, life, lifeTime, lifeLeft, lifeLength, mass, mask, time, class, class2, classBM, class2BM, userID)
+							VALUES (:id, :signatureID, :system, :systemID, :type, :typeBM, :sig2ID, :sig2Type, :type2BM, :connection, :connectionID, :life, :lifeTime, DATE_ADD(:lifeTime, INTERVAL :lifeLength HOUR), :lifeLength, :mass, :mask, NOW(), :class, :class2, :classBM, :class2BM, :userID)';
 				$stmt = $mysql->prepare($query);
+				$stmt->bindValue(':id', $id, PDO::PARAM_STR);
 				$stmt->bindValue(':signatureID', $signatureID, PDO::PARAM_STR);
 				$stmt->bindValue(':system', $systemName, PDO::PARAM_STR);
 				$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
@@ -169,34 +172,43 @@ class signatures {
 				$stmt->bindValue(':class2BM', $class2BM[0], PDO::PARAM_STR);
 				$stmt->bindValue(':type2BM', $type2BM[0], PDO::PARAM_STR);
 				$stmt->bindValue(':life', $whLife, PDO::PARAM_STR);
+				$stmt->bindValue(':lifeTime', $lifeTime, PDO::PARAM_STR);
 				$stmt->bindValue(':lifeLength', $lifeLength, PDO::PARAM_STR);
 				$stmt->bindValue(':mass', $whMass, PDO::PARAM_STR);
 				$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
 				$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
 				$success = $stmt->execute();
 
-				if ($success)
+				if ($success) {
 					$refresh['chainUpdate'] = true;
+					$output['resultSet'][] = $mysql->lastInsertId();
+				}
 			} else {
-				$signatureLife 		= property_exists($sig, 'life') ? $sig->life : 24;
+				$lifeLength			= property_exists($sig, 'lifeLength') ? $sig->lifeLength : 24;
 				$signatureName 		= $sig->name;
 
-				$query = 'INSERT INTO signatures (signatureID, system, systemID, type, lifeTime, lifeLeft, lifeLength, name, mask, time, userID)
-							VALUES (:signatureID, :system, :systemID, :type, NOW(), DATE_ADD(NOW(), INTERVAL :lifeLength HOUR), :lifeLength, :name, :mask, NOW(), :userID)';
+				$query = 'INSERT INTO signatures (id, signatureID, system, systemID, type, lifeTime, lifeLeft, lifeLength, name, mask, time, userID)
+							VALUES (:id, :signatureID, :system, :systemID, :type, :lifeTime, DATE_ADD(:lifeTime, INTERVAL :lifeLength HOUR), :lifeLength, :name, :mask, NOW(), :userID)';
 				$stmt = $mysql->prepare($query);
+				$stmt->bindValue(':id', $id, PDO::PARAM_STR);
 				$stmt->bindValue(':signatureID', $signatureID, PDO::PARAM_STR);
 				$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
 				$stmt->bindValue(':system', $systemName, PDO::PARAM_STR);
 				$stmt->bindValue(':type', $signatureType, PDO::PARAM_STR);
 				$stmt->bindValue(':name', $signatureName, PDO::PARAM_STR);
-				$stmt->bindValue(':lifeLength', $signatureLife, PDO::PARAM_STR);
+				$stmt->bindValue(':lifeTime', $lifeTime, PDO::PARAM_STR);
+				$stmt->bindValue(':lifeLength', $lifeLength, PDO::PARAM_STR);
 				$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
 				$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
 				$success = $stmt->execute();
 			}
 
-			if ($success)
+			if ($success) {
 				$refresh['sigUpdate'] = true;
+				$output['resultSet'][] = $mysql->lastInsertId();
+			} else {
+				$success = $mysql->errorInfo();
+			}
 		}
 
 		$count = count($sigs);
@@ -216,7 +228,7 @@ class signatures {
 			$id 				= $sig->id;
 			$systemID			= $sig->systemID;
 			$systemName			= property_exists($sig, 'systemName') ? $sig->systemName : null;
-			$signatureID 		= strtoupper($sig->sigID);
+			$signatureID 		= strtoupper($sig->signatureID);
 			$signatureType 		= $sig->type;
 			$name = $editing = null;
 
@@ -294,6 +306,10 @@ class signatures {
 
 					if ($whLife) {
 						if ($whLife == 'Critical') {
+							$lifeStatement = 'life = :life, lifeLeft = DATE_ADD(NOW(), INTERVAL :lifeLength HOUR)';
+						} else if ($whLife == 'New Critical' || $whLife == 'New Stable') {
+							$lifeLength = $whLife == 'New Critical' ? 4 : $lifeLength;
+							$whLife = $whLife == 'New Critical' ? 'Critical' : 'Stable';
 							$lifeStatement = 'life = :life, lifeLeft = DATE_ADD(NOW(), INTERVAL :lifeLength HOUR)';
 						} else {
 							$lifeStatement = 'life = :life, lifeLeft = DATE_ADD(NOW(), INTERVAL :lifeLength HOUR), lifeTime = NOW()';
@@ -378,6 +394,10 @@ class signatures {
 					if ($whLife) {
 						if ($whLife == 'Critical') {
 							$lifeStatement = 'life = :life, lifeLeft = DATE_ADD(NOW(), INTERVAL :lifeLength HOUR)';
+						} else if ($whLife == 'New Critical' || $whLife == 'New Stable') {
+							$lifeLength = $whLife == 'New Critical' ? 4 : $lifeLength;
+							$whLife = $whLife == 'New Critical' ? 'Critical' : 'Stable';
+							$lifeStatement = 'life = :life, lifeLeft = DATE_ADD(NOW(), INTERVAL :lifeLength HOUR)';
 						} else {
 							$lifeStatement = 'life = :life, lifeLeft = DATE_ADD(NOW(), INTERVAL :lifeLength HOUR), lifeTime = NOW()';
 						}
@@ -445,12 +465,12 @@ class signatures {
 				}
 				*/
 			} else {
-				$signatureLife 		= $sig->life;
+				$lifeLength 		= $sig->lifeLength;
 				$signatureName 		= $sig->name;
 				$typeBM = $type2BM = $sig2ID = $connectionName = $connectionID = $sig2Type = $whLife = $whMass = $editing = null;
 
 				$query = 'UPDATE signatures
-							SET signatureID = :signatureID, system = :system, systemID = :systemID, type = :type, sig2ID = :sig2ID, sig2Type = :sig2Type, 
+							SET signatureID = :signatureID, system = :system, systemID = :systemID, type = :type, sig2ID = :sig2ID, sig2Type = :sig2Type,
 							connection = :connection, connectionID = :connectionID, life = :life, mass = :mass, name = :name, mask = :mask,
 							lifeLength = :lifeLength, lifeLeft = DATE_ADD(lifeTime, INTERVAL :lifeLength HOUR), time = NOW(), userID = :userID
 							WHERE id = :id';
@@ -467,7 +487,7 @@ class signatures {
 				$stmt->bindValue(':mass', $whMass, PDO::PARAM_STR);
 				$stmt->bindValue(':name', $signatureName, PDO::PARAM_STR);
 				$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-				$stmt->bindValue(':lifeLength', $signatureLife, PDO::PARAM_STR);
+				$stmt->bindValue(':lifeLength', $lifeLength, PDO::PARAM_STR);
 				$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 				$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
 				$success = $stmt->execute();
