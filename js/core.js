@@ -1718,6 +1718,7 @@ var chain = new function() {
 var tripwire = new function() {
 	this.client = {signatures: {}};
 	this.server = {signatures: {}};
+	this.signatures = {undo: JSON.parse(sessionStorage.getItem("tripwire_undo")) || {}, redo: JSON.parse(sessionStorage.getItem("tripwire_redo")) || {}};
 	this.activity = {};
 	this.timer;
 	this.xhr;
@@ -1928,8 +1929,8 @@ var tripwire = new function() {
 
 				if (data.notify) Notify.trigger(data.notify, "yellow", false);
 
-				data.undo == true ? $("#undo").removeClass("disabled") : $("#undo").addClass("disabled");
-				data.redo == true ? $("#redo").removeClass("disabled") : $("#redo").addClass("disabled");
+				// data.undo == true ? $("#undo").removeClass("disabled") : $("#undo").addClass("disabled");
+				// data.redo == true ? $("#redo").removeClass("disabled") : $("#redo").addClass("disabled");
 			}
 
 			successCallback ? successCallback(data) : null;
@@ -2152,7 +2153,7 @@ var tripwire = new function() {
 									data.request.signatures.update.push({
 										id: sig.id,
 										side: "parent",
-										sigID: scanner.id[0],
+										signatureID: scanner.id[0],
 										systemID: viewingSystemID,
 										systemName: "",
 										type: type || sig.type || "???",
@@ -2194,7 +2195,7 @@ var tripwire = new function() {
 						ids.push(scanner.id[0]);
 
 						data.request.signatures.add.push({
-							id: scanner.id[0],
+							signatureID: scanner.id[0],
 							systemID: viewingSystemID,
 							connectionName: "",
 							type: type || "???",
@@ -2208,11 +2209,37 @@ var tripwire = new function() {
 			if (data.request.signatures.add.length || data.request.signatures.update.length) {
 				data.systemID = viewingSystemID;
 
+				var update = $.map(data.request.signatures.update, function(signature) { return tripwire.client.signatures[signature.id]; });
+				var success = function(data) {
+					if (data.result == true) {
+						$("#undo").removeClass("disabled");
+						if (viewingSystemID in tripwire.signatures.undo) {
+							if (data.resultSet) {
+								tripwire.signatures.undo[viewingSystemID].push({action: "add", signatures: $.map(data.resultSet, function(id) { return data.signatures[id]; })});
+							}
+
+							if (update.length) {
+								tripwire.signatures.undo[viewingSystemID].push({action: "update", signatures: update});
+							}
+						} else {
+							if (data.resultSet) {
+								tripwire.signatures.undo[viewingSystemID] = [{action: "add", signatures: $.map(data.resultSet, function(id) { return data.signatures[id]; })}];
+							}
+
+							if (update.length) {
+								tripwire.signatures.undo[viewingSystemID] = [{action: "update", signatures: update}];
+							}
+						}
+
+						sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
+					}
+				}
+
 				var always = function(data) {
 					processing = false;
 				}
 
-				tripwire.refresh('refresh', data, null, always);
+				tripwire.refresh('refresh', data, success, always);
 			} else {
 				processing = false;
 			}
@@ -2234,6 +2261,7 @@ var tripwire = new function() {
 				var rows = paste.split("\n");
 				var pasteIDs = [];
 				var deletes = [];
+				var undo = [];
 
 				for (var x in rows) {
 					if (scan = rowParse(rows[x])) {
@@ -2246,15 +2274,30 @@ var tripwire = new function() {
 
 					if (sig.systemID == viewingSystemID && $.inArray(sig.signatureID, pasteIDs) == -1 && sig.type !== "GATE" && sig.signatureID !== "???") {
 						deletes.push(sig.id);
+						undo.push(sig);
 					} else if (sig.connectionID == viewingSystemID && $.inArray(sig.sig2ID, pasteIDs) == -1 && sig.sig2Type !== "GATE" && sig.sig2ID !== "???") {
 						deletes.push(sig.id);
+						undo.push(sig);
 					}
 				}
 
 				if (deletes.length > 0) {
 					var data = {"request": {"signatures": {"delete": deletes}}};
 
-					tripwire.refresh('refresh', data);
+					var success = function(data) {
+						if (data.result == true) {
+							$("#undo").removeClass("disabled");
+							if (viewingSystemID in tripwire.signatures.undo) {
+								tripwire.signatures.undo[viewingSystemID].push({action: "delete", signatures: undo});
+							} else {
+								tripwire.signatures.undo[viewingSystemID] = [{action: "delete", signatures: undo}];
+							}
+
+							sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
+						}
+					}
+
+					tripwire.refresh('refresh', data, success);
 				}
 			});
 
@@ -2323,7 +2366,7 @@ var tripwire = new function() {
 							data.request.signatures.update.push({
 								id: sig[x].id,
 								side: "parent",
-								sigID: sig[x].signatureID,
+								signatureID: sig[x].signatureID,
 								systemID: sig[x].systemID,
 								systemName: sig[x].system,
 								type: "Wormhole",
@@ -2362,7 +2405,7 @@ var tripwire = new function() {
 				data.request.signatures.update.push({
 					id: sig.id,
 					side: "parent",
-					sigID: sig.signatureID,
+					signatureID: sig.signatureID,
 					systemID: sig.systemID,
 					systemName: sig.system,
 					type: "Wormhole",
@@ -2390,7 +2433,7 @@ var tripwire = new function() {
 							data.request.signatures.update.push({
 								id: sig[x].id,
 								side: "parent",
-								sigID: sig[x].signatureID,
+								signatureID: sig[x].signatureID,
 								systemID: sig[x].systemID,
 								systemName: sig[x].system,
 								type: "Wormhole",
@@ -2429,7 +2472,7 @@ var tripwire = new function() {
 				data.request.signatures.update.push({
 					id: sig.id,
 					side: "parent",
-					sigID: sig.signatureID,
+					signatureID: sig.signatureID,
 					systemID: sig.systemID,
 					systemName: sig.system,
 					type: "Wormhole",
@@ -2447,7 +2490,7 @@ var tripwire = new function() {
 
 		if (sig.length == 0) {
 			data.request.signatures.add.push({
-				id: "???",
+				signatureID: "???",
 				systemID: from,
 				type: "Wormhole",
 				whType: "???",
@@ -2461,7 +2504,33 @@ var tripwire = new function() {
 		if (data.request.signatures.add.length || data.request.signatures.update.length) {
 			data.systemID = viewingSystemID;
 
-			tripwire.refresh('refresh', data);
+			var update = $.map(data.request.signatures.update, function(signature) { return tripwire.client.signatures[signature.id]; });
+			var success = function(data) {
+				if (data.result == true) {
+					$("#undo").removeClass("disabled");
+					if (viewingSystemID in tripwire.signatures.undo) {
+						if (data.resultSet) {
+							tripwire.signatures.undo[viewingSystemID].push({action: "add", signatures: $.map(data.resultSet, function(id) { return data.signatures[id]; })});
+						}
+
+						if (update.length) {
+							tripwire.signatures.undo[viewingSystemID].push({action: "update", signatures: update});
+						}
+					} else {
+						if (data.resultSet) {
+							tripwire.signatures.undo[viewingSystemID] = [{action: "add", signatures: $.map(data.resultSet, function(id) { return data.signatures[id]; })}];
+						}
+
+						if (update.length) {
+							tripwire.signatures.undo[viewingSystemID] = [{action: "update", signatures: update}];
+						}
+					}
+
+					sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
+				}
+			}
+
+			tripwire.refresh('refresh', data, success);
 		}
 	}
 
@@ -2916,6 +2985,118 @@ var tripwire = new function() {
 		}
 	}
 
+	this.undo = function() {
+		if (tripwire.signatures.undo[viewingSystemID].length > 0) {
+			$("#undo").addClass("disabled");
+			var lastIndex = tripwire.signatures.undo[viewingSystemID].length -1;
+			var data = {"systemID": viewingSystemID,"request": {"signatures": {"add": [], "delete": [], "update": []}}};
+
+			var undoItem = tripwire.signatures.undo[viewingSystemID][lastIndex];
+
+			switch(undoItem.action) {
+				case "add":
+					data.request.signatures.delete = data.request.signatures.delete.concat($.map(undoItem.signatures, function(signature) { return signature.id }));
+					break;
+				case "delete":
+					data.request.signatures.add = data.request.signatures.add.concat(undoItem.signatures);
+					break;
+				case "update":
+					data.request.signatures.update = data.request.signatures.update.concat(undoItem.signatures);
+					break;
+			}
+
+			var signatures = tripwire.client.signatures;
+
+			var success = function(data) {
+				if (data.result == true) {
+					tripwire.signatures.undo[viewingSystemID].pop();
+
+					$("#redo").removeClass("disabled");
+					if (viewingSystemID in tripwire.signatures.redo) {
+						if (undoItem.action == "update") {
+							tripwire.signatures.redo[viewingSystemID].push({"action": undoItem.action, "signatures": $.map(undoItem.signatures, function(signature) { return signatures[signature.id]; })});
+						} else {
+							tripwire.signatures.redo[viewingSystemID].push({"action": undoItem.action, "signatures": undoItem.signatures});
+						}
+					} else {
+						if (undoItem.action == "update") {
+							tripwire.signatures.redo[viewingSystemID] = [{"action": undoItem.action, "signatures": $.map(undoItem.signatures, function(signature) { return signatures[signature.id]; })}];
+						} else {
+							tripwire.signatures.redo[viewingSystemID] = [{"action": undoItem.action, "signatures": undoItem.signatures}];
+						}
+					}
+
+					sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
+					sessionStorage.setItem("tripwire_redo", JSON.stringify(tripwire.signatures.redo));
+				}
+			}
+
+			var always = function(data) {
+				if (tripwire.signatures.undo[viewingSystemID].length > 0) {
+					$("#undo").removeClass("disabled");
+				}
+			}
+
+			tripwire.refresh('refresh', data, success, always);
+		}
+	}
+
+	this.redo = function() {
+		if (tripwire.signatures.redo[viewingSystemID].length > 0) {
+			$("#redo").addClass("disabled");
+			var lastIndex = tripwire.signatures.redo[viewingSystemID].length -1;
+			var data = {"systemID": viewingSystemID, "request": {"signatures": {"add": [], "delete": [], "update": []}}};
+
+			var redoItem = tripwire.signatures.redo[viewingSystemID][lastIndex];
+
+			switch(redoItem.action) {
+				case "add":
+					data.request.signatures.add = data.request.signatures.add.concat(redoItem.signatures);
+					break;
+				case "delete":
+					data.request.signatures.delete = data.request.signatures.delete.concat($.map(redoItem.signatures, function(signature) { return signature.id }));
+					break;
+				case "update":
+					data.request.signatures.update = data.request.signatures.update.concat(redoItem.signatures);
+					break;
+			}
+
+			var signatures = tripwire.client.signatures;
+
+			var success = function(data) {
+				if (data.result == true) {
+					tripwire.signatures.redo[viewingSystemID].pop();
+
+					$("#undo").removeClass("disabled");
+					if (viewingSystemID in tripwire.signatures.undo) {
+						if (redoItem.action == "update") {
+							tripwire.signatures.undo[viewingSystemID].push({"action": redoItem.action, "signatures": $.map(redoItem.signatures, function(signature) { return signatures[signature.id]; })});
+						} else {
+							tripwire.signatures.undo[viewingSystemID].push({action: redoItem.action, signatures: redoItem.signatures});
+						}
+					} else {
+						if (redoItem.action == "update") {
+							tripwire.signatures.undo[viewingSystemID] = [{"action": redoItem.action, "signatures": $.map(redoItem.signatures, function(signature) { return signatures[signature.id]; })}];
+						} else {
+							tripwire.signatures.undo[viewingSystemID] = [{action: redoItem.action, signatures: redoItem.signatures}];
+						}
+					}
+
+					sessionStorage.setItem("tripwire_redo", JSON.stringify(tripwire.signatures.redo));
+					sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
+				}
+			}
+
+			var always = function(data) {
+				if (tripwire.signatures.redo[viewingSystemID].length > 0) {
+					$("#redo").removeClass("disabled");
+				}
+			}
+
+			tripwire.refresh('refresh', data, success, always);
+		}
+	}
+
 	this.refresh = function(mode, data, successCallback, alwaysCallback) {
 		var mode = mode || 'refresh';
 
@@ -3095,6 +3276,16 @@ $("#sigAddForm").submit(function(e) {
 	var success = function(data) {
 		if (data.result == true) {
 			$("#dialog-sigAdd").dialog("close");
+
+			$("#undo").removeClass("disabled");
+			var undo = $.map(data.resultSet, function(id) { return data.signatures[id] });
+			if (viewingSystemID in tripwire.signatures.undo) {
+				tripwire.signatures.undo[viewingSystemID].push({action: "add", signatures: undo});
+			} else {
+				tripwire.signatures.undo[viewingSystemID] = [{action: "add", signatures: undo}];
+			}
+
+			sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
 		}
 	}
 
@@ -3164,18 +3355,19 @@ $("#sigEditForm").submit(function(e) {
 	var form = $(this).serializeObject();
 	form.id = $(this).data("id");
 	form.systemID = viewingSystemID; // needed??
-	form.lifeLength = tripwire.wormholes[form.whType] ? tripwire.wormholes[form.whType].life.split(" ")[0] : 24;
+	form.lifeLength = form.side == "parent" ? (tripwire.wormholes[form.whType] ? tripwire.wormholes[form.whType].life.split(" ")[0] : form.lifeLength) : (tripwire.wormholes[tripwire.client.signatures[form.id].type] ? tripwire.wormholes[tripwire.client.signatures[form.id].type].life.split(" ")[0] : form.lifeLength);
 
 	form.connectionID = form.connectionName ? Object.index(tripwire.systems, "name", form.connectionName) || null : null;
 	form.connectionName = form.connectionID ? (form.side == "parent" ? (tripwire.client.signatures[form.id].connectionID > 0 ? tripwire.client.signatures[form.id].connection : null) : (tripwire.client.signatures[form.id].systemID > 0 ? tripwire.client.signatures[form.id].system : null)) : form.connectionName;
 	//form.connectionName = tripwire.systems[form.connectionID] ? (form.side == "parent" ? tripwire.client.signatures[form.id].connection : tripwire.client.signatures[form.id].system) || null : form.connectionName;
 	form.whLife = tripwire.client.signatures[form.id].life != form.whLife ? form.whLife : null;
+	form.whLife = !tripwire.client.signatures[form.id].life ? "New " + form.whLife : form.whLife;
 	form.sig2ID = form.side == "parent" ? tripwire.client.signatures[form.id].sig2ID : tripwire.client.signatures[form.id].signatureID;
 	form.sig2Type = form.side == "parent" ? tripwire.client.signatures[form.id].sig2Type : tripwire.client.signatures[form.id].type;
-	form.class = sigClass(viewingSystem, form.whType);
-	form.class2 = sigClass(form.connectionName, form.sig2Type);
-
+	form.class = sigClass(viewingSystem, form.sig2Type);
+	form.class2 = sigClass(form.connectionID ? tripwire.systems[form.connectionID].name : null, form.whType);
 	var data = {"request": {"signatures": {"update": form}}};
+	var undo = [tripwire.client.signatures[form.id]];
 
 	// Prevent duplicate submitting
 	$("#sigEditForm input[type=submit]").attr("disabled", true);
@@ -3184,6 +3376,15 @@ $("#sigEditForm").submit(function(e) {
 	var success = function(data) {
 		if (data.result == true) {
 			$("#dialog-sigEdit").dialog("close");
+
+			$("#undo").removeClass("disabled");
+			if (viewingSystemID in tripwire.signatures.undo) {
+				tripwire.signatures.undo[viewingSystemID].push({action: "update", signatures: undo});
+			} else {
+				tripwire.signatures.undo[viewingSystemID] = [{action: "update", signatures: undo}];
+			}
+
+			sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
 		}
 	}
 
@@ -4644,10 +4845,20 @@ $("#sigTable").on("click", ".sigDelete", function(e) {
 
 					var ids = $.map($("#sigTable tr.selected"), function(n) { return $(n).data("id"); });
 					var data = {"request": {"signatures": {"delete": ids}}, "systemID": viewingSystemID};
+					var undo = $.map(ids, function(id) { return tripwire.client.signatures[id] });
 
 					var success = function(data) {
 						if (data && data.result == true) {
 							$("#dialog-deleteSig").dialog("close");
+
+							$("#undo").removeClass("disabled");
+							if (viewingSystemID in tripwire.signatures.undo) {
+								tripwire.signatures.undo[viewingSystemID].push({action: "delete", signatures: undo});
+							} else {
+								tripwire.signatures.undo[viewingSystemID] = [{action: "delete", signatures: undo}];
+							}
+
+							sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
 						}
 					}
 
@@ -5187,8 +5398,6 @@ function systemChange(systemID, mode) {
 	// Region
 	$("#infoRegion").text(tripwire.regions[tripwire.systems[systemID].regionID].name);
 
-
-
 	// Info Links
 	$("#infoWidget .infoLink").each(function() {
 		this.href = $(this).data("href").replace(/\$systemName/gi, tripwire.systems[systemID].name).replace(/\$systemID/gi, systemID);
@@ -5197,6 +5406,10 @@ function systemChange(systemID, mode) {
 	$(".CrestButton .infoLink").each(function() {
 		this.href = $(this).data("href").replace(/\$systemName/gi, tripwire.systems[systemID].name).replace(/\$systemID/gi, systemID);
 	});
+
+	// Reset undo/redo
+	tripwire.signatures.undo[systemID] && tripwire.signatures.undo[systemID].length > 0 ? $("#undo").removeClass("disabled") : $("#undo").addClass("disabled");
+	tripwire.signatures.redo[systemID] && tripwire.signatures.redo[systemID].length > 0 ? $("#redo").removeClass("disabled") : $("#redo").addClass("disabled");
 }
 
 $("body").on("click", "a[href^='.?system=']", function(e) {
@@ -5208,12 +5421,16 @@ $("body").on("click", "a[href^='.?system=']", function(e) {
 	systemChange(systemID);
 });
 
-$("#undo").on("click", function() {
-	tripwire.refresh("refresh", {undo: true});
+$("body").on("click", "#undo:not(.disabled)", function() {
+// $("#undo:not(.disabled)").on("click", function() {
+	// tripwire.refresh("refresh", {undo: true});
+	tripwire.undo();
 });
 
-$("#redo").on("click", function() {
-	tripwire.refresh("refresh", {redo: true});
+$("body").on("click", "#redo:not(.disabled)", function() {
+// $("#redo:not(.disabled)").on("click", function() {
+	// tripwire.refresh("refresh", {redo: true});
+	tripwire.redo();
 });
 
 $(document).keydown(function(e)	{

@@ -10,7 +10,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<meta name="description" content="Tripwire is a wormhole mapping tool built for use with EVE Online. It fully supports the EVE in-game browser and the latest Chrome, Firefox and Internet Exporer. Using the latest in internet security standards it is the most secure tool in New Eden." />
+	<meta name="description" content="Tripwire is an open source wormhole mapping tool, hosted for free to the public, built for use with EVE Online. Using the latest in internet security standards it is the most secure tool in New Eden." />
 	<meta property="og:type" content="article"/>
 	<meta property="og:url" content="https://tripwire.eve-apps.com/"/>
 	<meta property="og:title" content="The greatest wormhole mapper ever."/>
@@ -64,11 +64,11 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 					<li><a href="#home">Home</a></li>
 					<li><a href="#login">Login</a></li>
 					<li><a href="#register">Register</a></li>
-					<li><a href="#team">Team</a></li>
+					<!-- <li><a href="#team">Team</a></li> -->
 					<li><a href="#features">Features</a></li>
-					<li><a href="#screenshots">Screenshots</a></li>
-					<li><a href="#updates">Updates</a></li>
-					<li><a href="https://bitbucket.org/daimian/tripwire/issues" target="_blank">Issue/Idea Tracker</a></li>
+					<!-- <li><a href="#screenshots">Screenshots</a></li> -->
+					<!-- <li><a href="#updates">Updates</a></li> -->
+					<li><a href="https://bitbucket.org/daimian/tripwire/issues?status=new&status=open" target="_blank">Issue/Idea Tracker</a></li>
 				</ul>
 				<span class="arrow"></span>
 			</nav>
@@ -86,9 +86,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 			<h1 style="font-size: 4.3em;"><img src="//<?= $server ?>/images/landing/tripwire-logo.png" alt="Tripwire" style="vertical-align: text-top;" /> Tripwire</h1>
 			<!-- End Logo -->
 			<span class="tagline">The greatest wormhole mapper ever.</span>
-			<p>
-				Tripwire is a wormhole mapping tool built for use with <a href="https://www.eveonline.com" target="_blank">EVE Online</a>. It fully supports the EVE in-game browser and the latest Chrome, Firefox and Internet Exporer. Using the latest in internet security standards it is the most secure tool in New Eden.
-			</p>
+			<p>Tripwire is an open source wormhole mapping tool, hosted for free to the public, built for use with <a href="https://www.eveonline.com" target="_blank">EVE Online</a>. Using the latest in internet security standards it is the most secure tool in New Eden.</p>
 
 			<div class="buttons">
 				<a href="#register#corp" class="large_button" id="corp">
@@ -429,16 +427,13 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 			<!-- End Register -->
 
 			<!-- Start Team -->
-			<div id="team" class="page">
-
+			<!-- <div id="team" class="page">
 				<h1>Team</h1>
-
 				<div class="about_us content_box">
 					<div class="one_half">
 						<h2>About Us</h2>
 						<p>We are a small team of IT professionals that have come together to provide us all with a more enjoyable EVE experience. We each have many years of industry experience and an active life but still try to find some time to dedicate to this project. We hope you enjoy!</p>
 					</div>
-
 					<div class="one_half column_last">
 						<img src="//<?= $server ?>/images/landing/about-main.png" alt="" />
 					</div>
@@ -449,7 +444,6 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 						<img src="//<?= $server ?>/images/landing/daimian.jpg" alt="" />
 						<h3>Daimian Mercer</h3>
 						<span>Designer/Developer</span>
-						<!--<a href="#">http://website.com</a>-->
 						<ul class="social">
 							<li class="google"><a href="https://plus.google.com/u/2/111892856662048727481" target="_blank">Google</a></li>
 							<li class="twitter"><a href="https://twitter.com/DaimianMercer" target="_blank">Twitter</a></li>
@@ -460,26 +454,22 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 						<img src="//<?= $server ?>/images/landing/pcnate.jpg" alt="" />
 						<h3>PCNate</h3>
 						<span>Server Admin</span>
-						<!--<a href="#">http://website.com</a>-->
 					</div>
 					<div class="person one_half">
 						<img src="//<?= $server ?>/images/landing/natasha.jpg" alt="" />
 						<h3>Natasha Donnan</h3>
 						<span>Developer</span>
-						<!--<a href="#">http://website.com</a>-->
 						<ul class="social">
 							<li class="google"><a href="https://plus.google.com/u/0/104017350096540492585" target="_blank">Google</a></li>
 							<li class="email"><a href="mailto:natashadonnan.eve@gmail.com" target="_blank">Email</a></li>
 						</ul>
 					</div>
 				</div>
-
-			</div>
+			</div> -->
 			<!-- End Team -->
 
 			<!-- Start Features -->
 			<div id="features" class="page">
-
 				<h1>Features</h1>
 
 				<div class="feature_list content_box">
@@ -487,38 +477,32 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 						<h2 class="icon chart">Clean Fast Pretty</h2>
 						<p>With a careful balance between a clean and beautiful interface, and speed that pushes the limits of the internet - its hard not to want to use it</p>
 					</div>
-
 					<div class="one_half column_last">
 						<h2 class="icon settings">Customizable</h2>
 						<p>The entire layout can be resized and moved around in order to give you the ultimate in customizable experiences</p>
 					</div>
-
 					<div class="one_half">
 						<h2 class="icon pencil">Shared Information</h2>
 						<p>Everything entered from signatures to system notes; from your ship to your location; even flares to draw attention to a system is instantly syncronized with your friends</p>
 					</div>
-
 					<div class="one_half column_last">
 						<h2 class="icon graph">Detailed Intel</h2>
 						<p>System information like activity (jumps, kills), static wormholes, wormhole effects, security and local pirates are at your fingertips</p>
 					</div>
-
 					<div class="one_half">
 						<h2 class="icon professional">Professionally Secure</h2>
 						<p>Secured with an A+ rated e-commerce SSL certificate and the latest internet security standards, you can be sure your intel is safe and secure</p>
 					</div>
-
 					<div class="one_half column_last">
 						<h2 class="icon help">Help &amp; Support</h2>
-						<p>Help is just around the corner via the "Tripwire Public" EVE channel. Tutorials and FAQ are located on the <a href="http://forums.eve-apps.com" target="_blank">Tripwire Forums</a> including a way to instantly send a notice to a developer via the help section</p>
+						<p>Help is just around the corner via the "Tripwire Public" EVE channel, <a href="https://bitbucket.org/daimian/tripwire/issues?status=new&status=open" target="_blank">Issue/Idea Tracker</a>, Twitter @DaimianMercer, and email <a href="mailto: daimian.mercer@gmail.com">daimian.mercer@gmail.com</a>.</p>
 					</div>
 				</div>
-
 			</div>
 			<!-- End Features -->
 
 			<!-- Start Screenshots -->
-			<div id="screenshots" class="page">
+			<!-- <div id="screenshots" class="page">
 				<h1>Screenshots</h1>
 				<div class="screenshot_grid content_box">
 					<div class="one_third">
@@ -530,7 +514,6 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 					<div class="one_third column_last">
 						<a href="//<?= $server ?>/images/landing/screenshots/ss3.jpg" class="fancybox" rel="group" title="Screenshot 3"><img src="//<?= $server ?>/images/landing/screenshots/ss3thumb.jpg" alt="" /></a>
 					</div>
-
 					<div class="one_third">
 						<a href="//<?= $server ?>/images/landing/screenshots/ss4.jpg" class="fancybox" rel="group" title="Screenshot 4"><img src="//<?= $server ?>/images/landing/screenshots/ss4thumb.jpg" alt="" /></a>
 					</div>
@@ -551,11 +534,11 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 						<a href="" class="fancybox" rel="group" title="Screenshot 9"><img src="" alt="" /></a>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<!-- End Screenshots -->
 
 			<!-- Start Updates -->
-			<div id="updates" class="page">
+			<!-- <div id="updates" class="page">
 				<h1>Updates</h1>
 				<div class="releases">
 					<article class="release">
@@ -607,7 +590,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 							<li class="fix"><span><b>fix</b></span> Auto-Follower system change improvements</li>
 							<li class="fix"><span><b>fix</b></span> Various fixes & tweaks</li>
 						</ul>
-					</article>
+					</article> -->
 					<!--
 					<article class="release">
 						<h2>Version 0.6.2</h2>
@@ -643,8 +626,8 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 						</ul>
 					</article>
 					-->
-				</div>
-			</div>
+				<!-- </div>
+			</div> -->
 			<!-- End Updates -->
 
 			<div id="ccp_copyright" class="page">
@@ -656,7 +639,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 
 			<div id="privacy" class="page">
 				<p>
-					This Privacy Policy governs the manner in which Tripwire collects, uses, maintains and discloses information collected from users (each, a "User") of the <a href="tripwire.eve-apps.com">tripwire.eve-apps.com</a> website ("Site"). This privacy policy applies to the Site and all products and services offered by Eon Studios.<br><br>
+					This Privacy Policy governs the manner in which Tripwire collects, uses, maintains and discloses information collected from users (each, a "User") of the <a href="http://tripwire.eve-apps.com">tripwire.eve-apps.com</a> website ("Site"). This privacy policy applies to the Site and all products and services offered by Eon Studios.<br><br>
 
 					<b>Personal identification information</b><br><br>
 
@@ -712,13 +695,11 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 					<b>Contacting us</b><br><br>
 
 					If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us at:<br>
-					<a href="tripwire.eve-apps.com">tripwire.eve-apps.com</a><br>
-					daimian.mercer@gmail.com<br>
+					<a href="mailto: daimian.mercer@gmail.com">daimian.mercer@gmail.com</a><br>
 					<br>
-					This document was last updated on December 15, 2014
+					This document was last updated on January 27, 2017
 				</p>
 			</div>
-
 			<div class="bottom_shadow"></div>
 		</div>
 		<!-- End Pages -->
