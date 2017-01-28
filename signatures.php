@@ -243,7 +243,7 @@ class signatures {
 				$whType				= property_exists($sig, 'whType') ? strtoupper($sig->whType) : '???';
 				$whLife				= $sig->whLife;
 				$whMass				= $sig->whMass;
-				$lifeLength			= $whType == 'GATE' ? 0 : ($whLife == 'Critical' ? 4 : $sig->lifeLength);
+				$lifeLength			= $whType == 'GATE' ? 0 : ($whLife == 'Critical' ? 4 : (property_exists($sig, 'lifeLength') ? $sig->lifeLength : 24));
 				$connectionID		= property_exists($sig, 'connectionID') ? $sig->connectionID : $old->connectionID;
 				$connectionName		= $sig->connectionName;
 				$sig2ID				= $sig->sig2ID ? $sig->sig2ID : '???';
