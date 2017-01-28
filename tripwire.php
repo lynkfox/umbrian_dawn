@@ -687,6 +687,13 @@ if ($row = $stmt->fetchObject()) {
 						</td>
 					</tr>
 					<tr>
+						<th>Chain Map Node Reference:</th>
+						<td>
+							<input type="radio" name="node-reference" id="node-reference-type" value="type" /><label for="node-reference-type"> Wormhole Type</label>
+							<input type="radio" name="node-reference" id="node-reference-id" value="id" /><label for="node-reference-id"> Signature ID</label>
+						</td>
+					</tr>
+					<tr>
 						<th>Signature paste default life:</th>
 						<td>
 							<select id="pasteLife">

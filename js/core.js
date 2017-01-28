@@ -424,7 +424,7 @@ var options = new function() {
 	this.favorites = [];
 	this.grid = {igb: {}, oog: {}};
 	this.masks = {active: init.corporationID + ".2"};
-	this.chain = {typeFormat: null, classFormat: null, gridlines: true, active: 0, tabs: []};
+	this.chain = {typeFormat: null, classFormat: null, gridlines: true, active: 0, tabs: [], "node-reference": "type"};
 	this.signatures = {pasteLife: 72, alignment: {sigID: "centerAlign", sigType: "centerAlign", sigAge: "centerAlign", leadsTo: "centerAlign", sigLife: "centerAlign", sigMass: "centerAlign"}};
 	this.buttons = {follow: false, chainWidget: {viewing: false, favorites: false}, signaturesWidget: {autoMapper: false}};
 
@@ -1226,6 +1226,7 @@ var chain = new function() {
 						node.parent.typeBM = link.type2BM;
 						node.parent.classBM = link.class2BM;
 						node.parent.nth = link.nth2;
+						node.parent.signatureID = link.sig2ID;
 
 						node.child = {};
 						node.child.id = ++childID;
@@ -1235,6 +1236,7 @@ var chain = new function() {
 						node.child.typeBM = link.typeBM;
 						node.child.classBM = link.classBM;
 						node.child.nth = link.nth;
+						node.child.signatureID = link.signatureID;
 
 						chainLinks.push(node);
 						chainList.push([node.child.systemID, node.child.id, system[2]]);
@@ -1306,6 +1308,7 @@ var chain = new function() {
 						node.parent.typeBM = link.typeBM;
 						node.parent.classBM = link.classBM;
 						node.parent.nth = link.nth;
+						node.parent.signatureID = link.signatureID;
 
 						node.child = {};
 						node.child.id = ++childID;
@@ -1315,6 +1318,7 @@ var chain = new function() {
 						node.child.typeBM = link.type2BM;
 						node.child.classBM = link.class2BM;
 						node.child.nth = link.nth2;
+						node.child.signatureID = link.sig2ID;
 
 						chainLinks.push(node);
 						chainList.push([node.child.systemID, node.child.id, system[2]]);
@@ -1568,7 +1572,7 @@ var chain = new function() {
 							+	"<h4 class='nodeSystem'>"
 							+ 	(tripwire.systems[node.child.systemID] ? "<a href='.?system="+tripwire.systems[node.child.systemID].name+"'>"+(node.child.name ? node.child.name : tripwire.systems[node.child.systemID].name)+"</a>" : "<a class='invisible'>system</a>")
 							+	"</h4>"
-							+	"<h4 class='nodeType'>"+(node.child.type + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"
+							+	"<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? node.child.signatureID : node.child.type + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
 							+	"</div>"
@@ -3538,6 +3542,8 @@ $(".options").click(function(e) {
 
 				options.chain.gridlines = JSON.parse($("#dialog-options input[name=gridlines]:checked").val());
 
+				options.chain["node-reference"] = $("#dialog-options input[name=node-reference]:checked").val();
+
 				options.signatures.pasteLife = $("#dialog-options #pasteLife").val();
 
 				options.background = $("#dialog-options #background-image").val();
@@ -3631,6 +3637,7 @@ $(".options").click(function(e) {
 			$("#dialog-options #pasteLife").val(options.signatures.pasteLife);
 			$("#dialog-options #typeFormat").val(options.chain.typeFormat);
 			$("#dialog-options #classFormat").val(options.chain.classFormat);
+			$("#dialog-options input[name='node-reference'][value='"+options.chain["node-reference"]+"']").prop("checked", true);
 			$("#dialog-options input[name='gridlines'][value='"+options.chain.gridlines+"']").prop("checked", true);
 			$("#dialog-options #background-image").val(options.background);
 		},
