@@ -234,10 +234,10 @@ $(document).ready(function() {
 
 				for (x in response.characters) {
 					var character = response.characters[x];
-					var radio = "<input type='radio' class='selector' name='selected' id='char_"+x+"' value='"+character.characterID+"'>";
-					var label = "<label for='char_"+x+"'><img src='https://image.eveonline.com/Character/"+character.characterID+"_64.jpg' title='"+character.characterName+"' /></label>";
+					var radio = "<input type='radio' class='selector' name='selected' id='register_char_"+x+"' value='"+character.characterID+"'>";
+					var label = "<label for='register_char_"+x+"'><img src='https://image.eveonline.com/Character/"+character.characterID+"_64.jpg' title='"+character.characterName+"' /></label>";
 
-					$("#register #user #api_select").prepend(radio + label)
+					$("#register #user #api_select").prepend(radio + label);
 				}
 
 				$("#register #user #api_select").show("slide");
@@ -314,10 +314,10 @@ $(document).ready(function() {
 
 				for (x in response.characters) {
 					var character = response.characters[x];
-					var radio = "<input type='radio' class='selector' name='selected' id='char_"+x+"' value='"+character.characterID+"'>";
-					var label = "<label for='char_"+x+"'><img src='https://image.eveonline.com/Character/"+character.characterID+"_64.jpg' title='"+character.characterName+"' /></label>";
+					var radio = "<input type='radio' class='selector' name='selected' id='login_char_"+x+"' value='"+character.characterID+"'>";
+					var label = "<label for='login_char_"+x+"'><img src='https://image.eveonline.com/Character/"+character.characterID+"_64.jpg' title='"+character.characterName+"' /></label>";
 
-					$("#login #api #api_select").prepend(radio + label)
+					$("#login #api #api_select").prepend(radio + label);
 				}
 
 				$("#login #api #api_select").show("slide");
@@ -360,10 +360,10 @@ $(document).ready(function() {
 
 				for (x in response.characters) {
 					var character = response.characters[x];
-					var radio = "<input type='radio' class='selector' name='selected' id='char_"+x+"' value='"+character.characterID+"'>";
-					var label = "<label for='char_"+x+"'><img src='https://image.eveonline.com/Character/"+character.characterID+"_64.jpg' title='"+character.characterName+"' /></label>";
+					var radio = "<input type='radio' class='selector' name='selected' id='corp_char_"+x+"' value='"+character.characterID+"'>";
+					var label = "<label for='corp_char_"+x+"'><img src='https://image.eveonline.com/Character/"+character.characterID+"_64.jpg' title='"+character.characterName+"' /></label>";
 
-					$("#register #corp #api_select").prepend(radio + label)
+					$("#register #corp #api_select").prepend(radio + label);
 				}
 
 				$("#register #corp #api_select").show("slide");
