@@ -324,6 +324,7 @@ var sigClass = function(name, type) {
 		"security":  id ? tripwire.systems[id].security : null,
 		"type": type};
 	var systemType = null;
+	console.log(system)
 
 	if (system.class == 6 || system.name == "Class-6" || (typeof(tripwire.wormholes[system.type]) != "undefined" && tripwire.wormholes[system.type].leadsTo == "Class 6"))
 		systemType = "C6";
@@ -3355,7 +3356,7 @@ $("#sigEditForm").submit(function(e) {
 	var form = $(this).serializeObject();
 	form.id = $(this).data("id");
 	form.systemID = viewingSystemID; // needed??
-	form.lifeLength = tripwire.wormholes[form.whType] ? tripwire.wormholes[form.whType].life.split(" ")[0] : form.lifeLength;
+	form.lifeLength = form.side == "parent" ? (tripwire.wormholes[form.whType] ? tripwire.wormholes[form.whType].life.split(" ")[0] : form.lifeLength) : (tripwire.wormholes[tripwire.client.signatures[form.id].type] ? tripwire.wormholes[tripwire.client.signatures[form.id].type].life.split(" ")[0] : form.lifeLength);
 
 	form.connectionID = form.connectionName ? Object.index(tripwire.systems, "name", form.connectionName) || null : null;
 	form.connectionName = form.connectionID ? (form.side == "parent" ? (tripwire.client.signatures[form.id].connectionID > 0 ? tripwire.client.signatures[form.id].connection : null) : (tripwire.client.signatures[form.id].systemID > 0 ? tripwire.client.signatures[form.id].system : null)) : form.connectionName;
@@ -3364,8 +3365,8 @@ $("#sigEditForm").submit(function(e) {
 	form.whLife = !tripwire.client.signatures[form.id].life ? "New " + form.whLife : form.whLife;
 	form.sig2ID = form.side == "parent" ? tripwire.client.signatures[form.id].sig2ID : tripwire.client.signatures[form.id].signatureID;
 	form.sig2Type = form.side == "parent" ? tripwire.client.signatures[form.id].sig2Type : tripwire.client.signatures[form.id].type;
-	form.class = sigClass(viewingSystem, form.whType);
-	form.class2 = sigClass(form.connectionName, form.sig2Type);
+	form.class = sigClass(viewingSystem, form.side == "parent" ? tripwire.client.signatures[form.id].sig2Type : tripwire.client.signatures[form.id].type);
+	form.class2 = sigClass(form.side == "parent" ? (tripwire.systems[tripwire.client.signatures[form.id].connectionID] ? tripwire.systems[tripwire.client.signatures[form.id].connectionID].name : null) : tripwire.systems[tripwire.client.signatures[form.id].systemID].name, form.side == "parent" ? tripwire.client.signatures[form.id].type : tripwire.client.signatures[form.id].sig2Type);
 
 	var data = {"request": {"signatures": {"update": form}}};
 	var undo = [tripwire.client.signatures[form.id]];
