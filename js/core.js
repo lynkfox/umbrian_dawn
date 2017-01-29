@@ -1261,6 +1261,7 @@ var chain = new function() {
 							calcNode.child.name = tripwire.systems[viewingSystemID].name;
 							calcNode.child.type = jumps;
 							calcNode.child.nth = null;
+							calcNode.child.signatureID = jumps;
 
 							chainLinks.push(calcNode);
 							chainList.push([0, childID]);
@@ -1288,6 +1289,7 @@ var chain = new function() {
 								calcNode.child.name = tripwire.systems[options.favorites[x]].name;
 								calcNode.child.type = jumps;
 								calcNode.child.nth = null;
+								calcNode.child.signatureID = jumps;
 
 								chainLinks.push(calcNode);
 								chainList.push([0, childID]);
@@ -1343,6 +1345,7 @@ var chain = new function() {
 							calcNode.child.name = tripwire.systems[viewingSystemID].name;
 							calcNode.child.type = jumps;
 							calcNode.child.nth = null;
+							calcNode.child.signatureID = jumps;
 
 							chainLinks.push(calcNode);
 							chainList.push([0, childID]);
@@ -1370,6 +1373,7 @@ var chain = new function() {
 								calcNode.child.name = tripwire.systems[options.favorites[x]].name;
 								calcNode.child.type = jumps;
 								calcNode.child.nth = null;
+								calcNode.child.signatureID = jumps;
 
 								chainLinks.push(calcNode);
 								chainList.push([0, childID]);
