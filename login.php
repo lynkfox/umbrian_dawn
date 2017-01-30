@@ -210,14 +210,14 @@ if ($mode == 'login' || !$mode) {
 	$method		= 'sso';
 	$ip 		= $_SERVER['REMOTE_ADDR'];
 
-	require('crest.class.php');
-	$CREST = new CREST();
+	require('evesso.class.php');
+	$evesso = new evesso();
 
 	if ($code && $state == 'evessologin') {
-		if ($characterID = $CREST->authenticate($code)) {
+		if ($evesso->authenticate($code)) {
 			$query = 'SELECT id, username, password, accounts.ban, characterID, characterName, corporationID, corporationName, admin, super, options FROM accounts LEFT JOIN preferences ON id = preferences.userID LEFT JOIN characters ON id = characters.userID WHERE characterID = :characterID';
 			$stmt = $mysql->prepare($query);
-			$stmt->bindValue(':characterID', $characterID, PDO::PARAM_INT);
+			$stmt->bindValue(':characterID', $evesso->characterID, PDO::PARAM_INT);
 			$stmt->execute();
 
 			if ($account = $stmt->fetchObject()) {
@@ -254,73 +254,33 @@ if ($mode == 'login' || !$mode) {
 
 		header('Location: ./?error=unknown#login#sso');
 		exit();
-	} else if ($code && $state == 'evessocrest') {
-		if ($characterID = $CREST->authenticate($code)) {
-			$query = 'INSERT INTO crest (characterID, accessToken, refreshToken, tokenExpire) VALUES (:characterID, :accessToken, :refreshToken, :tokenExpire) ON DUPLICATE KEY UPDATE accessToken = :accessToken, refreshToken = :refreshToken, tokenExpire = :tokenExpire';
+	} else if ($code && $state == 'evessoesi') {
+		if ($evesso->authenticate($code)) {
+			if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+				$_SESSION = array();
+				session_regenerate_id();
+				session_destroy();
+				exit();
+			}
+
+			$query = 'INSERT INTO esi (userID, characterID, characterName, accessToken, refreshToken, tokenExpire) VALUES (:userID, :characterID, :characterName, :accessToken, :refreshToken, :tokenExpire) ON DUPLICATE KEY UPDATE accessToken = :accessToken, refreshToken = :refreshToken, tokenExpire = :tokenExpire';
 			$stmt = $mysql->prepare($query);
-			$stmt->bindValue(':characterID', $characterID, PDO::PARAM_INT);
-			$stmt->bindValue(':accessToken', $CREST->accessToken, PDO::PARAM_STR);
-			$stmt->bindValue(':refreshToken', $CREST->refreshToken, PDO::PARAM_STR);
-			$stmt->bindValue(':tokenExpire', $CREST->tokenExpire, PDO::PARAM_STR);
+			$stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
+			$stmt->bindValue(':characterID', $evesso->characterID, PDO::PARAM_INT);
+			$stmt->bindValue(':characterName', $evesso->characterName, PDO::PARAM_STR);
+			$stmt->bindValue(':accessToken', $evesso->accessToken, PDO::PARAM_STR);
+			$stmt->bindValue(':refreshToken', $evesso->refreshToken, PDO::PARAM_STR);
+			$stmt->bindValue(':tokenExpire', $evesso->tokenExpire, PDO::PARAM_STR);
 			$stmt->execute();
 
 			header('Location: ./?system=');
 			exit();
 		}
-	} else if ($code && $state == 'secondaryevessocrest') {
-		if ($characterID = $CREST->authenticate($code)) {
-			$query = 'INSERT INTO crest (characterID, accessToken, refreshToken, tokenExpire) VALUES (:characterID, :accessToken, :refreshToken, :tokenExpire) ON DUPLICATE KEY UPDATE accessToken = :accessToken, refreshToken = :refreshToken, tokenExpire = :tokenExpire';
-			$stmt = $mysql->prepare($query);
-			$stmt->bindValue(':characterID', $characterID, PDO::PARAM_INT);
-			$stmt->bindValue(':accessToken', $CREST->accessToken, PDO::PARAM_STR);
-			$stmt->bindValue(':refreshToken', $CREST->refreshToken, PDO::PARAM_STR);
-			$stmt->bindValue(':tokenExpire', $CREST->tokenExpire, PDO::PARAM_STR);
-			$stmt->execute();
-			$newchar = array(
-				'charID' => $characterID,
-				'charName' => $CREST->characterInfo($characterID),
-				'accessToken' => $CREST->accessToken,
-				'systemID' => null,
-				'systemName' => null,
-				'stationID' => null,
-				'stationName' => null
-			);
-			if (!isset($_SESSION['altIDs'])){
-				$curaltIDs = [];
-				array_push($curaltIDs,json_encode($newchar,JSON_FORCE_OBJECT));
-				$_SESSION['altIDs'] = json_encode($curaltIDs,JSON_FORCE_OBJECT);
-				header('Location: ./?system=');
-				exit();
-			}
-			else{
-				if($characterID == $_SESSION['characterID']){
-						header('Location: ./?system=');
-						exit();
-				}
-				$curaltIDs = json_decode($_SESSION['altIDs'],true);
-				foreach($curaltIDs as $altIDs){
-					$truealtIDs = json_decode($altIDs);
-					if ($truealtIDs->charID == $characterID){
-						header('Location: ./?system=InUse');
-						exit();
-					}
-				}
-				array_push($curaltIDs,json_encode($newchar,JSON_FORCE_OBJECT));
-				$_SESSION['altIDs'] = json_encode($curaltIDs,JSON_FORCE_OBJECT);
-				header('Location: ./?system=');
-				exit();
-			}
-		} else {
-			header('Location: ./?system=Failed');
-			exit();
-		}
 	} else {
 		if ($login == 'sso') {
-			$CREST->login();
-		} else if ($login == 'crest') {
-			$CREST->login('characterLocationRead characterNavigationWrite', 'evessocrest');
-		} else if ($login == 'secondarycrest') {
-				$CREST->login('characterLocationRead characterNavigationWrite', 'secondaryevessocrest');
+			$evesso->login();
+		} else if ($login == 'esi') {
+			$evesso->login('esi-location.read_location.v1 esi-location.read_ship_type.v1 esi-ui.write_waypoint.v1 esi-ui.open_window.v1', 'evessoesi');
 		}
 	}
 }
