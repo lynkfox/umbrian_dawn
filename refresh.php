@@ -98,10 +98,62 @@ $stmt->rowCount() ? $output['activity'] = $stmt->fetchAll(PDO::FETCH_OBJ) : null
 
 /**
 // *********************
-// ESI
+// Character Tracking
 // *********************
 */
-if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi']) && $_REQUEST['esi'] == 'expired') {
+if (isset($_REQUEST['tracking'])) {
+	foreach ($_REQUEST['tracking'] as $track) {
+		$track['characterID'] 		= isset($track['characterID']) ? $track['characterID'] : null;
+		$track['characterName'] 	= isset($track['characterName']) ? $track['characterName'] : null;
+		$track['systemID'] 			= isset($track['systemID']) ? $track['systemID'] : null;
+		$track['systemName'] 		= isset($track['systemName']) ? $track['systemName'] : null;
+		$track['stationID'] 		= isset($track['stationID']) && !empty($track['stationID']) ? $track['stationID'] : null;
+		$track['stationName'] 		= isset($track['stationName']) && !empty($track['stationName']) ? $track['stationName'] : null;
+		$track['shipID'] 			= isset($track['shipID']) ? $track['shipID'] : null;
+		$track['shipName'] 			= isset($track['shipName']) ? $track['shipName'] : null;
+		$track['shipTypeID'] 		= isset($track['shipTypeID']) ? $track['shipTypeID'] : null;
+		$track['shipTypeName'] 		= isset($track['shipTypeName']) ? $track['shipTypeName'] : null;
+
+		$query = 'INSERT INTO tracking (userID, characterID, characterName, systemID, systemName, stationID, stationName, shipID, shipName, shipTypeID, shipTypeName, maskID)
+		VALUES (:userID, :characterID, :characterName, :systemID, :systemName, :stationID, :stationName, :shipID, :shipName, :shipTypeID, :shipTypeName, :maskID)
+		ON DUPLICATE KEY UPDATE
+		systemID = :systemID, systemName = :systemName, stationID = :stationID, stationName = :stationName, shipID = :shipID, shipName = :shipName, shipTypeID = :shipTypeID, shipTypeName = :shipTypeName';
+		$stmt = $mysql->prepare($query);
+		$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
+		$stmt->bindValue(':characterID', $track['characterID'], PDO::PARAM_INT);
+		$stmt->bindValue(':characterName', $track['characterName'], PDO::PARAM_STR);
+		$stmt->bindValue(':systemID', $track['systemID'], PDO::PARAM_INT);
+		$stmt->bindValue(':systemName', $track['systemName'], PDO::PARAM_STR);
+		$stmt->bindValue(':stationID', $track['stationID'], PDO::PARAM_INT);
+		$stmt->bindValue(':stationName', $track['stationName'], PDO::PARAM_STR);
+		$stmt->bindValue(':shipID', $track['shipID'], PDO::PARAM_INT);
+		$stmt->bindValue(':shipName', $track['shipName'], PDO::PARAM_STR);
+		$stmt->bindValue(':shipTypeID', $track['shipTypeID'], PDO::PARAM_INT);
+		$stmt->bindValue(':shipTypeName', $track['shipTypeName'], PDO::PARAM_STR);
+		$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+		$stmt->execute();
+	}
+}
+
+/**
+// *********************
+// ESI
+// note: must be below Character Tracking
+// *********************
+*/
+if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi'])) {
+	$output['esi'] = array();
+
+	if (isset($_REQUEST['esi']['delete'])) {
+		$characterID = $_REQUEST['esi']['delete'];
+
+		$query = 'DELETE FROM esi WHERE userID = :userID AND characterID = :characterID';
+		$stmt = $mysql->prepare($query);
+		$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
+		$stmt->bindValue(':characterID', $characterID, PDO::PARAM_INT);
+		$stmt->execute();
+	}
+
 	$query = 'SELECT characterID, characterName, accessToken, refreshToken, tokenExpire FROM esi WHERE userID = :userID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
@@ -131,6 +183,7 @@ if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi']) && $_REQUEST['esi'] =
 				$stmt->execute();
 
 				unset($character);
+				continue;
 			}
 		}
 
@@ -182,45 +235,6 @@ $stmt->bindValue(':systemName', $systemName, PDO::PARAM_STR);
 $stmt->bindValue(':activity', $activity, PDO::PARAM_STR);
 $stmt->bindValue(':version', $version, PDO::PARAM_STR);
 $stmt->execute();
-
-/**
-// *********************
-// Character Tracking
-// *********************
-*/
-if (isset($_REQUEST['tracking'])) {
-	foreach ($_REQUEST['tracking'] as $track) {
-		$track['characterID'] 		= isset($track['characterID']) ? $track['characterID'] : null;
-		$track['characterName'] 	= isset($track['characterName']) ? $track['characterName'] : null;
-		$track['systemID'] 			= isset($track['systemID']) ? $track['systemID'] : null;
-		$track['systemName'] 		= isset($track['systemName']) ? $track['systemName'] : null;
-		$track['stationID'] 		= isset($track['stationID']) ? $track['stationID'] : null;
-		$track['stationName'] 		= isset($track['stationName']) ? $track['stationName'] : null;
-		$track['shipID'] 			= isset($track['shipID']) ? $track['shipID'] : null;
-		$track['shipName'] 			= isset($track['shipName']) ? $track['shipName'] : null;
-		$track['shipTypeID'] 		= isset($track['shipTypeID']) ? $track['shipTypeID'] : null;
-		$track['shipTypeName'] 		= isset($track['shipTypeName']) ? $track['shipTypeName'] : null;
-
-		$query = 'INSERT INTO tracking (userID, characterID, characterName, systemID, systemName, stationID, stationName, shipID, shipName, shipTypeID, shipTypeName, maskID)
-		VALUES (:userID, :characterID, :characterName, :systemID, :systemName, :stationID, :stationName, :shipID, :shipName, :shipTypeID, :shipTypeName, :maskID)
-		ON DUPLICATE KEY UPDATE
-		systemID = :systemID, systemName = :systemName, stationID = :stationID, stationName = :stationName, shipID = :shipID, shipName = :shipName, shipTypeID = :shipTypeID, shipTypeName = :shipTypeName';
-		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
-		$stmt->bindValue(':characterID', $track['characterID'], PDO::PARAM_INT);
-		$stmt->bindValue(':characterName', $track['characterName'], PDO::PARAM_STR);
-		$stmt->bindValue(':systemID', $track['systemID'], PDO::PARAM_INT);
-		$stmt->bindValue(':systemName', $track['systemName'], PDO::PARAM_STR);
-		$stmt->bindValue(':stationID', $track['stationID'], PDO::PARAM_INT);
-		$stmt->bindValue(':stationName', $track['stationName'], PDO::PARAM_STR);
-		$stmt->bindValue(':shipID', $track['shipID'], PDO::PARAM_INT);
-		$stmt->bindValue(':shipName', $track['shipName'], PDO::PARAM_STR);
-		$stmt->bindValue(':shipTypeID', $track['shipTypeID'], PDO::PARAM_INT);
-		$stmt->bindValue(':shipTypeName', $track['shipTypeName'], PDO::PARAM_STR);
-		$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
-		$stmt->execute();
-	}
-}
 
 /**
 // *********************

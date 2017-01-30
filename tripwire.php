@@ -1,13 +1,5 @@
 <?php
 
-// EVE Trust Check & Redirect
-if (!isset($_REQUEST['system']) || empty($_REQUEST['system'])) {
-	if (isset($_SERVER['HTTP_EVE_TRUSTED']) && $_SERVER['HTTP_EVE_TRUSTED'] == 'Yes') {
-		header('location: ?system='.$_SERVER['HTTP_EVE_SOLARSYSTEMNAME']);
-		exit();
-	}
-}
-
 $startTime = microtime(true);
 
 $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.com' : $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
@@ -128,17 +120,16 @@ if ($row = $stmt->fetchObject()) {
 										<tr>
 											<td class="text"><?= $_SESSION['corporationName'] ?></td>
 										</tr>
-										<tr>
-											<td id="authCrest" class="text"><a href="login.php?mode=sso&login=esi">Authorize ESI</a></td>
-										</tr>
-										<tr>
-											<td id="authAnotherCrest" class="text"><a class="infoLink" href='login.php?mode=sso&login=secondarycrest'>Authorize Another Crest</a></td>
-										</tr>
+										<tr><td rowspan="2"></td></tr>
 									</table>
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2"><input id="logout" type="button" value="Logout" /></td>
+								<td>
+									<input type="button" value="Add" OnClick="javascript: window.location.href = 'login.php?mode=sso&login=esi'" />
+									<input type="button" value="Remove" id="removeESI" disabled="disabled" />
+								</td>
+								<td colspan="1"><input id="logout" type="button" value="Logout" /></td>
 							</tr>
 						</table>
 					</div>
@@ -1011,7 +1002,7 @@ if ($row = $stmt->fetchObject()) {
 	</div>
 
 	<ul id="chainMenu" class="hidden">
-		<li data-command="showInfo"><a>Show Info</a>
+		<!-- <li data-command="showInfo"><a>Show Info</a> -->
 		<li><a>Navigation</a>
 			<ul style="width: 10em;">
 				<li data-command="setDest"><a>Set Destination</a></li>
@@ -1093,7 +1084,7 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= $server ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/dragscroll.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/core.js"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=2017-01-30"></script>
 	<!-- JS Includes -->
 
 </body>

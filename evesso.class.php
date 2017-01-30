@@ -40,7 +40,7 @@ class evesso {
         curl_setopt($curl, CURLOPT_HTTPHEADER, array($header));
 		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		// curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($curl, CURLOPT_USERAGENT, 'Tripwire 0.6.x daimian.mercer@gmail.com');
 
 		$result = curl_exec($curl);
@@ -61,7 +61,7 @@ class evesso {
         curl_setopt($curl, CURLOPT_URL, self::$loginUrl . '/verify');
         curl_setopt($curl, CURLOPT_HTTPHEADER, array($header));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_USERAGENT, 'Tripwire 0.6.x daimian.mercer@gmail.com');
 
         $result = curl_exec($curl);
@@ -98,7 +98,7 @@ class evesso {
         curl_setopt($curl, CURLOPT_HTTPHEADER, array($header));
 		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		// curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($curl, CURLOPT_USERAGENT, 'Tripwire 0.6.x daimian.mercer@gmail.com');
 
 		$result = curl_exec($curl);

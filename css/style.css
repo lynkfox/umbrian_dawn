@@ -276,6 +276,7 @@ to { -o-transform: rotate(360deg); }
 #login #content #track {
 	border-right: 1px solid gray;
 	padding-right: 2px;
+	min-width: 160px;
 }
 
 #login #content #track .tracking-clone {
