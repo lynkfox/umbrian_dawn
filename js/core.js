@@ -423,7 +423,7 @@ var options = new function() {
 	this.background = null;
 	this.favorites = [];
 	this.grid = {igb: {}, oog: {}};
-	this.tracking = {active: null};
+	this.tracking = {active: "new"};
 	this.masks = {active: init.corporationID + ".2"};
 	this.chain = {typeFormat: null, classFormat: null, gridlines: true, active: 0, tabs: [], "node-reference": "type"};
 	this.signatures = {pasteLife: 72, alignment: {sigID: "centerAlign", sigType: "centerAlign", sigAge: "centerAlign", leadsTo: "centerAlign", sigLife: "centerAlign", sigMass: "centerAlign"}};
@@ -3098,6 +3098,10 @@ var tripwire = new function() {
 			}
 
 			for (characterID in characters) {
+				if (options.tracking.active == "new") {
+					options.tracking.active = characterID;
+				}
+
 				if (!(characterID in tripwire.esi.characters)) {
 					var $clone = $("#tracking-clone").clone();
 					$clone.attr("data-characterid", characterID);
