@@ -2238,7 +2238,8 @@ var tripwire = new function() {
 							connectionName: "",
 							type: type || "???",
 							name: sigName,
-							life: options.signatures.pasteLife
+							life: options.signatures.pasteLife,
+							lifeLength: options.signatures.pasteLife
 						});
 					}
 				}
