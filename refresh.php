@@ -154,13 +154,13 @@ if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi'])) {
 		$stmt->execute();
 	}
 
-	$query = 'SELECT characterID, characterName, accessToken, refreshToken, tokenExpire FROM esi WHERE userID = :userID';
+	$query = 'SELECT characterID, characterName, accessToken, refreshToken, CONCAT(tokenExpire, @@global.time_zone) as tokenExpire FROM esi WHERE userID = :userID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
 	$stmt->execute();
 	$characters = $stmt->fetchAll(PDO::FETCH_OBJ);
 	foreach ($characters as $character) {
-		if (strtotime($character->tokenExpire) < time('-1 minute')) {
+		if (strtotime($character->tokenExpire) < strtotime('+5 minutes')) {
 			require_once("evesso.class.php");
 
 			$evesso = new evesso();

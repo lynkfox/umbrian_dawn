@@ -260,6 +260,7 @@ if ($mode == 'login' || !$mode) {
 				$_SESSION = array();
 				session_regenerate_id();
 				session_destroy();
+				header('Location: ./?system=');
 				exit();
 			}
 
@@ -275,6 +276,8 @@ if ($mode == 'login' || !$mode) {
 
 			header('Location: ./?system=');
 			exit();
+		} else {
+			echo $evesso->lastError;
 		}
 	} else {
 		if ($login == 'sso') {

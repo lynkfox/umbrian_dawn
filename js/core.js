@@ -420,6 +420,7 @@ $(document).on("dialogclose", ".ui-dialog", function (event, ui) {
 
 var options = new function() {
 	this.userID = init.userID;
+	this.character = {id: init.characterID, name: init.characterName};
 	this.background = null;
 	this.favorites = [];
 	this.grid = {igb: {}, oog: {}};
@@ -2943,12 +2944,19 @@ var tripwire = new function() {
 	this.esi = function() {
 		var locationTimer, shipTimer;
 		var baseUrl = "https://esi.tech.ccp.is/latest";
+		var userAgent = "Tripwire Client - " + options.character.name; // Not supported yet
 		this.esi.characters = {};
 
 		var location = function() {
 			clearTimeout(locationTimer);
 
 			for (characterID in tripwire.esi.characters) {
+				// Check for expiring token
+				if (moment(tripwire.esi.characters[characterID].tokenExpire).subtract(1, "minutes").isBefore(moment())) {
+					tripwire.data.esi = {"expired": true};
+					continue;
+				}
+
 				$.ajax({
 					url: baseUrl + "/characters/"+ characterID +"/location/",
 					headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken},
@@ -3001,6 +3009,12 @@ var tripwire = new function() {
 			clearTimeout(shipTimer);
 
 			for (characterID in tripwire.esi.characters) {
+				// Check for expiring token
+				if (moment(tripwire.esi.characters[characterID].tokenExpire).subtract(1, "minutes").isBefore(moment())) {
+					tripwire.data.esi = {"expired": true};
+					continue;
+				}
+
 				$.ajax({
 					url: baseUrl + "/characters/"+ characterID +"/ship/",
 					headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken},

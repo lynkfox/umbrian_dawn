@@ -3,6 +3,9 @@
 // EVE SDE table name
 $eve_dump = 'eve_carnyx';
 
+// EVE API userAgent
+$userAgent = 'Tripwire Server - adminEmail@example.com';
+
 // EVE SSO info
 $evessoClient = 'clientID';
 $evessoSecret = 'secret';

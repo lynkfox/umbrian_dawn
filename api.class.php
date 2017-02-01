@@ -5,6 +5,7 @@ class API {
 	public $cachedUntil = null;
 
 	private function getAPI($url, $params) {
+		global $userAgent;
 		$url = self::$baseUrl . $url;
 
 		$curl = curl_init();
@@ -13,7 +14,7 @@ class API {
 		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		// curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($curl, CURLOPT_USERAGENT, 'Tripwire 0.6.x daimian.mercer@gmail.com');
+		curl_setopt($curl, CURLOPT_USERAGENT, $userAgent);
 
 		$result = curl_exec($curl);
 

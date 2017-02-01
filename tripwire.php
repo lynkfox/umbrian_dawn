@@ -1096,6 +1096,7 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= $server ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/dragscroll.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=2017-01-31"></script>
 	<!-- JS Includes -->
 
