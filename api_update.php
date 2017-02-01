@@ -6,7 +6,15 @@
 //	======================================================
 $startTime = microtime(true);
 
-require('db.inc.php');
+if (!session_id()) session_start();
+
+// Check for login & admin permission - else kick
+if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+	http_response_code(403);
+	exit();
+}
+
+require_once('db.inc.php');
 
 if (isset($_REQUEST['init'])) {
 	$query = 'SELECT time FROM eve_api.cacheTime WHERE type = "activity"';

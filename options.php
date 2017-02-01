@@ -9,14 +9,19 @@
 //
 //	ToDo:
 //***********************************************************
+$startTime = microtime(true);
+
 if (!session_id()) session_start();
 
 // Check for login - else kick
 if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+	http_response_code(403);
 	exit();
 }
 
-require('db.inc.php');
+require_once('db.inc.php');
+
+header('Content-Type: application/json');
 
 $userID = $_SESSION['userID'];
 $mode = isset($_REQUEST['mode'])?$_REQUEST['mode']:null;
@@ -27,8 +32,6 @@ $username = isset($_REQUEST['username'])?$_REQUEST['username']:null;
 $old_username = isset($_REQUEST['username'])?$_SESSION['username']:null;
 $mask = isset($_REQUEST['mask'])?$_REQUEST['mask']:null;
 $output = null;
-
-header('Content-Type: application/json');
 
 if ($mode == 'get') {
 	$query = 'SELECT options FROM preferences WHERE userID = :userID';
@@ -95,6 +98,8 @@ if ($username && $old_username) {
 		}
 	}
 }
+
+$output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
 
 echo json_encode($output);
 

@@ -9,20 +9,22 @@
 //
 //	ToDo:
 //***********************************************************
+$startTime = microtime(true);
+
 if (!session_id()) session_start();
 
 // Check for login - else kick
 if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+	http_response_code(403);
 	exit();
 }
 
 session_write_close();
 
-require('db.inc.php');
-require('api.class.php');
-require('lib.inc.php');
+require_once('db.inc.php');
+require_once('api.class.php');
+require_once('lib.inc.php');
 
-$startTime = microtime(true);
 $mode = isset($_REQUEST['mode'])?$_REQUEST['mode']:null;
 $mask = isset($_REQUEST['mask'])?$_REQUEST['mask']:null;
 $type = isset($_REQUEST['type'])?$_REQUEST['type']:null;

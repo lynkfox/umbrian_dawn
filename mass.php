@@ -1,16 +1,16 @@
 <?php
+$startTime = microtime(true);
 
 if (!session_id()) session_start();
 
 if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+	http_response_code(403);
 	exit();
 }
 
 session_write_close();
 
-$startTime = microtime(true);
-
-require('db.inc.php');
+require_once('db.inc.php');
 
 header('Content-Type: application/json');
 

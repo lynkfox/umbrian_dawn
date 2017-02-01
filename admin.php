@@ -1,20 +1,21 @@
 <?php
+$startTime = microtime(true);
 
 if (!session_id()) session_start();
 
 // Check for login & admin permission - else kick
 if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+	http_response_code(403);
 	exit();
 }
 
 session_write_close();
 
-require('db.inc.php');
-require('lib.inc.php');
+require_once('db.inc.php');
+require_once('lib.inc.php');
 
 header('Content-Type: application/json');
 
-$startTime = microtime(true);
 $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : null;
 $mask = $_SESSION['mask'];
 $output = null;

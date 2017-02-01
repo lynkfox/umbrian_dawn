@@ -4,18 +4,19 @@
 //	Author:		Josh Glassmaker (Daimian Mercer)
 //
 //	======================================================
+$startTime = microtime(true);
 
 // Verify access via Tripwire signon
 if (!session_id()) session_start();
 
 if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+	http_response_code(403);
 	exit();
 }
 
-header('Content-Type: application/json');
-$startTime = microtime(true);
-
 require_once('db.inc.php');
+
+header('Content-Type: application/json');
 
 /**
 // *********************

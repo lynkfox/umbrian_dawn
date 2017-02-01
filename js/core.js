@@ -1978,7 +1978,9 @@ var tripwire = new function() {
 
 			alwaysCallback ? alwaysCallback(data) : null;
 
-			if (status != "success" && status != "abort" && tripwire.connected == true) {
+			if (data.status == 403) {
+				window.location.href = ".";
+			} else if (status != "success" && status != "abort" && tripwire.connected == true) {
 				tripwire.connected = false;
 				$("#ConnectionSuccess").click();
 				Notify.trigger("Error syncing with server", "red", false, "connectionError");
@@ -2944,7 +2946,7 @@ var tripwire = new function() {
 	this.esi = function() {
 		var locationTimer, shipTimer;
 		var baseUrl = "https://esi.tech.ccp.is/latest";
-		var userAgent = "Tripwire Client - " + options.character.name; // Not supported yet
+		var userAgent = "Tripwire Client - " + options.character.name;
 		this.esi.characters = {};
 
 		var location = function() {

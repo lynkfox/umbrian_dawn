@@ -9,11 +9,11 @@
 //
 //	ToDo:
 //***********************************************************
-if (!session_id()) session_start();
-
 $startTime = microtime(true);
 
-require('db.inc.php');
+if (!session_id()) session_start();
+
+require_once('db.inc.php');
 
 function login_history($ip, $username, $method, $result) {
 	global $mysql;
