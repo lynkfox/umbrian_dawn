@@ -9,6 +9,13 @@
 //
 //	ToDo:
 //***********************************************************
+if (!session_id()) session_start();
+
+// Check for login - else kick
+if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+	exit();
+}
+
 $startTime = microtime(true);
 
 require('db.inc.php');

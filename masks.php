@@ -13,9 +13,6 @@ if (!session_id()) session_start();
 
 // Check for login - else kick
 if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
-	$_SESSION = array();
-	session_regenerate_id();
-	session_destroy();
 	exit();
 }
 
