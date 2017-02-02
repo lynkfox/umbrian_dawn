@@ -546,9 +546,6 @@ var viewingSystem = $("meta[name=system]").attr("content");
 var viewingSystemID = $("meta[name=systemID]").attr("content");
 var server = $("meta[name=server]").attr("content");
 
-// Current system favorite
-//if ($.inArray(viewingSystemID, options.favorites) != -1) $("#system-favorite").attr("data-icon", "star").addClass("active");
-
 // Page cache indicator
 if (getCookie("loadedFromBrowserCache") == "true") {
 	$("#pageTime").html("Page is Cached");
@@ -641,6 +638,7 @@ $("#follow").click(function(e) {
 	options.save();
 })
 
+// Think this is depricated
 $("#home").click(function() {
 	if ($(this).hasClass("active"))
 		$(this).removeClass("active");
@@ -655,6 +653,7 @@ $("#home").click(function() {
 	options.save();
 });
 
+// Think this is depricated
 $("#k-space").click(function() {
 	if ($(this).hasClass("active"))
 		$(this).removeClass("active");
@@ -693,6 +692,7 @@ $("#show-favorite").click(function() {
 	options.save();
 });
 
+// Think this is depricated
 $("#eve-scout").click(function() {
 	if ($(this).hasClass("active"))
 		$(this).removeClass("active");
@@ -1765,7 +1765,6 @@ var tripwire = new function() {
 	this.refreshRate = 5000;
 	this.connected = true;
 	this.ageFormat = "HM";
-	// this.instance = sessionStorage.getItem("tripwire_instance") ? sessionStorage.getItem("tripwire_instance") : sessionStorage.setItem("tripwire_instance", new Date().getTime() / 1000), new Date().getTime() / 1000;
 	this.instance = window.name ? window.name : (new Date().getTime() / 1000, window.name = new Date().getTime() / 1000);
 
 	// Command to start/stop tripwire updates
