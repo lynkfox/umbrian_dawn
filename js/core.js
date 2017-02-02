@@ -389,8 +389,6 @@ var setCookie = function(c_name, value, exdays) {
 
 /* Function Library */
 
-var CCPEVE = CCPEVE || false;
-
 // Dialog effects
 $("#wrapper").addClass("transition");
 
@@ -489,12 +487,12 @@ var options = new function() {
 	// Applies settings
 	this.apply = function() {
 		// Grid layout
-		if (CCPEVE ? !isEmpty(this.grid.igb) : !isEmpty(this.grid.oog)) {
-			$.each(CCPEVE ? this.grid.igb : this.grid.oog, function() {
+		if (!isEmpty(this.grid.oog)) {
+			$.each(this.grid.oog, function() {
 				$("#"+this.id).attr({"data-col": this.col, "data-row": this.row, "data-sizex": this.size_x, "data-sizey": this.size_y})
 					.css({width: this.width, height: this.height});
 			});
-		}
+		};
 
 		// Buttons
 		if (this.buttons.follow) $("#follow").addClass("active");
@@ -623,10 +621,7 @@ $("#layout").click(function() {
 
 		$(this).removeClass("active");
 
-		if (CCPEVE)
-			options.grid.igb = grid.serialize();
-		else
-			options.grid.oog = grid.serialize();
+		options.grid.oog = grid.serialize();
 
 		options.save();
 	}
@@ -4371,10 +4366,7 @@ function postLoad() {
 			}
 		},
 		create: function() {
-			if (!CCPEVE) {
-				// Effect remove overlay ????
-				$(this).dialog("option", "show", {effect: "shake", duration: 150, easing: "easeOutElastic"});
-			}
+			$(this).dialog("option", "show", {effect: "shake", duration: 150, easing: "easeOutElastic"});
 		}
 	});
 
@@ -4795,7 +4787,7 @@ $("#chainMap").contextmenu({
 				tripwire.esi.setDestination(id, true);
 				break;
 			case "showMap":
-				CCPEVE.showMap(id);
+				// CCPEVE.showMap(id);
 				break;
 			case "red":
 				$(ui.target[0]).closest("td").hasClass("redNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
@@ -5184,7 +5176,7 @@ $("body").on("dblclick", ".comment", function(e) {
 })
 
 $("body").on("click", ".commentEdit", function(e) {
-	e.preventDefault(); // <a href="javascript: CCPEVE.showInfo(5, 30003276)">Show Info</a>
+	e.preventDefault();
 
 	// Prevent multiple editors
 	if ($(".cke").length) return false;
