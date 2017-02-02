@@ -2948,7 +2948,8 @@ var tripwire = new function() {
 
 			for (characterID in tripwire.esi.characters) {
 				// Check for expiring token
-				if (moment(tripwire.esi.characters[characterID].tokenExpire).subtract(1, "minutes").isBefore(moment())) {
+				if (moment(tripwire.esi.characters[characterID].tokenExpire).subtract(5, "minutes").isBefore(moment())) {
+					console.log("expired")
 					tripwire.data.esi = {"expired": true};
 					continue;
 				}
@@ -3006,7 +3007,8 @@ var tripwire = new function() {
 
 			for (characterID in tripwire.esi.characters) {
 				// Check for expiring token
-				if (moment(tripwire.esi.characters[characterID].tokenExpire).subtract(1, "minutes").isBefore(moment())) {
+				if (moment(tripwire.esi.characters[characterID].tokenExpire).subtract(5, "minutes").isBefore(moment())) {
+					console.log("expired")
 					tripwire.data.esi = {"expired": true};
 					continue;
 				}

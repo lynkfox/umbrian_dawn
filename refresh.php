@@ -158,7 +158,7 @@ if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi'])) {
 	$stmt->execute();
 	$characters = $stmt->fetchAll(PDO::FETCH_OBJ);
 	foreach ($characters as $character) {
-		if (strtotime($character->tokenExpire) < strtotime('+5 minutes')) {
+		if (strtotime($character->tokenExpire) < strtotime('+10 minutes')) {
 			require_once("evesso.class.php");
 
 			$evesso = new evesso();

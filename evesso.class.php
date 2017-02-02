@@ -117,7 +117,7 @@ class evesso {
         }
 
         $this->accessToken = $response->access_token;
-        $this->tokenExpire = date('Y-m-d H:i:s', time() + $response->expires_in);
+        $this->tokenExpire = date('Y-m-d H:i:sP', time() + $response->expires_in);
         $this->refreshToken = $response->refresh_token;
 
         return true;
