@@ -2364,8 +2364,8 @@ var tripwire = new function() {
 			return false;
 
 		// Is pilot in a pod?
-		// if ($.inArray(parseInt(tripwire.client.EVE.shipTypeID), pods) >= 0)
-		// 	return false;
+		if ($.inArray(parseInt(tripwire.client.EVE.shipTypeID), pods) >= 0)
+			return false;
 
 		// Is this a gate?
 		if (typeof(tripwire.map.shortest[from - 30000000]) != "undefined" && typeof(tripwire.map.shortest[from - 30000000][to - 30000000]) != "undefined")
@@ -2939,7 +2939,7 @@ var tripwire = new function() {
 
 	this.esi = function() {
 		var locationTimer, shipTimer;
-		var baseUrl = "https://esi.tech.ccp.is/latest";
+		var baseUrl = "https://esi.tech.ccp.is";
 		var userAgent = "Tripwire Client - " + options.character.name;
 		this.esi.characters = {};
 
@@ -2954,8 +2954,8 @@ var tripwire = new function() {
 				}
 
 				$.ajax({
-					url: baseUrl + "/characters/"+ characterID +"/location/",
-					headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken},
+					url: baseUrl + "/v1/characters/"+ characterID +"/location/",
+					headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
 					type: "GET",
 					dataType: "JSON",
 					characterID: characterID
@@ -3012,8 +3012,8 @@ var tripwire = new function() {
 				}
 
 				$.ajax({
-					url: baseUrl + "/characters/"+ characterID +"/ship/",
-					headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken},
+					url: baseUrl + "/v1/characters/"+ characterID +"/ship/",
+					headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
 					type: "GET",
 					dataType: "JSON",
 					characterID: characterID
@@ -3059,7 +3059,8 @@ var tripwire = new function() {
 
 		var typeLookup = function(typeID, reference) {
 			return $.ajax({
-				url: baseUrl + "/universe/types/"+ typeID +"/",
+				url: baseUrl + "/v2/universe/types/"+ typeID +"/",
+				headers: {"X-User-Agent": userAgent},
 				type: "GET",
 				dataType: "JSON",
 				async: false,
@@ -3069,7 +3070,8 @@ var tripwire = new function() {
 
 		var stationLookup = function(stationID, reference) {
 			return $.ajax({
-				url: baseUrl + "/universe/stations/"+ stationID +"/",
+				url: baseUrl + "/v1/universe/stations/"+ stationID +"/",
+				headers: {"X-User-Agent": userAgent},
 				type: "GET",
 				dataType: "JSON",
 				async: false,
@@ -3079,8 +3081,8 @@ var tripwire = new function() {
 
 		this.esi.setDestination = function(destinationID, waypoint = false, beginning = false) {
 			return $.ajax({
-				url: baseUrl + "/ui/autopilot/waypoint/?" + $.param({destination_id: destinationID, clear_other_waypoints: !waypoint, add_to_beginning: beginning}),
-				headers: {"Authorization": "Bearer "+ tripwire.esi.characters[options.tracking.active].accessToken},
+				url: baseUrl + "/v2/ui/autopilot/waypoint/?" + $.param({destination_id: destinationID, clear_other_waypoints: !waypoint, add_to_beginning: beginning}),
+				headers: {"Authorization": "Bearer "+ tripwire.esi.characters[options.tracking.active].accessToken, "X-User-Agent": userAgent},
 				type: "POST",
 				dataType: "JSON"
 			});
@@ -3088,8 +3090,8 @@ var tripwire = new function() {
 
 		this.esi.showInfo = function(targetID) {
 			return $.ajax({
-				url: baseUrl + "/ui/openwindow/information/?" + $.param({target_id: targetID}),
-				headers: {"Authorization": "Bearer "+ tripwire.esi.characters[options.tracking.active].accessToken},
+				url: baseUrl + "/v1/ui/openwindow/information/?" + $.param({target_id: targetID}),
+				headers: {"Authorization": "Bearer "+ tripwire.esi.characters[options.tracking.active].accessToken, "X-User-Agent": userAgent},
 				type: "POST",
 				dataType: "JSON"
 			});
