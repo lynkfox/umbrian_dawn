@@ -51,7 +51,7 @@ if ($row = $stmt->fetchObject()) {
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/gridster.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/selectmenu.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui.min.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=2017-02-04">
+	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=2017-02-04.1">
 
 	<title><?=$system?> - <?= $server == 'static.eve-apps.com' ? 'Tripwire' : 'Galileo' ?></title>
 </head>
