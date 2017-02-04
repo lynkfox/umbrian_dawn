@@ -2948,48 +2948,89 @@ var tripwire = new function() {
 			clearTimeout(locationTimer);
 
 			for (characterID in tripwire.esi.characters) {
+				var character = tripwire.esi.characters[characterID];
+
 				// Check for expiring token
-				if (moment(tripwire.esi.characters[characterID].tokenExpire).subtract(5, "minutes").isBefore(moment())) {
+				if (moment(character.tokenExpire).subtract(5, "minutes").isBefore(moment())) {
 					tripwire.data.esi = {"expired": true};
 					continue;
 				}
 
 				$.ajax({
 					url: baseUrl + "/v1/characters/"+ characterID +"/location/",
-					headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
+					headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
 					type: "GET",
 					dataType: "JSON",
 					cache: false,
-					timeout: 8000,
+					// timeout: 8000,
+					character: character,
 					characterID: characterID
 				}).success(function(data) {
-					if (tripwire.esi.characters[this.characterID]) {
-						if (tripwire.esi.characters[this.characterID].systemID != data.solar_system_id) {
-							tripwire.esi.characters[this.characterID].systemID = data.solar_system_id || null;
-							tripwire.esi.characters[this.characterID].systemName = tripwire.systems[data.solar_system_id].name || null;
-							$("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".system").html(tripwire.systems[data.solar_system_id].name || "&nbsp;");
-							tripwire.data.tracking[this.characterID] = tripwire.esi.characters[this.characterID];
+					if (character) {
+						if (character.systemID != data.solar_system_id) {
+							character.systemID = data.solar_system_id || null;
+							character.systemName = tripwire.systems[data.solar_system_id].name || null;
+							$("#tracking .tracking-clone[data-characterid='"+ characterID +"']").find(".system").html(tripwire.systems[data.solar_system_id].name || "&nbsp;");
+
+							// Send to Tripwire server on next refresh call
+							tripwire.data.tracking[characterID] = {
+								characterID: character.characterID,
+								characterName: character.characterName,
+								systemID: character.systemID,
+								systemName: character.systemName,
+								stationID: character.stationID,
+								stationName: character.stationName,
+								shipID: character.shipID,
+								shipName: character.shipName,
+								shipTypeID: character.shipTypeID,
+								shipTypeName: character.shipTypeName};
 						}
 
-						if (tripwire.esi.characters[this.characterID].stationID != data.station_id) {
-							tripwire.esi.characters[this.characterID].stationID = data.station_id || null;
+						if (character.stationID != data.station_id) {
+							character.stationID = data.station_id || null;
 
 							if (data.station_id) {
-								stationLookup(data.station_id, this.characterID)
+								stationLookup(data.station_id, characterID)
 									.always(function(data) {
-										tripwire.esi.characters[this.reference].stationName = data.station_name || null;
+										var character = tripwire.esi.characters[this.reference];
+
+										character.stationName = data.station_name || null;
 										$("#tracking .tracking-clone[data-characterid='"+ this.reference +"']").find(".station").html(data.station_name.substring(0, 17) + "..." || "&nbsp;").attr("data-tooltip", data.station_name);
 										Tooltips.attach($("#tracking .tracking-clone[data-characterid='"+ this.reference +"'] [data-tooltip]"));
-										tripwire.data.tracking[this.reference] = tripwire.esi.characters[this.reference];
+
+										// Send to Tripwire server on next refresh call
+										tripwire.data.tracking[characterID] = {
+											characterID: character.characterID,
+											characterName: character.characterName,
+											systemID: character.systemID,
+											systemName: character.systemName,
+											stationID: character.stationID,
+											stationName: character.stationName,
+											shipID: character.shipID,
+											shipName: character.shipName,
+											shipTypeID: character.shipTypeID,
+											shipTypeName: character.shipTypeName};
 									});
 							} else {
-								tripwire.esi.characters[this.characterID].stationName = null;
-								$("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".station").html("&nbsp;").attr("data-tooltip", "");
-								tripwire.data.tracking[this.characterID] = tripwire.esi.characters[this.characterID];
+								character.stationName = null;
+								$("#tracking .tracking-clone[data-characterid='"+ characterID +"']").find(".station").html("&nbsp;").attr("data-tooltip", "");
+
+								// Send to Tripwire server on next refresh call
+								tripwire.data.tracking[characterID] = {
+									characterID: character.characterID,
+									characterName: character.characterName,
+									systemID: character.systemID,
+									systemName: character.systemName,
+									stationID: character.stationID,
+									stationName: character.stationName,
+									shipID: character.shipID,
+									shipName: character.shipName,
+									shipTypeID: character.shipTypeID,
+									shipTypeName: character.shipTypeName};
 							}
 						}
 
-						if (options.tracking.active == this.characterID) {
+						if (options.tracking.active == characterID) {
 							tripwire.EVE(tripwire.esi.characters[options.tracking.active]);
 						}
 					}
@@ -3017,47 +3058,100 @@ var tripwire = new function() {
 			clearTimeout(shipTimer);
 
 			for (characterID in tripwire.esi.characters) {
+				var character = tripwire.esi.characters[characterID];
+
 				// Check for expiring token
-				if (moment(tripwire.esi.characters[characterID].tokenExpire).subtract(5, "minutes").isBefore(moment())) {
+				if (moment(character.tokenExpire).subtract(5, "minutes").isBefore(moment())) {
 					tripwire.data.esi = {"expired": true};
 					continue;
 				}
 
 				$.ajax({
 					url: baseUrl + "/v1/characters/"+ characterID +"/ship/",
-					headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
+					headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
 					type: "GET",
 					dataType: "JSON",
 					cache: false,
-					timeout: 8000,
+					// timeout: 8000,
+					character: character,
 					characterID: characterID
 				}).success(function(data) {
-					if (tripwire.esi.characters[this.characterID]) {
-						if (tripwire.esi.characters[this.characterID].shipID != data.ship_item_id) {
-							tripwire.esi.characters[this.characterID].shipID = data.ship_item_id || null;
-							tripwire.data.tracking[this.characterID] = tripwire.esi.characters[this.characterID];
+					if (character) {
+						if (character.shipID != data.ship_item_id) {
+							character.shipID = data.ship_item_id || null;
+
+							// Send to Tripwire server on next refresh call
+							tripwire.data.tracking[characterID] = {
+								characterID: character.characterID,
+								characterName: character.characterName,
+								systemID: character.systemID,
+								systemName: character.systemName,
+								stationID: character.stationID,
+								stationName: character.stationName,
+								shipID: character.shipID,
+								shipName: character.shipName,
+								shipTypeID: character.shipTypeID,
+								shipTypeName: character.shipTypeName};
 						}
 
-						if (tripwire.esi.characters[this.characterID].shipName != data.ship_name) {
-							tripwire.esi.characters[this.characterID].shipName = data.ship_name || null;
-							$("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".shipname").html(data.ship_name || "&nbsp;");
-							tripwire.data.tracking[this.characterID] = tripwire.esi.characters[this.characterID];
+						if (character.shipName != data.ship_name) {
+							character.shipName = data.ship_name || null;
+							$("#tracking .tracking-clone[data-characterid='"+ characterID +"']").find(".shipname").html(data.ship_name || "&nbsp;");
+
+							// Send to Tripwire server on next refresh call
+							tripwire.data.tracking[characterID] = {
+								characterID: character.characterID,
+								characterName: character.characterName,
+								systemID: character.systemID,
+								systemName: character.systemName,
+								stationID: character.stationID,
+								stationName: character.stationName,
+								shipID: character.shipID,
+								shipName: character.shipName,
+								shipTypeID: character.shipTypeID,
+								shipTypeName: character.shipTypeName};
 						}
 
-						if (tripwire.esi.characters[this.characterID].shipTypeID != data.ship_type_id) {
-							tripwire.esi.characters[this.characterID].shipTypeID = data.ship_type_id || null;
+						if (character.shipTypeID != data.ship_type_id) {
+							character.shipTypeID = data.ship_type_id || null;
 
 							if (data.ship_type_id) {
-								typeLookup(data.ship_type_id, this.characterID)
+								typeLookup(data.ship_type_id, characterID)
 									.always(function(data) {
-										tripwire.esi.characters[this.reference].shipTypeName = data.name || null;
+										var character = tripwire.esi.characters[this.reference];
+
+										character.shipTypeName = data.name || null;
 										$("#tracking .tracking-clone[data-characterid='"+ this.reference +"']").find(".ship").html(data.name || "&nbsp;");
-										tripwire.data.tracking[this.reference] = tripwire.esi.characters[this.reference];
+
+										// Send to Tripwire server on next refresh call
+										tripwire.data.tracking[characterID] = {
+											characterID: character.characterID,
+											characterName: character.characterName,
+											systemID: character.systemID,
+											systemName: character.systemName,
+											stationID: character.stationID,
+											stationName: character.stationName,
+											shipID: character.shipID,
+											shipName: character.shipName,
+											shipTypeID: character.shipTypeID,
+											shipTypeName: character.shipTypeName};
 									});
 							} else {
-								tripwire.esi.characters[this.characterID].shipTypeName = null;
-								$("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".ship").html("&nbsp;");
-								tripwire.data.tracking[this.characterID] = tripwire.esi.characters[this.characterID];
+								character.shipTypeName = null;
+								$("#tracking .tracking-clone[data-characterid='"+ characterID +"']").find(".ship").html("&nbsp;");
+
+								// Send to Tripwire server on next refresh call
+								tripwire.data.tracking[characterID] = {
+									characterID: character.characterID,
+									characterName: character.characterName,
+									systemID: character.systemID,
+									systemName: character.systemName,
+									stationID: character.stationID,
+									stationName: character.stationName,
+									shipID: character.shipID,
+									shipName: character.shipName,
+									shipTypeID: character.shipTypeID,
+									shipTypeName: character.shipTypeName};
 							}
 						}
 					}
@@ -3088,7 +3182,6 @@ var tripwire = new function() {
 				type: "GET",
 				dataType: "JSON",
 				cache: false,
-				async: false,
 				reference: reference
 			});
 		}
@@ -3100,24 +3193,23 @@ var tripwire = new function() {
 				type: "GET",
 				dataType: "JSON",
 				cache: false,
-				async: false,
 				reference: reference
 			});
 		}
 
-		this.esi.setDestination = function(destinationID, waypoint = false, beginning = false) {
+		this.esi.setDestination = function(destinationID, characterID, clear_waypoints = true, beginning = false) {
 			return $.ajax({
-				url: baseUrl + "/v2/ui/autopilot/waypoint/?" + $.param({destination_id: destinationID, clear_other_waypoints: !waypoint, add_to_beginning: beginning}),
-				headers: {"Authorization": "Bearer "+ tripwire.esi.characters[options.tracking.active].accessToken, "X-User-Agent": userAgent},
+				url: baseUrl + "/v2/ui/autopilot/waypoint/?" + $.param({destination_id: destinationID, clear_other_waypoints: clear_waypoints, add_to_beginning: beginning}),
+				headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
 				type: "POST",
 				dataType: "JSON"
 			});
 		}
 
-		this.esi.showInfo = function(targetID) {
+		this.esi.showInfo = function(targetID, characterID) {
 			return $.ajax({
 				url: baseUrl + "/v1/ui/openwindow/information/?" + $.param({target_id: targetID}),
-				headers: {"Authorization": "Bearer "+ tripwire.esi.characters[options.tracking.active].accessToken, "X-User-Agent": userAgent},
+				headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
 				type: "POST",
 				dataType: "JSON"
 			});
@@ -4805,13 +4897,13 @@ $("#chainMap").contextmenu({
 
 		switch(ui.cmd) {
 			case "showInfo":
-				tripwire.esi.showInfo(id);
+				tripwire.esi.showInfo(id, options.tracking.active);
 				break;
 			case "setDest":
-				tripwire.esi.setDestination(id);
+				tripwire.esi.setDestination(id, options.tracking.active);
 				break;
 			case "addWay":
-				tripwire.esi.setDestination(id, true);
+				tripwire.esi.setDestination(id, options.tracking.active, false);
 				break;
 			case "showMap":
 				// CCPEVE.showMap(id);
