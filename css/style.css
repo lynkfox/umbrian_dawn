@@ -186,7 +186,7 @@ to { -o-transform: rotate(360deg); }
 	-moz-filter: blur(1px);
 	-ms-filter: blur(1px);
 	-o-filter: blur(1px);
-	filter: url(css/blur.svg#blur);
+	filter: url('blur.svg#blur');
 	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='1');
 }
 
