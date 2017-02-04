@@ -2958,6 +2958,8 @@ var tripwire = new function() {
 					headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
 					type: "GET",
 					dataType: "JSON",
+					cache: false,
+					timeout: 8000,
 					characterID: characterID
 				}).success(function(data) {
 					if (tripwire.esi.characters[this.characterID]) {
@@ -3016,6 +3018,8 @@ var tripwire = new function() {
 					headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
 					type: "GET",
 					dataType: "JSON",
+					cache: false,
+					timeout: 8000,
 					characterID: characterID
 				}).success(function(data) {
 					if (tripwire.esi.characters[this.characterID]) {
@@ -3063,6 +3067,7 @@ var tripwire = new function() {
 				headers: {"X-User-Agent": userAgent},
 				type: "GET",
 				dataType: "JSON",
+				cache: false,
 				async: false,
 				reference: reference
 			});
@@ -3074,6 +3079,7 @@ var tripwire = new function() {
 				headers: {"X-User-Agent": userAgent},
 				type: "GET",
 				dataType: "JSON",
+				cache: false,
 				async: false,
 				reference: reference
 			});
