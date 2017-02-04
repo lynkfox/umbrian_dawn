@@ -2941,6 +2941,7 @@ var tripwire = new function() {
 		var locationTimer, shipTimer;
 		var baseUrl = "https://esi.tech.ccp.is";
 		var userAgent = "Tripwire Client - " + options.character.name;
+		this.esi.connection = true;
 		this.esi.characters = {};
 
 		var location = function() {
@@ -2984,7 +2985,6 @@ var tripwire = new function() {
 							} else {
 								tripwire.esi.characters[this.characterID].stationName = null;
 								$("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".station").html("&nbsp;").attr("data-tooltip", "");
-								// Tooltips.attach($("#tracking .tracking-clone[data-characterid='"+ this.characterID +"'] [data-tooltip]"));
 								tripwire.data.tracking[this.characterID] = tripwire.esi.characters[this.characterID];
 							}
 						}
@@ -2996,6 +2996,16 @@ var tripwire = new function() {
 				}).fail(function(data) {
 					if (data.status == 403) {
 						tripwire.refresh("refresh", {"esi": {"expired": true}});
+					}
+				}).always(function(data, status) {
+					if (status != "success" && status != "abort" && tripwire.esi.connection == true) {
+						tripwire.esi.connection = false;
+						$("#esiConnectionSuccess").click();
+						Notify.trigger("ESI Connection Failed", "red", false, "esiConnectionError");
+					} else if (status == "success" && tripwire.esi.connection == false) {
+						tripwire.esi.connection = true;
+						$("#esiConnectionError").click();
+						Notify.trigger("ESI Connection Resumed", "green", 5000, "esiConnectionSuccess");
 					}
 				});
 			}
@@ -3054,6 +3064,16 @@ var tripwire = new function() {
 				}).fail(function(data) {
 					if (data.status == 403) {
 						tripwire.refresh("refresh", {"esi": {"expired": true}});
+					}
+				}).always(function(data, status) {
+					if (status != "success" && status != "abort" && tripwire.esi.connection == true) {
+						tripwire.esi.connection = false;
+						$("#esiConnectionSuccess").click();
+						Notify.trigger("ESI Connection Failed", "red", false, "esiConnectionError");
+					} else if (status == "success" && tripwire.esi.connection == false) {
+						tripwire.esi.connection = true;
+						$("#esiConnectionError").click();
+						Notify.trigger("ESI Connection Resumed", "green", 5000, "esiConnectionSuccess");
 					}
 				});
 			}
