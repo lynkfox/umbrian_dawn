@@ -2964,7 +2964,7 @@ var tripwire = new function() {
 					cache: false,
 					// timeout: 8000,
 					characterID: characterID
-				}).success(function(data) {
+				}).done(function(data) {
 					var character = tripwire.esi.characters[this.characterID];
 
 					if (character) {
@@ -3075,7 +3075,7 @@ var tripwire = new function() {
 					cache: false,
 					// timeout: 8000,
 					characterID: characterID
-				}).success(function(data) {
+				}).done(function(data) {
 					var character = tripwire.esi.characters[this.characterID];
 
 					if (character) {
@@ -3698,7 +3698,7 @@ $("#admin").click(function(e) {
 				type: "POST",
 				data: {mode: $("#dialog-admin .menu .active").attr("data-window")},
 				dataType: "JSON"
-			}).success(function(data) {
+			}).done(function(data) {
 				if (data && data.results) {
 					var rows = data.results;
 					var ids = [];
