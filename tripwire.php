@@ -1092,7 +1092,7 @@ if ($row = $stmt->fetchObject()) {
 	<!-- <script type="text/javascript" src="//<?= $server ?>/js/jquery.ui-selectmenu.min.js"></script> -->
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.gridster.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.knob.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox.min.js"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox-0.4.7.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/dragscroll.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
