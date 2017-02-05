@@ -1082,14 +1082,14 @@ if ($row = $stmt->fetchObject()) {
 	</script>
 
 	<!-- JS Includes -->
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/jquery-ui-1.12.1.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.tablesorter.combined.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.ui-contextmenu.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.plugin.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.countdown.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.inlinecomplete.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.ui-selectmenu.min.js"></script>
+	<!-- <script type="text/javascript" src="//<?= $server ?>/js/jquery.ui-selectmenu.min.js"></script> -->
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.gridster.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.knob.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox.min.js"></script>
