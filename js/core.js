@@ -2689,7 +2689,7 @@ var tripwire = new function() {
 				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+add.signatureID+"</td>"
 				+ "<td class='"+ options.signatures.alignment.sigType +"'>"+add.type+"</td>"
 				+ "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
-				+ "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(add.name?add.name:'')+"</td>"
+				+ "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(add.name?linkSig(add.name):'')+"</td>"
 				+ "<td><a href='' class='sigDelete'>X</a></td>"
 				+ "<td><a href='' class='sigEdit'><</a></td>"
 				+ "</tr>";
@@ -2786,7 +2786,7 @@ var tripwire = new function() {
 				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+edit.signatureID+"</td>"
 				+ "<td class='"+ options.signatures.alignment.sigType +"'>"+edit.type+"</td>"
 				+ "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
-				+ "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(edit.name?edit.name:'')+"</td>"
+				+ "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(edit.name?linkSig(edit.name):'')+"</td>"
 				+ "<td><a href='' class='sigDelete'>X</a></td>"
 				+ "<td><a href='' class='sigEdit'><</a></td>"
 				+ "</tr>";
@@ -5142,6 +5142,99 @@ $("#sigTable").on("click", ".sigDelete", function(e) {
 		$("#dialog-deleteSig").dialog("open");
 	}
 });
+
+function linkSig(sigName) {
+	var wormholeSignatures = [
+		// Ore sites
+		"Average Frontier Deposit",
+		"Unexceptional Frontier Deposit",
+		"Common Perimeter Deposit",
+		"Exceptional Core Deposit",
+		"Infrequent Core Deposit",
+		"Unusual Core Deposit",
+		"Rarified Core Deposit",
+		"Isolated Core Deposit",
+		"Ordinary Permiter Deposit",
+		"Uncommon Core Deposit",
+
+		// Gas Sites
+		"Barren Perimeter Reservoir",
+		"Minor Perimeter Reservoir",
+		"Ordinary Perimeter Reservoir",
+		"Sizeable Perimeter Reservoir",
+		"Token Perimeter Reservoir",
+		"Bountiful Frontier Reservoir",
+		"Vast Frontier Reservoir",
+		"Instrumental Core Reservoir",
+		"Vital Core Reservoir",
+
+		// Class 1
+		"Perimeter Ambush Point",
+		"Perimeter Camp",
+		"Phase Catalyst Node",
+		"The Line",
+		"Forgotten Perimeter Coronation Platform",
+		"Forgotten Perimeter Power Array",
+		"Unsecured Perimeter Amplifier",
+		"Unsecured Perimeter Information Center",
+
+		// Class 2
+		"Perimeter Checkpoint",
+		"Perimeter Hangar",
+		"The Ruins of Enclave Cohort 27",
+		"Sleeper Data Sanctuary",
+		"Forgotten Perimeter Gateway",
+		"Forgotten Perimeter Habitation Coils",
+		"Unsecured Perimeter Comms Relay",
+		"Unsecured Perimeter Transponder Farm",
+
+		// Class 3
+		"Fortification Frontier Stronghold",
+		"Outpost Frontier Stronghold",
+		"Solar Cell",
+		"The Oruze Construct",
+		"Forgotten Frontier Quarantine Outpost",
+		"Forgotten Frontier Recursive Depot",
+		"Unsecured Frontier Database",
+		"Unsecured Frontier Receiver",
+
+		// Class 4
+		"Frontier Barracks",
+		"Frontier Command Post",
+		"Integrated Terminus",
+		"Sleeper Information Sanctum",
+		"Forgotten Frontier Conversion Module",
+		"Forgotten Frontier Evacuation Center",
+		"Unsecured Frontier Digital Nexus",
+		"Unsecured Frontier Trinary Hub",
+
+		// Class 5
+		"Core Garrison",
+		"Core Stronghold",
+		"Oruze Osobnyk",
+		"Quarantine Area",
+		"Forgotten Core Data Field",
+		"Forgotten Core Information Pen",
+		"Unsecured Frontier Enclave Relay",
+		"Unsecured Frontier Server Bank",
+
+		// Class 6
+		"Core Citadel",
+		"Core Bastion",
+		"Strange Energy Readings",
+		"The Mirror",
+		"Forgotten Core Assembly Hall",
+		"Forgotten Core Circuitry Disassembler",
+		"Unsecured Core Backup Array",
+		"Unsecured Core Emergence"
+	];
+
+	if (wormholeSignatures.indexOf(sigName) > -1) {
+		return '<a href="http://eve-survival.org/wikka.php?wakka='+sigName.replace(/ /g, '')+'" target="_blank">'+sigName+'</a>';
+	}
+
+	return sigName;
+}
 
 function openSigEdit(e) {
 	e.preventDefault();
