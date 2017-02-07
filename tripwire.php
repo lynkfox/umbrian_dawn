@@ -49,9 +49,9 @@ if ($row = $stmt->fetchObject()) {
 	<link rel="shortcut icon" href="//<?= $server ?>/images/favicon.png" />
 
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/gridster.min.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/selectmenu.min.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui.min.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=2017-02-04.1">
+	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-1.12.1.min.css">
+	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-custom.css">
+	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=2017-02-06">
 
 	<title><?=$system?> - <?= $server == 'static.eve-apps.com' ? 'Tripwire' : 'Galileo' ?></title>
 </head>
@@ -1082,17 +1082,16 @@ if ($row = $stmt->fetchObject()) {
 	</script>
 
 	<!-- JS Includes -->
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/jquery-ui-1.12.1.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.tablesorter.combined.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.ui-contextmenu.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.plugin.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.countdown.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.inlinecomplete.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.ui-selectmenu.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.gridster.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.knob.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox.min.js"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox-0.4.7.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/dragscroll.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>

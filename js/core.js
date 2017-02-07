@@ -2964,7 +2964,7 @@ var tripwire = new function() {
 					cache: false,
 					// timeout: 8000,
 					characterID: characterID
-				}).success(function(data) {
+				}).done(function(data) {
 					var character = tripwire.esi.characters[this.characterID];
 
 					if (character) {
@@ -3075,7 +3075,7 @@ var tripwire = new function() {
 					cache: false,
 					// timeout: 8000,
 					characterID: characterID
-				}).success(function(data) {
+				}).done(function(data) {
 					var character = tripwire.esi.characters[this.characterID];
 
 					if (character) {
@@ -3394,8 +3394,8 @@ var tripwire = new function() {
 }
 
 // Toggle dialog inputs based on sig type
-$("#dialog-sigAdd #sigType, #dialog-sigEdit #sigType").change(function() {
-	if ($(this).selectmenu("value") == "Wormhole") {
+$("#dialog-sigAdd #sigType, #dialog-sigEdit #sigType").on("selectmenuchange", function() {
+	if ($(this).val() == "Wormhole") {
 		$(this).closest(".ui-dialog").find(".sig-site").find("td > div, th > div").slideUp(200, function() { $(this).closest(".sig-site").hide(0); });
 
 		$(this).closest(".ui-dialog").find("#sigLife").attr("disabled", "disabled").selectmenu("disable");
@@ -3440,20 +3440,21 @@ $("#add-signature").click(function(e) {
 		},
 		open: function() {
 			$("#sigAddForm #sigID").val('');
-			$("#sigAddForm #sigType").selectmenu("value", 'Sites');
-			$("#sigAddForm #sigLife").selectmenu("value", 72);
+			$("#sigAddForm #sigType").val("Sites").selectmenu("refresh").trigger("selectmenuchange");
+			$("#sigAddForm #sigLife").val(72).selectmenu("refresh");
 			$("#sigAddForm #sigName").val('');
 			$("#sigAddForm #whType").val('');
 			$("#sigAddForm #connection").val('');
 			$("#sigAddForm #autoAdd")[0].checked = false;
 			$("#sigAddForm #autoAdd").button("refresh");
-			$("#sigAddForm #whLife").selectmenu("value", 'Stable');
-			$("#sigAddForm #whMass").selectmenu("value", 'Stable');
+			$("#sigAddForm #whLife").val("Stable").selectmenu("refresh");
+			$("#sigAddForm #whMass").val("Stable").selectmenu("refresh");
 
-			if (tripwire.client.EVE)
+			if (tripwire.client.EVE && tripwire.client.EVE.systemName) {
 				$("#autoAdd").button("enable");
-			else
+			} else {
 				$("#autoAdd").button("disable");
+			}
 		},
 		close: function() {
 			$("th.critical").removeClass("critical");
@@ -3464,8 +3465,8 @@ $("#add-signature").click(function(e) {
 				$("#sigAddForm #connection").val(tripwire.client.EVE.systemName);
 			});
 
-			$("#sigAddForm #sigType, #sigAddForm #sigLife").selectmenu({width: "100px"});
-			$("#sigAddForm #whLife, #sigAddForm #whMass").selectmenu({width: "80px"});
+			$("#sigAddForm #sigType, #sigAddForm #sigLife").selectmenu({width: 100});
+			$("#sigAddForm #whLife, #sigAddForm #whMass").selectmenu({width: 80});
 
 			$("#sigAddForm #whType, #sigAddForm #sigID").blur(function(e) {
 				if (this.value == "") {
@@ -3698,7 +3699,7 @@ $("#admin").click(function(e) {
 				type: "POST",
 				data: {mode: $("#dialog-admin .menu .active").attr("data-window")},
 				dataType: "JSON"
-			}).success(function(data) {
+			}).done(function(data) {
 				if (data && data.results) {
 					var rows = data.results;
 					var ids = [];
@@ -4274,7 +4275,7 @@ $(".options").click(function(e) {
 						});
 					});
 
-					$("#dialog-createMask select").selectmenu({width: "100px"});
+					$("#dialog-createMask select").selectmenu({width: 100});
 				},
 				open: function() {
 					$("#dialog-createMask input[name='name']").val("");
@@ -4472,9 +4473,9 @@ function postLoad() {
 		}
 	});
 
-	$(".typesAutocomplete").inlineComplete({list: whList});
-	$(".sigSystemsAutocomplete").inlineComplete({list: tripwire.aSigSystems});
-	$(".systemsAutocomplete").inlineComplete({list: tripwire.aSystems});
+	$(".typesAutocomplete, [data-autocomplete='sigTypes']").inlinecomplete({source: whList, maxSize: 10, delay: 0});
+	$(".sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+	$(".systemsAutocomplete").inlinecomplete({source: tripwire.aSystems, maxSize: 10, delay: 0});
 
 	$("#dialog-error").dialog({
 		autoOpen: false,
@@ -5181,45 +5182,46 @@ function openSigEdit(e) {
 					// Check which side we are editing
 					if (sig.systemID == viewingSystemID) {
 						$("#dialog-sigEdit #sigID").val(sig.signatureID);
-						$("#dialog-sigEdit #sigType").selectmenu("value", 'Wormhole');
+						$("#dialog-sigEdit #sigType").val("Wormhole").selectmenu("refresh").trigger("selectmenuchange");
 						$("#dialog-sigEdit #whType").val(sig.type);
 						$("#dialog-sigEdit #connection").val(tripwire.systems[sig.connectionID] ? tripwire.systems[sig.connectionID].name : sig.connection);
-						$("#dialog-sigEdit #whLife").selectmenu("value", sig.life);
-						$("#dialog-sigEdit #whMass").selectmenu("value", sig.mass);
+						$("#dialog-sigEdit #whLife").val(sig.life).selectmenu("refresh");
+						$("#dialog-sigEdit #whMass").val(sig.mass).selectmenu("refresh");
 
 						$("#dialog-sigEdit [name=side]").val("parent");
 					} else {
 						$("#dialog-sigEdit #sigID").val(sig.sig2ID);
-						$("#dialog-sigEdit #sigType").selectmenu("value", 'Wormhole');
+						$("#dialog-sigEdit #sigType").val("Wormhole").selectmenu("refresh").trigger("selectmenuchange");
 						$("#dialog-sigEdit #whType").val(sig.sig2Type);
 						$("#dialog-sigEdit #connection").val(tripwire.systems[sig.systemID] ? tripwire.systems[sig.systemID].name : sig.system);
-						$("#dialog-sigEdit #whLife").selectmenu("value", sig.life);
-						$("#dialog-sigEdit #whMass").selectmenu("value", sig.mass);
+						$("#dialog-sigEdit #whLife").val(sig.life).selectmenu("refresh");
+						$("#dialog-sigEdit #whMass").val(sig.mass).selectmenu("refresh");
 
 						$("#dialog-sigEdit [name=side]").val("child");
 					}
 
-					$("#dialog-sigEdit #sigLife").selectmenu("value", 72);
+					$("#dialog-sigEdit #sigLife").val(72).selectmenu("refresh");
 					$("#dialog-sigEdit #sigName").val("");
 				} else {
 					// Its not a WH
 					$("#dialog-sigEdit #sigID").val(sig.signatureID);//.attr("name", "signatureID");
-					$("#dialog-sigEdit #sigType").selectmenu("value", (sig.type == '???'?'Sites':sig.type));
-					$("#dialog-sigEdit #sigLife").selectmenu("value", sig.lifeLength);
+					$("#dialog-sigEdit #sigType").val(sig.type == "???" ? "Sites" : sig.type).selectmenu("refresh").trigger("selectmenuchange");
+					$("#dialog-sigEdit #sigLife").val(sig.lifeLength).selectmenu("refresh");
 					$("#dialog-sigEdit #sigName").val(sig.name);
 
 					$("#dialog-sigEdit #whType").val("");
 					$("#dialog-sigEdit #connection").val("");
-					$("#dialog-sigEdit #whLife").selectmenu("value", "Stable");
-					$("#dialog-sigEdit #whMass").selectmenu("value", "Stable");
+					$("#dialog-sigEdit #whLife").val("Stable").selectmenu("refresh");
+					$("#dialog-sigEdit #whMass").val("Stable").selectmenu("refresh");
 
 					$("#dialog-sigEdit [name=side]").val("parent");
 				}
 
-				if (tripwire.client.EVE)
+				if (tripwire.client.EVE && tripwire.client.EVE.systemName) {
 					$("#autoEdit").button("enable");
-				else
+				} else {
 					$("#autoEdit").button("disable");
+				}
 			},
 			close: function(e, ui) {
 				delete tripwire.activity.editSig;
@@ -5237,8 +5239,8 @@ function openSigEdit(e) {
 					$("#sigEditForm #connection").val(tripwire.client.EVE.systemName);
 				});
 
-				$("#sigEditForm #sigType, #sigEditForm #sigLife").selectmenu({width: "100px"});
-				$("#sigEditForm #whLife, #sigEditForm #whMass").selectmenu({width: "80px"});
+				$("#sigEditForm #sigType, #sigEditForm #sigLife").selectmenu({width: 100});
+				$("#sigEditForm #whLife, #sigEditForm #whMass").selectmenu({width: 80});
 
 				$("#sigEditForm #whType, #sigEditForm #sigID").blur(function(e) {
 					if (this.value == "") {
@@ -5647,6 +5649,40 @@ $(document).keydown(function(e)	{
 		} else if (e.keyCode == 90 && !$("#undo").hasClass("disabled")) {
 			$("#undo").click();
 			Notify.trigger("Undoing last action");
+		}
+	}
+});
+
+$.widget("custom.inlinecomplete", $.ui.autocomplete, {
+	_suggest: function(items) {
+		this.element.val(items[0].value.substr(0, this.element.val().length));
+
+		// Invoke the parent function
+		return this._super(items);
+	},
+	_initSource: function() {
+		if ($.isArray(this.options.source)) {
+			this.source = function(request, response) {
+				var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+				var results = new Array(); // results array
+				var data = this.options.source;
+				var maxSize = this.options.maxSize || 50; // maximum result size
+				// simple loop for the options
+				for (var i = 0, l = data.length; i <= l; i++) {
+					if (matcher.test(data[i])) {
+						results.push(data[i]);
+
+						if (maxSize && results.length > maxSize) {
+							break;
+						}
+					}
+				}
+				 // send response
+				 response(results);
+			}
+		} else {
+			// Invoke the parent function
+			return this._super();
 		}
 	}
 });
