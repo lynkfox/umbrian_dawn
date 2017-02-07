@@ -758,8 +758,7 @@ to { -o-transform: rotate(360deg); }
 }
 
 #chainMap i[data-icon="user"] {
-	padding-right: 2px;
-
+	padding: 2px;
 	cursor: default;
 }
 
@@ -2129,7 +2128,7 @@ div.ui-dialog[aria-describedby='dialog-admin'] .ui-dialog-traypane {
 	border-radius: 10px;
 }
 
-[data-icon="user"] .badge {
+[data-icon="user"] + .badge {
 	position: absolute;
 	top: -5px;
 	right: -10px;

@@ -979,11 +979,12 @@ var chain = new function() {
 		/*	function for showing occupied icon  */
 
 		// Hide all icons instead of checking each one
-		$("#chainMap [data-icon='user']").addClass("invisible");
+		$("#chainMap [data-icon='user'], #chainMap [data-icon='user'] + .badge").addClass("invisible");
 
 		// Loop through passed data and show icons
 		for (var x in data) {
-			$("#chainMap [data-nodeid='"+data[x].systemID+"'] [data-icon='user']").removeClass("invisible").html("<span class='badge'>"+data[x].count+"</span>");
+			$("#chainMap [data-nodeid='"+data[x].systemID+"'] [data-icon='user']").removeClass("invisible")
+			$("#chainMap [data-nodeid='"+data[x].systemID+"'] [data-icon='user'] + .badge").removeClass("invisible").html(data[x].count);
 		}
 
 		OccupiedToolTips.attach($("#chainMap [data-icon='user']:not(.invisible)"));
@@ -1217,6 +1218,7 @@ var chain = new function() {
 							+		"</div>"
 							+		"<div style='float: right;'>"
 							+			"<i data-icon='user' class='invisible'></i>"
+							+			"<span class='badge' class='invisible'></span>"
 							+		"</div>"
 							+	"</div>"
 							+	"<h4 class='nodeClass'>"+systemType+"</h4>"
@@ -1602,6 +1604,7 @@ var chain = new function() {
 							+		"</div>"
 							+		"<div style='float: right;'>"
 							+			"<i data-icon='user' class='invisible'></i>"
+							+			"<span class='badge' class='invisible'></span>"
 							+		"</div>"
 							+	"</div>"
 							+	"<h4 class='nodeClass'>"+(systemType + sigFormat(node.child.classBM, "class"))+"</h4>"
