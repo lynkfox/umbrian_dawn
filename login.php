@@ -256,7 +256,7 @@ if ($mode == 'login' || !$mode) {
 		exit();
 	} else if ($code && $state == 'evessoesi') {
 		if ($evesso->authenticate($code)) {
-			if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+			if(!isset($_SESSION['userID'])) {
 				$_SESSION = array();
 				session_regenerate_id();
 				session_destroy();

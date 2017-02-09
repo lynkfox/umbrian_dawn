@@ -4,7 +4,7 @@ $startTime = microtime(true);
 if (!session_id()) session_start();
 
 // Check for login & admin permission - else kick
-if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+if(!isset($_SESSION['userID'])) {
 	http_response_code(403);
 	exit();
 }

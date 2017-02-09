@@ -9,7 +9,7 @@ $startTime = microtime(true);
 // Verify access via Tripwire signon
 if (!session_id()) session_start();
 
-if(!isset($_SESSION['userID']) || $_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
+if(!isset($_SESSION['userID'])) {
 	http_response_code(403);
 	exit();
 }
