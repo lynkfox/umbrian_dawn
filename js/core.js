@@ -2358,8 +2358,8 @@ var tripwire = new function() {
 
 	this.autoMapper = function(from, to) {
 		// Testing
-		//from = $.map(tripwire.systems, function(system, id) { return system.name == from ? id : null; })[0];
-		//to = $.map(tripwire.systems, function(system, id) { return system.name == to ? id : null; })[0];
+		// from = $.map(tripwire.systems, function(system, id) { return system.name == from ? id : null; })[0];
+		// to = $.map(tripwire.systems, function(system, id) { return system.name == to ? id : null; })[0];
 		var pods = [33328, 670];
 
 		// Is auto-mapper toggled?
@@ -2913,18 +2913,18 @@ var tripwire = new function() {
 
 	// Handles data from EVE IGB headers
 	this.EVE = function(EVE, characterChange = false) {
-		var automapper = typeof(this.client.EVE.automapper) != "undefined" ? this.client.EVE.automapper : {systemChange: false};
+		var systemChange = this.client.EVE && this.client.EVE.systemChange || false;
 
 		if (EVE) {
 			// Automapper
 			if (!characterChange) {
 				// Did the system change or did it previously and we have yet to try an autoMapper call?
-				if ((this.client.EVE && this.client.EVE.systemID != EVE.systemID) || automapper.systemChange == true) {
-					automapper.systemChange = true;
+				if ((this.client.EVE && this.client.EVE.systemID != EVE.systemID) || systemChange == true) {
+					systemChange = true;
 
 					// Check if location was updated after the last ship update
 					if (moment(EVE.locationDate).isAfter(moment(this.client.EVE.shipDate))) {
-						automapper.systemChange = false;
+						systemChange = false;
 						tripwire.autoMapper(this.client.EVE.systemID, EVE.systemID);
 					}
 				}
@@ -2960,7 +2960,7 @@ var tripwire = new function() {
 			stationName: EVE.stationName,
 			locationDate: EVE.locationDate,
 			shipDate: EVE.shipDate,
-			automapper: automapper
+			systemChange: systemChange
 		};
 	}
 
@@ -2995,7 +2995,7 @@ var tripwire = new function() {
 					var character = tripwire.esi.characters[this.characterID];
 
 					if (character) {
-						character.locationDate = xhr.getResponseHeader("date");
+						character.locationDate = xhr.getResponseHeader("last-modified");
 
 						if (character.systemID != data.solar_system_id) {
 							character.systemID = data.solar_system_id || null;
@@ -3108,7 +3108,7 @@ var tripwire = new function() {
 					var character = tripwire.esi.characters[this.characterID];
 
 					if (character) {
-						character.shipDate = xhr.getResponseHeader("date");
+						character.shipDate = xhr.getResponseHeader("last-modified");
 
 						if (character.shipID != data.ship_item_id) {
 							character.shipID = data.ship_item_id || null;
@@ -3284,8 +3284,8 @@ var tripwire = new function() {
 				tripwire.esi.characters[characterID] = characters[characterID];
 			}
 
-			location();
 			ship();
+			location();
 		}
 	}
 
@@ -3504,6 +3504,10 @@ $("#add-signature").click(function(e) {
 					this.value = "???";
 				}
 			});
+
+			$("#sigAddForm #whType, #sigAddForm #sigID").focus(function(e) {
+				$(this).select();
+			});
 		}
 	});
 
@@ -3512,6 +3516,9 @@ $("#add-signature").click(function(e) {
 
 $("#sigAddForm").submit(function(e) {
 	e.preventDefault();
+
+	// Trim ending whitespace
+	$("#sigAddForm #connection").val($("#sigAddForm #connection").val().trim());
 
 	$("th.critical").removeClass("critical");
 	ValidationTooltips.close();
@@ -3605,6 +3612,9 @@ $("#sigAddForm").submit(function(e) {
 
 $("#sigEditForm").submit(function(e) {
 	e.preventDefault();
+
+	// Trim ending whitespace
+	$("#sigEditForm #connection").val($("#sigEditForm #connection").val().trim());
 
 	$("th.critical").removeClass("critical");
 	ValidationTooltips.close();
@@ -5370,6 +5380,10 @@ function openSigEdit(e) {
 					if (this.value == "") {
 						this.value = "???";
 					}
+				});
+
+				$("#sigEditForm #whType, #sigEditForm #sigID").focus(function(e) {
+					$(this).select();
 				});
 			}
 		});
