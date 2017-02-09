@@ -2913,12 +2913,24 @@ var tripwire = new function() {
 
 	// Handles data from EVE IGB headers
 	this.EVE = function(EVE, characterChange = false) {
+		var automapper = typeof(this.client.EVE.automapper) != "undefined" ? this.client.EVE.automapper : {systemChange: false};
+
 		if (EVE) {
 			// Automapper
-			if (!characterChange && this.client.EVE && this.client.EVE.systemID != EVE.systemID) {
-				tripwire.autoMapper(this.client.EVE.systemID, EVE.systemID);
+			if (!characterChange) {
+				// Did the system change or did it previously and we have yet to try an autoMapper call?
+				if ((this.client.EVE && this.client.EVE.systemID != EVE.systemID) || automapper.systemChange == true) {
+					automapper.systemChange = true;
+
+					// Check if location was updated after the last ship update
+					if (moment(EVE.locationDate).isAfter(moment(this.client.EVE.shipDate))) {
+						automapper.systemChange = false;
+						tripwire.autoMapper(this.client.EVE.systemID, EVE.systemID);
+					}
+				}
 			}
 
+			// System follower
 			if (!characterChange && options.buttons.follow && (this.client.EVE && this.client.EVE.systemID != EVE.systemID) && $(".ui-dialog:visible").length == 0) {
 				systemChange(EVE.systemID);
 			}
@@ -2937,7 +2949,19 @@ var tripwire = new function() {
 			$("#currentSpan").hide();
 		}
 
-		this.client.EVE = {systemID: EVE.systemID, systemName: EVE.systemName};
+		this.client.EVE = {
+			characterID: EVE.characterID,
+			characterName: EVE.characterName,
+			systemID: EVE.systemID,
+			systemName: EVE.systemName,
+			shipTypeID: EVE.shipTypeID,
+			shipTypeName: EVE.shipTypeName,
+			stationID: EVE.stationID,
+			stationName: EVE.stationName,
+			locationDate: EVE.locationDate,
+			shipDate: EVE.shipDate,
+			automapper: automapper
+		};
 	}
 
 	this.esi = function() {
@@ -2967,10 +2991,12 @@ var tripwire = new function() {
 					cache: false,
 					// timeout: 8000,
 					characterID: characterID
-				}).done(function(data) {
+				}).done(function(data, status, xhr) {
 					var character = tripwire.esi.characters[this.characterID];
 
 					if (character) {
+						character.locationDate = xhr.getResponseHeader("date");
+
 						if (character.systemID != data.solar_system_id) {
 							character.systemID = data.solar_system_id || null;
 							character.systemName = tripwire.systems[data.solar_system_id].name || null;
@@ -3078,10 +3104,12 @@ var tripwire = new function() {
 					cache: false,
 					// timeout: 8000,
 					characterID: characterID
-				}).done(function(data) {
+				}).done(function(data, status, xhr) {
 					var character = tripwire.esi.characters[this.characterID];
 
 					if (character) {
+						character.shipDate = xhr.getResponseHeader("date");
+
 						if (character.shipID != data.ship_item_id) {
 							character.shipID = data.ship_item_id || null;
 
