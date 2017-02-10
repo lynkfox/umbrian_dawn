@@ -49,6 +49,7 @@ if ($row = $stmt->fetchObject()) {
 	<link rel="shortcut icon" href="//<?= $server ?>/images/favicon.png" />
 
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery.jbox.css">
+	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery.jbox-notice.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/gridster.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-1.12.1.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-custom.css">
@@ -1094,6 +1095,7 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.gridster.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.knob.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox-0.4.7.min.js"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox-notice-0.4.6.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/dragscroll.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
