@@ -5476,6 +5476,9 @@ function openSigEdit(e) {
 				} else {
 					$("#autoEdit").button("disable");
 				}
+
+				// Auto select ID field
+				$("#dialog-sigEdit #sigID").select();
 			},
 			close: function(e, ui) {
 				delete tripwire.activity.editSig;
