@@ -3,6 +3,11 @@
     font-size: 1.1em;
 }
 
+.ui-widget input {
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 1em;
+}
+
 .ui-widget-content {
     border: 1px solid #404040;
 }
