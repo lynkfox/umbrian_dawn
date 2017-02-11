@@ -3108,7 +3108,7 @@ var tripwire = new function() {
 					headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
 					type: "GET",
 					dataType: "JSON",
-					cache: false,
+					// cache: false,
 					// timeout: 8000,
 					characterID: characterID
 				}).done(function(data, status, xhr) {
@@ -3221,7 +3221,7 @@ var tripwire = new function() {
 					headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
 					type: "GET",
 					dataType: "JSON",
-					cache: false,
+					// cache: false,
 					// timeout: 8000,
 					characterID: characterID
 				}).done(function(data, status, xhr) {
@@ -3334,7 +3334,7 @@ var tripwire = new function() {
 				headers: {"X-User-Agent": userAgent},
 				type: "GET",
 				dataType: "JSON",
-				cache: false,
+				// cache: false,
 				reference: reference
 			});
 		}
@@ -3345,7 +3345,7 @@ var tripwire = new function() {
 				headers: {"X-User-Agent": userAgent},
 				type: "GET",
 				dataType: "JSON",
-				cache: false,
+				// cache: false,
 				reference: reference
 			});
 		}
