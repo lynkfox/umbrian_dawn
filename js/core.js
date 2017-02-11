@@ -4704,19 +4704,20 @@ $("#add-signature2").click(function(e) {
 				aSigWormholes.splice(26, 0, "K162");
 				aSigWormholes.push("???", "GATE");
 
-				$("#signatureType, #signatureLife").selectmenu({width: 100});
+				$("#dialog-signature [name='signatureType'], #signatureLife").selectmenu({width: 100});
 				$("#wormholeLife, #wormholeMass").selectmenu({width: 80});
 				$("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
 				$("#dialog-signature [data-autocomplete='sigType']").inlinecomplete({source: aSigWormholes, maxSize: 10, delay: 0});
 
 				// Ensure first signature ID field only accepts letters
-				$("#dialog-signature [name='signatureID']").on("keyup", function() {
-					if (!/^[a-zA-Z?]*$/g.test(this.value)) {
-						this.value = this.value.substring(0, this.value.length -1);
-					}
-				});
+				// $("#dialog-signature [name='signatureID']").on("keyup", function() {
+				// 	if (!/^[a-zA-Z?]*$/g.test(this.value)) {
+				// 		this.value = this.value.substring(0, this.value.length -1);
+				// 	}
+				// });
 
-				$("#dialog-signature").on("selectmenuchange", "#signatureType", function() {
+				// Toggle between wormhole and regular signatures
+				$("#dialog-signature").on("selectmenuchange", "[name='signatureType']", function() {
 					if (this.value == "Wormhole") {
 						$("#dialog-signature #site").slideUp(200, function() { $(this).hide(0); });
 						$("#dialog-signature #wormhole").slideDown(200, function() { $(this).show(200); });
@@ -4728,7 +4729,14 @@ $("#add-signature2").click(function(e) {
 			},
 			open: function() {
 				$("#dialog-signature input").val("");
-				$("#signatureType").val("Combat").selectmenu("refresh");
+				$("#dialog-signature [name='signatureType']").val("Combat").selectmenu("refresh");
+
+				$("#dialog-signature #site").show();
+				$("#dialog-signature #wormhole").hide();
+
+				// Side labels
+				$("#dialog-signature .sideLabel:first").html(viewingSystem + " Side");
+				$("#dialog-signature .sideLabel:last").html("Other Side");
 			},
 			close: function() {
 				ValidationTooltips.close();
@@ -4743,10 +4751,12 @@ $("#form-signature").submit(function(e) {
 	e.preventDefault();
 	ValidationTooltips.close();
 
-	if ($("#form-signature [name='signatureID']").val().length < 3) {
-		ValidationTooltips.open({target: $("#form-signature [name='signatureID']")}).setContent("Must be 3 Letters in length!");
-		$("#form-signature [name='signatureID']").select();
-	}
+	// if ($("#form-signature [name='signatureID']").val().length < 3) {
+	// 	ValidationTooltips.open({target: $("#form-signature [name='signatureID']")}).setContent("Must be 3 Letters in length!");
+	// 	$("#form-signature [name='signatureID']").select();
+	// }
+
+
 });
 
 

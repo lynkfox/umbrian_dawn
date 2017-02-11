@@ -338,11 +338,14 @@ if ($row = $stmt->fetchObject()) {
 
 		#dialog-signature #signatureName {
 			width: 100%;
-			-webkit-box-sizing: border-box;
 			box-sizing: border-box;
 		}
 
-		#dialog-signature [name="signatureID"], #dialog-signature .signatureType {
+		#dialog-signature #signatureType {
+			float: right;
+		}
+
+		#dialog-signature .signatureID, #dialog-signature .wormholeType {
 			text-align: center;
 			text-transform: uppercase;
 		}
@@ -354,29 +357,33 @@ if ($row = $stmt->fetchObject()) {
 
 		#dialog-signature .sideLabel {
 			position: absolute;
-			top: 70px;
 			left: -10px;
-			width: 70px;
-			text-align: center;
 			font-weight: bold;
-
-			-ms-transform: rotate(-90deg);
-			-webkit-transform: rotate(-90deg);
 			transform: rotate(-90deg);
-
-			-ms-transform-origin: left top 0;
-			-webkit-transform-origin: left top 0;
 			transform-origin: left top 0;
 		}
+
+		#dialog-signature #wormhole .side:first-child .sideLabel  {
+			bottom: -10px;
+			width: 90px;
+			text-align: left;
+		}
+
+		#dialog-signature #wormhole .side:last-child .sideLabel {
+			bottom: -40px;
+			width: 130px;
+			text-align: right;
+		}
 	</style>
+
 	<div id="dialog-signature" title="Add Signature" class="hidden">
 		<form id="form-signature">
 			<div class="row">
-				<span class="label">ID:&nbsp;</span><input name="signatureID" type="text" maxlength="3" size="2" />
+				<span class="label">ID:&nbsp;</span><input class="signatureID" type="text" maxlength="3" size="2" />
 				<span class="label">-</span>
-				<input name="signatureID" type="text" maxlength="3" size="2" placeholder="###" />
-				<span class="select" style="float: right;">
-					<select id="signatureType">
+				<input class="signatureID" type="text" maxlength="3" size="2" placeholder="###" />
+				<span id="signatureType" class="select">
+					<select name="signatureType">
 						<option value="Combat">Combat</option>
 						<option value="Wormhole">Wormhole</option>
 						<option value="Ore">Ore</option>
@@ -406,9 +413,9 @@ if ($row = $stmt->fetchObject()) {
 			</div>
 			<div id="wormhole" class="hidden">
 				<div class="side">
-					<div class="sideLabel">Jita Side</div>
+					<div class="sideLabel"></div>
 					<div class="row">
-						<span class="label">Type:&nbsp;</span><input type="text" class="signatureType" data-autocomplete="sigType" maxlength="4" size="4" />
+						<span class="label">Type:&nbsp;</span><input type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
 					</div>
 					<div class="row">
 						<span class="label">Leads:&nbsp;</span><input type="text" data-autocomplete="sigSystems" maxlength="20" size="20" />
@@ -419,14 +426,14 @@ if ($row = $stmt->fetchObject()) {
 				</div>
 				<hr style="margin-left: 15px; margin-bottom: 10px;" />
 				<div class="side">
-					<div class="sideLabel">Other Side</div>
+					<div class="sideLabel"></div>
 					<div class="row">
-						<span class="label">ID:&nbsp;</span><input name="signatureID" type="text" maxlength="3" size="2" />
+						<span class="label">ID:&nbsp;</span><input class="signatureID" type="text" maxlength="3" size="2" />
 						<span class="label">-</span>
-						<input name="signatureID" type="text" maxlength="3" size="2" placeholder="###" />
+						<input class="signatureID" type="text" maxlength="3" size="2" placeholder="###" />
 					</div>
 					<div class="row">
-						<span class="label">Type:&nbsp;</span><input type="text" class="signatureType" data-autocomplete="sigType" maxlength="4" size="4" />
+						<span class="label">Type:&nbsp;</span><input type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
 					</div>
 					<div class="row">
 						<span class="label">Leads:&nbsp;</span><input type="text" data-autocomplete="sigSystems" maxlength="20" size="20" />
