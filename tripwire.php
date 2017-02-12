@@ -1105,4 +1105,3 @@ if ($row = $stmt->fetchObject()) {
 
 </body>
 </html>
-<?php session_write_close(); ?>
