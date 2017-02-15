@@ -4704,8 +4704,8 @@ $("#add-signature2").click(function(e) {
 				aSigWormholes.splice(26, 0, "K162");
 				aSigWormholes.push("???", "GATE");
 
-				$("#dialog-signature [name='signatureType'], #signatureLife").selectmenu({width: 100});
-				$("#wormholeLife, #wormholeMass").selectmenu({width: 80});
+				$("#dialog-signature [name='signatureType'], #dialog-signature [name='signatureLife']").selectmenu({width: 100});
+				$("#dialog-signature [name='wormholeLife'], #dialog-signature [name='wormholeMass']").selectmenu({width: 80});
 				$("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
 				$("#dialog-signature [data-autocomplete='sigType']").inlinecomplete({source: aSigWormholes, maxSize: 10, delay: 0});
 
@@ -4718,18 +4718,30 @@ $("#add-signature2").click(function(e) {
 
 				// Toggle between wormhole and regular signatures
 				$("#dialog-signature").on("selectmenuchange", "[name='signatureType']", function() {
-					if (this.value == "Wormhole") {
+					if (this.value == "wormhole") {
 						$("#dialog-signature #site").slideUp(200, function() { $(this).hide(0); });
-						$("#dialog-signature #wormhole").slideDown(200, function() { $(this).show(200); });
+						$("#dialog-signature #wormhole").slideDown(200, function() { $(this).show(200); $("#dialog-signature [name='signatureID_A_Alpha']").select(); });
 					} else {
-						$("#dialog-signature #site").slideDown(200, function() { $(this).show(200); });
+						$("#dialog-signature #site").slideDown(200, function() { $(this).show(200); $("#dialog-signature [name='signatureID_A_Alpha']").select(); });
 						$("#dialog-signature #wormhole").slideUp(200, function() { $(this).hide(0); });
 					}
+				});
+
+				$("#form-signature").submit(function(e) {
+					e.preventDefault();
+					ValidationTooltips.close();
+
+					// if ($("#form-signature [name='signatureID']").val().length < 3) {
+					// 	ValidationTooltips.open({target: $("#form-signature [name='signatureID']")}).setContent("Must be 3 Letters in length!");
+					// 	$("#form-signature [name='signatureID']").select();
+					// }
+
+
 				});
 			},
 			open: function() {
 				$("#dialog-signature input").val("");
-				$("#dialog-signature [name='signatureType']").val("Combat").selectmenu("refresh");
+				$("#dialog-signature [name='signatureType']").val("combat").selectmenu("refresh");
 
 				$("#dialog-signature #site").show();
 				$("#dialog-signature #wormhole").hide();
@@ -4746,19 +4758,6 @@ $("#add-signature2").click(function(e) {
 		$("#dialog-signature").dialog("open");
 	}
 });
-
-$("#form-signature").submit(function(e) {
-	e.preventDefault();
-	ValidationTooltips.close();
-
-	// if ($("#form-signature [name='signatureID']").val().length < 3) {
-	// 	ValidationTooltips.open({target: $("#form-signature [name='signatureID']")}).setContent("Must be 3 Letters in length!");
-	// 	$("#form-signature [name='signatureID']").select();
-	// }
-
-
-});
-
 
 
 
@@ -5876,6 +5875,14 @@ $(document).keydown(function(e)	{
 });
 
 $.widget("custom.inlinecomplete", $.ui.autocomplete, {
+	_create: function() {
+		if (this.element.is("SELECT")) {
+			this._selectInit();
+		}
+
+		// Invoke the parent function
+		return this._super();
+	},
 	_suggest: function(items) {
 		this.element.val(items[0].value.substr(0, this.element.val().length));
 
@@ -5888,9 +5895,9 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 				var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
 				var results = new Array(); // results array
 				var data = this.options.source;
-				var maxSize = this.options.maxSize || 50; // maximum result size
+				var maxSize = this.options.maxSize || 25; // maximum result size
 				// simple loop for the options
-				for (var i = 0, l = data.length; i <= l; i++) {
+				for (var i = 0, l = data.length; i < l; i++) {
 					if (matcher.test(data[i])) {
 						results.push(data[i]);
 
@@ -5906,5 +5913,59 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 			// Invoke the parent function
 			return this._super();
 		}
-	}
+	},
+	_close: function(event) {
+		this.options.source = this.options.input_source;
+
+		// Invoke the parent function
+		return this._super(event);
+	},
+	_selectInit: function() {
+		this.wrapper = $("<span>")
+          .addClass("custom-combobox")
+          .insertAfter(this.element);
+
+        this.element.hide();
+
+		this.options.input_source = this.options.source;
+		this.options.select_source = this.element.children("option[value!='']").map(function() {
+            return $.trim(this.text);
+        }).toArray();
+
+		this._createAutocomplete();
+		this._createShowAllButton();
+	},
+	_createAutocomplete: function() {
+		this.input = $("<input type='text'>")
+		  .appendTo(this.wrapper)
+
+		this.select = this.element;
+		this.element = this.input;
+	},
+	_createShowAllButton: function() {
+        var that = this,
+          wasOpen = false;
+        $("<a>")
+			.attr("tabIndex", that.input.prop("tabindex"))
+			.attr("title", "")
+			.appendTo(this.wrapper)
+			.button({icons: {primary: "ui-icon-triangle-1-s"}, text: false})
+			.removeClass("ui-corner-all")
+			.addClass("custom-combobox-toggle ui-corner-right")
+			.on("mousedown", function() {
+				wasOpen = that.widget().is(":visible");
+			})
+			.on("click", function() {
+				that.element.trigger("focus");
+
+				// Close if already visible
+				if (wasOpen) {
+				  return;
+				}
+
+				// Pass empty string as value to search for, displaying all results
+				that.options.source = that.options.select_source;
+				that._search("")
+			});
+      },
 });

@@ -50,10 +50,6 @@ ul.ui-autocomplete {
 	color: #333;
 
 	border: none;
-	-webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
     border-radius: 3px;
 }
 
@@ -76,6 +72,11 @@ ul.ui-autocomplete {
 .ui-menu-item .ui-menu-item-wrapper:hover, .ui-menu-item .ui-menu-item-wrapper.ui-state-active {
     background: #222;
     color: #aaa;
+}
+
+.ui-menu-item:last-child .ui-menu-item-wrapper:hover, .ui-menu-item:last-child .ui-menu-item-wrapper.ui-state-active {
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .ui-menu li.ui-menu-item a {

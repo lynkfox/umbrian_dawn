@@ -316,6 +316,11 @@ if ($row = $stmt->fetchObject()) {
 
 
 	<style>
+		#dialog-signature hr {
+			margin-left: 15px;
+			margin-bottom: 10px;
+		}
+
 		#dialog-signature .label {
 			font-weight: bold;
 			text-align: right;
@@ -328,7 +333,7 @@ if ($row = $stmt->fetchObject()) {
 		}
 
 		#dialog-signature .row {
-			min-height: 21px;
+			min-height: 22px;
 		}
 
 		#dialog-signature .label:first-child {
@@ -336,13 +341,26 @@ if ($row = $stmt->fetchObject()) {
 			min-width: 70px;
 		}
 
-		#dialog-signature #signatureName {
+		#dialog-signature #signatureName span {
+			display: table-cell;
+		}
+
+		#dialog-signature #signatureName span:last-child {
+			width: 100%;
+			padding-left: 3px;
+		}
+
+		#dialog-signature #signatureName input {
 			width: 100%;
 			box-sizing: border-box;
 		}
 
-		#dialog-signature #signatureType {
+		#dialog-signature #signatureType, #dialog-signature #wormholeMass {
 			float: right;
+		}
+
+		#dialog-signature #wormholeMass .label, #dialog-signature .bookmark .label {
+			min-width: auto;
 		}
 
 		#dialog-signature .signatureID, #dialog-signature .wormholeType {
@@ -364,40 +382,66 @@ if ($row = $stmt->fetchObject()) {
 		}
 
 		#dialog-signature #wormhole .side:first-child .sideLabel  {
-			bottom: -10px;
+			bottom: 0px;
 			width: 90px;
 			text-align: left;
 		}
 
 		#dialog-signature #wormhole .side:last-child .sideLabel {
 			bottom: -40px;
-			width: 130px;
+			width: 135px;
 			text-align: right;
+		}
+
+		.custom-combobox {
+			position: relative;
+			display: inline-block;
+		}
+
+		.custom-combobox-toggle {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			margin-left: -1px;
+			padding: 0;
+		}
+
+		.custom-combobox input {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+
+		.custom-combobox .custom-combobox-toggle {
+			padding: 0.4em 1.2em;
+			border-radius: 0;
+			border-top-right-radius: 3px;
+			border-bottom-right-radius: 3px;
 		}
 	</style>
 
 	<div id="dialog-signature" title="Add Signature" class="hidden">
 		<form id="form-signature">
 			<div class="row">
-				<span class="label">ID:&nbsp;</span><input class="signatureID" type="text" maxlength="3" size="2" />
+				<span class="label">ID:</span>
+				<input name="signatureID_A_Alpha" type="text" maxlength="3" size="2" class="signatureID" />
 				<span class="label">-</span>
-				<input class="signatureID" type="text" maxlength="3" size="2" placeholder="###" />
+				<input name="signatureID_A_Numeric" type="text" maxlength="3" size="2" placeholder="###" class="signatureID" />
 				<span id="signatureType" class="select">
 					<select name="signatureType">
-						<option value="Combat">Combat</option>
-						<option value="Wormhole">Wormhole</option>
-						<option value="Ore">Ore</option>
-						<option value="Data">Data</option>
-						<option value="Gas">Gas</option>
-						<option value="Relic">Relic</option>
+						<option value="combat">Combat</option>
+						<option value="wormhole">Wormhole</option>
+						<option value="ore">Ore</option>
+						<option value="data">Data</option>
+						<option value="gas">Gas</option>
+						<option value="relic">Relic</option>
 					</select>
 				</span>
 			</div>
-			<div id="site" class="">
+			<div id="site">
 				<div class="row">
-					<span class="label">Life:&nbsp;</span>
+					<span class="label">Life:</span>
 					<span class="select">
-						<select id="signatureLife">
+						<select name="signatureLife">
 							<option value="24">24 Hours</option>
 							<option value="48">48 Hours</option>
 							<option value="72">72 Hours</option>
@@ -406,51 +450,94 @@ if ($row = $stmt->fetchObject()) {
 						</select>
 					</span>
 				</div>
-				<div class="row">
-					<span class="label" style="display: table-cell;">Name:&nbsp;</span>
-					<div style="display: table-cell; width: 100%;"><input id="signatureName" type="text" maxlength="35" /></div>
+				<div id="signatureName" class="row">
+					<span class="label">Name:</span>
+					<span><input name="signatureName" type="text" maxlength="35" /></span>
 				</div>
 			</div>
 			<div id="wormhole" class="hidden">
 				<div class="side">
 					<div class="sideLabel"></div>
 					<div class="row">
-						<span class="label">Type:&nbsp;</span><input type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
+						<span class="label">Type:</span>
+						<input name="" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
+						<span class="bookmark">
+							<span class="label">BM:</span>
+							<input name="" type="text" maxlength="10" size="8" />
+						</span>
 					</div>
 					<div class="row">
-						<span class="label">Leads:&nbsp;</span><input type="text" data-autocomplete="sigSystems" maxlength="20" size="20" />
+						<span class="label">Leads:</span>
+						<select data-autocomplete="sigSystems">
+							<option value="Null-Sec">Null-Sec</option>
+							<option value="Low-Sec">Low-Sec</option>
+							<option value="High-Sec">High-Sec</option>
+							<option value="Class-#">Class-#</option>
+							<option value="Frig-Class-#">Frig-Class-#</option>
+							<!-- <option value="Class-1">Class-1</option>
+							<option value="Class-2">Class-2</option>
+							<option value="Class-2">Class-2</option>
+							<option value="Class-3">Class-3</option>
+							<option value="Class-4">Class-4</option>
+							<option value="Class-5">Class-5</option>
+							<option value="Class-6">Class-6</option> -->
+						</select>
 					</div>
 					<div class="row">
-						<span class="label">Name:&nbsp;</span><input type="text" maxlength="20" size="20" />
+						<span class="label">Name:</span>
+						<input type="text" maxlength="20" size="20" />
 					</div>
 				</div>
-				<hr style="margin-left: 15px; margin-bottom: 10px;" />
+				<hr/>
 				<div class="side">
 					<div class="sideLabel"></div>
 					<div class="row">
-						<span class="label">ID:&nbsp;</span><input class="signatureID" type="text" maxlength="3" size="2" />
+						<span class="label">ID:</span>
+						<input type="text" maxlength="3" size="2" class="signatureID" />
 						<span class="label">-</span>
-						<input class="signatureID" type="text" maxlength="3" size="2" placeholder="###" />
+						<input type="text" maxlength="3" size="2" placeholder="###" class="signatureID" />
 					</div>
 					<div class="row">
-						<span class="label">Type:&nbsp;</span><input type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
+						<span class="label">Type:</span>
+						<input type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
+						<span class="bookmark">
+							<span class="label">BM:</span>
+							<input name="" type="text" maxlength="10" size="8" />
+						</span>
 					</div>
 					<div class="row">
-						<span class="label">Leads:&nbsp;</span><input type="text" data-autocomplete="sigSystems" maxlength="20" size="20" />
+						<span class="label">Leads:</span>
+						<select data-autocomplete="sigSystems">
+							<option value="Null-Sec">Null-Sec</option>
+							<option value="Low-Sec">Low-Sec</option>
+							<option value="High-Sec">High-Sec</option>
+							<option value="Class-#">Class-#</option>
+							<option value="Frig-Class-#">Frig-Class-#</option>
+							<!-- <option value="Class-1">Class-1</option>
+							<option value="Class-2">Class-2</option>
+							<option value="Class-2">Class-2</option>
+							<option value="Class-3">Class-3</option>
+							<option value="Class-4">Class-4</option>
+							<option value="Class-5">Class-5</option>
+							<option value="Class-6">Class-6</option> -->
+						</select>
 					</div>
 					<div class="row">
-						<span class="label">Name:&nbsp;</span><input type="text" maxlength="20" size="20" />
+						<span class="label">Name:</span>
+						<input type="text" maxlength="20" size="20" />
 					</div>
 					<div class="row">
-						<span class="label">Life:&nbsp;</span><span class="select">
-							<select id="wormholeLife">
+						<span class="label">Life:</span>
+						<span class="select">
+							<select name="wormholeLife">
 								<option value="stable">Stable</option>
 								<option value="critical">Critical</option>
 							</select>
 						</span>
-						<span style="float: right;">
-							<span class="label" style="min-width: auto;">Mass:&nbsp;</span><span class="select">
-								<select id="wormholeMass">
+						<span id="wormholeMass">
+							<span class="label">Mass:</span>
+							<span class="select">
+								<select name="wormholeMass">
 									<option value="stable">Stable</option>
 									<option value="destab">Destab</option>
 									<option value="critical">Critical</option>
