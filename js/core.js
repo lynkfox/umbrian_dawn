@@ -4702,7 +4702,7 @@ $("#add-signature2").click(function(e) {
 			create: function() {
 				var aSigWormholes = $.map(tripwire.wormholes, function(item, index) { return index;});
 				aSigWormholes.splice(26, 0, "K162");
-				aSigWormholes.push("???", "GATE");
+				aSigWormholes.push("GATE");
 
 				$("#dialog-signature [name='signatureType'], #dialog-signature [name='signatureLife']").selectmenu({width: 100});
 				$("#dialog-signature [name='wormholeLife'], #dialog-signature [name='wormholeMass']").selectmenu({width: 80});
@@ -4710,33 +4710,77 @@ $("#add-signature2").click(function(e) {
 				$("#dialog-signature [data-autocomplete='sigType']").inlinecomplete({source: aSigWormholes, maxSize: 10, delay: 0});
 
 				// Ensure first signature ID field only accepts letters
-				// $("#dialog-signature [name='signatureID']").on("keyup", function() {
-				// 	if (!/^[a-zA-Z?]*$/g.test(this.value)) {
-				// 		this.value = this.value.substring(0, this.value.length -1);
-				// 	}
-				// });
+				$("#dialog-signature [name='signatureID_A_Alpha'], #dialog-signature [name='signatureID_B_Alpha']").on("input", function() {
+					while (!/^[a-zA-Z?]*$/g.test(this.value)) {
+						this.value = this.value.substring(0, this.value.length -1);
+					}
+				});
+
+				// Ensure second signature ID field only accepts numbers
+				$("#dialog-signature [name='signatureID_A_Numeric'], #dialog-signature [name='signatureID_B_Numeric']").on("input", function() {
+					while (!/^[0-9?]*$/g.test(this.value)) {
+						this.value = this.value.substring(0, this.value.length -1);
+					}
+				});
+
+				// Select value on click
+				$("#dialog-signature .signatureID, #dialog-signature .wormholeType").on("click", function() {
+					$(this).select();
+				});
+
+				// Auto fill opposite side wormhole w/ K162
+				$("#dialog-signature .wormholeType").on("input", function() {
+					if ($(this).val().length > 0 && $.inArray($(this).val(), aSigWormholes) != -1 && $(this).val() != "K162") {
+						$("#dialog-signature .wormholeType").not(this).val("K162");
+					}
+				});
 
 				// Toggle between wormhole and regular signatures
 				$("#dialog-signature").on("selectmenuchange", "[name='signatureType']", function() {
 					if (this.value == "wormhole") {
 						$("#dialog-signature #site").slideUp(200, function() { $(this).hide(0); });
-						$("#dialog-signature #wormhole").slideDown(200, function() { $(this).show(200); $("#dialog-signature [name='signatureID_A_Alpha']").select(); });
+						$("#dialog-signature #wormhole").slideDown(200, function() { $(this).show(200); });
 					} else {
-						$("#dialog-signature #site").slideDown(200, function() { $(this).show(200); $("#dialog-signature [name='signatureID_A_Alpha']").select(); });
+						$("#dialog-signature #site").slideDown(200, function() { $(this).show(200); });
 						$("#dialog-signature #wormhole").slideUp(200, function() { $(this).hide(0); });
 					}
+
+					ValidationTooltips.close();
 				});
 
 				$("#form-signature").submit(function(e) {
+					var form = $(this).serializeObject();
 					e.preventDefault();
 					ValidationTooltips.close();
 
-					// if ($("#form-signature [name='signatureID']").val().length < 3) {
-					// 	ValidationTooltips.open({target: $("#form-signature [name='signatureID']")}).setContent("Must be 3 Letters in length!");
-					// 	$("#form-signature [name='signatureID']").select();
-					// }
+					// Validate full signature ID fields (blank | 3 characters)
+					$.each($("#dialog-signature .signatureID:visible"), function() {
+						if ($(this).val().length > 0 && $(this).val().length < 3) {
+							ValidationTooltips.open({target: $(this)}).setContent("Must be 3 characters in length!");
+							$(this).select();
+							return false;
+						}
+					});
 
+					// Validate wormhole types (blank | wormhole)
+					$.each($("#dialog-signature .wormholeType"), function() {
+						if ($(this).val().length > 0 && $.inArray($(this).val(), aSigWormholes) == -1) {
+							ValidationTooltips.open({target: $(this)}).setContent("Must be a valid wormhole type!");
+							$(this).select();
+							return false;
+						}
+					});
 
+					// Validate leads to system (blank | system)
+					$.each($("#dialog-signature .leadsTo:visible"), function() {
+						if ($(this).val().length > 0 && $.inArray($(this).val(), tripwire.aSigSystems) == -1) {
+							ValidationTooltips.open({target: $(this)}).setContent("Must be a valid leads to system!");
+							$(this).select();
+							return false;
+						}
+					});
+
+					console.log(form);
 				});
 			},
 			open: function() {
@@ -5876,7 +5920,7 @@ $(document).keydown(function(e)	{
 
 $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 	_create: function() {
-		if (this.element.is("SELECT")) {
+		if (!this.element.is("input")) {
 			this._selectInit();
 		}
 
@@ -5915,40 +5959,32 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 		}
 	},
 	_close: function(event) {
-		this.options.source = this.options.input_source;
+		this.options.source = this.options.input_source ? this.options.input_source : this.options.source;
 
 		// Invoke the parent function
 		return this._super(event);
 	},
 	_selectInit: function() {
-		this.wrapper = $("<span>")
-          .addClass("custom-combobox")
-          .insertAfter(this.element);
-
-        this.element.hide();
+		this.element.addClass("custom-combobox");
+		this.wrapper = this.element;
+		this.element = this.wrapper.find("input:first");
+		this.select = this.wrapper.find("select:first").remove();
 
 		this.options.input_source = this.options.source;
-		this.options.select_source = this.element.children("option[value!='']").map(function() {
+		this.options.select_source = this.select.children("option[value!='']").map(function() {
             return $.trim(this.text);
         }).toArray();
 
-		this._createAutocomplete();
 		this._createShowAllButton();
-	},
-	_createAutocomplete: function() {
-		this.input = $("<input type='text'>")
-		  .appendTo(this.wrapper)
-
-		this.select = this.element;
-		this.element = this.input;
 	},
 	_createShowAllButton: function() {
         var that = this,
           wasOpen = false;
+
         $("<a>")
-			.attr("tabIndex", that.input.prop("tabindex"))
+			.attr("tabIndex", that.element.prop("tabindex"))
 			.attr("title", "")
-			.appendTo(this.wrapper)
+			.appendTo(that.wrapper)
 			.button({icons: {primary: "ui-icon-triangle-1-s"}, text: false})
 			.removeClass("ui-corner-all")
 			.addClass("custom-combobox-toggle ui-corner-right")

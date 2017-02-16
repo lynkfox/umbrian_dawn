@@ -395,10 +395,10 @@ if ($row = $stmt->fetchObject()) {
 
 		.custom-combobox {
 			position: relative;
-			display: inline-block;
+			display: inline-table;
 		}
 
-		.custom-combobox-toggle {
+		.custom-combobox .custom-combobox-toggle {
 			position: absolute;
 			top: 0;
 			bottom: 0;
@@ -468,20 +468,23 @@ if ($row = $stmt->fetchObject()) {
 					</div>
 					<div class="row">
 						<span class="label">Leads:</span>
-						<select data-autocomplete="sigSystems">
-							<option value="Null-Sec">Null-Sec</option>
-							<option value="Low-Sec">Low-Sec</option>
-							<option value="High-Sec">High-Sec</option>
-							<option value="Class-#">Class-#</option>
-							<option value="Frig-Class-#">Frig-Class-#</option>
-							<!-- <option value="Class-1">Class-1</option>
-							<option value="Class-2">Class-2</option>
-							<option value="Class-2">Class-2</option>
-							<option value="Class-3">Class-3</option>
-							<option value="Class-4">Class-4</option>
-							<option value="Class-5">Class-5</option>
-							<option value="Class-6">Class-6</option> -->
-						</select>
+						<span data-autocomplete="sigSystems">
+							<input type="text" maxlength="20" size="20" class="leadsTo" />
+							<select>
+								<option value="Null-Sec">Null-Sec</option>
+								<option value="Low-Sec">Low-Sec</option>
+								<option value="High-Sec">High-Sec</option>
+								<option value="Class-#">Class-#</option>
+								<option value="Frig-Class-#">Frig-Class-#</option>
+								<!-- <option value="Class-1">Class-1</option>
+								<option value="Class-2">Class-2</option>
+								<option value="Class-2">Class-2</option>
+								<option value="Class-3">Class-3</option>
+								<option value="Class-4">Class-4</option>
+								<option value="Class-5">Class-5</option>
+								<option value="Class-6">Class-6</option> -->
+							</select>
+						</span>
 					</div>
 					<div class="row">
 						<span class="label">Name:</span>
@@ -507,20 +510,23 @@ if ($row = $stmt->fetchObject()) {
 					</div>
 					<div class="row">
 						<span class="label">Leads:</span>
-						<select data-autocomplete="sigSystems">
-							<option value="Null-Sec">Null-Sec</option>
-							<option value="Low-Sec">Low-Sec</option>
-							<option value="High-Sec">High-Sec</option>
-							<option value="Class-#">Class-#</option>
-							<option value="Frig-Class-#">Frig-Class-#</option>
-							<!-- <option value="Class-1">Class-1</option>
-							<option value="Class-2">Class-2</option>
-							<option value="Class-2">Class-2</option>
-							<option value="Class-3">Class-3</option>
-							<option value="Class-4">Class-4</option>
-							<option value="Class-5">Class-5</option>
-							<option value="Class-6">Class-6</option> -->
-						</select>
+						<span data-autocomplete="sigSystems">
+							<input type="text" maxlength="20" size="20" class="leadsTo" />
+							<select class="hidden">
+								<option value="Null-Sec">Null-Sec</option>
+								<option value="Low-Sec">Low-Sec</option>
+								<option value="High-Sec">High-Sec</option>
+								<option value="Class-#">Class-#</option>
+								<option value="Frig-Class-#">Frig-Class-#</option>
+								<!-- <option value="Class-1">Class-1</option>
+								<option value="Class-2">Class-2</option>
+								<option value="Class-2">Class-2</option>
+								<option value="Class-3">Class-3</option>
+								<option value="Class-4">Class-4</option>
+								<option value="Class-5">Class-5</option>
+								<option value="Class-6">Class-6</option> -->
+							</select>
+						</span>
 					</div>
 					<div class="row">
 						<span class="label">Name:</span>
