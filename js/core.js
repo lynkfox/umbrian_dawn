@@ -3104,12 +3104,10 @@ var tripwire = new function() {
 				}
 
 				$.ajax({
-					url: baseUrl + "/v1/characters/"+ characterID +"/location/",
-					headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
+					url: baseUrl + "/v1/characters/"+ characterID +"/location/?" + $.param({"token": character.accessToken, "user_agent": userAgent}),
+					// headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
 					type: "GET",
 					dataType: "JSON",
-					// cache: false,
-					// timeout: 8000,
 					characterID: characterID
 				}).done(function(data, status, xhr) {
 					var character = tripwire.esi.characters[this.characterID];
@@ -3217,12 +3215,10 @@ var tripwire = new function() {
 				}
 
 				$.ajax({
-					url: baseUrl + "/v1/characters/"+ characterID +"/ship/",
-					headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
+					url: baseUrl + "/v1/characters/"+ characterID +"/ship/?" + $.param({"token": character.accessToken, "user_agent": userAgent}),
+					// headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
 					type: "GET",
 					dataType: "JSON",
-					// cache: false,
-					// timeout: 8000,
 					characterID: characterID
 				}).done(function(data, status, xhr) {
 					var character = tripwire.esi.characters[this.characterID];
@@ -3330,22 +3326,20 @@ var tripwire = new function() {
 
 		var typeLookup = function(typeID, reference) {
 			return $.ajax({
-				url: baseUrl + "/v2/universe/types/"+ typeID +"/",
-				headers: {"X-User-Agent": userAgent},
+				url: baseUrl + "/v2/universe/types/"+ typeID +"/?" + $.param({"user_agent": userAgent}),
+				// headers: {"X-User-Agent": userAgent},
 				type: "GET",
 				dataType: "JSON",
-				// cache: false,
 				reference: reference
 			});
 		}
 
 		var stationLookup = function(stationID, reference) {
 			return $.ajax({
-				url: baseUrl + "/v1/universe/stations/"+ stationID +"/",
-				headers: {"X-User-Agent": userAgent},
+				url: baseUrl + "/v1/universe/stations/"+ stationID +"/?" + $.param({"user_agent": userAgent}),
+				// headers: {"X-User-Agent": userAgent},
 				type: "GET",
 				dataType: "JSON",
-				// cache: false,
 				reference: reference
 			});
 		}
