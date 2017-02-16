@@ -5212,10 +5212,10 @@ $("#chainMap").contextmenu({
 				dataType: "JSON"
 			}).done(function(data) {
 				if (data && data.result) {
-					$(ui.target[0]).closest("td").removeClass("redNode yellowNode greenNode").addClass(flare+"Node");
+					// $(ui.target[0]).closest("td").removeClass("redNode yellowNode greenNode").addClass(flare+"Node");
 
 					chain.data.flares.flares.push({systemID: systemID, flare: flare, time: null});
-					chain.flares();
+					chain.flares(chain.data.flares);
 				}
 			});
 		}
@@ -5230,10 +5230,10 @@ $("#chainMap").contextmenu({
 				dataType: "JSON"
 			}).done(function(data) {
 				if (data && data.result) {
-					$(ui.target[0]).closest("td").removeClass("redNode yellowNode greenNode");
+					// $(ui.target[0]).closest("td").removeClass("redNode yellowNode greenNode");
 
 					chain.data.flares.flares.splice(Object.index(chain.data.flares.flares, "systemID", systemID), 1);
-					chain.flares();
+					chain.flares(chain.data.flares);
 				}
 			});
 		}
