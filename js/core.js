@@ -1,6 +1,22 @@
 //"use strict"
 //var startTime = window.performance.now();
 
+Object.sort = function(obj, prop) {
+	var swapped;
+
+	do {
+		swapped = false;
+		for (var i = 0; i < Object.size(obj) -1; i++) {
+			if (Number(obj[i][prop]) > Number(obj[i+1][prop])) {
+				var tmp = obj[i];
+				obj[i] = obj[i+1];
+				obj[i+1] = tmp;
+				swapped = true;
+			}
+		}
+	} while (swapped);
+}
+
 Object.index = function(obj, prop, val) {
 	for (var key in obj) {
 		if (obj[key][prop] == val) {
@@ -1667,6 +1683,8 @@ var chain = new function() {
 			this.drawing = true;
 
 			this.data.rawMap = $.extend(true, {}, data.map);
+
+			Object.sort(this.data.rawMap, "id");
 
 			if (options.chain.active && options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false) {
 				for (var i in data.map) {
