@@ -4709,6 +4709,8 @@ $("#add-signature2").click(function(e) {
 				$("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
 				$("#dialog-signature [data-autocomplete='sigType']").inlinecomplete({source: aSigWormholes, maxSize: 10, delay: 0});
 
+				$("#dialog-signature #durationPicker").durationPicker();
+
 				// Ensure first signature ID field only accepts letters
 				$("#dialog-signature [name='signatureID_A_Alpha'], #dialog-signature [name='signatureID_B_Alpha']").on("input", function() {
 					while (!/^[a-zA-Z?]*$/g.test(this.value)) {
@@ -4729,9 +4731,12 @@ $("#add-signature2").click(function(e) {
 				});
 
 				// Auto fill opposite side wormhole w/ K162
-				$("#dialog-signature .wormholeType").on("input", function() {
+				$("#dialog-signature .wormholeType").on("input, change", function() {
 					if ($(this).val().length > 0 && $.inArray($(this).val(), aSigWormholes) != -1 && $(this).val() != "K162") {
 						$("#dialog-signature .wormholeType").not(this).val("K162");
+
+						// Also auto calculate duration
+						$("#dialog-signature #durationPicker").val(tripwire.wormholes[$(this).val()].life.substring(0, 2) * 60 * 60).change();
 					}
 				});
 
@@ -4770,6 +4775,13 @@ $("#add-signature2").click(function(e) {
 							return false;
 						}
 					});
+
+					// Validate first leads to (system)
+					if ($.inArray($("#dialog-signature .leadsTo:visible:first").val(), tripwire.aSigSystems) == -1) {
+						ValidationTooltips.open({target: $("#dialog-signature .leadsTo:visible:first")}).setContent("Must be a valid leads to system!");
+						$(this).select();
+						return false;
+					}
 
 					// Validate leads to system (blank | system)
 					$.each($("#dialog-signature .leadsTo:visible"), function() {
@@ -5926,6 +5938,14 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 
 		// Invoke the parent function
 		return this._super();
+	},
+	_value: function() {
+		// Invoke the parent function
+		var originalReturn = this._superApply(arguments);
+
+		this.element.change();
+
+		return originalReturn;
 	},
 	_suggest: function(items) {
 		this.element.val(items[0].value.substr(0, this.element.val().length));

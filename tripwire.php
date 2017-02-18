@@ -48,6 +48,7 @@ if ($row = $stmt->fetchObject()) {
 	<meta name="server" content="<?= $server ?>">
 	<link rel="shortcut icon" href="//<?= $server ?>/images/favicon.png" />
 
+	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery.duration-picker.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery.jbox.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery.jbox-notice.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/gridster.min.css">
@@ -417,6 +418,174 @@ if ($row = $stmt->fetchObject()) {
 			border-top-right-radius: 3px;
 			border-bottom-right-radius: 3px;
 		}
+
+
+
+		.popover {
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  z-index: 1060;
+		  display: block;
+		  max-width: 276px;
+		  padding: 1px;
+		  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+		  font-style: normal;
+		  font-weight: normal;
+		  letter-spacing: normal;
+		  line-break: auto;
+		  line-height: 1.5;
+		  text-align: left;
+		  text-align: start;
+		  text-decoration: none;
+		  text-shadow: none;
+		  text-transform: none;
+		  white-space: normal;
+		  word-break: normal;
+		  word-spacing: normal;
+		  font-size: 0.875rem;
+		  word-wrap: break-word;
+		  background-color: #fff;
+		  -webkit-background-clip: padding-box;
+		          background-clip: padding-box;
+		  border: 1px solid rgba(0, 0, 0, 0.2);
+		  border-radius: 0.3rem;
+		}
+
+		.popover.popover-top, .popover.bs-tether-element-attached-bottom {
+		  margin-top: -10px;
+		}
+
+		.popover.popover-top::before, .popover.popover-top::after, .popover.bs-tether-element-attached-bottom::before, .popover.bs-tether-element-attached-bottom::after {
+		  left: 50%;
+		  border-bottom-width: 0;
+		}
+
+		.popover.popover-top::before, .popover.bs-tether-element-attached-bottom::before {
+		  bottom: -11px;
+		  margin-left: -11px;
+		  border-top-color: rgba(0, 0, 0, 0.25);
+		}
+
+		.popover.popover-top::after, .popover.bs-tether-element-attached-bottom::after {
+		  bottom: -10px;
+		  margin-left: -10px;
+		  border-top-color: #fff;
+		}
+
+		.popover.popover-right, .popover.bs-tether-element-attached-left {
+		  margin-left: 10px;
+		}
+
+		.popover.popover-right::before, .popover.popover-right::after, .popover.bs-tether-element-attached-left::before, .popover.bs-tether-element-attached-left::after {
+		  top: 50%;
+		  border-left-width: 0;
+		}
+
+		.popover.popover-right::before, .popover.bs-tether-element-attached-left::before {
+		  left: -11px;
+		  margin-top: -11px;
+		  border-right-color: rgba(0, 0, 0, 0.25);
+		}
+
+		.popover.popover-right::after, .popover.bs-tether-element-attached-left::after {
+		  left: -10px;
+		  margin-top: -10px;
+		  border-right-color: #fff;
+		}
+
+		.popover.popover-bottom, .popover.bs-tether-element-attached-top {
+		  margin-top: 10px;
+		}
+
+		.popover.popover-bottom::before, .popover.popover-bottom::after, .popover.bs-tether-element-attached-top::before, .popover.bs-tether-element-attached-top::after {
+		  left: 50%;
+		  border-top-width: 0;
+		}
+
+		.popover.popover-bottom::before, .popover.bs-tether-element-attached-top::before {
+		  top: -11px;
+		  margin-left: -11px;
+		  border-bottom-color: rgba(0, 0, 0, 0.25);
+		}
+
+		.popover.popover-bottom::after, .popover.bs-tether-element-attached-top::after {
+		  top: -10px;
+		  margin-left: -10px;
+		  border-bottom-color: #f7f7f7;
+		}
+
+		.popover.popover-bottom .popover-title::before, .popover.bs-tether-element-attached-top .popover-title::before {
+		  position: absolute;
+		  top: 0;
+		  left: 50%;
+		  display: block;
+		  width: 20px;
+		  margin-left: -10px;
+		  content: "";
+		  border-bottom: 1px solid #f7f7f7;
+		}
+
+		.popover.popover-left, .popover.bs-tether-element-attached-right {
+		  margin-left: -10px;
+		}
+
+		.popover.popover-left::before, .popover.popover-left::after, .popover.bs-tether-element-attached-right::before, .popover.bs-tether-element-attached-right::after {
+		  top: 50%;
+		  border-right-width: 0;
+		}
+
+		.popover.popover-left::before, .popover.bs-tether-element-attached-right::before {
+		  right: -11px;
+		  margin-top: -11px;
+		  border-left-color: rgba(0, 0, 0, 0.25);
+		}
+
+		.popover.popover-left::after, .popover.bs-tether-element-attached-right::after {
+		  right: -10px;
+		  margin-top: -10px;
+		  border-left-color: #fff;
+		}
+
+		.popover-title {
+		  padding: 8px 14px;
+		  margin-bottom: 0;
+		  font-size: 1rem;
+		  background-color: #f7f7f7;
+		  border-bottom: 1px solid #ebebeb;
+		  border-top-right-radius: calc(0.3rem - 1px);
+		  border-top-left-radius: calc(0.3rem - 1px);
+		}
+
+		.popover-title:empty {
+		  display: none;
+		}
+
+		.popover-content {
+		  padding: 9px 14px;
+		}
+
+		.popover::before,
+		.popover::after {
+		  position: absolute;
+		  display: block;
+		  width: 0;
+		  height: 0;
+		  border-color: transparent;
+		  border-style: solid;
+		}
+
+		.popover::before {
+		  content: "";
+		  border-width: 11px;
+		}
+
+		.popover::after {
+		  content: "";
+		  border-width: 10px;
+		}
+
+
 	</style>
 
 	<div id="dialog-signature" title="Add Signature" class="hidden">
@@ -437,8 +606,12 @@ if ($row = $stmt->fetchObject()) {
 					</select>
 				</span>
 			</div>
+			<div class="row">
+				<span class="label">Length:</span>
+				<input type="text" value="" name="signatureDuration" id="durationPicker" />
+			</div>
 			<div id="site">
-				<div class="row">
+				<!-- <div class="row">
 					<span class="label">Life:</span>
 					<span class="select">
 						<select name="signatureLife">
@@ -449,7 +622,7 @@ if ($row = $stmt->fetchObject()) {
 							<option value="672">28 Days</option>
 						</select>
 					</span>
-				</div>
+				</div> -->
 				<div id="signatureName" class="row">
 					<span class="label">Name:</span>
 					<span><input name="signatureName" type="text" maxlength="35" /></span>
@@ -553,6 +726,7 @@ if ($row = $stmt->fetchObject()) {
 					</div>
 				</div>
 			</div>
+			<input type="submit" style="position: absolute; left: -99999px;" tabindex="-1" />
 		</form>
 	</div>
 
@@ -1341,8 +1515,11 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.knob.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox-0.4.7.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox-notice-0.4.6.min.js"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/jquery.duration-picker.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/dragscroll.js"></script>
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script> -->
+	<!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=2017-02-10.1"></script>
