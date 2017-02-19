@@ -1682,9 +1682,10 @@ var chain = new function() {
 		if (data.map) {
 			this.drawing = true;
 
-			this.data.rawMap = $.extend(true, {}, data.map);
+			// Sort so we keep the chain map order the same
+			Object.sort(data.map, "id");
 
-			Object.sort(this.data.rawMap, "id");
+			this.data.rawMap = $.extend(true, {}, data.map);
 
 			if (options.chain.active && options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false) {
 				for (var i in data.map) {
