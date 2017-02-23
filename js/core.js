@@ -2593,30 +2593,42 @@ var tripwire = new function() {
 	}
 
 	this.parse = function(server, mode) {
+		var data = $.extend(true, {}, server);
+
+		if (!options.chain.active || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout != true)) {
+			for (var key in data.signatures) {
+				if (data.signatures[key].mask == "273.0") {
+					delete data.signatures[key];
+				}
+			}
+		}
+
 		if (mode == 'refresh') {
-			for (var key in server.signatures) {
+			for (var key in data.signatures) {
+				var disabled = data.signatures[key].mask == "273.0" ? true : false;
+
 				// Check for differences
 				if (!this.client.signatures || !this.client.signatures[key]) {
-					this.addSig(server.signatures[key], {animate: true});
-				} else if (this.client.signatures[key].time !== server.signatures[key].time) {
+					this.addSig(data.signatures[key], {animate: true}, disabled);
+				} else if (this.client.signatures[key].time !== data.signatures[key].time) {
 					var edit = false;
-					for (column in server.signatures[key]) {
-						if (server.signatures[key][column] != this.client.signatures[key][column] && column != "time" && column != "editing") {
+					for (column in data.signatures[key]) {
+						if (data.signatures[key][column] != this.client.signatures[key][column] && column != "time" && column != "editing") {
 							edit = true;
 						}
 					}
 
 					if (edit) {
-						this.editSig(server.signatures[key]);
+						this.editSig(data.signatures[key], disabled);
 					} else {
-						this.sigEditing(server.signatures[key]);
+						this.sigEditing(data.signatures[key]);
 					}
 				}
 			}
 
 			// Sigs needing removal
 			for (var key in this.client.signatures) {
-				if (!server.signatures[key]) {
+				if (!data.signatures[key]) {
 					this.deleteSig(key);
 				}
 			}
@@ -2625,24 +2637,21 @@ var tripwire = new function() {
 			this.client = server;
 		} else if (mode == 'init' || mode == 'change') {
 
-			for (var key in server.signatures) {
-				this.addSig(server.signatures[key], {animate: false});
+			for (var key in data.signatures) {
+				var disabled = data.signatures[key].mask == "273.0" ? true : false;
 
-				if (server.signatures[key].editing) {
-					this.sigEditing(server.signatures[key]);
+				this.addSig(data.signatures[key], {animate: false}, disabled);
+
+				if (data.signatures[key].editing) {
+					this.sigEditing(data.signatures[key]);
 				}
-			}
-
-			// Update current system
-			if (server.EVE) {
-				$("#EVEsystem").html(server.EVE.systemName).attr("href", ".?system="+server.EVE.systemName);
 			}
 
 			this.client = server;
 		}
 
 		// set the sig count in the UI
-		$("#signature-count").html(this.client.signatures.length || Object.size(this.client.signatures));
+		$("#signature-count").html(data.signatures.length || Object.size(data.signatures));
 	}
 
 	this.pastEOL = function() {
@@ -2652,15 +2661,10 @@ var tripwire = new function() {
 
 	// Hanldes adding to Signatures section
 	// ToDo: Use native JS
-	this.addSig = function(add, option) {
+	this.addSig = function(add, option, disabled) {
 		var option = option || {};
 		var animate = typeof(option.animate) !== 'undefined' ? option.animate : true;
-		var disabled = false;
-		if (options.chain.active && options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == true && add.mask == "273.0") {
-			disabled = true;
-		} else if (add.mask == "273.0") {
-			return false;
-		}
+		var disabled = disabled || false;
 
 		if (add.mass) {
 			var nth = add.systemID == viewingSystemID ? add.nth : add.nth2;
@@ -2758,13 +2762,8 @@ var tripwire = new function() {
 
 	// Handles changing Signatures section
 	// ToDo: Use native JS
-	this.editSig = function(edit) {
-		var disabled = false;
-		if (options.chain.active && options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == true && edit.mask == "273.0") {
-			disabled = true;
-		} else if (edit.mask == "273.0") {
-			return false;
-		}
+	this.editSig = function(edit, disabled) {
+		var disabled = disabled || false;
 
 		if (edit.mass) {
 			var nth = edit.systemID == viewingSystemID ? edit.nth : edit.nth2;
