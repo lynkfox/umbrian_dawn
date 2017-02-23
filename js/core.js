@@ -3625,10 +3625,6 @@ $("#add-signature").click(function(e) {
 			ValidationTooltips.close();
 		},
 		create: function() {
-			var whList = $.map(tripwire.wormholes, function(item, index) { return index;});
-			whList.splice(26, 0, "K162");
-			whList.push("???", "GATE");
-
 			$("#autoAdd").button().click(function() {
 				$("#sigAddForm #connection").val(tripwire.client.EVE.systemName);
 			});
@@ -4648,6 +4644,10 @@ function postLoad() {
 		}
 	});
 
+	whList = $.map(tripwire.wormholes, function(item, index) { return index;});
+	whList.splice(26, 0, "K162");
+	whList.push("???", "GATE");
+
 	$(".systemsAutocomplete").inlinecomplete({source: tripwire.aSystems, maxSize: 10, delay: 0});
 
 	$("#dialog-error").dialog({
@@ -5508,10 +5508,6 @@ function openSigEdit(e) {
 				$("#sigTable tr.selected").removeClass("selected");
 			},
 			create: function() {
-				var whList = $.map(tripwire.wormholes, function(item, index) { return index;});
-				whList.splice(26, 0, "K162");
-				whList.push("???", "GATE");
-
 				$("#autoEdit").button().click(function() {
 					$("#sigEditForm #connection").val(tripwire.client.EVE.systemName);
 				});
