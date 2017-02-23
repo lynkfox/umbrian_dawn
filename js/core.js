@@ -2,17 +2,17 @@
 //var startTime = window.performance.now();
 
 Object.sort = function(obj, prop) {
-	var swapped;
-
+	var swapped, prev;
 	do {
-		swapped = false;
-		for (var i = 0; i < Object.size(obj) -1; i++) {
-			if (Number(obj[i][prop]) > Number(obj[i+1][prop])) {
+		swapped = false, prev = null;
+		for (var i in obj) {
+			if (prev && Number(obj[i][prop]) < Number(obj[prev][prop])) {
 				var tmp = obj[i];
-				obj[i] = obj[i+1];
-				obj[i+1] = tmp;
+				obj[i] = obj[prev];
+				obj[prev] = tmp;
 				swapped = true;
 			}
+			prev = i;
 		}
 	} while (swapped);
 }
