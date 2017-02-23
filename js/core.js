@@ -1670,7 +1670,7 @@ var chain = new function() {
 
 	this.redraw = function() {
 		var data = $.extend(true, {}, this.data);
-		data.map = data.rawMap;
+		data.map = $.extend(true, {}, data.rawMap);
 
 		this.draw(data);
 	}
@@ -1682,9 +1682,6 @@ var chain = new function() {
 		if (data.map) {
 			this.drawing = true;
 
-			// Sort so we keep the chain map order the same
-			Object.sort(data.map, "id");
-
 			this.data.rawMap = $.extend(true, {}, data.map);
 
 			if (options.chain.active && options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false) {
@@ -1694,6 +1691,9 @@ var chain = new function() {
 					}
 				}
 			}
+
+			// Sort so we keep the chain map order the same
+			Object.sort(data.map, "id");
 
 			$.extend(data, this.nodes(data.map)); // 250ms -> <100ms
 			$.extend(this.data, data);
