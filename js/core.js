@@ -3625,12 +3625,18 @@ $("#add-signature").click(function(e) {
 			ValidationTooltips.close();
 		},
 		create: function() {
+			var whList = $.map(tripwire.wormholes, function(item, index) { return index;});
+			whList.splice(26, 0, "K162");
+			whList.push("???", "GATE");
+
 			$("#autoAdd").button().click(function() {
 				$("#sigAddForm #connection").val(tripwire.client.EVE.systemName);
 			});
 
 			$("#sigAddForm #sigType, #sigAddForm #sigLife").selectmenu({width: 100});
 			$("#sigAddForm #whLife, #sigAddForm #whMass").selectmenu({width: 80});
+			$("#sigAddForm .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+			$("#sigAddForm .typesAutocomplete").inlinecomplete({source: whList, maxSize: 10, delay: 0});
 
 			$("#sigAddForm #whType, #sigAddForm #sigID").blur(function(e) {
 				if (this.value == "") {
@@ -4634,11 +4640,6 @@ $(".options").click(function(e) {
 
 var whList;
 function postLoad() {
-
-	whList = $.map(tripwire.wormholes, function(item, index) { return index;});
-	whList.splice(26, 0, "K162");
-	whList.push("???", "GATE");
-
 	$("#sigTable").tablesorter({
 		sortReset: true,
 		widgets: ['saveSort'],
@@ -4647,8 +4648,6 @@ function postLoad() {
 		}
 	});
 
-	$(".typesAutocomplete, [data-autocomplete='sigTypes']").inlinecomplete({source: whList, maxSize: 10, delay: 0});
-	$(".sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
 	$(".systemsAutocomplete").inlinecomplete({source: tripwire.aSystems, maxSize: 10, delay: 0});
 
 	$("#dialog-error").dialog({
@@ -4865,6 +4864,8 @@ $("#newTab").on("click", function() {
 				ValidationTooltips.close();
 			},
 			create: function() {
+				$("#dialog-newTab .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+
 				$("#newTab_form").submit(function(e) {
 					e.preventDefault();
 					var $tab = $("#chainTab .tab").clone();
@@ -4928,6 +4929,8 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 				ValidationTooltips.close();
 			},
 			create: function() {
+				$("#dialog-editTab .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+
 				$("#editTab_form").submit(function(e) {
 					e.preventDefault();
 					var $tab = $("#chainTabs .tab").eq([options.chain.active]);
@@ -5505,12 +5508,18 @@ function openSigEdit(e) {
 				$("#sigTable tr.selected").removeClass("selected");
 			},
 			create: function() {
+				var whList = $.map(tripwire.wormholes, function(item, index) { return index;});
+				whList.splice(26, 0, "K162");
+				whList.push("???", "GATE");
+
 				$("#autoEdit").button().click(function() {
 					$("#sigEditForm #connection").val(tripwire.client.EVE.systemName);
 				});
 
 				$("#sigEditForm #sigType, #sigEditForm #sigLife").selectmenu({width: 100});
 				$("#sigEditForm #whLife, #sigEditForm #whMass").selectmenu({width: 80});
+				$("#sigEditForm .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+				$("#sigEditForm .typesAutocomplete").inlinecomplete({source: whList, maxSize: 10, delay: 0});
 
 				$("#sigEditForm #whType, #sigEditForm #sigID").blur(function(e) {
 					if (this.value == "") {

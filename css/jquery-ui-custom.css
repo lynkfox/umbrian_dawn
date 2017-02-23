@@ -36,10 +36,6 @@
     margin: -2px 0;
 }
 
-ul.ui-autocomplete {
-    z-index: 200;
-}
-
 /** Menu Styling **/
 .ui-menu {
 	padding: 2px;
