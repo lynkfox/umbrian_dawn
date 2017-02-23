@@ -236,6 +236,12 @@ $stmt->execute();
 // *********************
 */
 if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
+	// Send server time for time sync
+	$now = new DateTime();
+	//$now->sub(new DateInterval('PT300S')); // Set clock 300 secounds behind
+	$output['sync'] = $now->format("m/d/Y H:i:s e");
+
+	// Signatures data
 	$output['signatures'] = Array();
 	$query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND mask = :mask';
 	$stmt = $mysql->prepare($query);
@@ -251,34 +257,62 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		$output['signatures'][$row->id] = $row;
 	}
 
-	// Send server time for time sync
-	$now = new DateTime();
-	//$now->sub(new DateInterval('PT300S')); // Set clock 300 secounds behind
-	$output['sync'] = $now->format("m/d/Y H:i:s e");
+	// EVE Scout signatures data
+	$query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
+	$stmt = $mysql->prepare($query);
+	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+	$stmt->execute();
 
-	// Grab chain map data
-	$query = "SELECT id, signatureID, system, systemID, connection, connectionID, sig2ID, type, nth, sig2Type, nth2, lifeLength, life, mass, time, typeBM, type2BM, classBM, class2BM, mask FROM signatures USE INDEX(changeSearch) WHERE (mask = :mask AND life IS NOT NULL) OR ((systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL)";
+	while ($row = $stmt->fetchObject()) {
+		$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
+		$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
+		$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
+
+		$output['signatures'][$row->id] = $row;
+	}
+
+	// Chain map data
+	$query = "SELECT * FROM signatures USE INDEX(changeSearch) WHERE mask = :mask AND life IS NOT NULL";
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
 	$stmt->execute();
-
 	$output['chain']['map'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
-	// System activity indicators
-	$query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND (mask = :mask OR ((sigs.systemID = 31000005 OR sigs.connectionID = 31000005) AND mask = 273))';
-	#$query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND mask = :mask';
+	// EVE Scout chain map data
+	$query = "SELECT * FROM signatures USE INDEX(changeSearch2) WHERE (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL";
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
 	$stmt->execute();
+	$output['chain']['map'] = array_merge($output['chain']['map'], $stmt->fetchAll(PDO::FETCH_CLASS));
 
+	// System activity indicators
+	$query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND mask = :mask';
+	$stmt = $mysql->prepare($query);
+	$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+	$stmt->execute();
 	$output['chain']['activity'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
+	// EVE Scout system activity indicators
+	$query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND (sigs.systemID = 31000005 OR sigs.connectionID = 31000005) AND mask = 273';
+	$stmt = $mysql->prepare($query);
+	$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+	$stmt->execute();
+	$output['chain']['activity'] = array_merge($output['chain']['activity'], $stmt->fetchAll(PDO::FETCH_CLASS));
+
 	// Chain last modified
-	$query = 'SELECT MAX(time) AS time FROM signatures USE INDEX(changeSearch) WHERE (mask = :mask AND life IS NOT NULL) OR ((systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL)';
+	$query = 'SELECT MAX(time) AS time FROM signatures USE INDEX(changeSearch) WHERE mask = :mask AND life IS NOT NULL';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
 	$stmt->execute();
-	$output['chain']['last_modified'] = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
+	$chainModified = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
+
+	// EVE Scout chain last modified
+	$query = 'SELECT MAX(time) AS time FROM signatures USE INDEX(changeSearch2) WHERE life IS NOT NULL AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273';
+	$stmt = $mysql->prepare($query);
+	$stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
+	$stmt->execute();
+	$chainModified2 = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
+	$output['chain']['last_modified'] = strtotime($chainModified) > strtotime($chainModified2) ? $chainModified : $chainModified2;
 
 	// Get occupied systems
 	$query = 'SELECT systemID, COUNT(characterID) AS count FROM tracking WHERE maskID = :maskID GROUP BY systemID';
@@ -322,9 +356,16 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
 		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
 		$stmt->execute();
-
 		$results = $stmt->fetchObject();
-		if ($sigCount != $results->total || strtotime($sigTime) < strtotime($results->time)) {
+
+		// EVE Scout signatures
+		$query = 'SELECT COUNT(*) as total, MAX(time) as time FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
+		$stmt = $mysql->prepare($query);
+		$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+		$stmt->execute();
+		$results2 = $stmt->fetchObject();
+
+		if ($sigCount != $results->total + $results2->total || strtotime($sigTime) < strtotime($results->time) || strtotime($sigTime) < strtotime($results2->time)) {
 			$refresh['sigUpdate'] = true;
 		}
 	}
@@ -336,6 +377,20 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
 		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+		$stmt->execute();
+
+		while ($row = $stmt->fetchObject()) {
+			$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
+			$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
+			$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
+
+			$output['signatures'][$row->id] = $row;
+		}
+
+		// EVE Scout signatures data
+		$query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
+		$stmt = $mysql->prepare($query);
+		$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
 		$stmt->execute();
 
 		while ($row = $stmt->fetchObject()) {
@@ -369,27 +424,48 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	if ($refresh['chainUpdate'] == true) {
 		$output['chain']['map'] = Array();
 
-		$query = "SELECT id, signatureID, system, systemID, connection, connectionID, sig2ID, type, nth, sig2Type, nth2, lifeLength, life, mass, time, typeBM, type2BM, classBM, class2BM, mask FROM signatures USE INDEX(changeSearch) WHERE (mask = :mask AND life IS NOT NULL) OR ((systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL)";
+		// Chain map data
+		$query = "SELECT * FROM signatures USE INDEX(changeSearch) WHERE mask = :mask AND life IS NOT NULL";
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
+		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
 		$stmt->execute();
-
 		$output['chain']['map'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
-		// System activity indicators
-		$query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND (mask = :mask OR ((sigs.systemID = 31000005 OR sigs.connectionID = 31000005) AND mask = 273))';
+		// EVE Scout chain map data
+		$query = "SELECT * FROM signatures USE INDEX(changeSearch2) WHERE (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL";
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
+		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
 		$stmt->execute();
+		$output['chain']['map'] = array_merge($output['chain']['map'], $stmt->fetchAll(PDO::FETCH_CLASS));
 
+		// System activity indicators
+		$query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND mask = :mask';
+		$stmt = $mysql->prepare($query);
+		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+		$stmt->execute();
 		$output['chain']['activity'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
-		$query = 'SELECT MAX(time) AS time FROM signatures USE INDEX(changeSearch) WHERE (mask = :mask AND life IS NOT NULL) OR ((systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL)';
+		// EVE Scout system activity indicators
+		$query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND (sigs.systemID = 31000005 OR sigs.connectionID = 31000005) AND mask = 273';
+		$stmt = $mysql->prepare($query);
+		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+		$stmt->execute();
+		$output['chain']['activity'] = array_merge($output['chain']['activity'], $stmt->fetchAll(PDO::FETCH_CLASS));
+
+		// Chain last modified
+		$query = 'SELECT MAX(time) AS time FROM signatures USE INDEX(changeSearch) WHERE mask = :mask AND life IS NOT NULL';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
 		$stmt->execute();
+		$chainModified = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
 
-		$output['chain']['last_modified'] = $stmt->fetchColumn();
+		// EVE Scout chain last modified
+		$query = 'SELECT MAX(time) AS time FROM signatures USE INDEX(changeSearch2) WHERE life IS NOT NULL AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273';
+		$stmt = $mysql->prepare($query);
+		$stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
+		$stmt->execute();
+		$chainModified2 = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
+		$output['chain']['last_modified'] = strtotime($chainModified) > strtotime($chainModified2) ? $chainModified : $chainModified2;
 	}
 
 	// Get flares

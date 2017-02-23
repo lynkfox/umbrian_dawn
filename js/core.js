@@ -2,17 +2,17 @@
 //var startTime = window.performance.now();
 
 Object.sort = function(obj, prop) {
-	var swapped;
-
+	var swapped, prev;
 	do {
-		swapped = false;
-		for (var i = 0; i < Object.size(obj) -1; i++) {
-			if (Number(obj[i][prop]) > Number(obj[i+1][prop])) {
+		swapped = false, prev = null;
+		for (var i in obj) {
+			if (prev && Number(obj[i][prop]) < Number(obj[prev][prop])) {
 				var tmp = obj[i];
-				obj[i] = obj[i+1];
-				obj[i+1] = tmp;
+				obj[i] = obj[prev];
+				obj[prev] = tmp;
 				swapped = true;
 			}
+			prev = i;
 		}
 	} while (swapped);
 }
@@ -1670,7 +1670,7 @@ var chain = new function() {
 
 	this.redraw = function() {
 		var data = $.extend(true, {}, this.data);
-		data.map = data.rawMap;
+		data.map = $.extend(true, {}, data.rawMap);
 
 		this.draw(data);
 	}
@@ -1682,9 +1682,6 @@ var chain = new function() {
 		if (data.map) {
 			this.drawing = true;
 
-			// Sort so we keep the chain map order the same
-			Object.sort(data.map, "id");
-
 			this.data.rawMap = $.extend(true, {}, data.map);
 
 			if (options.chain.active && options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false) {
@@ -1694,6 +1691,9 @@ var chain = new function() {
 					}
 				}
 			}
+
+			// Sort so we keep the chain map order the same
+			Object.sort(data.map, "id");
 
 			$.extend(data, this.nodes(data.map)); // 250ms -> <100ms
 			$.extend(this.data, data);
@@ -2655,6 +2655,12 @@ var tripwire = new function() {
 	this.addSig = function(add, option) {
 		var option = option || {};
 		var animate = typeof(option.animate) !== 'undefined' ? option.animate : true;
+		var disabled = false;
+		if (options.chain.active && options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == true && add.mask == "273.0") {
+			disabled = true;
+		} else if (add.mask == "273.0") {
+			return false;
+		}
 
 		if (add.mass) {
 			var nth = add.systemID == viewingSystemID ? add.nth : add.nth2;
@@ -2690,7 +2696,7 @@ var tripwire = new function() {
 					var massClass = "";
 			}
 
-			var row = "<tr data-id='"+add.id+"' data-tooltip=''>"
+			var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
 				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+sigID+"</td>"
 				//+ "<td class='type-tooltip' title=\""+this.whTooltip(add)+"\">"+(nth>1?'&nbsp;&nbsp;&nbsp;':'')+(sigtype)+(nth>1?' '+nth:'')+"</td>"
 				+ "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(add)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
@@ -2698,19 +2704,19 @@ var tripwire = new function() {
 				+ "<td class='"+ options.signatures.alignment.leadsTo +"'>"+system+"</td>"
 				+ "<td class='"+lifeClass+" "+ options.signatures.alignment.sigLife +"'>"+add.life+"</td>"
 				+ "<td class='"+massClass+" "+ options.signatures.alignment.sigMass +"'>"+add.mass+"</td>"
-				+ "<td><a href='' class='sigDelete'>X</a></td>"
-				+ "<td><a href='' class='sigEdit'><</a></td>"
+				+ "<td><a href='' class='sigDelete' "+ (disabled ? 'disabled="disabled"' : '') +">X</a></td>"
+				+ "<td><a href='' class='sigEdit' "+ (disabled ? 'disabled="disabled"' : '') +"><</a></td>"
 				+ "</tr>";
 
 			var tr = $(row);
 		} else {
-			var row = "<tr data-id='"+add.id+"' data-tooltip=''>"
+			var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
 				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+add.signatureID+"</td>"
 				+ "<td class='"+ options.signatures.alignment.sigType +"'>"+add.type+"</td>"
 				+ "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
 				+ "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(add.name?linkSig(add.name):'')+"</td>"
-				+ "<td><a href='' class='sigDelete'>X</a></td>"
-				+ "<td><a href='' class='sigEdit'><</a></td>"
+				+ "<td><a href='' class='sigDelete' "+ (disabled ? 'disabled="disabled"' : '') +">X</a></td>"
+				+ "<td><a href='' class='sigEdit' "+ (disabled ? 'disabled="disabled"' : '') +"><</a></td>"
 				+ "</tr>";
 
 			var tr = $(row);
@@ -2753,6 +2759,13 @@ var tripwire = new function() {
 	// Handles changing Signatures section
 	// ToDo: Use native JS
 	this.editSig = function(edit) {
+		var disabled = false;
+		if (options.chain.active && options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == true && edit.mask == "273.0") {
+			disabled = true;
+		} else if (edit.mask == "273.0") {
+			return false;
+		}
+
 		if (edit.mass) {
 			var nth = edit.systemID == viewingSystemID ? edit.nth : edit.nth2;
 			var sigID = edit.systemID == viewingSystemID ? edit.signatureID : edit.sig2ID;
@@ -2787,7 +2800,7 @@ var tripwire = new function() {
 					var massClass = "";
 			}
 
-			var row = "<tr data-id='"+edit.id+"' data-tooltip=''>"
+			var row = "<tr data-id='"+edit.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
 				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+sigID+"</td>"
 				//+ "<td class='type-tooltip' title=\""+this.whTooltip(edit)+"\">"+(nth>1?'&nbsp;&nbsp;&nbsp;':'')+(sigtype)+(nth>1?' '+nth:'')+"</td>"
 				+ "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(edit)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
@@ -2795,19 +2808,19 @@ var tripwire = new function() {
 				+ "<td class='"+ options.signatures.alignment.leadsTo +"'>"+system+"</td>"
 				+ "<td class='"+lifeClass+" "+ options.signatures.alignment.sigLife +"'>"+edit.life+"</td>"
 				+ "<td class='"+massClass+" "+ options.signatures.alignment.sigMass +"'>"+edit.mass+"</td>"
-				+ "<td><a href='' class='sigDelete'>X</a></td>"
-				+ "<td><a href='' class='sigEdit'><</a></td>"
+				+ "<td><a href='' class='sigDelete' "+ (disabled ? 'disabled="disabled"' : '') +">X</a></td>"
+				+ "<td><a href='' class='sigEdit' "+ (disabled ? 'disabled="disabled"' : '') +"><</a></td>"
 				+ "</tr>";
 
 			var tr = $(row);
 		} else {
-			var row = "<tr data-id='"+edit.id+"' data-tooltip=''>"
+			var row = "<tr data-id='"+edit.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
 				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+edit.signatureID+"</td>"
 				+ "<td class='"+ options.signatures.alignment.sigType +"'>"+edit.type+"</td>"
 				+ "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
 				+ "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(edit.name?linkSig(edit.name):'')+"</td>"
-				+ "<td><a href='' class='sigDelete'>X</a></td>"
-				+ "<td><a href='' class='sigEdit'><</a></td>"
+				+ "<td><a href='' class='sigDelete' "+ (disabled ? 'disabled="disabled"' : '') +">X</a></td>"
+				+ "<td><a href='' class='sigEdit' "+ (disabled ? 'disabled="disabled"' : '') +"><</a></td>"
 				+ "</tr>";
 
 			var tr = $(row);
@@ -3208,11 +3221,11 @@ var tripwire = new function() {
 				}).always(function(data, status) {
 					if (status != "success" && status != "abort" && tripwire.esi.connection == true) {
 						tripwire.esi.connection = false;
-						$("#esiConnectionSuccess").click();
+						$("#esiConnectionSuccess, #esiConnectionError").click();
 						Notify.trigger("ESI Connection Failed", "red", false, "esiConnectionError");
 					} else if (status == "success" && tripwire.esi.connection == false) {
 						tripwire.esi.connection = true;
-						$("#esiConnectionError").click();
+						$("#esiConnectionSuccess, #esiConnectionError").click();
 						Notify.trigger("ESI Connection Resumed", "green", 5000, "esiConnectionSuccess");
 					}
 				});
@@ -3330,11 +3343,11 @@ var tripwire = new function() {
 				}).always(function(data, status) {
 					if (status != "success" && status != "abort" && tripwire.esi.connection == true) {
 						tripwire.esi.connection = false;
-						$("#esiConnectionSuccess").click();
+						$("#esiConnectionSuccess, #esiConnectionError").click();
 						Notify.trigger("ESI Connection Failed", "red", false, "esiConnectionError");
 					} else if (status == "success" && tripwire.esi.connection == false) {
 						tripwire.esi.connection = true;
-						$("#esiConnectionError").click();
+						$("#esiConnectionSuccess, #esiConnectionError").click();
 						Notify.trigger("ESI Connection Resumed", "green", 5000, "esiConnectionSuccess");
 					}
 				});
@@ -4953,6 +4966,8 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 					options.save();
 					chain.redraw();
 
+					tripwire.parse(tripwire.client, "refresh");
+
 					//$("#chainTabs").append($tab);
 
 					$("#dialog-editTab").dialog("close");
@@ -5259,7 +5274,9 @@ $("#chainMap").contextmenu({
 $("#sigTable").on("click", ".sigDelete", function(e) {
 	e.preventDefault();
 
-	if ($("#dialog-sigEdit").hasClass("ui-dialog-content") && $("#dialog-sigEdit").dialog("isOpen")) {
+	if ($(this).closest("tr").attr("disabled")) {
+		return false;
+	} else if ($("#dialog-sigEdit").hasClass("ui-dialog-content") && $("#dialog-sigEdit").dialog("isOpen")) {
 		$("#dialog-sigEdit").parent().effect("shake", 300);
 		return false;
 	}
@@ -5413,7 +5430,9 @@ function linkSig(sigName) {
 function openSigEdit(e) {
 	e.preventDefault();
 
-	if ($("#dialog-deleteSig").hasClass("ui-dialog-content") && $("#dialog-deleteSig").dialog("isOpen")) {
+	if ($(this).closest("tr").attr("disabled")) {
+		return false;
+	} else if ($("#dialog-deleteSig").hasClass("ui-dialog-content") && $("#dialog-deleteSig").dialog("isOpen")) {
 		$("#dialog-deleteSig").parent().effect("shake", 300);
 		return false;
 	} else if ($("#dialog-sigEdit").hasClass("ui-dialog-content") && $("#dialog-sigEdit").dialog("isOpen")) {
