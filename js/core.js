@@ -654,36 +654,6 @@ $("#follow").click(function(e) {
 	options.save();
 })
 
-// Think this is depricated
-$("#home").click(function() {
-	if ($(this).hasClass("active"))
-		$(this).removeClass("active");
-	else
-		$(this).addClass("active"), $("#k-space").removeClass("active"), $("#eve-scout").removeClass("active");
-
-	chain.redraw();
-
-	options.buttons.chainWidget.home = $(this).hasClass("active");
-	options.buttons.chainWidget.kspace = false;
-	options.buttons.chainWidget.evescout = false;
-	options.save();
-});
-
-// Think this is depricated
-$("#k-space").click(function() {
-	if ($(this).hasClass("active"))
-		$(this).removeClass("active");
-	else
-		$(this).addClass("active"), $("#home").removeClass("active"), $("#eve-scout").removeClass("active");
-
-	chain.redraw();
-
-	options.buttons.chainWidget.kspace = $(this).hasClass("active");
-	options.buttons.chainWidget.home = false;
-	options.buttons.chainWidget.evescout = false;
-	options.save();
-});
-
 $("#show-viewing").click(function() {
 	if ($(this).hasClass("active"))
 		$(this).removeClass("active");
@@ -705,21 +675,6 @@ $("#show-favorite").click(function() {
 	chain.redraw();
 
 	options.buttons.chainWidget.favorites = $(this).hasClass("active");
-	options.save();
-});
-
-// Think this is depricated
-$("#eve-scout").click(function() {
-	if ($(this).hasClass("active"))
-		$(this).removeClass("active");
-	else
-		$(this).addClass("active"), $("#home").removeClass("active"), $("#k-space").removeClass("active");
-
-	chain.redraw();
-
-	options.buttons.chainWidget.evescout = $(this).hasClass("active");
-	options.buttons.chainWidget.home = false;
-	options.buttons.chainWidget.kspace = false;
 	options.save();
 });
 
@@ -1684,7 +1639,7 @@ var chain = new function() {
 
 			this.data.rawMap = $.extend(true, {}, data.map);
 
-			if (options.chain.active && options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false) {
+			if (!options.chain.active || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false)) {
 				for (var i in data.map) {
 					if (data.map[i].mask == "273.0") {
 						delete data.map[i];
@@ -1781,7 +1736,7 @@ var tripwire = new function() {
 	this.timer, this.xhr;
 	this.client = {signatures: {}};
 	this.server = {signatures: {}};
-	this.signatures = {undo: JSON.parse(sessionStorage.getItem("tripwire_undo")) || {}, redo: JSON.parse(sessionStorage.getItem("tripwire_redo")) || {}};
+	this.signatures = {list: {}, undo: JSON.parse(sessionStorage.getItem("tripwire_undo")) || {}, redo: JSON.parse(sessionStorage.getItem("tripwire_redo")) || {}};
 	this.activity = {};
 	this.data = {tracking: {}, esi: {}};
 	this.refreshRate = 5000;
@@ -2608,12 +2563,12 @@ var tripwire = new function() {
 				var disabled = data.signatures[key].mask == "273.0" ? true : false;
 
 				// Check for differences
-				if (!this.client.signatures || !this.client.signatures[key]) {
+				if (!tripwire.signatures.list[key]) {
 					this.addSig(data.signatures[key], {animate: true}, disabled);
-				} else if (this.client.signatures[key].time !== data.signatures[key].time) {
+				} else if (tripwire.signatures.list[key].time !== data.signatures[key].time) {
 					var edit = false;
 					for (column in data.signatures[key]) {
-						if (data.signatures[key][column] != this.client.signatures[key][column] && column != "time" && column != "editing") {
+						if (data.signatures[key][column] != tripwire.signatures.list[key][column] && column != "time" && column != "editing") {
 							edit = true;
 						}
 					}
@@ -2627,7 +2582,7 @@ var tripwire = new function() {
 			}
 
 			// Sigs needing removal
-			for (var key in this.client.signatures) {
+			for (var key in tripwire.signatures.list) {
 				if (!data.signatures[key]) {
 					this.deleteSig(key);
 				}
@@ -2649,6 +2604,8 @@ var tripwire = new function() {
 
 			this.client = server;
 		}
+
+		tripwire.signatures.list = data.signatures;
 
 		// set the sig count in the UI
 		$("#signature-count").html(data.signatures.length || Object.size(data.signatures));
@@ -2958,7 +2915,9 @@ var tripwire = new function() {
 			activity.refresh(true);
 
 			// Reset signatures
+			$("#sigTable span[data-age]").countdown("destroy");
 			$("#sigTable tbody").empty()
+			tripwire.signatures.list = {};
 			tripwire.client.signatures = [];
 
 			// Reset chain map
@@ -4819,6 +4778,7 @@ $("#chainTabs").on("click", ".tab", function(e) {
 
 	options.save();
 	chain.redraw();
+	tripwire.parse(tripwire.client, "refresh");
 });
 
 $("#chainTabs").on("click", ".closeTab", function(e) {
