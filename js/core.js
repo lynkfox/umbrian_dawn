@@ -2611,7 +2611,7 @@ var tripwire = new function() {
 		} else if (mode == 'init' || mode == 'change') {
 
 			for (var key in data.signatures) {
-				var disabled = data.signatures[key].mask == "273.0" ? true : false;
+				var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
 
 				this.addSig(data.signatures[key], {animate: false}, disabled);
 
