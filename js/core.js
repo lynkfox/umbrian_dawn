@@ -2929,9 +2929,13 @@ var tripwire = new function() {
 			$("#notesWidget .content .comment:visible").remove();
 			tripwire.comments.data = null;
 
+			// Change the URL & history
+			history.replaceState(null, null, "?system="+viewingSystem);
+
 			tripwire.refresh("change");
 		}
 
+		// Change the title
 		document.title = tripwire.systems[systemID].name + " - " + (server == "static.eve-apps.com" ? "Tripwire" : "Galileo");
 
 		$("#infoSystem").text(tripwire.systems[systemID].name);
@@ -5770,6 +5774,19 @@ $("body").on("click", "a[href^='.?system=']", function(e) {
 	var systemID = Object.index(tripwire.systems, "name", system);
 
 	tripwire.systemChange(systemID);
+});
+
+$("body").on("submit", "#systemSearch", function(e) {
+	e.preventDefault();
+
+	var system = $(this).find("[name='system']").val();
+	var systemID = Object.index(tripwire.systems, "name", system) || false;
+
+	if (systemID !== false) {
+		tripwire.systemChange(systemID);
+		$(this).find("[name='system']").val("");
+		$("#search").click();
+	}
 });
 
 $("body").on("click", "#undo:not(.disabled)", function() {
