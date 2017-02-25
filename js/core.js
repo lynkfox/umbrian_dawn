@@ -5796,7 +5796,9 @@ $(document).keydown(function(e)	{
 
 $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 	_suggest: function(items) {
-		this.element.val(items[0].value.substr(0, this.element.val().length));
+		if (this.element.val() != items[0].value) {
+			this.element.val(items[0].value.substr(0, this.element.val().length));
+		}
 
 		// Invoke the parent function
 		return this._super(items);
