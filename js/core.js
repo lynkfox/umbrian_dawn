@@ -2807,6 +2807,7 @@ var tripwire = new function() {
 		//coloring();
 		$("#sigTable").trigger("update");
 		// Add counter
+		$(tr).find('span[data-age]').countdown("destroy");
 		if (edit.life == "Critical") {
 			$(tr).find('span[data-age]').countdown({until: new Date(edit.lifeLeft), onExpiry: this.pastEOL, alwaysExpire: true, compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime})
 				.addClass('critical');
