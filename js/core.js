@@ -2578,7 +2578,7 @@ var tripwire = new function() {
 
 		if (mode == 'refresh') {
 			for (var key in data.signatures) {
-				var disabled = data.signatures[key].mask == "273.0" ? true : false;
+				var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
 
 				// Check for differences
 				if (!tripwire.signatures.list[key]) {
