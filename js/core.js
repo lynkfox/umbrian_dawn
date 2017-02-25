@@ -4749,6 +4749,7 @@ var OccupiedToolTips = new jBox("Tooltip", {
 $("#chainTabs").sortable({
 	items: "> .tab",
 	axis: "x",
+	delay: 150,
 	tolerance: "pointer",
 	containment: "parent",
 	update: function(e, ui) {
