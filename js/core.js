@@ -1658,9 +1658,11 @@ var chain = new function() {
 			this.data.rawMap = $.extend(true, {}, data.map);
 
 			if (!options.chain.active || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false)) {
-				for (var i in data.map) {
-					if (data.map[i].mask == "273.0") {
-						delete data.map[i];
+				if (options.masks.active != "273.0") {
+					for (var i in data.map) {
+						if (data.map[i].mask == "273.0") {
+							delete data.map[i];
+						}
 					}
 				}
 			}
@@ -2567,18 +2569,20 @@ var tripwire = new function() {
 
 	this.parse = function(server, mode) {
 		var data = $.extend(true, {}, server);
+		var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
 
 		if (!options.chain.active || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout != true)) {
-			for (var key in data.signatures) {
-				if (data.signatures[key].mask == "273.0") {
-					delete data.signatures[key];
+			if (options.masks.active != "273.0") {
+				for (var key in data.signatures) {
+					if (data.signatures[key].mask == "273.0") {
+						delete data.signatures[key];
+					}
 				}
 			}
 		}
 
 		if (mode == 'refresh') {
 			for (var key in data.signatures) {
-				var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
 
 				// Check for differences
 				if (!tripwire.signatures.list[key]) {
@@ -2611,8 +2615,6 @@ var tripwire = new function() {
 		} else if (mode == 'init' || mode == 'change') {
 
 			for (var key in data.signatures) {
-				var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
-
 				this.addSig(data.signatures[key], {animate: false}, disabled);
 
 				if (data.signatures[key].editing) {
