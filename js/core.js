@@ -446,11 +446,13 @@ var options = new function() {
 
 	// Saves options in both cookie and database
 	this.save = function() {
-		setCookie("twOptions", JSON.stringify(this.get()), 365);
+		var options = JSON.stringify(this.get());
+
+		localStorage.setItem("tripwire_options", options);
 
 		$.ajax({
 			url: "options.php",
-			data: {mode: "set", options: JSON.stringify(this.get())},
+			data: {mode: "set", options: options},
 			type: "POST",
 			dataType: "JSON"
 		});
@@ -460,8 +462,8 @@ var options = new function() {
 	this.load = function(data) {
 		if (data && typeof(data) != "undefined") {
 			this.set(this, data);
-		} else if (getCookie("twOptions")) {
-			this.set(this, JSON.parse(getCookie("twOptions")));
+		} else if (localStorage.getItem("tripwire_options")) {
+			this.set(this, JSON.parse(localStorage.getItem("tripwire_options")));
 		}
 
 		this.apply();
