@@ -433,11 +433,14 @@ $(document).on("dialogclose", ".ui-dialog", function (event, ui) {
 });
 
 var options = new function() {
+	var localOverrides = ["grid"];
+	var localOptions = JSON.parse(localStorage.getItem("tripwire_options"));
+
 	this.userID = init.userID;
 	this.character = {id: init.characterID, name: init.characterName};
 	this.background = null;
 	this.favorites = [];
-	this.grid = {igb: {}, oog: {}};
+	this.grid = {};
 	this.tracking = {active: "new"};
 	this.masks = {active: init.corporationID + ".2"};
 	this.chain = {typeFormat: null, classFormat: null, gridlines: true, active: 0, tabs: [], "node-reference": "type"};
@@ -462,8 +465,8 @@ var options = new function() {
 	this.load = function(data) {
 		if (data && typeof(data) != "undefined") {
 			this.set(this, data);
-		} else if (localStorage.getItem("tripwire_options")) {
-			this.set(this, JSON.parse(localStorage.getItem("tripwire_options")));
+		} else if (localOptions) {
+			this.set(this, localOptions);
 		}
 
 		this.apply();
@@ -474,8 +477,9 @@ var options = new function() {
 		var data = {};
 
 		for (var x in this) {
-			if (typeof(this[x]) != "function")
+			if (typeof(this[x]) != "function") {
 				data[x] = this[x];
+			}
 		}
 
 		return data;
@@ -485,9 +489,9 @@ var options = new function() {
 	this.set = function(local, data) {
 		for (var prop in data) {
 			if (data[prop] && data[prop].constructor && data[prop].constructor === Object) {
-				if (local)
+				if (local) {
 					this.set(local[prop], data[prop]);
-					//arguments.callee(local[prop], data[prop]);
+				}
 			} else if (local && typeof(local[prop]) != "undefined") {
 				local[prop] = data[prop];
 			}
@@ -504,13 +508,25 @@ var options = new function() {
 
 	// Applies settings
 	this.apply = function() {
-		// Grid layout
-		if (!isEmpty(this.grid.oog)) {
+		// Local browser overrides
+		if (localOptions) {
+			for (key of localOverrides) {
+				this[key] = localOptions[key];
+			}
+		}
+
+		// Grid layout (detect old IGB setting options)
+		if (this.grid.hasOwnProperty("oog") && !isEmpty(this.grid.oog)) {
 			$.each(this.grid.oog, function() {
 				$("#"+this.id).attr({"data-col": this.col, "data-row": this.row, "data-sizex": this.size_x, "data-sizey": this.size_y})
 					.css({width: this.width, height: this.height});
 			});
-		};
+		} else if (!isEmpty(this.grid)) {
+			$.each(this.grid, function() {
+				$("#"+this.id).attr({"data-col": this.col, "data-row": this.row, "data-sizex": this.size_x, "data-sizey": this.size_y})
+					.css({width: this.width, height: this.height});
+			});
+		}
 
 		// Buttons
 		if (this.buttons.follow) $("#follow").addClass("active");
@@ -636,7 +652,7 @@ $("#layout").click(function() {
 
 		$(this).removeClass("active");
 
-		options.grid.oog = grid.serialize();
+		options.grid = grid.serialize();
 
 		options.save();
 	}
@@ -3027,7 +3043,7 @@ var tripwire = new function() {
 		tripwire.signatures.redo[systemID] && tripwire.signatures.redo[systemID].length > 0 ? $("#redo").removeClass("disabled") : $("#redo").addClass("disabled");
 	}
 
-	// Handles data from EVE IGB headers
+	// Handles data from EVE in-game data
 	this.EVE = function(EVE, characterChange = false) {
 		var systemChange = this.client.EVE && this.client.EVE.systemChange || false;
 
