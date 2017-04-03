@@ -117,8 +117,8 @@ if ($mode == 'login' || !$mode) {
 
 					//save cookie on client PC for 30 days
 					if ($remember) {
-						setcookie('username', $username, time()+60*60*24*30, '/');
-						setcookie('password', $password, time()+60*60*24*30, '/');
+						setcookie('username', $username, time()+60*60*24*30, '/', '', true, true);
+						setcookie('password', $password, time()+60*60*24*30, '/', '', true, true);
 					}
 				}
 			} else {
