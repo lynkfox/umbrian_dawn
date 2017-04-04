@@ -2616,7 +2616,7 @@ var tripwire = new function() {
 
 			for (var key in data.signatures) {
 				var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
-				
+
 				this.addSig(data.signatures[key], {animate: false}, disabled);
 
 				if (data.signatures[key].editing) {
@@ -3134,8 +3134,9 @@ var tripwire = new function() {
 
 						if (character.systemID != data.solar_system_id) {
 							character.systemID = data.solar_system_id || null;
-							character.systemName = tripwire.systems[data.solar_system_id].name || null;
-							$("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".system").html(tripwire.systems[data.solar_system_id].name || "&nbsp;");
+							character.systemName = tripwire.systems[data.solar_system_id] ? tripwire.systems[data.solar_system_id].name : null;
+
+							$("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".system").html(character.systemName || "&nbsp;");
 
 							// Send to Tripwire server on next refresh call
 							tripwire.data.tracking[this.characterID] = {
