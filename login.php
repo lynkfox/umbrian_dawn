@@ -89,8 +89,11 @@ if ($mode == 'login' || !$mode) {
 					// Log the attempt
 					login_history($ip, $username, $method, 'fail');
 				} else {
-					require('options.class.php');
-					$options = options::getOptions($mysql, $account->id);
+					$query = 'SELECT options FROM preferences WHERE userID = :userID';
+					$stmt = $mysql->prepare($query);
+					$stmt->bindValue(':userID', $account->id, PDO::PARAM_INT);
+					$stmt->execute();
+					$options = json_decode($stmt->fetchColumn(0));
 
 					$_SESSION['userID'] = $account->id;
 					$_SESSION['username'] = $account->username;
@@ -171,8 +174,11 @@ if ($mode == 'login' || !$mode) {
 				$stmt->execute();
 
 				if ($account = $stmt->fetchObject()) {
-					require('options.class.php');
-					$options = options::getOptions($mysql, $account->id);
+					$query = 'SELECT options FROM preferences WHERE userID = :userID';
+					$stmt = $mysql->prepare($query);
+					$stmt->bindValue(':userID', $account->id, PDO::PARAM_INT);
+					$stmt->execute();
+					$options = json_decode($stmt->fetchColumn(0));
 
 					$_SESSION['userID'] = $account->id;
 					$_SESSION['username'] = $account->username;
@@ -221,8 +227,11 @@ if ($mode == 'login' || !$mode) {
 			$stmt->execute();
 
 			if ($account = $stmt->fetchObject()) {
-				require('options.class.php');
-				$options = options::getOptions($mysql, $account->id);
+				$query = 'SELECT options FROM preferences WHERE userID = :userID';
+				$stmt = $mysql->prepare($query);
+				$stmt->bindValue(':userID', $account->id, PDO::PARAM_INT);
+				$stmt->execute();
+				$options = json_decode($stmt->fetchColumn(0));
 
 				$_SESSION['userID'] = $account->id;
 				$_SESSION['username'] = $account->username;
