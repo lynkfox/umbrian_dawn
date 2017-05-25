@@ -54,7 +54,7 @@ if ($row = $stmt->fetchObject()) {
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/gridster.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-1.12.1.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-custom.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=2017-02-11">
+	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=2017-02-25">
 
 	<title><?=$system?> - <?= $server == 'static.eve-apps.com' ? 'Tripwire' : 'Galileo' ?></title>
 </head>
@@ -75,7 +75,7 @@ if ($row = $stmt->fetchObject()) {
 			<h3 id="serverStatus" class="pointer" data-tooltip="EVE server status and player count"></h3>
 			<h3 id="systemSearch">| <i id="search" data-icon="search" data-tooltip="Toggle system search"></i>
 				<span id="currentSpan" class="hidden"><span class="pointer">Current System: </span><a id="EVEsystem" href=""></a><i id="follow" data-icon="follow" data-tooltip="Follow my in-game system" style="padding-left: 10px;"></i></span>
-				<span id="searchSpan"><form method="GET" action=".?"><input type="text" size="18" class="systemsAutocomplete" name="system" /></form></span>
+				<span id="searchSpan"><form id="systemSearch" method="GET" action=".?"><input type="text" size="18" class="systemsAutocomplete" name="system" /></form></span>
 				<span id="APItimer" class="hidden"></span>
 			</h3>
 		</span>
@@ -1072,11 +1072,11 @@ if ($row = $stmt->fetchObject()) {
 				<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
 					<tr>
 						<th>Chain Type format:</th>
-						<td><a href="http://forums.eve-apps.com/viewtopic.php?f=2&t=12" target="_blank" data-icon="help" style="color: #333; font-size: 1.2em;"></a> <input type="text" id="typeFormat" size="4" maxlength="3" /></td>
+						<td><!--<a href="http://forums.eve-apps.com/viewtopic.php?f=2&t=12" target="_blank" data-icon="help" style="color: #333; font-size: 1.2em;"></a> --><input type="text" id="typeFormat" size="4" maxlength="3" /></td>
 					</tr>
 					<tr>
 						<th>Chain Class format:</th>
-						<td><a href="http://forums.eve-apps.com/viewtopic.php?f=2&t=12" target="_blank" data-icon="help" style="color: #333; font-size: 1.2em;"></a> <input type="text" id="classFormat" size="4" maxlength="3" /></td>
+						<td><!--<a href="http://forums.eve-apps.com/viewtopic.php?f=2&t=12" target="_blank" data-icon="help" style="color: #333; font-size: 1.2em;"></a> --><input type="text" id="classFormat" size="4" maxlength="3" /></td>
 					</tr>
 					<tr>
 						<th>Show Chain Map Gridlines:</th>
@@ -1522,9 +1522,8 @@ if ($row = $stmt->fetchObject()) {
 	<!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=2017-02-10.1"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=2017-02-25.2"></script>
 	<!-- JS Includes -->
 
 </body>
 </html>
-<?php session_write_close(); ?>

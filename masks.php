@@ -19,8 +19,6 @@ if(!isset($_SESSION['userID'])) {
 	exit();
 }
 
-session_write_close();
-
 require_once('db.inc.php');
 require_once('api.class.php');
 require_once('lib.inc.php');

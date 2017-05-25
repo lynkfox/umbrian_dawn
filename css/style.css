@@ -372,6 +372,12 @@ to { -o-transform: rotate(360deg); }
 	vertical-align: top;
 }
 
+#tracking {
+	display: block;
+	overflow-y: auto;
+	max-height: 332px;
+}
+
 .gridster ul {
 	//background: rgba(0, 0, 0, .8);
 	list-style-type: none;

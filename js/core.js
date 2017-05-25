@@ -1,6 +1,22 @@
 //"use strict"
 //var startTime = window.performance.now();
 
+Object.sort = function(obj, prop) {
+	var swapped, prev;
+	do {
+		swapped = false, prev = null;
+		for (var i in obj) {
+			if (prev && Number(obj[i][prop]) < Number(obj[prev][prop])) {
+				var tmp = obj[i];
+				obj[i] = obj[prev];
+				obj[prev] = tmp;
+				swapped = true;
+			}
+			prev = i;
+		}
+	} while (swapped);
+}
+
 Object.index = function(obj, prop, val) {
 	for (var key in obj) {
 		if (obj[key][prop] == val) {
@@ -417,11 +433,14 @@ $(document).on("dialogclose", ".ui-dialog", function (event, ui) {
 });
 
 var options = new function() {
+	var localOverrides = ["grid"];
+	var localOptions = JSON.parse(localStorage.getItem("tripwire_options"));
+
 	this.userID = init.userID;
 	this.character = {id: init.characterID, name: init.characterName};
 	this.background = null;
 	this.favorites = [];
-	this.grid = {igb: {}, oog: {}};
+	this.grid = {};
 	this.tracking = {active: "new"};
 	this.masks = {active: init.corporationID + ".2"};
 	this.chain = {typeFormat: null, classFormat: null, gridlines: true, active: 0, tabs: [], "node-reference": "type"};
@@ -430,11 +449,13 @@ var options = new function() {
 
 	// Saves options in both cookie and database
 	this.save = function() {
-		setCookie("twOptions", JSON.stringify(this.get()), 365);
+		var options = JSON.stringify(this.get());
+
+		localStorage.setItem("tripwire_options", options);
 
 		$.ajax({
 			url: "options.php",
-			data: {mode: "set", options: JSON.stringify(this.get())},
+			data: {mode: "set", options: options},
 			type: "POST",
 			dataType: "JSON"
 		});
@@ -444,8 +465,8 @@ var options = new function() {
 	this.load = function(data) {
 		if (data && typeof(data) != "undefined") {
 			this.set(this, data);
-		} else if (getCookie("twOptions")) {
-			this.set(this, JSON.parse(getCookie("twOptions")));
+		} else if (localOptions) {
+			this.set(this, localOptions);
 		}
 
 		this.apply();
@@ -456,8 +477,9 @@ var options = new function() {
 		var data = {};
 
 		for (var x in this) {
-			if (typeof(this[x]) != "function")
+			if (typeof(this[x]) != "function") {
 				data[x] = this[x];
+			}
 		}
 
 		return data;
@@ -467,9 +489,9 @@ var options = new function() {
 	this.set = function(local, data) {
 		for (var prop in data) {
 			if (data[prop] && data[prop].constructor && data[prop].constructor === Object) {
-				if (local)
+				if (local) {
 					this.set(local[prop], data[prop]);
-					//arguments.callee(local[prop], data[prop]);
+				}
 			} else if (local && typeof(local[prop]) != "undefined") {
 				local[prop] = data[prop];
 			}
@@ -486,13 +508,25 @@ var options = new function() {
 
 	// Applies settings
 	this.apply = function() {
-		// Grid layout
-		if (!isEmpty(this.grid.oog)) {
+		// Local browser overrides
+		if (localOptions) {
+			for (key of localOverrides) {
+				this[key] = localOptions[key];
+			}
+		}
+
+		// Grid layout (detect old IGB setting options)
+		if (this.grid.hasOwnProperty("oog") && !isEmpty(this.grid.oog)) {
 			$.each(this.grid.oog, function() {
 				$("#"+this.id).attr({"data-col": this.col, "data-row": this.row, "data-sizex": this.size_x, "data-sizey": this.size_y})
 					.css({width: this.width, height: this.height});
 			});
-		};
+		} else if (!isEmpty(this.grid)) {
+			$.each(this.grid, function() {
+				$("#"+this.id).attr({"data-col": this.col, "data-row": this.row, "data-sizex": this.size_x, "data-sizey": this.size_y})
+					.css({width: this.width, height: this.height});
+			});
+		}
 
 		// Buttons
 		if (this.buttons.follow) $("#follow").addClass("active");
@@ -618,7 +652,7 @@ $("#layout").click(function() {
 
 		$(this).removeClass("active");
 
-		options.grid.oog = grid.serialize();
+		options.grid = grid.serialize();
 
 		options.save();
 	}
@@ -637,36 +671,6 @@ $("#follow").click(function(e) {
 	options.buttons.follow = $(this).hasClass("active");
 	options.save();
 })
-
-// Think this is depricated
-$("#home").click(function() {
-	if ($(this).hasClass("active"))
-		$(this).removeClass("active");
-	else
-		$(this).addClass("active"), $("#k-space").removeClass("active"), $("#eve-scout").removeClass("active");
-
-	chain.redraw();
-
-	options.buttons.chainWidget.home = $(this).hasClass("active");
-	options.buttons.chainWidget.kspace = false;
-	options.buttons.chainWidget.evescout = false;
-	options.save();
-});
-
-// Think this is depricated
-$("#k-space").click(function() {
-	if ($(this).hasClass("active"))
-		$(this).removeClass("active");
-	else
-		$(this).addClass("active"), $("#home").removeClass("active"), $("#eve-scout").removeClass("active");
-
-	chain.redraw();
-
-	options.buttons.chainWidget.kspace = $(this).hasClass("active");
-	options.buttons.chainWidget.home = false;
-	options.buttons.chainWidget.evescout = false;
-	options.save();
-});
 
 $("#show-viewing").click(function() {
 	if ($(this).hasClass("active"))
@@ -689,21 +693,6 @@ $("#show-favorite").click(function() {
 	chain.redraw();
 
 	options.buttons.chainWidget.favorites = $(this).hasClass("active");
-	options.save();
-});
-
-// Think this is depricated
-$("#eve-scout").click(function() {
-	if ($(this).hasClass("active"))
-		$(this).removeClass("active");
-	else
-		$(this).addClass("active"), $("#home").removeClass("active"), $("#k-space").removeClass("active");
-
-	chain.redraw();
-
-	options.buttons.chainWidget.evescout = $(this).hasClass("active");
-	options.buttons.chainWidget.home = false;
-	options.buttons.chainWidget.kspace = false;
 	options.save();
 });
 
@@ -1654,7 +1643,7 @@ var chain = new function() {
 
 	this.redraw = function() {
 		var data = $.extend(true, {}, this.data);
-		data.map = data.rawMap;
+		data.map = $.extend(true, {}, data.rawMap);
 
 		this.draw(data);
 	}
@@ -1668,13 +1657,18 @@ var chain = new function() {
 
 			this.data.rawMap = $.extend(true, {}, data.map);
 
-			if (options.chain.active && options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false) {
-				for (var i in data.map) {
-					if (data.map[i].mask == "273.0") {
-						delete data.map[i];
+			if (!options.chain.active || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false)) {
+				if (options.masks.active != "273.0") {
+					for (var i in data.map) {
+						if (data.map[i].mask == "273.0") {
+							delete data.map[i];
+						}
 					}
 				}
 			}
+
+			// Sort so we keep the chain map order the same
+			Object.sort(data.map, "id");
 
 			$.extend(data, this.nodes(data.map)); // 250ms -> <100ms
 			$.extend(this.data, data);
@@ -1762,7 +1756,7 @@ var tripwire = new function() {
 	this.timer, this.xhr;
 	this.client = {signatures: {}};
 	this.server = {signatures: {}};
-	this.signatures = {undo: JSON.parse(sessionStorage.getItem("tripwire_undo")) || {}, redo: JSON.parse(sessionStorage.getItem("tripwire_redo")) || {}};
+	this.signatures = {list: {}, undo: JSON.parse(sessionStorage.getItem("tripwire_undo")) || {}, redo: JSON.parse(sessionStorage.getItem("tripwire_redo")) || {}};
 	this.activity = {};
 	this.data = {tracking: {}, esi: {}};
 	this.refreshRate = 5000;
@@ -2574,30 +2568,44 @@ var tripwire = new function() {
 	}
 
 	this.parse = function(server, mode) {
+		var data = $.extend(true, {}, server);
+
+		if (!options.chain.active || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout != true)) {
+			if (options.masks.active != "273.0") {
+				for (var key in data.signatures) {
+					if (data.signatures[key].mask == "273.0") {
+						delete data.signatures[key];
+					}
+				}
+			}
+		}
+
 		if (mode == 'refresh') {
-			for (var key in server.signatures) {
+			for (var key in data.signatures) {
+				var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
+
 				// Check for differences
-				if (!this.client.signatures || !this.client.signatures[key]) {
-					this.addSig(server.signatures[key], {animate: true});
-				} else if (this.client.signatures[key].time !== server.signatures[key].time) {
+				if (!tripwire.signatures.list[key]) {
+					this.addSig(data.signatures[key], {animate: true}, disabled);
+				} else if (tripwire.signatures.list[key].time !== data.signatures[key].time) {
 					var edit = false;
-					for (column in server.signatures[key]) {
-						if (server.signatures[key][column] != this.client.signatures[key][column] && column != "time" && column != "editing") {
+					for (column in data.signatures[key]) {
+						if (data.signatures[key][column] != tripwire.signatures.list[key][column] && column != "time" && column != "editing") {
 							edit = true;
 						}
 					}
 
 					if (edit) {
-						this.editSig(server.signatures[key]);
+						this.editSig(data.signatures[key], disabled);
 					} else {
-						this.sigEditing(server.signatures[key]);
+						this.sigEditing(data.signatures[key]);
 					}
 				}
 			}
 
 			// Sigs needing removal
-			for (var key in this.client.signatures) {
-				if (!server.signatures[key]) {
+			for (var key in tripwire.signatures.list) {
+				if (!data.signatures[key]) {
 					this.deleteSig(key);
 				}
 			}
@@ -2606,24 +2614,23 @@ var tripwire = new function() {
 			this.client = server;
 		} else if (mode == 'init' || mode == 'change') {
 
-			for (var key in server.signatures) {
-				this.addSig(server.signatures[key], {animate: false});
+			for (var key in data.signatures) {
+				var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
 
-				if (server.signatures[key].editing) {
-					this.sigEditing(server.signatures[key]);
+				this.addSig(data.signatures[key], {animate: false}, disabled);
+
+				if (data.signatures[key].editing) {
+					this.sigEditing(data.signatures[key]);
 				}
-			}
-
-			// Update current system
-			if (server.EVE) {
-				$("#EVEsystem").html(server.EVE.systemName).attr("href", ".?system="+server.EVE.systemName);
 			}
 
 			this.client = server;
 		}
 
+		tripwire.signatures.list = data.signatures;
+
 		// set the sig count in the UI
-		$("#signature-count").html(this.client.signatures.length || Object.size(this.client.signatures));
+		$("#signature-count").html(data.signatures.length || Object.size(data.signatures));
 	}
 
 	this.pastEOL = function() {
@@ -2633,9 +2640,10 @@ var tripwire = new function() {
 
 	// Hanldes adding to Signatures section
 	// ToDo: Use native JS
-	this.addSig = function(add, option) {
+	this.addSig = function(add, option, disabled) {
 		var option = option || {};
 		var animate = typeof(option.animate) !== 'undefined' ? option.animate : true;
+		var disabled = disabled || false;
 
 		if (add.mass) {
 			var nth = add.systemID == viewingSystemID ? add.nth : add.nth2;
@@ -2671,7 +2679,7 @@ var tripwire = new function() {
 					var massClass = "";
 			}
 
-			var row = "<tr data-id='"+add.id+"' data-tooltip=''>"
+			var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
 				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+sigID+"</td>"
 				//+ "<td class='type-tooltip' title=\""+this.whTooltip(add)+"\">"+(nth>1?'&nbsp;&nbsp;&nbsp;':'')+(sigtype)+(nth>1?' '+nth:'')+"</td>"
 				+ "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(add)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
@@ -2679,19 +2687,19 @@ var tripwire = new function() {
 				+ "<td class='"+ options.signatures.alignment.leadsTo +"'>"+system+"</td>"
 				+ "<td class='"+lifeClass+" "+ options.signatures.alignment.sigLife +"'>"+add.life+"</td>"
 				+ "<td class='"+massClass+" "+ options.signatures.alignment.sigMass +"'>"+add.mass+"</td>"
-				+ "<td><a href='' class='sigDelete'>X</a></td>"
-				+ "<td><a href='' class='sigEdit'><</a></td>"
+				+ "<td><a href='' class='sigDelete' "+ (disabled ? 'disabled="disabled"' : '') +">X</a></td>"
+				+ "<td><a href='' class='sigEdit' "+ (disabled ? 'disabled="disabled"' : '') +"><</a></td>"
 				+ "</tr>";
 
 			var tr = $(row);
 		} else {
-			var row = "<tr data-id='"+add.id+"' data-tooltip=''>"
+			var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
 				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+add.signatureID+"</td>"
 				+ "<td class='"+ options.signatures.alignment.sigType +"'>"+add.type+"</td>"
 				+ "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
 				+ "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(add.name?linkSig(add.name):'')+"</td>"
-				+ "<td><a href='' class='sigDelete'>X</a></td>"
-				+ "<td><a href='' class='sigEdit'><</a></td>"
+				+ "<td><a href='' class='sigDelete' "+ (disabled ? 'disabled="disabled"' : '') +">X</a></td>"
+				+ "<td><a href='' class='sigEdit' "+ (disabled ? 'disabled="disabled"' : '') +"><</a></td>"
 				+ "</tr>";
 
 			var tr = $(row);
@@ -2733,7 +2741,9 @@ var tripwire = new function() {
 
 	// Handles changing Signatures section
 	// ToDo: Use native JS
-	this.editSig = function(edit) {
+	this.editSig = function(edit, disabled) {
+		var disabled = disabled || false;
+
 		if (edit.mass) {
 			var nth = edit.systemID == viewingSystemID ? edit.nth : edit.nth2;
 			var sigID = edit.systemID == viewingSystemID ? edit.signatureID : edit.sig2ID;
@@ -2768,7 +2778,7 @@ var tripwire = new function() {
 					var massClass = "";
 			}
 
-			var row = "<tr data-id='"+edit.id+"' data-tooltip=''>"
+			var row = "<tr data-id='"+edit.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
 				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+sigID+"</td>"
 				//+ "<td class='type-tooltip' title=\""+this.whTooltip(edit)+"\">"+(nth>1?'&nbsp;&nbsp;&nbsp;':'')+(sigtype)+(nth>1?' '+nth:'')+"</td>"
 				+ "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(edit)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
@@ -2776,19 +2786,19 @@ var tripwire = new function() {
 				+ "<td class='"+ options.signatures.alignment.leadsTo +"'>"+system+"</td>"
 				+ "<td class='"+lifeClass+" "+ options.signatures.alignment.sigLife +"'>"+edit.life+"</td>"
 				+ "<td class='"+massClass+" "+ options.signatures.alignment.sigMass +"'>"+edit.mass+"</td>"
-				+ "<td><a href='' class='sigDelete'>X</a></td>"
-				+ "<td><a href='' class='sigEdit'><</a></td>"
+				+ "<td><a href='' class='sigDelete' "+ (disabled ? 'disabled="disabled"' : '') +">X</a></td>"
+				+ "<td><a href='' class='sigEdit' "+ (disabled ? 'disabled="disabled"' : '') +"><</a></td>"
 				+ "</tr>";
 
 			var tr = $(row);
 		} else {
-			var row = "<tr data-id='"+edit.id+"' data-tooltip=''>"
+			var row = "<tr data-id='"+edit.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
 				+ "<td class='"+ options.signatures.alignment.sigID +"'>"+edit.signatureID+"</td>"
 				+ "<td class='"+ options.signatures.alignment.sigType +"'>"+edit.type+"</td>"
 				+ "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
 				+ "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(edit.name?linkSig(edit.name):'')+"</td>"
-				+ "<td><a href='' class='sigDelete'>X</a></td>"
-				+ "<td><a href='' class='sigEdit'><</a></td>"
+				+ "<td><a href='' class='sigDelete' "+ (disabled ? 'disabled="disabled"' : '') +">X</a></td>"
+				+ "<td><a href='' class='sigEdit' "+ (disabled ? 'disabled="disabled"' : '') +"><</a></td>"
 				+ "</tr>";
 
 			var tr = $(row);
@@ -2801,6 +2811,7 @@ var tripwire = new function() {
 		//coloring();
 		$("#sigTable").trigger("update");
 		// Add counter
+		$(tr).find('span[data-age]').countdown("destroy");
 		if (edit.life == "Critical") {
 			$(tr).find('span[data-age]').countdown({until: new Date(edit.lifeLeft), onExpiry: this.pastEOL, alwaysExpire: true, compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime})
 				.addClass('critical');
@@ -2927,7 +2938,9 @@ var tripwire = new function() {
 			activity.refresh(true);
 
 			// Reset signatures
+			$("#sigTable span[data-age]").countdown("destroy");
 			$("#sigTable tbody").empty()
+			tripwire.signatures.list = {};
 			tripwire.client.signatures = [];
 
 			// Reset chain map
@@ -2937,9 +2950,13 @@ var tripwire = new function() {
 			$("#notesWidget .content .comment:visible").remove();
 			tripwire.comments.data = null;
 
+			// Change the URL & history
+			history.replaceState(null, null, "?system="+viewingSystem);
+
 			tripwire.refresh("change");
 		}
 
+		// Change the title
 		document.title = tripwire.systems[systemID].name + " - " + (server == "static.eve-apps.com" ? "Tripwire" : "Galileo");
 
 		$("#infoSystem").text(tripwire.systems[systemID].name);
@@ -3031,7 +3048,7 @@ var tripwire = new function() {
 		tripwire.signatures.redo[systemID] && tripwire.signatures.redo[systemID].length > 0 ? $("#redo").removeClass("disabled") : $("#redo").addClass("disabled");
 	}
 
-	// Handles data from EVE IGB headers
+	// Handles data from EVE in-game data
 	this.EVE = function(EVE, characterChange = false) {
 		var systemChange = this.client.EVE && this.client.EVE.systemChange || false;
 
@@ -3104,12 +3121,10 @@ var tripwire = new function() {
 				}
 
 				$.ajax({
-					url: baseUrl + "/v1/characters/"+ characterID +"/location/",
-					headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
+					url: baseUrl + "/v1/characters/"+ characterID +"/location/?" + $.param({"token": character.accessToken, "user_agent": userAgent}),
+					// headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
 					type: "GET",
 					dataType: "JSON",
-					// cache: false,
-					// timeout: 8000,
 					characterID: characterID
 				}).done(function(data, status, xhr) {
 					var character = tripwire.esi.characters[this.characterID];
@@ -3119,8 +3134,9 @@ var tripwire = new function() {
 
 						if (character.systemID != data.solar_system_id) {
 							character.systemID = data.solar_system_id || null;
-							character.systemName = tripwire.systems[data.solar_system_id].name || null;
-							$("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".system").html(tripwire.systems[data.solar_system_id].name || "&nbsp;");
+							character.systemName = tripwire.systems[data.solar_system_id] ? tripwire.systems[data.solar_system_id].name : null;
+
+							$("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".system").html(character.systemName || "&nbsp;");
 
 							// Send to Tripwire server on next refresh call
 							tripwire.data.tracking[this.characterID] = {
@@ -3191,11 +3207,11 @@ var tripwire = new function() {
 				}).always(function(data, status) {
 					if (status != "success" && status != "abort" && tripwire.esi.connection == true) {
 						tripwire.esi.connection = false;
-						$("#esiConnectionSuccess").click();
+						$("#esiConnectionSuccess, #esiConnectionError").click();
 						Notify.trigger("ESI Connection Failed", "red", false, "esiConnectionError");
 					} else if (status == "success" && tripwire.esi.connection == false) {
 						tripwire.esi.connection = true;
-						$("#esiConnectionError").click();
+						$("#esiConnectionSuccess, #esiConnectionError").click();
 						Notify.trigger("ESI Connection Resumed", "green", 5000, "esiConnectionSuccess");
 					}
 				});
@@ -3217,12 +3233,10 @@ var tripwire = new function() {
 				}
 
 				$.ajax({
-					url: baseUrl + "/v1/characters/"+ characterID +"/ship/",
-					headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
+					url: baseUrl + "/v1/characters/"+ characterID +"/ship/?" + $.param({"token": character.accessToken, "user_agent": userAgent}),
+					// headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
 					type: "GET",
 					dataType: "JSON",
-					// cache: false,
-					// timeout: 8000,
 					characterID: characterID
 				}).done(function(data, status, xhr) {
 					var character = tripwire.esi.characters[this.characterID];
@@ -3315,11 +3329,11 @@ var tripwire = new function() {
 				}).always(function(data, status) {
 					if (status != "success" && status != "abort" && tripwire.esi.connection == true) {
 						tripwire.esi.connection = false;
-						$("#esiConnectionSuccess").click();
+						$("#esiConnectionSuccess, #esiConnectionError").click();
 						Notify.trigger("ESI Connection Failed", "red", false, "esiConnectionError");
 					} else if (status == "success" && tripwire.esi.connection == false) {
 						tripwire.esi.connection = true;
-						$("#esiConnectionError").click();
+						$("#esiConnectionSuccess, #esiConnectionError").click();
 						Notify.trigger("ESI Connection Resumed", "green", 5000, "esiConnectionSuccess");
 					}
 				});
@@ -3330,22 +3344,20 @@ var tripwire = new function() {
 
 		var typeLookup = function(typeID, reference) {
 			return $.ajax({
-				url: baseUrl + "/v2/universe/types/"+ typeID +"/",
-				headers: {"X-User-Agent": userAgent},
+				url: baseUrl + "/v2/universe/types/"+ typeID +"/?" + $.param({"user_agent": userAgent}),
+				// headers: {"X-User-Agent": userAgent},
 				type: "GET",
 				dataType: "JSON",
-				// cache: false,
 				reference: reference
 			});
 		}
 
 		var stationLookup = function(stationID, reference) {
 			return $.ajax({
-				url: baseUrl + "/v1/universe/stations/"+ stationID +"/",
-				headers: {"X-User-Agent": userAgent},
+				url: baseUrl + "/v1/universe/stations/"+ stationID +"/?" + $.param({"user_agent": userAgent}),
+				// headers: {"X-User-Agent": userAgent},
 				type: "GET",
 				dataType: "JSON",
-				// cache: false,
 				reference: reference
 			});
 		}
@@ -3618,6 +3630,8 @@ $("#add-signature").click(function(e) {
 
 			$("#sigAddForm #sigType, #sigAddForm #sigLife").selectmenu({width: 100});
 			$("#sigAddForm #whLife, #sigAddForm #whMass").selectmenu({width: 80});
+			$("#sigAddForm .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+			$("#sigAddForm .typesAutocomplete").inlinecomplete({source: whList, maxSize: 10, delay: 0});
 
 			$("#sigAddForm #whType, #sigAddForm #sigID").blur(function(e) {
 				if (this.value == "") {
@@ -4621,11 +4635,6 @@ $(".options").click(function(e) {
 
 var whList;
 function postLoad() {
-
-	whList = $.map(tripwire.wormholes, function(item, index) { return index;});
-	whList.splice(26, 0, "K162");
-	whList.push("???", "GATE");
-
 	$("#sigTable").tablesorter({
 		sortReset: true,
 		widgets: ['saveSort'],
@@ -4634,8 +4643,10 @@ function postLoad() {
 		}
 	});
 
-	$(".typesAutocomplete, [data-autocomplete='sigTypes']").inlinecomplete({source: whList, maxSize: 10, delay: 0});
-	$(".sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+	whList = $.map(tripwire.wormholes, function(item, index) { return index;});
+	whList.splice(26, 0, "K162");
+	whList.push("???", "GATE");
+
 	$(".systemsAutocomplete").inlinecomplete({source: tripwire.aSystems, maxSize: 10, delay: 0});
 
 	$("#dialog-error").dialog({
@@ -4896,6 +4907,7 @@ var OccupiedToolTips = new jBox("Tooltip", {
 $("#chainTabs").sortable({
 	items: "> .tab",
 	axis: "x",
+	delay: 150,
 	tolerance: "pointer",
 	containment: "parent",
 	update: function(e, ui) {
@@ -4927,6 +4939,7 @@ $("#chainTabs").on("click", ".tab", function(e) {
 
 	options.save();
 	chain.redraw();
+	tripwire.parse(tripwire.client, "refresh");
 });
 
 $("#chainTabs").on("click", ".closeTab", function(e) {
@@ -4984,6 +4997,8 @@ $("#newTab").on("click", function() {
 				ValidationTooltips.close();
 			},
 			create: function() {
+				$("#dialog-newTab .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+
 				$("#newTab_form").submit(function(e) {
 					e.preventDefault();
 					var $tab = $("#chainTab .tab").clone();
@@ -5047,6 +5062,8 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 				ValidationTooltips.close();
 			},
 			create: function() {
+				$("#dialog-editTab .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+
 				$("#editTab_form").submit(function(e) {
 					e.preventDefault();
 					var $tab = $("#chainTabs .tab").eq([options.chain.active]);
@@ -5068,6 +5085,8 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 					options.chain.tabs[options.chain.active] = {systemID: systemID, name: name, evescout: thera};
 					options.save();
 					chain.redraw();
+
+					tripwire.parse(tripwire.client, "refresh");
 
 					//$("#chainTabs").append($tab);
 
@@ -5344,10 +5363,10 @@ $("#chainMap").contextmenu({
 				dataType: "JSON"
 			}).done(function(data) {
 				if (data && data.result) {
-					$(ui.target[0]).closest("td").removeClass("redNode yellowNode greenNode").addClass(flare+"Node");
+					// $(ui.target[0]).closest("td").removeClass("redNode yellowNode greenNode").addClass(flare+"Node");
 
 					chain.data.flares.flares.push({systemID: systemID, flare: flare, time: null});
-					chain.flares();
+					chain.flares(chain.data.flares);
 				}
 			});
 		}
@@ -5362,10 +5381,10 @@ $("#chainMap").contextmenu({
 				dataType: "JSON"
 			}).done(function(data) {
 				if (data && data.result) {
-					$(ui.target[0]).closest("td").removeClass("redNode yellowNode greenNode");
+					// $(ui.target[0]).closest("td").removeClass("redNode yellowNode greenNode");
 
 					chain.data.flares.flares.splice(Object.index(chain.data.flares.flares, "systemID", systemID), 1);
-					chain.flares();
+					chain.flares(chain.data.flares);
 				}
 			});
 		}
@@ -5375,7 +5394,9 @@ $("#chainMap").contextmenu({
 $("#sigTable").on("click", ".sigDelete", function(e) {
 	e.preventDefault();
 
-	if ($("#dialog-sigEdit").hasClass("ui-dialog-content") && $("#dialog-sigEdit").dialog("isOpen")) {
+	if ($(this).closest("tr").attr("disabled")) {
+		return false;
+	} else if ($("#dialog-sigEdit").hasClass("ui-dialog-content") && $("#dialog-sigEdit").dialog("isOpen")) {
 		$("#dialog-sigEdit").parent().effect("shake", 300);
 		return false;
 	}
@@ -5529,7 +5550,9 @@ function linkSig(sigName) {
 function openSigEdit(e) {
 	e.preventDefault();
 
-	if ($("#dialog-deleteSig").hasClass("ui-dialog-content") && $("#dialog-deleteSig").dialog("isOpen")) {
+	if ($(this).closest("tr").attr("disabled")) {
+		return false;
+	} else if ($("#dialog-deleteSig").hasClass("ui-dialog-content") && $("#dialog-deleteSig").dialog("isOpen")) {
 		$("#dialog-deleteSig").parent().effect("shake", 300);
 		return false;
 	} else if ($("#dialog-sigEdit").hasClass("ui-dialog-content") && $("#dialog-sigEdit").dialog("isOpen")) {
@@ -5630,6 +5653,8 @@ function openSigEdit(e) {
 
 				$("#sigEditForm #sigType, #sigEditForm #sigLife").selectmenu({width: 100});
 				$("#sigEditForm #whLife, #sigEditForm #whMass").selectmenu({width: 80});
+				$("#sigEditForm .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+				$("#sigEditForm .typesAutocomplete").inlinecomplete({source: whList, maxSize: 10, delay: 0});
 
 				$("#sigEditForm #whType, #sigEditForm #sigID").blur(function(e) {
 					if (this.value == "") {
@@ -5905,6 +5930,19 @@ $("body").on("click", "a[href^='.?system=']", function(e) {
 	tripwire.systemChange(systemID);
 });
 
+$("body").on("submit", "#systemSearch", function(e) {
+	e.preventDefault();
+
+	var system = $(this).find("[name='system']").val();
+	var systemID = Object.index(tripwire.systems, "name", system) || false;
+
+	if (systemID !== false) {
+		tripwire.systemChange(systemID);
+		$(this).find("[name='system']").val("");
+		$("#search").click();
+	}
+});
+
 $("body").on("click", "#undo:not(.disabled)", function() {
 	tripwire.undo();
 });
@@ -5948,7 +5986,9 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 		return originalReturn;
 	},
 	_suggest: function(items) {
-		this.element.val(items[0].value.substr(0, this.element.val().length));
+		if (this.element.val() != items[0].value) {
+			this.element.val(items[0].value.substr(0, this.element.val().length));
+		}
 
 		// Invoke the parent function
 		return this._super(items);
