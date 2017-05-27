@@ -4,8 +4,8 @@ This is just some basic info on the source atm - more details on how to setup an
 
 ### Tripwire - EVE Online wormhole mapping web tool ###
 
-* [Tripwire database](https://drive.google.com/file/d/0B2nU7w1pM6WrNVc0YThXRGlZV2M/view?usp=sharing)
-* [EVE_API database](https://drive.google.com/file/d/0B2nU7w1pM6WrNnRZVE94aExJd2M/view?usp=sharing)
+* [Tripwire database](https://bitbucket.org/daimian/tripwire/downloads/tripwire.sql)
+* [EVE_API database](https://bitbucket.org/daimian/tripwire/downloads/eve_api.sql)
 * MIT license
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
