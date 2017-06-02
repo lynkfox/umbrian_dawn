@@ -94,7 +94,7 @@ if ($row = $stmt->fetchObject()) {
 											<td id="tracking">
 												<table id="tracking-clone" class="hidden">
 													<tr>
-														<td rowspan="5" class="avatar"><img src="" /></td>
+														<td rowspan="5" class="avatar"><img src="" /><i data-icon="red-giant" class="online critical" data-tooltip="Online status"></i></td>
 														<td class="name text">&nbsp;</td>
 													</tr>
 													<tr>
