@@ -3103,6 +3103,10 @@ var tripwire = new function() {
 		this.esi.connection = true;
 		this.esi.characters = {};
 
+		var scopeError = function(characterID) {
+			$("#tracking .tracking-clone[data-characterid='"+ characterID +"']").find(".alert").show();
+		}
+
 		var location = function() {
 			clearTimeout(locationTimer);
 
@@ -3351,6 +3355,9 @@ var tripwire = new function() {
 							$("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("stable").addClass("critical");
 						}
 					}).fail(function(data) {
+						if (data && data.status == 403) {
+							scopeError(this.reference.characterID);
+						}
 						$("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("stable").addClass("critical");
 					}).always(function(data) {
 						onlineTimer = setTimeout(online, 15000);
