@@ -3344,13 +3344,15 @@ var tripwire = new function() {
 				var character = tripwire.esi.characters[characterID];
 
 				tripwire.esi.characterStatus(character.characterID, character)
-					.always(function(data) {
+					.done(function(data) {
 						if (data) {
 							$("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("critical").addClass("stable");
 						} else {
 							$("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("stable").addClass("critical");
 						}
-
+					}).fail(function(data) {
+						$("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("stable").addClass("critical");
+					}).always(function(data) {
 						onlineTimer = setTimeout(online, 15000);
 					});
 			}
