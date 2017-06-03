@@ -82,7 +82,7 @@ class signatures {
 			$systemName			= property_exists($sig, 'systemName') ? $sig->systemName : null;
 			$signatureID 		= strtoupper($sig->signatureID);
 			$signatureType 		= $sig->type;
-			$lifeTime  			= property_exists($sig, 'lifeTime') ? date('c', strtotime($sig->lifeTime)) : date('c');
+			$lifeTime  			= property_exists($sig, 'lifeTime') ? date('Y-m-d H:i:s', strtotime($sig->lifeTime)) : date('Y-m-d H:i:s');
 
 			if ($signatureType == 'Wormhole') {
 				$whType				= property_exists($sig, 'whType') ? strtoupper($sig->whType) : '???';
