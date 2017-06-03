@@ -3360,7 +3360,9 @@ var tripwire = new function() {
 						}
 						$("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("stable").addClass("critical");
 					}).always(function(data) {
-						onlineTimer = setTimeout(online, 15000);
+						if (data && data.status != 403) {
+							onlineTimer = setTimeout(online, 15000);
+						}
 					});
 			}
 		}
