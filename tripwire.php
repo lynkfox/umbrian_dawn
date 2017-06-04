@@ -44,7 +44,6 @@ if ($row = $stmt->fetchObject()) {
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="system" content="<?= $system ?>">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=2017-06-02">
 	<meta name="systemID" content="<?= $systemID ?>">
 	<meta name="server" content="<?= $server ?>">
 	<link rel="shortcut icon" href="//<?= $server ?>/images/favicon.png" />
@@ -54,6 +53,7 @@ if ($row = $stmt->fetchObject()) {
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/gridster.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-1.12.1.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-custom.css">
+	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=2017-06-02">
 
 	<title><?=$system?> - <?= $server == 'static.eve-apps.com' ? 'Tripwire' : 'Galileo' ?></title>
 </head>
