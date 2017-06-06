@@ -3099,7 +3099,7 @@ var tripwire = new function() {
 	this.esi = function() {
 		var locationTimer, shipTimer, onlineTimer;
 		var baseUrl = "https://esi.tech.ccp.is";
-		var userAgent = "Tripwire Client - " + navigator.userAgent;
+		var userAgent = "Tripwire Client (" + window.location.hostname + ") - " + window.navigator.userAgent;
 		this.esi.connection = true;
 		this.esi.characters = {};
 
