@@ -1754,6 +1754,7 @@ var chain = new function() {
 /* Tripwire Core */
 var tripwire = new function() {
 	this.timer, this.xhr;
+	this.version = "0.8";
 	this.client = {signatures: {}};
 	this.server = {signatures: {}};
 	this.signatures = {list: {}, undo: JSON.parse(sessionStorage.getItem("tripwire_undo")) || {}, redo: JSON.parse(sessionStorage.getItem("tripwire_redo")) || {}};
@@ -1923,6 +1924,7 @@ var tripwire = new function() {
 		data.systemID = viewingSystemID;
 		data.systemName = viewingSystem;
 		data.instance = tripwire.instance;
+		data.version = tripwire.version;
 
 		this.xhr = $.ajax({
 			url: "refresh.php",
@@ -3098,7 +3100,7 @@ var tripwire = new function() {
 
 	this.esi = function() {
 		var baseUrl = "https://esi.tech.ccp.is";
-		var userAgent = "Tripwire Client (" + window.location.hostname + ") - " + window.navigator.userAgent;
+		var userAgent = "Tripwire Client " + tripwire.version + " (" + window.location.hostname + ") - " + window.navigator.userAgent;
 		this.esi.connection = true;
 		this.esi.characters = {};
 

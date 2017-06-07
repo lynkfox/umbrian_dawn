@@ -64,7 +64,7 @@ if ($checkMask[1] == 0 && $checkMask[0] != 0) {
 */
 $ip				= isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : die();
 $instance		= isset($_REQUEST['instance']) ? $_REQUEST['instance'] : 0;
-$version		= isset($_SERVER['SERVER_NAME'])? explode('.', $_SERVER['SERVER_NAME'])[0] . ' ' . TRIPWIRE_VERSION : die();
+$version		= isset($_SERVER['SERVER_NAME'])? explode('.', $_SERVER['SERVER_NAME'])[0] . (isset($_REQUEST['version']) ? ' ' . $_REQUEST['version'] : '') : die();
 $userID			= isset($_SESSION['userID']) ? $_SESSION['userID'] : die();
 $maskID			= isset($_SESSION['mask']) ? $_SESSION['mask'] : die();
 $systemID 		= isset($_REQUEST['systemID']) && !empty($_REQUEST['systemID']) ? $_REQUEST['systemID'] : die();
