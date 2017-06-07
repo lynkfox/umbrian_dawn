@@ -1815,7 +1815,7 @@ var tripwire = new function() {
 
 					tripwire.serverStatus.data = data;
 				} else {
-					$('#serverStatus').html("<span class='critical'>TQ</span>: "+numFormat(data.players));
+					$('#serverStatus').html("<span class='critical'>TQ</span>");
 				}
 
 				tripwire.serverStatus.timer = setTimeout("tripwire.serverStatus();", 15000);
@@ -3166,7 +3166,7 @@ var tripwire = new function() {
 
 										character.stationName = data.name || null;
 										$("#tracking .tracking-clone[data-characterid='"+ this.reference +"']").find(".station").html(data.name.substring(0, 17) + "..." || "&nbsp;").attr("data-tooltip", data.name);
-										Tooltips.attach($("#tracking .tracking-clone[data-characterid='"+ this.reference +"'] [data-tooltip]"));
+										Tooltips.attach($("#tracking .tracking-clone[data-characterid='"+ this.reference +"'] .station[data-tooltip]"));
 
 										// Send to Tripwire server on next refresh call
 										tripwire.data.tracking[characterID] = {
@@ -3183,7 +3183,8 @@ var tripwire = new function() {
 									});
 							} else {
 								character.stationName = null;
-								$("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".station").html("&nbsp;").attr("data-tooltip", "");
+								// $("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".station").html("&nbsp;").attr("data-tooltip", "&nbsp;");
+								Tooltips.detach($("#tracking .tracking-clone[data-characterid='"+ this.characterID +"'] .station[data-tooltip]"));
 
 								// Send to Tripwire server on next refresh call
 								tripwire.data.tracking[this.characterID] = {
@@ -3470,7 +3471,7 @@ var tripwire = new function() {
 						$("#removeESI").removeAttr("disabled");				}
 
 					$("#tracking").append($clone);
-					Tooltips.attach($clone.find("[data-tooltip]"));
+					// Tooltips.attach($clone.find("[data-tooltip]"));
 				}
 
 				tripwire.esi.characters[characterID] = characters[characterID];
