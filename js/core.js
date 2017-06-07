@@ -3097,7 +3097,6 @@ var tripwire = new function() {
 	}
 
 	this.esi = function() {
-		var locationTimer, shipTimer, onlineTimer;
 		var baseUrl = "https://esi.tech.ccp.is";
 		var userAgent = "Tripwire Client (" + window.location.hostname + ") - " + window.navigator.userAgent;
 		this.esi.connection = true;
@@ -3108,8 +3107,14 @@ var tripwire = new function() {
 		}
 
 		var location = function() {
-			clearTimeout(locationTimer);
+			location.timer, location.xhr;
 
+			clearTimeout(location.timer);
+			for (characterID in location.xhr) {
+				if (location.xhr[characterID]) location.xhr[characterID].abort();
+			}
+
+			location.xhr = {};
 			for (characterID in tripwire.esi.characters) {
 				var character = tripwire.esi.characters[characterID];
 
@@ -3119,7 +3124,7 @@ var tripwire = new function() {
 					continue;
 				}
 
-				$.ajax({
+				location.xhr[characterID] = $.ajax({
 					url: baseUrl + "/v1/characters/"+ characterID +"/location/?" + $.param({"token": character.accessToken, "user_agent": userAgent}),
 					// headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
 					type: "GET",
@@ -3216,12 +3221,18 @@ var tripwire = new function() {
 				});
 			}
 
-			locationTimer = setTimeout(location, 5000)
+			location.timer = setTimeout(location, 5000);
 		}
 
 		var ship = function() {
-			clearTimeout(shipTimer);
+			ship.timer, ship.xhr;
 
+			clearTimeout(ship.timer);
+			for (characterID in ship.xhr) {
+				if (ship.xhr[characterID]) ship.xhr[characterID].abort();
+			}
+
+			ship.xhr = {};
 			for (characterID in tripwire.esi.characters) {
 				var character = tripwire.esi.characters[characterID];
 
@@ -3231,7 +3242,7 @@ var tripwire = new function() {
 					continue;
 				}
 
-				$.ajax({
+				ship.xhr[characterID] = $.ajax({
 					url: baseUrl + "/v1/characters/"+ characterID +"/ship/?" + $.param({"token": character.accessToken, "user_agent": userAgent}),
 					// headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
 					type: "GET",
@@ -3338,16 +3349,22 @@ var tripwire = new function() {
 				});
 			}
 
-			shipTimer = setTimeout(ship, 5000);
+			ship.timer = setTimeout(ship, 5000);
 		}
 
 		var online = function() {
-			clearTimeout(onlineTimer);
+			online.timer, online.xhr;
 
+			clearTimeout(online.timer);
+			for (characterID in online.xhr) {
+				if (online.xhr[characterID]) online.xhr[characterID].abort();
+			}
+
+			online.xhr = {};
 			for (characterID in tripwire.esi.characters) {
 				var character = tripwire.esi.characters[characterID];
 
-				tripwire.esi.characterStatus(character.characterID, character)
+				online.xhr[characterID] = tripwire.esi.characterStatus(character.characterID, character)
 					.done(function(data) {
 						if (data) {
 							$("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("critical").addClass("stable");
@@ -3359,12 +3376,10 @@ var tripwire = new function() {
 							scopeError(this.reference.characterID);
 						}
 						$("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("stable").addClass("critical");
-					}).always(function(data) {
-						if (data && data.status != 403) {
-							onlineTimer = setTimeout(online, 15000);
-						}
 					});
 			}
+
+			online.timer = setTimeout(online, 15000);
 		}
 
 		this.esi.typeLookup = function(typeID, reference) {
