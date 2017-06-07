@@ -3380,7 +3380,7 @@ var tripwire = new function() {
 					});
 			}
 
-			online.timer = setTimeout(online, 15000);
+			online.timer = setTimeout(online, 60000);
 		}
 
 		this.esi.typeLookup = function(typeID, reference) {
