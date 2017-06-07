@@ -1,5 +1,10 @@
 <?php
 
+date_default_timezone_set('UTC');
+
+// Tripwire version
+define('TRIPWIRE_VERSION', '0.8');
+
 // EVE SDE table name
 define('EVE_DUMP', 'eve_carnyx');
 
