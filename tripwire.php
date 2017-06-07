@@ -22,7 +22,7 @@ $stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
 $stmt->execute();
 
 // Verify correct system otherwise goto default...
-$query = "SELECT solarSystemName, systems.solarSystemID, regionName, regions.regionID FROM $eve_dump.mapSolarSystems systems LEFT JOIN $eve_dump.mapRegions regions ON regions.regionID = systems.regionID WHERE solarSystemName = :system";
+$query = 'SELECT solarSystemName, systems.solarSystemID, regionName, regions.regionID FROM '. EVE_DUMP .'.mapSolarSystems systems LEFT JOIN '. EVE_DUMP .'.mapRegions regions ON regions.regionID = systems.regionID WHERE solarSystemName = :system';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':system', $_REQUEST['system'], PDO::PARAM_STR);
 $stmt->execute();
@@ -1103,7 +1103,7 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= $server ?>/js/dragscroll.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=2017-06-06.3"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=2017-06-06.4"></script>
 	<!-- JS Includes -->
 
 </body>

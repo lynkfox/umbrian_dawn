@@ -3107,14 +3107,10 @@ var tripwire = new function() {
 		}
 
 		var location = function() {
-			location.timer, location.xhr;
+			location.timer;
 
 			clearTimeout(location.timer);
-			for (characterID in location.xhr) {
-				if (location.xhr[characterID]) location.xhr[characterID].abort();
-			}
 
-			location.xhr = {};
 			for (characterID in tripwire.esi.characters) {
 				var character = tripwire.esi.characters[characterID];
 
@@ -3124,7 +3120,7 @@ var tripwire = new function() {
 					continue;
 				}
 
-				location.xhr[characterID] = $.ajax({
+				$.ajax({
 					url: baseUrl + "/v1/characters/"+ characterID +"/location/?" + $.param({"token": character.accessToken, "user_agent": userAgent}),
 					// headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
 					type: "GET",
@@ -3226,14 +3222,10 @@ var tripwire = new function() {
 		}
 
 		var ship = function() {
-			ship.timer, ship.xhr;
+			ship.timer;
 
 			clearTimeout(ship.timer);
-			for (characterID in ship.xhr) {
-				if (ship.xhr[characterID]) ship.xhr[characterID].abort();
-			}
 
-			ship.xhr = {};
 			for (characterID in tripwire.esi.characters) {
 				var character = tripwire.esi.characters[characterID];
 
@@ -3243,7 +3235,7 @@ var tripwire = new function() {
 					continue;
 				}
 
-				ship.xhr[characterID] = $.ajax({
+				$.ajax({
 					url: baseUrl + "/v1/characters/"+ characterID +"/ship/?" + $.param({"token": character.accessToken, "user_agent": userAgent}),
 					// headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
 					type: "GET",
@@ -3354,18 +3346,14 @@ var tripwire = new function() {
 		}
 
 		var online = function() {
-			online.timer, online.xhr;
+			online.timer;
 
 			clearTimeout(online.timer);
-			for (characterID in online.xhr) {
-				if (online.xhr[characterID]) online.xhr[characterID].abort();
-			}
 
-			online.xhr = {};
 			for (characterID in tripwire.esi.characters) {
 				var character = tripwire.esi.characters[characterID];
 
-				online.xhr[characterID] = tripwire.esi.characterStatus(character.characterID, character)
+				tripwire.esi.characterStatus(character.characterID, character)
 					.done(function(data) {
 						if (data) {
 							$("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("critical").addClass("stable");

@@ -11,7 +11,6 @@ class evesso {
     public $tokenExpire = null;
 
     private function getAPI($url, $headers = array(), $params = false) {
-        global $userAgent;
 		$url = self::$loginUrl . $url;
 
 		$curl = curl_init();
@@ -25,7 +24,7 @@ class evesso {
 
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		// curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($curl, CURLOPT_USERAGENT, $userAgent);
+		curl_setopt($curl, CURLOPT_USERAGENT, USER_AGENT);
 
 		$result = curl_exec($curl);
 
@@ -37,12 +36,10 @@ class evesso {
 	}
 
     public function login($scope = NULL, $state = 'evessologin') {
-        global $evessoClient, $evessoRedirect;
-
         $params = array(
             'response_type' => 'code',
-            'redirect_uri' => $evessoRedirect,
-            'client_id' => $evessoClient,
+            'redirect_uri' => EVE_SSO_REDIRECT,
+            'client_id' => EVE_SSO_CLIENT,
             'scope' => $scope,
             'state' => $state
         );
@@ -51,9 +48,7 @@ class evesso {
     }
 
     public function authenticate($code) {
-        global $evessoClient, $evessoSecret;
-
-        $headers = array('Authorization: Basic '.base64_encode($evessoClient.':'.$evessoSecret));
+        $headers = array('Authorization: Basic '.base64_encode(EVE_SSO_CLIENT.':'.EVE_SSO_SECRET));
         $params = array(
             'grant_type' => 'authorization_code',
             'code' => $code
@@ -96,9 +91,7 @@ class evesso {
     }
 
     public function refresh($refreshToken) {
-        global $evessoClient, $evessoSecret;
-
-        $headers = array('Authorization: Basic '.base64_encode($evessoClient.':'.$evessoSecret));
+        $headers = array('Authorization: Basic '.base64_encode(EVE_SSO_CLIENT.':'.EVE_SSO_SECRET));
         $params = array(
             'grant_type' => 'refresh_token',
             'refresh_token' => $refreshToken
