@@ -453,7 +453,7 @@ var options = new function() {
 
 		localStorage.setItem("tripwire_options", options);
 
-		$.ajax({
+		return $.ajax({
 			url: "options.php",
 			data: {mode: "set", options: options},
 			type: "POST",
@@ -2627,7 +2627,7 @@ var tripwire = new function() {
 		tripwire.signatures.list = data.signatures;
 
 		// set the sig count in the UI
-		$("#signature-count").html(data.signatures.length || Object.size(data.signatures));
+		$("#signature-count").html(data.signatures.length || Object.size(data.signatures) || 0);
 	}
 
 	this.pastEOL = function() {
@@ -2936,7 +2936,8 @@ var tripwire = new function() {
 
 			// Reset signatures
 			$("#sigTable span[data-age]").countdown("destroy");
-			$("#sigTable tbody").empty()
+			$("#sigTable tbody").empty();
+			$("#signature-count").html(0);
 			tripwire.signatures.list = {};
 			tripwire.client.signatures = [];
 
@@ -4039,6 +4040,7 @@ $(".options").click(function(e) {
 			Save: function() {
 				// Options
 				var data = {mode: "set", options: JSON.stringify(options)};
+				var maskChange = false;
 
 				$("#dialog-options").parent().find(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", true).addClass("ui-state-disabled");
 
@@ -4053,11 +4055,27 @@ $(".options").click(function(e) {
 
 				options.background = $("#dialog-options #background-image").val();
 
+				if (options.masks.active != $("#dialog-options input[name='mask']:checked").val()) {
+					maskChange = true;
+				}
+
 				options.masks.active = $("#dialog-options input[name='mask']:checked").val();
 
 				options.apply();
-				options.save(); // Performs AJAX
-				tripwire.refresh('refresh');
+				options.save() // Performs AJAX
+					.done(function() {
+						if (maskChange) {
+							// Reset signatures
+							$("#sigTable span[data-age]").countdown("destroy");
+							$("#sigTable tbody").empty()
+							$("#signature-count").html(0);
+							tripwire.signatures.list = {};
+							tripwire.client.signatures = [];
+
+							tripwire.refresh('change');
+						}
+					});
+
 
 				$("#dialog-options").dialog("close");
 				$("#dialog-options").parent().find(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", false).removeClass("ui-state-disabled");
