@@ -453,7 +453,7 @@ var options = new function() {
 
 		localStorage.setItem("tripwire_options", options);
 
-		$.ajax({
+		return $.ajax({
 			url: "options.php",
 			data: {mode: "set", options: options},
 			type: "POST",
@@ -4062,18 +4062,20 @@ $(".options").click(function(e) {
 				options.masks.active = $("#dialog-options input[name='mask']:checked").val();
 
 				options.apply();
-				options.save(); // Performs AJAX
+				options.save() // Performs AJAX
+					.done(function() {
+						if (maskChange) {
+							// Reset signatures
+							$("#sigTable span[data-age]").countdown("destroy");
+							$("#sigTable tbody").empty()
+							$("#signature-count").html(0);
+							tripwire.signatures.list = {};
+							tripwire.client.signatures = [];
 
-				if (maskChange) {
-					// Reset signatures
-					$("#sigTable span[data-age]").countdown("destroy");
-					$("#sigTable tbody").empty()
-					$("#signature-count").html(0);
-					tripwire.signatures.list = {};
-					tripwire.client.signatures = [];
+							tripwire.refresh('change');
+						}
+					});
 
-					tripwire.refresh('change');
-				}
 
 				$("#dialog-options").dialog("close");
 				$("#dialog-options").parent().find(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", false).removeClass("ui-state-disabled");
