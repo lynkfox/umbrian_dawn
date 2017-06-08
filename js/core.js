@@ -1754,7 +1754,7 @@ var chain = new function() {
 /* Tripwire Core */
 var tripwire = new function() {
 	this.timer, this.xhr;
-	this.version = "0.8";
+	this.version = "0.8.1";
 	this.client = {signatures: {}};
 	this.server = {signatures: {}};
 	this.signatures = {list: {}, undo: JSON.parse(sessionStorage.getItem("tripwire_undo")) || {}, redo: JSON.parse(sessionStorage.getItem("tripwire_redo")) || {}};
