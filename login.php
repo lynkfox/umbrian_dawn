@@ -292,7 +292,7 @@ if ($mode == 'login' || !$mode) {
 		if ($login == 'sso') {
 			$evesso->login();
 		} else if ($login == 'esi') {
-			$evesso->login('esi-location.read_location.v1 esi-location.read_ship_type.v1 esi-ui.write_waypoint.v1 esi-ui.open_window.v1', 'evessoesi');
+			$evesso->login('esi-location.read_online.v1 esi-location.read_location.v1 esi-location.read_ship_type.v1 esi-ui.write_waypoint.v1 esi-ui.open_window.v1', 'evessoesi');
 		}
 	}
 }

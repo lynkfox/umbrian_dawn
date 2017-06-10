@@ -27,7 +27,7 @@ $query = 'SELECT time FROM eve_api.cacheTime WHERE type = "activity"';
 $stmt = $mysql->prepare($query);
 $stmt->execute();
 $row = $stmt->fetchObject();
-$cache = $row->time ? ((strtotime($row->time) + 3600) - time()) / 2 : 60;
+$cache = $row && $row->time ? ((strtotime($row->time) + 3600) - time()) / 2 : 60;
 
 header('Cache-Control: max-age='.$cache);
 header('Expires: '.gmdate('r', time() + $cache));

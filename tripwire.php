@@ -22,7 +22,7 @@ $stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
 $stmt->execute();
 
 // Verify correct system otherwise goto default...
-$query = "SELECT solarSystemName, systems.solarSystemID, regionName, regions.regionID FROM $eve_dump.mapSolarSystems systems LEFT JOIN $eve_dump.mapRegions regions ON regions.regionID = systems.regionID WHERE solarSystemName = :system";
+$query = 'SELECT solarSystemName, systems.solarSystemID, regionName, regions.regionID FROM '. EVE_DUMP .'.mapSolarSystems systems LEFT JOIN '. EVE_DUMP .'.mapRegions regions ON regions.regionID = systems.regionID WHERE solarSystemName = :system';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':system', $_REQUEST['system'], PDO::PARAM_STR);
 $stmt->execute();
@@ -54,7 +54,7 @@ if ($row = $stmt->fetchObject()) {
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/gridster.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-1.12.1.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-custom.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=2017-02-25">
+	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=2017-06-02">
 
 	<title><?=$system?> - <?= $server == 'static.eve-apps.com' ? 'Tripwire' : 'Galileo' ?></title>
 </head>
@@ -95,7 +95,10 @@ if ($row = $stmt->fetchObject()) {
 											<td id="tracking">
 												<table id="tracking-clone" class="hidden">
 													<tr>
-														<td rowspan="5" class="avatar"><img src="" /></td>
+														<td rowspan="5" class="avatar"><img src="" />
+															<i data-icon="red-giant" class="online critical" data-tooltip="Online status"></i>
+															<i data-icon="alert" class="alert hidden" data-tooltip="Re-add character to fix missing permissions"></i>
+														</td>
 														<td class="name text">&nbsp;</td>
 													</tr>
 													<tr>
@@ -1522,7 +1525,7 @@ if ($row = $stmt->fetchObject()) {
 	<!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=2017-02-25.2"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=0.8.1"></script>
 	<!-- JS Includes -->
 
 </body>

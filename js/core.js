@@ -453,7 +453,7 @@ var options = new function() {
 
 		localStorage.setItem("tripwire_options", options);
 
-		$.ajax({
+		return $.ajax({
 			url: "options.php",
 			data: {mode: "set", options: options},
 			type: "POST",
@@ -1754,6 +1754,7 @@ var chain = new function() {
 /* Tripwire Core */
 var tripwire = new function() {
 	this.timer, this.xhr;
+	this.version = "0.8.1";
 	this.client = {signatures: {}};
 	this.server = {signatures: {}};
 	this.signatures = {list: {}, undo: JSON.parse(sessionStorage.getItem("tripwire_undo")) || {}, redo: JSON.parse(sessionStorage.getItem("tripwire_redo")) || {}};
@@ -1798,33 +1799,28 @@ var tripwire = new function() {
 	// Handles pulling TQ status & player count
 	this.serverStatus = function() {
 		this.data;
-		this.time;
+		this.timer;
 
-		$.ajax({
-			url: "server_status.php",
-			dataType: "JSON",
-			cache: false
-		}).done(function(data) {
-			if (data.players) {
-				if (!tripwire.serverStatus.data || tripwire.serverStatus.data.players !== data.players || tripwire.serverStatus.data.online !== data.online) {
-					$('#serverStatus').html("<span class='"+(data.online && data.players > 0 ? 'stable' : 'critical')+"'>TQ</span>: "+numFormat(data.players));
+		clearTimeout(tripwire.serverStatus.timer);
 
-					if (tripwire.serverStatus.data) {
-						$("#serverStatus").effect('pulsate', {times: 5});
+		tripwire.esi.eveStatus()
+			.always(function(data) {
+				if (data && data.players && data.players > 0) {
+					if (!tripwire.serverStatus.data || tripwire.serverStatus.data.players !== data.players) {
+						$('#serverStatus').html("<span class='"+(data.players > 0 ? 'stable' : 'critical')+"'>TQ</span>: "+numFormat(data.players));
+
+						if (tripwire.serverStatus.data) {
+							$("#serverStatus").effect('pulsate', {times: 5});
+						}
 					}
+
+					tripwire.serverStatus.data = data;
+				} else {
+					$('#serverStatus').html("<span class='critical'>TQ</span>");
 				}
 
-				tripwire.serverStatus.data = data;
-			}
-		}).always(function(data) {
-			if (data && data.time > 15) {
-				tripwire.serverStatus.time = data.time * 1000;
-			} else {
-				tripwire.serverStatus.time = 15000;
-			}
-
-			setTimeout("tripwire.serverStatus();", tripwire.serverStatus.time);
-		});
+				tripwire.serverStatus.timer = setTimeout("tripwire.serverStatus();", 15000);
+			});
 	}
 
 	// Handles API updates
@@ -1928,6 +1924,7 @@ var tripwire = new function() {
 		data.systemID = viewingSystemID;
 		data.systemName = viewingSystem;
 		data.instance = tripwire.instance;
+		data.version = tripwire.version;
 
 		this.xhr = $.ajax({
 			url: "refresh.php",
@@ -2630,7 +2627,7 @@ var tripwire = new function() {
 		tripwire.signatures.list = data.signatures;
 
 		// set the sig count in the UI
-		$("#signature-count").html(data.signatures.length || Object.size(data.signatures));
+		$("#signature-count").html(data.signatures.length || Object.size(data.signatures) || 0);
 	}
 
 	this.pastEOL = function() {
@@ -2939,7 +2936,8 @@ var tripwire = new function() {
 
 			// Reset signatures
 			$("#sigTable span[data-age]").countdown("destroy");
-			$("#sigTable tbody").empty()
+			$("#sigTable tbody").empty();
+			$("#signature-count").html(0);
 			tripwire.signatures.list = {};
 			tripwire.client.signatures = [];
 
@@ -3102,14 +3100,19 @@ var tripwire = new function() {
 	}
 
 	this.esi = function() {
-		var locationTimer, shipTimer;
 		var baseUrl = "https://esi.tech.ccp.is";
-		var userAgent = "Tripwire Client - " + navigator.userAgent;
+		var userAgent = "Tripwire Client " + tripwire.version + " (" + window.location.hostname + ") - " + window.navigator.userAgent;
 		this.esi.connection = true;
 		this.esi.characters = {};
 
+		var scopeError = function(characterID) {
+			$("#tracking .tracking-clone[data-characterid='"+ characterID +"']").find(".alert").show();
+		}
+
 		var location = function() {
-			clearTimeout(locationTimer);
+			location.timer;
+
+			clearTimeout(location.timer);
 
 			for (characterID in tripwire.esi.characters) {
 				var character = tripwire.esi.characters[characterID];
@@ -3156,13 +3159,13 @@ var tripwire = new function() {
 							character.stationID = data.station_id || null;
 
 							if (data.station_id) {
-								stationLookup(data.station_id, this.characterID)
+								tripwire.esi.stationLookup(data.station_id, this.characterID)
 									.always(function(data) {
 										var character = tripwire.esi.characters[this.reference];
 
-										character.stationName = data.station_name || null;
-										$("#tracking .tracking-clone[data-characterid='"+ this.reference +"']").find(".station").html(data.station_name.substring(0, 17) + "..." || "&nbsp;").attr("data-tooltip", data.station_name);
-										Tooltips.attach($("#tracking .tracking-clone[data-characterid='"+ this.reference +"'] [data-tooltip]"));
+										character.stationName = data.name || null;
+										$("#tracking .tracking-clone[data-characterid='"+ this.reference +"']").find(".station").html(data.name.substring(0, 17) + "..." || "&nbsp;").attr("data-tooltip", data.name);
+										Tooltips.attach($("#tracking .tracking-clone[data-characterid='"+ this.reference +"'] .station[data-tooltip]"));
 
 										// Send to Tripwire server on next refresh call
 										tripwire.data.tracking[characterID] = {
@@ -3179,7 +3182,8 @@ var tripwire = new function() {
 									});
 							} else {
 								character.stationName = null;
-								$("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".station").html("&nbsp;").attr("data-tooltip", "");
+								// $("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".station").html("&nbsp;").attr("data-tooltip", "&nbsp;");
+								Tooltips.detach($("#tracking .tracking-clone[data-characterid='"+ this.characterID +"'] .station[data-tooltip]"));
 
 								// Send to Tripwire server on next refresh call
 								tripwire.data.tracking[this.characterID] = {
@@ -3217,11 +3221,13 @@ var tripwire = new function() {
 				});
 			}
 
-			locationTimer = setTimeout(location, 5000)
+			location.timer = setTimeout(location, 5000);
 		}
 
 		var ship = function() {
-			clearTimeout(shipTimer);
+			ship.timer;
+
+			clearTimeout(ship.timer);
 
 			for (characterID in tripwire.esi.characters) {
 				var character = tripwire.esi.characters[characterID];
@@ -3283,7 +3289,7 @@ var tripwire = new function() {
 							character.shipTypeID = data.ship_type_id || null;
 
 							if (data.ship_type_id) {
-								typeLookup(data.ship_type_id, this.characterID)
+								tripwire.esi.typeLookup(data.ship_type_id, this.characterID)
 									.always(function(data) {
 										var character = tripwire.esi.characters[this.reference];
 
@@ -3339,10 +3345,36 @@ var tripwire = new function() {
 				});
 			}
 
-			shipTimer = setTimeout(ship, 5000);
+			ship.timer = setTimeout(ship, 5000);
 		}
 
-		var typeLookup = function(typeID, reference) {
+		var online = function() {
+			online.timer;
+
+			clearTimeout(online.timer);
+
+			for (characterID in tripwire.esi.characters) {
+				var character = tripwire.esi.characters[characterID];
+
+				tripwire.esi.characterStatus(character.characterID, character)
+					.done(function(data) {
+						if (data) {
+							$("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("critical").addClass("stable");
+						} else {
+							$("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("stable").addClass("critical");
+						}
+					}).fail(function(data) {
+						if (data && data.status == 403) {
+							scopeError(this.reference.characterID);
+						}
+						$("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("stable").addClass("critical");
+					});
+			}
+
+			online.timer = setTimeout(online, 60000);
+		}
+
+		this.esi.typeLookup = function(typeID, reference) {
 			return $.ajax({
 				url: baseUrl + "/v2/universe/types/"+ typeID +"/?" + $.param({"user_agent": userAgent}),
 				// headers: {"X-User-Agent": userAgent},
@@ -3352,9 +3384,9 @@ var tripwire = new function() {
 			});
 		}
 
-		var stationLookup = function(stationID, reference) {
+		this.esi.stationLookup = function(stationID, reference) {
 			return $.ajax({
-				url: baseUrl + "/v1/universe/stations/"+ stationID +"/?" + $.param({"user_agent": userAgent}),
+				url: baseUrl + "/v2/universe/stations/"+ stationID +"/?" + $.param({"user_agent": userAgent}),
 				// headers: {"X-User-Agent": userAgent},
 				type: "GET",
 				dataType: "JSON",
@@ -3376,6 +3408,25 @@ var tripwire = new function() {
 				url: baseUrl + "/v1/ui/openwindow/information/?" + $.param({target_id: targetID}),
 				headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
 				type: "POST",
+				dataType: "JSON"
+			});
+		}
+
+		this.esi.characterStatus = function(characterID, reference) {
+			return $.ajax({
+				url: baseUrl + "/v1/characters/" + characterID + "/online/?" + $.param({"token": tripwire.esi.characters[characterID].accessToken, "user_agent": userAgent}),
+				// headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
+				type: "GET",
+				dataType: "JSON",
+				reference: reference
+			});
+		}
+
+		this.esi.eveStatus = function() {
+			return $.ajax({
+				url: baseUrl + "/v1/status/?" + $.param({"user_agent": userAgent}),
+				// headers: {"X-User-Agent": userAgent},
+				type: "GET",
 				dataType: "JSON"
 			});
 		}
@@ -3411,6 +3462,7 @@ var tripwire = new function() {
 						$("#removeESI").removeAttr("disabled");				}
 
 					$("#tracking").append($clone);
+					// Tooltips.attach($clone.find("[data-tooltip]"));
 				}
 
 				tripwire.esi.characters[characterID] = characters[characterID];
@@ -3418,6 +3470,7 @@ var tripwire = new function() {
 
 			ship();
 			location();
+			online();
 		}
 	}
 
@@ -3545,9 +3598,9 @@ var tripwire = new function() {
 		this.serverTime(); // ?? so we can access inside function to get time?
 		this.sync('init'); // Get initial info
 
+		this.esi();
 		this.serverStatus(); // Get TQ status
 		this.pasteSignatures();
-		this.esi();
 		this.systemChange(viewingSystemID, "init");
 		postLoad();
 	}
@@ -3987,6 +4040,7 @@ $(".options").click(function(e) {
 			Save: function() {
 				// Options
 				var data = {mode: "set", options: JSON.stringify(options)};
+				var maskChange = false;
 
 				$("#dialog-options").parent().find(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", true).addClass("ui-state-disabled");
 
@@ -4001,11 +4055,27 @@ $(".options").click(function(e) {
 
 				options.background = $("#dialog-options #background-image").val();
 
+				if (options.masks.active != $("#dialog-options input[name='mask']:checked").val()) {
+					maskChange = true;
+				}
+
 				options.masks.active = $("#dialog-options input[name='mask']:checked").val();
 
 				options.apply();
-				options.save(); // Performs AJAX
-				tripwire.refresh('refresh');
+				options.save() // Performs AJAX
+					.done(function() {
+						if (maskChange) {
+							// Reset signatures
+							$("#sigTable span[data-age]").countdown("destroy");
+							$("#sigTable tbody").empty()
+							$("#signature-count").html(0);
+							tripwire.signatures.list = {};
+							tripwire.client.signatures = [];
+
+							tripwire.refresh('change');
+						}
+					});
+
 
 				$("#dialog-options").dialog("close");
 				$("#dialog-options").parent().find(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", false).removeClass("ui-state-disabled");

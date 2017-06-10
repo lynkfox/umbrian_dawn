@@ -33,7 +33,7 @@ if (isset($_REQUEST['combine'])) {
 		$statics = json_decode(file_get_contents(dirname(__FILE__).'/statics.json'), true);
 
 		// Systems
-		$query = 'SELECT s.solarSystemID, s.solarSystemName, s.security, s.constellationID, s.regionID, s.factionID, wormholeClassID, typeName FROM '.$eve_dump.'.mapSolarSystems s LEFT JOIN '.$eve_dump.'.mapLocationWormholeClasses ON regionID = locationID OR s.solarSystemID = locationID LEFT JOIN '.$eve_dump.'.mapDenormalize d ON d.solarSystemID = s.solarSystemID AND d.groupID = 995 LEFT JOIN '.$eve_dump.'.invTypes t ON t.typeID = d.typeID';
+		$query = 'SELECT s.solarSystemID, s.solarSystemName, s.security, s.constellationID, s.regionID, s.factionID, wormholeClassID, typeName FROM '. EVE_DUMP .'.mapSolarSystems s LEFT JOIN '. EVE_DUMP .'.mapLocationWormholeClasses ON regionID = locationID OR s.solarSystemID = locationID LEFT JOIN '. EVE_DUMP .'.mapDenormalize d ON d.solarSystemID = s.solarSystemID AND d.groupID = 995 LEFT JOIN '. EVE_DUMP .'.invTypes t ON t.typeID = d.typeID';
 		$stmt = $mysql->prepare($query);
 		$stmt->execute();
 		while ($row = $stmt->fetchObject()) {
@@ -48,7 +48,7 @@ if (isset($_REQUEST['combine'])) {
 		}
 
 		// Regions
-		$query = 'SELECT regionID, regionName FROM '.$eve_dump.'.mapRegions';
+		$query = 'SELECT regionID, regionName FROM '. EVE_DUMP .'.mapRegions';
 		$stmt = $mysql->prepare($query);
 		$stmt->execute();
 		while ($row = $stmt->fetchObject()) {
@@ -56,7 +56,7 @@ if (isset($_REQUEST['combine'])) {
 		}
 
 		// Factions
-		$query = 'SELECT factionID, factionName FROM '.$eve_dump.'.chrFactions';
+		$query = 'SELECT factionID, factionName FROM '. EVE_DUMP .'.chrFactions';
 		$stmt = $mysql->prepare($query);
 		$stmt->execute();
 		while ($row = $stmt->fetchObject()) {

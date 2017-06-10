@@ -1,15 +1,20 @@
 <?php
 
+date_default_timezone_set('UTC');
+
+// Tripwire version
+define('TRIPWIRE_VERSION', '0.8');
+
 // EVE SDE table name
-$eve_dump = 'eve_carnyx';
+define('EVE_DUMP', 'eve_carnyx');
 
 // EVE API userAgent
-$userAgent = 'Tripwire Server - adminEmail@example.com';
+define('USER_AGENT', 'Tripwire Server - adminEmail@example.com');
 
 // EVE SSO info
-$evessoClient = 'clientID';
-$evessoSecret = 'secret';
-$evessoRedirect = 'http://localhost/login.php?mode=sso';
+define('EVE_SSO_CLIENT', 'clientID');
+define('EVE_SSO_SECRET', 'secret');
+define('EVE_SSO_REDIRECT', 'http://localhost/login.php?mode=sso');
 
 try {
     $mysql = new PDO(
