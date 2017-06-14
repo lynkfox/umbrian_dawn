@@ -528,6 +528,11 @@ var options = new function() {
 			});
 		}
 
+		// Make sure favorites are all ints and not strings
+		this.favorites = $.map(this.favorites, function(favorite) {
+			return parseInt(favorite);
+		});
+
 		// Buttons
 		if (this.buttons.follow) $("#follow").addClass("active");
 		if (this.buttons.chainWidget.home) $("#home").addClass("active");
@@ -535,7 +540,7 @@ var options = new function() {
 		if (this.buttons.chainWidget.viewing) $("#show-viewing").addClass("active");
 		if (this.buttons.chainWidget.favorites) $("#show-favorite").addClass("active");
 		if (this.buttons.chainWidget.evescout) $("#eve-scout").addClass("active");
-		if ($.inArray(viewingSystemID, this.favorites) != -1) $("#system-favorite").attr("data-icon", "star").addClass("active");
+		if ($.inArray(parseInt(viewingSystemID), this.favorites) !== -1) $("#system-favorite").attr("data-icon", "star").addClass("active");
 		if (this.buttons.signaturesWidget.autoMapper) $("#toggle-automapper").addClass("active");
 
 		// Background
@@ -700,11 +705,11 @@ $("#system-favorite").click(function() {
 	if ($(this).hasClass("active")) {
 		$(this).removeClass("active").attr("data-icon", "star-empty");
 
-		options.favorites.splice(options.favorites.indexOf(viewingSystemID), 1);
+		options.favorites.splice(options.favorites.indexOf(parseInt(viewingSystemID)), 1);
 	} else {
 		$(this).attr("data-icon", "star").addClass("active");
 
-		options.favorites.push(viewingSystemID);
+		options.favorites.push(parseInt(viewingSystemID));
 	}
 
 	if ($("#show-favorite").hasClass("active"))
@@ -2960,7 +2965,7 @@ var tripwire = new function() {
 		$("#infoSystem").text(tripwire.systems[systemID].name);
 
 		// Current system favorite
-		$.inArray(viewingSystemID, options.favorites) != -1 ? $("#system-favorite").attr("data-icon", "star").addClass("active") : $("#system-favorite").attr("data-icon", "star-empty").removeClass("active");
+		$.inArray(parseInt(viewingSystemID), options.favorites) != -1 ? $("#system-favorite").attr("data-icon", "star").addClass("active") : $("#system-favorite").attr("data-icon", "star-empty").removeClass("active");
 
 		if (tripwire.systems[systemID].class) {
 			// Security
