@@ -40,22 +40,53 @@ class signature {
 }
 
 class wormhole {
-    public $id = null;
-    public $parentID = null;
-    public $childID = null;
-    public $type = null;
-    public $life = ['stable', 'critical'];
-    public $mass = ['stable', 'destab', 'critical'];
-    public $maskID = 0;
+    protected $id = null;
+    protected $parentID = null;
+    protected $childID = null;
+    protected $type = null;
+    protected $life = ['stable', 'critical'];
+    protected $mass = ['stable', 'destab', 'critical'];
+    protected $maskID = 0;
 
     function __construct($wormhole) {
-        $this->id = isset($wormhole['id']) ? $wormhole['id'] : $this->id;
-        $this->parentID = isset($wormhole['parentID']) && is_numeric($wormhole['parentID']) ? (int)$wormhole['parentID'] : $this->parentID;
-        $this->childID = isset($wormhole['childID']) && is_numeric($wormhole['childID']) ? (int)$wormhole['childID'] : $this->childID;
+        $this->id = isset($wormhole['id']) && is_int($wormhole['id']) ? $wormhole['id'] : $this->id;
+        $this->parentID = isset($wormhole['parentID']) && is_int($wormhole['parentID']) ? $wormhole['parentID'] : $this->parentID;
+        $this->childID = isset($wormhole['childID']) && is_int($wormhole['childID']) ? $wormhole['childID'] : $this->childID;
         $this->type = isset($wormhole['type']) && !empty($wormhole['type']) ? $wormhole['type'] : $this->type;
-        $this->life = isset($wormhole['life']) && in_array(strtolower($wormhole['life']), $this->life) ? $wormhole['life'] : $this->life[0];
-        $this->mass = isset($wormhole['mass']) && in_array(strtolower($wormhole['mass']), $this->mass) ? $wormhole['mass'] : $this->mass[0];
-        $this->maskID = isset($_SESSION['mask']) && is_numeric($_SESSION['mask']) ? (float)$_SESSION['mask'] : $this->maskID;
+        $this->life = isset($wormhole['life']) && in_array(strtolower($wormhole['life']), $this->life) ? strtolower($wormhole['life']) : $this->life[0];
+        $this->mass = isset($wormhole['mass']) && in_array(strtolower($wormhole['mass']), $this->mass) ? strtolower($wormhole['mass']) : $this->mass[0];
+        $this->maskID = (float)$_SESSION['mask'];
+    }
+
+    function __get($property) {
+        switch($property) {
+            default:
+                return $this->$property;
+                break;
+        }
+    }
+
+    function __set($property, $value) {
+        switch($property) {
+            case 'id':
+                $this->id = is_int($value) ? $value : $this->id;
+                break;
+            case 'parentID':
+                $this->parentID = is_int($value) ? $value : $this->parentID;
+                break;
+            case 'childID':
+                $this->childID = is_int($value) ? $value : $this->childID;
+                break;
+            case 'type':
+                $this->type = $value;
+                break;
+            case 'life':
+                $this->life = in_array(strtolower($value), ['stable', 'critical']) ? strtolower($value) : $this->life;
+                break;
+            case 'mass':
+                $this->mass = in_array(strtolower($value), ['stable', 'destab', 'critical']) ? strtolower($value) : $this->mass;
+                break;
+        }
     }
 }
 
