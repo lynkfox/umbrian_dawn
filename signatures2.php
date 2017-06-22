@@ -4,38 +4,92 @@ require('db.inc.php');
 if (!session_id()) session_start();
 
 class signature {
-    public $id = null;
-    public $signatureID = null;
-    public $systemID = null;
-    public $type = ['combat', 'data', 'relic', 'ore', 'gas', 'wormhole'];
-    public $name = null;
-    public $bookmark = null;
-    public $lifeTime = null;
-    public $lifeLength = 4320; //minutes (72hrs)
-    public $lifeLeft = null;
-    public $createdByID = null;
-    public $createdByName = null;
-    public $modifiedByID = null;
-    public $modifiedByName = null;
-    public $modifiedTime = null;
-    public $maskID = 0;
+    protected $id = null;
+    protected $signatureID = null;
+    protected $systemID = null;
+    protected $type = ['combat', 'data', 'relic', 'ore', 'gas', 'wormhole'];
+    protected $name = null;
+    protected $bookmark = null;
+    protected $lifeTime = null;
+    protected $lifeLength = 259200; //seconds (72hrs)
+    protected $lifeLeft = null;
+    protected $createdByID = null;
+    protected $createdByName = null;
+    protected $modifiedByID = null;
+    protected $modifiedByName = null;
+    protected $modifiedTime = null;
+    protected $maskID = 0;
 
     function __construct($signature) {
-        $this->id = isset($signature['id']) ? $signature['id'] : $this->id;
-        $this->signatureID = isset($signature['signatureID']) ? $signature['signatureID'] : $this->signatureID;
+        $this->id = isset($signature['id']) && is_numeric($signature['id']) ? (int)$signature['id'] : $this->id;
+        $this->signatureID = isset($signature['signatureID']) && !empty($signature['signatureID']) ? $signature['signatureID'] : $this->signatureID;
         $this->systemID = isset($signature['systemID']) && is_numeric($signature['systemID']) ? (int)$signature['systemID'] : $this->systemID;
-        $this->type = isset($signature['type']) && in_array(strtolower($signature['type']), $this->type) ? $signature['type'] : $this->type[0];
+        $this->type = isset($signature['type']) && in_array(strtolower($signature['type']), $this->type) ? strtolower($signature['type']) : $this->type[0];
         $this->name = isset($signature['name']) && !empty($signature['name']) ? $signature['name'] : $this->name;
         $this->bookmark = isset($signature['bookmark']) && !empty($signature['bookmark']) ? $signature['bookmark'] : $this->bookmark;
         $this->lifeTime = isset($signature['lifeTime']) && (bool)strtotime($signature['lifeTime']) ? date('Y-m-d H:i:s', strtotime($signature['lifeTime'])) : date('Y-m-d H:i:s');
         $this->lifeLength = isset($signature['lifeLength']) && is_numeric($signature['lifeLength']) ? (int)$signature['lifeLength'] : $this->lifeLength;
-        $this->lifeLeft = isset($signature['lifeLeft']) && (bool)strtotime($signature['lifeLeft']) ? date('Y-m-d H:i:s', strtotime($signature['lifeLeft'])) : date('Y-m-d H:i:s', strtotime('+'.$this->lifeLength.' minutes'));
-        $this->createdByID = isset($_SESSION['userID']) && is_numeric($_SESSION['userID']) ? (int)$_SESSION['userID'] : $this->createdByID; //isset($signature['createdByID']) && is_numeric($signature['createdByID']) ? (int)$signature['createdByID'] : $this->createdByID;
-        $this->createdByName = isset($_SESSION['username']) && !empty($_SESSION['username']) ? $_SESSION['username'] : $this->createdByName; //isset($signature['createdByName']) && !empty($signature['createdByName']) ? $signature['createdByName'] : $this->createdByName;
-        $this->modifiedByID = isset($_SESSION['userID']) && is_numeric($_SESSION['userID']) ? (int)$_SESSION['userID'] : $this->modifiedByID; //isset($signature['modifiedByID']) && is_numeric($signature['modifiedByID']) ? (int)$signature['modifiedByID'] : $this->modifiedByID;
-        $this->modifiedByName = isset($_SESSION['username']) && !empty($_SESSION['username']) ? $_SESSION['username'] : $this->modifiedByName; //isset($signature['modifiedByName']) && !empty($signature['modifiedByName']) ? $signature['modifiedByName'] : $this->modifiedByName;
-        $this->modifiedTime = date('Y-m-d H:i:s');
-        $this->maskID = isset($_SESSION['mask']) && is_numeric($_SESSION['mask']) ? (float)$_SESSION['mask'] : $this->maskID;
+        $this->lifeLeft = isset($signature['lifeLeft']) && (bool)strtotime($signature['lifeLeft']) ? date('Y-m-d H:i:s', strtotime($signature['lifeLeft'])) : date('Y-m-d H:i:s', strtotime('+'.$this->lifeLength.' seconds', strtotime($this->lifeTime)));
+        $this->createdByID = isset($signature['createdByID']) && is_numeric($signature['createdByID']) ? (int)$signature['createdByID'] : $_SESSION['userID'];
+        $this->createdByName = isset($signature['createdByName']) && !empty($signature['createdByName']) ? $signature['createdByName'] : $_SESSION['username'];
+        $this->modifiedByID = isset($signature['modifiedByID']) && is_numeric($signature['modifiedByID']) ? (int)$signature['modifiedByID'] : $_SESSION['userID'];
+        $this->modifiedByName = isset($signature['modifiedByName']) && !empty($signature['modifiedByName']) ? $signature['modifiedByName'] : $_SESSION['username'];
+        $this->modifiedTime = isset($signature['modifiedTime']) && (bool)strtotime($signature['modifiedTime']) ? date('Y-m-d H:i:s', strtotime($signature['modifiedTime'])) : date('Y-m-d H:i:s');
+        $this->maskID = (float)$_SESSION['mask'];
+    }
+
+    function __get($property) {
+        switch($property) {
+            default:
+                return $this->$property;
+                break;
+        }
+    }
+
+    function __set($property, $value) {
+        switch($property) {
+            case 'id':
+                $this->id = is_numeric($value) ? (int)$value : $this->id;
+                break;
+            case 'signatureID':
+                $this->signatureID = $value;
+                break;
+            case 'systemID':
+                $this->systemID = is_numeric($value) ? (int)$value : $this->systemID;
+                break;
+            case 'type':
+                $this->type = in_array(strtolower($value), ['combat', 'data', 'relic', 'ore', 'gas', 'wormhole']) ? strtolower($value) : $this->type;
+                break;
+            case 'name':
+                $this->name = $value;
+                break;
+            case 'bookmark':
+                $this->bookmark = $value;
+                break;
+            case 'lifeTime':
+                $this->lifeTime = (bool)strtotime($value) ? date('Y-m-d H:i:s', strtotime($value)) : $this->lifeTime;
+                break;
+            case 'lifeLength':
+                $this->lifeLength = is_numeric($value) ? (int)$value : $this->lifeLength;
+                break;
+            case 'lifeLeft':
+                $this->lifeLeft = is_numeric($value) ? date('Y-m-d H:i:s', strtotime('+'.(int)$value.' seconds')) : $this->lifeLeft;
+                break;
+            case 'createdByID':
+                $this->createdByID = is_numeric($value) ? (int)$value : $this->createdByID;
+                break;
+            case 'createdByName':
+                $this->createdByName = $value;
+                break;
+            case 'modifiedByID':
+                $this->modifiedByID = is_numeric($value) ? (int)$value : $this->modifiedByID;
+                break;
+            case 'modifiedByName':
+                $this->modifiedByName = $value;
+                break;
+            case 'modifiedTime':
+                $this->modifiedTime = (bool)strtotime($value) ? date('Y-m-d H:i:s', strtotime($value)) : $this->modifiedTime;
+        }
     }
 }
 
@@ -49,9 +103,9 @@ class wormhole {
     protected $maskID = 0;
 
     function __construct($wormhole) {
-        $this->id = isset($wormhole['id']) && is_int($wormhole['id']) ? $wormhole['id'] : $this->id;
-        $this->parentID = isset($wormhole['parentID']) && is_int($wormhole['parentID']) ? $wormhole['parentID'] : $this->parentID;
-        $this->childID = isset($wormhole['childID']) && is_int($wormhole['childID']) ? $wormhole['childID'] : $this->childID;
+        $this->id = isset($wormhole['id']) && is_numeric($wormhole['id']) ? (int)$wormhole['id'] : $this->id;
+        $this->parentID = isset($wormhole['parentID']) && is_numeric($wormhole['parentID']) ? (int)$wormhole['parentID'] : $this->parentID;
+        $this->childID = isset($wormhole['childID']) && is_numeric($wormhole['childID']) ? (int)$wormhole['childID'] : $this->childID;
         $this->type = isset($wormhole['type']) && !empty($wormhole['type']) ? $wormhole['type'] : $this->type;
         $this->life = isset($wormhole['life']) && in_array(strtolower($wormhole['life']), $this->life) ? strtolower($wormhole['life']) : $this->life[0];
         $this->mass = isset($wormhole['mass']) && in_array(strtolower($wormhole['mass']), $this->mass) ? strtolower($wormhole['mass']) : $this->mass[0];
@@ -69,13 +123,13 @@ class wormhole {
     function __set($property, $value) {
         switch($property) {
             case 'id':
-                $this->id = is_int($value) ? $value : $this->id;
+                $this->id = is_numeric($value) ? (int)$value : $this->id;
                 break;
             case 'parentID':
-                $this->parentID = is_int($value) ? $value : $this->parentID;
+                $this->parentID = is_numeric($value) ? (int)$value : $this->parentID;
                 break;
             case 'childID':
-                $this->childID = is_int($value) ? $value : $this->childID;
+                $this->childID = is_numeric($value) ? (int)$value : $this->childID;
                 break;
             case 'type':
                 $this->type = $value;
@@ -113,10 +167,10 @@ function addSignature($signature, $mysql) {
     $success = $stmt->execute();
 
     if ($success) {
-        return $mysql->lastInsertId();
-    } else {
-        return false;
+        return array(true, $mysql->lastInsertId());
     }
+
+    return array(false, $stmt->errorInfo());
 }
 
 function addWormhole($wormhole, $mysql) {
@@ -133,10 +187,10 @@ function addWormhole($wormhole, $mysql) {
     $success = $stmt->execute();
 
     if ($success) {
-        return $mysql->lastInsertId();
-    } else {
-        return false;
+        return array(true, $mysql->lastInsertId());
     }
+
+    return array(false, $stmt->errorInfo());
 }
 
 function updateSignature($signature, $mysql) {
@@ -148,7 +202,7 @@ function updateSignature($signature, $mysql) {
                 type = :type,
                 name = :name,
                 bookmark = :bookmark,
-                lifeLeft = :lifeLeft,
+                lifeLeft = DATE_ADD(lifeTime, INTERVAL :lifeLength SECOND),
                 lifeLength = :lifeLength,
                 modifiedByID = :modifiedByID,
                 modifiedByName = :modifiedByName,
@@ -162,7 +216,6 @@ function updateSignature($signature, $mysql) {
     $stmt->bindValue(':type', $signature->type);
     $stmt->bindValue(':name', $signature->name);
     $stmt->bindValue(':bookmark', $signature->bookmark);
-    $stmt->bindValue(':lifeLeft', $signature->lifeLeft);
     $stmt->bindValue(':lifeLength', $signature->lifeLength);
     $stmt->bindValue(':modifiedByID', $signature->modifiedByID);
     $stmt->bindValue(':modifiedByName', $signature->modifiedByName);
@@ -171,10 +224,10 @@ function updateSignature($signature, $mysql) {
     $success = $stmt->execute();
 
     if ($success) {
-        return $signature->id;
-    } else {
-        return false;
+        return array(true, $signature->id);
     }
+
+    return array(false, $stmt->errorInfo());
 }
 
 function updateWormhole($wormhole, $mysql) {
@@ -190,10 +243,10 @@ function updateWormhole($wormhole, $mysql) {
     $success = $stmt->execute();
 
     if ($success) {
-        return $wormhole->id;
-    } else {
-        return false;
+        return array(true, $wormhole->id);
     }
+
+    return array(false, $stmt->errorInfo());
 }
 
 function removeSignature($signature, $mysql) {
@@ -223,10 +276,10 @@ function removeSignature($signature, $mysql) {
     $success = @$stmt->execute();
 
     if ($success) {
-        return $signature->id;
-    } else {
-        return false;
+        return array(true, $signature->id);
     }
+
+    return array(false, $stmt->errorInfo());
 }
 
 function removeWormhole($wormhole, $mysql) {
@@ -239,10 +292,10 @@ function removeWormhole($wormhole, $mysql) {
     $success = @$stmt->execute();
 
     if ($success) {
-        return $wormhole->id;
-    } else {
-        return false;
+        return array(true, $wormhole->id);
     }
+
+    return array(false, $stmt->errorInfo());
 }
 
 
@@ -253,46 +306,72 @@ if (isset($_POST['signatures']) || isset($_POST['wormholes'])) {
     // Normal signatures
     if (isset($_POST['signatures']['add'])) {
         foreach ($_POST['signatures']['add'] AS $signature) {
-            $output['resultSet'][] = addSignature($signature, $mysql);
+            list($result, $value) = addSignature($signature, $mysql);
+            $output['resultSet'][] = array('result' => $result, 'value' => $value);
         }
     }
     if (isset($_POST['signatures']['update'])) {
         foreach ($_POST['signatures']['update'] AS $signature) {
-            $output['resultSet'][] = updateSignature($signature, $mysql);
+            list($result, $value) = updateSignature($signature, $mysql);
+            $output['resultSet'][] = array('result' => $result, 'value' => $value);
         }
     }
     if (isset($_POST['signatures']['remove'])) {
         foreach ($_POST['signatures']['remove'] AS $signature) {
-            $output['resultSet'][] = removeSignature($signature, $mysql);
+            list($result, $value) = removeSignature($signature, $mysql);
+            $output['resultSet'][] = array('result' => $result, 'value' => $value);
         }
     }
 
     // Wormhole signatures
     if (isset($_POST['wormholes']['add'])) {
         foreach ($_POST['wormholes']['add'] AS $wormhole) {
-            if (isset($wormhole['signatures']) && count($wormhole['signatures']) == 2) {
-                $wormhole['wormhole']['parentID'] = addSignature($wormhole['signatures'][0], $mysql);
-                $wormhole['wormhole']['childID'] = addSignature($wormhole['signatures'][1], $mysql);
-                $output['resultSet'][] = addWormhole($wormhole['wormhole'], $mysql);
+            if (isset($wormhole['signatures']) && count($wormhole['signatures'])  > 0) {
+                $wormhole['signatures'][0]['type'] = 'wormhole';
+                list($result, $value) = addSignature($wormhole['signatures'][0], $mysql);
+                if ($result) {
+                    $wormhole['wormhole']['parentID'] = $value;
+                    $wormhole['signatures'][1]['type'] = 'wormhole';
+                    list($result, $value) = addSignature($wormhole['signatures'][1], $mysql);
+                    if ($result) {
+                        $wormhole['wormhole']['childID'] = $value;
+                    } else {
+                        removeSignature(array('id' => $wormhole['wormhole']['parentID']), $mysql);
+                    }
+                }
+
+                if ($result) {
+                    list($result, $value) = addWormhole($wormhole['wormhole'], $mysql);
+                }
+
+                $output['resultSet'][] = array('result' => $result, 'value' => $value);
             }
         }
     }
     if (isset($_POST['wormholes']['update'])) {
         foreach ($_POST['wormholes']['update'] AS $wormhole) {
-            if (isset($wormhole['signatures']) && count($wormhole['signatures']) == 2) {
-                updateSignature($wormhole['signatures'][0], $mysql);
-                updateSignature($wormhole['signatures'][1], $mysql);
-                $output['resultSet'][] = updateWormhole($wormhole['wormhole'], $mysql);
+            if (isset($wormhole['signatures']) && count($wormhole['signatures']) > 0) {
+                $wormhole['signatures'][0]['type'] = 'wormhole';
+                list($result, $value) = updateSignature($wormhole['signatures'][0], $mysql);
+                if ($result && count($wormhole['signatures']) == 2) {
+                    $wormhole['signatures'][1]['type'] = 'wormhole';
+                    list($result, $value) = updateSignature($wormhole['signatures'][1], $mysql);
+                }
+
+                if ($result) {
+                    list($result, $value) = updateWormhole($wormhole['wormhole'], $mysql);
+                }
+
+                $output['resultSet'][] = array('result' => $result, 'value' => $value);
             }
         }
     }
     if (isset($_POST['wormholes']['remove'])) {
         foreach ($_POST['wormholes']['remove'] AS $wormhole) {
-            if (isset($wormhole['signatures']) && count($wormhole['signatures']) == 2) {
-                removeSignature($wormhole['signatures'][0], $mysql);
-                removeSignature($wormhole['signatures'][1], $mysql);
-                $output['resultSet'][] = removeWormhole($wormhole['wormhole'], $mysql);
-            }
+            removeSignature(array('id' => $wormhole['parentID']), $mysql);
+            removeSignature(array('id' => $wormhole['childID']), $mysql);
+            list($result, $value) = removeWormhole(array('id' => $wormhole['id']), $mysql);
+            $output['resultSet'][] = array('result' => $result, 'value' => $value);
         }
     }
 }
