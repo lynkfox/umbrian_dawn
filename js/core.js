@@ -1961,7 +1961,7 @@ var tripwire = new function() {
 
 				tripwire.active(data.activity);
 
-				if (data.notify) Notify.trigger(data.notify, "yellow", false);
+				if (data.notify) Notify.trigger(data.notify, "yellow", false, "serverNotification");
 			}
 
 			tripwire.data = {tracking: {}, esi: {}};
