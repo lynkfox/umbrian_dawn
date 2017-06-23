@@ -1662,7 +1662,7 @@ var chain = new function() {
 
 			this.data.rawMap = $.extend(true, {}, data.map);
 
-			if (!options.chain.active || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false)) {
+			if (options.chain.active == null || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false)) {
 				if (options.masks.active != "273.0") {
 					for (var i in data.map) {
 						if (data.map[i].mask == "273.0") {
@@ -2358,6 +2358,10 @@ var tripwire = new function() {
 		// to = $.map(tripwire.systems, function(system, id) { return system.name == to ? id : null; })[0];
 		var pods = [33328, 670];
 
+		// Make sure from and to are valid systems
+		if (!tripwire.systems[from] || !tripwire.systems[to])
+			return false;
+
 		// Is auto-mapper toggled?
 		if (!$("#toggle-automapper").hasClass("active"))
 			return false;
@@ -2572,7 +2576,7 @@ var tripwire = new function() {
 	this.parse = function(server, mode) {
 		var data = $.extend(true, {}, server);
 
-		if (!options.chain.active || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout != true)) {
+		if (options.chain.active == null || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout != true)) {
 			if (options.masks.active != "273.0") {
 				for (var key in data.signatures) {
 					if (data.signatures[key].mask == "273.0") {
@@ -3734,7 +3738,7 @@ $("#sigAddForm").submit(function(e) {
 		}
 
 		// Check for existing ID
-		if ($.map(tripwire.client.signatures, function(sig) {return viewingSystemID == sig.systemID ?sig.signatureID : sig.sig2ID}).indexOf($("#sigAddForm #sigID").val().toUpperCase()) !== -1) {
+		if ($.map(tripwire.client.signatures, function(sig) {return options.chain.active != null && options.chain.tabs[options.chain.active].evescout && sig.mask == "273.0" ? (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID) : null}).indexOf($("#sigAddForm #sigID").val().toUpperCase()) !== -1) {
 			$("#sigAddForm #sigID").focus().parent().prev("th").addClass("critical");
 			ValidationTooltips.open({target: $("#sigAddForm #sigID")}).setContent("Signature ID already exists!");
 			return;
@@ -3830,7 +3834,7 @@ $("#sigEditForm").submit(function(e) {
 		}
 
 		// Check for existing ID
-		if ($("#sigEditForm #sigID").val().toUpperCase() !== (viewingSystemID == tripwire.client.signatures[$(this).data("id")].systemID ? tripwire.client.signatures[$(this).data("id")].signatureID : tripwire.client.signatures[$(this).data("id")].sig2ID) && $.map(tripwire.client.signatures, function(sig) {return viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID}).indexOf($("#sigEditForm #sigID").val().toUpperCase()) !== -1) {
+		if ($("#sigEditForm #sigID").val().toUpperCase() !== (viewingSystemID == tripwire.client.signatures[$(this).data("id")].systemID ? tripwire.client.signatures[$(this).data("id")].signatureID : tripwire.client.signatures[$(this).data("id")].sig2ID) && $.map(tripwire.client.signatures, function(sig) {return options.chain.active != null && options.chain.tabs[options.chain.active].evescout && sig.mask == "273.0" ? (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID) : null}).indexOf($("#sigEditForm #sigID").val().toUpperCase()) !== -1) {
 			$("#sigEditForm #sigID").focus().parent().prev("th").addClass("critical");
 			ValidationTooltips.open({target: $("#sigEditForm #sigID")}).setContent("Signature ID already exists! <input type='button' autofocus='true' id='overwrite' value='Overwrite' style='margin-bottom: -4px; margin-top: -4px; font-size: 0.8em;' data-id='"+ $("#sigTable tr:has(td:first-child:contains("+$("#sigEditForm #sigID").val().toUpperCase()+"))").data("id") +"' />");
 			$("#overwrite").focus();
