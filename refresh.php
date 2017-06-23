@@ -4,6 +4,9 @@
 //	Author:		Josh Glassmaker (Daimian Mercer)
 //
 //	======================================================
+// Tripwire version
+define('TRIPWIRE_VERSION', '0.8.5');
+
 $startTime = microtime(true);
 // Verify access via Tripwire signon
 if (!session_id()) session_start();
@@ -83,7 +86,7 @@ $stmt->bindValue(':instance', $instance, PDO::PARAM_STR);
 $stmt->execute();
 $stmt->rowCount() ? $output['notify'] = $stmt->fetchColumn() : null;
 
-!isset($output['notify']) && isset($_REQUEST['version']) && $_REQUEST['version'] != TRIPWIRE_VERSION ? $output['notify'] = 'Tripwire update available ('.TRIPWIRE_VERSION.')<br/><a href="?">Reload to update!</a>' : null;
+!isset($output['notify']) && isset($_REQUEST['version']) && $_REQUEST['version'] != TRIPWIRE_VERSION ? $output['notify'] = 'Tripwire update available ('.TRIPWIRE_VERSION.')<br/><a href="" OnClick="window.location.reload()">Reload to update!</a>' : null;
 
 $query = 'SELECT characters.characterName, activity FROM active INNER JOIN characters ON active.userID = characters.userID WHERE maskID = :maskID AND instance <> :instance AND activity IS NOT NULL AND activity <> ""';
 $stmt = $mysql->prepare($query);

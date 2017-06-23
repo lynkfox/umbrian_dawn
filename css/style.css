@@ -1620,6 +1620,10 @@ i.closeIcon:hover {
 	background-image: linear-gradient(to bottom, #ffd665, #ffb11f);
 }
 
+.jBox-Notice-yellow .jBox-container a {
+	color: #999;
+}
+
 /* Autocomplete */
 ul.ui-autocomplete {
 	max-height: 140px;
