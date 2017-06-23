@@ -2150,7 +2150,7 @@ var tripwire = new function() {
 		this.pasteSignatures.parsePaste = function(data) {
 			var rows = data.split("\n");
 			var data = {"request": {"signatures": {"add": [], "update": []}}};
-			var ids = $.map(tripwire.client.signatures, function(sig) {return viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID});
+			var ids = $.map(tripwire.client.signatures, function(sig) {return options.chain.active != null && options.chain.tabs[options.chain.active].evescout && sig.mask == "273.0" ? (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID) : null});
 			var wormholeGroups = ["Wormhole", "Wurmloch", "Червоточина"];
 			var siteGroups = ["Combat Site", "Kampfgebiet", "ОПАСНО: район повышенной опасности"];
 			var otherGroups = {"Gas Site": "Gas", "Data Site": "Data", "Relic Site": "Relic", "Ore Site": "Ore",
