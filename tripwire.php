@@ -1525,7 +1525,7 @@ if ($row = $stmt->fetchObject()) {
 	<!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=0.8.1"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=0.8.5"></script>
 	<!-- JS Includes -->
 
 </body>

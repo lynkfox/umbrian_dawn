@@ -528,6 +528,11 @@ var options = new function() {
 			});
 		}
 
+		// Make sure favorites are all ints and not strings
+		this.favorites = $.map(this.favorites, function(favorite) {
+			return parseInt(favorite);
+		});
+
 		// Buttons
 		if (this.buttons.follow) $("#follow").addClass("active");
 		if (this.buttons.chainWidget.home) $("#home").addClass("active");
@@ -535,7 +540,7 @@ var options = new function() {
 		if (this.buttons.chainWidget.viewing) $("#show-viewing").addClass("active");
 		if (this.buttons.chainWidget.favorites) $("#show-favorite").addClass("active");
 		if (this.buttons.chainWidget.evescout) $("#eve-scout").addClass("active");
-		if ($.inArray(viewingSystemID, this.favorites) != -1) $("#system-favorite").attr("data-icon", "star").addClass("active");
+		if ($.inArray(parseInt(viewingSystemID), this.favorites) !== -1) $("#system-favorite").attr("data-icon", "star").addClass("active");
 		if (this.buttons.signaturesWidget.autoMapper) $("#toggle-automapper").addClass("active");
 
 		// Background
@@ -700,11 +705,11 @@ $("#system-favorite").click(function() {
 	if ($(this).hasClass("active")) {
 		$(this).removeClass("active").attr("data-icon", "star-empty");
 
-		options.favorites.splice(options.favorites.indexOf(viewingSystemID), 1);
+		options.favorites.splice(options.favorites.indexOf(parseInt(viewingSystemID)), 1);
 	} else {
 		$(this).attr("data-icon", "star").addClass("active");
 
-		options.favorites.push(viewingSystemID);
+		options.favorites.push(parseInt(viewingSystemID));
 	}
 
 	if ($("#show-favorite").hasClass("active"))
@@ -1657,7 +1662,7 @@ var chain = new function() {
 
 			this.data.rawMap = $.extend(true, {}, data.map);
 
-			if (!options.chain.active || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false)) {
+			if (options.chain.active == null || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false)) {
 				if (options.masks.active != "273.0") {
 					for (var i in data.map) {
 						if (data.map[i].mask == "273.0") {
@@ -1754,7 +1759,7 @@ var chain = new function() {
 /* Tripwire Core */
 var tripwire = new function() {
 	this.timer, this.xhr;
-	this.version = "0.8.1";
+	this.version = "0.8.5";
 	this.client = {signatures: {}};
 	this.server = {signatures: {}};
 	this.signatures = {list: {}, undo: JSON.parse(sessionStorage.getItem("tripwire_undo")) || {}, redo: JSON.parse(sessionStorage.getItem("tripwire_redo")) || {}};
@@ -2145,7 +2150,7 @@ var tripwire = new function() {
 		this.pasteSignatures.parsePaste = function(data) {
 			var rows = data.split("\n");
 			var data = {"request": {"signatures": {"add": [], "update": []}}};
-			var ids = $.map(tripwire.client.signatures, function(sig) {return viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID});
+			var ids = $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID)});
 			var wormholeGroups = ["Wormhole", "Wurmloch", "Червоточина"];
 			var siteGroups = ["Combat Site", "Kampfgebiet", "ОПАСНО: район повышенной опасности"];
 			var otherGroups = {"Gas Site": "Gas", "Data Site": "Data", "Relic Site": "Relic", "Ore Site": "Ore",
@@ -2173,8 +2178,7 @@ var tripwire = new function() {
 
 					if (ids.indexOf(scanner.id[0]) !== -1) {
 						// Update signature
-						sig = $.map(tripwire.client.signatures, function(sig) {return viewingSystemID == sig.systemID ? (sig.signatureID == scanner.id[0]?sig:null):(sig.sig2ID == scanner.id[0]?sig:null)})[0];
-
+						sig = $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? (sig.signatureID == scanner.id[0]?sig:null):(sig.sig2ID == scanner.id[0]?sig:null))})[0];
 						if (sig && viewingSystemID == sig.systemID) {
 							// Parent side
 							if ((type && sig.type != type) || (sigName && sig.name != sigName)) {
@@ -2352,6 +2356,10 @@ var tripwire = new function() {
 		// from = $.map(tripwire.systems, function(system, id) { return system.name == from ? id : null; })[0];
 		// to = $.map(tripwire.systems, function(system, id) { return system.name == to ? id : null; })[0];
 		var pods = [33328, 670];
+
+		// Make sure from and to are valid systems
+		if (!tripwire.systems[from] || !tripwire.systems[to])
+			return false;
 
 		// Is auto-mapper toggled?
 		if (!$("#toggle-automapper").hasClass("active"))
@@ -2567,7 +2575,7 @@ var tripwire = new function() {
 	this.parse = function(server, mode) {
 		var data = $.extend(true, {}, server);
 
-		if (!options.chain.active || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout != true)) {
+		if (options.chain.active == null || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout != true)) {
 			if (options.masks.active != "273.0") {
 				for (var key in data.signatures) {
 					if (data.signatures[key].mask == "273.0") {
@@ -2960,7 +2968,7 @@ var tripwire = new function() {
 		$("#infoSystem").text(tripwire.systems[systemID].name);
 
 		// Current system favorite
-		$.inArray(viewingSystemID, options.favorites) != -1 ? $("#system-favorite").attr("data-icon", "star").addClass("active") : $("#system-favorite").attr("data-icon", "star-empty").removeClass("active");
+		$.inArray(parseInt(viewingSystemID), options.favorites) != -1 ? $("#system-favorite").attr("data-icon", "star").addClass("active") : $("#system-favorite").attr("data-icon", "star-empty").removeClass("active");
 
 		if (tripwire.systems[systemID].class) {
 			// Security
@@ -3729,7 +3737,7 @@ $("#sigAddForm").submit(function(e) {
 		}
 
 		// Check for existing ID
-		if ($.map(tripwire.client.signatures, function(sig) {return viewingSystemID == sig.systemID ?sig.signatureID : sig.sig2ID}).indexOf($("#sigAddForm #sigID").val().toUpperCase()) !== -1) {
+		if ($.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID)}).indexOf($("#sigAddForm #sigID").val().toUpperCase()) !== -1) {
 			$("#sigAddForm #sigID").focus().parent().prev("th").addClass("critical");
 			ValidationTooltips.open({target: $("#sigAddForm #sigID")}).setContent("Signature ID already exists!");
 			return;
@@ -3825,7 +3833,7 @@ $("#sigEditForm").submit(function(e) {
 		}
 
 		// Check for existing ID
-		if ($("#sigEditForm #sigID").val().toUpperCase() !== (viewingSystemID == tripwire.client.signatures[$(this).data("id")].systemID ? tripwire.client.signatures[$(this).data("id")].signatureID : tripwire.client.signatures[$(this).data("id")].sig2ID) && $.map(tripwire.client.signatures, function(sig) {return viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID}).indexOf($("#sigEditForm #sigID").val().toUpperCase()) !== -1) {
+		if ($("#sigEditForm #sigID").val().toUpperCase() !== (viewingSystemID == tripwire.client.signatures[$(this).data("id")].systemID ? tripwire.client.signatures[$(this).data("id")].signatureID : tripwire.client.signatures[$(this).data("id")].sig2ID) && $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID)}).indexOf($("#sigEditForm #sigID").val().toUpperCase()) !== -1) {
 			$("#sigEditForm #sigID").focus().parent().prev("th").addClass("critical");
 			ValidationTooltips.open({target: $("#sigEditForm #sigID")}).setContent("Signature ID already exists! <input type='button' autofocus='true' id='overwrite' value='Overwrite' style='margin-bottom: -4px; margin-top: -4px; font-size: 0.8em;' data-id='"+ $("#sigTable tr:has(td:first-child:contains("+$("#sigEditForm #sigID").val().toUpperCase()+"))").data("id") +"' />");
 			$("#overwrite").focus();
