@@ -606,6 +606,10 @@ to { -o-transform: rotate(360deg); }
 	padding-right: 2px;
 }
 
+#sigTable a.siteLink {
+	color: #990;
+}
+
 .tablesorter .tablesorter-header {
 	cursor: pointer;
 	vertical-align: middle;
