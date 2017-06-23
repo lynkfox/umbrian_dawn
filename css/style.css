@@ -606,6 +606,10 @@ to { -o-transform: rotate(360deg); }
 	padding-right: 2px;
 }
 
+#sigTable a.siteLink {
+	color: #990;
+}
+
 .tablesorter .tablesorter-header {
 	cursor: pointer;
 	vertical-align: middle;
@@ -1618,6 +1622,10 @@ i.closeIcon:hover {
 	text-shadow: 0 1px 0 rgba(255, 255, 255, .6);
 	background: #ffb11f;
 	background-image: linear-gradient(to bottom, #ffd665, #ffb11f);
+}
+
+.jBox-Notice-yellow .jBox-container a {
+	color: #999;
 }
 
 /* Autocomplete */

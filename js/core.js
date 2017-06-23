@@ -1759,7 +1759,7 @@ var chain = new function() {
 /* Tripwire Core */
 var tripwire = new function() {
 	this.timer, this.xhr;
-	this.version = "0.8.5";
+	this.version = "0.8.6";
 	this.client = {signatures: {}};
 	this.server = {signatures: {}};
 	this.signatures = {list: {}, undo: JSON.parse(sessionStorage.getItem("tripwire_undo")) || {}, redo: JSON.parse(sessionStorage.getItem("tripwire_redo")) || {}};
@@ -1961,7 +1961,7 @@ var tripwire = new function() {
 
 				tripwire.active(data.activity);
 
-				if (data.notify) Notify.trigger(data.notify, "yellow", false);
+				if (data.notify && !$("#serverNotification")[0]) Notify.trigger(data.notify, "yellow", false, "serverNotification");
 			}
 
 			tripwire.data = {tracking: {}, esi: {}};
@@ -5619,7 +5619,7 @@ function linkSig(sigName) {
 	];
 
 	if (wormholeSignatures.indexOf(sigName) > -1) {
-		return '<a href="http://eve-survival.org/wikka.php?wakka='+sigName.replace(/ /g, '')+'" target="_blank">'+sigName+'</a>';
+		return '<a href="http://eve-survival.org/wikka.php?wakka='+sigName.replace(/ /g, '')+'" target="_blank" class="siteLink">'+sigName+'</a>';
 	}
 
 	return sigName;
