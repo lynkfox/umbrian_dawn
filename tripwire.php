@@ -53,7 +53,7 @@ if ($row = $stmt->fetchObject()) {
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/gridster.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-1.12.1.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-custom.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=2017-06-02">
+	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=0.8.6">
 
 	<title><?=$system?> - <?= $server == 'static.eve-apps.com' ? 'Tripwire' : 'Galileo' ?></title>
 </head>
@@ -1103,7 +1103,7 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= $server ?>/js/dragscroll.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=0.8.5"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=0.8.6"></script>
 	<!-- JS Includes -->
 
 </body>

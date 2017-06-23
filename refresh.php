@@ -5,7 +5,7 @@
 //
 //	======================================================
 // Tripwire version
-define('TRIPWIRE_VERSION', '0.8.5');
+define('TRIPWIRE_VERSION', '0.8.6');
 
 $startTime = microtime(true);
 // Verify access via Tripwire signon
