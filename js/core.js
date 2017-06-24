@@ -2150,7 +2150,7 @@ var tripwire = new function() {
 		this.pasteSignatures.parsePaste = function(data) {
 			var rows = data.split("\n");
 			var data = {"request": {"signatures": {"add": [], "update": []}}};
-			var ids = $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID)});
+			var ids = $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && options.masks.active != "273.0" && ((options.chain.active != null && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID)});
 			var wormholeGroups = ["Wormhole", "Wurmloch", "Червоточина"];
 			var siteGroups = ["Combat Site", "Kampfgebiet", "ОПАСНО: район повышенной опасности"];
 			var otherGroups = {"Gas Site": "Gas", "Data Site": "Data", "Relic Site": "Relic", "Ore Site": "Ore",
@@ -2178,7 +2178,7 @@ var tripwire = new function() {
 
 					if (ids.indexOf(scanner.id[0]) !== -1) {
 						// Update signature
-						sig = $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? (sig.signatureID == scanner.id[0]?sig:null):(sig.sig2ID == scanner.id[0]?sig:null))})[0];
+						sig = $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && options.masks.active != "273.0" && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? (sig.signatureID == scanner.id[0]?sig:null):(sig.sig2ID == scanner.id[0]?sig:null))})[0];
 						if (sig && viewingSystemID == sig.systemID) {
 							// Parent side
 							if ((type && sig.type != type) || (sigName && sig.name != sigName)) {
@@ -3737,7 +3737,7 @@ $("#sigAddForm").submit(function(e) {
 		}
 
 		// Check for existing ID
-		if ($.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID)}).indexOf($("#sigAddForm #sigID").val().toUpperCase()) !== -1) {
+		if ($.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && options.masks.active != "273.0" && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID)}).indexOf($("#sigAddForm #sigID").val().toUpperCase()) !== -1) {
 			$("#sigAddForm #sigID").focus().parent().prev("th").addClass("critical");
 			ValidationTooltips.open({target: $("#sigAddForm #sigID")}).setContent("Signature ID already exists!");
 			return;
@@ -3833,7 +3833,7 @@ $("#sigEditForm").submit(function(e) {
 		}
 
 		// Check for existing ID
-		if ($("#sigEditForm #sigID").val().toUpperCase() !== (viewingSystemID == tripwire.client.signatures[$(this).data("id")].systemID ? tripwire.client.signatures[$(this).data("id")].signatureID : tripwire.client.signatures[$(this).data("id")].sig2ID) && $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID)}).indexOf($("#sigEditForm #sigID").val().toUpperCase()) !== -1) {
+		if ($("#sigEditForm #sigID").val().toUpperCase() !== (viewingSystemID == tripwire.client.signatures[$(this).data("id")].systemID ? tripwire.client.signatures[$(this).data("id")].signatureID : tripwire.client.signatures[$(this).data("id")].sig2ID) && $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && options.masks.active != "273.0" && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID)}).indexOf($("#sigEditForm #sigID").val().toUpperCase()) !== -1) {
 			$("#sigEditForm #sigID").focus().parent().prev("th").addClass("critical");
 			ValidationTooltips.open({target: $("#sigEditForm #sigID")}).setContent("Signature ID already exists! <input type='button' autofocus='true' id='overwrite' value='Overwrite' style='margin-bottom: -4px; margin-top: -4px; font-size: 0.8em;' data-id='"+ $("#sigTable tr:has(td:first-child:contains("+$("#sigEditForm #sigID").val().toUpperCase()+"))").data("id") +"' />");
 			$("#overwrite").focus();
