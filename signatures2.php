@@ -20,7 +20,7 @@ class signature {
     protected $modifiedTime = null;
     protected $maskID = 0;
 
-    function __construct($signature) {
+    public function __construct(Array $signature = array()) {
         $this->id = isset($signature['id']) && is_numeric($signature['id']) ? (int)$signature['id'] : $this->id;
         $this->signatureID = isset($signature['signatureID']) && !empty($signature['signatureID']) ? $signature['signatureID'] : $this->signatureID;
         $this->systemID = isset($signature['systemID']) && is_numeric($signature['systemID']) ? (int)$signature['systemID'] : $this->systemID;
@@ -38,7 +38,7 @@ class signature {
         $this->maskID = (float)$_SESSION['mask'];
     }
 
-    function __get($property) {
+    public function __get($property) {
         switch($property) {
             default:
                 return $this->$property;
@@ -46,7 +46,7 @@ class signature {
         }
     }
 
-    function __set($property, $value) {
+    public function __set($property, $value) {
         switch($property) {
             case 'id':
                 $this->id = is_numeric($value) ? (int)$value : $this->id;
@@ -102,7 +102,7 @@ class wormhole {
     protected $mass = ['stable', 'destab', 'critical'];
     protected $maskID = 0;
 
-    function __construct($wormhole) {
+    public function __construct(Array $wormhole = array()) {
         $this->id = isset($wormhole['id']) && is_numeric($wormhole['id']) ? (int)$wormhole['id'] : $this->id;
         $this->parentID = isset($wormhole['parentID']) && is_numeric($wormhole['parentID']) ? (int)$wormhole['parentID'] : $this->parentID;
         $this->childID = isset($wormhole['childID']) && is_numeric($wormhole['childID']) ? (int)$wormhole['childID'] : $this->childID;
@@ -112,7 +112,7 @@ class wormhole {
         $this->maskID = (float)$_SESSION['mask'];
     }
 
-    function __get($property) {
+    public function __get($property) {
         switch($property) {
             default:
                 return $this->$property;
@@ -120,7 +120,7 @@ class wormhole {
         }
     }
 
-    function __set($property, $value) {
+    public function __set($property, $value) {
         switch($property) {
             case 'id':
                 $this->id = is_numeric($value) ? (int)$value : $this->id;
@@ -142,6 +142,36 @@ class wormhole {
                 break;
         }
     }
+}
+
+function fetchSignature($id, $mysql) {
+    $query = 'SELECT * FROM signatures2 WHERE id = :id AND maskID = :maskID';
+    $stmt = $mysql->prepare($query);
+    $stmt->bindValue(':id', $id);
+    $stmt->bindValue(':maskID', $_SESSION['mask']);
+    $success = $stmt->execute();
+    $signature = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($success && $signature) {
+        return array(true, new signature($signature));
+    }
+
+    return array(false, $stmt->errorInfo());
+}
+
+function fetchWormhole($id, $mysql) {
+    $query = 'SELECT * FROM wormholes WHERE id = :id AND maskID = :maskID';
+    $stmt = $mysql->prepare($query);
+    $stmt->bindValue(':id', $id);
+    $stmt->bindValue(':maskID', $_SESSION['mask']);
+    $success = $stmt->execute();
+    $wormhole = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($success && $wormhole) {
+        return array(true, new wormhole($wormhole));
+    }
+
+    return array(false, $stmt->errorInfo());
 }
 
 function addSignature($signature, $mysql) {
@@ -193,9 +223,7 @@ function addWormhole($wormhole, $mysql) {
     return array(false, $stmt->errorInfo());
 }
 
-function updateSignature($signature, $mysql) {
-    $signature = new signature($signature);
-
+function updateSignature(signature $signature, $mysql) {
     $query = 'UPDATE signatures2 SET
                 signatureID = :signatureID,
                 systemID = :systemID,
@@ -230,9 +258,7 @@ function updateSignature($signature, $mysql) {
     return array(false, $stmt->errorInfo());
 }
 
-function updateWormhole($wormhole, $mysql) {
-    $wormhole = new wormhole($wormhole);
-
+function updateWormhole(wormhole $wormhole, $mysql) {
     $query = 'UPDATE wormholes SET type = :type, life = :life, mass = :mass WHERE id = :id AND maskID = :maskID';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':id', $wormhole->id);
@@ -305,43 +331,51 @@ $output = array();
 if (isset($_POST['signatures']) || isset($_POST['wormholes'])) {
     // Normal signatures
     if (isset($_POST['signatures']['add'])) {
-        foreach ($_POST['signatures']['add'] AS $signature) {
-            list($result, $value) = addSignature($signature, $mysql);
+        foreach ($_POST['signatures']['add'] AS $request) {
+            list($result, $value) = addSignature($request, $mysql);
             $output['resultSet'][] = array('result' => $result, 'value' => $value);
         }
     }
     if (isset($_POST['signatures']['update'])) {
-        foreach ($_POST['signatures']['update'] AS $signature) {
-            list($result, $value) = updateSignature($signature, $mysql);
-            $output['resultSet'][] = array('result' => $result, 'value' => $value);
+        foreach ($_POST['signatures']['update'] AS $request) {
+            list($result, $signature) = fetchSignature($request['id'], $mysql);
+            if ($result && $signature) {
+                foreach ($request AS $property => $value) {
+                    $signature->$property = $value;
+                }
+                list($result, $value) = updateSignature($signature, $mysql);
+                $output['resultSet'][] = array('result' => $result, 'value' => $value);
+            } else {
+                $output['resultSet'][] = array('result' => false, 'value' => 'Signature ID not found');
+            }
         }
     }
     if (isset($_POST['signatures']['remove'])) {
-        foreach ($_POST['signatures']['remove'] AS $signature) {
-            list($result, $value) = removeSignature($signature, $mysql);
+        foreach ($_POST['signatures']['remove'] AS $request) {
+            list($result, $value) = removeSignature($request, $mysql);
             $output['resultSet'][] = array('result' => $result, 'value' => $value);
         }
     }
 
     // Wormhole signatures
     if (isset($_POST['wormholes']['add'])) {
-        foreach ($_POST['wormholes']['add'] AS $wormhole) {
-            if (isset($wormhole['signatures']) && count($wormhole['signatures'])  > 0) {
-                $wormhole['signatures'][0]['type'] = 'wormhole';
-                list($result, $value) = addSignature($wormhole['signatures'][0], $mysql);
+        foreach ($_POST['wormholes']['add'] AS $request) {
+            if (isset($request['signatures']) && count($request['signatures'])  > 0) {
+                $request['signatures'][0]['type'] = 'wormhole';
+                list($result, $value) = addSignature($request['signatures'][0], $mysql);
                 if ($result) {
-                    $wormhole['wormhole']['parentID'] = $value;
-                    $wormhole['signatures'][1]['type'] = 'wormhole';
-                    list($result, $value) = addSignature($wormhole['signatures'][1], $mysql);
+                    $request['wormhole']['parentID'] = $value;
+                    $request['signatures'][1]['type'] = 'wormhole';
+                    list($result, $value) = addSignature($request['signatures'][1], $mysql);
                     if ($result) {
-                        $wormhole['wormhole']['childID'] = $value;
+                        $request['wormhole']['childID'] = $value;
                     } else {
-                        removeSignature(array('id' => $wormhole['wormhole']['parentID']), $mysql);
+                        removeSignature(array('id' => $request['wormhole']['parentID']), $mysql);
                     }
                 }
 
                 if ($result) {
-                    list($result, $value) = addWormhole($wormhole['wormhole'], $mysql);
+                    list($result, $value) = addWormhole($request['wormhole'], $mysql);
                 }
 
                 $output['resultSet'][] = array('result' => $result, 'value' => $value);
@@ -349,17 +383,35 @@ if (isset($_POST['signatures']) || isset($_POST['wormholes'])) {
         }
     }
     if (isset($_POST['wormholes']['update'])) {
-        foreach ($_POST['wormholes']['update'] AS $wormhole) {
-            if (isset($wormhole['signatures']) && count($wormhole['signatures']) > 0) {
-                $wormhole['signatures'][0]['type'] = 'wormhole';
-                list($result, $value) = updateSignature($wormhole['signatures'][0], $mysql);
-                if ($result && count($wormhole['signatures']) == 2) {
-                    $wormhole['signatures'][1]['type'] = 'wormhole';
-                    list($result, $value) = updateSignature($wormhole['signatures'][1], $mysql);
+        foreach ($_POST['wormholes']['update'] AS $request) {
+            if (isset($request['signatures']) && count($request['signatures']) > 0) {
+                $request['signatures'][0]['type'] = 'wormhole';
+                list($result, $signature) = fetchSignature($request['signatures'][0]['id'], $mysql);
+                if ($result && $signature) {
+                    foreach ($request['signatures'][0] AS $property => $value) {
+                        $signature->$property = $value;
+                    }
+                    list($result, $value) = updateSignature($signature, $mysql);
+                }
+                if ($result && count($request['signatures']) == 2) {
+                    $request['signatures'][1]['type'] = 'wormhole';
+                    list($result, $signature) = fetchSignature($request['signatures'][1]['id'], $mysql);
+                    if ($result && $signature) {
+                        foreach ($request['signatures'][1] AS $property => $value) {
+                            $signature->$property = $value;
+                        }
+                        list($result, $value) = updateSignature($signature, $mysql);
+                    }
                 }
 
                 if ($result) {
-                    list($result, $value) = updateWormhole($wormhole['wormhole'], $mysql);
+                    list($result, $wormhole) = fetchWormhole($request['wormhole']['id'], $mysql);
+                    if ($result && $wormhole) {
+                        foreach ($request['wormhole'] AS $property => $value) {
+                            $wormhole->$property = $value;
+                        }
+                        list($result, $value) = updateWormhole($wormhole, $mysql);
+                    }
                 }
 
                 $output['resultSet'][] = array('result' => $result, 'value' => $value);
@@ -367,14 +419,16 @@ if (isset($_POST['signatures']) || isset($_POST['wormholes'])) {
         }
     }
     if (isset($_POST['wormholes']['remove'])) {
-        foreach ($_POST['wormholes']['remove'] AS $wormhole) {
-            removeSignature(array('id' => $wormhole['parentID']), $mysql);
-            removeSignature(array('id' => $wormhole['childID']), $mysql);
-            list($result, $value) = removeWormhole(array('id' => $wormhole['id']), $mysql);
+        foreach ($_POST['wormholes']['remove'] AS $request) {
+            removeSignature(array('id' => $request['parentID']), $mysql);
+            removeSignature(array('id' => $request['childID']), $mysql);
+            list($result, $value) = removeWormhole(array('id' => $request['id']), $mysql);
             $output['resultSet'][] = array('result' => $result, 'value' => $value);
         }
     }
 }
+
+// $output['test'] = fetchSignature($_POST['id'], $mysql);
 
 var_dump($output);
 // var_dump($_SESSION);
