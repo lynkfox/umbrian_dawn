@@ -1,26 +1,3 @@
-@font-face {
-	font-family: 'lucida';
-	src:url('../fonts/lucida.ttf?w81bs6') format('truetype');
-	font-weight: normal;
-	font-style: normal;
-}
-
-* {
-	margin: 0;
-	padding: 0;
-}
-
-html, body {
-	height: 100%;
-}
-
-html {
-    font-size: .6em;
-    font-family: Verdana, 'Helvetica Neue', Arial, sans-serif;
-    color: #888;
-    line-height: 1.1;
-    min-height: 100%;
-}
 
 a {
 	text-decoration: none;
