@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var shell = require('gulp-shell');
-var message = require('gulp-message');
 var notify = require('gulp-notify');
 var uglify = require('gulp-uglify');
 var cleancss = require('gulp-clean-css');
@@ -21,15 +20,12 @@ var cssFiles = [
     {
         name: 'app.css',
         nameMin: 'app.min.css',
-        src: ['app/css/*.css', 'app/css/**/*.css'],
+        src: ['app/css/base.css', 'app/css/*.css', 'app/css/**/*.css'],
         output: 'css'
     }
 ];
 
-gulp.task('default', function() {
-    message.info('gulp js');
-    message.info('gulp css');
-});
+gulp.task('default', ['js', 'css']);
 
 gulp.task('js', [], function() {
     for (var j in jsFiles) {
