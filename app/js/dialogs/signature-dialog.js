@@ -28,14 +28,14 @@ $("#add-signature2").click(function(e) {
 				$("#dialog-signature #durationPicker").durationPicker();
 
 				// Ensure first signature ID field only accepts letters
-				$("#dialog-signature [name='signatureID_A_Alpha'], #dialog-signature [name='signatureID_B_Alpha']").on("input", function() {
+				$("#dialog-signature [name='signatureID_Alpha'], #dialog-signature [name='signatureID2_Alpha']").on("input", function() {
 					while (!/^[a-zA-Z?]*$/g.test(this.value)) {
 						this.value = this.value.substring(0, this.value.length -1);
 					}
 				});
 
 				// Ensure second signature ID field only accepts numbers
-				$("#dialog-signature [name='signatureID_A_Numeric'], #dialog-signature [name='signatureID_B_Numeric']").on("input", function() {
+				$("#dialog-signature [name='signatureID_Numeric'], #dialog-signature [name='signatureID2_Numeric']").on("input", function() {
 					while (!/^[0-9?]*$/g.test(this.value)) {
 						this.value = this.value.substring(0, this.value.length -1);
 					}
@@ -124,13 +124,28 @@ $("#add-signature2").click(function(e) {
 
 					console.log(form);
 
+					var payload = {};
+					if (form.signatureType === "wormhole") {
+
+					} else {
+						var signature = {
+							"signatureID": form.signatureID_Alpha + form.signatureID_Numeric,
+							"systemID": viewingSystemID,
+							"type": form.signatureType,
+							"name": form.signatureName
+						};
+						payload = {"signatures": {"add": [signature]}};
+					}
+
 					$.ajax({
 						url: "signatures2.php",
 						method: "POST",
-						data: form,
+						data: payload,
 						dataType: "JSON"
-					}).always(function(result) {
+					}).done(function(result) {
 						console.log(result);
+					}).always(function(result) {
+						// console.log(result);
 					})
 				});
 			},

@@ -596,9 +596,9 @@ if ($row = $stmt->fetchObject()) {
 		<form id="form-signature">
 			<div class="row">
 				<span class="label">ID:</span>
-				<input name="signatureID_A_Alpha" type="text" maxlength="3" size="2" class="signatureID" />
+				<input name="signatureID_Alpha" type="text" maxlength="3" size="2" class="signatureID" />
 				<span class="label">-</span>
-				<input name="signatureID_A_Numeric" type="text" maxlength="3" size="2" placeholder="###" class="signatureID" />
+				<input name="signatureID_Numeric" type="text" maxlength="3" size="2" placeholder="###" class="signatureID" />
 				<span id="signatureType" class="select">
 					<select name="signatureType">
 						<option value="combat">Combat</option>
@@ -612,7 +612,7 @@ if ($row = $stmt->fetchObject()) {
 			</div>
 			<div class="row">
 				<span class="label">Length:</span>
-				<input type="text" value="" name="signatureDuration" id="durationPicker" />
+				<input type="text" value="" name="signatureLength" id="durationPicker" />
 			</div>
 			<div id="site">
 				<!-- <div class="row">
@@ -637,7 +637,7 @@ if ($row = $stmt->fetchObject()) {
 					<div class="sideLabel"></div>
 					<div class="row">
 						<span class="label">Type:</span>
-						<input name="" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
+						<input name="wormholeType" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
 						<span class="bookmark">
 							<span class="label">BM:</span>
 							<input name="" type="text" maxlength="10" size="8" />

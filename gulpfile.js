@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var pump = require('pump');
 var shell = require('gulp-shell');
 var notify = require('gulp-notify');
 var uglify = require('gulp-uglify');
@@ -27,34 +28,38 @@ var cssFiles = [
 
 gulp.task('default', ['js', 'css']);
 
-gulp.task('js', [], function() {
+gulp.task('js', function(cb) {
     for (var j in jsFiles) {
-        gulp.src(jsFiles[j].src)
-            .pipe(sourcemaps.init())
-            .pipe(concat(jsFiles[j].name))
-            .pipe(uglify())
-            .pipe(rename(jsFiles[j].nameMin))
-            .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest(jsFiles[j].output))
-            .pipe(notify({
+        pump([
+            gulp.src(jsFiles[j].src),
+            sourcemaps.init(),
+            uglify(),
+            concat(jsFiles[j].name),
+            rename(jsFiles[j].nameMin),
+            sourcemaps.write('.'),
+            gulp.dest(jsFiles[j].output),
+            notify({
                 message: "Finished javascript",
                 onLast: true
-            }));
+            })
+        ], cb);
     }
 });
 
-gulp.task('css', [], function() {
+gulp.task('css', function(cb) {
     for (var c in cssFiles) {
-        gulp.src(cssFiles[c].src)
-            .pipe(sourcemaps.init())
-            .pipe(concat(cssFiles[c].name))
-            .pipe(cleancss())
-            .pipe(rename(cssFiles[c].nameMin))
-            .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest(cssFiles[c].output))
-            .pipe(notify({
+        pump([
+            gulp.src(cssFiles[c].src),
+            sourcemaps.init(),
+            cleancss(),
+            concat(cssFiles[c].name),
+            rename(cssFiles[c].nameMin),
+            sourcemaps.write('.'),
+            gulp.dest(cssFiles[c].output),
+            notify({
                 message: "Finished css",
                 onLast: true
-            }));
+            })
+        ], cb);
     }
 });

@@ -510,8 +510,8 @@ var options = new function() {
 	this.apply = function() {
 		// Local browser overrides
 		if (localOptions) {
-			for (key of localOverrides) {
-				this[key] = localOptions[key];
+            for (key in localOverrides) {
+                this[localOverrides[key]] = localOptions[localOverrides[key]];
 			}
 		}
 
