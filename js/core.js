@@ -2178,7 +2178,7 @@ var tripwire = new function() {
 
 					if (ids.indexOf(scanner.id[0]) !== -1) {
 						// Update signature
-						sig = $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && options.masks.active != "273.0" && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? (sig.signatureID == scanner.id[0]?sig:null):(sig.sig2ID == scanner.id[0]?sig:null))})[0];
+						sig = $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && options.masks.active != "273.0" && ((options.chain.active != null && options.masks.active != "273.0" && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? (sig.signatureID == scanner.id[0]?sig:null):(sig.sig2ID == scanner.id[0]?sig:null))})[0];
 						if (sig && viewingSystemID == sig.systemID) {
 							// Parent side
 							if ((type && sig.type != type) || (sigName && sig.name != sigName)) {
