@@ -126,7 +126,24 @@ $("#add-signature2").click(function(e) {
 
 					var payload = {};
 					if (form.signatureType === "wormhole") {
-
+						var signature = {
+							"signatureID": form.signatureID_Alpha + form.signatureID_Numeric,
+							"systemID": viewingSystemID,
+							"type": "wormhole",
+							"name": form.wormholeName
+						};
+						var signature2 = {
+							"signatureID": form.signatureID2_Alpha + form.signatureID2_Numeric,
+							"systemID": Object.index(tripwire.systems, "name", form.leadsTo) ? Object.index(tripwire.systems, "name", form.leadsTo) : $.inArray(form.leadsTo, tripwire.aSigSystems),
+							"type": "wormhole",
+							"name": form.wormholeName2
+						};
+						var wormhole = {
+							"type": tripwire.wormholes[form.wormholeType] ? form.wormholeType : (tripwire.wormholes[form.wormholeType2] ? form.wormholeType2 : ""),
+							"life": form.wormholeLife,
+							"mass": form.wormholeMass
+						};
+						payload = {"wormholes": {"add": [{"wormhole": wormhole, "signatures": [signature, signature2]}]}};
 					} else {
 						var signature = {
 							"signatureID": form.signatureID_Alpha + form.signatureID_Numeric,

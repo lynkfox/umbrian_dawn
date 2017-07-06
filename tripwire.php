@@ -646,7 +646,7 @@ if ($row = $stmt->fetchObject()) {
 					<div class="row">
 						<span class="label">Leads:</span>
 						<span data-autocomplete="sigSystems">
-							<input type="text" maxlength="20" size="20" class="leadsTo" />
+							<input name="leadsTo" type="text" maxlength="20" size="20" class="leadsTo" />
 							<select>
 								<option value="Null-Sec">Null-Sec</option>
 								<option value="Low-Sec">Low-Sec</option>
@@ -665,7 +665,7 @@ if ($row = $stmt->fetchObject()) {
 					</div>
 					<div class="row">
 						<span class="label">Name:</span>
-						<input type="text" maxlength="20" size="20" />
+						<input name="wormholeName" type="text" maxlength="20" size="20" />
 					</div>
 				</div>
 				<hr/>
@@ -673,13 +673,13 @@ if ($row = $stmt->fetchObject()) {
 					<div class="sideLabel"></div>
 					<div class="row">
 						<span class="label">ID:</span>
-						<input type="text" maxlength="3" size="2" class="signatureID" />
+						<input name="signatureID2_Alpha" type="text" maxlength="3" size="2" class="signatureID" />
 						<span class="label">-</span>
-						<input type="text" maxlength="3" size="2" placeholder="###" class="signatureID" />
+						<input name="signatureID2_Numeric" type="text" maxlength="3" size="2" placeholder="###" class="signatureID" />
 					</div>
 					<div class="row">
 						<span class="label">Type:</span>
-						<input type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
+						<input name="wormholeType2" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
 						<span class="bookmark">
 							<span class="label">BM:</span>
 							<input name="" type="text" maxlength="10" size="8" />
@@ -688,7 +688,7 @@ if ($row = $stmt->fetchObject()) {
 					<div class="row">
 						<span class="label">Leads:</span>
 						<span data-autocomplete="sigSystems">
-							<input type="text" maxlength="20" size="20" class="leadsTo" />
+							<input name="leadsTo2" type="text" maxlength="20" size="20" class="leadsTo" />
 							<select class="hidden">
 								<option value="Null-Sec">Null-Sec</option>
 								<option value="Low-Sec">Low-Sec</option>
@@ -707,7 +707,7 @@ if ($row = $stmt->fetchObject()) {
 					</div>
 					<div class="row">
 						<span class="label">Name:</span>
-						<input type="text" maxlength="20" size="20" />
+						<input name="wormholeName2" type="text" maxlength="20" size="20" />
 					</div>
 					<div class="row">
 						<span class="label">Life:</span>
@@ -1522,12 +1522,11 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= $server ?>/js/jquery.duration-picker.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/dragscroll.js"></script>
-	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script> -->
-	<!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=0.8.6"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/mustache.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/app.min.js?v=0.8.6"></script>
+	<!-- <script type="text/javascript" src="//<?= $server ?>/js/core.js?v=0.8.6"></script> -->
 	<!-- JS Includes -->
 
 </body>

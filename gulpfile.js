@@ -12,7 +12,16 @@ var jsFiles = [
     {
         name: 'app.js',
         nameMin: 'app.min.js',
-        src: ['app/js/*.js', 'app/js/**/*.js'],
+        src: [
+            'app/js/helpers.js',
+            'app/js/init.js',
+            'app/js/options.js',
+            'app/js/layout.js',
+            'app/js/tripwire.js',
+            'app/js/tripwire/*.js',
+            'app/js/*.js',
+            'app/js/**/*.js'
+        ],
         output: 'js'
     }
 ];
