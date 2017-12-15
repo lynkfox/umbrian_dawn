@@ -1105,6 +1105,5 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=0.8.8.1"></script>
 	<!-- JS Includes -->
-
 </body>
 </html>
