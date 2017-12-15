@@ -2110,10 +2110,10 @@ var tripwire = new function() {
 			var scanner = {group: "", type: ""};
 			var columns = row.split("	"); // Split by tab
 			var validScanGroups = ["Cosmic Signature", "Cosmic Anomaly", "Kosmische Anomalie", "Kosmische Signatur",
-									"Источники сигналов", "Космическая аномалия"];
+									"Скрытый сигнал", "Космическая аномалия"];
 			var validGroups = ["Wormhole", "Relic Site", "Gas Site", "Ore Site", "Data Site", "Combat Site",
 								"Wurmloch", "Reliktgebiet", "Gasgebiet", "Mineraliengebiet", "Datengebiet", "Kampfgebiet",
-								"Червоточина", "АРТЕФАКТЫ: район поиска артефактов", "ГАЗ: район добычи газа", "РУДА: район добычи руды", "ДАННЫЕ: район сбора данных", "ОПАСНО: район повышенной опасности"];
+								"Червоточина", "Археологический район", "Газовый район", "Астероидный район", "Информационный район", "Боевой район"];
 
 			for (var x in columns) {
 				if (columns[x].match(/([A-Z]{3}[-]\d{3})/)) {
@@ -2152,10 +2152,10 @@ var tripwire = new function() {
 			var data = {"request": {"signatures": {"add": [], "update": []}}};
 			var ids = $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && options.masks.active != "273.0" && ((options.chain.active != null && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID)});
 			var wormholeGroups = ["Wormhole", "Wurmloch", "Червоточина"];
-			var siteGroups = ["Combat Site", "Kampfgebiet", "ОПАСНО: район повышенной опасности"];
+			var siteGroups = ["Combat Site", "Kampfgebiet", "Боевой район"];
 			var otherGroups = {"Gas Site": "Gas", "Data Site": "Data", "Relic Site": "Relic", "Ore Site": "Ore",
 								"Gasgebiet": "Gas", "Datengebiet": "Data", "Reliktgebiet": "Relic", "Mineraliengebiet": "Ore",
-								"ГАЗ: район добычи газа": "Gas", "ДАННЫЕ: район сбора данных": "Data", "АРТЕФАКТЫ: район поиска артефактов": "Relic", "РУДА: район добычи руды": "Ore"};
+								"Газовый район": "Gas", "Информационный район": "Data", "Археологический район": "Relic", "Астероидный район": "Ore"};
 
 			for (var row in rows) {
 				var scanner = rowParse(rows[row]);
