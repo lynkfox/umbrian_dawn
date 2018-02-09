@@ -12,7 +12,7 @@ header('Content-Type: text/html; charset=UTF-8');
 
 // setcookie('loadedFromBrowserCache','false');
 
-require('db.inc.php');
+require_once('db.inc.php');
 require('lib.inc.php');
 
 // Track this system view

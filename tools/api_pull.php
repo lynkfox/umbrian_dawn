@@ -9,7 +9,7 @@ if(!isset($_SESSION['super']) || $_SESSION['super'] != 1) {
 
 ini_set('display_errors', 'On');
 
-require('../db.inc.php');
+require_once('../db.inc.php');
 require('../api.class.php');
 
 date_default_timezone_set('UTC');
@@ -30,7 +30,7 @@ if ($xml = @simplexml_load_file($url)) {
 	$stmt->bindValue(':time', $time, PDO::PARAM_STR);
 	$stmt->bindValue(':status', $output['status'], PDO::PARAM_INT);
 	$stmt->bindValue(':players', $output['players'], PDO::PARAM_INT);
-	$stmt->execute();	
+	$stmt->execute();
 } else {
 	$players = 0;
 	$status = 0;
@@ -40,7 +40,7 @@ if ($xml = @simplexml_load_file($url)) {
 	$stmt->bindValue(':time', $time, PDO::PARAM_STR);
 	$stmt->bindValue(':status', $status, PDO::PARAM_INT);
 	$stmt->bindValue(':players', $players, PDO::PARAM_INT);
-	$stmt->execute();	
+	$stmt->execute();
 }
 
 // Get activity
@@ -81,11 +81,11 @@ if (!$row || ($row && strtotime($row->time) + 3600 <= time())) {
 	$csv = fopen(dirname(__FILE__).'/activity.csv', 'w');
 	foreach ($activity AS $index => $line) {
 		$data = Array(
-					$index, 
-					$time, 
+					$index,
+					$time,
 					isset($line['shipJumps']) ? $line['shipJumps'] : 0,
-					isset($line['shipKills']) ? $line['shipKills'] : 0, 
-					isset($line['podKills']) ? $line['podKills'] : 0, 
+					isset($line['shipKills']) ? $line['shipKills'] : 0,
+					isset($line['podKills']) ? $line['podKills'] : 0,
 					isset($line['npcKills']) ? $line['npcKills'] : 0
 				);
 
@@ -101,7 +101,7 @@ if (!$row || ($row && strtotime($row->time) + 3600 <= time())) {
 	$query = "LOAD DATA INFILE 'http://10.132.120.172/activity.csv' INTO TABLE eve_api.systemActivity FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n'";
 	$stmt = $mysql->prepare($query);
 	$stmt->execute();
-	
+
 	$query = 'INSERT INTO eve_api.cacheTime (time, type) VALUES (:time, "activity") ON DUPLICATE KEY UPDATE time = :time';
 	//$query = 'UPDATE eve_api.cacheTime SET time = :time WHERE type = "activity"';
 	$stmt = $mysql->prepare($query);

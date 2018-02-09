@@ -2,7 +2,7 @@
 
 if (!session_id()) session_start();
 
-require('db.inc.php');
+require_once('db.inc.php');
 require('password_hash.php');
 require('api.class.php');
 

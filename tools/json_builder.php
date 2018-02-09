@@ -15,7 +15,7 @@ if(!isset($_SESSION['super']) || $_SESSION['super'] != 1) {
 	exit();
 }
 
-require('../db.inc.php');
+require_once('../db.inc.php');
 
 /*
 $contents = file(dirname(__FILE__).'/statics.json');
