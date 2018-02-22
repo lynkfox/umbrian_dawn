@@ -188,16 +188,16 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 							<br/>
 							<div class="row">
 								<p class="left">
-									<label for="username" class="infield">Username</label>
-									<input type="text" name="username" id="username" class="focus" autocomplete="off" />
+									<label for="login_username" class="infield">Username</label>
+									<input type="text" name="username" id="login_username" class="focus" autocomplete="off" />
 								</p>
 							</div>
 							<p id="userError" class="error hidden"></p>
 							<p>Username can contain spaces</p>
 							<div class="row">
 								<p class="left">
-									<label for="password" class="infield">Password</label>
-									<input type="password" name="password" id="password" autocomplete="off" />
+									<label for="login_password" class="infield">Password</label>
+									<input type="password" name="password" id="login_password" autocomplete="off" />
 								</p>
 							</div>
 							<p id="passError" class="error hidden"></p>
@@ -234,12 +234,12 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 							<br/>
 							<div class="row">
 								<p class="left">
-									<label for="api_key" class="infield">API Key ID</label>
-									<input type="text" name="api_key" id="api_key" />
+									<label for="api_api_key" class="infield">API Key ID</label>
+									<input type="text" name="api_key" id="api_api_key" />
 								</p>
 								<p class="right">
-									<label for="api_code" class="infield">API vCode</label>
-									<input type="text" name="api_code" id="api_code" />
+									<label for="api_api_code" class="infield">API vCode</label>
+									<input type="text" name="api_code" id="api_api_code" />
 								</p>
 							</div>
 							<p id="apiError" class="error hidden"></p>
@@ -308,32 +308,32 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 							<p><em style="color: burlywood;">The API will not be stored and can be deleted after successful registration.</em></p>
 							<div class="row">
 								<p class="left">
-									<label for="username" class="infield">Username</label>
-									<input type="text" name="username" id="username" class="focus" autocomplete="off" />
+									<label for="reg_username" class="infield">Username</label>
+									<input type="text" name="username" id="reg_username" class="focus" autocomplete="off" />
 								</p>
 							</div>
 							<p id="userError" class="error hidden"></p>
 							<p>Username can contain spaces</p>
 							<div class="row">
 								<p class="left">
-									<label for="password" class="infield">Password</label>
-									<input type="password" name="password" id="password" autocomplete="off" />
+									<label for="reg_password" class="infield">Password</label>
+									<input type="password" name="password" id="reg_password" autocomplete="off" />
 								</p>
 								<p class="right">
-									<label for="confirm" class="infield">Confirm</label>
-									<input type="password" name="confirm" id="confirm" autocomplete="off" />
+									<label for="reg_confirm" class="infield">Confirm</label>
+									<input type="password" name="confirm" id="reg_confirm" autocomplete="off" />
 								</p>
 							</div>
 							<p id="passError" class="error hidden"></p>
 							<p>Passwords must match</p>
 							<div class="row">
 								<p class="left">
-									<label for="api_key" class="infield">API Key ID</label>
-									<input type="text" name="api_key" id="api_key" />
+									<label for="reg_api_key" class="infield">API Key ID</label>
+									<input type="text" name="api_key" id="reg_api_key" />
 								</p>
 								<p class="right">
-									<label for="api_code" class="infield">API vCode</label>
-									<input type="text" name="api_code" id="api_code" />
+									<label for="reg_api_code" class="infield">API vCode</label>
+									<input type="text" name="api_code" id="reg_api_code" />
 								</p>
 							</div>
 							<p id="apiError" class="error hidden"></p>
@@ -383,12 +383,12 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 							<p><em style="color: burlywood;">The API will not be stored and can be deleted after successful registration.</em></p>
 							<div class="row">
 								<p class="left">
-									<label for="api_key" class="infield">API Key ID</label>
-									<input type="text" name="api_key" id="api_key" />
+									<label for="corp_api_key" class="infield">API Key ID</label>
+									<input type="text" name="api_key" id="corp_api_key" />
 								</p>
 								<p class="right">
-									<label for="api_code" class="infield">API vCode</label>
-									<input type="text" name="api_code" id="api_code" />
+									<label for="corp_api_code" class="infield">API vCode</label>
+									<input type="text" name="api_code" id="corp_api_code" />
 								</p>
 							</div>
 							<p id="apiError" class="error hidden"></p>

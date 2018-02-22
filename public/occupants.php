@@ -1,39 +1,41 @@
 <?php
 //***********************************************************
-//	File: 		server_status.php
+//	File: 		occupants.php
 //	Author: 	Daimian
 //	Created: 	6/1/2013
-//	Modified: 	2/14/2014 - Daimian
+//	Modified: 	1/22/2014 - Daimian
 //
-//	Purpose:	Handles pulling EVE server status & player count
+//	Purpose:	Handles pulling system occupants.
 //
 //	ToDo:
+//
 //***********************************************************
 $startTime = microtime(true);
 
 if (!session_id()) session_start();
 
-// Check for login - else kick
 if(!isset($_SESSION['userID'])) {
 	http_response_code(403);
 	exit();
 }
 
-require_once('db.inc.php');
+require_once('../db.inc.php');
 
 header('Content-Type: application/json');
 
-$output = null;
+$systemID = $_REQUEST['systemID'];
+$maskID = $_SESSION['mask'];
 
-$query = 'SELECT players, status AS online, time FROM eve_api.serverStatus ORDER BY time DESC LIMIT 1';
+$query = 'SELECT characterName, shipTypeName FROM tracking WHERE systemID = :systemID AND maskID = :maskID';
 $stmt = $mysql->prepare($query);
+$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
 $stmt->execute();
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
-if ($result) {
-	$output = $result;
-	$output['time'] = strtotime($result['time']) - time() + 180;
-}
+
+$output['occupants'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
 $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
 
 echo json_encode($output);
+
+?>

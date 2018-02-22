@@ -18,11 +18,12 @@ var jsFiles = [
             'app/js/options.js',
             'app/js/layout.js',
             'app/js/tripwire.js',
+            'app/js/global-hooks.js',
             'app/js/tripwire/*.js',
             'app/js/*.js',
             'app/js/**/*.js'
         ],
-        output: 'js'
+        output: 'public/js'
     }
 ];
 
@@ -31,7 +32,7 @@ var cssFiles = [
         name: 'app.css',
         nameMin: 'app.min.css',
         src: ['app/css/base.css', 'app/css/*.css', 'app/css/**/*.css'],
-        output: 'css'
+        output: 'public/css'
     }
 ];
 

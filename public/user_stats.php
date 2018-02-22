@@ -20,13 +20,13 @@ if(!isset($_SESSION['userID'])) {
 	exit();
 }
 
-require_once('db.inc.php');
+require_once('../db.inc.php');
 
 header('Content-Type: application/json');
 
 $userID = $_SESSION['userID'];
 
-$query = 'SELECT * FROM userStats WHERE userID = :userID';
+$query = 'SELECT * FROM userstats WHERE userID = :userID';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
 $stmt->execute();

@@ -353,8 +353,8 @@ $("#newTab").on("click", function() {
 				}
 			},
 			open: function() {
-				$("#dialog-newTab #name").val(viewingSystem).focus();
-				$("#dialog-newTab #system").val(viewingSystem);
+				$("#dialog-newTab .name").val(viewingSystem).focus();
+				$("#dialog-newTab .sigSystemsAutocomplete").val(viewingSystem);
 			},
 			close: function() {
 				ValidationTooltips.close();
@@ -365,15 +365,15 @@ $("#newTab").on("click", function() {
 				$("#newTab_form").submit(function(e) {
 					e.preventDefault();
 					var $tab = $("#chainTab .tab").clone();
-					var name = $("#dialog-newTab #name").val();
-					var systemID = Object.index(tripwire.systems, "name", $("#dialog-newTab #system").val());
+					var name = $("#dialog-newTab .name").val();
+					var systemID = Object.index(tripwire.systems, "name", $("#dialog-newTab .sigSystemsAutocomplete").val());
 					var thera = $("#tabThera")[0].checked ? true : false;
 
 					if (!name) {
-						ValidationTooltips.open({target: $("#dialog-newTab #name")}).setContent("Must have a name!");
+						ValidationTooltips.open({target: $("#dialog-newTab .name")}).setContent("Must have a name!");
 						return false;
 					} else if (!systemID && $("#tabType1")[0].checked) {
-						ValidationTooltips.open({target: $("#dialog-newTab #system")}).setContent("Must have a valid system!");
+						ValidationTooltips.open({target: $("#dialog-newTab .sigSystemsAutocomplete")}).setContent("Must have a valid system!");
 						return false;
 					} else if ($("#tabType2")[0].checked) {
 						systemID = 0;
@@ -388,7 +388,7 @@ $("#newTab").on("click", function() {
 					$("#dialog-newTab").dialog("close");
 				});
 
-				$("#dialog-newTab #system").click(function(e) {
+				$("#dialog-newTab .sigSystemsAutocomplete").click(function(e) {
 					$("#dialog-newTab #tabType1").click();
 				});
 			}
@@ -416,8 +416,8 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 				}
 			},
 			open: function() {
-				$("#dialog-editTab #name").val(options.chain.tabs[options.chain.active].name).focus();
-				$("#dialog-editTab #system").val(options.chain.tabs[options.chain.active].systemID > 0 ? tripwire.systems[options.chain.tabs[options.chain.active].systemID].name : "");
+				$("#dialog-editTab .name").val(options.chain.tabs[options.chain.active].name).focus();
+				$("#dialog-editTab .sigSystemsAutocomplete").val(options.chain.tabs[options.chain.active].systemID > 0 ? tripwire.systems[options.chain.tabs[options.chain.active].systemID].name : "");
 				options.chain.tabs[options.chain.active].systemID > 0 ? $("#dialog-editTab #editTabType1")[0].checked = true : $("#dialog-editTab #editTabType2")[0].checked = true;
 				$("#dialog-editTab #editTabThera")[0].checked = options.chain.tabs[options.chain.active].evescout;
 			},
@@ -430,15 +430,15 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 				$("#editTab_form").submit(function(e) {
 					e.preventDefault();
 					var $tab = $("#chainTabs .tab").eq([options.chain.active]);
-					var name = $("#dialog-editTab #name").val();
-					var systemID = Object.index(tripwire.systems, "name", $("#dialog-editTab #system").val());
+					var name = $("#dialog-editTab .name").val();
+					var systemID = Object.index(tripwire.systems, "name", $("#dialog-editTab .sigSystemsAutocomplete").val());
 					var thera = $("#editTabThera")[0].checked ? true : false;
 
 					if (!name) {
-						ValidationTooltips.open({target: $("#dialog-editTab #name")}).setContent("Must have a name!");
+						ValidationTooltips.open({target: $("#dialog-editTab .name")}).setContent("Must have a name!");
 						return false;
 					} else if (!systemID && $("#editTabType1")[0].checked) {
-						ValidationTooltips.open({target: $("#dialog-editTab #system")}).setContent("Must have a valid system!");
+						ValidationTooltips.open({target: $("#dialog-editTab .sigSystemsAutocomplete")}).setContent("Must have a valid system!");
 						return false;
 					} else if ($("#editTabType2")[0].checked) {
 						systemID = 0;
@@ -456,7 +456,7 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 					$("#dialog-editTab").dialog("close");
 				});
 
-				$("#dialog-editTab #system").click(function(e) {
+				$("#dialog-editTab .sigSystemsAutocomplete").click(function(e) {
 					$("#dialog-editTab #editTabType1").click();
 				});
 			}

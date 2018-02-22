@@ -212,7 +212,7 @@ class signatures {
 		}
 
 		$count = count($sigs);
-		$query = "UPDATE userStats SET sigCount = sigCount + $count WHERE userID = :userID";
+		$query = "UPDATE userstats SET sigCount = sigCount + $count WHERE userID = :userID";
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
 		$stmt->execute();

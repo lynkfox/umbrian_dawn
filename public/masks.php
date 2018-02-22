@@ -19,9 +19,9 @@ if(!isset($_SESSION['userID'])) {
 	exit();
 }
 
-require_once('db.inc.php');
-require_once('api.class.php');
-require_once('lib.inc.php');
+require_once('../db.inc.php');
+require_once('../api.class.php');
+require_once('../lib.inc.php');
 
 $mode = isset($_REQUEST['mode'])?$_REQUEST['mode']:null;
 $mask = isset($_REQUEST['mask'])?$_REQUEST['mask']:null;
@@ -106,13 +106,11 @@ if ($mode == 'search') {
 
 	$output['result'] = true;
 } else if ($mode == 'edit' && $mask && (checkOwner($mask) || checkAdmin($mask))) {
-	$API = new API();
-
 	$query = 'SELECT eveID FROM masks INNER JOIN groups ON groups.maskID = masks.maskID WHERE masks.maskID = :mask';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
 	$stmt->execute();
-	$output['results'] = $API->getEveIds(implode(',', $stmt->fetchAll(PDO::FETCH_COLUMN)));
+	$output['results'] = $stmt->fetchAll(PDO::FETCH_COLUMN);
 } else if ($mode == 'delete' && $mask && (checkOwner($mask) || checkAdmin($mask))) {
 	$query = 'DELETE masks, groups, comments, signatures FROM masks LEFT JOIN groups ON groups.maskID = masks.maskID LEFT JOIN comments ON comments.maskID = masks.maskID LEFT JOIN signatures ON signatures.mask = masks.maskID WHERE masks.maskID = :mask';
 	$stmt = $mysql->prepare($query);

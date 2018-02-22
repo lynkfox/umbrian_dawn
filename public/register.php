@@ -2,9 +2,9 @@
 
 if (!session_id()) session_start();
 
-require('db.inc.php');
-require('password_hash.php');
-require('api.class.php');
+require('../db.inc.php');
+require('../password_hash.php');
+require('../api.class.php');
 
 $username = 	isset($_REQUEST['username'])?$_REQUEST['username']:null;
 $password = 	isset($_REQUEST['password'])?$_REQUEST['password']:null;

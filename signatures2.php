@@ -430,5 +430,7 @@ if (isset($_POST['signatures']) || isset($_POST['wormholes'])) {
 
 // $output['test'] = fetchSignature($_POST['id'], $mysql);
 
-var_dump($output);
+// var_dump($output);
 // var_dump($_SESSION);
+
+echo json_encode($output);

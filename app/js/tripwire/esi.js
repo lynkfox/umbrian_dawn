@@ -330,6 +330,36 @@ tripwire.esi = function() {
         });
     }
 
+    this.esi.idLookup = function(eveIDs) {
+        return $.ajax({
+            url: baseUrl + "/v2/universe/names/?" + $.param({"user_agent": userAgent}),
+            type: "POST",
+            dataType: "JSON",
+            contentType: "application/json",
+            processData: false,
+            data: JSON.stringify(eveIDs)
+        });
+    }
+
+    this.esi.characterLookup = function(eveID) {
+        return $.ajax({
+            url: baseUrl + "/v4/characters/" + eveID + "/?" + $.param({"user_agent": userAgent}),
+            type: "GET",
+            dataType: "JSON",
+            eveID: eveID
+        });
+    }
+
+    this.esi.corporationLookup = function(eveID, reference) {
+        return $.ajax({
+            url: baseUrl + "/v4/corporations/" + eveID + "/?" + $.param({"user_agent": userAgent}),
+            type: "GET",
+            dataType: "JSON",
+            eveID: eveID,
+            reference: reference
+        });
+    }
+
     this.esi.parse = function(characters) {
         for (characterID in tripwire.esi.characters) {
             if (!(characterID in characters)) {

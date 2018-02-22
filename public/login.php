@@ -13,7 +13,7 @@ $startTime = microtime(true);
 
 if (!session_id()) session_start();
 
-require_once('db.inc.php');
+require_once('../db.inc.php');
 
 function login_history($ip, $username, $method, $result) {
 	global $mysql;
@@ -73,7 +73,7 @@ if ($mode == 'login' || !$mode) {
 			$stmt->bindValue(':username', $username, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($account = $stmt->fetchObject()) {
-				require('password_hash.php');
+				require('../password_hash.php');
 				$hasher = new PasswordHash(8, FALSE);
 
 				if ($account->ban == 1) {
@@ -113,7 +113,7 @@ if ($mode == 'login' || !$mode) {
 					// Log the attempt
 					login_history($ip, $username, $method, 'success');
 
-					$query = 'INSERT INTO userStats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
+					$query = 'INSERT INTO userstats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
 					$stmt = $mysql->prepare($query);
 					$stmt->bindValue(':userID', $account->id, PDO::PARAM_INT);
 					$stmt->execute();
@@ -145,7 +145,7 @@ if ($mode == 'login' || !$mode) {
 		$output['field'] = 'api';
 		$output['error'] = 'API Key & vCode required.';
 	} else {
-		require('api.class.php');
+		require('../api.class.php');
 		$API = new API();
 
 		if ($API->checkAccount($keyID, $vCode) == 0) {
@@ -198,7 +198,7 @@ if ($mode == 'login' || !$mode) {
 					// Log the attempt
 					login_history($ip, NULL, $method, 'success');
 
-					$query = 'INSERT INTO userStats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
+					$query = 'INSERT INTO userstats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
 					$stmt = $mysql->prepare($query);
 					$stmt->bindValue(':userID', $account->id, PDO::PARAM_INT);
 					$stmt->execute();
@@ -216,7 +216,7 @@ if ($mode == 'login' || !$mode) {
 	$method		= 'sso';
 	$ip 		= $_SERVER['REMOTE_ADDR'];
 
-	require('evesso.class.php');
+	require('../evesso.class.php');
 	$evesso = new evesso();
 
 	if ($code && $state == 'evessologin') {
@@ -248,7 +248,7 @@ if ($mode == 'login' || !$mode) {
 				// Log the attempt
 				login_history($ip, NULL, $method, 'success');
 
-				$query = 'INSERT INTO userStats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
+				$query = 'INSERT INTO userstats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
 				$stmt = $mysql->prepare($query);
 				$stmt->bindValue(':userID', $account->id, PDO::PARAM_INT);
 				$stmt->execute();

@@ -559,34 +559,62 @@ $(".options").click(function(e) {
 					$("#dialog-editMask #loading").show();
 					$("#dialog-editMask #name").text($("#dialog-options input[name='mask']:checked+label .selector_label").text());
 
+					var test = [];
 					$.ajax({
 						url: "masks.php",
 						type: "POST",
 						data: {mode: "edit", mask: mask},
 						dataType: "JSON"
-					}).done(function(response) {
-						if (response && response.results) {
-							for (var x in response.results) {
-								var result = response.results[x];
-								var node = $(''
-									+ '<input type="checkbox" checked="checked" onclick="return false" name="" id="edit_'+(result.type == 2 ? result.corporationID : result.characterID)+'_'+result.type+'" value="'+(result.type == 2 ? result.corporationID : result.characterID)+'_'+result.type+'" class="selector" />'
-									+ '<label for="edit_'+(result.type == 2 ? result.corporationID : result.characterID)+'_'+result.type+'" style="width: 100%; margin-left: -5px;">'
-									+ '	<img src="https://image.eveonline.com/'+(result.type == 2 ? 'Corporation/'+result.corporationID+'_64.png' : 'Character/'+result.characterID+'_64.jpg')+'" />'
-									+ '	<span class="selector_label">'+(result.type == 2 ? 'Corporation' : 'Character')+'</span>'
-									+ '	<div class="info">'
-									+ '		'+(result.type != 2 ? result.characterName + '<br/>' : '')
-									+ '		'+result.corporationName+'<br/>'
-									+ '		'+result.allianceName
-									+ '		<input type="button" class="maskRemove" value="Remove" style="position: absolute; bottom: 3px; right: 3px;" />'
-									+ '	</div>'
-									+ '</label>');
+					}).then(function(response) {
+						 return tripwire.esi.idLookup(response.results)
+							.done(function(results) {
+								if (results) {
+									for (var x in results) {
+										if (results[x].category == "character") {
+											tripwire.esi.characterLookup(results[x].id)
+												.done(function(character) {
+													character.eveID = this.eveID;
+													tripwire.esi.corporationLookup(character.corporation_id, character)
+														.done(function(corporation) {
+															var node = $(''
+																+ '<input type="checkbox" checked="checked" onclick="return false" name="" id="edit_'+this.reference.eveID+'_1373" value="'+this.reference.eveID+'_1373" class="selector" />'
+																+ '<label for="edit_'+this.reference.eveID+'_1373" style="width: 100%; margin-left: -5px;">'
+																+ '	<img src="https://image.eveonline.com/Character/'+this.reference.eveID+'_64.jpg" />'
+																+ '	<span class="selector_label">Character</span>'
+																+ '	<div class="info">'
+																+ '		'+this.reference.name + '<br/>'
+																+ '		'+corporation.name+'<br/>'
+																// + '		'+corporation.allianceName
+																+ '		<input type="button" class="maskRemove" value="Remove" style="position: absolute; bottom: 3px; right: 3px;" />'
+																+ '	</div>'
+																+ '</label>');
 
-								$("#dialog-editMask #accessList .static:first").before(node);
-							}
+															$("#dialog-editMask #accessList .static:first").before(node);
+														});
+												});
+										} else if (results[x].category == "corporation") {
+											tripwire.esi.corporationLookup(results[x].id)
+												.done(function(corporation) {
+													var node = $(''
+														+ '<input type="checkbox" checked="checked" onclick="return false" name="" id="edit_'+this.eveID+'_2" value="'+this.eveID+'_2" class="selector" />'
+														+ '<label for="edit_'+this.eveID+'_2" style="width: 100%; margin-left: -5px;">'
+														+ '	<img src="https://image.eveonline.com/Corporation/'+this.eveID+'_64.png" />'
+														+ '	<span class="selector_label">Corporation</span>'
+														+ '	<div class="info">'
+														+ '		'+corporation.name+'<br/>'
+														// + '		'+corporation.allianceName
+														+ '		<input type="button" class="maskRemove" value="Remove" style="position: absolute; bottom: 3px; right: 3px;" />'
+														+ '	</div>'
+														+ '</label>');
 
-							$("#dialog-editMask #accessList label.static").show();
-						}
-					}).always(function() {
+													$("#dialog-editMask #accessList .static:first").before(node);
+												})
+										}
+									}
+								}
+							});
+					}).then(function(response) {
+						$("#dialog-editMask #accessList label.static").show();
 						$("#dialog-editMask #loading").hide();
 					});
 				},

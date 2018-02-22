@@ -9,8 +9,8 @@ if(!isset($_SESSION['userID'])) {
 	exit();
 }
 
-require_once('db.inc.php');
-require_once('lib.inc.php');
+require_once('../db.inc.php');
+require_once('../lib.inc.php');
 
 header('Content-Type: application/json');
 
@@ -19,7 +19,7 @@ $mask = $_SESSION['mask'];
 $output = null;
 
 if ($mode == 'active-users' && (checkOwner($mask) || checkAdmin($mask))) {
-	$query = 'SELECT IFNULL(instance + t.characterID, instance) AS id, c.characterID AS accountCharacterID, c.CharacterName AS accountCharacterName, t.characterID, t.characterName, t.systemID, t.systemName, t.shipName, t.shipTypeID, t.shipTypeName, t.stationID, t.stationName, lastLogin FROM active a INNER JOIN characters c ON a.userID = c.userID INNER JOIN userStats s ON a.userID = s.userID LEFT OUTER JOIN tracking t ON t.userID = a.userID AND t.maskID = a.maskID WHERE a.maskID = :mask';
+	$query = 'SELECT IFNULL(instance + t.characterID, instance) AS id, c.characterID AS accountCharacterID, c.CharacterName AS accountCharacterName, t.characterID, t.characterName, t.systemID, t.systemName, t.shipName, t.shipTypeID, t.shipTypeName, t.stationID, t.stationName, lastLogin FROM active a INNER JOIN characters c ON a.userID = c.userID INNER JOIN userstats s ON a.userID = s.userID LEFT OUTER JOIN tracking t ON t.userID = a.userID AND t.maskID = a.maskID WHERE a.maskID = :mask';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':mask', $mask);
 	$stmt->execute();
@@ -28,11 +28,11 @@ if ($mode == 'active-users' && (checkOwner($mask) || checkAdmin($mask))) {
 } else if ($mode == 'user-stats' && (checkOwner($mask) || checkAdmin($mask))) {
 	$maskCheck = explode('.', $mask);
 	if ($maskCheck[1] == 2) {
-		$query = 'SELECT s.userID AS id, characterName, corporationName, sigCount, systemsVisited, systemsViewed, loginCount, lastLogin FROM userStats s INNER JOIN characters c ON s.userID = c.userID WHERE corporationID = :corporationID';
+		$query = 'SELECT s.userID AS id, characterName, corporationName, sigCount, systemsVisited, systemsViewed, loginCount, lastLogin FROM userstats s INNER JOIN characters c ON s.userID = c.userID WHERE corporationID = :corporationID';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':corporationID', $maskCheck[0]);
 	} else {
-		$query = 'SELECT s.userID AS id, characterName, corporationName, sigCount, systemsVisited, systemsViewed, loginCount, lastLogin FROM userStats s INNER JOIN characters c ON s.userID = c.userID WHERE (corporationID IN (SELECT eveID FROM groups WHERE eveType = 2 AND joined = 1 AND maskID = :mask UNION SELECT ownerID FROM masks WHERE ownerType = 2 AND maskID = :mask) OR characterID IN (SELECT eveID FROM groups WHERE eveType = 1373 AND joined = 1 AND maskID = :mask UNION SELECT ownerID FROM masks WHERE ownerType = 1373 AND maskID = :mask))';
+		$query = 'SELECT s.userID AS id, characterName, corporationName, sigCount, systemsVisited, systemsViewed, loginCount, lastLogin FROM userstats s INNER JOIN characters c ON s.userID = c.userID WHERE (corporationID IN (SELECT eveID FROM groups WHERE eveType = 2 AND joined = 1 AND maskID = :mask UNION SELECT ownerID FROM masks WHERE ownerType = 2 AND maskID = :mask) OR characterID IN (SELECT eveID FROM groups WHERE eveType = 1373 AND joined = 1 AND maskID = :mask UNION SELECT ownerID FROM masks WHERE ownerType = 1373 AND maskID = :mask))';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':mask', $mask);
 	}

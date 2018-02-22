@@ -160,9 +160,11 @@ $("#add-signature2").click(function(e) {
 						data: payload,
 						dataType: "JSON"
 					}).done(function(result) {
-						console.log(result);
+						if (result.resultSet[0].result == true) {
+							$("#dialog-signature").dialog("close");
+						}
 					}).always(function(result) {
-						// console.log(result);
+						console.log(result);
 					})
 				});
 			},

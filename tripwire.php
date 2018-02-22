@@ -16,7 +16,7 @@ require('db.inc.php');
 require('lib.inc.php');
 
 // Track this system view
-$query = 'UPDATE userStats SET systemsViewed = systemsViewed + 1 WHERE userID = :userID';
+$query = 'UPDATE userstats SET systemsViewed = systemsViewed + 1 WHERE userID = :userID';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
 $stmt->execute();
@@ -173,9 +173,8 @@ if ($row = $stmt->fetchObject()) {
 			</li>
 			<li id="signaturesWidget" class="gridWidget" data-row="1" data-col="8" data-sizex="7" data-sizey="6" data-min-sizex="5" data-min-sizey="2" style="width: 410px; height: 350px;">
 				<div class="controls">
-					<i id="add-signature" data-icon="plus" data-tooltip="Add a new signature"></i>
-					<i id="toggle-automapper" data-icon="auto" data-tooltip="Toggle Auto-Mapper"></i>
 					<i id="add-signature2" data-icon="plus" data-tooltip="Add a new signature"></i>
+					<i id="toggle-automapper" data-icon="auto" data-tooltip="Toggle Auto-Mapper"></i>
 					<span style="padding-left: 25px;">
 						<i id="signature-count" style="font-style: normal; cursor: default;" data-tooltip="Total signature count">&nbsp;</i>
 					</span>
@@ -734,192 +733,6 @@ if ($row = $stmt->fetchObject()) {
 		</form>
 	</div>
 
-
-
-	<div id="dialog-sigAdd" title="Add Signature" class="hidden">
-		<form id="sigAddForm">
-			<table width="100%" cellpadding="0" cellspacing="0">
-				<colgroup>
-					<col style="width: 20%;" />
-					<col style="width: 25%;" />
-					<col style="width: 20%;" />
-					<col style="width: 30%;" />
-				</colgroup>
-				<tr>
-					<th>ID:</th>
-					<td colspan="3">
-						<input type="text" name="signatureID" id="sigID" maxlength="3" size="3" />
-						<strong>- ###</strong>
-						<span style="float: right;">
-							<select id="sigType" name="type">
-								<option value="Sites">Combat</option>
-								<option value="Wormhole">Wormhole</option>
-								<option value="Ore">Ore</option>
-								<option value="Data">Data</option>
-								<option value="Gas">Gas</option>
-								<option value="Relic">Relic</option>
-							</select>
-						</span>
-					</td>
-				</tr>
-				<tr class="sig-site">
-					<th><div>Life:</div></th>
-					<td colspan="3">
-						<div>
-							<select id="sigLife" name="lifeLength" data-tooltip="Length the signature will last">
-								<option value="24">24 Hours</option>
-								<option value="48">48 Hours</option>
-								<option value="72">72 Hours</option>
-								<option value="168">7 Days</option>
-								<option value="672">28 Days</option>
-							</select>
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-site">
-					<th><div>Name:</div></th>
-					<td colspan="3">
-						<div>
-							<input type="text" id="sigName" name="name" maxlength="35" style="box-sizing: border-box; width: 99%;" />
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-wormhole hidden">
-					<th><div class="hidden">Type:</div></th>
-					<td colspan="3">
-						<div class="hidden">
-							<input id="whType" name="whType" class="typesAutocomplete" type="text" maxlength="4" size="4" />
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-wormhole hidden">
-					<th><div class="hidden">Leads:</div></th>
-					<td colspan="3">
-						<div class="hidden">
-							<input id="connection" name="connectionName" class="sigSystemsAutocomplete" type="text" maxlength="20" size="20" />
-							<input type="button" id="autoAdd" disabled="disabled" value="A" style="padding: 1px 12px;" />
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-wormhole hidden">
-					<th><div class="hidden">Life:</div></th>
-					<td>
-						<div class="hidden">
-							<select id="whLife" name="whLife">
-								<option>Stable</option>
-								<option>Critical</option>
-							</select>
-						</div>
-					</td>
-					<th><div class="hidden">Mass:</div></th>
-					<td>
-						<div class="hidden">
-							<select id="whMass" name="whMass">
-								<option>Stable</option>
-								<option>Destab</option>
-								<option>Critical</option>
-							</select>
-						</div>
-					</td>
-				</tr>
-			</table>
-			<input type="submit" style="position: absolute; left: -99999px;" tabindex="-1" />
-		</form>
-	</div>
-
-	<div id="dialog-sigEdit" title="Edit Signature" class="hidden dialog">
-		<form id="sigEditForm">
-			<input type="hidden" name="side" value="" />
-			<table width="100%" cellpadding="0" cellspacing="0">
-				<colgroup>
-					<col style="width: 15%;" />
-					<col style="width: 25%;" />
-					<col style="width: 15%;" />
-					<col style="width: 45%;" />
-				</colgroup>
-				<tr>
-					<th>ID:</th>
-					<td colspan="2">
-						<input type="text" id="sigID" name="signatureID" maxlength="3" size="3" />
-						<strong>- ###</strong>
-					</td>
-					<td style="float: right;">
-						<select id="sigType" name="type">
-							<option value="Sites">Sites</option>
-							<option value="Wormhole">Wormhole</option>
-							<option value="Ore">Ore</option>
-							<option value="Data">Data</option>
-							<option value="Gas">Gas</option>
-							<option value="Relic">Relic</option>
-						</select>
-					</td>
-				</tr>
-				<tr class="sig-site">
-					<th><div>Life:</div></th>
-					<td colspan="3">
-						<div>
-							<select id="sigLife" name="lifeLength">
-								<option value="24">24 Hours</option>
-								<option value="48">48 Hours</option>
-								<option value="72">72 Hours</option>
-								<option value="168">7 Days</option>
-								<option value="672">28 Days</option>
-								<option value="4032">Infinite</option>
-							</select>
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-site">
-					<th><div>Name:</div></th>
-					<td colspan="3">
-						<div>
-							<input type="text" id="sigName" name="name" maxlength="35" size="32" style="box-sizing: border-box; width: 99%;" />
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-wormhole hidden">
-					<th><div class="hidden">Type:</div></th>
-					<td colspan="3">
-						<div class="hidden">
-							<input id="whType" name="whType" class="typesAutocomplete" type="text" maxlength="4" size="4" />
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-wormhole hidden">
-					<th><div class="hidden">Leads:</div></th>
-					<td colspan="3">
-						<div class="hidden">
-							<input id="connection" name="connectionName" class="sigSystemsAutocomplete" type="text" maxlength="20" size="20" />
-							<input type="button" id="autoEdit" disabled="disabled" value="A" style="padding: 1px 12px;" />
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-wormhole hidden">
-					<th><div class="hidden">Life:</div></th>
-					<td>
-						<div class="hidden">
-							<select id="whLife" name="whLife">
-								<option>Stable</option>
-								<option>Critical</option>
-							</select>
-						</div>
-					</td>
-					<th><div class="hidden">Mass:</div></th>
-					<td>
-						<div class="hidden">
-							<select id="whMass" name="whMass">
-								<option>Stable</option>
-								<option>Destab</option>
-								<option>Critical</option>
-							</select>
-						</div>
-					</td>
-				</tr>
-			</table>
-			<input type="submit" style="position: absolute; left: -99999px;" tabindex="-1" />
-		</form>
-	</div>
-
 	<div id="dialog-admin" title="Mask Admin" class="hidden">
 		<div style="height: 100%;">
 			<div class="menu">
@@ -1373,10 +1186,10 @@ if ($row = $stmt->fetchObject()) {
 		<form id="newTab_form">
 			<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
 				<tr>
-					<th>Name:</th><td><input type="text" id="name" maxlength="20" size="20" /></td>
+					<th>Name:</th><td><input type="text" class="name" maxlength="20" size="20" /></td>
 				</tr>
 				<tr>
-					<th>System:</th><td><input type="radio" name="tabType" id="tabType1" checked="checked" style="vertical-align: text-top;" /><input type="text" id="system" class="sigSystemsAutocomplete" size="20" /></td>
+					<th>System:</th><td><input type="radio" name="tabType" id="tabType1" checked="checked" style="vertical-align: text-top;" /><input type="text" class="sigSystemsAutocomplete" size="20" /></td>
 				</tr>
 				<tr>
 					<th></th><td><input type="radio" name="tabType" id="tabType2" style="vertical-align: middle;" /><label for="tabType2" style="width: 164px; display: inline-block; padding-left: 2px; text-align: left;">&nbsp;K-Space</label></td>
@@ -1394,11 +1207,11 @@ if ($row = $stmt->fetchObject()) {
 			<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
 				<tr>
 					<th>Name:</th>
-					<td><input type="text" id="name" maxlength="20" size="20" /></td>
+					<td><input type="text" class="name" maxlength="20" size="20" /></td>
 				</tr>
 				<tr>
 					<th>System:</th>
-					<td><input type="radio" name="tabType" id="editTabType1" checked="checked" style="vertical-align: text-top;" /><input type="text" id="system" class="sigSystemsAutocomplete" size="20" /></td>
+					<td><input type="radio" name="tabType" id="editTabType1" checked="checked" style="vertical-align: text-top;" /><input type="text" class="sigSystemsAutocomplete" size="20" /></td>
 				</tr>
 				<tr>
 					<th></th>
@@ -1524,7 +1337,7 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= $server ?>/js/dragscroll.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/mustache.min.js"></script>
+	<!-- <script type="text/javascript" src="//<?= $server ?>/js/mustache.min.js"></script> -->
 	<script type="text/javascript" src="//<?= $server ?>/js/app.min.js?v=0.8.6"></script>
 	<!-- <script type="text/javascript" src="//<?= $server ?>/js/core.js?v=0.8.6"></script> -->
 	<!-- JS Includes -->

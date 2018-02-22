@@ -14,7 +14,7 @@ if(!isset($_SESSION['userID'])) {
 	exit();
 }
 
-require_once('db.inc.php');
+require_once('../db.inc.php');
 
 if (isset($_REQUEST['init'])) {
 	$query = 'SELECT time FROM eve_api.cacheTime WHERE type = "activity"';
