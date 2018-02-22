@@ -8,6 +8,7 @@ var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var rename = require('gulp-rename');
 
+// The order of the files in `src` are important, be sure to include a file before something else uses it
 var jsFiles = [
     {
         name: 'app.js',
