@@ -119,7 +119,8 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 
 			<!-- Start Home -->
 			<div id="home" class="page">
-				<div id="slider">
+
+				<!-- <div id="slider">
 					<div class="slide" data-effect-out="slide">
 						<div class="background screenshot">
 							<img src="//<?= $server ?>/images/landing/devices/igb.jpg" alt="" width="100%" />
@@ -143,7 +144,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 							<img src="//<?= $server ?>/images/landing/devices/ipad.jpg" alt="" />
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<!-- End Home -->
 
@@ -744,6 +745,16 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 	<script type="text/javascript" src="//<?= $server ?>/js/landing/jquery.infieldlabel.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/landing/jquery.echoslider.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/landing/landing.js"></script>
+	<script type="text/javascript" src="//<?= $server ?>/js/tweetie.min.js"></script>
+
+	<!-- Twitter feed -->
+	<script type="text/javascript">
+		$('#home').tweetie({
+			"apiPath": "tweetie.php",
+			"type": "hashtag",
+			"params": {"count": 1, "q": "evetripwire"}
+		});
+	</script>
 
 </body>
 </html>
