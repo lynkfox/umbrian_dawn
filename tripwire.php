@@ -54,6 +54,7 @@ if ($row = $stmt->fetchObject()) {
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/gridster.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-1.12.1.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-custom.css">
+	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/introjs.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=0.8.6">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/app.min.css?v=0.8.6">
 
@@ -1338,6 +1339,7 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
 	<!-- <script type="text/javascript" src="//<?= $server ?>/js/mustache.min.js"></script> -->
+	<script type="text/javascript" src="//<?= $server ?>/js/intro.min.js"></script>
 	<script type="text/javascript" src="//<?= $server ?>/js/app.min.js?v=0.8.6"></script>
 	<!-- <script type="text/javascript" src="//<?= $server ?>/js/core.js?v=0.8.6"></script> -->
 	<!-- JS Includes -->
