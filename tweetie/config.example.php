@@ -1,6 +1,7 @@
 <?php
     /**
     * Tweetie Config
+        https://apps.twitter.com/
     */
     // Consumer Key
     define('CONSUMER_KEY', '');
