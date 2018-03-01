@@ -291,18 +291,18 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$output['chain']['map'] = array_merge($output['chain']['map'], $stmt->fetchAll(PDO::FETCH_CLASS));
 
 	// System activity indicators
-	$query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND mask = :mask';
-	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-	$stmt->execute();
-	$output['chain']['activity'] = $stmt->fetchAll(PDO::FETCH_CLASS);
+	// $query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND mask = :mask';
+	// $stmt = $mysql->prepare($query);
+	// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+	// $stmt->execute();
+	// $output['chain']['activity'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
 	// EVE Scout system activity indicators
-	$query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND (sigs.systemID = 31000005 OR sigs.connectionID = 31000005) AND mask = 273';
-	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-	$stmt->execute();
-	$output['chain']['activity'] = array_merge($output['chain']['activity'], $stmt->fetchAll(PDO::FETCH_CLASS));
+	// $query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND (sigs.systemID = 31000005 OR sigs.connectionID = 31000005) AND mask = 273';
+	// $stmt = $mysql->prepare($query);
+	// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+	// $stmt->execute();
+	// $output['chain']['activity'] = array_merge($output['chain']['activity'], $stmt->fetchAll(PDO::FETCH_CLASS));
 
 	// Chain last modified
 	$query = 'SELECT MAX(time) AS time FROM signatures USE INDEX(changeSearch) WHERE mask = :mask AND life IS NOT NULL';
@@ -444,18 +444,18 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		$output['chain']['map'] = array_merge($output['chain']['map'], $stmt->fetchAll(PDO::FETCH_CLASS));
 
 		// System activity indicators
-		$query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND mask = :mask';
-		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-		$stmt->execute();
-		$output['chain']['activity'] = $stmt->fetchAll(PDO::FETCH_CLASS);
+		// $query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND mask = :mask';
+		// $stmt = $mysql->prepare($query);
+		// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+		// $stmt->execute();
+		// $output['chain']['activity'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
 		// EVE Scout system activity indicators
-		$query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND (sigs.systemID = 31000005 OR sigs.connectionID = 31000005) AND mask = 273';
-		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-		$stmt->execute();
-		$output['chain']['activity'] = array_merge($output['chain']['activity'], $stmt->fetchAll(PDO::FETCH_CLASS));
+		// $query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND (sigs.systemID = 31000005 OR sigs.connectionID = 31000005) AND mask = 273';
+		// $stmt = $mysql->prepare($query);
+		// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+		// $stmt->execute();
+		// $output['chain']['activity'] = array_merge($output['chain']['activity'], $stmt->fetchAll(PDO::FETCH_CLASS));
 
 		// Chain last modified
 		$query = 'SELECT MAX(time) AS time FROM signatures USE INDEX(changeSearch) WHERE mask = :mask AND life IS NOT NULL';

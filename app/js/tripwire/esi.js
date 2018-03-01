@@ -360,6 +360,22 @@ tripwire.esi = function() {
         });
     }
 
+    this.esi.universeJumps = function() {
+        return $.ajax({
+            url: baseUrl + "/v1/universe/system_jumps/?" + $.param({"user_agent": userAgent}),
+            type: "GET",
+            dataType: "JSON"
+        });
+    }
+
+    this.esi.universeKills = function() {
+        return $.ajax({
+            url: baseUrl + "/v1/universe/system_kills/?" + $.param({"user_agent": userAgent}),
+            type: "GET",
+            dataType: "JSON"
+        });
+    }
+
     this.esi.parse = function(characters) {
         for (characterID in tripwire.esi.characters) {
             if (!(characterID in characters)) {

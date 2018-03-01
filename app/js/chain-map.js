@@ -14,30 +14,32 @@ var chain = new function() {
 		$("#chainMap .nodeActivity > span:not(.invisible)").addClass("invisible");
 
 		// Loop through passed data and show dots by system
-		for (var x in data) {
-			var systemID = data[x].systemID;
-			var shipJumps = data[x].shipJumps;
-			var podKills = data[x].podKills;
-			var shipKills = data[x].shipKills;
-			var npcKills = data[x].npcKills;
-			var $node = $("#chainMap [data-nodeid="+systemID+"] > .nodeActivity");
+		$("#chainMap [data-nodeid]").each(function() {
+			var systemID = $(this).attr("data-nodeid");
+			if (data[systemID]) {
+				var shipJumps = data[systemID].shipJumps;
+				var podKills = data[systemID].podKills;
+				var shipKills = data[systemID].shipKills;
+				var npcKills = data[systemID].npcKills;
+				var $node = $(this).find(".nodeActivity");
 
-			if (shipJumps > 0) {
-				$node.find(".jumps").removeClass("invisible").attr("title", shipJumps+" Jumps");
-			}
+				if (shipJumps > 0) {
+					$node.find(".jumps").removeClass("invisible").attr("title", shipJumps+" Jumps");
+				}
 
-			if (podKills > 0) {
-				$node.find(".pods").removeClass("invisible").attr("title", podKills+" Pod Kills");
-			}
+				if (podKills > 0) {
+					$node.find(".pods").removeClass("invisible").attr("title", podKills+" Pod Kills");
+				}
 
-			if (shipKills > 0) {
-				$node.find(".ships").removeClass("invisible").attr("title", shipKills+" Ship Kills");
-			}
+				if (shipKills > 0) {
+					$node.find(".ships").removeClass("invisible").attr("title", shipKills+" Ship Kills");
+				}
 
-			if (npcKills > 0) {
-				$node.find(".npcs").removeClass("invisible").attr("title", npcKills+" NPC Kills");
+				if (npcKills > 0) {
+					$node.find(".npcs").removeClass("invisible").attr("title", npcKills+" NPC Kills");
+				}
 			}
-		}
+		});
 
 		$("#chainMap .nodeActivity > span[title]").jBox("Tooltip", {position: {y: "bottom"}});
 
@@ -775,8 +777,47 @@ var chain = new function() {
 			this.drawing = false;
 		}
 
-		if (data.activity) // 100ms
-			this.data.activity = this.activity(data.activity);
+		// Gather latest system activity
+		if (!this.data.activity || new Date() > this.data.activity.expires) {
+			data.activity = {};
+			tripwire.esi.universeJumps()
+				.done(function(results, status, request) {
+					data.activity.expires = new Date(request.getResponseHeader("expires"));
+					$.each(results, function(x) {
+						data.activity[results[x].system_id] = {
+							systemID: results[x].system_id,
+							shipJumps: results[x].ship_jumps
+						}
+					});
+				})
+				.then(function() {
+					 return tripwire.esi.universeKills()
+						.done(function(results) {
+							$.each(results, function(x) {
+								if (data.activity[results[x].system_id]) {
+									data.activity[results[x].system_id].podKills = results[x].pod_kills;
+									data.activity[results[x].system_id].shipKills = results[x].ship_kills;
+									data.activity[results[x].system_id].npcKills = results[x].npc_kills;
+								} else {
+									data.activity[results[x].system_id] = {
+										systemID: results[x].system_id,
+										podKills: results[x].pod_kills,
+										shipKills: results[x].ship_kills,
+										npcKills: results[x].npc_kills,
+									}
+								}
+							});
+						});
+				})
+				.then(function() {
+					chain.data.activity = chain.activity(data.activity);
+				});
+		} else {
+			chain.activity(this.data.activity);
+		}
+
+		// if (data.activity) // 100ms
+		// 	this.data.activity = this.activity(data.activity);
 
 		if (data.occupied) // 3ms
 			this.data.occupied = this.occupied(data.occupied);
