@@ -157,19 +157,28 @@ if ($row = $stmt->fetchObject()) {
 	<div class="gridster">
 		<ul>
 			<li id="infoWidget" class="gridWidget" data-row="1" data-col="1" data-sizex="7" data-sizey="6" data-min-sizex="5" data-min-sizey="4" style="width: 410px; height: 350px;">
+				<div class="controls">
+					<div style="float: right;">
+						<i id="system-favorite" data-icon="star-empty" data-tooltip="Add/Remove favorite"></i>
+						<i class="tutorial" data-tooltip="Show tutorial for this section">?</i>
+					</div>
+				</div>
 				<div class="content">
-					<i id="system-favorite" data-icon="star-empty" style="float: right; padding-top: 10px; font-size: 2em;"></i>
-					<h1 id="infoSystem" class="pointer" style="color: #CCC;"><?=$system?></h1>
-					<h4 id="infoSecurity" class="pointer">&nbsp;</h4>
-					<h4 id="infoRegion" class="pointer">&nbsp;</h4>
-					<h4 id="infoFaction" class="pointer">&nbsp;</h4>
+					<div id="infoGeneral">
+						<h1 id="infoSystem" class="pointer" style="color: #CCC;"><?=$system?></h1>
+						<h4 id="infoSecurity" class="pointer">&nbsp;</h4>
+						<h4 id="infoRegion" class="pointer">&nbsp;</h4>
+						<h4 id="infoFaction" class="pointer">&nbsp;</h4>
+					</div>
 					<div id="activityGraph"></div>
-					<div style="text-align: center;"><a href="javascript: activity.time(168);">Week</a> - <a href="javascript: activity.time(48);">48Hour</a> - <a href="javascript: activity.time(24);">24Hour</a></div>
-					<span id="infoStatics" class="pointer" style="float: left;"></span>
-					<a class="infoLink" style="float: right;" data-href='http://wh.pasta.gg/$systemName' href="" target="_blank">wormhol.es</a><br/>
-					<a class="infoLink" style="float: right;" data-href="http://evemaps.dotlan.net/search?q=$systemName" href="" target="_blank">dotlan</a>
-					<!--<a class="infoLink" style="float: right;" data-href='http://eve-kill.net/?a=system_detail&sys_name=$systemName' href="" target="_blank">Eve-kill.net&nbsp;&nbsp;</a>-->
-					<a class="infoLink" style="float: right;" data-href='https://zkillboard.com/system/$systemID' href="" target="_blank">zKillboard&nbsp;&nbsp;</a>
+					<div id="activityGraphControls" style="text-align: center;"><a href="javascript: activity.time(168);">Week</a> - <a href="javascript: activity.time(48);">48Hour</a> - <a href="javascript: activity.time(24);">24Hour</a></div>
+					<div id="infoStatics" class="pointer" style="float: left; width: 50%; text-align: left;"></div>
+					<div id="infoLinks" style="float: right; width: 50%; text-align: right;">
+						<a class="infoLink" data-href='http://wh.pasta.gg/$systemName' href="" target="_blank">wormhol.es</a><br/>
+						<a class="infoLink" data-href="http://evemaps.dotlan.net/search?q=$systemName" href="" target="_blank">dotlan</a><br/>
+						<!--<a class="infoLink" style="float: right;" data-href='http://eve-kill.net/?a=system_detail&sys_name=$systemName' href="" target="_blank">Eve-kill.net&nbsp;&nbsp;</a>-->
+						<a class="infoLink" data-href='https://zkillboard.com/system/$systemID' href="" target="_blank">zKillboard</a>
+					</div>
 				</div>
 			</li>
 			<li id="signaturesWidget" class="gridWidget" data-row="1" data-col="8" data-sizex="7" data-sizey="6" data-min-sizex="5" data-min-sizey="2" style="width: 410px; height: 350px;">
@@ -183,6 +192,9 @@ if ($row = $stmt->fetchObject()) {
 						<i id="undo" data-icon="undo" class="disabled" data-tooltip="Undo last signature change"></i>
 						<i id="redo" data-icon="redo" class="disabled" data-tooltip="Redo what was undone"></i>
 					</span>
+					<div style="float: right;">
+						<i class="tutorial" data-tooltip="Show tutorial for this section">?</i>
+					</div>
 				</div>
 				<div class="content">
 					<table id="sigTable" width="100%">

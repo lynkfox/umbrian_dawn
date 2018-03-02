@@ -579,12 +579,15 @@ td.google-visualization-orgchart-linenode[data-signatureid] {
     position: absolute;
     padding: 3px;
     z-index: 1;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .controls i {
 	font-size: 1.2em;
 	padding: 0px 2px;
 	vertical-align: middle;
+	font-style: normal;
 }
 
 .tab {
