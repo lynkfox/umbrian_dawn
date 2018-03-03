@@ -119,7 +119,9 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 
 			<!-- Start Home -->
 			<div id="home" class="page">
+				<h1>News</h1>
 
+				<div id="tweetfeed"></div>
 				<!-- <div id="slider">
 					<div class="slide" data-effect-out="slide">
 						<div class="background screenshot">
@@ -749,10 +751,22 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 
 	<!-- Twitter feed -->
 	<script type="text/javascript">
-		$('#home').tweetie({
+		$('#home #tweetfeed').tweetie({
 			"apiPath": "tweetie.php",
-			"type": "hashtag",
-			"params": {"count": 1, "q": "evetripwire"}
+			"type": "timeline",
+			"params": {"count": 10, "q": "#evetripwire", "result_type": "recent", "exclude_replies": true, "tweet_mode": "extended"},
+			"template": "<p class='tweet'>{{tweet.created_at}} - {{tweet.full_text}}</p>"
+		}, function() {
+			$(".tweet").each(function() {
+				// Remove hashtags
+				$(this).find("a").each(function() {
+					if ($(this).text()[0] == "#") {
+						$(this).remove()
+					}
+				});
+			});
+
+			setTimeout('FluidNav.resizePage()', 300);
 		});
 	</script>
 

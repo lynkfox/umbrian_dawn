@@ -241,6 +241,7 @@ $(document).ready(function() {
 				}
 
 				$("#register #user #api_select").show("slide");
+                FluidNav.resizePage();
 			} else if (response && response.error) {
 				if (response.field == "username") {
 					$("#register #user #userError").text(response.error).show("slide");

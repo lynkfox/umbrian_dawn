@@ -4,10 +4,10 @@
 	Author: Two2Twelve Themes
 	Author URI: http://themes.two2twelve.com
 	Version: 1.1
-	
+
 	Stylesheet: Base
 
-	0.	CSS Reset 
+	0.	CSS Reset
 	1.	Global (body, page sructure, common classes)
 	2.	Header & Navigation
 	3.	App Info
@@ -22,7 +22,7 @@
 	12. Typography
 	13. Buttons
 	14. Lists
-	15. Forms	
+	15. Forms
 
 -----------------------------------------------------------------------------------*/
 * { margin: 0; padding: 0; }
@@ -60,8 +60,8 @@ section #pages {
 		background: transparent url('../../images/landing/light-page_shadow_bottom.png') no-repeat top left;
 		bottom: 0px;
 	}
-	section #pages div.page { 
-		display: none; 
+	section #pages div.page {
+		display: none;
 		position: absolute;
 		top: 0px;
 		padding-top: 40px;
@@ -108,13 +108,13 @@ header {
 			margin-left: 30px;
 			position: relative;
 			padding-bottom: 22px;
-		}		
+		}
 			header nav ul li a{
 				color: #b5b5b5;
 				font-size: 12px;
-				-webkit-transition:color 0.2s ease-in;  
-		    -moz-transition:color 0.2s ease-in;  
-		    -o-transition:color 0.2s ease-in;  
+				-webkit-transition:color 0.2s ease-in;
+		    -moz-transition:color 0.2s ease-in;
+		    -o-transition:color 0.2s ease-in;
 		    transition:color 0.2s ease-in;
 			}
 			header nav ul li a:hover { color: #777; }
@@ -200,7 +200,7 @@ header {
 	  -webkit-padding-end: 20px;
 	  -webkit-padding-start: 2px;
 	  -webkit-user-select: none;
-	  background-image: url(../../images/landing/select-arrow.png), 
+	  background-image: url(../../images/landing/select-arrow.png),
 	  -webkit-linear-gradient(#555555, #555555 40%, #444444);
 	  background-position: center right;
 	  background-repeat: no-repeat;
@@ -292,7 +292,7 @@ div#slider {
 			position: absolute;
 			z-index: 2;
 			left: 200px;
-			top: 30px;			
+			top: 30px;
 		}
 		div.slide .foreground img,
 		div.slide .foreground iframe,
@@ -376,7 +376,7 @@ div#slider {
 			background: url('../../images/landing/devices/windows-front.png') no-repeat;
 		}
 			div.slide .foreground.windows img,
-			div.slide .foreground.windows iframe { width: 216px; height: 350px; top: 63px; left: 86px; }	
+			div.slide .foreground.windows iframe { width: 216px; height: 350px; top: 63px; left: 86px; }
 		/* Android */
 		div.slide .background.android {
 			width: 350px;
@@ -391,7 +391,7 @@ div#slider {
 			background: url('../../images/landing/devices/android-front.png') no-repeat;
 		}
 			div.slide .foreground.android img,
-			div.slide .foreground.android iframe { width: 207px; height: 325px; top: 85px; left: 90px; }		
+			div.slide .foreground.android iframe { width: 207px; height: 325px; top: 85px; left: 90px; }
 		/* iPads */
 		div.slide .ipad-black,
 		div.slide .ipad-white {
@@ -423,9 +423,9 @@ div.echo-nav {
 		width: 30px;
 		margin-right: 5px;
 		display: inline-block;
-		-webkit-transition:background 0.2s ease-in;  
-    -moz-transition:background 0.2s ease-in;  
-    -o-transition:background 0.2s ease-in;  
+		-webkit-transition:background 0.2s ease-in;
+    -moz-transition:background 0.2s ease-in;
+    -o-transition:background 0.2s ease-in;
     transition:background 0.2s ease-in;
 	}
 	div.echo-nav a:hover { background: #aaa; }
@@ -466,9 +466,9 @@ div.team_members {
 		div.team_members .person a {
 			color: #319ebc;
 			margin-bottom: 7px;
-			-webkit-transition:color 0.2s ease-in;  
-	    -moz-transition:color 0.2s ease-in;  
-	    -o-transition:color 0.2s ease-in;  
+			-webkit-transition:color 0.2s ease-in;
+	    -moz-transition:color 0.2s ease-in;
+	    -o-transition:color 0.2s ease-in;
 	    transition:color 0.2s ease-in;
 		}
 			div.team_members .person a:hover { color: #444; }
@@ -553,11 +553,11 @@ div.releases {
 				font-size: 12px;
 				clear: both;
 			}
-				article.release ul li{ 
+				article.release ul li{
 					margin-bottom: 15px;
 					color: #525252;
 				}
-					article.release ul li span{ 
+					article.release ul li span{
 						display: block;
 						float: left;
 						font-size: 10px;
@@ -631,9 +631,9 @@ div.press_mentions { padding-top: 15px; }
 				}
 				div.press_mentions ul li address a {
 					color: #319ebc;
-					-webkit-transition:color 0.2s ease-in;  
-			    -moz-transition:color 0.2s ease-in;  
-			    -o-transition:color 0.2s ease-in;  
+					-webkit-transition:color 0.2s ease-in;
+			    -moz-transition:color 0.2s ease-in;
+			    -o-transition:color 0.2s ease-in;
 			    transition:color 0.2s ease-in;
 					font-style: italic;
 				}
@@ -643,7 +643,7 @@ div.press_mentions { padding-top: 15px; }
 ---------------------------------------------*/
 div form {
 	overflow: hidden;
-}	
+}
 	div form div.row {
 		//margin-bottom: 25px;
 		overflow: hidden;
@@ -696,9 +696,9 @@ footer {
 		-webkit-border-radius: 4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
-		-webkit-transition:color 0.2s ease-in, background 0.2s ease-in;  
-    -moz-transition:color 0.2s ease-in, background 0.2s ease-in;  
-    -o-transition:color 0.2s ease-in, background 0.2s ease-in;  
+		-webkit-transition:color 0.2s ease-in, background 0.2s ease-in;
+    -moz-transition:color 0.2s ease-in, background 0.2s ease-in;
+    -o-transition:color 0.2s ease-in, background 0.2s ease-in;
     transition:color 0.2s ease-in, background 0.2s ease-in;
 	}
 	footer p:hover {
@@ -758,30 +758,30 @@ a {
 }
 .tipsy { line-height: 17px; }
 /* Blockquotes */
-blockquote, blockquote p { 
-	font-size: 15px; 
-	line-height: 24px; 
-	color: #777; 
-	font-style: italic; 
+blockquote, blockquote p {
+	font-size: 15px;
+	line-height: 24px;
+	color: #777;
+	font-style: italic;
 }
-blockquote { 
-	margin: 0 0 10px; 
-	padding: 3px 20px 3px 19px; 
-	border-left: 1px solid #ddd; 
+blockquote {
+	margin: 0 0 10px;
+	padding: 3px 20px 3px 19px;
+	border-left: 1px solid #ddd;
 }
-	blockquote cite { 
-		display: block; 
+	blockquote cite {
+		display: block;
 		font-size: 11px;
-		color: #888; 
+		color: #888;
 	}
-		blockquote cite:before { 
-			content: "\2014 \0020"; 
+		blockquote cite:before {
+			content: "\2014 \0020";
 		}
 		blockquote cite a, blockquote cite a:visited, blockquote cite a:visited { color: #555; }
 /* Columns */
 div.column_last { margin-right: 0 !important; }
 div.full { margin-bottom: 25px; }
-div.one_half, div.one_third, div.two_third, 
+div.one_half, div.one_third, div.two_third,
 div.three_fourth, div.one_fourth, div.two_thirds {
 	float: left;
 	margin-right: 4%;
@@ -927,7 +927,7 @@ div.one_fourth  { width: 22%; }
 		background: -o-linear-gradient(top,  #525252 0%,#18171e 100%); /* Opera 11.10+ */
 		background: -ms-linear-gradient(top,  #525252 0%,#18171e 100%); /* IE10+ */
 		background: linear-gradient(top,  #525252 0%,#18171e 100%); /* W3C */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#525252', endColorstr='#18171e',GradientType=0 ); /* IE6-9 */	
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#525252', endColorstr='#18171e',GradientType=0 ); /* IE6-9 */
 	}
 		.large_button#blackberry em { color: #9a9a9a; text-shadow: 0px 1px #000; }
 		.large_button#blackberry span.icon { background-position: 0px -105px; }
@@ -1137,7 +1137,7 @@ div.toggle_list {
 			div.toggle_list ul li div.content {
 				background: #fbfbfb;
 				border: 1px solid #e5e5e5;
-				border-top: none;				
+				border-top: none;
 				padding: 10px;
 				display: none;
 			}
@@ -1176,7 +1176,7 @@ div.tabs {
 			   color: #424242;
 			   padding-bottom: 9px;
 			}
-		div.tabs .pane {    
+		div.tabs .pane {
 			background: #FBFBFB;
 		  border: 1px solid #E6E7E7;
 		  margin-top: -1px;
@@ -1219,11 +1219,11 @@ textarea {
 	background: transparent;
 }
 form p { position: relative; }
-label.infield { 
+label.infield {
 	position: absolute;
 	z-index: -1;
-	top: 7px !important; 
-	left: 0; 
+	top: 7px !important;
+	left: 0;
 	color: #333333;
 	font-weight: bold;
 	-webkit-touch-callout: none;
@@ -1378,4 +1378,11 @@ input[type="checkbox"] + label {
 	box-shadow: 0px 0px 25px 5px black;
 	-webkit-box-shadow: 0px 0px 25px 5px black;
 	cursor: pointer;
+}
+
+.tweet {
+	background: rgba(255,255,255,0.06);
+	border-radius: 4px;
+	padding: 4px 8px;
+	margin: 8px 0;
 }
