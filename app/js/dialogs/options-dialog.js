@@ -28,6 +28,8 @@ $(".options").click(function(e) {
 
 				options.background = $("#dialog-options #background-image").val();
 
+				options.uiscale = $("#dialog-options #uiscale-slider").slider("value");
+
 				if (options.masks.active != $("#dialog-options input[name='mask']:checked").val()) {
 					maskChange = true;
 				}
@@ -139,6 +141,21 @@ $(".options").click(function(e) {
 		},
 		create: function() {
 			$("#optionsAccordion").accordion({heightStyle: "content", collapsible: true, active: false});
+
+			$("#uiscale-slider").slider({
+				min: 0.7,
+				max: 1.4,
+				step: 0.05,
+				value: options.uiscale || 1.0,
+				change: function(e, ui) {
+					$("body").css("zoom", ui.value);
+				},
+				slide: function(e, ui) {
+					$("label[for='uiscale-slider']").html(ui.value);
+				}
+			});
+
+			$("label[for='uiscale-slider']").html($("#uiscale-slider").slider("value"));
 
 			$("#dialog-pwChange").dialog({
 				autoOpen: false,

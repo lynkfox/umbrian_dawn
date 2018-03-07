@@ -940,6 +940,13 @@ if ($row = $stmt->fetchObject()) {
 							<input type="text" id="background-image" maxlength="200" />
 						</td>
 					</tr>
+					<tr>
+						<th>UI Scale:</th>
+						<td>
+							<label for="uiscale-slider"></label>
+							<div id="uiscale-slider"></div>
+						</td>
+					</tr>
 				</table>
 			</div>
 			<h3><a href="#">Personal Statistics</a></h3>

@@ -5,6 +5,7 @@ var options = new function() {
 	this.userID = init.userID;
 	this.character = {id: init.characterID, name: init.characterName};
 	this.background = null;
+	this.uiscale = 1.0;
 	this.favorites = [];
 	this.grid = {};
 	this.tracking = {active: "new"};
@@ -108,6 +109,11 @@ var options = new function() {
 		if (this.buttons.chainWidget.evescout) $("#eve-scout").addClass("active");
 		if ($.inArray(parseInt(viewingSystemID), this.favorites) !== -1) $("#system-favorite").attr("data-icon", "star").addClass("active");
 		if (this.buttons.signaturesWidget.autoMapper) $("#toggle-automapper").addClass("active");
+
+		// UI Scale
+		if (this.uiscale) {
+			$("body").css("zoom", this.uiscale);
+		}
 
 		// Background
 		if (this.background) {

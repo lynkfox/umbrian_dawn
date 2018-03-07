@@ -1,0 +1,14 @@
+#dialog-options input[type="radio"] + label {
+	vertical-align: top;
+}
+
+#dialog-options #uiscale-slider {
+    width: 75%;
+    float: right;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+#dialog-options label[for=uiscale-slider] {
+    padding: 0 8px;
+}

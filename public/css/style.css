@@ -529,12 +529,6 @@ td.google-visualization-orgchart-linenode[data-signatureid] {
 	cursor: pointer;
 }
 
-
-#dialog-options input[type="radio"] + label {
-	vertical-align: top;
-}
-
-
 #chainGrid {
 	position: absolute;
 	width: 100%;
