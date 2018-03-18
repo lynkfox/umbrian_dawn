@@ -1032,7 +1032,7 @@ if ($row = $stmt->fetchObject()) {
 					<th>Mask Type:</th>
 					<td>
 						<select name="type">
-							<option value="char">Personal</option>
+							<option value="char">Character</option>
 							<option value="corp">Corporate</option>
 						</select>
 					</td>
@@ -1135,8 +1135,19 @@ if ($row = $stmt->fetchObject()) {
 			<input type="hidden" name="mode" value="search" />
 			<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
 				<tr>
-					<th>Search Name:</th>
+					<th>Search:</th>
 					<td><input type="text" name="name" maxlength="50" /></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="radio" value="character" name="category" id="characterSearch" />
+						<label for="characterSearch">Character</label>
+						<input type="radio" value="corporation" name="category" id="corporationSearch" checked="checked" />
+						<label for="corporationSearch">Corporation</label>
+						<br/>
+						<input type="checkbox" value="exact" name="exact" id="exactSearch" />
+						<label for="exactSearch">Exact Match</label>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -1153,6 +1164,7 @@ if ($row = $stmt->fetchObject()) {
 							    </div>
 							</div>
 						</span>
+						<span style="position: absolute; left: 15px; text-align: left;" id="searchCount"></span>
 						<input type="submit" value="Search" />
 					</td>
 				</tr>

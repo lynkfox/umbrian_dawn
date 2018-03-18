@@ -341,22 +341,49 @@ tripwire.esi = function() {
         });
     }
 
-    this.esi.characterLookup = function(eveID) {
+    this.esi.characterLookup = function(eveID, reference, async) {
+        var async = typeof(async) !== 'undefined' ? async : true;
         return $.ajax({
             url: baseUrl + "/v4/characters/" + eveID + "/?" + $.param({"user_agent": userAgent}),
             type: "GET",
             dataType: "JSON",
-            eveID: eveID
+            async: async,
+            eveID: eveID,
+            reference: reference
         });
     }
 
-    this.esi.corporationLookup = function(eveID, reference) {
+    this.esi.corporationLookup = function(eveID, reference, async) {
+        var async = typeof(async) !== 'undefined' ? async : true;
         return $.ajax({
             url: baseUrl + "/v4/corporations/" + eveID + "/?" + $.param({"user_agent": userAgent}),
             type: "GET",
             dataType: "JSON",
+            async: async,
             eveID: eveID,
             reference: reference
+        });
+    }
+
+    this.esi.allianceLookup = function(eveID, reference, async) {
+        var async = typeof(async) !== 'undefined' ? async : true;
+        return $.ajax({
+            url: baseUrl + "/v3/alliances/" + eveID + "/?" + $.param({"user_agent": userAgent}),
+            type: "GET",
+            dataType: "JSON",
+            async: async,
+            eveID: eveID,
+            reference: reference
+        });
+    }
+
+    this.esi.search = function(searchString, categories, strict) {
+        return $.ajax({
+            url: baseUrl + "/v2/search/?" + $.param({"user_agent": userAgent}),
+            type: "GET",
+            dataType: "JSON",
+            contentType: "application/json",
+            data: {"search": searchString, "categories": categories, "strict": strict}
         });
     }
 
@@ -374,6 +401,48 @@ tripwire.esi = function() {
             type: "GET",
             dataType: "JSON"
         });
+    }
+
+    // Wrapper to make lookups easier
+    this.esi.fullLookup = function(eveIDs) {
+        var promise = $.Deferred();
+
+        tripwire.esi.idLookup(eveIDs)
+            .done(function(data) {
+                for (item in data) {
+                    if (data[item].category == "character") {
+                        tripwire.esi.characterLookup(data[item].id, data[item], false)
+                            .done(function(characterData) {
+                                $.extend(data[item], characterData);
+                                tripwire.esi.corporationLookup(characterData.corporation_id, this.reference, false)
+                                    .done(function(corporationData) {
+                                        data[item].corporation = corporationData;
+                                        if (corporationData.alliance_id) {
+                                            tripwire.esi.allianceLookup(corporationData.alliance_id, this.reference, false)
+                                                .done(function(allianceData) {
+                                                    data[item].alliance = allianceData;
+                                                });
+                                        }
+                                    });
+                            });
+                    } else if (data[item].category == "corporation") {
+                        tripwire.esi.corporationLookup(data[item].id, data[item], false)
+                            .done(function(corporationData) {
+                                $.extend(data[item], corporationData);
+                                if (corporationData.alliance_id) {
+                                    tripwire.esi.allianceLookup(corporationData.alliance_id, this.reference, false)
+                                        .done(function(allianceData) {
+                                            data[item].alliance = allianceData;
+                                        });
+                                }
+                            })
+                    }
+                }
+
+                promise.resolve(data);
+            });
+
+        return promise;
     }
 
     this.esi.parse = function(characters) {

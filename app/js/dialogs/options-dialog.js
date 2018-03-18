@@ -576,56 +576,45 @@ $(".options").click(function(e) {
 					$("#dialog-editMask #loading").show();
 					$("#dialog-editMask #name").text($("#dialog-options input[name='mask']:checked+label .selector_label").text());
 
-					var test = [];
 					$.ajax({
 						url: "masks.php",
 						type: "POST",
 						data: {mode: "edit", mask: mask},
 						dataType: "JSON"
 					}).then(function(response) {
-						 return tripwire.esi.idLookup(response.results)
+						return tripwire.esi.fullLookup(response.results)
 							.done(function(results) {
 								if (results) {
 									for (var x in results) {
 										if (results[x].category == "character") {
-											tripwire.esi.characterLookup(results[x].id)
-												.done(function(character) {
-													character.eveID = this.eveID;
-													tripwire.esi.corporationLookup(character.corporation_id, character)
-														.done(function(corporation) {
-															var node = $(''
-																+ '<input type="checkbox" checked="checked" onclick="return false" name="" id="edit_'+this.reference.eveID+'_1373" value="'+this.reference.eveID+'_1373" class="selector" />'
-																+ '<label for="edit_'+this.reference.eveID+'_1373" style="width: 100%; margin-left: -5px;">'
-																+ '	<img src="https://image.eveonline.com/Character/'+this.reference.eveID+'_64.jpg" />'
-																+ '	<span class="selector_label">Character</span>'
-																+ '	<div class="info">'
-																+ '		'+this.reference.name + '<br/>'
-																+ '		'+corporation.name+'<br/>'
-																// + '		'+corporation.allianceName
-																+ '		<input type="button" class="maskRemove" value="Remove" style="position: absolute; bottom: 3px; right: 3px;" />'
-																+ '	</div>'
-																+ '</label>');
+											var node = $(''
+												+ '<input type="checkbox" checked="checked" onclick="return false" name="" id="edit_'+results[x].id+'_1373" value="'+results[x].id+'_1373" class="selector" />'
+												+ '<label for="edit_'+results[x].id+'_1373">'
+												+ '	<img src="https://image.eveonline.com/Character/'+results[x].id+'_64.jpg" />'
+												+ '	<span class="selector_label">Character</span>'
+												+ '	<div class="info">'
+												+ '		'+results[x].name + '<br/>'
+												+ '		'+results[x].corporation.name+'<br/>'
+												+ '		'+(results[x].alliance ? results[x].alliance.name : '')+'<br/>'
+												+ '		<input type="button" class="maskRemove" value="Remove" style="position: absolute; bottom: 3px; right: 3px;" />'
+												+ '	</div>'
+												+ '</label>');
 
-															$("#dialog-editMask #accessList .static:first").before(node);
-														});
-												});
+											$("#dialog-editMask #accessList .static:first").before(node);
 										} else if (results[x].category == "corporation") {
-											tripwire.esi.corporationLookup(results[x].id)
-												.done(function(corporation) {
-													var node = $(''
-														+ '<input type="checkbox" checked="checked" onclick="return false" name="" id="edit_'+this.eveID+'_2" value="'+this.eveID+'_2" class="selector" />'
-														+ '<label for="edit_'+this.eveID+'_2" style="width: 100%; margin-left: -5px;">'
-														+ '	<img src="https://image.eveonline.com/Corporation/'+this.eveID+'_64.png" />'
-														+ '	<span class="selector_label">Corporation</span>'
-														+ '	<div class="info">'
-														+ '		'+corporation.name+'<br/>'
-														// + '		'+corporation.allianceName
-														+ '		<input type="button" class="maskRemove" value="Remove" style="position: absolute; bottom: 3px; right: 3px;" />'
-														+ '	</div>'
-														+ '</label>');
+											var node = $(''
+												+ '<input type="checkbox" checked="checked" onclick="return false" name="" id="edit_'+results[x].id+'_2" value="'+results[x].id+'_2" class="selector" />'
+												+ '<label for="edit_'+results[x].id+'_2">'
+												+ '	<img src="https://image.eveonline.com/Corporation/'+results[x].id+'_64.png" />'
+												+ '	<span class="selector_label">Corporation</span>'
+												+ '	<div class="info">'
+												+ '		'+results[x].name+'<br/>'
+												+ '		'+(results[x].alliance ? results[x].alliance.name : '')+'<br/>'
+												+ '		<input type="button" class="maskRemove" value="Remove" style="position: absolute; bottom: 3px; right: 3px;" />'
+												+ '	</div>'
+												+ '</label>');
 
-													$("#dialog-editMask #accessList .static:first").before(node);
-												})
+											$("#dialog-editMask #accessList .static:first").before(node);
 										}
 									}
 								}
@@ -657,12 +646,15 @@ $(".options").click(function(e) {
 						}
 
 						$("#EVESearchResults .info").append('<input type="button" class="maskRemove" value="Remove" style="position: absolute; bottom: 3px; right: 3px;" />');
-						var node = $("#EVESearchResults").html();
+						$("#EVESearchResults input:checked").attr("checked", "checked");
+						$("#EVESearchResults input:checked").attr("onclick", "return false");
+
+						var nodes = $("#EVESearchResults .maskNode:has(input:checked)");
 
 						if ($("#dialog-createMask").dialog("isOpen"))
-							$("#dialog-createMask #accessList .static:first").before(node);
+							$("#dialog-createMask #accessList .static:first").before(nodes);
 						else if ($("#dialog-editMask").dialog("isOpen"))
-							$("#dialog-editMask #accessList .static:first").before(node);
+							$("#dialog-editMask #accessList .static:first").before(nodes);
 
 						$(this).dialog("close");
 					},
@@ -674,45 +666,107 @@ $(".options").click(function(e) {
 					$("#EVEsearch").submit(function(e) {
 						e.preventDefault();
 
+						if ($("#EVEsearch input[name='name']").val() == "") {
+							return false;
+						}
+
+						$("#EVESearchResults, #searchCount").html("");
 						$("#EVEsearch #searchSpinner").show();
 						$("#EVEsearch input[type='submit']").attr("disabled", "disabled");
 						$("#dialog-EVEsearch").parent().find(".ui-dialog-buttonpane button:contains('Add')").attr("disabled", true).addClass("ui-state-disabled");
 
-						$.ajax({
-							url: "masks.php",
-							type: "POST",
-							data: $(this).serialize(),
-							dataType: "JSON"
-						}).done(function(response) {
-							if (response && response.results) {
-								var result = response.results[0];
-								var node = $(''
-									+ '<input type="checkbox" checked="checked" onclick="return false" name="adds[]" id="find_'+(result.type == 2 ? result.corporationID : result.characterID)+'_'+result.type+'" value="'+(result.type == 2 ? result.corporationID : result.characterID)+'_'+result.type+'" class="selector" />'
-									+ '<label for="find_'+(result.type == 2 ? result.corporationID : result.characterID)+'_'+result.type+'" style="width: 100%; margin-left: -5px;">'
-									+ '	<img src="https://image.eveonline.com/'+(result.type == 2 ? 'Corporation/'+result.corporationID+'_64.png' : 'Character/'+result.characterID+'_64.jpg')+'" />'
-									+ '	<span class="selector_label">'+(result.type == 2 ? 'Corporation' : 'Character')+'</span>'
-									+ '	<div class="info">'
-									+ '		'+(result.type != 2 ? result.characterName + '<br/>' : '')
-									+ '		'+result.corporationName+'<br/>'
-									+ '		'+result.allianceName
-									+ '	</div>'
-									+ '</label>');
+						tripwire.esi.search($("#EVEsearch input[name='name']").val(), $("#EVEsearch input[name='category']:checked").val(), $("#EVEsearch input[name='exact']")[0].checked)
+							.done(function(results) {
+								if (results && (results.character || results.corporation)) {
+									// limit results
+									results = $.merge(results.character || [], results.corporation || []);
+									total = results.length;
+									results = results.slice(0, 10);
+									return tripwire.esi.fullLookup(results)
+										.done(function(results) {
+											$("#EVEsearch #searchCount").html("Found: "+total+"<br/>Showing: 10");
+											if (results) {
+												for (var x in results) {
+													if (results[x].category == "character") {
+														var node = $(''
+															+ '<div class="maskNode"><input type="checkbox" name="adds[]" id="find_'+results[x].id+'_1373" value="'+results[x].id+'_1373" class="selector" />'
+															+ '<label for="find_'+results[x].id+'_1373">'
+															+ '	<img src="https://image.eveonline.com/Character/'+results[x].id+'_64.jpg" />'
+															+ '	<span class="selector_label">Character</span>'
+															+ '	<div class="info">'
+															+ '		'+results[x].name + '<br/>'
+															+ '		'+results[x].corporation.name+'<br/>'
+															+ '		'+(results[x].alliance ? results[x].alliance.name : '')+'<br/>'
+															+ '	</div>'
+															+ '</label></div>');
 
-								$("#EVESearchResults").html(node);
-							} else {
-								$("#dialog-error #msg").text("No Results");
-								$("#dialog-error").dialog("open");
-							}
-						}).always(function() {
-							$("#EVEsearch #searchSpinner").hide();
-							$("#EVEsearch input[type='submit']").removeAttr("disabled");
-							$("#dialog-EVEsearch").parent().find(".ui-dialog-buttonpane button:contains('Add')").removeAttr("disabled").removeClass("ui-state-disabled");
-						});
+														$("#EVESearchResults").append(node);
+													} else if (results[x].category == "corporation") {
+														var node = $(''
+															+ '<div class="maskNode"><input type="checkbox" name="" id="find_'+results[x].id+'_2" value="'+results[x].id+'_2" class="selector" />'
+															+ '<label for="find_'+results[x].id+'_2">'
+															+ '	<img src="https://image.eveonline.com/Corporation/'+results[x].id+'_64.png" />'
+															+ '	<span class="selector_label">Corporation</span>'
+															+ '	<div class="info">'
+															+ '		'+results[x].name+'<br/>'
+															+ '		'+(results[x].alliance ? results[x].alliance.name : '')+'<br/>'
+															+ '	</div>'
+															+ '</label></div>');
+
+														$("#EVESearchResults").append(node);
+													}
+												}
+											}
+										}).always(function() {
+											$("#EVEsearch #searchSpinner").hide();
+											$("#EVEsearch input[type='submit']").removeAttr("disabled");
+											$("#dialog-EVEsearch").parent().find(".ui-dialog-buttonpane button:contains('Add')").removeAttr("disabled").removeClass("ui-state-disabled");
+										});
+								} else {
+									$("#dialog-error #msg").text("No Results");
+									$("#dialog-error").dialog("open");
+
+									$("#EVEsearch #searchSpinner").hide();
+									$("#EVEsearch input[type='submit']").removeAttr("disabled");
+									$("#dialog-EVEsearch").parent().find(".ui-dialog-buttonpane button:contains('Add')").removeAttr("disabled").removeClass("ui-state-disabled");
+								}
+							});
+
+						// $.ajax({
+						// 	url: "masks.php",
+						// 	type: "POST",
+						// 	data: $(this).serialize(),
+						// 	dataType: "JSON"
+						// }).done(function(response) {
+						// 	if (response && response.results) {
+						// 		var result = response.results[0];
+						// 		var node = $(''
+						// 			+ '<input type="checkbox" checked="checked" onclick="return false" name="adds[]" id="find_'+(result.type == 2 ? result.corporationID : result.characterID)+'_'+result.type+'" value="'+(result.type == 2 ? result.corporationID : result.characterID)+'_'+result.type+'" class="selector" />'
+						// 			+ '<label for="find_'+(result.type == 2 ? result.corporationID : result.characterID)+'_'+result.type+'" style="width: 100%; margin-left: -5px;">'
+						// 			+ '	<img src="https://image.eveonline.com/'+(result.type == 2 ? 'Corporation/'+result.corporationID+'_64.png' : 'Character/'+result.characterID+'_64.jpg')+'" />'
+						// 			+ '	<span class="selector_label">'+(result.type == 2 ? 'Corporation' : 'Character')+'</span>'
+						// 			+ '	<div class="info">'
+						// 			+ '		'+(result.type != 2 ? result.characterName + '<br/>' : '')
+						// 			+ '		'+result.corporationName+'<br/>'
+						// 			+ '		'+result.allianceName
+						// 			+ '	</div>'
+						// 			+ '</label>');
+						//
+						// 		$("#EVESearchResults").html(node);
+						// 	} else {
+						// 		$("#dialog-error #msg").text("No Results");
+						// 		$("#dialog-error").dialog("open");
+						// 	}
+						// }).always(function() {
+						// 	$("#EVEsearch #searchSpinner").hide();
+						// 	$("#EVEsearch input[type='submit']").removeAttr("disabled");
+						// 	$("#dialog-EVEsearch").parent().find(".ui-dialog-buttonpane button:contains('Add')").removeAttr("disabled").removeClass("ui-state-disabled");
+						// });
 					});
 				},
 				close: function() {
 					$("#EVEsearch input[name='name']").val("");
-					$("#EVESearchResults").html("");
+					$("#EVESearchResults, #searchCount").html("");
 				}
 			});
 		}

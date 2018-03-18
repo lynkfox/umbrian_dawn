@@ -12,3 +12,18 @@
 #dialog-options label[for=uiscale-slider] {
     padding: 0 8px;
 }
+
+#dialog-editMask label {
+	width: 100%;
+	margin-left: -5px;
+}
+
+#dialog-EVEsearch #EVESearchResults {
+	max-height: 320px;
+	overflow: auto;
+}
+
+#EVESearchResults label {
+	width: 94%;
+	opacity: 1;
+}

@@ -33,11 +33,7 @@ $output = null;
 
 header('Content-Type: application/json');
 
-if ($mode == 'search') {
-	$API = new API();
-
-	$output['results'] = $API->searchName($name);
-} else if ($mode == 'create') {
+if ($mode == 'create') {
 	if (!$name) {
 		$output['error'] = 'Mask must have a name';
 	} else if (count($adds) == 0) {
