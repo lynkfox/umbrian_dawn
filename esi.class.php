@@ -1,8 +1,9 @@
 <?php
 
-class evesso {
+class esi {
     // https://sisilogin.testeveonline.com
     private static $loginUrl = 'https://login.eveonline.com/oauth';
+    private static $esiUrl = 'https://esi.tech.ccp.is';
     public $lastError = null;
     public $characterID = null;
     public $characterName = null;
@@ -11,8 +12,6 @@ class evesso {
     public $tokenExpire = null;
 
     private function getAPI($url, $headers = array(), $params = false) {
-		$url = self::$loginUrl . $url;
-
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
@@ -54,7 +53,7 @@ class evesso {
             'code' => $code
         );
 
-        $result = $this->getAPI('/token', $headers, $params);
+        $result = $this->getAPI(self::$loginUrl.'/token', $headers, $params);
 
         if ($result === false) {
             return false;
@@ -72,7 +71,7 @@ class evesso {
 
         $headers = array('Authorization: Bearer '. $this->accessToken);
 
-        $result = $this->getAPI('/verify', $headers);
+        $result = $this->getAPI(self::$loginUrl.'/verify', $headers);
 
         if ($result === false) {
             return false;
@@ -97,7 +96,7 @@ class evesso {
             'refresh_token' => $refreshToken
         );
 
-        $result = $this->getAPI('/token', $headers, $params);
+        $result = $this->getAPI(self::$loginUrl.'/token', $headers, $params);
 
         if ($result === false) {
             return false;
@@ -114,6 +113,54 @@ class evesso {
         $this->refreshToken = $response->refresh_token;
 
         return true;
+    }
+
+    public function getCharacter($characterID) {
+        $result = $this->getAPI(self::$esiUrl.'/v4/characters/'.$characterID.'/');
+
+        if ($result === false) {
+            return false;
+        }
+
+        return json_decode($result);
+    }
+
+    public function getCorporation($corporationID) {
+        $result = $this->getAPI(self::$esiUrl.'/v4/corporations/'.$corporationID.'/');
+
+        if ($result === false) {
+            return false;
+        }
+
+        return json_decode($result);
+    }
+
+    public function getCharacterRoles($characterID) {
+        $headers = array('Authorization: Bearer '. $this->accessToken);
+        $result = $this->getAPI(self::$esiUrl.'/v2/characters/'.$characterID.'/roles/', $headers);
+
+        if ($result === false) {
+            return false;
+        }
+
+        return json_decode($result);
+    }
+
+    public function getCharacterTitles($characterID) {
+        $headers = array('Authorization: Bearer '. $this->accessToken);
+        $result = $this->getAPI(self::$esiUrl.'/v1/characters/'.$characterID.'/titles/', $headers);
+
+        if ($result === false) {
+            return false;
+        }
+
+        // convert array of objects into just an array of titles
+        $titles = [];
+        foreach (json_decode($result) AS $title) {
+            $titles[] = $title->name;
+        }
+
+        return $titles;
     }
 }
 

@@ -160,21 +160,21 @@ if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi'])) {
 	$characters = $stmt->fetchAll(PDO::FETCH_OBJ);
 	foreach ($characters as $character) {
 		if (strtotime($character->tokenExpire) < strtotime('+10 minutes')) {
-			require_once("evesso.class.php");
+			require_once("../esi.class.php");
 
-			$evesso = new evesso();
-			if ($evesso->refresh($character->refreshToken)) {
+			$esi = new esi();
+			if ($esi->refresh($character->refreshToken)) {
 				$query = 'UPDATE esi SET accessToken = :accessToken, refreshToken = :refreshToken, tokenExpire = :tokenExpire WHERE characterID = :characterID';
 				$stmt = $mysql->prepare($query);
-				$stmt->bindValue(':accessToken', $evesso->accessToken, PDO::PARAM_STR);
-				$stmt->bindValue(':refreshToken', $evesso->refreshToken, PDO::PARAM_STR);
-				$stmt->bindValue(':tokenExpire', $evesso->tokenExpire, PDO::PARAM_STR);
+				$stmt->bindValue(':accessToken', $esi->accessToken, PDO::PARAM_STR);
+				$stmt->bindValue(':refreshToken', $esi->refreshToken, PDO::PARAM_STR);
+				$stmt->bindValue(':tokenExpire', $esi->tokenExpire, PDO::PARAM_STR);
 				$stmt->bindValue(':characterID', $character->characterID, PDO::PARAM_STR);
 				$stmt->execute();
 
-				$character->accessToken = $evesso->accessToken;
-				$character->refreshToken = $evesso->refreshToken;
-				$character->tokenExpire = $evesso->tokenExpire;
+				$character->accessToken = $esi->accessToken;
+				$character->refreshToken = $esi->refreshToken;
+				$character->tokenExpire = $esi->tokenExpire;
 			} else {
 				$query = 'DELETE FROM esi WHERE characterID = :characterID';
 				$stmt = $mysql->prepare($query);

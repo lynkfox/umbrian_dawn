@@ -89,7 +89,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 			<p>Tripwire is an open source wormhole mapping tool, hosted for free to the public, built for use with <a href="https://www.eveonline.com" target="_blank">EVE Online</a>. Using the latest in internet security standards it is the most secure tool in New Eden.</p>
 
 			<div class="buttons">
-				<a href="#register#corp" class="large_button" id="corp">
+				<a href="#register#admin" class="large_button" id="corp">
 					<span class="icon-corp"></span>
 					<em>Register now as</em> Admin
 				</a>
@@ -273,8 +273,8 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 						<center>
 							<p>This login method requires that you first create a Tripwire account via <a href="#register#user">User Registration</a>.</p>
 							<br/>
-							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'account' ? '<p class="error">No Tripwire account for that character</p><br/>' : '' ?>
-							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'unknown' ? '<p class="error">Unknown error processing EVE SSO login</p><br/>' : '' ?>
+							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'login-account' ? '<p class="error">No Tripwire account for that character</p><br/>' : '' ?>
+							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'login-unknown' ? '<p class="error">Unknown error processing EVE SSO login</p><br/>' : '' ?>
 							<a href="login.php?mode=sso&login=sso"><img src="//<?= $server ?>/images/landing/eve_sso.png"/></a>
 						</center>
 					</div>
@@ -292,138 +292,42 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 							<a href="javascript:;" class="user">User</a>
 						</li>
 						<li>
-							<a href="javascript:;" class="corp">Admin</a>
+							<a href="javascript:;" class="admin">Admin</a>
 						</li>
 					</ul>
 					<div id="user" class="pane">
-						<form method="POST">
-							<input type="hidden" name="mode" value="user" />
-							<!-- fake fields are a workaround for chrome autofill -->
-							<input class="hidden" type="text" name="fakeusernameremembered" />
-							<input class="hidden" type="password" name="fakepasswordremembered" autocomplete="off" />
-							<p>
-								A Tripwire account requires an EVE character to be associated with it. This character is used to determine who's signature data you can see. <a href="https://community.eveonline.com/support/api-key/" target="_blank" tabindex="-1">View your EVE API keys</a>
-							</p>
-							<br/>
-							<p><em style="color: burlywood;">API needs to be character type and only needs Account Status enabled.</em></p>
-							<p><a href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=33554432" target="_blank" tabindex="-1">Create EVE API key</a></p>
-							<br/>
-							<p><em style="color: burlywood;">The API will not be stored and can be deleted after successful registration.</em></p>
-							<div class="row">
-								<p class="left">
-									<label for="reg_username" class="infield">Username</label>
-									<input type="text" name="username" id="reg_username" class="focus" autocomplete="off" />
-								</p>
-							</div>
-							<p id="userError" class="error hidden"></p>
-							<p>Username can contain spaces</p>
-							<div class="row">
-								<p class="left">
-									<label for="reg_password" class="infield">Password</label>
-									<input type="password" name="password" id="reg_password" autocomplete="off" />
-								</p>
-								<p class="right">
-									<label for="reg_confirm" class="infield">Confirm</label>
-									<input type="password" name="confirm" id="reg_confirm" autocomplete="off" />
-								</p>
-							</div>
-							<p id="passError" class="error hidden"></p>
-							<p>Passwords must match</p>
-							<div class="row">
-								<p class="left">
-									<label for="reg_api_key" class="infield">API Key ID</label>
-									<input type="text" name="api_key" id="reg_api_key" />
-								</p>
-								<p class="right">
-									<label for="reg_api_code" class="infield">API vCode</label>
-									<input type="text" name="api_code" id="reg_api_code" />
-								</p>
-							</div>
-							<p id="apiError" class="error hidden"></p>
-							<p></p>
-							<div id="api_select" class="row hidden" style="padding-top: 8px;">
-								<p id="selectError" class="error hidden"></p>
-								<p>Please select which character</p>
-							</div>
-							<div style="padding-top: 25px;">
-								<button type="submit" class="button white">Next</button>
-								<span style="position: absolute; padding-left: 15px;" class="hidden" id="spinner">
-									<!-- Loading animation container -->
-									<div class="loading">
-									    <!-- We make this div spin -->
-									    <div class="spinner">
-									        <!-- Mask of the quarter of circle -->
-									        <div class="mask">
-									            <!-- Inner masked circle -->
-									            <div class="maskedCircle"></div>
-									        </div>
-									    </div>
-									</div>
-								</span>
-							</div>
-						</form>
-						<div id="success" class="hidden">
-							<center><h1>
-								Congratulations
-								<br/>
-								Your account was created
-								<br/>
-								<a href="#login#reg">Log into Tripwire now!</a>
-							</h1></center>
-						</div>
+						<?php if (isset($_REQUEST['success']) && $_REQUEST['success'] == 'user'): ?>
+							<center>
+								<h1>Congratulations</h1>
+								<h2>Your account was created</h2>
+								<em style="color: burlywood;">Your username and password can be set via the Tripwire settings once logged in.</em>
+								<h1><a href="#login#sso">Log into Tripwire now via SSO!</a></h1>
+							</center>
+						<?php else: ?>
+							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'register-account' ? '<p class="error">Tripwire account already exists for that character - use the login instead.</p><br/>' : '' ?>
+							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'register-unknown' ? '<p class="error">Unknown error processing EVE SSO login</p><br/>' : '' ?>
+							<a href="register.php?mode=user"><img src="//<?= $server ?>/images/landing/eve_sso.png"/></a>
+						<?php endif ?>
 					</div>
-					<div id="corp" class="pane">
-						<form method="POST">
-							<input type="hidden" name="mode" value="corp" />
+					<div id="admin" class="pane">
+						<?php if (isset($_REQUEST['success']) && $_REQUEST['success'] == 'admin'): ?>
+							<center>
+								<h1>Congratulations</h1>
+								<h2>You account is now an admin</h2>
+								<h1><a href="#login#sso">Log into Tripwire now via SSO!</a></h1>
+							</center>
+						<?php else: ?>
 							<p>
 								This simply enables corporate Tripwire administration for your character. You must first complete <a href="#register#user">User Registration</a>.
 							</p>
 							<br/>
-							<p><em style="color: burlywood;">Character must be a Director or CEO.</em></p>
-							<p><em style="color: burlywood;">API needs to be character type and only needs Character Sheet enabled.</em></p>
-							<p><a href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=8" target="_blank" tabindex="-1">Create EVE API key</a></p>
+							<p><em style="color: burlywood;">Character must have one of these roles:<br/>CEO, Director, or Tripwire Admin</em></p>
 							<br/>
-							<p><em style="color: burlywood;">The API will not be stored and can be deleted after successful registration.</em></p>
-							<div class="row">
-								<p class="left">
-									<label for="corp_api_key" class="infield">API Key ID</label>
-									<input type="text" name="api_key" id="corp_api_key" />
-								</p>
-								<p class="right">
-									<label for="corp_api_code" class="infield">API vCode</label>
-									<input type="text" name="api_code" id="corp_api_code" />
-								</p>
-							</div>
-							<p id="apiError" class="error hidden"></p>
-							<p></p>
-							<div id="api_select" class="row hidden" style="padding-top: 8px;">
-								<p id="selectError" class="error hidden"></p>
-								<p>Please select which character</p>
-							</div>
-							<div style="padding-top: 25px;">
-								<button type="submit" class="button white">Next</button>
-								<span style="position: absolute; padding-left: 15px;" class="hidden" id="spinner">
-									<!-- Loading animation container -->
-									<div class="loading">
-									    <!-- We make this div spin -->
-									    <div class="spinner">
-									        <!-- Mask of the quarter of circle -->
-									        <div class="mask">
-									            <!-- Inner masked circle -->
-									            <div class="maskedCircle"></div>
-									        </div>
-									    </div>
-									</div>
-								</span>
-							</div>
-						</form>
-						<div id="success" class="hidden">
-							<center><h1>
-								Congratulations
-								<br/>
-								<span id="name"></span> is now a corp admin
-							</h1></center>
-						</div>
+							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'registeradmin-account' ? '<p class="error">Tripwire account does not exist for that character - use user registration first.</p><br/>' : '' ?>
+							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'registeradmin-roles' ? '<p class="error">Character does not meet one of the role requirements: CEO, Director, or Tripwire Admin.</p><br/>' : '' ?>
+							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'registeradmin-unknown' ? '<p class="error">Unknown error processing EVE SSO login</p><br/>' : '' ?>
+							<a href="register.php?mode=admin"><img src="//<?= $server ?>/images/landing/eve_sso.png"/></a>
+						<?php endif ?>
 					</div>
 				</div>
 			</div>

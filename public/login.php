@@ -216,14 +216,14 @@ if ($mode == 'login' || !$mode) {
 	$method		= 'sso';
 	$ip 		= $_SERVER['REMOTE_ADDR'];
 
-	require('../evesso.class.php');
-	$evesso = new evesso();
+	require('../esi.class.php');
+	$esi = new esi();
 
 	if ($code && $state == 'evessologin') {
-		if ($evesso->authenticate($code)) {
+		if ($esi->authenticate($code)) {
 			$query = 'SELECT id, username, password, accounts.ban, characterID, characterName, corporationID, corporationName, admin, super, options FROM accounts LEFT JOIN preferences ON id = preferences.userID LEFT JOIN characters ON id = characters.userID WHERE characterID = :characterID';
 			$stmt = $mysql->prepare($query);
-			$stmt->bindValue(':characterID', $evesso->characterID, PDO::PARAM_INT);
+			$stmt->bindValue(':characterID', $esi->characterID, PDO::PARAM_INT);
 			$stmt->execute();
 
 			if ($account = $stmt->fetchObject()) {
@@ -257,14 +257,14 @@ if ($mode == 'login' || !$mode) {
 				exit();
 			}
 
-			header('Location: ./?error=account#login#sso');
+			header('Location: ./?error=login-account#login#sso');
 			exit();
 		}
 
-		header('Location: ./?error=unknown#login#sso');
+		header('Location: ./?error=login-unknown#login#sso');
 		exit();
 	} else if ($code && $state == 'evessoesi') {
-		if ($evesso->authenticate($code)) {
+		if ($esi->authenticate($code)) {
 			if(!isset($_SESSION['userID'])) {
 				$_SESSION = array();
 				session_regenerate_id();
@@ -276,23 +276,23 @@ if ($mode == 'login' || !$mode) {
 			$query = 'INSERT INTO esi (userID, characterID, characterName, accessToken, refreshToken, tokenExpire) VALUES (:userID, :characterID, :characterName, :accessToken, :refreshToken, :tokenExpire) ON DUPLICATE KEY UPDATE accessToken = :accessToken, refreshToken = :refreshToken, tokenExpire = :tokenExpire';
 			$stmt = $mysql->prepare($query);
 			$stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
-			$stmt->bindValue(':characterID', $evesso->characterID, PDO::PARAM_INT);
-			$stmt->bindValue(':characterName', $evesso->characterName, PDO::PARAM_STR);
-			$stmt->bindValue(':accessToken', $evesso->accessToken, PDO::PARAM_STR);
-			$stmt->bindValue(':refreshToken', $evesso->refreshToken, PDO::PARAM_STR);
-			$stmt->bindValue(':tokenExpire', $evesso->tokenExpire, PDO::PARAM_STR);
+			$stmt->bindValue(':characterID', $esi->characterID, PDO::PARAM_INT);
+			$stmt->bindValue(':characterName', $esi->characterName, PDO::PARAM_STR);
+			$stmt->bindValue(':accessToken', $esi->accessToken, PDO::PARAM_STR);
+			$stmt->bindValue(':refreshToken', $esi->refreshToken, PDO::PARAM_STR);
+			$stmt->bindValue(':tokenExpire', $esi->tokenExpire, PDO::PARAM_STR);
 			$stmt->execute();
 
 			header('Location: ./?system=');
 			exit();
 		} else {
-			echo $evesso->lastError;
+			echo $esi->lastError;
 		}
 	} else {
 		if ($login == 'sso') {
-			$evesso->login();
+			$esi->login();
 		} else if ($login == 'esi') {
-			$evesso->login('esi-location.read_online.v1 esi-location.read_location.v1 esi-location.read_ship_type.v1 esi-ui.write_waypoint.v1 esi-ui.open_window.v1', 'evessoesi');
+			$esi->login('esi-location.read_online.v1 esi-location.read_location.v1 esi-location.read_ship_type.v1 esi-ui.write_waypoint.v1 esi-ui.open_window.v1', 'evessoesi');
 		}
 	}
 }
