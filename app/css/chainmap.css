@@ -267,3 +267,145 @@
 	border-style: dashed;
 	border-top-color: #F5B544;
 }
+
+#massTable td:nth-child(1) {
+	min-width: 12em;
+}
+
+#massTable td:nth-child(2) {
+	width: 2em;
+	text-align: center;
+}
+
+#massTable td:nth-child(3) {
+	width: 12em;
+	text-align: center;
+}
+
+#massTable td:nth-child(4) {
+	width: 8em;
+	text-align: right;
+}
+
+#massTable td:nth-child(5) {
+	width: 14em;
+	text-align: right;
+}
+
+.tab {
+	display: inline-block;
+	min-width: 75px;
+	border-bottom: 2px solid #333;
+	cursor: pointer;
+	vertical-align: top;
+	text-align: right;
+}
+
+.tab:hover {
+	border-bottom-color: #666;
+}
+
+.tab.current {
+	border-bottom-color: #4399F0;
+}
+
+.tab .name {
+	padding-left: 4px;
+	float: left;
+}
+
+.tab .closeTab, .tab .editTab {
+	opacity: 0;
+	visibility: hidden;
+	float: right;
+	font-size: .8em;
+	padding: 2px 2px 0 4px;
+
+	transition: opacity .15s ease-out;
+	-moz-transition: opacity .15s ease-out;
+	-webkit-transition: opacity .15s ease-out;
+	-o-transition: opacity .15s ease-out;
+}
+
+.tab:hover .closeTab, .tab.current:hover .editTab {
+	opacity: 1;
+	visibility: visible;
+}
+
+#guide td:first-child {
+	width: 30px;
+}
+
+#guide div {
+	width: 20px;
+}
+
+.guide-stable {
+	border-bottom: 1px solid #38d;
+}
+
+.guide-eol {
+	border-bottom: 1px dashed #38d;
+}
+
+.guide-destab {
+	border-bottom: 1px solid #F5B544;
+}
+
+.guide-critical {
+	border-bottom: 1px solid #FF4747;
+}
+
+.guide-frigate {
+	border-bottom: 1px solid #50D25A;
+}
+
+[data-icon="user"] + .badge {
+	position: absolute;
+	top: -5px;
+	right: -10px;
+}
+
+td.google-visualization-orgchart-linenode[data-signatureid] {
+	cursor: pointer;
+}
+
+#chainGrid {
+	position: absolute;
+	width: 100%;
+	z-index: -10;
+	margin-left: -3px;
+	color: #777;
+}
+
+#chainGrid .top td {
+	height: 18px;
+}
+
+#chainGrid .line td {
+	height: 28px;
+	border-bottom: 1px solid #333;
+}
+
+#chainGrid .space td {
+	height: 13px;
+}
+
+#chainGrid .red td {
+	border-bottom-color: #FF4747;
+	color: #FF4747;
+}
+
+#chainGrid .yellow td {
+	border-bottom-color: #F5B544;
+	color: #F5B544;
+}
+
+#chainGrid .green td {
+	border-bottom-color: #50D25A;
+	color: #50D25A;
+}
+
+#chainTabs {
+	padding-right: 10px;
+}

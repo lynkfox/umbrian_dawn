@@ -1,0 +1,150 @@
+html .ui-selectmenu-menu li a, html .ui-selectmenu-status {
+	padding: 0em 1em 0em .5em;
+	font-weight: bold;
+	text-align: left;
+}
+
+html a.ui-selectmenu:hover {
+	text-decoration: none;
+}
+
+html .ui-selectmenu {
+	height: auto;
+	//margin-bottom: .2em;
+	//padding: 0.1em;
+}
+
+html .ui-selectmenu-menu ul {
+	//padding: 0 0.1em;
+}
+
+#whType, #sigID {
+	text-transform: uppercase;
+	text-align: center;
+	padding-left: 0px;
+}
+
+#sigAddForm th, #sigEditForm th {
+	text-align: right;
+}
+
+#sigAddForm table tr td, #sigEditForm table tr td {
+	padding: 2px 0;
+}
+
+#sigTable {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+	table-layout: fixed;
+	margin-left: -1px;
+}
+
+#sigTable th {
+	background: rgba(51, 51, 51, .7);
+	border: 1px solid #000;
+}
+
+#sigTable td {
+	background: rgba(17, 17, 17, .7);
+	border: 1px solid #000;
+	cursor: default;
+}
+
+#sigTable tr:hover td {
+	background-color: #333;
+}
+
+#sigTable tr.selected td {
+	background-color: #222;
+}
+
+#sigTable th:nth-child(1) {
+	width: 30px;
+}
+
+#sigTable th:nth-child(2) {
+	width: 40px;
+}
+
+#sigTable th:nth-child(3) {
+	width: 40px;
+}
+
+#sigTable th:nth-child(5), #sigTable th:nth-child(6) {
+	width: 40px;
+}
+
+#sigTable th:nth-child(7), #sigTable th:nth-child(8) {
+	width: 10px;
+	background: transparent;
+	border: none;
+}
+
+#sigTable td:nth-child(1) {
+	font-family: "lucida";
+	letter-spacing: 1px;
+}
+
+#sigTable td.leftAlign {
+	text-align: left;
+	padding-left: 2px;
+}
+
+#sigTable td.centerAlign {
+	text-align: center;
+}
+
+#sigTable td.rightAlign {
+	text-align: right;
+	padding-right: 2px;
+}
+
+#sigTable a.siteLink {
+	color: #990;
+}
+
+.tablesorter .tablesorter-header {
+	cursor: pointer;
+	vertical-align: middle;
+	font-size: 10px;
+}
+
+.tablesorter .tablesorter-header:focus {
+	outline: none;
+}
+
+.tablesorter .tablesorter-header i:before, .tablesorter .sortable i:before {
+	content: "\f0dc";
+	vertical-align: bottom;
+	padding: 1px 2px;
+	float: right;
+}
+
+.tablesorter .headerSortUp,
+.tablesorter .tablesorter-headerSortUp,
+.tablesorter .tablesorter-headerAsc {
+	color: #eee;
+}
+
+.tablesorter .headerSortUp i:before,
+.tablesorter .tablesorter-headerSortUp i:before,
+.tablesorter .tablesorter-headerAsc i:before {
+	content: "\f0de";
+}
+
+.tablesorter .headerSortDown,
+.tablesorter .tablesorter-headerSortDown,
+.tablesorter .tablesorter-headerDesc {
+	color: #eee;
+}
+
+.tablesorter .headerSortDown i:before,
+.tablesorter .tablesorter-headerSortDown i:before,
+.tablesorter .tablesorter-headerDesc i:before {
+	content: "\f0dd";
+}
+
+.tablesorter thead .sorter-false {
+	cursor: default;
+}

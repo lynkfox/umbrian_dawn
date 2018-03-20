@@ -55,7 +55,6 @@ if ($row = $stmt->fetchObject()) {
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-1.12.1.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-custom.css">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/introjs.min.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=0.8.6">
 	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/app.min.css?v=0.8.6">
 
 	<title><?=$system?> - <?= $server == 'static.eve-apps.com' ? 'Tripwire' : 'Galileo' ?></title>
