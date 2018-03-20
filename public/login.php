@@ -28,7 +28,6 @@ function login_history($ip, $username, $method, $result) {
 }
 
 $mode = 		isset($_REQUEST['mode'])?$_REQUEST['mode']:null;
-$selected = 	isset($_REQUEST['selected'])?$_REQUEST['selected']:null;
 $code = 		isset($_REQUEST['code'])?$_REQUEST['code']:null;
 $state =		isset($_REQUEST['state'])?$_REQUEST['state']:null;
 $login =		isset($_REQUEST['login'])?$_REQUEST['login']:null;
@@ -130,85 +129,6 @@ if ($mode == 'login' || !$mode) {
 
 				// Log the attempt
 				login_history($ip, $username, $method, 'fail');
-			}
-		}
-	}
-} else if ($mode == 'api') {
-	$keyID 		= isset($_REQUEST['api_key'])?$_REQUEST['api_key']:null;
-	$vCode 		= isset($_REQUEST['api_code'])?$_REQUEST['api_code']:null;
-	$method		= 'api';
-	$mask 		= 33554432;
-	$ip 		= $_SERVER['REMOTE_ADDR'];
-
-	// Check input
-	if (!$keyID || !$vCode) {
-		$output['field'] = 'api';
-		$output['error'] = 'API Key & vCode required.';
-	} else {
-		require('../api.class.php');
-		$API = new API();
-
-		if ($API->checkAccount($keyID, $vCode) == 0) {
-			$output['field'] = 'api';
-			$output['error'] = "API requires 'Account Status' permission.";
-		} else if ($API->checkMask($keyID, $vCode, $mask) == 0) {
-			$output['field'] = 'api';
-			$output['error'] = "API requires ONLY 'Account Status' permission.";
-		} else {
-			$characters = $API->getCharacters($keyID, $vCode);
-
-			if (count($characters) == 0) {
-				$output['field'] = 'api';
-				$output['error'] = 'API has no characters.';
-			} else if ($characters === 0) {
-				$output['field'] = 'api';
-				$output['error'] = "API expired or doesn't exist.";
-			} else if (!$selected && count($characters) > 1) {
-				$output['characters'] = $characters;
-			} else if (count($characters) == 1 || array_key_exists($selected, $characters)) {
-				$selected = $selected ? $selected : key($characters);
-
-				$query = 'SELECT id, username, password, accounts.ban, characterID, characterName, corporationID, corporationName, admin, super, options FROM accounts LEFT JOIN preferences ON id = preferences.userID LEFT JOIN characters ON id = characters.userID WHERE characterID = :characterID';
-				$stmt = $mysql->prepare($query);
-				$stmt->bindValue(':characterID', $characters[$selected]->characterID, PDO::PARAM_INT);
-				$stmt->execute();
-
-				if ($account = $stmt->fetchObject()) {
-					$query = 'SELECT options FROM preferences WHERE userID = :userID';
-					$stmt = $mysql->prepare($query);
-					$stmt->bindValue(':userID', $account->id, PDO::PARAM_INT);
-					$stmt->execute();
-					$options = json_decode($stmt->fetchColumn(0));
-
-					$_SESSION['userID'] = $account->id;
-					$_SESSION['username'] = $account->username;
-					$_SESSION['ip'] = $ip;
-					$_SESSION['mask'] = @$options->masks->active ? $options->masks->active : $account->corporationID . '.2';
-					$_SESSION['characterID'] = $account->characterID;
-					$_SESSION['characterName'] = $account->characterName;
-					$_SESSION['corporationID'] = $account->corporationID;
-					$_SESSION['corporationName'] = $account->corporationName;
-                    $_SESSION['admin'] = $account->admin;
-					$_SESSION['super'] = $account->super;
-					$_SESSION['options'] = $options;
-
-					$output['result'] = 'success';
-					$output['session'] = $_SESSION;
-
-					// Log the attempt
-					login_history($ip, NULL, $method, 'success');
-
-					$query = 'INSERT INTO userstats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
-					$stmt = $mysql->prepare($query);
-					$stmt->bindValue(':userID', $account->id, PDO::PARAM_INT);
-					$stmt->execute();
-				} else {
-					$output['field'] = count($characters) > 1 ? 'select' : 'api';
-					$output['error'] = 'No registered accounts with that character found.';
-
-					// Log the attempt
-					login_history($ip, NULL, $method, 'fail');
-				}
 			}
 		}
 	}

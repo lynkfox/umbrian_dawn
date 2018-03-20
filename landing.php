@@ -171,9 +171,6 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 							<a href="javascript:;" class="reg">Tripwire</a>
 						</li>
 						<li>
-							<a href="javascript:;" class="api">EVE API</a>
-						</li>
-						<li>
 							<a href="javascript:;" class="sso">EVE SSO</a>
 						</li>
 					</ul>
@@ -207,50 +204,6 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 							<p>Password is case sensitive</p>
 							<br/>
 							<p><input type="checkbox" id="remember" name="remember" /><label for="remember"> Remember me</label></p>
-							<div style="padding-top: 25px;">
-								<button type="submit" class="button white">Login</button>
-								<span style="position: absolute; padding-left: 15px;" class="hidden" id="spinner">
-									<!-- Loading animation container -->
-									<div class="loading">
-									    <!-- We make this div spin -->
-									    <div class="spinner">
-									        <!-- Mask of the quarter of circle -->
-									        <div class="mask">
-									            <!-- Inner masked circle -->
-									            <div class="maskedCircle"></div>
-									        </div>
-									    </div>
-									</div>
-								</span>
-							</div>
-						</form>
-					</div>
-					<div id="api" class="pane">
-						<form method="POST">
-							<input type="hidden" name="mode" value="api" />
-							<p>This login method requires that you first create a Tripwire account via <a href="#register#user">User Registration</a>.</p>
-							<br/>
-							<p>Use any old or new API key to log into an existing Tripwire account with that character.</p>
-							<p><em style="color: burlywood;">API needs to be character type and only needs Account Status enabled.</em></p>
-							<p><a href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=33554432" target="_blank" tabindex="-1">Create EVE API key</a></p>
-							<p><a href="https://community.eveonline.com/support/api-key/" target="_blank" tabindex="-1">View your EVE API keys</a></p>
-							<br/>
-							<div class="row">
-								<p class="left">
-									<label for="api_api_key" class="infield">API Key ID</label>
-									<input type="text" name="api_key" id="api_api_key" />
-								</p>
-								<p class="right">
-									<label for="api_api_code" class="infield">API vCode</label>
-									<input type="text" name="api_code" id="api_api_code" />
-								</p>
-							</div>
-							<p id="apiError" class="error hidden"></p>
-							<p></p>
-							<div id="api_select" class="row hidden" style="padding-top: 8px;">
-								<p id="selectError" class="error hidden"></p>
-								<p>Please select which character</p>
-							</div>
 							<div style="padding-top: 25px;">
 								<button type="submit" class="button white">Login</button>
 								<span style="position: absolute; padding-left: 15px;" class="hidden" id="spinner">
