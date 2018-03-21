@@ -2,7 +2,8 @@
 
 if (!session_id()) session_start();
 
-require('../db.inc.php');
+require_once('../config.php');
+require_once('../db.inc.php');
 require('../password_hash.php');
 
 $code = 		isset($_REQUEST['code'])?$_REQUEST['code']:null;

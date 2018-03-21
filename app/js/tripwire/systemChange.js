@@ -31,7 +31,7 @@ tripwire.systemChange = function(systemID, mode) {
     }
 
     // Change the title
-    document.title = tripwire.systems[systemID].name + " - " + (server == "static.eve-apps.com" ? "Tripwire" : "Galileo");
+    document.title = tripwire.systems[systemID].name + " - " + app_name;
 
     $("#infoSystem").text(tripwire.systems[systemID].name);
 

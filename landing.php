@@ -1,12 +1,12 @@
 <?php
 
-$server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.com' : $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
+require_once('config.php');
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title><?= $server == 'static.eve-apps.com' ? 'Tripwire' : 'Galileo' ?></title>
+	<title><?= APP_NAME ?></title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -14,20 +14,20 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 	<meta property="og:type" content="article"/>
 	<meta property="og:url" content="https://tripwire.eve-apps.com/"/>
 	<meta property="og:title" content="The greatest wormhole mapper ever."/>
-	<meta property="og:image" content="//<?= $server ?>/images/landing/thumbnail.jpg" />
+	<meta property="og:image" content="//<?= CDN_DOMAIN ?>/images/landing/thumbnail.jpg" />
 	<meta property="og:locale" content="en_US"/>
 	<meta property="og:site_name" content=""/>
 
 	<!-- Stylesheets -->
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/landing/base.css" />
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/landing/dark.css" />
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/landing/media.queries.css" />
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/landing/tipsy.css" />
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/js/landing/fancybox/jquery.fancybox-1.3.4.css" />
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/landing/base.css" />
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/landing/dark.css" />
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/landing/media.queries.css" />
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/landing/tipsy.css" />
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/js/landing/fancybox/jquery.fancybox-1.3.4.css" />
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do|Quicksand:400,700,300">
 
 	<!-- Favicons -->
-	<link rel="shortcut icon" href="//<?= $server ?>/images/favicon.png" />
+	<link rel="shortcut icon" href="//<?= CDN_DOMAIN ?>/images/favicon.png" />
 	<!--
 	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
@@ -83,7 +83,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 		<div id="app_info">
 			<!-- Start Logo -->
 
-			<h1 style="font-size: 4.3em;"><img src="//<?= $server ?>/images/landing/tripwire-logo.png" alt="Tripwire" style="vertical-align: text-top;" /> Tripwire</h1>
+			<h1 style="font-size: 4.3em;"><img src="//<?= CDN_DOMAIN ?>/images/landing/tripwire-logo.png" alt="Tripwire" style="vertical-align: text-top;" /> Tripwire</h1>
 			<!-- End Logo -->
 			<span class="tagline">The greatest wormhole mapper ever.</span>
 			<p>Tripwire is an open source wormhole mapping tool, hosted for free to the public, built for use with <a href="https://www.eveonline.com" target="_blank">EVE Online</a>. Using the latest in internet security standards it is the most secure tool in New Eden.</p>
@@ -125,25 +125,25 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 				<!-- <div id="slider">
 					<div class="slide" data-effect-out="slide">
 						<div class="background screenshot">
-							<img src="//<?= $server ?>/images/landing/devices/igb.jpg" alt="" width="100%" />
+							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/igb.jpg" alt="" width="100%" />
 						</div>
 					</div>
 					<div class="slide" data-effect-in="slide">
 						<div class="background screenshot">
-							<img src="//<?= $server ?>/images/landing/devices/chrome.jpg" alt="" width="100%" />
+							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/chrome.jpg" alt="" width="100%" />
 						</div>
 					</div>
 					<div class="slide">
 						<div class="background android">
-							<img src="//<?= $server ?>/images/landing/devices/droid.jpg" alt="" />
+							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/droid.jpg" alt="" />
 						</div>
 						<div class="foreground android">
-							<img src="//<?= $server ?>/images/landing/devices/droid.jpg" alt="" />
+							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/droid.jpg" alt="" />
 						</div>
 					</div>
 					<div class="slide">
 						<div class="background ipad-black">
-							<img src="//<?= $server ?>/images/landing/devices/ipad.jpg" alt="" />
+							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/ipad.jpg" alt="" />
 						</div>
 					</div>
 				</div> -->
@@ -228,7 +228,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 							<br/>
 							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'login-account' ? '<p class="error">No Tripwire account for that character</p><br/>' : '' ?>
 							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'login-unknown' ? '<p class="error">Unknown error processing EVE SSO login</p><br/>' : '' ?>
-							<a href="login.php?mode=sso&login=sso"><img src="//<?= $server ?>/images/landing/eve_sso.png"/></a>
+							<a href="login.php?mode=sso&login=sso"><img src="//<?= CDN_DOMAIN ?>/images/landing/eve_sso.png"/></a>
 						</center>
 					</div>
 				</div>
@@ -259,7 +259,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 						<?php else: ?>
 							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'register-account' ? '<p class="error">Tripwire account already exists for that character - use the login instead.</p><br/>' : '' ?>
 							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'register-unknown' ? '<p class="error">Unknown error processing EVE SSO login</p><br/>' : '' ?>
-							<a href="register.php?mode=user"><img src="//<?= $server ?>/images/landing/eve_sso.png"/></a>
+							<a href="register.php?mode=user"><img src="//<?= CDN_DOMAIN ?>/images/landing/eve_sso.png"/></a>
 						<?php endif ?>
 					</div>
 					<div id="admin" class="pane">
@@ -279,7 +279,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'registeradmin-account' ? '<p class="error">Tripwire account does not exist for that character - use user registration first.</p><br/>' : '' ?>
 							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'registeradmin-roles' ? '<p class="error">Character does not meet one of the role requirements: CEO, Director, or Tripwire Admin.</p><br/>' : '' ?>
 							<?= isset($_REQUEST['error']) && $_REQUEST['error'] == 'registeradmin-unknown' ? '<p class="error">Unknown error processing EVE SSO login</p><br/>' : '' ?>
-							<a href="register.php?mode=admin"><img src="//<?= $server ?>/images/landing/eve_sso.png"/></a>
+							<a href="register.php?mode=admin"><img src="//<?= CDN_DOMAIN ?>/images/landing/eve_sso.png"/></a>
 						<?php endif ?>
 					</div>
 				</div>
@@ -295,13 +295,13 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 						<p>We are a small team of IT professionals that have come together to provide us all with a more enjoyable EVE experience. We each have many years of industry experience and an active life but still try to find some time to dedicate to this project. We hope you enjoy!</p>
 					</div>
 					<div class="one_half column_last">
-						<img src="//<?= $server ?>/images/landing/about-main.png" alt="" />
+						<img src="//<?= CDN_DOMAIN ?>/images/landing/about-main.png" alt="" />
 					</div>
 				</div>
 
 				<div class="team_members">
 					<div class="person one_half">
-						<img src="//<?= $server ?>/images/landing/daimian.jpg" alt="" />
+						<img src="//<?= CDN_DOMAIN ?>/images/landing/daimian.jpg" alt="" />
 						<h3>Daimian Mercer</h3>
 						<span>Designer/Developer</span>
 						<ul class="social">
@@ -311,12 +311,12 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 						</ul>
 					</div>
 					<div class="person one_half column_last">
-						<img src="//<?= $server ?>/images/landing/pcnate.jpg" alt="" />
+						<img src="//<?= CDN_DOMAIN ?>/images/landing/pcnate.jpg" alt="" />
 						<h3>PCNate</h3>
 						<span>Server Admin</span>
 					</div>
 					<div class="person one_half">
-						<img src="//<?= $server ?>/images/landing/natasha.jpg" alt="" />
+						<img src="//<?= CDN_DOMAIN ?>/images/landing/natasha.jpg" alt="" />
 						<h3>Natasha Donnan</h3>
 						<span>Developer</span>
 						<ul class="social">
@@ -366,19 +366,19 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 				<h1>Screenshots</h1>
 				<div class="screenshot_grid content_box">
 					<div class="one_third">
-						<a href="//<?= $server ?>/images/landing/screenshots/ss1.jpg" class="fancybox" rel="group" title="Screenshot 1"><img src="//<?= $server ?>/images/landing/screenshots/ss1thumb.jpg" alt="" /></a>
+						<a href="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss1.jpg" class="fancybox" rel="group" title="Screenshot 1"><img src="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss1thumb.jpg" alt="" /></a>
 					</div>
 					<div class="one_third">
-						<a href="//<?= $server ?>/images/landing/screenshots/ss2.jpg" class="fancybox" rel="group" title="Screenshot 2"><img src="//<?= $server ?>/images/landing/screenshots/ss2thumb.jpg" alt="" /></a>
+						<a href="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss2.jpg" class="fancybox" rel="group" title="Screenshot 2"><img src="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss2thumb.jpg" alt="" /></a>
 					</div>
 					<div class="one_third column_last">
-						<a href="//<?= $server ?>/images/landing/screenshots/ss3.jpg" class="fancybox" rel="group" title="Screenshot 3"><img src="//<?= $server ?>/images/landing/screenshots/ss3thumb.jpg" alt="" /></a>
+						<a href="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss3.jpg" class="fancybox" rel="group" title="Screenshot 3"><img src="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss3thumb.jpg" alt="" /></a>
 					</div>
 					<div class="one_third">
-						<a href="//<?= $server ?>/images/landing/screenshots/ss4.jpg" class="fancybox" rel="group" title="Screenshot 4"><img src="//<?= $server ?>/images/landing/screenshots/ss4thumb.jpg" alt="" /></a>
+						<a href="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss4.jpg" class="fancybox" rel="group" title="Screenshot 4"><img src="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss4thumb.jpg" alt="" /></a>
 					</div>
 					<div class="one_third">
-						<a href="//<?= $server ?>/images/landing/screenshots/ss5.jpg" class="fancybox" rel="group" title="Screenshot 5"><img src="//<?= $server ?>/images/landing/screenshots/ss5thumb.jpg" alt="" /></a>
+						<a href="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss5.jpg" class="fancybox" rel="group" title="Screenshot 5"><img src="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss5thumb.jpg" alt="" /></a>
 					</div>
 					<div class="one_third column_last">
 						<a href="" class="fancybox" rel="group" title="Screenshot 6"><img src="" alt="" /></a>
@@ -574,7 +574,7 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 		<form id="donate_form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="padding: 15px 0;">
 			<input type="hidden" name="cmd" value="_s-xclick">
 			<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
-			<img id="donate" src="//<?= $server ?>/images/landing/donate.jpg" onclick="document.getElementById('donate_form').submit();" alt="PayPal - The safer, easier way to pay online!">
+			<img id="donate" src="//<?= CDN_DOMAIN ?>/images/landing/donate.jpg" onclick="document.getElementById('donate_form').submit();" alt="PayPal - The safer, easier way to pay online!">
 		</form>
 	</footer>
 	<!-- End Footer -->
@@ -594,17 +594,17 @@ $server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.
 	</script>
 
 	<!-- Javascripts -->
-	<script type="text/javascript" src="//<?= $server ?>/js/landing/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/landing/html5shiv.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/landing/jquery.tipsy.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/landing/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/landing/fancybox/jquery.easing-1.3.pack.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/landing/jquery.touchSwipe.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/landing/jquery.mobilemenu.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/landing/jquery.infieldlabel.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/landing/jquery.echoslider.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/landing/landing.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/tweetie.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/html5shiv.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/jquery.tipsy.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/fancybox/jquery.easing-1.3.pack.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/jquery.touchSwipe.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/jquery.mobilemenu.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/jquery.infieldlabel.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/jquery.echoslider.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/landing.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/tweetie.min.js"></script>
 
 	<!-- Twitter feed -->
 	<script type="text/javascript">

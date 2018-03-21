@@ -19,6 +19,7 @@ if(!isset($_SESSION['userID'])) {
 	exit();
 }
 
+require_once('../config.php');
 require_once('../db.inc.php');
 
 header('Content-Type: application/json');

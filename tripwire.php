@@ -2,8 +2,6 @@
 
 $startTime = microtime(true);
 
-$server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.com' : $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
-
 // Caching
 header('Cache-Control: public, max-age=300');
 header('Expires: '.gmdate('r', time() + 300));
@@ -12,7 +10,8 @@ header('Content-Type: text/html; charset=UTF-8');
 
 // setcookie('loadedFromBrowserCache','false');
 
-require('db.inc.php');
+require_once('config.php');
+require_once('db.inc.php');
 require('lib.inc.php');
 
 // Track this system view
@@ -45,19 +44,20 @@ if ($row = $stmt->fetchObject()) {
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="system" content="<?= $system ?>">
 	<meta name="systemID" content="<?= $systemID ?>">
-	<meta name="server" content="<?= $server ?>">
-	<link rel="shortcut icon" href="//<?= $server ?>/images/favicon.png" />
+	<meta name="server" content="<?= CDN_DOMAIN ?>">
+	<meta name="app_name" content="<?= APP_NAME ?>">
+	<link rel="shortcut icon" href="//<?= CDN_DOMAIN ?>/images/favicon.png" />
 
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery.duration-picker.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery.jbox.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery.jbox-notice.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/gridster.min.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-1.12.1.min.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-custom.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/introjs.min.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/app.min.css?v=0.8.6">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery.duration-picker.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery.jbox.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery.jbox-notice.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/gridster.min.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery-ui-1.12.1.min.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery-ui-custom.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/introjs.min.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/app.min.css?v=0.8.6">
 
-	<title><?=$system?> - <?= $server == 'static.eve-apps.com' ? 'Tripwire' : 'Galileo' ?></title>
+	<title></title>
 </head>
 <?php flush(); ?>
 <body class="transition">
@@ -66,10 +66,10 @@ if ($row = $stmt->fetchObject()) {
 	<div id="topbar">
 		<span class="align-left">
 			<h1 id="logo" class="pointer">
-			<?php if ($server == 'static.eve-apps.com') { ?>
-				<a href=".">Tripwire</a><span id="beta">Beta</span>
+			<?php if (CDN_DOMAIN  == 'galileo.eve-apps.com') { ?>
+				<a href="."><?= APP_NAME ?></a><span id="dev">Dev</span>
 			<?php } else { ?>
-				<a href=".">Galileo</a><span id="dev">Dev</span>
+				<a href="."><?= APP_NAME ?></a>
 			<?php } ?>
 				 | <span data-tooltip="System activity update countdown"><input id="APIclock" class="hidden" /></span>
 			</h1>
@@ -316,7 +316,7 @@ if ($row = $stmt->fetchObject()) {
 		<form id="donate_form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 			<input type="hidden" name="cmd" value="_s-xclick">
 			<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
-			<img id="donate" src="//<?= $server ?>/images/landing/donate.jpg" onclick="document.getElementById('donate_form').submit();" alt="PayPal - The safer, easier way to pay online!">
+			<img id="donate" src="//<?= CDN_DOMAIN ?>/images/landing/donate.jpg" onclick="document.getElementById('donate_form').submit();" alt="PayPal - The safer, easier way to pay online!">
 		</form>
 		<?php printf("<span id='pageTime'>Page generated in %.3f seconds.</span>", microtime(true) - $startTime); ?>
 		<p>All Eve Related Materials are Property Of <a href="http://www.ccpgames.com" target="_blank">CCP Games</a></p>
@@ -1355,26 +1355,25 @@ if ($row = $stmt->fetchObject()) {
 	</script>
 
 	<!-- JS Includes -->
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery-ui-1.12.1.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.tablesorter.combined.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.ui-contextmenu.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.plugin.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.countdown.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.inlinecomplete.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.gridster.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.knob.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox-0.4.7.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox-notice-0.4.6.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.duration-picker.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/ckeditor/ckeditor.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/dragscroll.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery-ui-1.12.1.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.tablesorter.combined.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.ui-contextmenu.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.plugin.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.countdown.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.inlinecomplete.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.gridster.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.knob.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.jbox-0.4.7.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.jbox-notice-0.4.6.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.duration-picker.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/dragscroll.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
-	<!-- <script type="text/javascript" src="//<?= $server ?>/js/mustache.min.js"></script> -->
-	<script type="text/javascript" src="//<?= $server ?>/js/intro.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/app.min.js?v=0.8.6"></script>
-	<!-- <script type="text/javascript" src="//<?= $server ?>/js/core.js?v=0.8.6"></script> -->
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/moment.min.js"></script>
+	<!-- <script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/mustache.min.js"></script> -->
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/intro.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/app.min.js?v=0.8.6"></script>
 	<!-- JS Includes -->
 
 </body>

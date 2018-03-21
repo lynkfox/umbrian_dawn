@@ -19,6 +19,7 @@ if(!isset($_SESSION['userID'])) {
 	exit();
 }
 
+require_once('../config.php');
 require_once('../db.inc.php');
 require_once('../api.class.php');
 require_once('../lib.inc.php');
