@@ -141,7 +141,7 @@ if ($mode == 'login') {
 					//save cookie on client PC for 30 days
 					if ($remember) {
 						$token = $hasher->HashPassword(random_str(30));
-						$query = 'INSERT INTO loginToken (userID, token) VALUES (:userID, :token) ON DUPLICATE KEY UPDATE token = :token';
+						$query = 'INSERT INTO tokens (userID, token) VALUES (:userID, :token) ON DUPLICATE KEY UPDATE token = :token';
 						$stmt = $mysql->prepare($query);
 						$stmt->bindValue(':userID', $account->id);
 						$stmt->bindValue(':token', $token);
@@ -149,7 +149,7 @@ if ($mode == 'login') {
 
 						$cookie = base64_encode($account->id . ':' . $token);
 
-						setcookie('tripwire', $cookie, time()+60*60*24*30, '/', '', true, true);
+						setcookie('tripwire', $cookie, time()+60*60*24*30, '/', '', false, true);
 					}
 				}
 			} else {
@@ -258,22 +258,19 @@ if ($mode == 'login') {
 		$userID = $cookie[0];
 		$token = $cookie[1];
 
-		$query = 'SELECT id, username, password, accounts.ban, characterID, characterName, corporationID, corporationName, admin, super, options, token FROM accounts LEFT JOIN loginToken ON id = loginToken.userID LEFT JOIN preferences ON id = preferences.userID LEFT JOIN characters ON id = characters.userID WHERE id = :userID';
+		$query = 'SELECT id, username, password, accounts.ban, characterID, characterName, corporationID, corporationName, admin, super, options, token FROM accounts LEFT JOIN tokens ON id = tokens.userID LEFT JOIN preferences ON id = preferences.userID LEFT JOIN characters ON id = characters.userID WHERE id = :userID';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':userID', $userID);
 		$stmt->execute();
 
 		if ($account = $stmt->fetchObject()) {
-			require('../password_hash.php');
-			$hasher = new PasswordHash(8, FALSE);
-
 			if ($account->ban == 1) {
 				$output['field'] = 'username';
 				$output['error'] = 'You have been banned.';
 
 				// Log the attempt
 				login_history($ip, $account->username, $method, 'fail');
-			} else if ($hasher->CheckPassword($token, $account->token) == false) {
+			} else if ($token !== $account->token) {
 				$output['field'] = 'username';
 				$output['error'] = 'Remember Me token incorrect.';
 
