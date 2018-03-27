@@ -149,7 +149,7 @@ if ($mode == 'login') {
 
 						$cookie = base64_encode($account->id . ':' . $token);
 
-						setcookie('tripwire', $cookie, time()+60*60*24*30, '/', '', false, true);
+						setcookie('tripwire', $cookie, time()+60*60*24*30, '/', '', true, true);
 					}
 				}
 			} else {
