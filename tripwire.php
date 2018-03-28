@@ -205,8 +205,6 @@ if ($row = $stmt->fetchObject()) {
 								<th class="sortable">Leads To<i data-icon=""></i></th>
 								<th class="sortable">Life<i data-icon=""></i></th>
 								<th class="sortable">Mass<i data-icon=""></i></th>
-								<th class="sorter-false"></th>
-								<th class="sorter-false"></th>
 							</tr>
 						</thead>
 						<tbody></tbody>

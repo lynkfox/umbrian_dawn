@@ -60,11 +60,11 @@ html .ui-selectmenu-menu ul {
 }
 
 #sigTable th:nth-child(1) {
-	width: 30px;
+	width: 50px;
 }
 
 #sigTable th:nth-child(2) {
-	width: 40px;
+	width: 45px;
 }
 
 #sigTable th:nth-child(3) {
@@ -75,15 +75,14 @@ html .ui-selectmenu-menu ul {
 	width: 40px;
 }
 
-#sigTable th:nth-child(7), #sigTable th:nth-child(8) {
-	width: 10px;
-	background: transparent;
-	border: none;
-}
-
 #sigTable td:nth-child(1) {
 	font-family: "lucida";
 	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+#sigTable td:nth-child(2) {
+	text-transform: capitalize;
 }
 
 #sigTable td.leftAlign {

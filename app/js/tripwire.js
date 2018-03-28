@@ -116,16 +116,17 @@ var tripwire = new function() {
 	// Handles Age hover-over tooltip
 	// ToDo: Use native JS
 	this.ageTooltip = function(sig) {
-		var date = new Date(sig.lifeTime);
-		var localOffset = date.getTimezoneOffset() * 60000;
-		date = new Date(date.getTime() + localOffset);
+		// var date = new Date(sig.lifeTime);
+		// var localOffset = date.getTimezoneOffset() * 60000;
+		// date = new Date(date.getTime() + localOffset);
+        var date = new Date(sig.lifeTime);
 
 		var tooltip = "<table class=\"age-tooltip-table\"><tr><th>Created:</th><td>"+(date.getMonth()+1)+"/"+date.getDate()+" "+(date.getHours() < 10?'0':'')+date.getHours()+":"+(date.getMinutes() < 10?'0':'')+date.getMinutes()+"</td></tr>";
 
-		if (sig.lifeTime != sig.time) {
-			date = new Date(sig.time);
-			localOffset = date.getTimezoneOffset() * 60000;
-			date = new Date(date.getTime() + localOffset);
+		if (sig.lifeTime != sig.modifiedTime) {
+			date = new Date(sig.modifiedTime);
+			// localOffset = date.getTimezoneOffset() * 60000;
+			// date = new Date(date.getTime() + localOffset);
 
 			tooltip += "<tr><th>Last Modified:</th><td>"+(date.getMonth()+1)+"/"+date.getDate()+" "+(date.getHours() < 10?'0':'')+date.getHours()+":"+(date.getMinutes() < 10?'0':'')+date.getMinutes()+"</td></tr>";
 		}

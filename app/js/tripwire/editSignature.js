@@ -45,19 +45,15 @@ tripwire.editSig = function(edit, disabled) {
             + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+system+"</td>"
             + "<td class='"+lifeClass+" "+ options.signatures.alignment.sigLife +"'>"+edit.life+"</td>"
             + "<td class='"+massClass+" "+ options.signatures.alignment.sigMass +"'>"+edit.mass+"</td>"
-            + "<td><a href='' class='sigDelete' "+ (disabled ? 'disabled="disabled"' : '') +">X</a></td>"
-            + "<td><a href='' class='sigEdit' "+ (disabled ? 'disabled="disabled"' : '') +"><</a></td>"
             + "</tr>";
 
         var tr = $(row);
     } else {
         var row = "<tr data-id='"+edit.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
-            + "<td class='"+ options.signatures.alignment.sigID +"'>"+edit.signatureID+"</td>"
+            + "<td class='"+ options.signatures.alignment.sigID +"'>"+edit.signatureID.substring(0, 3)+"-"+edit.signatureID.substring(3, 6)+"</td>"
             + "<td class='"+ options.signatures.alignment.sigType +"'>"+edit.type+"</td>"
             + "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
             + "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(edit.name?linkSig(edit.name):'')+"</td>"
-            + "<td><a href='' class='sigDelete' "+ (disabled ? 'disabled="disabled"' : '') +">X</a></td>"
-            + "<td><a href='' class='sigEdit' "+ (disabled ? 'disabled="disabled"' : '') +"><</a></td>"
             + "</tr>";
 
         var tr = $(row);
@@ -72,10 +68,10 @@ tripwire.editSig = function(edit, disabled) {
     // Add counter
     $(tr).find('span[data-age]').countdown("destroy");
     if (edit.life == "Critical") {
-        $(tr).find('span[data-age]').countdown({until: new Date(edit.lifeLeft), onExpiry: this.pastEOL, alwaysExpire: true, compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime})
+        $(tr).find('span[data-age]').countdown({until: moment.utc(edit.lifeLeft).toDate(), onExpiry: this.pastEOL, alwaysExpire: true, compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime})
             .addClass('critical');
     } else {
-        $(tr).find('span[data-age]').countdown({since: new Date(edit.lifeTime), compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime});
+        $(tr).find('span[data-age]').countdown({since: moment.utc(edit.lifeTime).toDate(), compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime});
     }
 
     $(tr).effect("pulsate");

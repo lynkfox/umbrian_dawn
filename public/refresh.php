@@ -248,34 +248,47 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$output['sync'] = $now->format("m/d/Y H:i:s e");
 
 	// Signatures data
-	$output['signatures'] = Array();
-	$query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND mask = :mask';
+	$debugStart = microtime(true);
+	$output['signatures'] = array();
+	$query = 'SELECT * FROM signatures2 WHERE systemID = :systemID AND maskID = :maskID';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-	$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+	$stmt->bindValue(':systemID', $systemID);
+	$stmt->bindValue(':maskID', $maskID);
 	$stmt->execute();
-
-	while ($row = $stmt->fetchObject()) {
-		$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
-		$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
-		$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
-
+	$rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+	foreach ($rows AS $row) {
 		$output['signatures'][$row->id] = $row;
 	}
+	$output['debugTime'] = sprintf('%.4f', microtime(true) - $debugStart);
+
+	// $output['signatures'] = Array();
+	// $query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND mask = :mask';
+	// $stmt = $mysql->prepare($query);
+	// $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+	// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+	// $stmt->execute();
+	//
+	// while ($row = $stmt->fetchObject()) {
+	// 	$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
+	// 	$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
+	// 	$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
+	//
+	// 	$output['signatures'][$row->id] = $row;
+	// }
 
 	// EVE Scout signatures data
-	$query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
-	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-	$stmt->execute();
-
-	while ($row = $stmt->fetchObject()) {
-		$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
-		$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
-		$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
-
-		$output['signatures'][$row->id] = $row;
-	}
+	// $query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
+	// $stmt = $mysql->prepare($query);
+	// $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+	// $stmt->execute();
+	//
+	// while ($row = $stmt->fetchObject()) {
+	// 	$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
+	// 	$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
+	// 	$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
+	//
+	// 	$output['signatures'][$row->id] = $row;
+	// }
 
 	// Chain map data
 	$query = "SELECT * FROM signatures USE INDEX(changeSearch) WHERE mask = :mask AND life IS NOT NULL";
@@ -357,12 +370,19 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 
 	// Check if signatures changed....
 	if ($refresh['sigUpdate'] == false) {
-		$query = 'SELECT COUNT(*) as total, MAX(time) as time FROM signatures USE INDEX(systemSignatures, connectionID) WHERE mask = :mask AND (systemID = :systemID OR connectionID = :systemID)';
+		$query = 'SELECT COUNT(*) as total, MAX(modifiedTime) as time FROM signatures2 WHERE systemID = :systemID AND maskID = :maskID';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+		$stmt->bindValue(':systemID', $systemID);
+		$stmt->bindValue(':maskID', $maskID);
 		$stmt->execute();
 		$results = $stmt->fetchObject();
+
+		// $query = 'SELECT COUNT(*) as total, MAX(time) as time FROM signatures USE INDEX(systemSignatures, connectionID) WHERE mask = :mask AND (systemID = :systemID OR connectionID = :systemID)';
+		// $stmt = $mysql->prepare($query);
+		// $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+		// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+		// $stmt->execute();
+		// $results = $stmt->fetchObject();
 
 		// EVE Scout signatures
 		$query = 'SELECT COUNT(*) as total, MAX(time) as time FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
@@ -377,35 +397,46 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	}
 
 	if ($refresh['sigUpdate'] == true) {
-		$output['signatures'] = Array();
-
-		$query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND mask = :mask';
+		$output['signatures'] = array();
+		$query = 'SELECT * FROM signatures2 WHERE systemID = :systemID AND maskID = :maskID';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+		$stmt->bindValue(':systemID', $systemID);
+		$stmt->bindValue(':maskID', $maskID);
 		$stmt->execute();
-
-		while ($row = $stmt->fetchObject()) {
-			$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
-			$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
-			$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
-
+		$rows = $stmt->fetchAll(PDO::FETCH_CLASS);
+		foreach ($rows AS $row) {
 			$output['signatures'][$row->id] = $row;
 		}
 
-		// EVE Scout signatures data
-		$query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
-		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-		$stmt->execute();
-
-		while ($row = $stmt->fetchObject()) {
-			$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
-			$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
-			$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
-
-			$output['signatures'][$row->id] = $row;
-		}
+		// $output['signatures'] = Array();
+		//
+		// $query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND mask = :mask';
+		// $stmt = $mysql->prepare($query);
+		// $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+		// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+		// $stmt->execute();
+		//
+		// while ($row = $stmt->fetchObject()) {
+		// 	$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
+		// 	$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
+		// 	$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
+		//
+		// 	$output['signatures'][$row->id] = $row;
+		// }
+		//
+		// // EVE Scout signatures data
+		// $query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
+		// $stmt = $mysql->prepare($query);
+		// $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+		// $stmt->execute();
+		//
+		// while ($row = $stmt->fetchObject()) {
+		// 	$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
+		// 	$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
+		// 	$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
+		//
+		// 	$output['signatures'][$row->id] = $row;
+		// }
 	}
 
 	// Check if chain changed....

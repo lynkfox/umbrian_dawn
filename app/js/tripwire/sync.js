@@ -10,7 +10,7 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
 
     if (mode == 'refresh' || mode == 'change') {
         data.sigCount = Object.size(this.client.signatures);
-        data.sigTime = Object.maxTime(this.client.signatures, "time");
+        data.sigTime = Object.maxTime(this.client.signatures, "modifiedTime");
 
         data.chainCount = Object.size(chain.data.rawMap);
         data.chainTime = Object.maxTime(chain.data.rawMap, "time");

@@ -47,19 +47,15 @@ tripwire.addSig = function(add, option, disabled) {
             + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+system+"</td>"
             + "<td class='"+lifeClass+" "+ options.signatures.alignment.sigLife +"'>"+add.life+"</td>"
             + "<td class='"+massClass+" "+ options.signatures.alignment.sigMass +"'>"+add.mass+"</td>"
-            + "<td><a href='' class='sigDelete' "+ (disabled ? 'disabled="disabled"' : '') +">X</a></td>"
-            + "<td><a href='' class='sigEdit' "+ (disabled ? 'disabled="disabled"' : '') +"><</a></td>"
             + "</tr>";
 
         var tr = $(row);
     } else {
         var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
-            + "<td class='"+ options.signatures.alignment.sigID +"'>"+add.signatureID+"</td>"
+            + "<td class='"+ options.signatures.alignment.sigID +"'>"+add.signatureID.substring(0, 3)+"-"+add.signatureID.substring(3, 6)+"</td>"
             + "<td class='"+ options.signatures.alignment.sigType +"'>"+add.type+"</td>"
             + "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
             + "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(add.name?linkSig(add.name):'')+"</td>"
-            + "<td><a href='' class='sigDelete' "+ (disabled ? 'disabled="disabled"' : '') +">X</a></td>"
-            + "<td><a href='' class='sigEdit' "+ (disabled ? 'disabled="disabled"' : '') +"><</a></td>"
             + "</tr>";
 
         var tr = $(row);
@@ -74,12 +70,12 @@ tripwire.addSig = function(add, option, disabled) {
 
     // Add counter
     if (add.life == "Critical") {
-        $(tr).find('span[data-age]').countdown({until: new Date(add.lifeLeft), onExpiry: this.pastEOL, alwaysExpire: true, compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime})
+        $(tr).find('span[data-age]').countdown({until: moment.utc(add.lifeLeft).toDate(), onExpiry: this.pastEOL, alwaysExpire: true, compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime})
             .countdown('pause')
             .addClass('critical')
             .countdown('resume');
     } else {
-        $(tr).find('span[data-age]').countdown({since: new Date(add.lifeTime), compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime})
+        $(tr).find('span[data-age]').countdown({since: moment.utc(add.lifeTime).toDate(), compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime})
             .countdown('pause')
             .countdown('resume');
     }
