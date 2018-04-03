@@ -1367,10 +1367,13 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.duration-picker.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/dragscroll.js"></script>
-	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<!-- Google Charts -->
+	<script type="text/javascript">google.charts.load('current', {packages: ['corechart', 'orgchart']});</script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/moment.min.js"></script>
 	<!-- <script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/mustache.min.js"></script> -->
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/intro.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/combine.js?v=0.8.6"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/app.min.js?v=0.8.6"></script>
 	<!-- JS Includes -->
 

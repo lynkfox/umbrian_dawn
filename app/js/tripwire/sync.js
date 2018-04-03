@@ -23,13 +23,9 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
 
         data.activity = this.activity;
     } else {
-        $.extend(this, $.ajax({url: "//"+ server +"/js/combine.json?v=2017-01-30", async: false, dataType: "JSON"}).responseJSON);
+        // Expand Tripwire with JSON data from EVE Data Dump and other static data
+        $.extend(this, appData);
 
-        //this.wormholes = $.ajax({url: "js/wormholes.json", async: false, dataType: "JSON"}).responseJSON;
-        //this.map = $.ajax({url: "js/map.json", async: false, dataType: "JSON"}).responseJSON;
-        //this.systems = $.ajax({url: "js/systems.json", async: false, dataType: "JSON"}).responseJSON;
-        //this.regions = $.ajax({url: "js/regions.json", async: false, dataType: "JSON"}).responseJSON;
-        //this.factions = $.ajax({url: "js/factions.json", async: false, dataType: "JSON"}).responseJSON;
         this.aSystems = $.map(this.systems, function(system) { return system.name; });
         this.aSigSystems = ["Null-Sec", "Low-Sec", "High-Sec", "Class-1", "Class-2", "Class-3", "Class-4", "Class-5", "Class-6"];
         $.merge(this.aSigSystems, this.aSystems.slice());

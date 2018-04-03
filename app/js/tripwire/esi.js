@@ -397,7 +397,7 @@ tripwire.esi = function() {
 
     this.esi.universeKills = function() {
         return $.ajax({
-            url: baseUrl + "/v1/universe/system_kills/?" + $.param({"user_agent": userAgent}),
+            url: baseUrl + "/v2/universe/system_kills/?" + $.param({"user_agent": userAgent}),
             type: "GET",
             dataType: "JSON"
         });

@@ -17,20 +17,20 @@ var activity = new function() {
 		var span = typeof(span) !== "undefined" ? span : this.span;
 		var cache = typeof(cache) !== "undefined" ? cache : true;
 
-		var json = $.ajax({
-					url: "activity_graph.php",
-					data: {systemID: viewingSystemID, time: span},
-					type: "GET",
-					dataType: "JSON",
-					async: false,
-					cache: cache
-				}).responseJSON;
-
-		json.rows.reverse();
-
-		this.view = new google.visualization.DataView(new google.visualization.DataTable(json));
-		this.view.setColumns(this.columns);
-		return this.view;
+		return $.ajax({
+			url: "activity_graph.php",
+			data: {systemID: viewingSystemID, time: span},
+			type: "GET",
+			dataType: "JSON",
+			cache: cache
+		}).done(function(json) {
+			if (json) {
+				json.rows.reverse();
+				activity.view = new google.visualization.DataView(new google.visualization.DataTable(json));
+				activity.view.setColumns(activity.columns);
+				activity.graph.draw(activity.view, activity.options);
+			}
+		});
 	};
 
 	this.selectHandler = function() {
@@ -57,8 +57,8 @@ var activity = new function() {
 	}
 
 	this.init = function() {
-		this.graph = new google.visualization.AreaChart(document.getElementById("activityGraph"));
-		this.options = {
+		activity.graph = new google.visualization.AreaChart(document.getElementById("activityGraph"));
+		activity.options = {
 			isStacked: false,
 			backgroundColor: "transparent",
 			hAxis: {textStyle: {color: "#999", fontName: "Verdana", fontSize: 10}, showTextEvery: 3},
@@ -74,9 +74,9 @@ var activity = new function() {
 			focusTarget: "category"
 		}
 
-		google.visualization.events.addListener(this.graph, "select", this.selectHandler);
+		google.visualization.events.addListener(activity.graph, "select", activity.selectHandler);
 
-		this.graph.draw(this.getData(this.span), this.options);
+		activity.getData(activity.span);
 	}
 
 	this.time = function(span) {
@@ -93,7 +93,7 @@ var activity = new function() {
 		}
 
 		this.span = span;
-		this.graph.draw(this.getData(span), this.options);
+		this.getData(span);
 	}
 
 	this.redraw = function() {
@@ -101,9 +101,8 @@ var activity = new function() {
 	}
 
 	this.refresh = function(cache) {
-		this.graph.draw(this.getData(this.span, cache), this.options);
+		this.getData(this.span, cache);
 	}
 
-	google.setOnLoadCallback(this.init());
-	//this.init();
+	google.charts.setOnLoadCallback(this.init);
 }

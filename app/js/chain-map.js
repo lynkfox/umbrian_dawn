@@ -734,6 +734,10 @@ var chain = new function() {
 		var data = typeof(data) !== "undefined" ? data : {};
 		//var startTime = window.performance.now();
 
+		if (!this.map) {
+			return;
+		}
+
 		if (data.map) {
 			this.drawing = true;
 
@@ -860,14 +864,15 @@ var chain = new function() {
 	}
 
 	this.init = function() {
-		this.map = new google.visualization.OrgChart(document.getElementById("chainMap"));
-		this.options = {allowHtml: true, allowCollapse: true, size: "medium", nodeClass: "node"};
+		chain.map = new google.visualization.OrgChart(document.getElementById("chainMap"));
+		chain.options = {allowHtml: true, allowCollapse: true, size: "medium", nodeClass: "node"};
 
-		google.visualization.events.addListener(this.map, "collapse", this.collapse);
+		google.visualization.events.addListener(chain.map, "collapse", chain.collapse);
 
-		this.map.draw(new google.visualization.DataView(new google.visualization.DataTable({cols:[{label: "System", type: "string"}, {label: "Parent", type: "string"}]})), this.options);
+		chain.map.draw(new google.visualization.DataView(new google.visualization.DataTable({cols:[{label: "System", type: "string"}, {label: "Parent", type: "string"}]})), this.options);
+
+		chain.redraw();
 	}
 
-	//google.setOnLoadCallback(this.init());
-	this.init();
+	google.charts.setOnLoadCallback(this.init);
 }
