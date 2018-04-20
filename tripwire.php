@@ -2,8 +2,6 @@
 
 $startTime = microtime(true);
 
-$server = $_SERVER['SERVER_NAME'] == 'tripwire.eve-apps.com' ? 'static.eve-apps.com' : $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
-
 // Caching
 header('Cache-Control: public, max-age=300');
 header('Expires: '.gmdate('r', time() + 300));
@@ -12,11 +10,12 @@ header('Content-Type: text/html; charset=UTF-8');
 
 // setcookie('loadedFromBrowserCache','false');
 
+require_once('config.php');
 require_once('db.inc.php');
 require('lib.inc.php');
 
 // Track this system view
-$query = 'UPDATE userStats SET systemsViewed = systemsViewed + 1 WHERE userID = :userID';
+$query = 'UPDATE userstats SET systemsViewed = systemsViewed + 1 WHERE userID = :userID';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
 $stmt->execute();
@@ -45,17 +44,20 @@ if ($row = $stmt->fetchObject()) {
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="system" content="<?= $system ?>">
 	<meta name="systemID" content="<?= $systemID ?>">
-	<meta name="server" content="<?= $server ?>">
-	<link rel="shortcut icon" href="//<?= $server ?>/images/favicon.png" />
+	<meta name="server" content="<?= CDN_DOMAIN ?>">
+	<meta name="app_name" content="<?= APP_NAME ?>">
+	<link rel="shortcut icon" href="//<?= CDN_DOMAIN ?>/images/favicon.png" />
 
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery.jbox.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery.jbox-notice.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/gridster.min.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-1.12.1.min.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/jquery-ui-custom.css">
-	<link rel="stylesheet" type="text/css" href="//<?= $server ?>/css/style.css?v=0.8.6">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery.duration-picker.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery.jbox.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery.jbox-notice.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/gridster.min.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery-ui-1.12.1.min.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery-ui-custom.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/introjs.min.css">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/app.min.css?v=0.8.6">
 
-	<title><?=$system?> - <?= $server == 'static.eve-apps.com' ? 'Tripwire' : 'Galileo' ?></title>
+	<title></title>
 </head>
 <?php flush(); ?>
 <body class="transition">
@@ -64,10 +66,10 @@ if ($row = $stmt->fetchObject()) {
 	<div id="topbar">
 		<span class="align-left">
 			<h1 id="logo" class="pointer">
-			<?php if ($server == 'static.eve-apps.com') { ?>
-				<a href=".">Tripwire</a><span id="beta">Beta</span>
+			<?php if (CDN_DOMAIN  == 'galileo.eve-apps.com') { ?>
+				<a href="."><?= APP_NAME ?></a><span id="dev">Dev</span>
 			<?php } else { ?>
-				<a href=".">Galileo</a><span id="dev">Dev</span>
+				<a href="."><?= APP_NAME ?></a>
 			<?php } ?>
 				 | <span data-tooltip="System activity update countdown"><input id="APIclock" class="hidden" /></span>
 			</h1>
@@ -154,32 +156,42 @@ if ($row = $stmt->fetchObject()) {
 	<div class="gridster">
 		<ul>
 			<li id="infoWidget" class="gridWidget" data-row="1" data-col="1" data-sizex="7" data-sizey="6" data-min-sizex="5" data-min-sizey="4" style="width: 410px; height: 350px;">
+				<div class="controls">
+					<div style="float: right;">
+						<i id="system-favorite" data-icon="star-empty" data-tooltip="Add/Remove favorite"></i>
+						<i class="tutorial" data-tooltip="Show tutorial for this section">?</i>
+					</div>
+				</div>
 				<div class="content">
-					<i id="system-favorite" data-icon="star-empty" style="float: right; padding-top: 10px; font-size: 2em;"></i>
-					<h1 id="infoSystem" class="pointer" style="color: #CCC;"><?=$system?></h1>
-					<h4 id="infoSecurity" class="pointer">&nbsp;</h4>
-					<h4 id="infoRegion" class="pointer">&nbsp;</h4>
-					<h4 id="infoFaction" class="pointer">&nbsp;</h4>
+					<div id="infoGeneral">
+						<h1 id="infoSystem" class="pointer" style="color: #CCC;"><?=$system?></h1>
+						<h4 id="infoSecurity" class="pointer">&nbsp;</h4>
+						<h4 id="infoRegion" class="pointer">&nbsp;</h4>
+						<h4 id="infoFaction" class="pointer">&nbsp;</h4>
+					</div>
 					<div id="activityGraph"></div>
-					<div style="text-align: center;"><a href="javascript: activity.time(168);">Week</a> - <a href="javascript: activity.time(48);">48Hour</a> - <a href="javascript: activity.time(24);">24Hour</a></div>
-					<span id="infoStatics" class="pointer" style="float: left;"></span>
-					<a class="infoLink" style="float: right;" data-href='http://wh.pasta.gg/$systemName' href="" target="_blank">wormhol.es</a><br/>
-					<a class="infoLink" style="float: right;" data-href="http://evemaps.dotlan.net/search?q=$systemName" href="" target="_blank">dotlan</a>
-					<!--<a class="infoLink" style="float: right;" data-href='http://eve-kill.net/?a=system_detail&sys_name=$systemName' href="" target="_blank">Eve-kill.net&nbsp;&nbsp;</a>-->
-					<a class="infoLink" style="float: right;" data-href='https://zkillboard.com/system/$systemID' href="" target="_blank">zKillboard&nbsp;&nbsp;</a>
+					<div id="activityGraphControls" style="text-align: center;"><a href="javascript: activity.time(168);">Week</a> - <a href="javascript: activity.time(48);">48Hour</a> - <a href="javascript: activity.time(24);">24Hour</a></div>
+					<div id="infoStatics" class="pointer" style="float: left; width: 50%; text-align: left;"></div>
+					<div id="infoLinks" style="float: right; width: 50%; text-align: right;">
+						<a class="infoLink" data-href='http://wh.pasta.gg/$systemName' href="" target="_blank">wormhol.es</a><br/>
+						<a class="infoLink" data-href="http://evemaps.dotlan.net/search?q=$systemName" href="" target="_blank">dotlan</a><br/>
+						<!--<a class="infoLink" style="float: right;" data-href='http://eve-kill.net/?a=system_detail&sys_name=$systemName' href="" target="_blank">Eve-kill.net&nbsp;&nbsp;</a>-->
+						<a class="infoLink" data-href='https://zkillboard.com/system/$systemID' href="" target="_blank">zKillboard</a>
+					</div>
 				</div>
 			</li>
 			<li id="signaturesWidget" class="gridWidget" data-row="1" data-col="8" data-sizex="7" data-sizey="6" data-min-sizex="5" data-min-sizey="2" style="width: 410px; height: 350px;">
 				<div class="controls">
 					<i id="add-signature" data-icon="plus" data-tooltip="Add a new signature"></i>
-					<i id="toggle-automapper" data-icon="auto" data-tooltip="Toggle Auto-Mapper"></i>
-					<span style="padding-left: 25px;">
-						<i id="signature-count" style="font-style: normal; cursor: default;" data-tooltip="Total signature count">&nbsp;</i>
-					</span>
-					<span style="padding-left: 25px;">
-						<i id="undo" data-icon="undo" class="disabled" data-tooltip="Undo last signature change"></i>
-						<i id="redo" data-icon="redo" class="disabled" data-tooltip="Redo what was undone"></i>
-					</span>
+					<i id="delete-signature" data-icon="trash" data-tooltip="Delete selected signature(s)" class="disabled"></i>
+					<span>|</span>
+					<i id="signature-count" style="font-style: normal; cursor: default;" data-tooltip="Total signature count">&nbsp;</i>
+					<i id="undo" data-icon="undo" class="disabled" data-tooltip="Undo last signature change"></i>
+					<i id="redo" data-icon="redo" class="disabled" data-tooltip="Redo what was undone"></i>
+					<div style="float: right;">
+						<i id="toggle-automapper" data-icon="auto" data-tooltip="Toggle Auto-Mapper"></i>
+						<i class="tutorial" data-tooltip="Show tutorial for this section">?</i>
+					</div>
 				</div>
 				<div class="content">
 					<table id="sigTable" width="100%">
@@ -191,8 +203,6 @@ if ($row = $stmt->fetchObject()) {
 								<th class="sortable">Leads To<i data-icon=""></i></th>
 								<th class="sortable">Life<i data-icon=""></i></th>
 								<th class="sortable">Mass<i data-icon=""></i></th>
-								<th class="sorter-false"></th>
-								<th class="sorter-false"></th>
 							</tr>
 						</thead>
 						<tbody></tbody>
@@ -202,6 +212,9 @@ if ($row = $stmt->fetchObject()) {
 			<li id="notesWidget" class="gridWidget" data-row="1" data-col="15" data-sizex="7" data-sizey="6" data-min-sizex="5" data-min-sizey="2" style="width: 410px; height: 350px;">
 				<div class="controls">
 					<i id="add-comment" data-icon="plus" data-tooltip="Add a new comment"></i>
+					<div style="float: right;">
+						<i class="tutorial" data-tooltip="Show tutorial for this section">?</i>
+					</div>
 				</div>
 				<div class="content">
 					<div class="comment hidden">
@@ -299,7 +312,7 @@ if ($row = $stmt->fetchObject()) {
 		<form id="donate_form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 			<input type="hidden" name="cmd" value="_s-xclick">
 			<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
-			<img id="donate" src="//<?= $server ?>/images/landing/donate.jpg" onclick="document.getElementById('donate_form').submit();" alt="PayPal - The safer, easier way to pay online!">
+			<img id="donate" src="//<?= CDN_DOMAIN ?>/images/landing/donate.jpg" onclick="document.getElementById('donate_form').submit();" alt="PayPal - The safer, easier way to pay online!">
 		</form>
 		<?php printf("<span id='pageTime'>Page generated in %.3f seconds.</span>", microtime(true) - $startTime); ?>
 		<p>All Eve Related Materials are Property Of <a href="http://www.ccpgames.com" target="_blank">CCP Games</a></p>
@@ -316,186 +329,124 @@ if ($row = $stmt->fetchObject()) {
 		<i data-icon="alert"></i> This signature will be removed from this system. Are you sure?
 	</div>
 
-	<div id="dialog-sigAdd" title="Add Signature" class="hidden">
-		<form id="sigAddForm">
-			<table width="100%" cellpadding="0" cellspacing="0">
-				<colgroup>
-					<col style="width: 20%;" />
-					<col style="width: 25%;" />
-					<col style="width: 20%;" />
-					<col style="width: 30%;" />
-				</colgroup>
-				<tr>
-					<th>ID:</th>
-					<td colspan="3">
-						<input type="text" name="signatureID" id="sigID" maxlength="3" size="3" />
-						<strong>- ###</strong>
-						<span style="float: right;">
-							<select id="sigType" name="type">
-								<option value="Sites">Combat</option>
-								<option value="Wormhole">Wormhole</option>
-								<option value="Ore">Ore</option>
-								<option value="Data">Data</option>
-								<option value="Gas">Gas</option>
-								<option value="Relic">Relic</option>
+	<div id="dialog-signature" title="Add Signature" class="hidden">
+		<form id="form-signature">
+			<div class="row">
+				<span class="label">ID:</span>
+				<input name="signatureID_Alpha" type="text" maxlength="3" size="2" class="signatureID" />
+				<span class="label">-</span>
+				<input name="signatureID_Numeric" type="text" maxlength="3" size="2" placeholder="###" class="signatureID" />
+				<span id="signatureType" class="select">
+					<select name="signatureType">
+						<option value="combat">Combat</option>
+						<option value="wormhole">Wormhole</option>
+						<option value="ore">Ore</option>
+						<option value="data">Data</option>
+						<option value="gas">Gas</option>
+						<option value="relic">Relic</option>
+					</select>
+				</span>
+			</div>
+			<div class="row">
+				<span class="label">Length:</span>
+				<input type="text" value="" name="signatureLength" id="durationPicker" />
+			</div>
+			<div id="site">
+				<!-- <div class="row">
+					<span class="label">Life:</span>
+					<span class="select">
+						<select name="signatureLife">
+							<option value="24">24 Hours</option>
+							<option value="48">48 Hours</option>
+							<option value="72">72 Hours</option>
+							<option value="168">7 Days</option>
+							<option value="672">28 Days</option>
+						</select>
+					</span>
+				</div> -->
+				<div id="signatureName" class="row">
+					<span class="label">Name:</span>
+					<span><input name="signatureName" type="text" maxlength="35" /></span>
+				</div>
+			</div>
+			<div id="wormhole" class="hidden">
+				<div class="side">
+					<div class="sideLabel"></div>
+					<div class="row">
+						<span class="label">Type:</span>
+						<input name="wormholeType" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
+						<span class="bookmark">
+							<span class="label">BM:</span>
+							<input name="" type="text" maxlength="10" size="8" />
+						</span>
+					</div>
+					<div class="row">
+						<span class="label">Leads:</span>
+						<span data-autocomplete="sigSystems">
+							<input name="leadsTo" type="text" maxlength="20" size="20" class="leadsTo" />
+							<select>
+								<option value="Null-Sec">Null-Sec</option>
+								<option value="Low-Sec">Low-Sec</option>
+								<option value="High-Sec">High-Sec</option>
+								<option value="Class-#">Class-#</option>
+								<option value="Frig-Class-#">Frig-Class-#</option>
+								<!-- <option value="Class-1">Class-1</option>
+								<option value="Class-2">Class-2</option>
+								<option value="Class-2">Class-2</option>
+								<option value="Class-3">Class-3</option>
+								<option value="Class-4">Class-4</option>
+								<option value="Class-5">Class-5</option>
+								<option value="Class-6">Class-6</option> -->
 							</select>
 						</span>
-					</td>
-				</tr>
-				<tr class="sig-site">
-					<th><div>Life:</div></th>
-					<td colspan="3">
-						<div>
-							<select id="sigLife" name="lifeLength" data-tooltip="Length the signature will last">
-								<option value="24">24 Hours</option>
-								<option value="48">48 Hours</option>
-								<option value="72">72 Hours</option>
-								<option value="168">7 Days</option>
-								<option value="672">28 Days</option>
+					</div>
+					<div class="row">
+						<span class="label">Name:</span>
+						<input name="wormholeName" type="text" maxlength="20" size="20" />
+					</div>
+				</div>
+				<hr/>
+				<div class="side">
+					<div class="sideLabel"></div>
+					<div class="row">
+						<span class="label">ID:</span>
+						<input name="signatureID2_Alpha" type="text" maxlength="3" size="2" class="signatureID" />
+						<span class="label">-</span>
+						<input name="signatureID2_Numeric" type="text" maxlength="3" size="2" placeholder="###" class="signatureID" />
+					</div>
+					<div class="row">
+						<span class="label">Type:</span>
+						<input name="wormholeType2" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
+						<span class="bookmark">
+							<span class="label">BM:</span>
+							<input name="" type="text" maxlength="10" size="8" />
+						</span>
+					</div>
+					<div class="row">
+						<span class="label">Name:</span>
+						<input name="wormholeName2" type="text" maxlength="20" size="20" />
+					</div>
+					<div class="row">
+						<span class="label">Life:</span>
+						<span class="select">
+							<select name="wormholeLife">
+								<option value="stable">Stable</option>
+								<option value="critical">Critical</option>
 							</select>
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-site">
-					<th><div>Name:</div></th>
-					<td colspan="3">
-						<div>
-							<input type="text" id="sigName" name="name" maxlength="35" style="box-sizing: border-box; width: 99%;" />
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-wormhole hidden">
-					<th><div class="hidden">Type:</div></th>
-					<td colspan="3">
-						<div class="hidden">
-							<input id="whType" name="whType" class="typesAutocomplete" type="text" maxlength="4" size="4" />
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-wormhole hidden">
-					<th><div class="hidden">Leads:</div></th>
-					<td colspan="3">
-						<div class="hidden">
-							<input id="connection" name="connectionName" class="sigSystemsAutocomplete" type="text" maxlength="20" size="20" />
-							<input type="button" id="autoAdd" disabled="disabled" value="A" style="padding: 1px 12px;" />
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-wormhole hidden">
-					<th><div class="hidden">Life:</div></th>
-					<td>
-						<div class="hidden">
-							<select id="whLife" name="whLife">
-								<option>Stable</option>
-								<option>Critical</option>
-							</select>
-						</div>
-					</td>
-					<th><div class="hidden">Mass:</div></th>
-					<td>
-						<div class="hidden">
-							<select id="whMass" name="whMass">
-								<option>Stable</option>
-								<option>Destab</option>
-								<option>Critical</option>
-							</select>
-						</div>
-					</td>
-				</tr>
-			</table>
-			<input type="submit" style="position: absolute; left: -99999px;" tabindex="-1" />
-		</form>
-	</div>
-
-	<div id="dialog-sigEdit" title="Edit Signature" class="hidden dialog">
-		<form id="sigEditForm">
-			<input type="hidden" name="side" value="" />
-			<table width="100%" cellpadding="0" cellspacing="0">
-				<colgroup>
-					<col style="width: 15%;" />
-					<col style="width: 25%;" />
-					<col style="width: 15%;" />
-					<col style="width: 45%;" />
-				</colgroup>
-				<tr>
-					<th>ID:</th>
-					<td colspan="2">
-						<input type="text" id="sigID" name="signatureID" maxlength="3" size="3" />
-						<strong>- ###</strong>
-					</td>
-					<td style="float: right;">
-						<select id="sigType" name="type">
-							<option value="Sites">Sites</option>
-							<option value="Wormhole">Wormhole</option>
-							<option value="Ore">Ore</option>
-							<option value="Data">Data</option>
-							<option value="Gas">Gas</option>
-							<option value="Relic">Relic</option>
-						</select>
-					</td>
-				</tr>
-				<tr class="sig-site">
-					<th><div>Life:</div></th>
-					<td colspan="3">
-						<div>
-							<select id="sigLife" name="lifeLength">
-								<option value="24">24 Hours</option>
-								<option value="48">48 Hours</option>
-								<option value="72">72 Hours</option>
-								<option value="168">7 Days</option>
-								<option value="672">28 Days</option>
-								<option value="4032">Infinite</option>
-							</select>
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-site">
-					<th><div>Name:</div></th>
-					<td colspan="3">
-						<div>
-							<input type="text" id="sigName" name="name" maxlength="35" size="32" style="box-sizing: border-box; width: 99%;" />
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-wormhole hidden">
-					<th><div class="hidden">Type:</div></th>
-					<td colspan="3">
-						<div class="hidden">
-							<input id="whType" name="whType" class="typesAutocomplete" type="text" maxlength="4" size="4" />
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-wormhole hidden">
-					<th><div class="hidden">Leads:</div></th>
-					<td colspan="3">
-						<div class="hidden">
-							<input id="connection" name="connectionName" class="sigSystemsAutocomplete" type="text" maxlength="20" size="20" />
-							<input type="button" id="autoEdit" disabled="disabled" value="A" style="padding: 1px 12px;" />
-						</div>
-					</td>
-				</tr>
-				<tr class="sig-wormhole hidden">
-					<th><div class="hidden">Life:</div></th>
-					<td>
-						<div class="hidden">
-							<select id="whLife" name="whLife">
-								<option>Stable</option>
-								<option>Critical</option>
-							</select>
-						</div>
-					</td>
-					<th><div class="hidden">Mass:</div></th>
-					<td>
-						<div class="hidden">
-							<select id="whMass" name="whMass">
-								<option>Stable</option>
-								<option>Destab</option>
-								<option>Critical</option>
-							</select>
-						</div>
-					</td>
-				</tr>
-			</table>
+						</span>
+						<span id="wormholeMass">
+							<span class="label">Mass:</span>
+							<span class="select">
+								<select name="wormholeMass">
+									<option value="stable">Stable</option>
+									<option value="destab">Destab</option>
+									<option value="critical">Critical</option>
+								</select>
+							</span>
+						</span>
+					</div>
+				</div>
+			</div>
 			<input type="submit" style="position: absolute; left: -99999px;" tabindex="-1" />
 		</form>
 	</div>
@@ -694,6 +645,13 @@ if ($row = $stmt->fetchObject()) {
 							<input type="text" id="background-image" maxlength="200" />
 						</td>
 					</tr>
+					<tr>
+						<th>UI Scale:</th>
+						<td>
+							<label for="uiscale-slider"></label>
+							<div id="uiscale-slider"></div>
+						</td>
+					</tr>
 				</table>
 			</div>
 			<h3><a href="#">Personal Statistics</a></h3>
@@ -776,7 +734,7 @@ if ($row = $stmt->fetchObject()) {
 					<th>Mask Type:</th>
 					<td>
 						<select name="type">
-							<option value="char">Personal</option>
+							<option value="char">Character</option>
 							<option value="corp">Corporate</option>
 						</select>
 					</td>
@@ -879,8 +837,19 @@ if ($row = $stmt->fetchObject()) {
 			<input type="hidden" name="mode" value="search" />
 			<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
 				<tr>
-					<th>Search Name:</th>
+					<th>Search:</th>
 					<td><input type="text" name="name" maxlength="50" /></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="radio" value="character" name="category" id="characterSearch" />
+						<label for="characterSearch">Character</label>
+						<input type="radio" value="corporation" name="category" id="corporationSearch" checked="checked" />
+						<label for="corporationSearch">Corporation</label>
+						<br/>
+						<input type="checkbox" value="exact" name="exact" id="exactSearch" />
+						<label for="exactSearch">Exact Match</label>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -897,6 +866,7 @@ if ($row = $stmt->fetchObject()) {
 							    </div>
 							</div>
 						</span>
+						<span style="position: absolute; left: 15px; text-align: left;" id="searchCount"></span>
 						<input type="submit" value="Search" />
 					</td>
 				</tr>
@@ -953,10 +923,10 @@ if ($row = $stmt->fetchObject()) {
 		<form id="newTab_form">
 			<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
 				<tr>
-					<th>Name:</th><td><input type="text" id="name" maxlength="20" size="20" /></td>
+					<th>Name:</th><td><input type="text" class="name" maxlength="20" size="20" /></td>
 				</tr>
 				<tr>
-					<th>System:</th><td><input type="radio" name="tabType" id="tabType1" checked="checked" style="vertical-align: text-top;" /><input type="text" id="system" class="sigSystemsAutocomplete" size="20" /></td>
+					<th>System:</th><td><input type="radio" name="tabType" id="tabType1" checked="checked" style="vertical-align: text-top;" /><input type="text" class="sigSystemsAutocomplete" size="20" /></td>
 				</tr>
 				<tr>
 					<th></th><td><input type="radio" name="tabType" id="tabType2" style="vertical-align: middle;" /><label for="tabType2" style="width: 164px; display: inline-block; padding-left: 2px; text-align: left;">&nbsp;K-Space</label></td>
@@ -974,11 +944,11 @@ if ($row = $stmt->fetchObject()) {
 			<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
 				<tr>
 					<th>Name:</th>
-					<td><input type="text" id="name" maxlength="20" size="20" /></td>
+					<td><input type="text" class="name" maxlength="20" size="20" /></td>
 				</tr>
 				<tr>
 					<th>System:</th>
-					<td><input type="radio" name="tabType" id="editTabType1" checked="checked" style="vertical-align: text-top;" /><input type="text" id="system" class="sigSystemsAutocomplete" size="20" /></td>
+					<td><input type="radio" name="tabType" id="editTabType1" checked="checked" style="vertical-align: text-top;" /><input type="text" class="sigSystemsAutocomplete" size="20" /></td>
 				</tr>
 				<tr>
 					<th></th>
@@ -1088,22 +1058,28 @@ if ($row = $stmt->fetchObject()) {
 	</script>
 
 	<!-- JS Includes -->
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery-ui-1.12.1.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.tablesorter.combined.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.ui-contextmenu.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.plugin.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.countdown.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.inlinecomplete.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.gridster.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.knob.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox-0.4.7.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/jquery.jbox-notice-0.4.6.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/ckeditor/ckeditor.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/dragscroll.js"></script>
-	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart','orgchart']}]}"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/moment.min.js"></script>
-	<script type="text/javascript" src="//<?= $server ?>/js/core.js?v=0.8.8.1"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery-ui-1.12.1.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.tablesorter.combined.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.ui-contextmenu.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.plugin.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.countdown.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.inlinecomplete.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.gridster.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.knob.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.jbox-0.4.7.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.jbox-notice-0.4.6.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.duration-picker.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/dragscroll.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<!-- Google Charts -->
+	<script type="text/javascript">google.charts.load('current', {packages: ['corechart', 'orgchart']});</script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/moment.min.js"></script>
+	<!-- <script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/mustache.min.js"></script> -->
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/intro.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/combine.js?v=0.8.6"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/app.min.js?v=0.8.6"></script>
 	<!-- JS Includes -->
 </body>
 </html>

@@ -1,11 +1,11 @@
 <?php
 
-session_start();
-
-if(!isset($_SESSION['super']) || $_SESSION['super'] != 1) {
-	echo 'Security Failure!';
-	exit();
-}
+// session_start();
+//
+// if(!isset($_SESSION['super']) || $_SESSION['super'] != 1) {
+// 	echo 'Security Failure!';
+// 	exit();
+// }
 
 ini_set('display_errors', 'On');
 
@@ -121,6 +121,7 @@ if ($chars && count($chars) > 0) {
 
 	for ($x = 0, $l = count($chars); $x < $l; $x += 250) {
 		$apiData = $API->getEveIds(implode(',', array_slice($chars, $x, 250)));
+		$output['debug'] = $apiData;
 
 		if ($apiData != 0 && count($apiData) > 0)
 			$result = array_merge($result, $apiData);
@@ -139,6 +140,6 @@ if ($chars && count($chars) > 0) {
 
 $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
 
-#echo json_encode($output);
+echo json_encode($output);
 
 ?>
