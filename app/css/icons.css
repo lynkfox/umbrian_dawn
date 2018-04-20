@@ -175,6 +175,10 @@
 [data-icon="radio-on"]:before {
 	content: "\e608";
 }
+[data-icon="trash"]:before {
+	content: "\e9ad";
+	vertical-align: text-top;
+}
 [data-icon="sort"]:before {
 	content: "\f0dc";
 }

@@ -1,8 +1,8 @@
 var tripwire = new function() {
     this.timer, this.xhr;
 	this.version = "0.8.6";
-	this.client = {signatures: {}};
-	this.server = {signatures: {}};
+	this.client = {signatures: {}, wormholes: {}};
+	this.server = {signatures: {}, wormholes: {}};
 	this.signatures = {list: {}, undo: JSON.parse(sessionStorage.getItem("tripwire_undo")) || {}, redo: JSON.parse(sessionStorage.getItem("tripwire_redo")) || {}};
 	this.activity = {};
 	this.data = {tracking: {}, esi: {}};
@@ -121,14 +121,19 @@ var tripwire = new function() {
 		// date = new Date(date.getTime() + localOffset);
         var date = new Date(sig.lifeTime);
 
-		var tooltip = "<table class=\"age-tooltip-table\"><tr><th>Created:</th><td>"+(date.getMonth()+1)+"/"+date.getDate()+" "+(date.getHours() < 10?'0':'')+date.getHours()+":"+(date.getMinutes() < 10?'0':'')+date.getMinutes()+"</td></tr>";
+		var tooltip = "<table class=\"age-tooltip-table\"><tr>"
+        + "<th>Created:</th><td>"+(date.getMonth()+1)+"/"+date.getDate()+" "+(date.getHours() < 10?'0':'')+date.getHours()+":"+(date.getMinutes() < 10?'0':'')+date.getMinutes()+"</td>"
+        + "<td>"+sig.createdByName+"</td>"
+        + "</tr>";
 
 		if (sig.lifeTime != sig.modifiedTime) {
 			date = new Date(sig.modifiedTime);
 			// localOffset = date.getTimezoneOffset() * 60000;
 			// date = new Date(date.getTime() + localOffset);
 
-			tooltip += "<tr><th>Last Modified:</th><td>"+(date.getMonth()+1)+"/"+date.getDate()+" "+(date.getHours() < 10?'0':'')+date.getHours()+":"+(date.getMinutes() < 10?'0':'')+date.getMinutes()+"</td></tr>";
+			tooltip += "<tr><th>Last Modified:</th><td>"+(date.getMonth()+1)+"/"+date.getDate()+" "+(date.getHours() < 10?'0':'')+date.getHours()+":"+(date.getMinutes() < 10?'0':'')+date.getMinutes()+"</td>"
+          + "<td>"+sig.modifiedByName+"</td>"
+          + "</tr>";
 		}
 
 		tooltip += "</table>";

@@ -316,24 +316,29 @@ $(".options").click(function(e) {
 							type: "POST",
 							data: $(this).serialize(),
 							dataType: "JSON"
-						}).done(function(response) {
+						}).then(function(response) {
 							if (response && response.results) {
-								for (var x in response.results) {
-									var mask = response.results[x];
-									var node = $(''
-										+ '<input type="radio" name="mask" id="mask'+mask.mask+'" value="'+mask.mask+'" class="selector" data-owner="false" data-admin="'+mask.admin+'" />'
-										+ '<label for="mask'+mask.mask+'" style="width: 100%; margin-left: -5px;">'
-										+ '	<img src="'+mask.img+'" />'
-										+ '	<span class="selector_label">'+mask.label+'</span>'
-										+ '	<div class="info">'
-										+ '		'+(mask.characterName ? mask.characterName + '<br/>' : '')
-										+ '		'+mask.corporationName+'<br/>'
-										+ '		'+mask.allianceName
-										+ '	</div>'
-										+ '</label>');
+								return tripwire.esi.fullLookup(response.eveIDs)
+									.done(function(results) {
+										if (results) {
+											for (var x in results) {
+												var mask = response.results[x];
+												var node = $(''
+													+ '<input type="radio" name="mask" id="mask'+mask.mask+'" value="'+mask.mask+'" class="selector" data-owner="false" data-admin="'+mask.admin+'" />'
+													+ '<label for="mask'+mask.mask+'" style="width: 100%; margin-left: -5px;">'
+													+ '	<img src="'+mask.img+'" />'
+													+ '	<span class="selector_label">'+mask.label+'</span>'
+													+ '	<div class="info">'
+													+ '		'+results[x].name + '<br/>'
+													+ '		'+results[x].corporation.name+'<br/>'
+													+ '		'+(results[x].alliance ? results[x].alliance.name : '')+'<br/>'
+													+ '	</div>'
+													+ '</label>');
 
-									$("#dialog-joinMask #results").append(node);
-								}
+												$("#dialog-joinMask #results").append(node);
+											}
+										}
+									});
 							} else if (response && response.error) {
 								$("#dialog-error #msg").text(response.error);
 								$("#dialog-error").dialog("open");
@@ -341,7 +346,7 @@ $(".options").click(function(e) {
 								$("#dialog-error #msg").text("Unknown error");
 								$("#dialog-error").dialog("open");
 							}
-						}).always(function() {
+						}).then(function() {
 							$("#dialog-joinMask #loading").hide();
 							$("#dialog-joinMask input[type='submit']").removeAttr("disabled");
 						});
@@ -684,7 +689,7 @@ $(".options").click(function(e) {
 									results = results.slice(0, 10);
 									return tripwire.esi.fullLookup(results)
 										.done(function(results) {
-											$("#EVEsearch #searchCount").html("Found: "+total+"<br/>Showing: 10");
+											$("#EVEsearch #searchCount").html("Found: "+total+"<br/>Showing: "+(total<10?total:10));
 											if (results) {
 												for (var x in results) {
 													if (results[x].category == "character") {

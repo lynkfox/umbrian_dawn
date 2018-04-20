@@ -2,6 +2,10 @@
 tripwire.deleteSig = function(key) {
     var tr = $("#sigTable tr[data-id='"+key+"']");
 
+    // unselect the tr because we will delete it
+    $(tr).removeClass("selected");
+    $("#delete-signature").trigger("delete:refresh");
+
     //Append empty space to prevent non-coloring
     $(tr).find('td:empty, a:empty').append("&nbsp;");
 

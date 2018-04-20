@@ -120,5 +120,8 @@ tripwire.systemChange = function(systemID, mode) {
     // Reset undo/redo
     tripwire.signatures.undo[systemID] && tripwire.signatures.undo[systemID].length > 0 ? $("#undo").removeClass("disabled") : $("#undo").addClass("disabled");
     tripwire.signatures.redo[systemID] && tripwire.signatures.redo[systemID].length > 0 ? $("#redo").removeClass("disabled") : $("#redo").addClass("disabled");
+
+    // Reset delete signature icon
+    $("#sigTable tr.selected").length == 0 ? $("#signaturesWidget #delete-signature").addClass("disabled") : $("#signaturesWidget #delete-signature").removeClass("disabled");
 }
 tripwire.systemChange(viewingSystemID, "init");

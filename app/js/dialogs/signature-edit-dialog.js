@@ -123,8 +123,8 @@ function openSigEdit(e) {
 	}
 }
 
-$("#sigTable").on("click", ".sigEdit", openSigEdit);
-$("#sigTable tbody").on("dblclick", "tr", openSigEdit);
+// $("#sigTable").on("click", ".sigEdit", openSigEdit);
+// $("#sigTable tbody").on("dblclick", "tr", openSigEdit);
 
 $("#sigEditForm").submit(function(e) {
 	e.preventDefault();

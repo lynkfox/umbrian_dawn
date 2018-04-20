@@ -33,18 +33,25 @@ $("body").on("click", "#redo:not(.disabled)", function() {
 });
 
 $(document).keydown(function(e)	{
+	//Abort - user is in input or textarea
+	if ($(document.activeElement).is("textarea, input")) return;
+
 	if ((e.metaKey || e.ctrlKey) && (e.keyCode == 89 || e.keyCode == 90)) {
-		//Abort - user is in input or textarea
-		if ($(document.activeElement).is("textarea, input")) return;
 
 		e.preventDefault();
 
+		// ctrl-z (undo) & ctrl-y (redo) keyhooks
 		if (e.keyCode == 89 && !$("#redo").hasClass("disabled")) {
 			$("#redo").click();
 			Notify.trigger("Redoing last undo");
 		} else if (e.keyCode == 90 && !$("#undo").hasClass("disabled")) {
 			$("#undo").click();
 			Notify.trigger("Undoing last action");
+		}
+	} else {
+		// delete key keyhooks
+		if (e.keyCode == 46 && $("#sigTable tr.selected").length > 0) {
+			$("#delete-signature").click();
 		}
 	}
 });
@@ -734,6 +741,7 @@ $("#chainMap").contextmenu({
 	}
 });
 
+// Used to generate eve-survival guide link
 function linkSig(sigName) {
 	var wormholeSignatures = [
 		// Ore sites
@@ -827,6 +835,7 @@ function linkSig(sigName) {
 	return sigName;
 }
 
+// Custom inlinecomplete + dropdown input
 $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 	_create: function() {
 		if (!this.element.is("input")) {
@@ -845,9 +854,9 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 		return originalReturn;
 	},
 	_suggest: function(items) {
-		if (this.element.val() != items[0].value) {
-			this.element.val(items[0].value.substr(0, this.element.val().length));
-		}
+		// if (this.element.val() != items[0].value) {
+			// this.element.val(items[0].value.substr(0, this.element.val().length));
+		// }
 
 		// Invoke the parent function
 		return this._super(items);
@@ -920,16 +929,39 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 
 				// Pass empty string as value to search for, displaying all results
 				that.options.source = that.options.select_source;
-				that._search("")
+				that._search("");
 			});
-      },
+		},
 });
 
+// Initialize tablesorter plugin on signaturesWidget table
 $("#sigTable").tablesorter({
 	sortReset: true,
 	widgets: ['saveSort'],
 	textExtraction: {
 		2: function(node) { return $(node).find("span").data("age"); }
+	}
+});
+
+// Highlight signaturesWidget tr on click
+$("#sigTable tbody").on("click", "tr", function(e) {
+	if ($(this).hasClass("selected")) {
+		$(this).removeClass("selected");
+	} else {
+		$(this).addClass("selected");
+	}
+
+	// Enable/Disable icon
+	$("#signaturesWidget #delete-signature").trigger("delete:refresh");
+});
+
+// Update signaturesWidget delete icon based on .selected rows
+$("#signaturesWidget #delete-signature").on("delete:refresh", function(e) {
+	// Enable/Disable icon
+	if ($("#sigTable tr.selected").length == 0) {
+		$("#signaturesWidget #delete-signature").addClass("disabled");
+	} else {
+		$("#signaturesWidget #delete-signature").removeClass("disabled");
 	}
 });
 

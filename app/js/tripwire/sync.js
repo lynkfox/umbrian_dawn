@@ -1,5 +1,5 @@
 tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
-    var data = typeof(data) === "object" ? data : {};
+    var data = typeof(data) === "object" ? $.extend(true, {}, data) : {};
 
     // Grab any pending changes
     $.extend(true, data, tripwire.data);
@@ -9,8 +9,8 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
     if (this.xhr) this.xhr.abort();
 
     if (mode == 'refresh' || mode == 'change') {
-        data.sigCount = Object.size(this.client.signatures);
-        data.sigTime = Object.maxTime(this.client.signatures, "modifiedTime");
+        data.signatureCount = Object.size(this.client.signatures);
+        data.signatureTime = Object.maxTime(this.client.signatures, "modifiedTime");
 
         data.chainCount = Object.size(chain.data.rawMap);
         data.chainTime = Object.maxTime(chain.data.rawMap, "time");

@@ -1,14 +1,16 @@
-$("#sigTable").on("click", ".sigDelete", function(e) {
+$("#signaturesWidget").on("click", "#delete-signature", function(e) {
 	e.preventDefault();
 
 	if ($(this).closest("tr").attr("disabled")) {
+		return false;
+	} else if ($("#sigTable tr.selected").length == 0) {
 		return false;
 	} else if ($("#dialog-sigEdit").hasClass("ui-dialog-content") && $("#dialog-sigEdit").dialog("isOpen")) {
 		$("#dialog-sigEdit").parent().effect("shake", 300);
 		return false;
 	}
 
-	$(this).closest("tr").addClass("selected");
+	// $(this).closest("tr").addClass("selected");
 	//$(this).addClass("invisible");
 
 	// check if dialog is open
@@ -21,20 +23,31 @@ $("#sigTable").on("click", ".sigDelete", function(e) {
 				Delete: function() {
 					// Prevent duplicate submitting
 					$("#dialog-deleteSig").parent().find(":button:contains('Delete')").button("disable");
+					var payload = {"signatures": {"remove": []}, "systemID": viewingSystemID};
+					var undo = [];
 
-					var ids = $.map($("#sigTable tr.selected"), function(n) { return $(n).data("id"); });
-					var data = {"request": {"signatures": {"delete": ids}}, "systemID": viewingSystemID};
-					var undo = $.map(ids, function(id) { return tripwire.client.signatures[id] });
+					var signatures = $.map($("#sigTable tr.selected"), function(n) {
+						var signature = tripwire.client.signatures[$(n).data("id")];
+						if (signature.type != "wormhole") {
+							undo.push(signature);
+							return signature.id;
+						} else {
+							var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == signature.id || wormhole.childID == signature.id) return wormhole; })[0];
+							undo.push({"wormhole": wormhole, "signatures": [tripwire.client.signatures[wormhole.parentID], tripwire.client.signatures[wormhole.childID]]});
+							return wormhole;
+						}
+					});
+					payload.signatures.remove = signatures;
 
 					var success = function(data) {
-						if (data && data.result == true) {
+						if (data.resultSet && data.resultSet[0].result == true) {
 							$("#dialog-deleteSig").dialog("close");
 
 							$("#undo").removeClass("disabled");
 							if (viewingSystemID in tripwire.signatures.undo) {
-								tripwire.signatures.undo[viewingSystemID].push({action: "delete", signatures: undo});
+								tripwire.signatures.undo[viewingSystemID].push({action: "remove", signatures: undo});
 							} else {
-								tripwire.signatures.undo[viewingSystemID] = [{action: "delete", signatures: undo}];
+								tripwire.signatures.undo[viewingSystemID] = [{action: "remove", signatures: undo}];
 							}
 
 							sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
@@ -45,14 +58,14 @@ $("#sigTable").on("click", ".sigDelete", function(e) {
 						$("#dialog-deleteSig").parent().find(":button:contains('Delete')").button("enable");
 					}
 
-					tripwire.refresh('refresh', data, success, always);
+					tripwire.refresh('refresh', payload, success, always);
 				},
 				Cancel: function() {
 					$(this).dialog("close");
 				}
 			},
 			close: function() {
-				$("#sigTable tr.selected").removeClass("selected");
+				// $("#sigTable tr.selected").removeClass("selected");
 				//$("#sigTable .sigDelete").removeClass("invisible");
 			}
 		});

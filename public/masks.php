@@ -21,7 +21,6 @@ if(!isset($_SESSION['userID'])) {
 
 require_once('../config.php');
 require_once('../db.inc.php');
-require_once('../api.class.php');
 require_once('../lib.inc.php');
 
 $mode = isset($_REQUEST['mode'])?$_REQUEST['mode']:null;
@@ -137,16 +136,7 @@ if ($mode == 'create') {
 				'img' => $row->ownerType == 2?'https://image.eveonline.com/Corporation/'.$row->ownerID.'_64.png':'https://image.eveonline.com/Character/'.$row->ownerID.'_64.jpg'
 			);
 		}
-
-		if (count($ids)) {
-			$API = new API();
-
-			foreach ($API->getEveIds(implode(',', $ids)) as $x => $api) {
-				$output['results'][$x]['characterName'] = $api->characterName;
-				$output['results'][$x]['corporationName'] = $api->corporationName;
-				$output['results'][$x]['allianceName'] = $api->allianceName;
-			}
-		}
+		$output['eveIDs'] = $ids;
 	} else {
 		$output['error'] = "No masks found";
 	}

@@ -17,6 +17,12 @@ var activity = new function() {
 		var span = typeof(span) !== "undefined" ? span : this.span;
 		var cache = typeof(cache) !== "undefined" ? cache : true;
 
+		// Google hasn't finished loading yet
+		if (!activity.graph) {
+				setTimeout(function() {activity.getData(span, cache)}, 500);
+				return false;
+		}
+
 		return $.ajax({
 			url: "activity_graph.php",
 			data: {systemID: viewingSystemID, time: span},

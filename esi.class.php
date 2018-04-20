@@ -162,6 +162,26 @@ class esi {
 
         return $titles;
     }
+
+    public function getJumps() {
+        $result = $this->getAPI(self::$esiUrl.'/v1/universe/system_jumps/');
+
+        if ($result === false) {
+            return false;
+        }
+
+        return json_decode($result);
+    }
+
+    public function getKills() {
+        $result = $this->getAPI(self::$esiUrl.'/v2/universe/system_kills/');
+
+        if ($result === false) {
+            return false;
+        }
+
+        return json_decode($result);
+    }
 }
 
 ?>

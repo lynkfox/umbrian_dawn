@@ -4,55 +4,35 @@ tripwire.addSig = function(add, option, disabled) {
     var option = option || {};
     var animate = typeof(option.animate) !== 'undefined' ? option.animate : true;
     var disabled = disabled || false;
+    var wormhole = {};
 
-    if (add.mass) {
-        var nth = add.systemID == viewingSystemID ? add.nth : add.nth2;
-        var sigID = add.systemID == viewingSystemID ? add.signatureID : add.sig2ID;
-        var sigtype = add.systemID == viewingSystemID ? add.type : add.sig2Type;
-        var sigTypeBM = add.systemID == viewingSystemID ? add.typeBM : add.type2BM;
-        var systemID = add.systemID == viewingSystemID ? add.connectionID : add.systemID;
-        var name = add.systemID == viewingSystemID ? add.connection : add.system;
-        var system = tripwire.systems[systemID] ? "<a href='.?system="+tripwire.systems[systemID].name+"'>"+(name ? name : tripwire.systems[systemID].name)+"</a>" : name;
+    if (add.type == "wormhole") {
+        var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == add.id || wormhole.childID == add.id) return wormhole; })[0];
+        var otherSignature = add.id == wormhole.parentID ? tripwire.client.signatures[wormhole.childID] : tripwire.client.signatures[wormhole.parentID];
 
-        switch (add.life) {
-            case "Stable":
-                var lifeClass = "stable";
-                break;
-            case "Critical":
-                var lifeClass = "critical";
-                break;
-            default:
-                var lifeClass = "";
-        }
-
-        switch (add.mass) {
-            case "Stable":
-                var massClass = "stable";
-                break;
-            case "Destab":
-                var massClass = "destab";
-                break;
-            case "Critical":
-                var massClass = "critical";
-                break;
-            default:
-                var massClass = "";
+        if (add.name) {
+          leadsTo = tripwire.systems[otherSignature.systemID] ? "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+add.name+"</a>" : add.name;
+        } else if (tripwire.aSigSystems[otherSignature.systemID]) {
+            leadsTo = tripwire.aSigSystems[otherSignature.systemID];
+        } else if (tripwire.systems[otherSignature.systemID]) {
+            leadsTo = "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+tripwire.systems[otherSignature.systemID].name+"</a>";
+        } else {
+            leadsTo = "";
         }
 
         var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
-            + "<td class='"+ options.signatures.alignment.sigID +"'>"+sigID+"</td>"
-            //+ "<td class='type-tooltip' title=\""+this.whTooltip(add)+"\">"+(nth>1?'&nbsp;&nbsp;&nbsp;':'')+(sigtype)+(nth>1?' '+nth:'')+"</td>"
-            + "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(add)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
+            + "<td class='"+ options.signatures.alignment.sigID +"'>"+(add.signatureID ? add.signatureID.substring(0, 3)+"-"+(add.signatureID.substring(3, 6) || "###") : "???-###")+"</td>"
+            + "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(wormhole)+"\">"+(wormhole.parentID == add.id ? wormhole.type || "????" : "K162")+"</td>"
             + "<td class=\"age-tooltip "+ options.signatures.alignment.sigAge +"\" data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
-            + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+system+"</td>"
-            + "<td class='"+lifeClass+" "+ options.signatures.alignment.sigLife +"'>"+add.life+"</td>"
-            + "<td class='"+massClass+" "+ options.signatures.alignment.sigMass +"'>"+add.mass+"</td>"
+            + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+(leadsTo || "")+"</td>"
+            + "<td class='"+wormhole.life+" "+ options.signatures.alignment.sigLife +"'>"+wormhole.life+"</td>"
+            + "<td class='"+wormhole.mass+" "+ options.signatures.alignment.sigMass +"'>"+wormhole.mass+"</td>"
             + "</tr>";
 
         var tr = $(row);
     } else {
         var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
-            + "<td class='"+ options.signatures.alignment.sigID +"'>"+add.signatureID.substring(0, 3)+"-"+add.signatureID.substring(3, 6)+"</td>"
+            + "<td class='"+ options.signatures.alignment.sigID +"'>"+(add.signatureID ? add.signatureID.substring(0, 3)+"-"+(add.signatureID.substring(3, 6) || "###") : "???-###")+"</td>"
             + "<td class='"+ options.signatures.alignment.sigType +"'>"+add.type+"</td>"
             + "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
             + "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(add.name?linkSig(add.name):'')+"</td>"
@@ -62,22 +42,19 @@ tripwire.addSig = function(add, option, disabled) {
     }
 
     Tooltips.attach($(tr).find("[data-tooltip]"));
-    //Tooltips.attach($(tr))
 
     $("#sigTable").append(tr);
 
     $("#sigTable").trigger("update");
 
     // Add counter
-    if (add.life == "Critical") {
+    if (wormhole.life == "critical") {
         $(tr).find('span[data-age]').countdown({until: moment.utc(add.lifeLeft).toDate(), onExpiry: this.pastEOL, alwaysExpire: true, compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime})
-            .countdown('pause')
+            // .countdown('pause')
             .addClass('critical')
-            .countdown('resume');
+            // .countdown('resume');
     } else {
-        $(tr).find('span[data-age]').countdown({since: moment.utc(add.lifeTime).toDate(), compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime})
-            .countdown('pause')
-            .countdown('resume');
+        $(tr).find('span[data-age]').countdown({since: moment.utc(add.lifeTime).toDate(), compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime});
     }
 
     if (animate) {

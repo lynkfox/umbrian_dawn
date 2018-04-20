@@ -1,5 +1,14 @@
-$("#add-signature2").click(function(e) {
+$("#sigTable tbody").on("dblclick", "tr", {mode: "update"}, openSignatureDialog);
+$("#add-signature").click({mode: "add"}, openSignatureDialog);
+
+function openSignatureDialog(e) {
 	e.preventDefault();
+	mode = e.data.mode;
+
+	if (mode == "update") {
+		$("#sigTable tr.selected").removeClass("selected");
+		$(this).closest("tr").addClass("selected");
+	}
 
 	if (!$("#dialog-signature").hasClass("ui-dialog-content")) {
 		$("#dialog-signature").dialog({
@@ -8,6 +17,9 @@ $("#add-signature2").click(function(e) {
 			dialogClass: "dialog-noeffect ui-dialog-shadow",
 			position: {my: "center", at: "center", of: $("#signaturesWidget")},
 			buttons: {
+				Save: function() {
+					$("#form-signature").submit();
+				},
 				Add: function() {
 					$("#form-signature").submit();
 				},
@@ -48,11 +60,13 @@ $("#add-signature2").click(function(e) {
 
 				// Auto fill opposite side wormhole w/ K162
 				$("#dialog-signature .wormholeType").on("input, change", function() {
-					if ($(this).val().length > 0 && $.inArray($(this).val(), aSigWormholes) != -1 && $(this).val() != "K162") {
+					if (this.value.length > 0 && $.inArray(this.value, aSigWormholes) != -1 && this.value != "K162") {
 						$("#dialog-signature .wormholeType").not(this).val("K162");
 
 						// Also auto calculate duration
-						$("#dialog-signature #durationPicker").val(tripwire.wormholes[$(this).val()].life.substring(0, 2) * 60 * 60).change();
+						if (tripwire.wormholes[this.value]) {
+							$("#dialog-signature #durationPicker").val(tripwire.wormholes[this.value].life.substring(0, 2) * 60 * 60).change();
+						}
 					}
 				});
 
@@ -122,50 +136,97 @@ $("#add-signature2").click(function(e) {
 					});
 					if (!valid) return false;
 
-					console.log(form);
+					// console.log(form);
 
 					var payload = {};
+					var undo = [];
 					if (form.signatureType === "wormhole") {
 						var signature = {
 							"signatureID": form.signatureID_Alpha + form.signatureID_Numeric,
 							"systemID": viewingSystemID,
 							"type": "wormhole",
-							"name": form.wormholeName
+							"name": form.wormholeName,
+							"lifeLength": form.signatureLength
 						};
 						var signature2 = {
 							"signatureID": form.signatureID2_Alpha + form.signatureID2_Numeric,
 							"systemID": Object.index(tripwire.systems, "name", form.leadsTo) ? Object.index(tripwire.systems, "name", form.leadsTo) : $.inArray(form.leadsTo, tripwire.aSigSystems),
 							"type": "wormhole",
-							"name": form.wormholeName2
+							"name": form.wormholeName2,
+							"lifeLength": form.signatureLength
 						};
 						var wormhole = {
 							"type": tripwire.wormholes[form.wormholeType] ? form.wormholeType : (tripwire.wormholes[form.wormholeType2] ? form.wormholeType2 : ""),
 							"life": form.wormholeLife,
 							"mass": form.wormholeMass
 						};
-						payload = {"wormholes": {"add": [{"wormhole": wormhole, "signatures": [signature, signature2]}]}};
+
+						if (mode == "update") {
+							signature.id = $("#dialog-signature").data("signatureid");
+							signature2.id = $("#dialog-signature").data("signature2id");
+							wormhole.id = $("#dialog-signature").data("wormholeid");
+							payload = {"signatures": {"update": [{"wormhole": wormhole, "signatures": [signature, signature2]}]}};
+
+							if (tripwire.client.wormholes[wormhole.id]) {
+									undo.push({"wormhole": tripwire.client.wormholes[wormhole.id], "signatures": [tripwire.client.signatures[signature.id], tripwire.client.signatures[signature2.id]]});
+							} else {
+									// used to be just a regular signature
+									undo.push(tripwire.client.signatures[signature.id]);
+							}
+						} else {
+							payload = {"signatures": {"add": [{"wormhole": wormhole, "signatures": [signature, signature2]}]}};
+						}
 					} else {
-						var signature = {
-							"signatureID": form.signatureID_Alpha + form.signatureID_Numeric,
-							"systemID": viewingSystemID,
-							"type": form.signatureType,
-							"name": form.signatureName
-						};
-						payload = {"signatures": {"add": [signature]}};
+						if (mode == "update") {
+							var signature = {
+								"id": $("#dialog-signature").data("signatureid"),
+								"signatureID": form.signatureID_Alpha + form.signatureID_Numeric,
+								"systemID": viewingSystemID,
+								"type": form.signatureType,
+								"name": form.signatureName,
+								"lifeLength": form.signatureLength
+							};
+							payload = {"signatures": {"update": [signature]}};
+							undo.push(tripwire.client.signatures[signature.id]);
+						} else {
+							var signature = {
+								"signatureID": form.signatureID_Alpha + form.signatureID_Numeric,
+								"systemID": viewingSystemID,
+								"type": form.signatureType,
+								"name": form.signatureName,
+								"lifeLength": form.signatureLength
+							};
+							payload = {"signatures": {"add": [signature]}};
+						}
 					}
 
-					$.ajax({
-						url: "signatures2.php",
-						method: "POST",
-						data: payload,
-						dataType: "JSON"
-					}).done(function(result) {
-						if (result.resultSet[0].result == true) {
+					$("#dialog-signature").parent().find(":button:contains('Save')").button("disable");
+
+					var success = function(data) {
+						if (data.resultSet && data.resultSet[0].result == true) {
 							$("#dialog-signature").dialog("close");
+
+							$("#undo").removeClass("disabled");
+
+							if (mode == "add") {
+								undo = data.results;
+							}
+							if (viewingSystemID in tripwire.signatures.undo) {
+								tripwire.signatures.undo[viewingSystemID].push({action: mode, signatures: undo});
+							} else {
+								tripwire.signatures.undo[viewingSystemID] = [{action: mode, signatures: undo}];
+							}
+
+							sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
 						}
-					}).always(function(result) {
-						console.log(result);
-					})
+					}
+
+					var always = function() {
+						$("#sigEditForm input[type=submit]").removeAttr("disabled");
+						$("#dialog-signature").parent().find(":button:contains('Save')").button("enable");
+					}
+
+					tripwire.refresh('refresh', payload, success, always);
 				});
 			},
 			open: function() {
@@ -181,12 +242,62 @@ $("#add-signature2").click(function(e) {
 
 				// Default signature life
 				$("#dialog-signature #durationPicker").val(options.signatures.pasteLife * 60 * 60).change();
+
+				if (mode == "update") {
+					var id = $("#sigTable tr.selected").data("id");
+					var signature = tripwire.client.signatures[id];
+					$("#dialog-signature").data("signatureid", id);
+
+					// Change the dialog buttons
+					$("#dialog-signature").parent().find("button:contains('Add')").hide();
+					$("#dialog-signature").parent().find("button:contains('Save')").show();
+
+					// Change the dialog title
+					$("#dialog-signature").dialog("option", "title", "Edit Signature");
+
+					// console.log(signature);
+					if (signature.type == "wormhole") {
+						var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == id || wormhole.childID == id) return wormhole; })[0];
+						var otherSignature = id == wormhole.parentID ? tripwire.client.signatures[wormhole.childID] : tripwire.client.signatures[wormhole.parentID];
+						$("#dialog-signature").data("signature2id", otherSignature.id);
+						$("#dialog-signature").data("wormholeid", wormhole.id);
+
+						$("#dialog-signature input[name='signatureID_Alpha']").val(signature.signatureID ? signature.signatureID.substr(0, 3) : "???");
+						$("#dialog-signature input[name='signatureID_Numeric']").val(signature.signatureID ? signature.signatureID.substr(3, 5) : "");
+						$("#dialog-signature [name='signatureType']").val(signature.type).selectmenu("refresh").trigger("selectmenuchange");
+						$("#dialog-signature [name='wormholeName']").val(signature.name);
+						$("#dialog-signature #durationPicker").val(signature.lifeLength).change();
+						$("#dialog-signature input[name='wormholeType']").val(wormhole.parentID == signature.id ? wormhole.type : 'K162');
+						$("#dialog-signature [name='leadsTo']").val(tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : (tripwire.aSigSystems[otherSignature.systemID] ? tripwire.aSigSystems[otherSignature.systemID] : ""));
+
+						$("#dialog-signature input[name='signatureID2_Alpha']").val(otherSignature.signatureID ? otherSignature.signatureID.substr(0, 3) : "???");
+						$("#dialog-signature input[name='signatureID2_Numeric']").val(otherSignature.signatureID ? otherSignature.signatureID.substr(3, 5) : "");
+						$("#dialog-signature input[name='wormholeType2']").val(wormhole.parentID == otherSignature.id ? wormhole.type : 'K162');
+						$("#dialog-signature [name='wormholeName2']").val(otherSignature.name);
+						$("#dialog-signature [name='wormholeLife']").val(wormhole.life).selectmenu("refresh").trigger("selectmenuchange");
+						$("#dialog-signature [name='wormholeMass']").val(wormhole.mass).selectmenu("refresh").trigger("selectmenuchange");
+					} else {
+						$("#dialog-signature input[name='signatureID_Alpha']").val(signature.signatureID.substr(0, 3));
+						$("#dialog-signature input[name='signatureID_Numeric']").val(signature.signatureID.substr(3, 5));
+						$("#dialog-signature [name='signatureType']").val(signature.type).selectmenu("refresh").trigger("selectmenuchange");
+						$("#dialog-signature [name='signatureName']").val(signature.name);
+						$("#dialog-signature #durationPicker").val(signature.lifeLength).change();
+					}
+				} else {
+					// Change the dialog buttons
+					$("#dialog-signature").parent().find("button:contains('Add')").show();
+					$("#dialog-signature").parent().find("button:contains('Save')").hide();
+
+					// Change the dialog title
+					$("#dialog-signature").dialog("option", "title", "Add Signature");
+				}
 			},
 			close: function() {
 				ValidationTooltips.close();
+				$("#sigTable tr.selected").removeClass("selected");
 			}
 		});
 	} else if (!$("#dialog-signature").dialog("isOpen")) {
 		$("#dialog-signature").dialog("open");
 	}
-});
+};

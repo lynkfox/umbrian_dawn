@@ -1,16 +1,15 @@
 // Handles pasting sigs from EVE
 tripwire.pasteSignatures = function() {
     var processing = false;
-    var paste;
 
     var rowParse = function(row) {
-        var scanner = {group: "", type: ""};
+        var scanner = {};
         var columns = row.split("	"); // Split by tab
         var validScanGroups = ["Cosmic Signature", "Cosmic Anomaly", "Kosmische Anomalie", "Kosmische Signatur",
                                 "Источники сигналов", "Космическая аномалия"];
-        var validGroups = ["Wormhole", "Relic Site", "Gas Site", "Ore Site", "Data Site", "Combat Site",
-                            "Wurmloch", "Reliktgebiet", "Gasgebiet", "Mineraliengebiet", "Datengebiet", "Kampfgebiet",
-                            "Червоточина", "АРТЕФАКТЫ: район поиска артефактов", "ГАЗ: район добычи газа", "РУДА: район добычи руды", "ДАННЫЕ: район сбора данных", "ОПАСНО: район повышенной опасности"];
+        var validTypes = {"Gas Site": "Gas", "Data Site": "Data", "Relic Site": "Relic", "Ore Site": "Ore", "Combat Site": "Combat", "Wormhole": "Wormhole",
+                            "Gasgebiet": "Gas", "Datengebiet": "Data", "Reliktgebiet": "Relic", "Mineraliengebiet": "Ore", "Kampfgebiet": "Combat", "Wurmloch": "Wormhole",
+                            "ГАЗ: район добычи газа": "Gas", "ДАННЫЕ: район сбора данных": "Data", "АРТЕФАКТЫ: район поиска артефактов": "Relic", "РУДА: район добычи руды": "Ore", "ОПАСНО: район повышенной опасности": "Combat", "Червоточина": "Wormhole"};
 
         for (var x in columns) {
             if (columns[x].match(/([A-Z]{3}[-]\d{3})/)) {
@@ -27,13 +26,13 @@ tripwire.pasteSignatures = function() {
                 continue;
             }
 
-            if ($.inArray(columns[x], validGroups) != -1) {
-                scanner.group = columns[x];
+            if (validTypes[columns[x]]) {
+                scanner.type = validTypes[columns[x]];
                 continue;
             }
 
             if (columns[x] != "") {
-                scanner.type = columns[x];
+                scanner.name = columns[x];
             }
         }
 
@@ -44,122 +43,119 @@ tripwire.pasteSignatures = function() {
         return scanner;
     }
 
-    this.pasteSignatures.parsePaste = function(data) {
-        var rows = data.split("\n");
-        var data = {"request": {"signatures": {"add": [], "update": []}}};
-        var ids = $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? sig.signatureID : sig.sig2ID)});
-        var wormholeGroups = ["Wormhole", "Wurmloch", "Червоточина"];
-        var siteGroups = ["Combat Site", "Kampfgebiet", "ОПАСНО: район повышенной опасности"];
-        var otherGroups = {"Gas Site": "Gas", "Data Site": "Data", "Relic Site": "Relic", "Ore Site": "Ore",
-                            "Gasgebiet": "Gas", "Datengebiet": "Data", "Reliktgebiet": "Relic", "Mineraliengebiet": "Ore",
-                            "ГАЗ: район добычи газа": "Gas", "ДАННЫЕ: район сбора данных": "Data", "АРТЕФАКТЫ: район поиска артефактов": "Relic", "РУДА: район добычи руды": "Ore"};
+    this.pasteSignatures.parsePaste = function(paste) {
+        var paste = paste.split("\n");
+        var payload = {"signatures": {"add": [], "update": []}, "systemID": viewingSystemID};
+        var undo = [];
+        processing = true;
 
-        for (var row in rows) {
-            var scanner = rowParse(rows[row]);
+        for (var i in paste) {
+            var scanner = rowParse(paste[i]);
 
             if (scanner.id) {
-                if ($.inArray(scanner.group, wormholeGroups) != -1) {
-                    type = "Wormhole";
-                    whType = "???";
-                    sigName = null;
-                } else if ($.inArray(scanner.group, siteGroups) != -1) {
-                    type = 'Sites';
-                    sigName = scanner.type;
-                } else if (otherGroups[scanner.group]) {
-                    type = otherGroups[scanner.group];
-                    sigName = scanner.type;
-                } else {
-                    type = null;
-                    sigName = null;
-                }
-
-                if (ids.indexOf(scanner.id[0]) !== -1) {
+                var signature = $.map(tripwire.client.signatures, function(signature) { if (signature.signatureID == scanner.id[0] + scanner.id[1]) return signature; })[0];
+                if (signature) {
                     // Update signature
-                    sig = $.map(tripwire.client.signatures, function(sig) {return sig.mask == "273.0" && ((options.chain.active != null && !options.chain.tabs[options.chain.active].evescout) || options.chain.active == null) ? null : (viewingSystemID == sig.systemID ? (sig.signatureID == scanner.id[0]?sig:null):(sig.sig2ID == scanner.id[0]?sig:null))})[0];
-                    if (sig && viewingSystemID == sig.systemID) {
-                        // Parent side
-                        if ((type && sig.type != type) || (sigName && sig.name != sigName)) {
-                            if ((type == "Wormhole" && sig.life == null) || type !== "Wormhole") {
-                                data.request.signatures.update.push({
-                                    id: sig.id,
-                                    side: "parent",
-                                    signatureID: scanner.id[0],
-                                    systemID: viewingSystemID,
-                                    systemName: "",
-                                    type: type || sig.type || "???",
-                                    name: sigName || sig.name,
-                                    sig2ID: sig.sig2ID || "???",
-                                    connectionName: sig.connection || null,
-                                    connectionID: sig.connectionID || null,
-                                    whLife: sig.life || "New Stable",
-                                    whMass: sig.mass || "Stable",
-                                    lifeLength: sig.lifeLength || 24,
-                                    life: sig.lifeLength || 24
-                                });
-                            }
-                        }
+                    if (scanner.type == "Wormhole") {
+                        var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == signature.id || wormhole.childID == signature.id) return wormhole; })[0] || {};
+                        var otherSignature = wormhole.id ? (signature.id == wormhole.parentID ? tripwire.client.signatures[wormhole.childID] : tripwire.client.signatures[wormhole.parentID]) : {};
+                        payload.signatures.update.push({
+                            "wormhole": {
+                                "id": wormhole.id || null,
+                                "type": wormhole.type || null,
+                                "life": wormhole.life || "stable",
+                                "mass": wormhole.mass || "stable"
+                            },
+                            "signatures": [
+                                {
+                                    "id": signature.id,
+                                    "signatureID": signature.signatureID,
+                                    "systemID": viewingSystemID,
+                                    "type": "wormhole",
+                                    "name": signature.name
+                                },
+                                {
+                                    "id": otherSignature.id || null,
+                                    "signatureID": otherSignature.signatureID || null,
+                                    "systemID": otherSignature.systemID || null,
+                                    "type": "wormhole",
+                                    "name": otherSignature.name
+                                }
+                            ]
+                        });
+
+                        if (tripwire.client.wormholes[wormhole.id]) {
+          									undo.push({"wormhole": tripwire.client.wormholes[wormhole.id], "signatures": [tripwire.client.signatures[signature.id], tripwire.client.signatures[otherSignature.id]]});
+          							} else {
+          									// used to be just a regular signature
+          									undo.push(tripwire.client.signatures[signature.id]);
+          							}
                     } else {
-                        // Child side
-                        if (sig && ((type && sig.sig2Type != type) || (sigName && sig.name != sigName))) {
-                            if ((type == "Wormhole" && sig.life == null) || type !== "Wormhole") {
-                                data.request.signatures.update.push({
-                                    id: sig.id,
-                                    side: "child",
-                                    sig2ID: scanner.id[0],
-                                    systemID: sig.connectionID || null,
-                                    systemName: sig.connectionName || null,
-                                    type: type || sig.sig2Type || "???",
-                                    name: sigName || sig.name,
-                                    connectionName: "",
-                                    connectionID: viewingSystemID,
-                                    whLife: sig.life || "New Stable",
-                                    whMass: sig.mass || "Stable",
-                                    lifeLength: sig.lifeLength || 24,
-                                    life: sig.lifeLength || 24
-                                });
-                            }
-                        }
+                        payload.signatures.update.push({
+                            "id": signature.id,
+                            "systemID": viewingSystemID,
+                            "type": scanner.type,
+                            "name": scanner.name,
+                            "lifeLength": options.signatures.pasteLife * 60 * 60
+                        });
+                        undo.push(tripwire.client.signatures[signature.id]);
                     }
                 } else {
                     // Add signature
-                    ids.push(scanner.id[0]);
-
-                    data.request.signatures.add.push({
-                        signatureID: scanner.id[0],
-                        systemID: viewingSystemID,
-                        connectionName: "",
-                        type: type || "???",
-                        name: sigName,
-                        life: options.signatures.pasteLife,
-                        lifeLength: options.signatures.pasteLife
-                    });
+                    if (scanner.type == "Wormhole") {
+                        payload.signatures.add.push({
+                            "wormhole": {
+                                "type": null,
+                                "life": "stable",
+                                "mass": "stable"
+                            },
+                            "signatures": [
+                                {
+                                    "signatureID": scanner.id[0] + scanner.id[1],
+                                    "systemID": viewingSystemID,
+                                    "type": "wormhole",
+                                    "name": null
+                                },
+                                {
+                                    "signatureID": null,
+                                    "systemID": null,
+                                    "type": "wormhole",
+                                    "name": null
+                                }
+                            ]
+                        });
+                    } else {
+                        payload.signatures.add.push({
+                            signatureID: scanner.id[0] + scanner.id[1],
+                            systemID: viewingSystemID,
+                            type: scanner.type || null,
+                            name: scanner.name,
+                            lifeLength: options.signatures.pasteLife * 60 * 60
+                        });
+                    }
                 }
             }
         }
 
-        if (data.request.signatures.add.length || data.request.signatures.update.length) {
-            data.systemID = viewingSystemID;
-
-            var update = $.map(data.request.signatures.update, function(signature) { return tripwire.client.signatures[signature.id]; });
+        if (payload.signatures.add.length || payload.signatures.update.length) {
             var success = function(data) {
-                if (data.result == true) {
+                if (data.resultSet && data.resultSet[0].result == true) {
                     $("#undo").removeClass("disabled");
-                    if (viewingSystemID in tripwire.signatures.undo) {
-                        if (data.resultSet) {
-                            tripwire.signatures.undo[viewingSystemID].push({action: "add", signatures: $.map(data.resultSet, function(id) { return data.signatures[id]; })});
-                        }
 
-                        if (update.length) {
-                            tripwire.signatures.undo[viewingSystemID].push({action: "update", signatures: update});
+                    if (data.results) {
+                        if (viewingSystemID in tripwire.signatures.undo) {
+                            tripwire.signatures.undo[viewingSystemID].push({action: "add", signatures: data.results});
+                        } else {
+                            tripwire.signatures.undo[viewingSystemID] = [{action: "add", signatures: data.results}];
                         }
-                    } else {
-                        if (data.resultSet) {
-                            tripwire.signatures.undo[viewingSystemID] = [{action: "add", signatures: $.map(data.resultSet, function(id) { return data.signatures[id]; })}];
-                        }
+                    }
 
-                        if (update.length) {
-                            tripwire.signatures.undo[viewingSystemID] = [{action: "update", signatures: update}];
-                        }
+                    if (undo.length) {
+                        if (viewingSystemID in tripwire.signatures.undo) {
+                            tripwire.signatures.undo[viewingSystemID].push({action: "update", signatures: undo});
+          							} else {
+                            tripwire.signatures.undo[viewingSystemID] = [{action: "update", signatures: undo}];
+          							}
                     }
 
                     sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
@@ -170,7 +166,7 @@ tripwire.pasteSignatures = function() {
                 processing = false;
             }
 
-            tripwire.refresh('refresh', data, success, always);
+            tripwire.refresh('refresh', payload, success, always);
         } else {
             processing = false;
         }
@@ -189,59 +185,63 @@ tripwire.pasteSignatures = function() {
         $("body").on("click", "#fullPaste", function(e) {
             e.preventDefault();
 
-            var rows = paste.split("\n");
+            var paste = $(this).data("paste").split("\n");
             var pasteIDs = [];
-            var deletes = [];
+            var removes = [];
             var undo = [];
 
-            for (var x in rows) {
-                if (scan = rowParse(rows[x])) {
-                    pasteIDs.push(scan.id[0]);
+            for (var i in paste) {
+                if (scan = rowParse(paste[i])) {
+                    pasteIDs.push(scan.id[0] + scan.id[1]);
                 }
             }
 
             for (var i in tripwire.client.signatures) {
-                var sig = tripwire.client.signatures[i];
+                var signature = tripwire.client.signatures[i];
 
-                if (sig.systemID == viewingSystemID && $.inArray(sig.signatureID, pasteIDs) == -1 && sig.type !== "GATE" && sig.signatureID !== "???") {
-                    deletes.push(sig.id);
-                    undo.push(sig);
-                } else if (sig.connectionID == viewingSystemID && $.inArray(sig.sig2ID, pasteIDs) == -1 && sig.sig2Type !== "GATE" && sig.sig2ID !== "???") {
-                    deletes.push(sig.id);
-                    undo.push(sig);
+                if (signature.systemID == viewingSystemID && $.inArray(signature.signatureID, pasteIDs) === -1) {
+                    if (signature.type == "wormhole") {
+                        var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == signature.id || wormhole.childID == signature.id) return wormhole; })[0] || {};
+                        var otherSignature = wormhole.id ? (signature.id == wormhole.parentID ? tripwire.client.signatures[wormhole.childID] : tripwire.client.signatures[wormhole.parentID]) : {};
+                        if (wormhole.type !== "GATE") {
+                            removes.push(wormhole);
+                            undo.push({"wormhole": wormhole, "signatures": [signature, otherSignature]});
+                        }
+                    } else {
+                        removes.push(signature.id);
+                        undo.push(signature);
+                    }
                 }
             }
 
-            if (deletes.length > 0) {
-                var data = {"request": {"signatures": {"delete": deletes}}};
+            if (removes.length > 0) {
+                var payload = {"signatures": {"remove": removes}};
 
                 var success = function(data) {
-                    if (data.result == true) {
+                    if (data.resultSet && data.resultSet[0].result == true) {
                         $("#undo").removeClass("disabled");
                         if (viewingSystemID in tripwire.signatures.undo) {
-                            tripwire.signatures.undo[viewingSystemID].push({action: "delete", signatures: undo});
+                            tripwire.signatures.undo[viewingSystemID].push({action: "remove", signatures: undo});
                         } else {
-                            tripwire.signatures.undo[viewingSystemID] = [{action: "delete", signatures: undo}];
+                            tripwire.signatures.undo[viewingSystemID] = [{action: "remove", signatures: undo}];
                         }
 
                         sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
                     }
                 }
 
-                tripwire.refresh('refresh', data, success);
+                tripwire.refresh('refresh', payload, success);
             }
         });
 
         $("#clipboard").on("paste", function(e) {
             e.preventDefault();
-            var data = window.clipboardData ? window.clipboardData.getData("Text") : (e.originalEvent || e).clipboardData.getData('text/plain');
+            var paste = window.clipboardData ? window.clipboardData.getData("Text") : (e.originalEvent || e).clipboardData.getData('text/plain');
 
             $("#clipboard").blur();
-
-            processing = true;
-            paste = data;
             Notify.trigger("Paste detected<br/>(<a id='fullPaste' href=''>Click to delete missing sigs</a>)");
-            tripwire.pasteSignatures.parsePaste(data);
+            $("#fullPaste").data("paste", paste);
+            tripwire.pasteSignatures.parsePaste(paste);
         });
     }
 

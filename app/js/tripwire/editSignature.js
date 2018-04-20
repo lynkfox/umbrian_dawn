@@ -2,55 +2,35 @@
 // ToDo: Use native JS
 tripwire.editSig = function(edit, disabled) {
     var disabled = disabled || false;
+    var wormhole = {};
 
-    if (edit.mass) {
-        var nth = edit.systemID == viewingSystemID ? edit.nth : edit.nth2;
-        var sigID = edit.systemID == viewingSystemID ? edit.signatureID : edit.sig2ID;
-        var sigtype = edit.systemID == viewingSystemID ? edit.type : edit.sig2Type;
-        var sigTypeBM = edit.systemID == viewingSystemID ? edit.typeBM : edit.type2BM;
-        var systemID = edit.systemID == viewingSystemID ? edit.connectionID : edit.systemID;
-        var name = edit.systemID == viewingSystemID ? edit.connection : edit.system;
-        var system = tripwire.systems[systemID] ? "<a href='.?system="+tripwire.systems[systemID].name+"'>"+(name ? name : tripwire.systems[systemID].name)+"</a>" : name;
+    if (edit.type == "wormhole") {
+        var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == edit.id || wormhole.childID == edit.id) return wormhole; })[0];
+        var otherSignature = edit.id == wormhole.parentID ? tripwire.client.signatures[wormhole.childID] : tripwire.client.signatures[wormhole.parentID];
 
-        switch (edit.life) {
-            case "Stable":
-                var lifeClass = "stable";
-                break;
-            case "Critical":
-                var lifeClass = "critical";
-                break;
-            default:
-                var lifeClass = "";
-        }
-
-        switch (edit.mass) {
-            case "Stable":
-                var massClass = "stable";
-                break;
-            case "Destab":
-                var massClass = "destab";
-                break;
-            case "Critical":
-                var massClass = "critical";
-                break;
-            default:
-                var massClass = "";
+        if (edit.name) {
+          leadsTo = tripwire.systems[otherSignature.systemID] ? "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+edit.name+"</a>" : edit.name;
+        } else if (tripwire.aSigSystems[otherSignature.systemID]) {
+            leadsTo = tripwire.aSigSystems[otherSignature.systemID];
+        } else if (tripwire.systems[otherSignature.systemID]) {
+            leadsTo = "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+tripwire.systems[otherSignature.systemID].name+"</a>";
+        } else {
+            leadsTo = "";
         }
 
         var row = "<tr data-id='"+edit.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
-            + "<td class='"+ options.signatures.alignment.sigID +"'>"+sigID+"</td>"
-            //+ "<td class='type-tooltip' title=\""+this.whTooltip(edit)+"\">"+(nth>1?'&nbsp;&nbsp;&nbsp;':'')+(sigtype)+(nth>1?' '+nth:'')+"</td>"
-            + "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(edit)+"\">"+sigtype+sigFormat(sigTypeBM, "type")+"</td>"
+            + "<td class='"+ options.signatures.alignment.sigID +"'>"+(edit.signatureID ? edit.signatureID.substring(0, 3)+"-"+(edit.signatureID.substring(3, 6) || "###") : "???-###")+"</td>"
+            + "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(wormhole)+"\">"+(wormhole.type || "????")+"</td>"
             + "<td class=\"age-tooltip "+ options.signatures.alignment.sigAge +"\" data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
-            + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+system+"</td>"
-            + "<td class='"+lifeClass+" "+ options.signatures.alignment.sigLife +"'>"+edit.life+"</td>"
-            + "<td class='"+massClass+" "+ options.signatures.alignment.sigMass +"'>"+edit.mass+"</td>"
+            + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+(leadsTo || "")+"</td>"
+            + "<td class='"+wormhole.life+" "+ options.signatures.alignment.sigLife +"'>"+wormhole.life+"</td>"
+            + "<td class='"+wormhole.mass+" "+ options.signatures.alignment.sigMass +"'>"+wormhole.mass+"</td>"
             + "</tr>";
 
         var tr = $(row);
     } else {
         var row = "<tr data-id='"+edit.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
-            + "<td class='"+ options.signatures.alignment.sigID +"'>"+edit.signatureID.substring(0, 3)+"-"+edit.signatureID.substring(3, 6)+"</td>"
+            + "<td class='"+ options.signatures.alignment.sigID +"'>"+(edit.signatureID ? edit.signatureID.substring(0, 3)+"-"+(edit.signatureID.substring(3, 6) || "###") : "???-###")+"</td>"
             + "<td class='"+ options.signatures.alignment.sigType +"'>"+edit.type+"</td>"
             + "<td class='age-tooltip "+ options.signatures.alignment.sigAge +"' data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
             + "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(edit.name?linkSig(edit.name):'')+"</td>"
@@ -61,13 +41,13 @@ tripwire.editSig = function(edit, disabled) {
 
     Tooltips.attach($(tr).find("[data-tooltip]"));
 
+    // Destroy the pervious countdown to prevent errors on a non-existant DOM element
+    $("#sigTable tr[data-id='"+edit.id+"']").find('span[data-age]').countdown("destroy");
     $("#sigTable tr[data-id='"+edit.id+"']").replaceWith(tr);
 
-    //coloring();
     $("#sigTable").trigger("update");
-    // Add counter
-    $(tr).find('span[data-age]').countdown("destroy");
-    if (edit.life == "Critical") {
+    // Update counter
+    if (wormhole.life == "critical") {
         $(tr).find('span[data-age]').countdown({until: moment.utc(edit.lifeLeft).toDate(), onExpiry: this.pastEOL, alwaysExpire: true, compact: true, format: this.ageFormat, serverSync: this.serverTime.getTime})
             .addClass('critical');
     } else {
