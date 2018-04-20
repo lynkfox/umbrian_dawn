@@ -1,7 +1,3 @@
-if (window.location.href.indexOf("galileo") != -1) {
-	Notify.trigger("This is the test version of Tripwire.<br/>Please use <a href='https://tripwire.cloud-things.com'>Tripwire</a>")
-}
-
 $("body").on("click", "a[href^='.?system=']", function(e) {
 	e.preventDefault();
 
@@ -1010,3 +1006,7 @@ $("#dialog-confirm").dialog({
 		}
 	}
 });
+
+if (window.location.href.indexOf("galileo") != -1) {
+	Notify.trigger("This is the test version of Tripwire.<br/>Please use <a href='https://tripwire.cloud-things.com'>Tripwire</a>")
+}
