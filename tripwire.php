@@ -338,6 +338,7 @@ if ($row = $stmt->fetchObject()) {
 				<input name="signatureID_Numeric" type="text" maxlength="3" size="2" placeholder="###" class="signatureID" />
 				<span id="signatureType" class="select">
 					<select name="signatureType">
+						<option value="unknown">Unknown</option>
 						<option value="combat">Combat</option>
 						<option value="wormhole">Wormhole</option>
 						<option value="ore">Ore</option>
@@ -1078,8 +1079,8 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/moment.min.js"></script>
 	<!-- <script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/mustache.min.js"></script> -->
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/intro.min.js"></script>
-	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/combine.js?v=0.8.6"></script>
-	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/app.min.js?v=0.8.6"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/combine.js?v=0.9.1"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/app.min.js?v=0.9.1"></script>
 	<!-- JS Includes -->
 </body>
 </html>

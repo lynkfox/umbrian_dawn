@@ -231,7 +231,7 @@ function openSignatureDialog(e) {
 			},
 			open: function() {
 				$("#dialog-signature input").val("");
-				$("#dialog-signature [name='signatureType']").val("combat").selectmenu("refresh");
+				$("#dialog-signature [name='signatureType']").val("unknown").selectmenu("refresh");
 
 				$("#dialog-signature #site").show();
 				$("#dialog-signature #wormhole").hide();

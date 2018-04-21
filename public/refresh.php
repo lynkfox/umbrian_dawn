@@ -5,7 +5,7 @@
 //
 //	======================================================
 // Tripwire version
-define('TRIPWIRE_VERSION', '0.9');
+define('TRIPWIRE_VERSION', '0.9.1');
 
 $startTime = microtime(true);
 // Verify access via Tripwire signon
@@ -229,8 +229,8 @@ $stmt->execute();
 if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	// Send server time for time sync
 	$now = new DateTime();
-	//$now->sub(new DateInterval('PT300S')); // Set clock 300 secounds behind
-	$output['sync'] = $now->format("m/d/Y H:i:s e");
+	$now->add(new DateInterval('PT1S')); // Set clock 1 second ahead, jquery countdown plugin sync needs time to be slightly different that countdown time
+	$output['sync'] = $now->format("M j, Y H:i:s O");
 
 	// Signatures data
 	// $debugStart = microtime(true);
@@ -356,6 +356,11 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$flareTime 				= isset($_REQUEST['flareTime'])?$_REQUEST['flareTime']:null;
 	$commentCount 		= isset($_REQUEST['commentCount'])?$_REQUEST['commentCount']:null;
 	$commentTime 			= isset($_REQUEST['commentTime'])?$_REQUEST['commentTime']:null;
+
+	// Send server time for time sync
+	$now = new DateTime();
+	$now->add(new DateInterval('PT1S')); // Set clock 1 second ahead, jquery countdown plugin sync needs time to be slightly different that countdown time
+	$output['sync'] = $now->format("M j, Y H:i:s O");
 
 	// Check if signatures changed....
 	if ($refresh['sigUpdate'] == false) {

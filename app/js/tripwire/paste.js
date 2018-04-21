@@ -94,7 +94,7 @@ tripwire.pasteSignatures = function() {
                         payload.signatures.update.push({
                             "id": signature.id,
                             "systemID": viewingSystemID,
-                            "type": scanner.type,
+                            "type": scanner.type || 'unknown',
                             "name": scanner.name,
                             "lifeLength": options.signatures.pasteLife * 60 * 60
                         });
@@ -128,7 +128,7 @@ tripwire.pasteSignatures = function() {
                         payload.signatures.add.push({
                             signatureID: scanner.id[0] + scanner.id[1],
                             systemID: viewingSystemID,
-                            type: scanner.type || null,
+                            type: scanner.type || 'unknown',
                             name: scanner.name,
                             lifeLength: options.signatures.pasteLife * 60 * 60
                         });
