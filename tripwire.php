@@ -1079,8 +1079,8 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/moment.min.js"></script>
 	<!-- <script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/mustache.min.js"></script> -->
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/intro.min.js"></script>
-	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/combine.js?v=0.9.1"></script>
-	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/app.min.js?v=0.9.1"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/combine.js?v=0.9.2"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/app.min.js?v=0.9.2"></script>
 	<!-- JS Includes -->
 </body>
 </html>
