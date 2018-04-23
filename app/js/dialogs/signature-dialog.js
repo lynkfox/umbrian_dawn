@@ -67,6 +67,8 @@ function openSignatureDialog(e) {
 						if (tripwire.wormholes[this.value]) {
 							$("#dialog-signature #durationPicker").val(tripwire.wormholes[this.value].life.substring(0, 2) * 60 * 60).change();
 						}
+					} else if (this.value === "K162") {
+						$("#dialog-signature .wormholeType").not(this).val("");
 					}
 				});
 
@@ -171,11 +173,10 @@ function openSignatureDialog(e) {
 							"lifeLength": form.signatureLength
 						};
 						var wormhole = {
-							"type": tripwire.wormholes[form.wormholeType.toUpperCase()] ? form.wormholeType.toUpperCase() : (tripwire.wormholes[form.wormholeType2.toUpperCase()] ? form.wormholeType2.toUpperCase() : ""),
+							"type": $.inArray(form.wormholeType.toUpperCase(), aSigWormholes) !== -1 ? form.wormholeType.toUpperCase() : null,
 							"life": form.wormholeLife,
 							"mass": form.wormholeMass
 						};
-
 						if (mode == "update") {
 							signature.id = $("#dialog-signature").data("signatureid");
 							signature2.id = $("#dialog-signature").data("signature2id");
@@ -282,15 +283,19 @@ function openSignatureDialog(e) {
 						$("#dialog-signature [name='signatureType']").val(signature.type).selectmenu("refresh").trigger("selectmenuchange");
 						$("#dialog-signature [name='wormholeName']").val(signature.name);
 						$("#dialog-signature #durationPicker").val(signature.lifeLength).change();
-						$("#dialog-signature input[name='wormholeType']").val(wormhole.parentID == signature.id ? wormhole.type : 'K162');
 						$("#dialog-signature [name='leadsTo']").val(tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : (tripwire.aSigSystems[otherSignature.systemID] ? tripwire.aSigSystems[otherSignature.systemID] : ""));
 
 						$("#dialog-signature input[name='signatureID2_Alpha']").val(otherSignature.signatureID ? otherSignature.signatureID.substr(0, 3) : "???");
 						$("#dialog-signature input[name='signatureID2_Numeric']").val(otherSignature.signatureID ? otherSignature.signatureID.substr(3, 5) : "");
-						$("#dialog-signature input[name='wormholeType2']").val(wormhole.parentID == otherSignature.id ? wormhole.type : 'K162');
 						$("#dialog-signature [name='wormholeName2']").val(otherSignature.name);
 						$("#dialog-signature [name='wormholeLife']").val(wormhole.life).selectmenu("refresh").trigger("selectmenuchange");
 						$("#dialog-signature [name='wormholeMass']").val(wormhole.mass).selectmenu("refresh").trigger("selectmenuchange");
+
+						if (wormhole.parentID == signature.id) {
+							$("#dialog-signature input[name='wormholeType']").val(wormhole.type).change();
+						} else if (wormhole.parentID == otherSignature.id) {
+							$("#dialog-signature input[name='wormholeType2']").val(wormhole.type).change();
+						}
 					} else {
 						$("#dialog-signature input[name='signatureID_Alpha']").val(signature.signatureID.substr(0, 3));
 						$("#dialog-signature input[name='signatureID_Numeric']").val(signature.signatureID.substr(3, 5));
