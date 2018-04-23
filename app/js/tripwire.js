@@ -1,6 +1,6 @@
 var tripwire = new function() {
     this.timer, this.xhr;
-	this.version = "0.9.2";
+	this.version = version;
 	this.client = {signatures: {}, wormholes: {}};
 	this.server = {signatures: {}, wormholes: {}};
 	this.signatures = {list: {}, undo: JSON.parse(sessionStorage.getItem("tripwire_undo")) || {}, redo: JSON.parse(sessionStorage.getItem("tripwire_redo")) || {}};

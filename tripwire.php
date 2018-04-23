@@ -11,6 +11,7 @@ header('Content-Type: text/html; charset=UTF-8');
 // setcookie('loadedFromBrowserCache','false');
 
 require_once('config.php');
+require_once('settings.php');
 require_once('db.inc.php');
 require('lib.inc.php');
 
@@ -46,6 +47,7 @@ if ($row = $stmt->fetchObject()) {
 	<meta name="systemID" content="<?= $systemID ?>">
 	<meta name="server" content="<?= CDN_DOMAIN ?>">
 	<meta name="app_name" content="<?= APP_NAME ?>">
+	<meta name="version" content="<?= VERSION ?>">
 	<link rel="shortcut icon" href="//<?= CDN_DOMAIN ?>/images/favicon.png" />
 
 	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery.duration-picker.css">
@@ -55,7 +57,7 @@ if ($row = $stmt->fetchObject()) {
 	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery-ui-1.12.1.min.css">
 	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/jquery-ui-custom.css">
 	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/introjs.min.css">
-	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/app.min.css?v=0.8.6">
+	<link rel="stylesheet" type="text/css" href="//<?= CDN_DOMAIN ?>/css/app.min.css?v=<?= VERSION ?>">
 
 	<title></title>
 </head>
@@ -1079,8 +1081,8 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/moment.min.js"></script>
 	<!-- <script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/mustache.min.js"></script> -->
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/intro.min.js"></script>
-	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/combine.js?v=0.9.2"></script>
-	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/app.min.js?v=0.9.2"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/combine.js?v=<?= VERSION ?>"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/app.min.js?v=<?= VERSION ?>"></script>
 	<!-- JS Includes -->
 </body>
 </html>
