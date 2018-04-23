@@ -53,7 +53,6 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
 
             if (data.sync) {
                 tripwire.serverTime.time = new Date(data.sync);
-                tripwire.API();
             }
 
             if (data.signatures)

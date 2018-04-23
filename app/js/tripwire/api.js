@@ -30,7 +30,7 @@ tripwire.API = function() {
             } else if ($("#APItimer").countdown("option", "layout") !== "-{mnn}{sep}{snn}" && $.countdown.periodsToSeconds($("#APItimer").countdown('getTimes')) > 120) {
                 setTimeout("tripwire.API.refresh();", ($.countdown.periodsToSeconds($("#APItimer").countdown('getTimes')) - 30) * 1000);
             } else {
-                setTimeout("tripwire.API.refresh();", 5000);
+                setTimeout("tripwire.API.refresh();", 15000);
             }
         });
     }
@@ -48,12 +48,9 @@ tripwire.API = function() {
             $("#APItimer").countdown({until: tripwire.API.APIrefresh, onExpiry: tripwire.API.expire, alwaysExpire: true, compact: true, format: "MS", serverSync: tripwire.serverTime.getTime, onTick: function(t) { $("#APIclock").val(t[5] + 1).trigger("change"); }})
             var timer = $("#APItimer").countdown("option", "layout") === "-{mnn}{sep}{snn}" ? 15 : $.countdown.periodsToSeconds($("#APItimer").countdown('getTimes')) - 30;
             setTimeout("tripwire.API.refresh();", timer * 1000);
-
-            // Node activity
-            if (data.chain)
-                tripwire.chainMap.parse(data.chain);
         });
     }
 
     this.API.init();
 }
+tripwire.API();
