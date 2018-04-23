@@ -91,7 +91,7 @@ function openSignatureDialog(e) {
 
 					// Validate full signature ID fields (blank | 3 characters)
 					$.each($("#dialog-signature .signatureID:visible"), function() {
-						if ($(this).val().length > 0 && $(this).val().length < 3) {
+						if (this.value.length > 0 && this.value.length < 3) {
 							ValidationTooltips.open({target: $(this)}).setContent("Must be 3 characters in length!");
 							$(this).select();
 							valid = false;
@@ -109,7 +109,7 @@ function openSignatureDialog(e) {
 
 					// Validate wormhole types (blank | wormhole)
 					$.each($("#dialog-signature .wormholeType:visible"), function() {
-						if ($(this).val().length > 0 && $.inArray($(this).val(), aSigWormholes) == -1) {
+						if (this.value.length > 0 && $.inArray(this.value.toUpperCase(), aSigWormholes) == -1) {
 							ValidationTooltips.open({target: $(this)}).setContent("Must be a valid wormhole type!");
 							$(this).select();
 							valid = false;
@@ -118,16 +118,9 @@ function openSignatureDialog(e) {
 					});
 					if (!valid) return false;
 
-					// Validate first leads to (system)
-					if ($("#dialog-signature .leadsTo:visible")[0] && $.inArray($("#dialog-signature .leadsTo:visible:first").val(), tripwire.aSigSystems) == -1) {
-						ValidationTooltips.open({target: $("#dialog-signature .leadsTo:visible:first")}).setContent("Must be a valid leads to system!");
-						$(this).select();
-						return false;
-					}
-
 					// Validate leads to system (blank | system)
 					$.each($("#dialog-signature .leadsTo:visible"), function() {
-						if ($(this).val().length > 0 && $.inArray($(this).val(), tripwire.aSigSystems) == -1) {
+						if (this.value.length > 0 && tripwire.aSigSystems.findIndex((item) => this.value.toLowerCase() === item.toLowerCase()) == -1) {
 							ValidationTooltips.open({target: $(this)}).setContent("Must be a valid leads to system!");
 							$(this).select();
 							valid = false;
@@ -136,7 +129,16 @@ function openSignatureDialog(e) {
 					});
 					if (!valid) return false;
 
-					// console.log(form);
+					// Validate leads to isn't the viewing system which causes a inner loop
+					$.each($("#dialog-signature .leadsTo:visible"), function() {
+						if (this.value.length > 0 && this.value.toLowerCase() === viewingSystem.toLowerCase()) {
+							ValidationTooltips.open({target: $(this)}).setContent("Wormhole cannot lead to the same system it comes from!");
+							$(this).select();
+							valid = false;
+							return false;
+						}
+					});
+					if (!valid) return false;
 
 					var payload = {};
 					var undo = [];
@@ -148,15 +150,28 @@ function openSignatureDialog(e) {
 							"name": form.wormholeName,
 							"lifeLength": form.signatureLength
 						};
+						var leadsTo = null;
+						if (Object.index(tripwire.systems, "name", form.leadsTo, true)) {
+							// Leads To is a normal EVE system, so use the sytem ID
+							leadsTo = Object.index(tripwire.systems, "name", form.leadsTo, true)
+						} else if (tripwire.wormholes[form.wormholeType.toUpperCase()]) {
+							// Leads To can be determined by the wormhole type, so lets use what we know it leads to
+							if (tripwire.aSigSystems.findIndex((item) => tripwire.wormholes[form.wormholeType.toUpperCase()].leadsTo.replace(' ', '-').toLowerCase() === item.toLowerCase()) > -1) {
+								leadsTo = tripwire.aSigSystems.findIndex((item) => tripwire.wormholes[form.wormholeType.toUpperCase()].leadsTo.replace(' ', '-').toLowerCase() === item.toLowerCase());
+							}
+						} else if (tripwire.aSigSystems.findIndex((item) => form.leadsTo.toLowerCase() === item.toLowerCase()) !== -1) {
+							// Leads To is one of the valid types we allow, so use of of those indexes as reference
+							leadsTo = tripwire.aSigSystems.findIndex((item) => form.leadsTo.toLowerCase() === item.toLowerCase());
+						}
 						var signature2 = {
 							"signatureID": form.signatureID2_Alpha + form.signatureID2_Numeric,
-							"systemID": Object.index(tripwire.systems, "name", form.leadsTo) ? Object.index(tripwire.systems, "name", form.leadsTo) : $.inArray(form.leadsTo, tripwire.aSigSystems),
+							"systemID": leadsTo,
 							"type": "wormhole",
 							"name": form.wormholeName2,
 							"lifeLength": form.signatureLength
 						};
 						var wormhole = {
-							"type": tripwire.wormholes[form.wormholeType] ? form.wormholeType : (tripwire.wormholes[form.wormholeType2] ? form.wormholeType2 : ""),
+							"type": tripwire.wormholes[form.wormholeType.toUpperCase()] ? form.wormholeType.toUpperCase() : (tripwire.wormholes[form.wormholeType2.toUpperCase()] ? form.wormholeType2.toUpperCase() : ""),
 							"life": form.wormholeLife,
 							"mass": form.wormholeMass
 						};

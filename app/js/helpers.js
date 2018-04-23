@@ -14,10 +14,16 @@ Object.sort = function(obj, prop) {
 	} while (swapped);
 }
 
-Object.index = function(obj, prop, val) {
+Object.index = function(obj, prop, val, cs) {
 	for (var key in obj) {
-		if (obj[key][prop] == val) {
-			return key;
+		if (!cs) {
+			if (obj[key][prop] == val) {
+				return key;
+			}
+		} else {
+			if (obj[key][prop].toLowerCase() == val.toLowerCase()) {
+				return key;
+			}
 		}
 	}
 }

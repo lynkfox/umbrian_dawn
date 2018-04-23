@@ -55,7 +55,7 @@ class signature {
                 $this->signatureID = $value;
                 break;
             case 'systemID':
-                $this->systemID = is_numeric($value) ? (int)$value : $this->systemID;
+                $this->systemID = is_numeric($value) ? (int)$value : null;
                 break;
             case 'type':
                 $this->type = in_array(strtolower($value), ['unknown', 'combat', 'data', 'relic', 'ore', 'gas', 'wormhole']) ? strtolower($value) : $this->type;
