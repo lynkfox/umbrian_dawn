@@ -31,6 +31,10 @@ function openSignatureDialog(e) {
 				var aSigWormholes = $.map(tripwire.wormholes, function(item, index) { return index;});
 				aSigWormholes.splice(26, 0, "K162");
 				aSigWormholes.push("GATE");
+				aSigWormholes.push("SML");
+				aSigWormholes.push("MED");
+				aSigWormholes.push("LRG");
+				aSigWormholes.push("XLG");
 
 				$("#dialog-signature [name='signatureType'], #dialog-signature [name='signatureLife']").selectmenu({width: 100});
 				$("#dialog-signature [name='wormholeLife'], #dialog-signature [name='wormholeMass']").selectmenu({width: 80});

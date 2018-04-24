@@ -355,18 +355,6 @@ if ($row = $stmt->fetchObject()) {
 				<input type="text" value="" name="signatureLength" id="durationPicker" />
 			</div>
 			<div id="site">
-				<!-- <div class="row">
-					<span class="label">Life:</span>
-					<span class="select">
-						<select name="signatureLife">
-							<option value="24">24 Hours</option>
-							<option value="48">48 Hours</option>
-							<option value="72">72 Hours</option>
-							<option value="168">7 Days</option>
-							<option value="672">28 Days</option>
-						</select>
-					</span>
-				</div> -->
 				<div id="signatureName" class="row">
 					<span class="label">Name:</span>
 					<span><input name="signatureName" type="text" maxlength="35" /></span>
@@ -392,7 +380,6 @@ if ($row = $stmt->fetchObject()) {
 								<option value="Low-Sec">Low-Sec</option>
 								<option value="High-Sec">High-Sec</option>
 								<option value="Class-#">Class-#</option>
-								<option value="Frig-Class-#">Frig-Class-#</option>
 								<!-- <option value="Class-1">Class-1</option>
 								<option value="Class-2">Class-2</option>
 								<option value="Class-2">Class-2</option>

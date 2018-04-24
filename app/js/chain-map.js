@@ -237,7 +237,7 @@ var chain = new function() {
 
 	this.nodes = function(map) {
 		var chain = {cols: [{label: "System", type: "string"}, {label: "Parent", type: "string"}], rows: []};
-		var frigTypes = ["Q003", "E004", "L005", "Z006", "M001", "C008", "G008", "A009"];
+		var frigTypes = ["Q003", "E004", "L005", "Z006", "M001", "C008", "G008", "A009", "SML", "MED", "LRG", "XLG"];
 		var connections = [];
 
 		function topLevel(systemID, id) {
@@ -556,27 +556,27 @@ var chain = new function() {
 			var systemType;
 			var nodeClass = tripwire.systems[node.child.systemID] ? tripwire.systems[node.child.systemID].class : null;
 			var nodeSecurity = tripwire.systems[node.child.systemID] ? tripwire.systems[node.child.systemID].security : null;
-			if (nodeClass == 6 || node.child.name == "Class-6" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 6"))
+			if (nodeClass == 6 || tripwire.aSigSystems[node.child.systemID] == "Class-6" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 6"))
 				systemType = "<span class='wh'>C6</span>";
-			else if (nodeClass == 5 || node.child.name == "Class-5" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 5"))
+			else if (nodeClass == 5 || tripwire.aSigSystems[node.child.systemID] == "Class-5" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 5"))
 				systemType = "<span class='wh'>C5</span>";
-			else if (nodeClass == 4 || node.child.name == "Class-4" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 4"))
+			else if (nodeClass == 4 || tripwire.aSigSystems[node.child.systemID] == "Class-4" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 4"))
 				systemType = "<span class='wh'>C4</span>";
-			else if (nodeClass == 3 || node.child.name == "Class-3" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 3"))
+			else if (nodeClass == 3 || tripwire.aSigSystems[node.child.systemID] == "Class-3" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 3"))
 				systemType = "<span class='wh'>C3</span>";
-			else if (nodeClass == 2 || node.child.name == "Class-2" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 2"))
+			else if (nodeClass == 2 || tripwire.aSigSystems[node.child.systemID] == "Class-2" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 2"))
 				systemType = "<span class='wh'>C2</span>";
-			else if (nodeClass == 1 || node.child.name == "Class-1" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 1"))
+			else if (nodeClass == 1 || tripwire.aSigSystems[node.child.systemID] == "Class-1" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 1"))
 				systemType = "<span class='wh'>C1</span>";
 			else if (nodeClass > 6)
 				systemType = "<span class='wh'>C" + nodeClass + "</span>";
 			else if (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo.split(" ").length > 1)
 				systemType = "<span class='wh'>C" + tripwire.wormholes[node.child.type].leadsTo.split(" ")[1] + "</span>";
-			else if (nodeSecurity >= 0.45 || node.child.name == "High-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "High-Sec" && !nodeSecurity))
+			else if (nodeSecurity >= 0.45 || tripwire.aSigSystems[node.child.systemID] == "High-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "High-Sec" && !nodeSecurity))
 				systemType = "<span class='hisec'>HS</span>";
-			else if (nodeSecurity > 0.0 || node.child.name == "Low-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Low-Sec" && !nodeSecurity))
+			else if (nodeSecurity > 0.0 || tripwire.aSigSystems[node.child.systemID] == "Low-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Low-Sec" && !nodeSecurity))
 				systemType = "<span class='lowsec'>LS</span>";
-			else if ((nodeSecurity <= 0.0 && nodeSecurity != null) || node.child.name == "Null-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Null-Sec"))
+			else if ((nodeSecurity <= 0.0 && nodeSecurity != null) || tripwire.aSigSystems[node.child.systemID] == "Null-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Null-Sec"))
 				systemType = "<span class='nullsec'>NS</span>";
 			else
 				systemType = "<span>&nbsp;</span>";
@@ -625,7 +625,7 @@ var chain = new function() {
 							+	"<h4 class='nodeSystem'>"
 							+ 	(tripwire.systems[node.child.systemID] ? "<a href='.?system="+tripwire.systems[node.child.systemID].name+"'>"+(node.child.name ? node.child.name : tripwire.systems[node.child.systemID].name)+"</a>" : "<a class='invisible'>system</a>")
 							+	"</h4>"
-							+	"<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? node.child.signatureID : node.child.type + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"
+							+	"<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? node.child.signatureID : (node.child.type || "") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
 							+	"</div>"
