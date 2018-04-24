@@ -60,14 +60,14 @@ function openSignatureDialog(e) {
 
 				// Auto fill opposite side wormhole w/ K162
 				$("#dialog-signature .wormholeType").on("input, change", function() {
-					if (this.value.length > 0 && $.inArray(this.value, aSigWormholes) != -1 && this.value != "K162") {
+					if (this.value.length > 0 && $.inArray(this.value.toUpperCase(), aSigWormholes) != -1 && this.value.toUpperCase() != "K162") {
 						$("#dialog-signature .wormholeType").not(this).val("K162");
 
 						// Also auto calculate duration
-						if (tripwire.wormholes[this.value]) {
-							$("#dialog-signature #durationPicker").val(tripwire.wormholes[this.value].life.substring(0, 2) * 60 * 60).change();
+						if (tripwire.wormholes[this.value.toUpperCase()]) {
+							$("#dialog-signature #durationPicker").val(tripwire.wormholes[this.value.toUpperCase()].life.substring(0, 2) * 60 * 60).change();
 						}
-					} else if (this.value === "K162") {
+					} else if (this.value.toUpperCase() === "K162") {
 						$("#dialog-signature .wormholeType").not(this).val("");
 					}
 				});
@@ -103,7 +103,7 @@ function openSignatureDialog(e) {
 					if (!valid) return false;
 
 					// Validate full signature doesn't already exist in current system
-					if (form.signatureID_Alpha.length === 3 && form.signatureID_Numeric.length === 3 && Object.find(tripwire.client.signatures, "signatureID", form.signatureID_Alpha + form.signatureID_Numeric) != false) {
+					if (form.signatureID_Alpha.length === 3 && form.signatureID_Numeric.length === 3 && Object.find(tripwire.client.signatures, "signatureID", form.signatureID_Alpha + form.signatureID_Numeric) != false && Object.find(tripwire.client.signatures, "signatureID", form.signatureID_Alpha + form.signatureID_Numeric).id != $("#dialog-signature").data("signatureid")) {
 						var existingSignature = Object.find(tripwire.client.signatures, "signatureID", form.signatureID_Alpha + form.signatureID_Numeric);
 						ValidationTooltips.open({target: $("#dialog-signature .signatureID:first")}).setContent("Signature ID already exists! <input type='button' autofocus='true' id='overwrite' value='Overwrite' style='margin-bottom: -4px; margin-top: -4px; font-size: 0.8em;' data-id='"+ existingSignature.id +"' />");
 						$("#overwrite").focus();
@@ -292,7 +292,6 @@ function openSignatureDialog(e) {
 						$("#dialog-signature input[name='signatureID_Numeric']").val(signature.signatureID ? signature.signatureID.substr(3, 5) : "");
 						$("#dialog-signature [name='signatureType']").val(signature.type).selectmenu("refresh").trigger("selectmenuchange");
 						$("#dialog-signature [name='wormholeName']").val(signature.name);
-						$("#dialog-signature #durationPicker").val(signature.lifeLength).change();
 						$("#dialog-signature [name='leadsTo']").val(tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : (tripwire.aSigSystems[otherSignature.systemID] ? tripwire.aSigSystems[otherSignature.systemID] : ""));
 
 						$("#dialog-signature input[name='signatureID2_Alpha']").val(otherSignature.signatureID ? otherSignature.signatureID.substr(0, 3) : "???");
@@ -306,6 +305,7 @@ function openSignatureDialog(e) {
 						} else if (wormhole.parentID == otherSignature.id) {
 							$("#dialog-signature input[name='wormholeType2']").val(wormhole.type).change();
 						}
+						$("#dialog-signature #durationPicker").val(signature.lifeLength).change();
 					} else {
 						$("#dialog-signature input[name='signatureID_Alpha']").val(signature.signatureID.substr(0, 3));
 						$("#dialog-signature input[name='signatureID_Numeric']").val(signature.signatureID.substr(3, 5));

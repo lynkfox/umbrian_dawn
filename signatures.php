@@ -73,7 +73,7 @@ class signature {
                 $this->lifeLength = is_numeric($value) ? (int)$value : $this->lifeLength;
                 break;
             case 'lifeLeft':
-                $this->lifeLeft = is_numeric($value) ? date('Y-m-d H:i:s', strtotime('+'.(int)$value.' seconds')) : $this->lifeLeft;
+                $this->lifeLeft = (bool)strtotime($value) ? date('Y-m-d H:i:s', strtotime($value)) : $this->lifeLeft;
                 break;
             case 'createdByID':
                 $this->createdByID = is_numeric($value) ? (int)$value : $this->createdByID;
@@ -255,7 +255,7 @@ function updateSignature(signature $signature, $mysql) {
                 type = :type,
                 name = :name,
                 bookmark = :bookmark,
-                lifeLeft = DATE_ADD(lifeTime, INTERVAL :lifeLength SECOND),
+                lifeLeft = :lifeLeft,
                 lifeLength = :lifeLength,
                 modifiedByID = :modifiedByID,
                 modifiedByName = :modifiedByName,
@@ -269,6 +269,7 @@ function updateSignature(signature $signature, $mysql) {
     $stmt->bindValue(':type', $signature->type);
     $stmt->bindValue(':name', $signature->name);
     $stmt->bindValue(':bookmark', $signature->bookmark);
+    $stmt->bindValue(':lifeLeft', $signature->lifeLeft);
     $stmt->bindValue(':lifeLength', $signature->lifeLength);
     $stmt->bindValue(':modifiedByID', $signature->modifiedByID);
     $stmt->bindValue(':modifiedByName', $signature->modifiedByName);
@@ -415,16 +416,28 @@ if (isset($_POST['signatures'])) {
                             $signature2->modifiedByID = $_SESSION['characterID'];
                             $signature2->modifiedByName = $_SESSION['characterName'];
 
-                            list($result, $signature2) = updateSignature($signature2, $mysql);
+                            list($result, $value) = updateSignature($signature2, $mysql);
                         } else {
                             // Used to be just a regular signature so we need ot add the 2nd signature
-                            list($result, $signature2) = addSignature($request['signatures'][1], $mysql);
+                            list($result, $value) = addSignature($request['signatures'][1], $mysql);
                         }
                     }
 
                     if ($result) {
                         list($result, $wormhole) = fetchWormhole($request['wormhole']['id'], $mysql);
                         if ($result && $wormhole) {
+                            // Set wormhole to/from critical life
+                            if ($wormhole->life != $request['wormhole']['life'] && $request['wormhole']['life'] == 'critical') {
+                                $signature->lifeLeft = date('Y-m-d H:i:s', strtotime('4 hour'));
+                                $signature2->lifeLeft = date('Y-m-d H:i:s', strtotime('4 hour'));
+                                updateSignature($signature, $mysql);
+                                updateSignature($signature2, $mysql);
+                            } else if ($wormhole->life != $request['wormhole']['life'] && $request['wormhole']['life'] == 'stable') {
+                                $signature->lifeLeft = date('Y-m-d H:i:s', strtotime('+'.$signature->lifeLength.' seconds', strtotime($signature->lifeTime)));
+                                $signature2->lifeLeft = date('Y-m-d H:i:s', strtotime('+'.$signature2->lifeLength.' seconds', strtotime($signature2->lifeTime)));
+                                updateSignature($signature, $mysql);
+                                updateSignature($signature2, $mysql);
+                            }
                             foreach ($request['wormhole'] AS $property => $value) {
                                 $wormhole->$property = $value;
                             }
@@ -432,7 +445,7 @@ if (isset($_POST['signatures'])) {
                         } else {
                             // Used to be just a regular signature
                             $request['wormhole']['parentID'] = $signature->id;
-                            $request['wormhole']['childID'] = $signature2['id'];
+                            $request['wormhole']['childID'] = $signature2->id;
                             list($result, $value) = addWormhole($request['wormhole'], $mysql);
                         }
                     }
