@@ -292,41 +292,12 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	// $stmt->execute();
 	// $output['chain']['map'] = array_merge($output['chain']['map'], $stmt->fetchAll(PDO::FETCH_CLASS));
 
-	// System activity indicators
-	// $query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND mask = :mask';
-	// $stmt = $mysql->prepare($query);
-	// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-	// $stmt->execute();
-	// $output['chain']['activity'] = $stmt->fetchAll(PDO::FETCH_CLASS);
-
-	// EVE Scout system activity indicators
-	// $query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND (sigs.systemID = 31000005 OR sigs.connectionID = 31000005) AND mask = 273';
-	// $stmt = $mysql->prepare($query);
-	// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-	// $stmt->execute();
-	// $output['chain']['activity'] = array_merge($output['chain']['activity'], $stmt->fetchAll(PDO::FETCH_CLASS));
-
-	// Chain last modified
-	// $query = 'SELECT MAX(time) AS time FROM signatures USE INDEX(changeSearch) WHERE mask = :mask AND life IS NOT NULL';
-	// $stmt = $mysql->prepare($query);
-	// $stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
-	// $stmt->execute();
-	// $chainModified = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
-
-	// EVE Scout chain last modified
-	// $query = 'SELECT MAX(time) AS time FROM signatures USE INDEX(changeSearch2) WHERE life IS NOT NULL AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273';
-	// $stmt = $mysql->prepare($query);
-	// $stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
-	// $stmt->execute();
-	// $chainModified2 = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
-	// $output['chain']['last_modified'] = strtotime($chainModified) > strtotime($chainModified2) ? $chainModified : $chainModified2;
-
 	// Get occupied systems
 	$query = 'SELECT systemID, COUNT(characterID) AS count FROM tracking WHERE maskID = :maskID GROUP BY systemID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
 	$stmt->execute();
-	$output['chain']['occupied'] = $stmt->fetchAll(PDO::FETCH_CLASS);
+	$output['occupied'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
 	// Get flares
 	$query = 'SELECT systemID, flare, time FROM flares WHERE maskID = :maskID';
@@ -334,8 +305,8 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_INT);
 	$stmt->execute();
 	$result = $stmt->fetchAll(PDO::FETCH_CLASS);
-	$output['chain']['flares']['flares'] = $result;
-	$output['chain']['flares']['last_modified'] = date('m/d/Y H:i:s e', $result ? strtotime($result[0]->time) : time());
+	$output['flares']['flares'] = $result;
+	$output['flares']['last_modified'] = date('m/d/Y H:i:s e', $result ? strtotime($result[0]->time) : time());
 
 	// Get Comments
 	$query = 'SELECT id, comment, created AS createdDate, c.characterName AS createdBy, modified AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
@@ -369,13 +340,6 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		$stmt->bindValue(':maskID', $maskID);
 		$stmt->execute();
 		$results = $stmt->fetchObject();
-
-		// $query = 'SELECT COUNT(*) as total, MAX(time) as time FROM signatures USE INDEX(systemSignatures, connectionID) WHERE mask = :mask AND (systemID = :systemID OR connectionID = :systemID)';
-		// $stmt = $mysql->prepare($query);
-		// $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-		// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-		// $stmt->execute();
-		// $results = $stmt->fetchObject();
 
 		// EVE Scout signatures
 		$query = 'SELECT COUNT(*) as total, MAX(time) as time FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
@@ -411,22 +375,6 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 			$output['wormholes'][$row->id] = $row;
 		}
 
-		// $output['signatures'] = Array();
-		//
-		// $query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND mask = :mask';
-		// $stmt = $mysql->prepare($query);
-		// $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-		// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-		// $stmt->execute();
-		//
-		// while ($row = $stmt->fetchObject()) {
-		// 	$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
-		// 	$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
-		// 	$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
-		//
-		// 	$output['signatures'][$row->id] = $row;
-		// }
-		//
 		// // EVE Scout signatures data
 		// $query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
 		// $stmt = $mysql->prepare($query);
@@ -442,82 +390,16 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		// }
 	}
 
-	// Check if chain changed....
-	if ($refresh['chainUpdate'] == false && $chainCount !== null && $chainTime !== null) {
-		// Faster with 2 SQL queries
-		$query = 'SELECT COUNT(*) as total, MAX(time) as time FROM signatures USE INDEX(changeSearch) WHERE mask = :mask AND life IS NOT NULL';
-		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-		$stmt->execute();
-		$results = $stmt->fetchObject();
-
-		$query = 'SELECT COUNT(*) as total, MAX(time) as time FROM signatures USE INDEX(changeSearch2) WHERE mask = 273 AND life IS NOT NULL AND (systemID = 31000005 OR connectionID = 31000005)';
-		$stmt = $mysql->prepare($query);
-		$stmt->execute();
-		$results2 = $stmt->fetchObject();
-
-		if ($chainCount != $results->total + $results2->total || strtotime($chainTime) < strtotime($results->time) || strtotime($chainTime) < strtotime($results2->time)) {
-			$refresh['chainUpdate'] = true;
-		}
-	}
-
-	if ($refresh['chainUpdate'] == true) {
-		$output['chain']['map'] = Array();
-
-		// Chain map data
-		// $query = "SELECT * FROM signatures USE INDEX(changeSearch) WHERE mask = :mask AND life IS NOT NULL";
-		// $stmt = $mysql->prepare($query);
-		// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-		// $stmt->execute();
-		// $output['chain']['map'] = $stmt->fetchAll(PDO::FETCH_CLASS);
-
-		// EVE Scout chain map data
-		// $query = "SELECT * FROM signatures USE INDEX(changeSearch2) WHERE (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL";
-		// $stmt = $mysql->prepare($query);
-		// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-		// $stmt->execute();
-		// $output['chain']['map'] = array_merge($output['chain']['map'], $stmt->fetchAll(PDO::FETCH_CLASS));
-
-		// System activity indicators
-		// $query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND mask = :mask';
-		// $stmt = $mysql->prepare($query);
-		// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-		// $stmt->execute();
-		// $output['chain']['activity'] = $stmt->fetchAll(PDO::FETCH_CLASS);
-
-		// EVE Scout system activity indicators
-		// $query = 'SELECT DISTINCT api.systemID, shipJumps, podKills, shipKills, npcKills, mask FROM signatures sigs INNER JOIN eve_api.recentActivity api ON connectionID = api.systemID OR sigs.systemID = api.systemID WHERE life IS NOT NULL AND (sigs.systemID = 31000005 OR sigs.connectionID = 31000005) AND mask = 273';
-		// $stmt = $mysql->prepare($query);
-		// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
-		// $stmt->execute();
-		// $output['chain']['activity'] = array_merge($output['chain']['activity'], $stmt->fetchAll(PDO::FETCH_CLASS));
-
-		// Chain last modified
-		// $query = 'SELECT MAX(time) AS time FROM signatures USE INDEX(changeSearch) WHERE mask = :mask AND life IS NOT NULL';
-		// $stmt = $mysql->prepare($query);
-		// $stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
-		// $stmt->execute();
-		// $chainModified = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
-
-		// EVE Scout chain last modified
-		// $query = 'SELECT MAX(time) AS time FROM signatures USE INDEX(changeSearch2) WHERE life IS NOT NULL AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273';
-		// $stmt = $mysql->prepare($query);
-		// $stmt->bindValue(':mask', $maskID, PDO::PARAM_STR);
-		// $stmt->execute();
-		// $chainModified2 = $stmt->rowCount() ? $stmt->fetchColumn() : date('Y-m-d H:i:s', time());
-		// $output['chain']['last_modified'] = strtotime($chainModified) > strtotime($chainModified2) ? $chainModified : $chainModified2;
-	}
-
 	// Get flares
-	if (isset($output['chain']) || ($flareCount != null && $flareTime != null)) {
+	if ($flareCount != null && $flareTime != null) {
 		$query = 'SELECT systemID, flare, time FROM flares WHERE maskID = :maskID ORDER BY time DESC';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':maskID', $maskID, PDO::PARAM_INT);
 		$stmt->execute();
 		$result = $stmt->fetchAll(PDO::FETCH_CLASS);
-		if (isset($output['chain']) || (count($result) != $flareCount || ($result && strtotime($result[0]->time) < strtotime($flareTime)))) {
-			$output['chain']['flares']['flares'] = $result;
-			$output['chain']['flares']['last_modified'] = date('m/d/Y H:i:s e', $result ? strtotime($result[0]->time) : time());
+		if (count($result) != $flareCount || ($result && strtotime($result[0]->time) < strtotime($flareTime))) {
+			$output['flares']['flares'] = $result;
+			$output['flares']['last_modified'] = date('m/d/Y H:i:s e', $result ? strtotime($result[0]->time) : time());
 		}
 	}
 
@@ -527,7 +409,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
 	$stmt->execute();
 	if ($result = $stmt->fetchAll(PDO::FETCH_CLASS)) {
-		$output['chain']['occupied'] = $result;
+		$output['occupied'] = $result;
 	}
 
 	// Check Comments

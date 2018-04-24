@@ -313,35 +313,37 @@ var chain = new function() {
 			var parentID = parseInt(system[1]), childID = chainList.length;
 
 			for (var x in chainData) {
-				var link = chainData[x];
+				var wormhole = chainData[x];
+				var parent = tripwire.client.signatures[wormhole.parentID];
+				var child = tripwire.client.signatures[wormhole.childID];
 
-				if ($.inArray(link.id, usedLinks) == -1) {
-					if (link.systemID == system[0]) {
+				if ($.inArray(wormhole.id, usedLinks) == -1) {
+					if (parent.systemID == system[0]) {
 						var node = {};
-						node.id = link.id;
-						node.life = link.life;
-						node.mass = link.mass;
-						node.time = link.time;
+						node.id = wormhole.id;
+						node.life = wormhole.life;
+						node.mass = wormhole.mass;
+						node.time = parent.modifiedTime;
 
 						node.parent = {};
 						node.parent.id = parentID;
-						node.parent.systemID = link.systemID;
-						node.parent.name = link.system;
-						node.parent.type = link.sig2Type;
-						node.parent.typeBM = link.type2BM;
-						node.parent.classBM = link.class2BM;
-						node.parent.nth = link.nth2;
-						node.parent.signatureID = link.sig2ID;
+						node.parent.systemID = parent.systemID;
+						node.parent.name = parent.name;
+						node.parent.type = 'K162';
+						node.parent.typeBM = null;
+						node.parent.classBM = null;
+						node.parent.nth = null;
+						node.parent.signatureID = child.signatureID;
 
 						node.child = {};
 						node.child.id = ++childID;
-						node.child.systemID = link.connectionID;
-						node.child.name = link.connection;
-						node.child.type = link.type;
-						node.child.typeBM = link.typeBM;
-						node.child.classBM = link.classBM;
-						node.child.nth = link.nth;
-						node.child.signatureID = link.signatureID;
+						node.child.systemID = child.systemID;
+						node.child.name = child.name;
+						node.child.type = wormhole.type;
+						node.child.typeBM = null;
+						node.child.classBM = null;
+						node.child.nth = null;
+						node.child.signatureID = parent.signatureID;
 
 						chainLinks.push(node);
 						chainList.push([node.child.systemID, node.child.id, system[2]]);
@@ -400,32 +402,32 @@ var chain = new function() {
 								chainList.push([0, childID]);
 							}
 						}
-					} else if (link.connectionID == system[0]) {
+					} else if (child.systemID == system[0]) {
 						var node = {};
-						node.id = link.id;
-						node.life = link.life;
-						node.mass = link.mass;
-						node.time = link.time;
+						node.id = wormhole.id;
+						node.life = wormhole.life;
+						node.mass = wormhole.mass;
+						node.time = wormhole.modifiedTime;
 
 						node.parent = {};
 						node.parent.id = parentID;
-						node.parent.systemID = link.connectionID;
-						node.parent.name = link.connection;
-						node.parent.type = link.type;
-						node.parent.typeBM = link.typeBM;
-						node.parent.classBM = link.classBM;
-						node.parent.nth = link.nth;
-						node.parent.signatureID = link.signatureID;
+						node.parent.systemID = child.systemID;
+						node.parent.name = child.name;
+						node.parent.type = wormhole.type;
+						node.parent.typeBM = null;
+						node.parent.classBM = null;
+						node.parent.nth = null;
+						node.parent.signatureID = parent.signatureID;
 
 						node.child = {};
 						node.child.id = ++childID;
-						node.child.systemID = link.systemID;
-						node.child.name = link.system;
-						node.child.type = link.sig2Type;
-						node.child.typeBM = link.type2BM;
-						node.child.classBM = link.class2BM;
-						node.child.nth = link.nth2;
-						node.child.signatureID = link.sig2ID;
+						node.child.systemID = parent.systemID;
+						node.child.name = parent.name;
+						node.child.type = 'K162';
+						node.child.typeBM = null;
+						node.child.classBM = null;
+						node.child.nth = null;
+						node.child.signatureID = child.signatureID;
 
 						chainLinks.push(node);
 						chainList.push([node.child.systemID, node.child.id, system[2]]);
@@ -489,68 +491,7 @@ var chain = new function() {
 			}
 		}
 
-		if (false && $("#home").hasClass("active")) {
-			$("#chainError").hide();
-
-			var row = {c: []};
-			var systemID = $.map(tripwire.systems, function(system, id) { return system.name == options.chain.home ? id : null; })[0];
-
-			row.c.push(topLevel(systemID, 1), {v: null});
-
-			chain.rows.push(row);
-
-			var chainList = [[systemID, 1]];
-			var chainData = map;
-			var chainLinks = [];
-			var usedLinks = [];
-
-			for (var i = 0; i < chainList.length; ++i) {
-				findLinks(chainList[i]);
-			}
-		} else if (false && $("#k-space").hasClass("active")) {
-			$("#chainError").hide();
-
-			var chainList = [];//$.map(tripwire.systems, function(system, id) { return system.class ? null : [id, 1]; });
-			var kspace = $.map(tripwire.systems, function(system, id) { return system.class ? null : id; });
-			var chainData = map;
-			var chainLinks = [];
-			var usedLinks = [];
-
-			var i = 0;
-			for (var x in map) {
-				if ($.inArray(map[x].systemID, kspace) != -1) {
-					i++;
-					chain.rows.push({c: [topLevel(map[x].systemID, i), {v: null}]});
-					chainList.push([map[x].systemID, i]);
-				} else if ($.inArray(map[x].connectionID, kspace) != -1) {
-					i++;
-					chain.rows.push({c: [topLevel(map[x].connectionID, i), {v: null}]});
-					chainList.push([map[x].connectionID, i]);
-				}
-			}
-
-			for (var i = 0; i < chainList.length; ++i) {
-				findLinks(chainList[i]);
-			}
-		} else if (false && $("#eve-scout").hasClass("active")) {
-			$("#chainError").hide();
-
-			var row = {c: []};
-			var systemID = 31000005;
-
-			row.c.push(topLevel(systemID, 1), {v: null});
-
-			chain.rows.push(row);
-
-			var chainList = [[systemID, 1]];
-			var chainData = map;
-			var chainLinks = [];
-			var usedLinks = [];
-
-			for (var i = 0; i < chainList.length; ++i) {
-				findLinks(chainList[i]);
-			}
-		} else if ($("#chainTabs .current").length > 0) {
+		if ($("#chainTabs .current").length > 0) {
 			var systems = $("#chainTabs .current .name").data("tab").toString().split(",");
 			var chainList = [];
 			var chainData = map;
@@ -560,16 +501,18 @@ var chain = new function() {
 			if (systems == 0) {
 				var i = 0;
 				for (var x in map) {
-					if (typeof(tripwire.systems[map[x].systemID].class) == "undefined") {
+					var parent = tripwire.client.signatures[map[x].parentID];
+					var child = tripwire.client.signatures[map[x].childID];
+					if (typeof(tripwire.systems[parent.systemID].class) == "undefined") {
 						i++;
 						//usedLinks[map[x].systemID] = [];
-						chain.rows.push({c: [topLevel(map[x].systemID, i), {v: null}]});
-						chainList.push([map[x].systemID, i, map[x].systemID]);
-					} else if (tripwire.systems[map[x].connectionID] && typeof(tripwire.systems[map[x].connectionID].class) == "undefined") {
+						chain.rows.push({c: [topLevel(parent.systemID, i), {v: null}]});
+						chainList.push([parent.systemID, i, parent.systemID]);
+					} else if (tripwire.systems[child.systemID] && typeof(tripwire.systems[child.systemID].class) == "undefined") {
 						i++;
 						//usedLinks[map[x].connectionID] = [];
-						chain.rows.push({c: [topLevel(map[x].connectionID, i), {v: null}]});
-						chainList.push([map[x].connectionID, i, map[x].connectionID]);
+						chain.rows.push({c: [topLevel(child.systemID, i), {v: null}]});
+						chainList.push([child.systemID, i, child.systemID]);
 					}
 				}
 			} else {
@@ -695,19 +638,19 @@ var chain = new function() {
 			row.c.push(child, parent);
 			chain.rows.push(row);
 
-			if (node.life == "Critical" && ($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1))
+			if (node.life == "critical" && ($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1))
 				connections.push(Array(child.v, parent.v, "eol-frig", node.id));
-			else if (node.life == "Critical" && node.mass == "Critical")
+			else if (node.life == "critical" && node.mass == "critical")
 				connections.push(Array(child.v, parent.v, "eol-critical", node.id));
-			else if (node.life == "Critical" && node.mass == "Destab")
+			else if (node.life == "critical" && node.mass == "destab")
 				connections.push(Array(child.v, parent.v, "eol-destab", node.id));
 			else if ($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1)
 				connections.push(Array(child.v, parent.v, "frig", node.id));
-			else if (node.life == "Critical")
+			else if (node.life == "critical")
 				connections.push(Array(child.v, parent.v, "eol", node.id));
-			else if (node.mass == "Critical")
+			else if (node.mass == "critical")
 				connections.push(Array(child.v, parent.v, "critical", node.id));
-			else if (node.mass == "Destab")
+			else if (node.mass == "destab")
 				connections.push(Array(child.v, parent.v, "destab", node.id));
 			else if (node.life == "Gate" || node.parent.type == "GATE" || node.child.type == "GATE")
 				connections.push(Array(child.v, parent.v, "gate", node.id));
@@ -734,7 +677,9 @@ var chain = new function() {
 		var data = typeof(data) !== "undefined" ? data : {};
 		//var startTime = window.performance.now();
 
-		if (!this.map) {
+		// We need to make sure Google chart is ready and we have signature data for this system before we begin, otherwise delay
+		if (!this.map || tripwire.client.signatures.length == 0) {
+			setTimeout(() => chain.draw(data), 100);
 			return;
 		}
 
@@ -743,15 +688,15 @@ var chain = new function() {
 
 			this.data.rawMap = $.extend(true, {}, data.map);
 
-			if (options.chain.active == null || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false)) {
-				if (options.masks.active != "273.0") {
-					for (var i in data.map) {
-						if (data.map[i].mask == "273.0") {
-							delete data.map[i];
-						}
-					}
-				}
-			}
+			// if (options.chain.active == null || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout == false)) {
+			// 	if (options.masks.active != "273.0") {
+			// 		for (var i in data.map) {
+			// 			if (data.map[i].mask == "273.0") {
+			// 				delete data.map[i];
+			// 			}
+			// 		}
+			// 	}
+			// }
 
 			// Sort so we keep the chain map order the same
 			Object.sort(data.map, "id");
@@ -820,18 +765,13 @@ var chain = new function() {
 			chain.activity(this.data.activity);
 		}
 
-		// if (data.activity) // 100ms
-		// 	this.data.activity = this.activity(data.activity);
-
-		if (data.occupied) // 3ms
+		if (data.occupied) { // 3ms
 			this.data.occupied = this.occupied(data.occupied);
+		}
 
-		if (data.flares) // 20ms
+		if (data.flares) { // 20ms
 			this.data.flares = this.flares(data.flares);
-
-		if (data.last_modified)
-			this.data.last_modified = data.last_modified;
-
+		}
 		//console.log("stint: "+ (window.performance.now() - startTime));
 	}
 
@@ -871,7 +811,7 @@ var chain = new function() {
 
 		chain.map.draw(new google.visualization.DataView(new google.visualization.DataTable({cols:[{label: "System", type: "string"}, {label: "Parent", type: "string"}]})), this.options);
 
-		chain.redraw();
+		// chain.redraw();
 	}
 
 	google.charts.setOnLoadCallback(this.init);

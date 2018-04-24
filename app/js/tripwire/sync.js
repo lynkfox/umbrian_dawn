@@ -12,9 +12,6 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
         data.signatureCount = Object.size(this.client.signatures);
         data.signatureTime = Object.maxTime(this.client.signatures, "modifiedTime");
 
-        data.chainCount = Object.size(chain.data.rawMap);
-        data.chainTime = Object.maxTime(chain.data.rawMap, "time");
-
         data.flareCount = chain.data.flares ? chain.data.flares.flares.length : 0;
         data.flareTime = chain.data.flares ? chain.data.flares.last_modified : 0;
 
@@ -55,14 +52,17 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
                 tripwire.serverTime.time = new Date(data.sync);
             }
 
-            if (data.signatures)
+            if (data.signatures) {
                 tripwire.parse(data, mode);
+            }
 
-            if (data.chain)
-                tripwire.chainMap.parse(data.chain);
+            if (data.wormholes || data.occupied || data.flares) {
+                tripwire.chainMap.parse({"map": data.wormholes || null, "occupied": data.occupied || null, "flares": data.flares || null});
+            }
 
-            if (data.comments)
-                tripwire.comments.parse(data.comments)
+            if (data.comments) {
+                tripwire.comments.parse(data.comments);
+            }
 
             tripwire.active(data.activity);
 

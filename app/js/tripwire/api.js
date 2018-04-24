@@ -23,10 +23,6 @@ tripwire.API = function() {
                 var options = {until: tripwire.API.APIrefresh, since: null, layout: "{mnn}{sep}{snn}"};
                 $("#APItimer").countdown("option", options);
                 setTimeout("tripwire.API.refresh();", $.countdown.periodsToSeconds($("#APItimer").countdown('getTimes')) - 30);
-
-                // Node activity
-                if (data.chain)
-                    tripwire.chainMap.parse(data.chain);
             } else if ($("#APItimer").countdown("option", "layout") !== "-{mnn}{sep}{snn}" && $.countdown.periodsToSeconds($("#APItimer").countdown('getTimes')) > 120) {
                 setTimeout("tripwire.API.refresh();", ($.countdown.periodsToSeconds($("#APItimer").countdown('getTimes')) - 30) * 1000);
             } else {
