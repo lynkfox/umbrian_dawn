@@ -26,6 +26,8 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
         this.aSystems = $.map(this.systems, function(system) { return system.name; });
         this.aSigSystems = ["Null-Sec", "Low-Sec", "High-Sec", "Class-1", "Class-2", "Class-3", "Class-4", "Class-5", "Class-6"];
         $.merge(this.aSigSystems, this.aSystems.slice());
+
+        $(".systemsAutocomplete").inlinecomplete({source: this.aSystems, maxSize: 10, delay: 0});
     }
 
     data.mode = mode != "init" ? "refresh" : "init";

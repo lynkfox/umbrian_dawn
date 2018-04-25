@@ -11,7 +11,7 @@ $("body").on("submit", "#systemSearch", function(e) {
 	e.preventDefault();
 
 	var system = $(this).find("[name='system']").val();
-	var systemID = Object.index(tripwire.systems, "name", system) || false;
+	var systemID = Object.index(tripwire.systems, "name", system, true) || false;
 
 	if (systemID !== false) {
 		tripwire.systemChange(systemID);
@@ -960,13 +960,6 @@ $("#signaturesWidget #delete-signature").on("delete:refresh", function(e) {
 		$("#signaturesWidget #delete-signature").removeClass("disabled");
 	}
 });
-
-var whList;
-whList = $.map(tripwire.wormholes, function(item, index) { return index;});
-whList.splice(26, 0, "K162");
-whList.push("???", "GATE");
-
-$(".systemsAutocomplete").inlinecomplete({source: tripwire.aSystems, maxSize: 10, delay: 0});
 
 $("#dialog-error").dialog({
 	autoOpen: false,
