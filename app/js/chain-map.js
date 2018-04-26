@@ -761,7 +761,7 @@ var chain = new function() {
 				.then(function() {
 					chain.data.activity = chain.activity(data.activity);
 				});
-		} else {
+		} else if (data.map) {
 			chain.activity(this.data.activity);
 		}
 
