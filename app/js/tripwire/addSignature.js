@@ -7,8 +7,8 @@ tripwire.addSig = function(add, option, disabled) {
     var wormhole = {};
 
     if (add.type == "wormhole") {
-        var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == add.id || wormhole.childID == add.id) return wormhole; })[0];
-        var otherSignature = add.id == wormhole.parentID ? tripwire.client.signatures[wormhole.childID] : tripwire.client.signatures[wormhole.parentID];
+        var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == add.id || wormhole.secondaryID == add.id) return wormhole; })[0];
+        var otherSignature = add.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
 
         if (add.name) {
           leadsTo = tripwire.systems[otherSignature.systemID] ? "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+add.name+"</a>" : add.name;
@@ -22,7 +22,7 @@ tripwire.addSig = function(add, option, disabled) {
 
         var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
             + "<td class='"+ options.signatures.alignment.sigID +"'>"+(add.signatureID ? add.signatureID.substring(0, 3)+"-"+(add.signatureID.substring(3, 6) || "###") : "???-###")+"</td>"
-            + "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(wormhole)+"\">"+(wormhole.parentID == add.id ? wormhole.type || "????" : "K162")+"</td>"
+            + "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(wormhole)+"\">"+(wormhole[wormhole.parent+"ID"] == add.id ? wormhole.type : (wormhole.parent ? "K162" : ""))+"</td>"
             + "<td class=\"age-tooltip "+ options.signatures.alignment.sigAge +"\" data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
             + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+(leadsTo || "")+"</td>"
             + "<td class='"+wormhole.life+" "+ options.signatures.alignment.sigLife +"'>"+wormhole.life+"</td>"

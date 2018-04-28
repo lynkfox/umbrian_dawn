@@ -72,7 +72,11 @@ function openSignatureDialog(e) {
 							$("#dialog-signature #durationPicker").val(tripwire.wormholes[this.value.toUpperCase()].life.substring(0, 2) * 60 * 60).change();
 						}
 					} else if (this.value.toUpperCase() === "K162") {
-						$("#dialog-signature .wormholeType").not(this).val("");
+						if ($.inArray($("#dialog-signature .wormholeType").not(this).val(), aSigWormholes) != -1) {
+							$("#dialog-signature .wormholeType").not(this).val("????");
+						}
+					} else if (this.value == "????") {
+						$("#dialog-signature .wormholeType").not(this).val("K162");
 					}
 				});
 
@@ -106,7 +110,7 @@ function openSignatureDialog(e) {
 					});
 					if (!valid) return false;
 
-					// Validate full signature doesn't already exist in current system
+					// Validate full signature ID doesn't already exist in current system
 					if (form.signatureID_Alpha.length === 3 && form.signatureID_Numeric.length === 3 && Object.find(tripwire.client.signatures, "signatureID", form.signatureID_Alpha + form.signatureID_Numeric) != false && Object.find(tripwire.client.signatures, "signatureID", form.signatureID_Alpha + form.signatureID_Numeric).id != $("#dialog-signature").data("signatureid")) {
 						var existingSignature = Object.find(tripwire.client.signatures, "signatureID", form.signatureID_Alpha + form.signatureID_Numeric);
 						ValidationTooltips.open({target: $("#dialog-signature .signatureID:first")}).setContent("Signature ID already exists! <input type='button' autofocus='true' id='overwrite' value='Overwrite' style='margin-bottom: -4px; margin-top: -4px; font-size: 0.8em;' data-id='"+ existingSignature.id +"' />");
@@ -125,7 +129,7 @@ function openSignatureDialog(e) {
 
 					// Validate wormhole types (blank | wormhole)
 					$.each($("#dialog-signature .wormholeType:visible"), function() {
-						if (this.value.length > 0 && $.inArray(this.value.toUpperCase(), aSigWormholes) == -1) {
+						if (this.value.length > 0 && $.inArray(this.value.toUpperCase(), aSigWormholes) == -1 && this.value != "????") {
 							ValidationTooltips.open({target: $(this)}).setContent("Must be a valid wormhole type!");
 							$(this).select();
 							valid = false;
@@ -186,8 +190,24 @@ function openSignatureDialog(e) {
 							"name": form.wormholeName2,
 							"lifeLength": form.signatureLength
 						};
+						var type = null;
+						var parent = null;
+						if (form.wormholeType.length > 0 && $.inArray(form.wormholeType.toUpperCase(), aSigWormholes) != -1 && form.wormholeType.toUpperCase() != "K162") {
+							parent = "initial";
+							type = form.wormholeType.toUpperCase();
+						} else if (form.wormholeType2.length > 0 && $.inArray(form.wormholeType2.toUpperCase(), aSigWormholes) != -1 && form.wormholeType2.toUpperCase() != "K162") {
+							parent = "secondary";
+							type = form.wormholeType2.toUpperCase();
+						} else if (form.wormholeType == "K162") {
+							parent = "secondary";
+							type = "????";
+						} else if (form.wormholeType2 == "K162") {
+							parent = "initial";
+							type = "????";
+						}
 						var wormhole = {
-							"type": $.inArray(form.wormholeType.toUpperCase(), aSigWormholes) !== -1 ? form.wormholeType.toUpperCase() : null,
+							"type": type,
+							"parent": parent,
 							"life": form.wormholeLife,
 							"mass": form.wormholeMass
 						};
@@ -198,6 +218,7 @@ function openSignatureDialog(e) {
 							payload = {"signatures": {"update": [{"wormhole": wormhole, "signatures": [signature, signature2]}]}};
 
 							if (tripwire.client.wormholes[wormhole.id]) {
+									//used to be a wormhole
 									undo.push({"wormhole": tripwire.client.wormholes[wormhole.id], "signatures": [tripwire.client.signatures[signature.id], tripwire.client.signatures[signature2.id]]});
 							} else {
 									// used to be just a regular signature
@@ -217,7 +238,16 @@ function openSignatureDialog(e) {
 								"lifeLength": form.signatureLength
 							};
 							payload = {"signatures": {"update": [signature]}};
-							undo.push(tripwire.client.signatures[signature.id]);
+
+							if (tripwire.client.signatures[signature.id]) {
+								//used to be a wormhole
+								var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == signature.id || wormhole.secondaryID == signature.id) return wormhole; })[0];
+								var signature2 = signature.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
+								undo.push({"wormhole": tripwire.client.wormholes[wormhole.id], "signatures": [tripwire.client.signatures[signature.id], tripwire.client.signatures[signature2.id]]});
+							} else {
+								// used to be just a regular signature
+								undo.push(tripwire.client.signatures[signature.id]);
+							}
 						} else {
 							var signature = {
 								"signatureID": form.signatureID_Alpha + form.signatureID_Numeric,
@@ -287,8 +317,8 @@ function openSignatureDialog(e) {
 
 					// console.log(signature);
 					if (signature.type == "wormhole") {
-						var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == id || wormhole.childID == id) return wormhole; })[0];
-						var otherSignature = id == wormhole.parentID ? tripwire.client.signatures[wormhole.childID] : tripwire.client.signatures[wormhole.parentID];
+						var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == id || wormhole.secondaryID == id) return wormhole; })[0];
+						var otherSignature = id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
 						$("#dialog-signature").data("signature2id", otherSignature.id);
 						$("#dialog-signature").data("wormholeid", wormhole.id);
 
@@ -304,9 +334,9 @@ function openSignatureDialog(e) {
 						$("#dialog-signature [name='wormholeLife']").val(wormhole.life).selectmenu("refresh").trigger("selectmenuchange");
 						$("#dialog-signature [name='wormholeMass']").val(wormhole.mass).selectmenu("refresh").trigger("selectmenuchange");
 
-						if (wormhole.parentID == signature.id) {
+						if (wormhole[wormhole.parent+"ID"] == signature.id) {
 							$("#dialog-signature input[name='wormholeType']").val(wormhole.type).change();
-						} else if (wormhole.parentID == otherSignature.id) {
+						} else if (wormhole[wormhole.parent+"ID"] == otherSignature.id) {
 							$("#dialog-signature input[name='wormholeType2']").val(wormhole.type).change();
 						}
 						$("#dialog-signature #durationPicker").val(signature.lifeLength).change();

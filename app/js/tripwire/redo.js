@@ -9,8 +9,8 @@ tripwire.redo = function() {
             if (signature.wormhole && tripwire.client.wormholes[signature.wormhole.id]) {
                 return {"wormhole": tripwire.client.wormholes[signature.wormhole.id], "signatures": [tripwire.client.signatures[signature.wormhole.id], tripwire.client.signatures[signature.wormhole.id]]};
             } else if (tripwire.client.signatures[signature.id] && tripwire.client.signatures[signature.id].type == "wormhole") {
-                var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == signature.id || wormhole.childID == signature.id) return wormhole; })[0];
-                return {"wormhole": wormhole, "signatures": [tripwire.client.signatures[wormhole.parentID], tripwire.client.signatures[wormhole.childID]]};
+                var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == signature.id || wormhole.secondaryID == signature.id) return wormhole; })[0];
+                return {"wormhole": wormhole, "signatures": [tripwire.client.signatures[wormhole.initialID], tripwire.client.signatures[wormhole.secondaryID]]};
             } else if (signature.wormhole && tripwire.client.signatures[signature.signatures[0].id]) {
                 return tripwire.client.signatures[signature.signatures[0].id];
             } else {

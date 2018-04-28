@@ -17,14 +17,15 @@ tripwire.autoMapper = function(from, to) {
         return false;
 
     // Is this a gate?
-    if (typeof(tripwire.map.shortest[from - 30000000]) != "undefined" && typeof(tripwire.map.shortest[from - 30000000][to - 30000000]) != "undefined")
-        return false;
+    // if (typeof(tripwire.map.shortest[from - 30000000]) != "undefined" && typeof(tripwire.map.shortest[from - 30000000][to - 30000000]) != "undefined")
+    //     return false;
 
     // Is this an existing connection?
+    console.log($.map(tripwire.client.wormholes, function(wormhole) { return (tripwire.client.signatures[wormhole.parentID].systemID == from && tripwire.client.signatures[wormhole.childID].systemID == to) || (tripwire.client.signatures[wormhole.parentID].systemID == to && tripwire.client.signatures[wormhole.childID].systemID == from) ? wormhole : null; }));
     if ($.map(chain.data.rawMap, function(sig) { return (sig.systemID == from && sig.connectionID == to) || (sig.connectionID == from && sig.systemID == to) ? sig : null })[0])
         return false;
 
-    var data = {"request": {"signatures": {"add": [], "update": []}}};
+    var payload = {"signatures": {"add": [], "update": []}};
     var sig, toClass = null;
 
     if (tripwire.systems[to].class)
@@ -36,6 +37,12 @@ tripwire.autoMapper = function(from, to) {
     else
         toClass = "Null-Sec";
 
+    // Find wormholes that have no set Leads To system, and either leads To matches toClass or type matches toClass
+    wormholes = $.map(tripwire.client.wormholes, function(wormhole) {
+        if (tripwire.client.signatures[wormhole.parentID].systemID == from && !tripwire.client.signatures[wormhole.childID].systemID) {
+            
+        }
+    });
     sig = $.map(chain.data.rawMap, function(sig) { return sig.systemID == from && sig.mass && ((tripwire.wormholes[sig.type] && tripwire.wormholes[sig.type].leadsTo == toClass && sig.connectionID <= 0) || sig.connection == toClass) ? sig : null; })
     if (sig.length) {
         if (sig.length > 1) {
@@ -48,7 +55,7 @@ tripwire.autoMapper = function(from, to) {
                     Ok: function() {
                         var x = $("#dialog-msg #msg [name=sig]:checked").val();
 
-                        data.request.signatures.update.push({
+                        payload.signatures.update.push({
                             id: sig[x].id,
                             side: "parent",
                             signatureID: sig[x].signatureID,
@@ -65,15 +72,13 @@ tripwire.autoMapper = function(from, to) {
                             lifeLength: sig[x].lifeLength
                         });
 
-                        data.systemID = viewingSystemID;
-
                         var success = function(data) {
                             if (data && data.result == true) {
                                 $("#dialog-msg").dialog("close");
                             }
                         }
 
-                        tripwire.refresh('refresh', data, success);
+                        tripwire.refresh('refresh', payload, success);
                     }
                 },
                 open: function() {
@@ -87,7 +92,7 @@ tripwire.autoMapper = function(from, to) {
         } else if (sig.length) {
             sig = sig[0];
 
-            data.request.signatures.update.push({
+            payload.signatures.update.push({
                 id: sig.id,
                 side: "parent",
                 signatureID: sig.signatureID,
@@ -105,6 +110,7 @@ tripwire.autoMapper = function(from, to) {
             });
         }
     } else if (sig = $.map(chain.data.rawMap, function(sig) { return sig.systemID == from && sig.connectionID <= 0 && (sig.type == "???" || sig.type == "K162") ? sig : null; })) {
+        // Find wormholes that have no set Leads To system, and have no type or are a K162
         if (sig.length > 1) {
             $("#dialog-msg").dialog({
                 autoOpen: true,
@@ -115,7 +121,7 @@ tripwire.autoMapper = function(from, to) {
                     Ok: function() {
                         var x = $("#dialog-msg #msg [name=sig]:checked").val();
 
-                        data.request.signatures.update.push({
+                        payload.signatures.update.push({
                             id: sig[x].id,
                             side: "parent",
                             signatureID: sig[x].signatureID,
@@ -132,15 +138,13 @@ tripwire.autoMapper = function(from, to) {
                             lifeLength: sig[x].lifeLength
                         });
 
-                        data.systemID = viewingSystemID;
-
                         var success = function(data) {
                             if (data && data.result == true) {
                                 $("#dialog-msg").dialog("close");
                             }
                         }
 
-                        tripwire.refresh('refresh', data, success);
+                        tripwire.refresh('refresh', payload, success);
                     }
                 },
                 open: function() {
@@ -154,7 +158,7 @@ tripwire.autoMapper = function(from, to) {
         } else if (sig.length) {
             sig = sig[0];
 
-            data.request.signatures.update.push({
+            payload.signatures.update.push({
                 id: sig.id,
                 side: "parent",
                 signatureID: sig.signatureID,
@@ -173,48 +177,58 @@ tripwire.autoMapper = function(from, to) {
         }
     }
 
+    // Nothing matches, create a new wormhole
     if (sig.length == 0) {
-        data.request.signatures.add.push({
-            signatureID: "???",
-            systemID: from,
-            type: "Wormhole",
-            whType: "???",
-            class: sigClass(tripwire.systems[from].name, "???"),
-            class2: sigClass(tripwire.systems[to].name, null),
-            connectionName: "",
-            connectionID: to
+        payload.signatures.add.push({
+            "wormhole": {
+                "type": null,
+                "life": "stable",
+                "mass": "stable"
+            },
+            "signatures": [
+                {
+                    "signatureID": null,
+                    "systemID": from,
+                    "type": "wormhole",
+                    "name": null
+                },
+                {
+                    "signatureID": null,
+                    "systemID": to,
+                    "type": "wormhole",
+                    "name": null
+                }
+            ]
         });
     }
 
-    if (data.request.signatures.add.length || data.request.signatures.update.length) {
-        data.systemID = viewingSystemID;
-
-        var update = $.map(data.request.signatures.update, function(signature) { return tripwire.client.signatures[signature.id]; });
+    if (payload.signatures.add.length || payload.signatures.update.length) {
+        // var update = $.map(data.request.signatures.update, function(signature) { return tripwire.client.signatures[signature.id]; });
         var success = function(data) {
-            if (data.result == true) {
-                $("#undo").removeClass("disabled");
-                if (viewingSystemID in tripwire.signatures.undo) {
-                    if (data.resultSet) {
-                        tripwire.signatures.undo[viewingSystemID].push({action: "add", signatures: $.map(data.resultSet, function(id) { return data.signatures[id]; })});
-                    }
-
-                    if (update.length) {
-                        tripwire.signatures.undo[viewingSystemID].push({action: "update", signatures: update});
-                    }
-                } else {
-                    if (data.resultSet) {
-                        tripwire.signatures.undo[viewingSystemID] = [{action: "add", signatures: $.map(data.resultSet, function(id) { return data.signatures[id]; })}];
-                    }
-
-                    if (update.length) {
-                        tripwire.signatures.undo[viewingSystemID] = [{action: "update", signatures: update}];
-                    }
-                }
-
-                sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
-            }
+            // if (data.result == true) {
+            //     $("#undo").removeClass("disabled");
+            //     if (viewingSystemID in tripwire.signatures.undo) {
+            //         if (data.resultSet) {
+            //             tripwire.signatures.undo[viewingSystemID].push({action: "add", signatures: $.map(data.resultSet, function(id) { return data.signatures[id]; })});
+            //         }
+            //
+            //         if (update.length) {
+            //             tripwire.signatures.undo[viewingSystemID].push({action: "update", signatures: update});
+            //         }
+            //     } else {
+            //         if (data.resultSet) {
+            //             tripwire.signatures.undo[viewingSystemID] = [{action: "add", signatures: $.map(data.resultSet, function(id) { return data.signatures[id]; })}];
+            //         }
+            //
+            //         if (update.length) {
+            //             tripwire.signatures.undo[viewingSystemID] = [{action: "update", signatures: update}];
+            //         }
+            //     }
+            //
+            //     sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
+            // }
         }
 
-        tripwire.refresh('refresh', data, success);
+        tripwire.refresh('refresh', payload, success);
     }
 }

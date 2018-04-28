@@ -314,8 +314,13 @@ var chain = new function() {
 
 			for (var x in chainData) {
 				var wormhole = chainData[x];
-				var parent = tripwire.client.signatures[wormhole.parentID];
-				var child = tripwire.client.signatures[wormhole.childID];
+				if (wormhole.parent == "initial") {
+					var parent = tripwire.client.signatures[wormhole.initialID];
+					var child = tripwire.client.signatures[wormhole.secondaryID];
+				} else {
+					var parent = tripwire.client.signatures[wormhole.secondaryID];
+					var child = tripwire.client.signatures[wormhole.initialID];
+				}
 
 				if ($.inArray(wormhole.id, usedLinks) == -1) {
 					if (parent.systemID == system[0]) {
@@ -501,8 +506,8 @@ var chain = new function() {
 			if (systems == 0) {
 				var i = 0;
 				for (var x in map) {
-					var parent = tripwire.client.signatures[map[x].parentID];
-					var child = tripwire.client.signatures[map[x].childID];
+					var parent = tripwire.client.signatures[map[x].initialID];
+					var child = tripwire.client.signatures[map[x].secondaryID];
 					if (typeof(tripwire.systems[parent.systemID].class) == "undefined") {
 						i++;
 						//usedLinks[map[x].systemID] = [];
@@ -678,7 +683,7 @@ var chain = new function() {
 		//var startTime = window.performance.now();
 
 		// We need to make sure Google chart is ready and we have signature data for this system before we begin, otherwise delay
-		if (!this.map || tripwire.client.signatures.length == 0) {
+		if (!this.map) {
 			setTimeout(() => chain.draw(data), 100);
 			return;
 		}

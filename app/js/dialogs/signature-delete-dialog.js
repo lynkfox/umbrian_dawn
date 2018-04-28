@@ -32,8 +32,8 @@ $("#signaturesWidget").on("click", "#delete-signature", function(e) {
 							undo.push(signature);
 							return signature.id;
 						} else {
-							var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == signature.id || wormhole.childID == signature.id) return wormhole; })[0];
-							undo.push({"wormhole": wormhole, "signatures": [tripwire.client.signatures[wormhole.parentID], tripwire.client.signatures[wormhole.childID]]});
+							var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == signature.id || wormhole.secondaryID == signature.id) return wormhole; })[0];
+							undo.push({"wormhole": wormhole, "signatures": [tripwire.client.signatures[wormhole.initialID], tripwire.client.signatures[wormhole.secondaryID]]});
 							return wormhole;
 						}
 					});
