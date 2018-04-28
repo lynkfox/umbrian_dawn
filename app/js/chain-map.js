@@ -54,7 +54,7 @@ var chain = new function() {
 
 		// Loop through passed data and show icons
 		for (var x in data) {
-			$("#chainMap [data-nodeid='"+data[x].systemID+"'] [data-icon='user']").removeClass("invisible")
+			$("#chainMap [data-nodeid='"+data[x].systemID+"'] [data-icon='user']").removeClass("invisible");
 			$("#chainMap [data-nodeid='"+data[x].systemID+"'] [data-icon='user'] + .badge").removeClass("invisible").html(data[x].count);
 		}
 
@@ -289,7 +289,7 @@ var chain = new function() {
 							+		"</div>"
 							+		"<div style='float: right;'>"
 							+			"<i data-icon='user' class='invisible'></i>"
-							+			"<span class='badge' class='invisible'></span>"
+							+			"<span class='badge invisible'></span>"
 							+		"</div>"
 							+	"</div>"
 							+	"<h4 class='nodeClass'>"+systemType+"</h4>"
@@ -623,7 +623,7 @@ var chain = new function() {
 							+		"</div>"
 							+		"<div style='float: right;'>"
 							+			"<i data-icon='user' class='invisible'></i>"
-							+			"<span class='badge' class='invisible'></span>"
+							+			"<span class='badge invisible'></span>"
 							+		"</div>"
 							+	"</div>"
 							+	"<h4 class='nodeClass'>"+(systemType + sigFormat(node.child.classBM, "class"))+"</h4>"

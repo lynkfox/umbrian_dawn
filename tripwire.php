@@ -1009,8 +1009,8 @@ if ($row = $stmt->fetchObject()) {
 				<i class="whEffect invisible"></i>
 			</div>
 			<div style="float: right;">
-				<i data-icon="user" class="invisible"></i>
-				<span class="badge" class="invisible"></span>
+				<i data-icon="user" class="invisible confused"></i>
+				<span class="badge invisible"></span>
 			</div>
 		</div>
 		<h4 class="nodeClass">??</h4>
