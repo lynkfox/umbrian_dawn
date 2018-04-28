@@ -53,10 +53,10 @@ tripwire.pasteSignatures = function() {
             var scanner = rowParse(paste[i]);
 
             if (scanner.id) {
-                var signature = $.map(tripwire.client.signatures, function(signature) { if (signature.signatureID == scanner.id[0] + scanner.id[1]) return signature; })[0];
+                var signature = $.map(tripwire.client.signatures, function(signature) { if (signature.signatureID && signature.signatureID.toUpperCase() == scanner.id[0] + scanner.id[1]) return signature; })[0];
                 if (signature) {
-                    // Update signature
-                    if (scanner.type == "Wormhole") {
+                    // Update signature (only non-wormholes can be updated to a wormhole)
+                    if (scanner.type == "Wormhole" && signature.type != "wormhole") {
                         var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == signature.id || wormhole.childID == signature.id) return wormhole; })[0] || {};
                         var otherSignature = wormhole.id ? (signature.id == wormhole.parentID ? tripwire.client.signatures[wormhole.childID] : tripwire.client.signatures[wormhole.parentID]) : {};
                         payload.signatures.update.push({
@@ -85,12 +85,13 @@ tripwire.pasteSignatures = function() {
                         });
 
                         if (tripwire.client.wormholes[wormhole.id]) {
-          									undo.push({"wormhole": tripwire.client.wormholes[wormhole.id], "signatures": [tripwire.client.signatures[signature.id], tripwire.client.signatures[otherSignature.id]]});
-          							} else {
-          									// used to be just a regular signature
-          									undo.push(tripwire.client.signatures[signature.id]);
-          							}
-                    } else {
+							undo.push({"wormhole": tripwire.client.wormholes[wormhole.id], "signatures": [tripwire.client.signatures[signature.id], tripwire.client.signatures[otherSignature.id]]});
+						} else {
+							// used to be just a regular signature
+							undo.push(tripwire.client.signatures[signature.id]);
+						}
+                    // Make sure we are only updating when we have new info (we never turn wormholes into regular signatures)
+                    } else if (signature.type != "wormhole" && ((scanner.type && scanner.type.toLowerCase() != signature.type) || (scanner.name && scanner.name != signature.name))) {
                         payload.signatures.update.push({
                             "id": signature.id,
                             "systemID": viewingSystemID,
