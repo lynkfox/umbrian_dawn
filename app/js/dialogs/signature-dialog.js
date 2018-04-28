@@ -239,7 +239,7 @@ function openSignatureDialog(e) {
 							};
 							payload = {"signatures": {"update": [signature]}};
 
-							if (tripwire.client.signatures[signature.id]) {
+							if (tripwire.client.signatures[signature.id].type == "wormhole") {
 								//used to be a wormhole
 								var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == signature.id || wormhole.secondaryID == signature.id) return wormhole; })[0];
 								var signature2 = signature.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
@@ -341,8 +341,8 @@ function openSignatureDialog(e) {
 						}
 						$("#dialog-signature #durationPicker").val(signature.lifeLength).change();
 					} else {
-						$("#dialog-signature input[name='signatureID_Alpha']").val(signature.signatureID.substr(0, 3));
-						$("#dialog-signature input[name='signatureID_Numeric']").val(signature.signatureID.substr(3, 5));
+						$("#dialog-signature input[name='signatureID_Alpha']").val(signature.signatureID ? signature.signatureID.substr(0, 3) : "???");
+						$("#dialog-signature input[name='signatureID_Numeric']").val(signature.signatureID ? signature.signatureID.substr(3, 5) : "");
 						$("#dialog-signature [name='signatureType']").val(signature.type).selectmenu("refresh").trigger("selectmenuchange");
 						$("#dialog-signature [name='signatureName']").val(signature.name);
 						$("#dialog-signature #durationPicker").val(signature.lifeLength).change();
