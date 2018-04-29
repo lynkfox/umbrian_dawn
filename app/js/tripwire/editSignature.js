@@ -20,7 +20,7 @@ tripwire.editSig = function(edit, disabled) {
 
         var row = "<tr data-id='"+edit.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
             + "<td class='"+ options.signatures.alignment.sigID +"'>"+(edit.signatureID ? edit.signatureID.substring(0, 3)+"-"+(edit.signatureID.substring(3, 6) || "###") : "???-###")+"</td>"
-            + "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(wormhole)+"\">"+(wormhole[wormhole.parent+"ID"] == edit.id ? wormhole.type : (wormhole.parent ? "K162" : ""))+"</td>"
+            + "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(wormhole)+"\">"+(wormhole[wormhole.parent+"ID"] == edit.id ? wormhole.type || "" : (wormhole.parent ? "K162" : ""))+"</td>"
             + "<td class=\"age-tooltip "+ options.signatures.alignment.sigAge +"\" data-tooltip='"+this.ageTooltip(edit)+"'><span data-age='"+edit.lifeTime+"'></span></td>"
             + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+(leadsTo || "")+"</td>"
             + "<td class='"+wormhole.life+" "+ options.signatures.alignment.sigLife +"'>"+wormhole.life+"</td>"

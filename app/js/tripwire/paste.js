@@ -57,8 +57,8 @@ tripwire.pasteSignatures = function() {
                 if (signature) {
                     // Update signature (only non-wormholes can be updated to a wormhole)
                     if (scanner.type == "Wormhole" && signature.type != "wormhole") {
-                        var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == signature.id || wormhole.childID == signature.id) return wormhole; })[0] || {};
-                        var otherSignature = wormhole.id ? (signature.id == wormhole.parentID ? tripwire.client.signatures[wormhole.childID] : tripwire.client.signatures[wormhole.parentID]) : {};
+                        var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == signature.id || wormhole.secondaryID == signature.id) return wormhole; })[0] || {};
+                        var otherSignature = wormhole.id ? (signature.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID]) : {};
                         payload.signatures.update.push({
                             "wormhole": {
                                 "id": wormhole.id || null,
@@ -194,17 +194,17 @@ tripwire.pasteSignatures = function() {
 
             for (var i in paste) {
                 if (scan = rowParse(paste[i])) {
-                    pasteIDs.push(scan.id[0] + scan.id[1]);
+                    pasteIDs.push((scan.id[0] + scan.id[1]).toLowerCase());
                 }
             }
 
             for (var i in tripwire.client.signatures) {
                 var signature = tripwire.client.signatures[i];
 
-                if (signature.systemID == viewingSystemID && $.inArray(signature.signatureID, pasteIDs) === -1) {
+                if (signature.systemID == viewingSystemID && (!signature.signatureID || $.inArray(signature.signatureID.toLowerCase(), pasteIDs) === -1)) {
                     if (signature.type == "wormhole") {
-                        var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.parentID == signature.id || wormhole.childID == signature.id) return wormhole; })[0] || {};
-                        var otherSignature = wormhole.id ? (signature.id == wormhole.parentID ? tripwire.client.signatures[wormhole.childID] : tripwire.client.signatures[wormhole.parentID]) : {};
+                        var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == signature.id || wormhole.secondaryID == signature.id) return wormhole; })[0] || {};
+                        var otherSignature = wormhole.id ? (signature.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID]) : {};
                         if (wormhole.type !== "GATE") {
                             removes.push(wormhole);
                             undo.push({"wormhole": wormhole, "signatures": [signature, otherSignature]});

@@ -187,7 +187,7 @@ if ($row = $stmt->fetchObject()) {
 					<i id="add-signature" data-icon="plus" data-tooltip="Add a new signature"></i>
 					<i id="delete-signature" data-icon="trash" data-tooltip="Delete selected signature(s)" class="disabled"></i>
 					<span>|</span>
-					<i id="signature-count" style="font-style: normal; cursor: default;" data-tooltip="Total signature count">&nbsp;</i>
+					<i id="signature-count" style="font-style: normal; cursor: default;" data-tooltip="Total signature count">0</i>
 					<i id="undo" data-icon="undo" class="disabled" data-tooltip="Undo last signature change"></i>
 					<i id="redo" data-icon="redo" class="disabled" data-tooltip="Redo what was undone"></i>
 					<div style="float: right;">
