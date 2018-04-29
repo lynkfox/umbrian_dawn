@@ -366,10 +366,10 @@ if ($row = $stmt->fetchObject()) {
 					<div class="row">
 						<span class="label">Type:</span>
 						<input name="wormholeType" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
-						<span class="bookmark">
+						<!-- <span class="bookmark">
 							<span class="label">BM:</span>
 							<input name="" type="text" maxlength="10" size="8" />
-						</span>
+						</span> -->
 					</div>
 					<div class="row">
 						<span class="label">Leads:</span>
@@ -407,10 +407,10 @@ if ($row = $stmt->fetchObject()) {
 					<div class="row">
 						<span class="label">Type:</span>
 						<input name="wormholeType2" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
-						<span class="bookmark">
+						<!-- <span class="bookmark">
 							<span class="label">BM:</span>
 							<input name="" type="text" maxlength="10" size="8" />
-						</span>
+						</span> -->
 					</div>
 					<div class="row">
 						<span class="label">Name:</span>

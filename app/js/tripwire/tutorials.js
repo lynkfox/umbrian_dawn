@@ -11,7 +11,7 @@ $("#infoWidget .tutorial").click(function() {
             },
             {
                 element: document.querySelector("#infoGeneral"),
-                intro: "<p>This section includes the system name, security rating, region, and owning faction.</p>"
+                intro: "<p>This section includes the system name, security rating, region, and owning faction.<br/>If viewing a wormhole with a system effect, that will also be shown, hover over it to view the effect breakdown.</p>"
             },
             {
                 element: document.querySelector("#activityGraph"),
@@ -47,24 +47,28 @@ $("#signaturesWidget .tutorial").click(function() {
                 intro: "<h4>System signatures widget</h4><br/><p>Displays all signatures and wormholes in the currently <b>selected</b> Tripwire system (not the in-game system).</p>"
             },
             {
-                element: document.querySelector("#add-signature2"),
-                intro: "<p>Add new signatures or wormholes manually by clicking the + icon.</p>"
+                element: document.querySelector("#add-signature"),
+                intro: "<p>Add new signatures / wormholes manually by clicking the + icon.<br/>Copy & Paste EVE scanner results anywhere once Tripwire has focus to add / update signatures, repeated pastes will only update with new information.</p>"
             },
             {
-                element: document.querySelector("#toggle-automapper"),
-                intro: "<p>Toggle the Auto-mapper feature on (orange) or off. (more details here)</p>"
+                element: document.querySelector("#delete-signature"),
+                intro: "<p>Click here to delete <b>selected</b> signatures from the list.</p>"
             },
             {
                 element: document.querySelector("#signature-count"),
-                intro: "<p>Shows the current count of signatures.</p>"
+                intro: "<p>This shows the current count of signatures, including wormholes, in the selected system.</p>"
             },
             {
                 element: document.querySelector("#undo"),
-                intro: "<p>Click or use the keyboard shortcut CTRL-Z to undo the last changes made to these signatures (this includes clipboard pasted changes).</p><br/><p>You can undo multiple times as history is kept in the browser.</p>"
+                intro: "<p>Click here or use the keyboard shortcut <b>CTRL-Z</b> to undo the last changes made in this sytem (this includes clipboard pasted changes).</p><br/><p>You can undo multiple times as history is kept in the browser.</p>"
             },
             {
                 element: document.querySelector("#redo"),
-                intro: "<p>Click or use the keyboard shortcut CTRL-Y to redo the last changes made to these signatures (this includes clipboard pasted changes).</p><br/><p>You can redo multiple times as history is kept in the browser.</p>"
+                intro: "<p>Click here or use the keyboard shortcut <b>CTRL-Y</b> to redo the last changes made in this system (this includes clipboard pasted changes).</p><br/><p>You can redo multiple times as history is kept in the browser.</p>"
+            },
+            {
+                element: document.querySelector("#toggle-automapper"),
+                intro: "<p>Click here to toggle the Auto-mapper feature on (orange) or off. This feature only works when an in-game character is being actively tracked, otherwise this icon appears disabled.</p>"
             },
             {
                 element: document.querySelector("#sigTable"),

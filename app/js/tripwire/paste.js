@@ -12,7 +12,7 @@ tripwire.pasteSignatures = function() {
                             "ГАЗ: район добычи газа": "Gas", "ДАННЫЕ: район сбора данных": "Data", "АРТЕФАКТЫ: район поиска артефактов": "Relic", "РУДА: район добычи руды": "Ore", "ОПАСНО: район повышенной опасности": "Combat", "Червоточина": "Wormhole"};
 
         for (var x in columns) {
-            if (columns[x].match(/([A-Z]{3}[-]\d{3})/)) {
+            if (columns[x].match(/^([A-Z]{3}[-]\d{3})$/)) {
                 scanner.id = columns[x].split("-");
                 continue;
             }
