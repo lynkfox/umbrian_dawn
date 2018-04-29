@@ -38,7 +38,7 @@ tripwire.autoMapper = function(from, to) {
         if (tripwire.client.signatures[wormhole.initialID].systemID == from && !tripwire.systems[tripwire.client.signatures[wormhole.secondaryID].systemID]) {
             if (tripwire.aSigSystems[tripwire.client.signatures[wormhole.secondaryID].systemID] == toClass) {
                 return wormhole;
-            } else if (wormhole.type && tripwire.wormholes[wormhole.type].leadsTo == toClass) {
+            } else if (wormhole.type && tripwire.wormholes[wormhole.type] && tripwire.wormholes[wormhole.type].leadsTo == toClass) {
                 return wormhole;
             }
         }
