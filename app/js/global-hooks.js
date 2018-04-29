@@ -125,10 +125,11 @@ $("#search").click(function(e) {
 $("#toggle-automapper").click(function(e) {
 	e.preventDefault();
 
-	if ($(this).hasClass("active"))
+	if ($(this).hasClass("active")) {
 		$(this).removeClass("active");
-	else
+	} else {
 		$(this).addClass("active");
+	}
 
 	options.buttons.signaturesWidget.autoMapper = $(this).hasClass("active");
 	options.save();

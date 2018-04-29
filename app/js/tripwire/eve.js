@@ -26,6 +26,9 @@ tripwire.EVE = function(EVE, characterChange) {
             $("#currentSpan").show();
         }
 
+        // Enable auto-mapper
+        $("#toggle-automapper").removeClass("disabled");
+
         // Update current system
         if (EVE.systemID) {
             $("#EVEsystem").html(tripwire.systems[EVE.systemID].name).attr("href", ".?system="+ tripwire.systems[EVE.systemID].name);
@@ -34,6 +37,8 @@ tripwire.EVE = function(EVE, characterChange) {
         // Update current system
         $("#EVEsystem").html("");
         $("#currentSpan").hide();
+        // Disable automapper
+        $("#toggle-automapper").addClass("disabled");
     }
 
     this.client.EVE = {

@@ -15,7 +15,7 @@ tripwire.systemChange = function(systemID, mode) {
         $("#sigTable tbody").empty();
         $("#signature-count").html(0);
         tripwire.signatures.list = {};
-        tripwire.client.signatures = [];
+        tripwire.client.signatures = null;
 
         // Reset chain map
         chain.redraw();

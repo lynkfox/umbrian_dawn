@@ -107,6 +107,7 @@ tripwire.pasteSignatures = function() {
                         payload.signatures.add.push({
                             "wormhole": {
                                 "type": null,
+                                "parent": "initial",
                                 "life": "stable",
                                 "mass": "stable"
                             },

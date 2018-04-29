@@ -22,7 +22,7 @@ class signature {
 
     public function __construct(Array $signature = array()) {
         $this->id = isset($signature['id']) && is_numeric($signature['id']) ? (int)$signature['id'] : $this->id;
-        $this->signatureID = isset($signature['signatureID']) && !empty($signature['signatureID']) ? $signature['signatureID'] : $this->signatureID;
+        $this->signatureID = isset($signature['signatureID']) && !empty($signature['signatureID']) ? strtolower($signature['signatureID']) : $this->signatureID;
         $this->systemID = isset($signature['systemID']) && is_numeric($signature['systemID']) ? (int)$signature['systemID'] : $this->systemID;
         $this->type = isset($signature['type']) && in_array(strtolower($signature['type']), $this->type) ? strtolower($signature['type']) : $this->type[0];
         $this->name = isset($signature['name']) && !empty($signature['name']) ? $signature['name'] : $this->name;
@@ -166,10 +166,10 @@ function fetchSignature($id, $mysql) {
     $signature = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($success && $signature) {
-        return array(true, new signature($signature));
+        return array(true, new signature($signature), null);
     }
 
-    return array(false, $stmt->errorInfo());
+    return array(false, null, $stmt->errorInfo());
 }
 
 function fetchWormhole($id, $mysql) {

@@ -111,7 +111,7 @@ function openSignatureDialog(e) {
 					if (!valid) return false;
 
 					// Validate full signature ID doesn't already exist in current system
-					if (form.signatureID_Alpha.length === 3 && form.signatureID_Numeric.length === 3 && Object.find(tripwire.client.signatures, "signatureID", form.signatureID_Alpha + form.signatureID_Numeric) != false && Object.find(tripwire.client.signatures, "signatureID", form.signatureID_Alpha + form.signatureID_Numeric).id != $("#dialog-signature").data("signatureid")) {
+					if (form.signatureID_Alpha.length === 3 && form.signatureID_Numeric.length === 3 && Object.find(tripwire.client.signatures, "signatureID", form.signatureID_Alpha + form.signatureID_Numeric, true) != false && Object.find(tripwire.client.signatures, "signatureID", form.signatureID_Alpha + form.signatureID_Numeric, true).id != $("#dialog-signature").data("signatureid")) {
 						var existingSignature = Object.find(tripwire.client.signatures, "signatureID", form.signatureID_Alpha + form.signatureID_Numeric);
 						ValidationTooltips.open({target: $("#dialog-signature .signatureID:first")}).setContent("Signature ID already exists! <input type='button' autofocus='true' id='overwrite' value='Overwrite' style='margin-bottom: -4px; margin-top: -4px; font-size: 0.8em;' data-id='"+ existingSignature.id +"' />");
 						$("#overwrite").focus();

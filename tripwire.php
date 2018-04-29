@@ -191,7 +191,7 @@ if ($row = $stmt->fetchObject()) {
 					<i id="undo" data-icon="undo" class="disabled" data-tooltip="Undo last signature change"></i>
 					<i id="redo" data-icon="redo" class="disabled" data-tooltip="Redo what was undone"></i>
 					<div style="float: right;">
-						<i id="toggle-automapper" data-icon="auto" data-tooltip="Toggle Auto-Mapper"></i>
+						<i id="toggle-automapper" class="disabled" data-icon="auto" data-tooltip="Toggle Auto-Mapper"></i>
 						<i class="tutorial" data-tooltip="Show tutorial for this section">?</i>
 					</div>
 				</div>
