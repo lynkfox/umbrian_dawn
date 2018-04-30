@@ -398,7 +398,7 @@ if (isset($_POST['signatures'])) {
         foreach ($_POST['signatures']['update'] AS $request) {
             if (isset($request['wormhole'])) {
                 // Wormhole
-                if (isset($request['signatures']) && count($request['signatures']) > 0) {
+                if (isset($request['signatures']) && count($request['signatures']) > 0 && isset($request['signatures'][0]['id'])) {
                     list($result, $signature, $msg) = fetchSignature($request['signatures'][0]['id'], $mysql);
                     if ($result && $signature) {
                         foreach ($request['signatures'][0] AS $property => $value) {
@@ -411,7 +411,7 @@ if (isset($_POST['signatures'])) {
 
                         list($result, $signature, $msg) = updateSignature($signature, $mysql);
                     }
-                    if ($result && count($request['signatures']) == 2) {
+                    if ($result && count($request['signatures']) == 2 && isset($request['signatures'][1]['id'])) {
                         list($result, $signature2, $msg) = fetchSignature($request['signatures'][1]['id'], $mysql);
                         if ($result && $signature2) {
                             foreach ($request['signatures'][1] AS $property => $value) {
@@ -429,16 +429,16 @@ if (isset($_POST['signatures'])) {
                         }
                     }
 
-                    if ($result) {
+                    if ($result && isset($request['wormhole']['id'])) {
                         list($result, $wormhole, $msg) = fetchWormhole($request['wormhole']['id'], $mysql);
                         if ($result && $wormhole) {
                             // Set wormhole to/from critical life
-                            if ($wormhole->life != $request['wormhole']['life'] && $request['wormhole']['life'] == 'critical') {
+                            if (isset($request['wormhole']['life']) && $wormhole->life != $request['wormhole']['life'] && $request['wormhole']['life'] == 'critical') {
                                 $signature->lifeLeft = date('Y-m-d H:i:s', strtotime('4 hour'));
                                 $signature2->lifeLeft = date('Y-m-d H:i:s', strtotime('4 hour'));
                                 updateSignature($signature, $mysql);
                                 updateSignature($signature2, $mysql);
-                            } else if ($wormhole->life != $request['wormhole']['life'] && $request['wormhole']['life'] == 'stable') {
+                            } else if (isset($request['wormhole']['life']) && $wormhole->life != $request['wormhole']['life'] && $request['wormhole']['life'] == 'stable') {
                                 $signature->lifeLeft = date('Y-m-d H:i:s', strtotime('+'.$signature->lifeLength.' seconds', strtotime($signature->lifeTime)));
                                 $signature2->lifeLeft = date('Y-m-d H:i:s', strtotime('+'.$signature2->lifeLength.' seconds', strtotime($signature2->lifeTime)));
                                 updateSignature($signature, $mysql);
@@ -458,7 +458,7 @@ if (isset($_POST['signatures'])) {
 
                     $output['resultSet'][] = array('result' => $result, 'value' => $msg);
                 }
-            } else {
+            } else if (isset($request['id'])) {
                 // Regular Signature
                 list($result, $signature, $msg) = fetchSignature($request['id'], $mysql);
                 if ($result && $signature) {
@@ -494,7 +494,7 @@ if (isset($_POST['signatures'])) {
     // Delete signatures
     if (isset($_POST['signatures']['remove'])) {
         foreach ($_POST['signatures']['remove'] AS $request) {
-            if (isset($request['initialID'])) {
+            if (isset($request['id']) && isset($request['initialID']) && isset($request['secondaryID'])) {
                 // Wormhole
                 list($result, $signature, $msg) = fetchSignature($request['initialID'], $mysql);
                 removeSignature($signature, $mysql);
