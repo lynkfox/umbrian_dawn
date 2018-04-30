@@ -24,11 +24,7 @@ if(!isset($_SESSION['userID'])) {
 require_once('../config.php');
 require_once('../db.inc.php');
 
-$query = 'SELECT time FROM eve_api.cacheTime WHERE type = "activity"';
-$stmt = $mysql->prepare($query);
-$stmt->execute();
-$row = $stmt->fetchObject();
-$cache = $row && $row->time ? ((strtotime($row->time) + 3600) - time()) / 2 : 60;
+$cache = 360;
 
 header('Cache-Control: max-age='.$cache);
 header('Expires: '.gmdate('r', time() + $cache));
@@ -40,7 +36,7 @@ $systemID = $_REQUEST['systemID'];
 
 //$annotations['2015-12-20 15:00:00'] = Array('label' => 'Downtime', 'text' => 'EVE Downtime');
 
-$query = 'SELECT shipJumps, shipKills, podKills, npcKills, time FROM eve_api.systemActivity WHERE systemID = :systemID ORDER BY time DESC LIMIT :limit';
+$query = 'SELECT shipJumps, shipKills, podKills, npcKills, time FROM tripwire.systemActivity WHERE systemID = :systemID ORDER BY time DESC LIMIT :limit';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
 $stmt->bindValue(':limit', (int)$length + 1, PDO::PARAM_INT);
