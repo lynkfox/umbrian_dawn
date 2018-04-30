@@ -8,9 +8,7 @@ require('esi.class.php');
 
 date_default_timezone_set('UTC');
 
-$startTime = microtime(true);
 $time = date('Y-m-d H:00:00', time());
-$output = null;
 
 $esi = new esi();
 
@@ -25,7 +23,7 @@ foreach ($esi->getKills() AS $systemKills) {
 }
 
 foreach ($activity AS $systemID => $data) {
-    $query = 'INSERT INTO eve_api.systemActivity (systemID, time, shipJumps, shipKills, podKills, npcKills) VALUES (:systemID, :time, :shipJumps, :shipKills, :podKills, :npcKills)';
+    $query = 'INSERT INTO systemActivity (systemID, time, shipJumps, shipKills, podKills, npcKills) VALUES (:systemID, :time, :shipJumps, :shipKills, :podKills, :npcKills)';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':systemID', $systemID);
     $stmt->bindValue(':time', $time);
@@ -35,6 +33,3 @@ foreach ($activity AS $systemID => $data) {
     $stmt->bindValue(':npcKills', $data['npc_kills']);
     $stmt->execute();
 }
-
-// $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
-// echo json_encode($output);
