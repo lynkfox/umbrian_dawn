@@ -112,6 +112,10 @@
 	font-weight: normal;
 }
 
+#chainMap .nodeType {
+	text-transform: uppercase;
+}
+
 #chainMap .nodeActivity {
 	position: absolute;
 	top: 2.8em;

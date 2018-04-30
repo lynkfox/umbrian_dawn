@@ -26,7 +26,7 @@ header('Content-Type: application/json');
 */
 $query = 'SELECT characterID, characterName, corporationID, corporationName, admin FROM characters WHERE userID = :userID';
 $stmt = $mysql->prepare($query);
-$stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
+$stmt->bindValue(':userID', $_SESSION['userID']);
 $stmt->execute();
 if ($row = $stmt->fetchObject()) {
 	$_SESSION['characterID'] = $row->characterID;
@@ -46,9 +46,9 @@ if ($checkMask[1] == 0 && $checkMask[0] != 0) {
 	// Check custom mask
 	$query = 'SELECT masks.maskID FROM masks INNER JOIN groups ON masks.maskID = groups.maskID WHERE masks.maskID = :maskID AND ((ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373) OR (eveID = :corporationID AND eveType = 2))';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':characterID', $_SESSION['characterID'], PDO::PARAM_INT);
-	$stmt->bindValue(':corporationID', $_SESSION['corporationID'], PDO::PARAM_INT);
-	$stmt->bindValue(':maskID', $_SESSION['mask'], PDO::PARAM_STR);
+	$stmt->bindValue(':characterID', $_SESSION['characterID']);
+	$stmt->bindValue(':corporationID', $_SESSION['corporationID']);
+	$stmt->bindValue(':maskID', $_SESSION['mask']);
 
 	if ($stmt->execute() && $stmt->fetchColumn(0) != $_SESSION['mask'])
 		$_SESSION['mask'] = $_SESSION['corporationID'] . '.2';
@@ -82,7 +82,7 @@ $refresh 		= array('sigUpdate' => false, 'chainUpdate' => false);
 */
 $query = 'SELECT notify FROM active WHERE instance = :instance AND notify IS NOT NULL';
 $stmt = $mysql->prepare($query);
-$stmt->bindValue(':instance', $instance, PDO::PARAM_STR);
+$stmt->bindValue(':instance', $instance);
 $stmt->execute();
 $stmt->rowCount() ? $output['notify'] = $stmt->fetchColumn() : null;
 
@@ -90,8 +90,8 @@ $stmt->rowCount() ? $output['notify'] = $stmt->fetchColumn() : null;
 
 $query = 'SELECT characters.characterName, activity FROM active INNER JOIN characters ON active.userID = characters.userID WHERE maskID = :maskID AND instance <> :instance AND activity IS NOT NULL AND activity <> ""';
 $stmt = $mysql->prepare($query);
-$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
-$stmt->bindValue(':instance', $instance, PDO::PARAM_STR);
+$stmt->bindValue(':maskID', $maskID);
+$stmt->bindValue(':instance', $instance);
 $stmt->execute();
 $stmt->rowCount() ? $output['activity'] = $stmt->fetchAll(PDO::FETCH_OBJ) : null;
 
@@ -118,18 +118,18 @@ if (isset($_REQUEST['tracking'])) {
 		ON DUPLICATE KEY UPDATE
 		systemID = :systemID, systemName = :systemName, stationID = :stationID, stationName = :stationName, shipID = :shipID, shipName = :shipName, shipTypeID = :shipTypeID, shipTypeName = :shipTypeName';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
-		$stmt->bindValue(':characterID', $track['characterID'], PDO::PARAM_INT);
-		$stmt->bindValue(':characterName', $track['characterName'], PDO::PARAM_STR);
-		$stmt->bindValue(':systemID', $track['systemID'], PDO::PARAM_INT);
-		$stmt->bindValue(':systemName', $track['systemName'], PDO::PARAM_STR);
-		$stmt->bindValue(':stationID', $track['stationID'], PDO::PARAM_INT);
-		$stmt->bindValue(':stationName', $track['stationName'], PDO::PARAM_STR);
-		$stmt->bindValue(':shipID', $track['shipID'], PDO::PARAM_INT);
-		$stmt->bindValue(':shipName', $track['shipName'], PDO::PARAM_STR);
-		$stmt->bindValue(':shipTypeID', $track['shipTypeID'], PDO::PARAM_INT);
-		$stmt->bindValue(':shipTypeName', $track['shipTypeName'], PDO::PARAM_STR);
-		$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+		$stmt->bindValue(':userID', $userID);
+		$stmt->bindValue(':characterID', $track['characterID']);
+		$stmt->bindValue(':characterName', $track['characterName']);
+		$stmt->bindValue(':systemID', $track['systemID']);
+		$stmt->bindValue(':systemName', $track['systemName']);
+		$stmt->bindValue(':stationID', $track['stationID']);
+		$stmt->bindValue(':stationName', $track['stationName']);
+		$stmt->bindValue(':shipID', $track['shipID']);
+		$stmt->bindValue(':shipName', $track['shipName']);
+		$stmt->bindValue(':shipTypeID', $track['shipTypeID']);
+		$stmt->bindValue(':shipTypeName', $track['shipTypeName']);
+		$stmt->bindValue(':maskID', $maskID);
 		$stmt->execute();
 	}
 }
@@ -148,14 +148,14 @@ if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi'])) {
 
 		$query = 'DELETE FROM esi WHERE userID = :userID AND characterID = :characterID';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
-		$stmt->bindValue(':characterID', $characterID, PDO::PARAM_INT);
+		$stmt->bindValue(':userID', $userID);
+		$stmt->bindValue(':characterID', $characterID);
 		$stmt->execute();
 	}
 
 	$query = 'SELECT characterID, characterName, accessToken, refreshToken, CONCAT(tokenExpire, @@global.time_zone) as tokenExpire FROM esi WHERE userID = :userID';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
+	$stmt->bindValue(':userID', $userID);
 	$stmt->execute();
 	$characters = $stmt->fetchAll(PDO::FETCH_OBJ);
 	foreach ($characters as $character) {
@@ -166,10 +166,10 @@ if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi'])) {
 			if ($esi->refresh($character->refreshToken)) {
 				$query = 'UPDATE esi SET accessToken = :accessToken, refreshToken = :refreshToken, tokenExpire = :tokenExpire WHERE characterID = :characterID';
 				$stmt = $mysql->prepare($query);
-				$stmt->bindValue(':accessToken', $esi->accessToken, PDO::PARAM_STR);
-				$stmt->bindValue(':refreshToken', $esi->refreshToken, PDO::PARAM_STR);
-				$stmt->bindValue(':tokenExpire', $esi->tokenExpire, PDO::PARAM_STR);
-				$stmt->bindValue(':characterID', $character->characterID, PDO::PARAM_STR);
+				$stmt->bindValue(':accessToken', $esi->accessToken);
+				$stmt->bindValue(':refreshToken', $esi->refreshToken);
+				$stmt->bindValue(':tokenExpire', $esi->tokenExpire);
+				$stmt->bindValue(':characterID', $character->characterID);
 				$stmt->execute();
 
 				$character->accessToken = $esi->accessToken;
@@ -178,7 +178,7 @@ if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi'])) {
 			} else {
 				$query = 'DELETE FROM esi WHERE characterID = :characterID';
 				$stmt = $mysql->prepare($query);
-				$stmt->bindValue(':characterID', $character->characterID, PDO::PARAM_INT);
+				$stmt->bindValue(':characterID', $character->characterID);
 				$stmt->execute();
 
 				unset($character);
@@ -209,15 +209,15 @@ $query = 'INSERT INTO active (ip, instance, session, userID, maskID, systemID, s
 			ON DUPLICATE KEY UPDATE
 			maskID = :maskID, systemID = :systemID, systemName = :systemName, activity = :activity, version = :version, time = NOW(), notify = NULL';
 $stmt = $mysql->prepare($query);
-$stmt->bindValue(':ip', $ip, PDO::PARAM_STR);
-$stmt->bindValue(':instance', $instance, PDO::PARAM_STR);
-$stmt->bindValue(':session', session_id(), PDO::PARAM_STR);
-$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
-$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
-$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-$stmt->bindValue(':systemName', $systemName, PDO::PARAM_STR);
-$stmt->bindValue(':activity', $activity, PDO::PARAM_STR);
-$stmt->bindValue(':version', $version, PDO::PARAM_STR);
+$stmt->bindValue(':ip', $ip);
+$stmt->bindValue(':instance', $instance);
+$stmt->bindValue(':session', session_id());
+$stmt->bindValue(':userID', $userID);
+$stmt->bindValue(':maskID', $maskID);
+$stmt->bindValue(':systemID', $systemID);
+$stmt->bindValue(':systemName', $systemName);
+$stmt->bindValue(':activity', $activity);
+$stmt->bindValue(':version', $version);
 $stmt->execute();
 
 /**
@@ -248,8 +248,8 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	// $output['signatures'] = Array();
 	// $query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND mask = :mask';
 	// $stmt = $mysql->prepare($query);
-	// $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-	// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+	// $stmt->bindValue(':systemID', $systemID);
+	// $stmt->bindValue(':mask', $maskID);
 	// $stmt->execute();
 	//
 	// while ($row = $stmt->fetchObject()) {
@@ -263,7 +263,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	// EVE Scout signatures data
 	// $query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
 	// $stmt = $mysql->prepare($query);
-	// $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+	// $stmt->bindValue(':systemID', $systemID);
 	// $stmt->execute();
 	//
 	// while ($row = $stmt->fetchObject()) {
@@ -278,7 +278,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$output['wormholes'] = array();
 	$query = "SELECT * FROM wormholes WHERE maskID = :maskID";
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_INT);
+	$stmt->bindValue(':maskID', $maskID);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_CLASS);
 	foreach ($rows AS $row) {
@@ -288,21 +288,21 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	// EVE Scout chain map data
 	// $query = "SELECT * FROM signatures USE INDEX(changeSearch2) WHERE (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL";
 	// $stmt = $mysql->prepare($query);
-	// $stmt->bindValue(':mask', $maskID, PDO::PARAM_INT);
+	// $stmt->bindValue(':mask', $maskID);
 	// $stmt->execute();
 	// $output['chain']['map'] = array_merge($output['chain']['map'], $stmt->fetchAll(PDO::FETCH_CLASS));
 
 	// Get occupied systems
 	$query = 'SELECT systemID, COUNT(characterID) AS count FROM tracking WHERE maskID = :maskID GROUP BY systemID';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+	$stmt->bindValue(':maskID', $maskID);
 	$stmt->execute();
 	$output['occupied'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 
 	// Get flares
 	$query = 'SELECT systemID, flare, time FROM flares WHERE maskID = :maskID';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_INT);
+	$stmt->bindValue(':maskID', $maskID);
 	$stmt->execute();
 	$result = $stmt->fetchAll(PDO::FETCH_CLASS);
 	$output['flares']['flares'] = $result;
@@ -311,8 +311,8 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	// Get Comments
 	$query = 'SELECT id, comment, created AS createdDate, c.characterName AS createdBy, modified AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+	$stmt->bindValue(':systemID', $systemID);
+	$stmt->bindValue(':maskID', $maskID);
 	$stmt->execute();
 	while ($row = $stmt->fetchObject()) {
 		$output['comments'][] = array('id' => $row->id, 'comment' => $row->comment, 'created' => $row->createdDate, 'createdBy' => $row->createdBy, 'modified' => $row->modifiedDate, 'modifiedBy' => $row->modifiedBy, 'sticky' => $row->systemID == 0 ? true : false);
@@ -344,7 +344,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		// EVE Scout signatures
 		$query = 'SELECT COUNT(*) as total, MAX(time) as time FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+		$stmt->bindValue(':systemID', $systemID);
 		$stmt->execute();
 		$results2 = $stmt->fetchObject();
 
@@ -378,7 +378,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		// // EVE Scout signatures data
 		// $query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
 		// $stmt = $mysql->prepare($query);
-		// $stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+		// $stmt->bindValue(':systemID', $systemID);
 		// $stmt->execute();
 		//
 		// while ($row = $stmt->fetchObject()) {
@@ -394,7 +394,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	if ($flareCount != null && $flareTime != null) {
 		$query = 'SELECT systemID, flare, time FROM flares WHERE maskID = :maskID ORDER BY time DESC';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':maskID', $maskID, PDO::PARAM_INT);
+		$stmt->bindValue(':maskID', $maskID);
 		$stmt->execute();
 		$result = $stmt->fetchAll(PDO::FETCH_CLASS);
 		if (count($result) != $flareCount || ($result && strtotime($result[0]->time) < strtotime($flareTime))) {
@@ -406,7 +406,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	// Get occupied systems
 	$query = 'SELECT systemID, COUNT(characterID) AS count FROM tracking WHERE maskID = :maskID GROUP BY systemID';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+	$stmt->bindValue(':maskID', $maskID);
 	$stmt->execute();
 	if ($result = $stmt->fetchAll(PDO::FETCH_CLASS)) {
 		$output['occupied'] = $result;
@@ -415,8 +415,8 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	// Check Comments
 	$query = 'SELECT COUNT(id) AS count, MAX(modified) AS modified FROM comments WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+	$stmt->bindValue(':systemID', $systemID);
+	$stmt->bindValue(':maskID', $maskID);
 	$stmt->execute();
 	$row = $stmt->fetch(PDO::FETCH_OBJ);
 	if ((int)$commentCount != (int)$row->count || strtotime($commentTime) < strtotime($row->modified)) {
@@ -424,8 +424,8 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		// Get Comments
 		$query = 'SELECT id, comment, created AS createdDate, c.characterName AS createdBy, modified AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-		$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+		$stmt->bindValue(':systemID', $systemID);
+		$stmt->bindValue(':maskID', $maskID);
 		$stmt->execute();
 		while ($row = $stmt->fetchObject()) {
 			$output['comments'][] = array('id' => $row->id, 'comment' => $row->comment, 'created' => $row->createdDate, 'createdBy' => $row->createdBy, 'modified' => $row->modifiedDate, 'modifiedBy' => $row->modifiedBy, 'sticky' => $row->systemID == 0 ? true : false);

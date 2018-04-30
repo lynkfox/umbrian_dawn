@@ -628,9 +628,9 @@ var chain = new function() {
 							+	"</div>"
 							+	"<h4 class='nodeClass'>"+(systemType + sigFormat(node.child.classBM, "class"))+"</h4>"
 							+	"<h4 class='nodeSystem'>"
-							+ 	(tripwire.systems[node.child.systemID] ? "<a href='.?system="+tripwire.systems[node.child.systemID].name+"'>"+(node.child.name ? node.child.name : tripwire.systems[node.child.systemID].name)+"</a>" : "<a class='invisible'>system</a>")
+							+ 	(tripwire.systems[node.child.systemID] ? "<a href='.?system="+tripwire.systems[node.child.systemID].name+"'>"+(node.parent.name ? node.parent.name : tripwire.systems[node.child.systemID].name)+"</a>" : (node.parent.name ? node.parent.name : "<a class='invisible'>system</a>"))
 							+	"</h4>"
-							+	"<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? node.child.signatureID : (node.child.type || "") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"
+							+	"<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "") : (node.child.type || "") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
 							+	"</div>"
