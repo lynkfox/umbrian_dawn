@@ -31,7 +31,7 @@
 
             function buildDisplayBlock(id, hidden) {
                 return `<div class="bdp-block ${hidden ? 'hidden' : ''}">
-                            <a id="bdp-link-${id}" href=""><span id="bdp-${id}"></span></a><br>
+                            <a id="bdp-link-${id}" href="" tabindex="-1"><span id="bdp-${id}"></span></a><br>
                             <span class="bdp-label" id="bdp-${id}-label"></span>
                         </div>`;
             }

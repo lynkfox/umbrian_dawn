@@ -25,6 +25,7 @@
     line-height: 1;
     text-align: center;
     padding: 0px 3px;
+    cursor: pointer;
 }
 
 .bdp-label {
