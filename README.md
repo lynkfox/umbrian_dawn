@@ -22,11 +22,13 @@ This is just some basic info on the source atm - more details on how to setup an
 ### Setup guide for Docker ###
 
 Note: MySQL is setup without a root password - make sure you have a secure host machine.
+Note: Be sure to properly fully shutdown Docker, and quit! Otherwise you will have issues starting the MySQL container
 
 * Install Docker for your environment: https://www.docker.com/
 * Run `docker-compose up --build`
 * Copy db.inc.example.php to db.inc.php
-* Modify the constants with your own settings
+* Copy config.example.php to config.php
+* Modify the constants with your own settings in both files
 * MySQL connection settings will be the server `mysql` with the user `root` with an empty password
 * Create a new table for the EVE dump, specify the name in `db.inc.php` for `EVE_DUMP`
 * Import using the dump downloaded from: https://www.fuzzwork.co.uk/dump/ To download the latest use the following link: https://www.fuzzwork.co.uk/dump/mysql-latest.tar.bz2
