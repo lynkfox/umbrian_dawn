@@ -6,14 +6,19 @@ tripwire.redo = function() {
 
         var redoItem = tripwire.signatures.redo[viewingSystemID][lastIndex];
         var undo = $.map(redoItem.signatures, function(signature) {
+            // grab the current signature so we can restore the way it is now
             if (signature.wormhole && tripwire.client.wormholes[signature.wormhole.id]) {
-                return {"wormhole": tripwire.client.wormholes[signature.wormhole.id], "signatures": [tripwire.client.signatures[signature.wormhole.id], tripwire.client.signatures[signature.wormhole.id]]};
+                // it was a wormhole and still is
+                return {"wormhole": tripwire.client.wormholes[signature.wormhole.id], "signatures": [tripwire.client.signatures[signature.signatures[0].id], tripwire.client.signatures[signature.signatures[1].id]]};
             } else if (tripwire.client.signatures[signature.id] && tripwire.client.signatures[signature.id].type == "wormhole") {
+                // it was a regular signature but is now a wormhole
                 var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == signature.id || wormhole.secondaryID == signature.id) return wormhole; })[0];
                 return {"wormhole": wormhole, "signatures": [tripwire.client.signatures[wormhole.initialID], tripwire.client.signatures[wormhole.secondaryID]]};
             } else if (signature.wormhole && tripwire.client.signatures[signature.signatures[0].id]) {
+                // it was a wormhole but is now a regular signature
                 return tripwire.client.signatures[signature.signatures[0].id];
             } else {
+                // it was a regular signature and still is
                 return tripwire.client.signatures[signature.id];
             }
         });

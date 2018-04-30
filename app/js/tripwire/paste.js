@@ -155,9 +155,9 @@ tripwire.pasteSignatures = function() {
                     if (undo.length) {
                         if (viewingSystemID in tripwire.signatures.undo) {
                             tripwire.signatures.undo[viewingSystemID].push({action: "update", signatures: undo});
-          							} else {
+						} else {
                             tripwire.signatures.undo[viewingSystemID] = [{action: "update", signatures: undo}];
-          							}
+						}
                     }
 
                     sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));

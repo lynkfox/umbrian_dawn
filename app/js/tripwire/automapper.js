@@ -1,5 +1,6 @@
 tripwire.autoMapper = function(from, to) {
     var pods = [33328, 670];
+    var undo = [];
 
     // Make sure from and to are valid systems
     if (!tripwire.systems[from] || !tripwire.systems[to])
@@ -14,8 +15,8 @@ tripwire.autoMapper = function(from, to) {
         return false;
 
     // Is this a gate?
-    if (typeof(tripwire.map.shortest[from - 30000000]) != "undefined" && typeof(tripwire.map.shortest[from - 30000000][to - 30000000]) != "undefined")
-        return false;
+    // if (typeof(tripwire.map.shortest[from - 30000000]) != "undefined" && typeof(tripwire.map.shortest[from - 30000000][to - 30000000]) != "undefined")
+    //     return false;
 
     // Is this an existing connection?
     if ($.map(tripwire.client.wormholes, function(wormhole) { return (tripwire.client.signatures[wormhole.initialID].systemID == from && tripwire.client.signatures[wormhole.secondaryID].systemID == to) || (tripwire.client.signatures[wormhole.initialID].systemID == to && tripwire.client.signatures[wormhole.secondaryID].systemID == from) ? wormhole : null; }).length > 0)
@@ -75,6 +76,7 @@ tripwire.autoMapper = function(from, to) {
 
                         var success = function(data) {
                             if (data.resultSet && data.resultSet[0].result == true) {
+                                undo.push({"wormhole": wormhole, "signatures": [signature, signature2]});
                                 $("#dialog-msg").dialog("close");
                             }
                         }
@@ -109,6 +111,7 @@ tripwire.autoMapper = function(from, to) {
                     }
                 ]
             });
+            undo.push({"wormhole": wormhole, "signatures": [signature, signature2]});
         }
     }
 
@@ -154,6 +157,7 @@ tripwire.autoMapper = function(from, to) {
 
                             var success = function(data) {
                                 if (data.resultSet && data.resultSet[0].result == true) {
+                                    undo.push({"wormhole": wormhole, "signatures": [signature, signature2]});
                                     $("#dialog-msg").dialog("close");
                                 }
                             }
@@ -188,6 +192,7 @@ tripwire.autoMapper = function(from, to) {
                         }
                     ]
                 });
+                undo.push({"wormhole": wormhole, "signatures": [signature, signature2]});
             }
         } else {
             // Nothing matches, create a new wormhole
@@ -217,30 +222,28 @@ tripwire.autoMapper = function(from, to) {
     }
 
     if (payload.signatures.add.length || payload.signatures.update.length) {
-        // var update = $.map(data.request.signatures.update, function(signature) { return tripwire.client.signatures[signature.id]; });
         var success = function(data) {
-            // if (data.result == true) {
-            //     $("#undo").removeClass("disabled");
-            //     if (viewingSystemID in tripwire.signatures.undo) {
-            //         if (data.resultSet) {
-            //             tripwire.signatures.undo[viewingSystemID].push({action: "add", signatures: $.map(data.resultSet, function(id) { return data.signatures[id]; })});
-            //         }
-            //
-            //         if (update.length) {
-            //             tripwire.signatures.undo[viewingSystemID].push({action: "update", signatures: update});
-            //         }
-            //     } else {
-            //         if (data.resultSet) {
-            //             tripwire.signatures.undo[viewingSystemID] = [{action: "add", signatures: $.map(data.resultSet, function(id) { return data.signatures[id]; })}];
-            //         }
-            //
-            //         if (update.length) {
-            //             tripwire.signatures.undo[viewingSystemID] = [{action: "update", signatures: update}];
-            //         }
-            //     }
-            //
-            //     sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
-            // }
+            if (data.resultSet && data.resultSet[0].result == true) {
+                $("#undo").removeClass("disabled");
+
+                if (data.results) {
+                    if (viewingSystemID in tripwire.signatures.undo) {
+                        tripwire.signatures.undo[viewingSystemID].push({action: "add", signatures: data.results});
+                    } else {
+                        tripwire.signatures.undo[viewingSystemID] = [{action: "add", signatures: data.results}];
+                    }
+                }
+
+                if (undo.length) {
+                    if (viewingSystemID in tripwire.signatures.undo) {
+                        tripwire.signatures.undo[viewingSystemID].push({action: "update", signatures: undo});
+                    } else {
+                        tripwire.signatures.undo[viewingSystemID] = [{action: "update", signatures: undo}];
+                    }
+                }
+
+                sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
+            }
         }
 
         tripwire.refresh('refresh', payload, success);
