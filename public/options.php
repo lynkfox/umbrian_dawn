@@ -63,7 +63,7 @@ if ($password) {
 	} else if ($password !== $confirm) {
 		$output['error'] = 'Passwords do not match';
 	} else {
-		require('password_hash.php');
+		require('../password_hash.php');
 		$hasher = new PasswordHash(8, FALSE);
 
 		$query = 'UPDATE accounts SET password = :password WHERE id = :userID';
