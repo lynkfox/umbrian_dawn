@@ -198,10 +198,10 @@ function openSignatureDialog(e) {
 						} else if (form.wormholeType2.length > 0 && $.inArray(form.wormholeType2.toUpperCase(), aSigWormholes) != -1 && form.wormholeType2.toUpperCase() != "K162") {
 							parent = "secondary";
 							type = form.wormholeType2.toUpperCase();
-						} else if (form.wormholeType == "K162") {
+						} else if (form.wormholeType.toUpperCase() == "K162") {
 							parent = "secondary";
 							type = "????";
-						} else if (form.wormholeType2 == "K162") {
+						} else if (form.wormholeType2.toUpperCase() == "K162") {
 							parent = "initial";
 							type = "????";
 						}
