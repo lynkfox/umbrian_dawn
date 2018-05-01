@@ -9,8 +9,8 @@ function checkOwner($mask) {
 
 	$query = 'SELECT maskID FROM masks WHERE ownerID = :ownerID AND ownerType = 1373 AND maskID = :mask';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':ownerID', $_SESSION['characterID'], PDO::PARAM_INT);
-	$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
+	$stmt->bindValue(':ownerID', $_SESSION['characterID']);
+	$stmt->bindValue(':mask', $mask);
 	$stmt->execute();
 
 	return $stmt->rowCount() == 0 ? false : true;
@@ -25,8 +25,8 @@ function checkAdmin($mask) {
 
 	$query = 'SELECT corporationID FROM characters INNER JOIN masks ON ownerID = corporationID AND ownerType = 2 WHERE characterID = :characterID AND admin = 1 AND maskID = :mask';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':characterID', $_SESSION['characterID'], PDO::PARAM_INT);
-	$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
+	$stmt->bindValue(':characterID', $_SESSION['characterID']);
+	$stmt->bindValue(':mask', $mask);
 	$stmt->execute();
 
 	return $stmt->rowCount() == 0 ? false : true;

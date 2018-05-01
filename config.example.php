@@ -12,6 +12,9 @@ define('CDN_DOMAIN', 'localhost');
 // EVE SDE table name
 define('EVE_DUMP', 'eve_carnyx');
 
+// Enable Tripwire API?
+define('TRIPWIRE_API', false);
+
 // EVE API userAgent
 define('USER_AGENT', 'Tripwire Server - adminEmail@example.com');
 

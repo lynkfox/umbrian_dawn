@@ -54,10 +54,10 @@ if ($mode == 'create') {
 
 			$query = 'INSERT INTO masks (maskID, name, ownerID, ownerType) VALUES (:maskID, :name, :ownerID, :ownerType)';
 			$stmt = $mysql->prepare($query);
-			$stmt->bindValue(':maskID', $mask, PDO::PARAM_INT);
-			$stmt->bindValue(':name', $name, PDO::PARAM_STR);
-			$stmt->bindValue(':ownerID', $ownerID, PDO::PARAM_INT);
-			$stmt->bindValue(':ownerType', $ownerType, PDO::PARAM_INT);
+			$stmt->bindValue(':maskID', $mask);
+			$stmt->bindValue(':name', $name);
+			$stmt->bindValue(':ownerID', $ownerID);
+			$stmt->bindValue(':ownerType', $ownerType);
 
 			if ($stmt->execute()) {
 				foreach ($adds as $add) {
@@ -65,9 +65,9 @@ if ($mode == 'create') {
 
 					$query = 'INSERT INTO groups (maskID, eveID, eveType) VALUES (:mask, :id, :type)';
 					$stmt = $mysql->prepare($query);
-					$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
-					$stmt->bindValue(':id', $id, PDO::PARAM_INT);
-					$stmt->bindValue(':type', $type, PDO::PARAM_INT);
+					$stmt->bindValue(':mask', $mask);
+					$stmt->bindValue(':id', $id);
+					$stmt->bindValue(':type', $type);
 					$stmt->execute();
 				}
 
@@ -83,9 +83,9 @@ if ($mode == 'create') {
 
 		$query = 'INSERT INTO groups (maskID, eveID, eveType) VALUES (:mask, :id, :type)';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
-		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
-		$stmt->bindValue(':type', $type, PDO::PARAM_INT);
+		$stmt->bindValue(':mask', $mask);
+		$stmt->bindValue(':id', $id);
+		$stmt->bindValue(':type', $type);
 		$stmt->execute();
 	}
 
@@ -94,9 +94,9 @@ if ($mode == 'create') {
 
 		$query = 'DELETE FROM groups WHERE maskID = :mask AND eveID = :id AND eveType = :type';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
-		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
-		$stmt->bindValue(':type', $type, PDO::PARAM_INT);
+		$stmt->bindValue(':mask', $mask);
+		$stmt->bindValue(':id', $id);
+		$stmt->bindValue(':type', $type);
 		$stmt->execute();
 	}
 
@@ -104,23 +104,23 @@ if ($mode == 'create') {
 } else if ($mode == 'edit' && $mask && (checkOwner($mask) || checkAdmin($mask))) {
 	$query = 'SELECT eveID FROM masks INNER JOIN groups ON groups.maskID = masks.maskID WHERE masks.maskID = :mask';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
+	$stmt->bindValue(':mask', $mask);
 	$stmt->execute();
 	$output['results'] = $stmt->fetchAll(PDO::FETCH_COLUMN);
 } else if ($mode == 'delete' && $mask && (checkOwner($mask) || checkAdmin($mask))) {
 	$query = 'DELETE masks, groups, comments, signatures FROM masks LEFT JOIN groups ON groups.maskID = masks.maskID LEFT JOIN comments ON comments.maskID = masks.maskID LEFT JOIN signatures ON signatures.mask = masks.maskID WHERE masks.maskID = :mask';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
+	$stmt->bindValue(':mask', $mask);
 	$output['result'] = $stmt->execute();
 } else if ($mode == 'find') {
 	$name = $name ? $name : '%';
 
 	$query = "SELECT masks.maskID, name, ownerID, ownerType FROM masks INNER JOIN groups ON groups.maskID = masks.maskID WHERE ('personal' = :type AND joined = 0 AND eveID = :characterID AND eveType = 1373 AND name LIKE :name) OR ('corporate' = :type AND joined = 0 AND eveID = :corporationID AND eveType = 2 AND name LIKE :name)";
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':name', $name.'%', PDO::PARAM_STR);
-	$stmt->bindValue(':characterID', $_SESSION['characterID'], PDO::PARAM_INT);
-	$stmt->bindValue(':corporationID', $_SESSION['corporationID'], PDO::PARAM_INT);
-	$stmt->bindValue(':type', $_REQUEST['find'], PDO::PARAM_STR);
+	$stmt->bindValue(':name', $name.'%');
+	$stmt->bindValue(':characterID', $_SESSION['characterID']);
+	$stmt->bindValue(':corporationID', $_SESSION['corporationID']);
+	$stmt->bindValue(':type', $_REQUEST['find']);
 	$stmt->execute();
 
 	if ($stmt->rowCount()) {
@@ -143,14 +143,14 @@ if ($mode == 'create') {
 } else if ($mode == 'join') {
 	$query = 'UPDATE groups SET joined = 1 WHERE maskID = :mask AND ((eveID = :characterID AND eveType = 1373) OR (eveID = (SELECT corporationID FROM characters WHERE characterID = :characterID AND admin = 1) AND eveType = 2))';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':characterID', $_SESSION['characterID'], PDO::PARAM_INT);
-	$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
+	$stmt->bindValue(':characterID', $_SESSION['characterID']);
+	$stmt->bindValue(':mask', $mask);
 	$stmt->execute();
 
 	if ($output['result'] = $stmt->rowCount()) {
 		$query = 'SELECT eveType FROM groups WHERE maskID = :mask AND joined = 1';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
+		$stmt->bindValue(':mask', $mask);
 		$stmt->execute();
 
 		$output['type'] = $stmt->fetchColumn(0) == 2 ? 'corporate' : 'personal';
@@ -158,8 +158,8 @@ if ($mode == 'create') {
 } else if ($mode == 'leave') {
 	$query = 'UPDATE groups SET joined = 0 WHERE maskID = :mask AND ((eveID = :characterID AND eveType = 1373) OR (eveID = (SELECT corporationID FROM characters WHERE characterID = :characterID AND admin = 1) AND eveType = 2))';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':characterID', $_SESSION['characterID'], PDO::PARAM_INT);
-	$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
+	$stmt->bindValue(':characterID', $_SESSION['characterID']);
+	$stmt->bindValue(':mask', $mask);
 	$stmt->execute();
 	$output['result'] = $stmt->rowCount();
 } else {
@@ -175,8 +175,8 @@ if ($mode == 'create') {
 	// Custom masks
 	$query = 'SELECT DISTINCT masks.maskID, name, ownerID, ownerType, eveID, eveType, admin, joined FROM masks INNER JOIN groups ON groups.maskID = masks.maskID INNER JOIN characters ON characterID = :characterID WHERE (ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373 AND joined = 1) OR (eveID = :corporationID AND eveType = 2 AND joined = 1) GROUP BY masks.maskID';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':characterID', $_SESSION['characterID'], PDO::PARAM_INT);
-	$stmt->bindValue(':corporationID', $_SESSION['corporationID'], PDO::PARAM_INT);
+	$stmt->bindValue(':characterID', $_SESSION['characterID']);
+	$stmt->bindValue(':corporationID', $_SESSION['corporationID']);
 	$stmt->execute();
 
 	while ($row = $stmt->fetchObject()) {

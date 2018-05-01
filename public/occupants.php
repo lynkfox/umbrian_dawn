@@ -29,8 +29,8 @@ $maskID = $_SESSION['mask'];
 
 $query = 'SELECT characterName, shipTypeName FROM tracking WHERE systemID = :systemID AND maskID = :maskID';
 $stmt = $mysql->prepare($query);
-$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+$stmt->bindValue(':systemID', $systemID);
+$stmt->bindValue(':maskID', $maskID);
 $stmt->execute();
 
 $output['occupants'] = $stmt->fetchAll(PDO::FETCH_CLASS);

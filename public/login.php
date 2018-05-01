@@ -21,10 +21,10 @@ function login_history($ip, $username, $method, $result) {
 
 	$query = 'INSERT INTO _history_login (ip, username, method, result) VALUES (:ip, :username, :method, :result)';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':ip', $ip, PDO::PARAM_STR);
-	$stmt->bindValue(':username', $username, PDO::PARAM_STR);
-	$stmt->bindValue(':method', $method, PDO::PARAM_STR);
-	$stmt->bindValue(':result', $result, PDO::PARAM_STR);
+	$stmt->bindValue(':ip', $ip);
+	$stmt->bindValue(':username', $username);
+	$stmt->bindValue(':method', $method);
+	$stmt->bindValue(':result', $result);
 	$stmt->execute();
 }
 
@@ -83,7 +83,7 @@ if ($mode == 'login') {
 		// Check login attempts
 		$query = 'SELECT COUNT(ip) FROM _history_login WHERE ip = :ip AND DATE_ADD(time, INTERVAL 30 SECOND) > NOW()';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':ip', $ip, PDO::PARAM_STR);
+		$stmt->bindValue(':ip', $ip);
 		$stmt->execute();
 		if ($stmt->fetchColumn(0) > 3) {
 			$output['field'] = 'username';
@@ -94,7 +94,7 @@ if ($mode == 'login') {
 		} else {
 			$query = 'SELECT id, username, password, accounts.ban, characterID, characterName, corporationID, corporationName, admin, super, options FROM accounts LEFT JOIN preferences ON id = preferences.userID LEFT JOIN characters ON id = characters.userID WHERE username = :username';
 			$stmt = $mysql->prepare($query);
-			$stmt->bindValue(':username', $username, PDO::PARAM_STR);
+			$stmt->bindValue(':username', $username);
 			$stmt->execute();
 			if ($account = $stmt->fetchObject()) {
 				require('../password_hash.php');
@@ -135,7 +135,7 @@ if ($mode == 'login') {
 
 					$query = 'INSERT INTO userstats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
 					$stmt = $mysql->prepare($query);
-					$stmt->bindValue(':userID', $account->id, PDO::PARAM_INT);
+					$stmt->bindValue(':userID', $account->id);
 					$stmt->execute();
 
 					//save cookie on client PC for 30 days
@@ -171,7 +171,7 @@ if ($mode == 'login') {
 		if ($esi->authenticate($code)) {
 			$query = 'SELECT id, username, password, accounts.ban, characterID, characterName, corporationID, corporationName, admin, super, options FROM accounts LEFT JOIN preferences ON id = preferences.userID LEFT JOIN characters ON id = characters.userID WHERE characterID = :characterID';
 			$stmt = $mysql->prepare($query);
-			$stmt->bindValue(':characterID', $esi->characterID, PDO::PARAM_INT);
+			$stmt->bindValue(':characterID', $esi->characterID);
 			$stmt->execute();
 
 			if ($account = $stmt->fetchObject()) {
@@ -194,7 +194,7 @@ if ($mode == 'login') {
 
 				$query = 'INSERT INTO userstats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
 				$stmt = $mysql->prepare($query);
-				$stmt->bindValue(':userID', $account->id, PDO::PARAM_INT);
+				$stmt->bindValue(':userID', $account->id);
 				$stmt->execute();
 
 				header('Location: .?system=');
@@ -219,12 +219,12 @@ if ($mode == 'login') {
 
 			$query = 'INSERT INTO esi (userID, characterID, characterName, accessToken, refreshToken, tokenExpire) VALUES (:userID, :characterID, :characterName, :accessToken, :refreshToken, :tokenExpire) ON DUPLICATE KEY UPDATE accessToken = :accessToken, refreshToken = :refreshToken, tokenExpire = :tokenExpire';
 			$stmt = $mysql->prepare($query);
-			$stmt->bindValue(':userID', $_SESSION['userID'], PDO::PARAM_INT);
-			$stmt->bindValue(':characterID', $esi->characterID, PDO::PARAM_INT);
-			$stmt->bindValue(':characterName', $esi->characterName, PDO::PARAM_STR);
-			$stmt->bindValue(':accessToken', $esi->accessToken, PDO::PARAM_STR);
-			$stmt->bindValue(':refreshToken', $esi->refreshToken, PDO::PARAM_STR);
-			$stmt->bindValue(':tokenExpire', $esi->tokenExpire, PDO::PARAM_STR);
+			$stmt->bindValue(':userID', $_SESSION['userID']);
+			$stmt->bindValue(':characterID', $esi->characterID);
+			$stmt->bindValue(':characterName', $esi->characterName);
+			$stmt->bindValue(':accessToken', $esi->accessToken);
+			$stmt->bindValue(':refreshToken', $esi->refreshToken);
+			$stmt->bindValue(':tokenExpire', $esi->tokenExpire);
 			$stmt->execute();
 
 			header('Location: ./?system=');
@@ -245,7 +245,7 @@ if ($mode == 'login') {
 	// Check login attempts
 	$query = 'SELECT COUNT(ip) FROM _history_login WHERE ip = :ip AND DATE_ADD(time, INTERVAL 30 SECOND) > NOW()';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':ip', $ip, PDO::PARAM_STR);
+	$stmt->bindValue(':ip', $ip);
 	$stmt->execute();
 	if ($stmt->fetchColumn(0) > 3) {
 		$output['field'] = 'username';
@@ -299,7 +299,7 @@ if ($mode == 'login') {
 
 				$query = 'INSERT INTO userstats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
 				$stmt = $mysql->prepare($query);
-				$stmt->bindValue(':userID', $account->id, PDO::PARAM_INT);
+				$stmt->bindValue(':userID', $account->id);
 				$stmt->execute();
 			}
 		}

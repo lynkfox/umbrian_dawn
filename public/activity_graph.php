@@ -38,8 +38,8 @@ $systemID = $_REQUEST['systemID'];
 
 $query = 'SELECT shipJumps, shipKills, podKills, npcKills, time FROM tripwire.systemActivity WHERE systemID = :systemID ORDER BY time DESC LIMIT :limit';
 $stmt = $mysql->prepare($query);
-$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-$stmt->bindValue(':limit', (int)$length + 1, PDO::PARAM_INT);
+$stmt->bindValue(':systemID', $systemID);
+$stmt->bindValue(':limit', (int)$length + 1);
 $stmt->execute();
 
 $output['cols'][] = Array('type' => 'string');

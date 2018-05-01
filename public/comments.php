@@ -38,34 +38,34 @@ if ($mode == 'save') {
 				ON DUPLICATE KEY UPDATE
 				systemID = :systemID, comment = :comment, modifiedBy = :modifiedBy, modified = NOW()';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':commentID', $commentID, PDO::PARAM_INT);
-	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-	$stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
-	$stmt->bindValue(':createdBy', $characterID, PDO::PARAM_INT);
-	$stmt->bindValue(':modifiedBy', $characterID, PDO::PARAM_INT);
-	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+	$stmt->bindValue(':commentID', $commentID);
+	$stmt->bindValue(':systemID', $systemID);
+	$stmt->bindValue(':comment', $comment);
+	$stmt->bindValue(':createdBy', $characterID);
+	$stmt->bindValue(':modifiedBy', $characterID);
+	$stmt->bindValue(':maskID', $maskID);
 	$output['result'] = $stmt->execute();
 
 	if ($output['result']) {
 		$query = 'SELECT id, created AS createdDate, c.characterName AS createdBy, modified AS modifiedDate, m.characterName AS modifiedBy FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE id = :commentID AND maskID = :maskID';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':commentID', ($commentID ? $commentID : $mysql->lastInsertId()), PDO::PARAM_INT);
-		$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+		$stmt->bindValue(':commentID', ($commentID ? $commentID : $mysql->lastInsertId()));
+		$stmt->bindValue(':maskID', $maskID);
 		$stmt->execute();
 		$output['comment'] = $stmt->fetchObject();
 	}
 } else if ($mode == 'delete' && $commentID) {
 	$query = 'DELETE FROM comments WHERE id = :commentID AND maskID = :maskID';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':commentID', $commentID, PDO::PARAM_INT);
-	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+	$stmt->bindValue(':commentID', $commentID);
+	$stmt->bindValue(':maskID', $maskID);
 	$output['result'] = $stmt->execute();
 } else if ($mode == 'sticky' && $commentID) {
 	$query = 'UPDATE comments SET systemID = :systemID WHERE id = :commentID AND maskID = :maskID';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':commentID', $commentID, PDO::PARAM_INT);
-	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-	$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+	$stmt->bindValue(':commentID', $commentID);
+	$stmt->bindValue(':systemID', $systemID);
+	$stmt->bindValue(':maskID', $maskID);
 	$output['result'] = $stmt->execute();
 }
 

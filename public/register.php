@@ -55,7 +55,7 @@ if ($mode == 'user') {
 	if ($esi->authenticate($code)) {
 		$query = 'SELECT userID FROM accounts LEFT JOIN characters ON id = characters.userID WHERE characterID = :characterID';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':characterID', $esi->characterID, PDO::PARAM_INT);
+		$stmt->bindValue(':characterID', $esi->characterID);
 		$stmt->execute();
 
 		// User account already exists for this character, tell them to login
@@ -70,8 +70,8 @@ if ($mode == 'user') {
 
 		$query = 'INSERT INTO accounts (username, password) VALUES (:username, :password)';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':username', $username, PDO::PARAM_STR);
-		$stmt->bindValue(':password', $password, PDO::PARAM_STR);
+		$stmt->bindValue(':username', $username);
+		$stmt->bindValue(':password', $password);
 		$success = $stmt->execute();
 
 		$userID = $mysql->lastInsertId();
@@ -81,11 +81,11 @@ if ($mode == 'user') {
 
 		$query = 'INSERT INTO characters (userID, characterID, characterName, corporationID, corporationName) VALUES (:userID, :characterID, :characterName, :corporationID, :corporationName)';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
-		$stmt->bindValue(':characterID', $esi->characterID, PDO::PARAM_INT);
-		$stmt->bindValue(':characterName', $esi->characterName, PDO::PARAM_STR);
-		$stmt->bindValue(':corporationID', $character->corporation_id, PDO::PARAM_INT);
-		$stmt->bindValue(':corporationName', $corporation->name, PDO::PARAM_STR);
+		$stmt->bindValue(':userID', $userID);
+		$stmt->bindValue(':characterID', $esi->characterID);
+		$stmt->bindValue(':characterName', $esi->characterName);
+		$stmt->bindValue(':corporationID', $character->corporation_id);
+		$stmt->bindValue(':corporationName', $corporation->name);
 		$stmt->execute();
 
 		header('Location: ./?success=user#register#user');
@@ -102,7 +102,7 @@ if ($mode == 'user') {
 	if ($esi->authenticate($code)) {
 		$query = 'SELECT userID FROM accounts LEFT JOIN characters ON id = characters.userID WHERE characterID = :characterID';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':characterID', $esi->characterID, PDO::PARAM_INT);
+		$stmt->bindValue(':characterID', $esi->characterID);
 		$stmt->execute();
 
 		// User account already exists for this character, tell them to login
@@ -117,7 +117,7 @@ if ($mode == 'user') {
 		if (!empty(array_intersect($roles->roles, $adminRoles)) || !empty(array_intersect($titles, $adminTitles))) {
 			$query = 'UPDATE characters SET admin = 1 WHERE characterID = :characterID';
 			$stmt = $mysql->prepare($query);
-			$stmt->bindValue(':characterID', $esi->characterID, PDO::PARAM_INT);
+			$stmt->bindValue(':characterID', $esi->characterID);
 			$stmt->execute();
 
 			if (session_id()) $_SESSION['admin'] = 1;

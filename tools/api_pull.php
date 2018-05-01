@@ -27,9 +27,9 @@ if ($xml = @simplexml_load_file($url)) {
 
 	$query = 'INSERT INTO eve_api.serverStatus (time, status, players) VALUES (:time, :status, :players)';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':time', $time, PDO::PARAM_STR);
-	$stmt->bindValue(':status', $output['status'], PDO::PARAM_INT);
-	$stmt->bindValue(':players', $output['players'], PDO::PARAM_INT);
+	$stmt->bindValue(':time', $time);
+	$stmt->bindValue(':status', $output['status']);
+	$stmt->bindValue(':players', $output['players']);
 	$stmt->execute();
 } else {
 	$players = 0;
@@ -37,9 +37,9 @@ if ($xml = @simplexml_load_file($url)) {
 
 	$query = 'INSERT INTO eve_api.serverStatus (time, status, players) VALUES (:time, :status, :players)';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':time', $time, PDO::PARAM_STR);
-	$stmt->bindValue(':status', $status, PDO::PARAM_INT);
-	$stmt->bindValue(':players', $players, PDO::PARAM_INT);
+	$stmt->bindValue(':time', $time);
+	$stmt->bindValue(':status', $status);
+	$stmt->bindValue(':players', $players);
 	$stmt->execute();
 }
 
@@ -105,7 +105,7 @@ if (!$row || ($row && strtotime($row->time) + 3600 <= time())) {
 	$query = 'INSERT INTO eve_api.cacheTime (time, type) VALUES (:time, "activity") ON DUPLICATE KEY UPDATE time = :time';
 	//$query = 'UPDATE eve_api.cacheTime SET time = :time WHERE type = "activity"';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':time', $time, PDO::PARAM_STR);
+	$stmt->bindValue(':time', $time);
 	$stmt->execute();
 }
 
@@ -131,9 +131,9 @@ if ($chars && count($chars) > 0) {
 	$stmt = $mysql->prepare($query);
 
 	foreach ($result as $char) {
-		$stmt->bindValue(':characterID', $char->characterID, PDO::PARAM_INT);
-		$stmt->bindValue(':corporationID', $char->corporationID, PDO::PARAM_INT);
-		$stmt->bindValue(':corporationName', $char->corporationName, PDO::PARAM_STR);
+		$stmt->bindValue(':characterID', $char->characterID);
+		$stmt->bindValue(':corporationID', $char->corporationID);
+		$stmt->bindValue(':corporationName', $char->corporationName);
 		$stmt->execute();
 	}
 }

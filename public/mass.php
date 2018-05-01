@@ -19,8 +19,8 @@ $output = null;
 
 $query = 'SELECT characterName, toID, shipType, mass, time FROM jumps INNER JOIN '. EVE_DUMP .'.invTypes ON typeID = shipTypeID WHERE maskID = :maskID AND wormholeID = :signatureID ORDER BY time DESC';
 $stmt = $mysql->prepare($query);
-$stmt->bindValue(':signatureID', $signatureID, PDO::PARAM_INT);
-$stmt->bindValue(':maskID', $maskID, PDO::PARAM_STR);
+$stmt->bindValue(':signatureID', $signatureID);
+$stmt->bindValue(':maskID', $maskID);
 $stmt->execute();
 
 $output['mass'] = $stmt->fetchAll(PDO::FETCH_CLASS);

@@ -32,9 +32,9 @@ if (isset($_REQUEST['flare']) && !empty($_REQUEST['flare'])) {
 
 	$query = 'INSERT INTO flares (maskID, systemID, flare) VALUES (:mask, :systemID, :flare) ON DUPLICATE KEY UPDATE flare = :flare';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
-	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
-	$stmt->bindValue(':flare', $flare, PDO::PARAM_STR);
+	$stmt->bindValue(':mask', $mask);
+	$stmt->bindValue(':systemID', $systemID);
+	$stmt->bindValue(':flare', $flare);
 
 	$output['result'] = $stmt->execute()?true:$stmt->errorInfo();
 } else {
@@ -42,8 +42,8 @@ if (isset($_REQUEST['flare']) && !empty($_REQUEST['flare'])) {
 
 	$query = "DELETE FROM flares WHERE maskID = :mask AND systemID = :systemID";
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':mask', $mask, PDO::PARAM_INT);
-	$stmt->bindValue(':systemID', $systemID, PDO::PARAM_INT);
+	$stmt->bindValue(':mask', $mask);
+	$stmt->bindValue(':systemID', $systemID);
 
 	$output['result'] = $stmt->execute()?true:$stmt->errorInfo();
 }

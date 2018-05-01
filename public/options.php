@@ -37,7 +37,7 @@ $output = null;
 if ($mode == 'get') {
 	$query = 'SELECT options FROM preferences WHERE userID = :userID';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
+	$stmt->bindValue(':userID', $userID);
 	$stmt->execute();
 	$row = $stmt->fetchObject();
 
@@ -47,8 +47,8 @@ if ($mode == 'get') {
 } else if ($mode == 'set') {
 	$query = 'INSERT INTO preferences (userID, options) VALUES (:userID, :options) ON DUPLICATE KEY UPDATE options = :options';
 	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
-	$stmt->bindValue(':options', $options, PDO::PARAM_STR);
+	$stmt->bindValue(':userID', $userID);
+	$stmt->bindValue(':options', $options);
 
 	if ($output['result'] = $stmt->execute()) {
 		$_SESSION['options'] = json_decode($options);
@@ -68,8 +68,8 @@ if ($password) {
 
 		$query = 'UPDATE accounts SET password = :password WHERE id = :userID';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
-		$stmt->bindValue(':password', $hasher->HashPassword($password), PDO::PARAM_STR);
+		$stmt->bindValue(':userID', $userID);
+		$stmt->bindValue(':password', $hasher->HashPassword($password));
 		$output['result'] = $stmt->execute();
 	}
 }
@@ -80,7 +80,7 @@ if ($username && $old_username) {
 	} else {
 		$query = 'SELECT username FROM accounts WHERE username = :username';
 		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':username', $username, PDO::PARAM_STR);
+		$stmt->bindValue(':username', $username);
 		$stmt->execute();
 		if ($stmt->rowCount()) {
 			$output['field'] = 'username';
@@ -88,8 +88,8 @@ if ($username && $old_username) {
 		} else {
 			$query = 'UPDATE accounts SET username = :username WHERE username = :old_username';
 			$stmt = $mysql->prepare($query);
-			$stmt->bindValue(':username', $username, PDO::PARAM_STR);
-			$stmt->bindValue(':old_username', $old_username, PDO::PARAM_STR);
+			$stmt->bindValue(':username', $username);
+			$stmt->bindValue(':old_username', $old_username);
 			$result = $stmt->execute();
 
 			if ($result) {

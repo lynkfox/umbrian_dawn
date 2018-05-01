@@ -29,7 +29,7 @@ $userID = $_SESSION['userID'];
 
 $query = 'SELECT * FROM userstats WHERE userID = :userID';
 $stmt = $mysql->prepare($query);
-$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
+$stmt->bindValue(':userID', $userID);
 $stmt->execute();
 
 $i = 0;
@@ -52,7 +52,7 @@ $output['username'] = $_SESSION['username'];
 // Get unique visits
 $query = "SELECT DISTINCT systemID FROM systemVisits WHERE userID = :userID";
 $stmt = $mysql->prepare($query);
-$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
+$stmt->bindValue(':userID', $userID);
 $stmt->execute();
 
 $output['uniqueVisits'] = number_format($stmt->rowCount());
@@ -60,7 +60,7 @@ $output['uniqueVisits'] = number_format($stmt->rowCount());
 // Get discovered whs
 $query = "SELECT DISTINCT systemID FROM systemVisits WHERE userID = :userID";
 $stmt = $mysql->prepare($query);
-$stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
+$stmt->bindValue(':userID', $userID);
 $stmt->execute();
 
 $output['whDiscovered'] = number_format($stmt->rowCount());
