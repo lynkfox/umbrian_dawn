@@ -1,0 +1,32 @@
+<?php
+
+header('Content-Type: application/json');
+
+require_once('../config.php');
+
+if (!TRIPWIRE_API) {
+    header('HTTP/1.0 503 Service Unavailable');
+    exit();
+}
+
+require_once('../db.inc.php');
+require_once('../api/auth.php');
+
+$output = null;
+
+$path = explode('/', $_REQUEST['q']);
+echo $path[1];
+
+if (isset($path[1])) {
+    if ($path[1] == 'signatures') {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            include('../api/signatures/get.php');
+        }
+    } else if ($path[1] == 'wormholes') {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            include('../api/wormholes/get.php');
+        }
+    }
+}
+
+echo json_encode($output);
