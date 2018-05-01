@@ -1,7 +1,5 @@
 <?php
 
-header('Content-Type: application/json');
-
 require_once('../config.php');
 
 if (!TRIPWIRE_API) {
@@ -12,6 +10,7 @@ if (!TRIPWIRE_API) {
 require_once('../db.inc.php');
 require_once('../api/auth.php');
 
+header('Content-Type: application/json');
 $output = null;
 
 $path = explode('/', $_REQUEST['q']);
