@@ -582,9 +582,6 @@ $("#chainMap").contextmenu({
 			case "mass":
 				$("#dialog-mass").data("id", $(ui.target[0]).closest("[data-nodeid]").data("sigid")).data("systemID", $(ui.target[0]).closest("[data-nodeid]").data("nodeid")).dialog("open");
 				break;
-			case "rename":
-				$("#dialog-rename").data("id", $(ui.target[0]).closest("[data-nodeid]").data("sigid")).data("systemID", $(ui.target[0]).closest("[data-nodeid]").data("nodeid")).dialog("open");
-				break;
 			case "collapse":
 				var toggle = options.chain.tabs[options.chain.active] ? ($.inArray(id, options.chain.tabs[options.chain.active].collapsed) == -1 ? true : false) : true;
 				chain.map.collapse(row, toggle);
@@ -607,10 +604,8 @@ $("#chainMap").contextmenu({
 		}
 
 		if (sigID) {
-			$(this).contextmenu("enableEntry", "rename", true);
 			$(this).contextmenu("enableEntry", "mass", true);
 		} else {
-			$(this).contextmenu("enableEntry", "rename", false);
 			$(this).contextmenu("enableEntry", "mass", false);
 		}
 	},
@@ -650,52 +645,6 @@ $("#chainMap").contextmenu({
 						}
                         $("#dialog-mass #massTable tbody").append("<tr><td></td><td></td><td></td><th>"+ numFormat(totalMass) +"Kg</th><td></td></tr>");
 					}
-				});
-			}
-		});
-
-		$("#dialog-rename").dialog({
-			autoOpen: false,
-			resizable: false,
-			minHeight: 0,
-			dialogClass: "dialog-noeffect ui-dialog-shadow",
-			buttons: {
-				Save: function() {
-					$("#rename_form").submit();
-				},
-				Cancel: function() {
-					$(this).dialog("close");
-				}
-			},
-			open: function() {
-				var sigID = $(this).data("id");
-				var systemID = $(this).data("systemID");
-				var sig = Object.find(tripwire.client.chain.map, "id", sigID);
-
-				$(this).find("#name").val(sig.systemID == systemID ? sig.system : sig.connection);
-			},
-			create: function() {
-				$("#rename_form").submit(function(e) {
-					e.preventDefault();
-					var sigID = $("#dialog-rename").data("id");
-					var systemID = $("#dialog-rename").data("systemID");
-					var sig = Object.find(tripwire.client.chain.map, "id", sigID);
-
-					$("#dialog-rename").parent().find(":button:contains('Save')").button("disable");
-
-					var data = {"request": {"signatures": {"rename": {id: sigID, name: $("#dialog-rename").find("#name").val(), side: sig.systemID == systemID ? "parent" : "child"}}}};
-
-					var success = function(data) {
-						if (data && data.result == true) {
-							$("#dialog-rename").dialog("close");
-						}
-					}
-
-					var always = function(data) {
-						$("#dialog-rename").parent().find(":button:contains('Save')").button("enable");
-					}
-
-					tripwire.refresh('refresh', data, success, always);
 				});
 			}
 		});

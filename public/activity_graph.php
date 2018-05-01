@@ -31,7 +31,7 @@ header('Expires: '.gmdate('r', time() + $cache));
 header('Pragma: cache');
 header('Content-Type: application/json');
 
-$length = isset($_REQUEST['time']) && !empty($_REQUEST['time'])?$_REQUEST['time']:24;
+$length = isset($_REQUEST['time']) && !empty($_REQUEST['time']) ? intval($_REQUEST['time']) +1 : 25;
 $systemID = $_REQUEST['systemID'];
 
 //$annotations['2015-12-20 15:00:00'] = Array('label' => 'Downtime', 'text' => 'EVE Downtime');
@@ -39,7 +39,7 @@ $systemID = $_REQUEST['systemID'];
 $query = 'SELECT shipJumps, shipKills, podKills, npcKills, time FROM tripwire.systemActivity WHERE systemID = :systemID ORDER BY time DESC LIMIT :limit';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':systemID', $systemID);
-$stmt->bindValue(':limit', (int)$length + 1);
+$stmt->bindValue(':limit', $length, PDO::PARAM_INT); // MySQL LIMIT requies this to have an int type sent
 $stmt->execute();
 
 $output['cols'][] = Array('type' => 'string');

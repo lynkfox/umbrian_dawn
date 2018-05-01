@@ -175,7 +175,8 @@ if ($row = $stmt->fetchObject()) {
 					<div id="activityGraphControls" style="text-align: center;"><a href="javascript: activity.time(168);">Week</a> - <a href="javascript: activity.time(48);">48Hour</a> - <a href="javascript: activity.time(24);">24Hour</a></div>
 					<div id="infoStatics" class="pointer" style="float: left; width: 50%; text-align: left;"></div>
 					<div id="infoLinks" style="float: right; width: 50%; text-align: right;">
-						<a class="infoLink" data-href='http://wh.pasta.gg/$systemName' href="" target="_blank">wormhol.es</a><br/>
+						<!-- <a class="infoLink" data-href='http://wh.pasta.gg/$systemName' href="" target="_blank">wormhol.es</a><br/> -->
+						<a class="infoLink" data-href="http://anoik.is/systems/$systemName" href="" target="_blank">Anoik.is</a><br/>
 						<a class="infoLink" data-href="http://evemaps.dotlan.net/search?q=$systemName" href="" target="_blank">dotlan</a><br/>
 						<!--<a class="infoLink" style="float: right;" data-href='http://eve-kill.net/?a=system_detail&sys_name=$systemName' href="" target="_blank">Eve-kill.net&nbsp;&nbsp;</a>-->
 						<a class="infoLink" data-href='https://zkillboard.com/system/$systemID' href="" target="_blank">zKillboard</a>
@@ -883,17 +884,6 @@ if ($row = $stmt->fetchObject()) {
 		</form>
 	</div>
 
-	<div id="dialog-rename" title="Rename" class="hidden">
-		<form id="rename_form">
-			<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
-				<tr>
-					<th>Name:</th><td><input type="text" id="name" maxlength="20" style="width: 100%; box-sizing: border-box;" /></td>
-				</tr>
-			</table>
-			<input type="submit" style="position: absolute; left: -9999px"/>
-		</form>
-	</div>
-
 	<div id="dialog-mass" title="" class="hidden">
 		<table id="massTable">
 			<thead>
@@ -985,7 +975,6 @@ if ($row = $stmt->fetchObject()) {
 			</ul>
 		</li>
 		<li data-command="mass"><a>Mass</a></li>
-		<li data-command="rename"><a>Rename</a></li>
 		<li data-command="collapse"><a>Collapse</a></li>
 	</ul>
 
