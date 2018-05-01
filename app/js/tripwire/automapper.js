@@ -15,8 +15,8 @@ tripwire.autoMapper = function(from, to) {
         return false;
 
     // Is this a gate?
-    // if (typeof(tripwire.map.shortest[from - 30000000]) != "undefined" && typeof(tripwire.map.shortest[from - 30000000][to - 30000000]) != "undefined")
-    //     return false;
+    if (typeof(tripwire.map.shortest[from - 30000000]) != "undefined" && typeof(tripwire.map.shortest[from - 30000000][to - 30000000]) != "undefined")
+        return false;
 
     // Is this an existing connection?
     if ($.map(tripwire.client.wormholes, function(wormhole) { return (tripwire.client.signatures[wormhole.initialID].systemID == from && tripwire.client.signatures[wormhole.secondaryID].systemID == to) || (tripwire.client.signatures[wormhole.initialID].systemID == to && tripwire.client.signatures[wormhole.secondaryID].systemID == from) ? wormhole : null; }).length > 0)

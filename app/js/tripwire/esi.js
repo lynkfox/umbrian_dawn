@@ -32,7 +32,7 @@ tripwire.esi = function() {
                 var character = tripwire.esi.characters[this.characterID];
 
                 if (character) {
-                    character.locationDate = xhr.getResponseHeader("last-modified");
+                    character.locationDate = moment(xhr.getResponseHeader("last-modified"), "ddd, DD MMMM YYYY HH:mm:ss").format();
 
                     if (character.systemID != data.solar_system_id) {
                         character.systemID = data.solar_system_id || null;
@@ -147,7 +147,7 @@ tripwire.esi = function() {
                 var character = tripwire.esi.characters[this.characterID];
 
                 if (character) {
-                    character.shipDate = xhr.getResponseHeader("last-modified");
+                    character.shipDate = moment(xhr.getResponseHeader("last-modified"), "ddd, DD MMMM YYYY HH:mm:ss").format();
 
                     if (character.shipID != data.ship_item_id) {
                         character.shipID = data.ship_item_id || null;
