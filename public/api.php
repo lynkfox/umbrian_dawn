@@ -14,7 +14,6 @@ header('Content-Type: application/json');
 $output = null;
 
 $path = explode('/', $_REQUEST['q']);
-echo $path[1];
 
 if (isset($path[1])) {
     if ($path[1] == 'signatures') {
