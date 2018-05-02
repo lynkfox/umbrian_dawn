@@ -32,7 +32,7 @@ if ($account = $stmt->fetchObject()) {
 }
 
 // Verify has access to requested mask data
-if (isset($_REQUEST['maskID'])) {
+if (isset($_REQUEST['maskID']) && !empty($_REQUEST['maskID'])) {
     $query = 'SELECT * FROM characters WHERE userID = :userID';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':userID', $account->id);
@@ -40,6 +40,12 @@ if (isset($_REQUEST['maskID'])) {
     if ($characters = $stmt->fetchAll(PDO::FETCH_CLASS)) {
         foreach ($characters AS $character) {
             $checkMask = explode('.', $_REQUEST['maskID']);
+            if (count($checkMask) === 2) {
+              header('HTTP/1.0 400 Bad Request');
+              echo 'MaskID must be a decimal';
+              exit;
+            }
+
             if ($checkMask[1] == 0 && $checkMask[0] != 0) {
                 $query = 'SELECT masks.maskID as maskID FROM masks INNER JOIN groups ON masks.maskID = groups.maskID WHERE (ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373) OR (eveID = :corporationID AND eveType = 2)';
                 $stmt = $mysql->prepare($query);
