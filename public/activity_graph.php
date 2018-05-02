@@ -52,7 +52,7 @@ $output['cols'][] = Array('type' => 'number');
 
 $now = time();
 $row = $stmt->fetchObject();
-for ($x = 0; $x <= $length; $x++) {
+for ($x = 0; $x <= $length -1; $x++) {
 	$data = null;
 
 /*
