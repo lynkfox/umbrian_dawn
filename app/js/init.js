@@ -9,4 +9,4 @@ if (getCookie("loadedFromBrowserCache") == "true") {
 	$("#pageTime").html("Page is Cached");
 }
 
-setCookie('loadedFromBrowserCache', true);
+// setCookie('loadedFromBrowserCache', true);
