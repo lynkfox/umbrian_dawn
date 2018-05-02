@@ -294,6 +294,8 @@ tripwire.esi = function() {
     }
 
     this.esi.setDestination = function(destinationID, characterID, clear_waypoints, beginning) {
+        clear_waypoints = clear_waypoints ? clear_waypoints : false;
+        beginning = beginning ? beginning : false;
         return $.ajax({
             url: baseUrl + "/v2/ui/autopilot/waypoint/?" + $.param({destination_id: destinationID, clear_other_waypoints: clear_waypoints, add_to_beginning: beginning}),
             headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},

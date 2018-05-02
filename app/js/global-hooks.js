@@ -474,6 +474,9 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 $("#signaturesWidget #sigTable thead").contextmenu({
 	delegate: "th.sortable",
 	menu: "#signatureColumnMenu",
+	position: function(event, ui) {
+        return {my: "left top", at: "center", of: ui.target};
+    },
 	select: function(e, ui) {
 		var col = $(ui.target).parent().parent().children().index($(ui.target).parent()) + 1;
 
@@ -550,7 +553,9 @@ $("#signaturesWidget #sigTable thead").contextmenu({
 // Chain Map Context Menu
 $("#chainMap").contextmenu({
 	delegate: ".node a",
-	uiMenuOptions: {position: {my: "left top-1", at: "right top"}},
+	position: function(event, ui) {
+        return {my: "left top-1", at: "right top", of: ui.target};
+    },
 	menu: "#chainMenu",
 	show: {effect: "slideDown", duration: 150},
 	select: function(e, ui) {

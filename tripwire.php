@@ -3,10 +3,10 @@
 $startTime = microtime(true);
 
 // Caching
-header('Cache-Control: public, max-age=300');
-header('Expires: '.gmdate('r', time() + 300));
-header('Pragma: cache');
-header('Content-Type: text/html; charset=UTF-8');
+// header('Cache-Control: public, max-age=300');
+// header('Expires: '.gmdate('r', time() + 300));
+// header('Pragma: cache');
+// header('Content-Type: text/html; charset=UTF-8');
 
 // setcookie('loadedFromBrowserCache','false');
 

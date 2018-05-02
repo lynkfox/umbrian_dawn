@@ -52,11 +52,11 @@ html .ui-selectmenu-menu ul {
 }
 
 #sigTable tr:hover td {
-	background-color: #333;
+	background-color: #444;
 }
 
 #sigTable tr.selected td {
-	background-color: #222;
+	background-color: #333;
 }
 
 #sigTable th:nth-child(1) {
