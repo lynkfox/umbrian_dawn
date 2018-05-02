@@ -351,9 +351,11 @@ var chain = new function() {
 						node.child.signatureID = parent.signatureID;
 
 						chainLinks.push(node);
-						chainList.push([node.child.systemID, node.child.id, system[2]]);
+						if (tripwire.systems[node.child.systemID]) {
+								chainList.push([node.child.systemID, node.child.id, system[2]]);
+						}
 						usedLinks.push(node.id);
-						//usedLinks[system[2]].push(node.id);
+						// usedLinks[system[2]].push(node.id);
 
 						if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class) {
 							var jumps = guidance.findShortestPath(tripwire.map.shortest, [viewingSystemID - 30000000, node.child.systemID - 30000000]).length - 1;
@@ -435,9 +437,11 @@ var chain = new function() {
 						node.child.signatureID = child.signatureID;
 
 						chainLinks.push(node);
-						chainList.push([node.child.systemID, node.child.id, system[2]]);
+						if (tripwire.systems[node.child.systemID]) {
+								chainList.push([node.child.systemID, node.child.id, system[2]]);
+						}
 						usedLinks.push(node.id);
-						//usedLinks[system[2]].push(node.id);
+						// usedLinks[system[2]].push(node.id);
 
 						if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class) {
 							var jumps = guidance.findShortestPath(tripwire.map.shortest, [viewingSystemID - 30000000, node.child.systemID - 30000000]).length - 1;
@@ -462,7 +466,6 @@ var chain = new function() {
 							chainLinks.push(calcNode);
 							chainList.push([0, childID]);
 						}
-
 						if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID]) {
 							for (x in options.favorites) {
 								if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000)
@@ -510,29 +513,27 @@ var chain = new function() {
 					var child = tripwire.client.signatures[map[x].secondaryID];
 					if (typeof(tripwire.systems[parent.systemID].class) == "undefined") {
 						i++;
-						//usedLinks[map[x].systemID] = [];
+						// usedLinks[parent.systemID] = [];
 						chain.rows.push({c: [topLevel(parent.systemID, i), {v: null}]});
 						chainList.push([parent.systemID, i, parent.systemID]);
 					} else if (tripwire.systems[child.systemID] && typeof(tripwire.systems[child.systemID].class) == "undefined") {
 						i++;
-						//usedLinks[map[x].connectionID] = [];
+						// usedLinks[child.systemID] = [];
 						chain.rows.push({c: [topLevel(child.systemID, i), {v: null}]});
 						chainList.push([child.systemID, i, child.systemID]);
 					}
 				}
 			} else {
 				for (var x in systems) {
-					//usedLinks[systems[x]] = [];
+					// usedLinks[systems[x]] = [];
 					chain.rows.push({c: [topLevel(systems[x], parseInt(x) + 1), {v: null}]});
 					chainList.push([systems[x], parseInt(x) + 1, systems[x]]);
 				}
 			}
 
-			//var startTime = window.performance.now();
 			for (var i = 0; i < chainList.length; i++) {
 				findLinks(chainList[i]);
 			}
-			//console.log("stint: "+ (window.performance.now() - startTime));
 		} else {
 			$("#chainError").hide();
 
