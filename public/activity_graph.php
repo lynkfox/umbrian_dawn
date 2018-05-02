@@ -31,7 +31,7 @@ header('Expires: '.gmdate('r', time() + $cache));
 header('Pragma: cache');
 header('Content-Type: application/json');
 
-$length = isset($_REQUEST['time']) && !empty($_REQUEST['time']) ? intval($_REQUEST['time']) : 24;
+$length = isset($_REQUEST['time']) && !empty($_REQUEST['time']) ? intval($_REQUEST['time']) +1 : 25;
 $systemID = $_REQUEST['systemID'];
 
 //$annotations['2015-12-20 15:00:00'] = Array('label' => 'Downtime', 'text' => 'EVE Downtime');
