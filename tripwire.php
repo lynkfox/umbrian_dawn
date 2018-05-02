@@ -16,7 +16,7 @@ require_once('db.inc.php');
 require('lib.inc.php');
 
 // Track this system view
-$query = 'UPDATE userstats SET systemsViewed = systemsViewed + 1 WHERE userID = :userID';
+$query = 'UPDATE userStats SET systemsViewed = systemsViewed + 1 WHERE userID = :userID';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':userID', $_SESSION['userID']);
 $stmt->execute();

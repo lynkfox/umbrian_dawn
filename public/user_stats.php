@@ -27,7 +27,7 @@ header('Content-Type: application/json');
 
 $userID = $_SESSION['userID'];
 
-$query = 'SELECT * FROM userstats WHERE userID = :userID';
+$query = 'SELECT * FROM userStats WHERE userID = :userID';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':userID', $userID);
 $stmt->execute();

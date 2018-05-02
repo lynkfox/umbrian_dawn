@@ -133,7 +133,7 @@ if ($mode == 'login') {
 					// Log the attempt
 					login_history($ip, $username, $method, 'success');
 
-					$query = 'INSERT INTO userstats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
+					$query = 'INSERT INTO userStats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
 					$stmt = $mysql->prepare($query);
 					$stmt->bindValue(':userID', $account->id);
 					$stmt->execute();
@@ -192,7 +192,7 @@ if ($mode == 'login') {
 				// Log the attempt
 				login_history($ip, $account->username, $method, 'success');
 
-				$query = 'INSERT INTO userstats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
+				$query = 'INSERT INTO userStats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
 				$stmt = $mysql->prepare($query);
 				$stmt->bindValue(':userID', $account->id);
 				$stmt->execute();
@@ -297,7 +297,7 @@ if ($mode == 'login') {
 				// Log the attempt
 				login_history($ip, $account->username, $method, 'success');
 
-				$query = 'INSERT INTO userstats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
+				$query = 'INSERT INTO userStats (userID, loginCount) VALUES (:userID, 1) ON DUPLICATE KEY UPDATE lastLogin = NOW(), loginCount = loginCount + 1';
 				$stmt = $mysql->prepare($query);
 				$stmt->bindValue(':userID', $account->id);
 				$stmt->execute();
