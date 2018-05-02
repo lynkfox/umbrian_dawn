@@ -279,7 +279,7 @@ function updateSignature(signature $signature, $mysql) {
     $stmt->bindValue(':lifeLength', $signature->lifeLength);
     $stmt->bindValue(':modifiedByID', $_SESSION['characterID']);
     $stmt->bindValue(':modifiedByName', $_SESSION['characterName']);
-    $stmt->bindValue(':modifiedTime', date('Y-m-d H:i:s', time());
+    $stmt->bindValue(':modifiedTime', date('Y-m-d H:i:s', time()));
     $stmt->bindValue(':maskID', $signature->maskID);
     $success = $stmt->execute();
 
@@ -318,7 +318,7 @@ function removeSignature(signature $signature, $mysql) {
     $stmt->bindValue(':id', $signature->id);
     $stmt->bindValue(':modifiedByID', $_SESSION['characterID']);
     $stmt->bindValue(':modifiedByName', $_SESSION['characterName']);
-    $stmt->bindValue(':modifiedTime', date('Y-m-d H:i:s', time());
+    $stmt->bindValue(':modifiedTime', date('Y-m-d H:i:s', time()));
     $stmt->bindValue(':maskID', $signature->maskID);
     $success = @$stmt->execute();
 
