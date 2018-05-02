@@ -277,9 +277,9 @@ function updateSignature(signature $signature, $mysql) {
     $stmt->bindValue(':bookmark', $signature->bookmark);
     $stmt->bindValue(':lifeLeft', $signature->lifeLeft);
     $stmt->bindValue(':lifeLength', $signature->lifeLength);
-    $stmt->bindValue(':modifiedByID', $signature->modifiedByID);
-    $stmt->bindValue(':modifiedByName', $signature->modifiedByName);
-    $stmt->bindValue(':modifiedTime', $signature->modifiedTime);
+    $stmt->bindValue(':modifiedByID', $_SESSION['characterID']);
+    $stmt->bindValue(':modifiedByName', $_SESSION['characterName']);
+    $stmt->bindValue(':modifiedTime', date('Y-m-d H:i:s', time());
     $stmt->bindValue(':maskID', $signature->maskID);
     $success = $stmt->execute();
 
@@ -316,9 +316,9 @@ function removeSignature(signature $signature, $mysql) {
     $query = 'UPDATE signatures2 SET modifiedByID = :modifiedByID, modifiedByName = :modifiedByName, modifiedTime = :modifiedTime WHERE id = :id AND maskID = :maskID';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':id', $signature->id);
-    $stmt->bindValue(':modifiedByID', $signature->modifiedByID);
-    $stmt->bindValue(':modifiedByName', $signature->modifiedByName);
-    $stmt->bindValue(':modifiedTime', $signature->modifiedTime);
+    $stmt->bindValue(':modifiedByID', $_SESSION['characterID']);
+    $stmt->bindValue(':modifiedByName', $_SESSION['characterName']);
+    $stmt->bindValue(':modifiedTime', date('Y-m-d H:i:s', time());
     $stmt->bindValue(':maskID', $signature->maskID);
     $success = @$stmt->execute();
 
@@ -404,10 +404,6 @@ if (isset($_POST['signatures'])) {
                         foreach ($request['signatures'][0] AS $property => $value) {
                             $signature->$property = $value;
                         }
-                        // Modify some fields not passed in request
-                        $signature->modifiedTime = date('Y-m-d H:i:s', time());
-                        $signature->modifiedByID = $_SESSION['characterID'];
-                        $signature->modifiedByName = $_SESSION['characterName'];
 
                         list($result, $signature, $msg) = updateSignature($signature, $mysql);
                     }
@@ -417,10 +413,6 @@ if (isset($_POST['signatures'])) {
                             foreach ($request['signatures'][1] AS $property => $value) {
                                 $signature2->$property = $value;
                             }
-                            // Modify some fields not passed in request
-                            $signature2->modifiedTime = date('Y-m-d H:i:s', time());
-                            $signature2->modifiedByID = $_SESSION['characterID'];
-                            $signature2->modifiedByName = $_SESSION['characterName'];
 
                             list($result, $signature2, $msg) = updateSignature($signature2, $mysql);
                         } else {
@@ -478,10 +470,6 @@ if (isset($_POST['signatures'])) {
                     foreach ($request AS $property => $value) {
                         $signature->$property = $value;
                     }
-                    // Modify some fields not passed in request
-                    $signature->modifiedTime = date('Y-m-d H:i:s', time());
-                    $signature->modifiedByID = $_SESSION['characterID'];
-                    $signature->modifiedByName = $_SESSION['characterName'];
 
                     list($result, $signature, $msg) = updateSignature($signature, $mysql);
                     $output['resultSet'][] = array('result' => $result, 'value' => $msg);

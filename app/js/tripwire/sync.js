@@ -60,7 +60,7 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
 
             if (data.wormholes || data.occupied || data.flares) {
                 tripwire.chainMap.parse({"map": data.wormholes || null, "occupied": data.occupied || null, "flares": data.flares || null});
-            } else if (chain.data.occupied.length && !data.occupied) {
+            } else if (chain.data.occupied && chain.data.occupied.length && !data.occupied) {
                 // send update to remove all occupied system indicators
                 tripwire.chainMap.parse({"occupied": []});
             }
