@@ -1,7 +1,7 @@
 <?php
 
 if (isset($_REQUEST['systemID']) && $maskID) {
-    $query = 'SELECT * FROM signatures2 WHERE (systemID = :systemID OR type = "wormhole") AND maskID = :maskID';
+    $query = 'SELECT * FROM signatures WHERE (systemID = :systemID OR type = "wormhole") AND maskID = :maskID';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':systemID', $_REQUEST['systemID']);
     $stmt->bindValue(':maskID', $maskID);
@@ -14,7 +14,7 @@ if (isset($_REQUEST['systemID']) && $maskID) {
       $output[] = $row;
     }
 } else if ($maskID) {
-    $query = 'SELECT * FROM signatures2 WHERE maskID = :maskID';
+    $query = 'SELECT * FROM signatures WHERE maskID = :maskID';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':maskID', $maskID);
     $stmt->execute();

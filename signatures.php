@@ -1,8 +1,5 @@
 <?php
 
-require('../db.inc.php');
-if (!session_id()) session_start();
-
 class signature {
     protected $id = null;
     protected $signatureID = null;
@@ -71,6 +68,7 @@ class signature {
                 break;
             case 'lifeLength':
                 $this->lifeLength = is_numeric($value) ? (int)$value : $this->lifeLength;
+                $this->lifeLeft = date('Y-m-d H:i:s', strtotime('+'.$this->lifeLength.' seconds', strtotime($this->lifeTime)));
                 break;
             case 'lifeLeft':
                 $this->lifeLeft = (bool)strtotime($value) ? date('Y-m-d H:i:s', strtotime($value)) : $this->lifeLeft;
@@ -158,7 +156,7 @@ class wormhole {
 }
 
 function fetchSignature($id, $mysql) {
-    $query = 'SELECT * FROM signatures2 WHERE id = :id AND maskID = :maskID';
+    $query = 'SELECT * FROM signatures WHERE id = :id AND maskID = :maskID';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':id', $id);
     $stmt->bindValue(':maskID', $_SESSION['mask']);
@@ -205,7 +203,7 @@ function findWormhole($id, $mysql) {
 function addSignature($signature, $mysql) {
     $signature = new signature($signature);
 
-    $query = 'INSERT INTO signatures2 (signatureID, systemID, type, name, bookmark, lifeTime, lifeLeft, lifeLength, createdByID, createdByName, modifiedByID, modifiedByName, modifiedTime, maskID)
+    $query = 'INSERT INTO signatures (signatureID, systemID, type, name, bookmark, lifeTime, lifeLeft, lifeLength, createdByID, createdByName, modifiedByID, modifiedByName, modifiedTime, maskID)
                 VALUES (:signatureID, :systemID, :type, :name, :bookmark, :lifeTime, :lifeLeft, :lifeLength, :createdByID, :createdByName, :modifiedByID, :modifiedByName, :modifiedTime, :maskID)';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':signatureID', $signature->signatureID);
@@ -255,7 +253,7 @@ function addWormhole($wormhole, $mysql) {
 }
 
 function updateSignature(signature $signature, $mysql) {
-    $query = 'UPDATE signatures2 SET
+    $query = 'UPDATE signatures SET
                 signatureID = :signatureID,
                 systemID = :systemID,
                 type = :type,
@@ -313,7 +311,7 @@ function removeSignature(signature $signature, $mysql) {
     $stmt = $mysql->prepare($query);
     $stmt->execute();
 
-    $query = 'UPDATE signatures2 SET modifiedByID = :modifiedByID, modifiedByName = :modifiedByName, modifiedTime = :modifiedTime WHERE id = :id AND maskID = :maskID';
+    $query = 'UPDATE signatures SET modifiedByID = :modifiedByID, modifiedByName = :modifiedByName, modifiedTime = :modifiedTime WHERE id = :id AND maskID = :maskID';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':id', $signature->id);
     $stmt->bindValue(':modifiedByID', $_SESSION['characterID']);
@@ -326,7 +324,7 @@ function removeSignature(signature $signature, $mysql) {
     $stmt = $mysql->prepare($query);
     $stmt->execute();
 
-    $query = 'DELETE FROM signatures2 WHERE id = :id AND maskID = :maskID';
+    $query = 'DELETE FROM signatures WHERE id = :id AND maskID = :maskID';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':id', $signature->id);
     $stmt->bindValue(':maskID', $signature->maskID);

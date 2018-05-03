@@ -234,7 +234,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	// Signatures data
 	// $debugStart = microtime(true);
 	$output['signatures'] = array();
-	$query = 'SELECT * FROM signatures2 WHERE (systemID = :systemID OR type = "wormhole") AND maskID = :maskID';
+	$query = 'SELECT * FROM signatures WHERE (systemID = :systemID OR type = "wormhole") AND maskID = :maskID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':systemID', $systemID);
 	$stmt->bindValue(':maskID', $maskID);
@@ -334,7 +334,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 
 	// Check if signatures changed....
 	if ($refresh['sigUpdate'] == false) {
-		$query = 'SELECT COUNT(*) as total, MAX(modifiedTime) as time FROM signatures2 WHERE (systemID = :systemID OR type = "wormhole") AND maskID = :maskID';
+		$query = 'SELECT COUNT(*) as total, MAX(modifiedTime) as time FROM signatures WHERE (systemID = :systemID OR type = "wormhole") AND maskID = :maskID';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':systemID', $systemID);
 		$stmt->bindValue(':maskID', $maskID);
@@ -355,7 +355,7 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 
 	if ($refresh['sigUpdate'] == true) {
 		$output['signatures'] = array();
-		$query = 'SELECT * FROM signatures2 WHERE (systemID = :systemID OR type = "wormhole") AND maskID = :maskID';
+		$query = 'SELECT * FROM signatures WHERE (systemID = :systemID OR type = "wormhole") AND maskID = :maskID';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':systemID', $systemID);
 		$stmt->bindValue(':maskID', $maskID);
