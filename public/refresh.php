@@ -341,16 +341,20 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		$stmt->execute();
 		$results = $stmt->fetchObject();
 
-		// EVE Scout signatures
-		$query = 'SELECT COUNT(*) as total, MAX(time) as time FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
-		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':systemID', $systemID);
-		$stmt->execute();
-		$results2 = $stmt->fetchObject();
-
-		if ($signatureCount != $results->total + $results2->total || strtotime($signatureTime) < strtotime($results->time) || strtotime($signatureTime) < strtotime($results2->time)) {
+		if ($signatureCount != $results->total || strtotime($signatureTime) < strtotime($results->time)) {
 			$refresh['sigUpdate'] = true;
 		}
+
+		// EVE Scout signatures
+		// $query = 'SELECT COUNT(*) as total, MAX(time) as time FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
+		// $stmt = $mysql->prepare($query);
+		// $stmt->bindValue(':systemID', $systemID);
+		// $stmt->execute();
+		// $results2 = $stmt->fetchObject();
+		//
+		// if ($signatureCount != $results->total + $results2->total || strtotime($signatureTime) < strtotime($results->time) || strtotime($signatureTime) < strtotime($results2->time)) {
+		// 	$refresh['sigUpdate'] = true;
+		// }
 	}
 
 	if ($refresh['sigUpdate'] == true) {
