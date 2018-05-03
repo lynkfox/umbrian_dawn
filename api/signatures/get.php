@@ -7,12 +7,22 @@ if (isset($_REQUEST['systemID']) && $maskID) {
     $stmt->bindValue(':maskID', $maskID);
     $stmt->execute();
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
-    $output = $rows;
+    foreach ($rows as $row) {
+      $row->lifeTime = date('Y-m-d h:s:i e', strtotime($row->lifeTime));
+      $row->lifeLeft = date('Y-m-d h:s:i e', strtotime($row->lifeLeft));
+      $row->modifiedTime = date('Y-m-d h:s:i e', strtotime($row->modifiedTime));
+      $output[] = $row;
+    }
 } else if ($maskID) {
     $query = 'SELECT * FROM signatures2 WHERE maskID = :maskID';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':maskID', $maskID);
     $stmt->execute();
     $rows = $stmt->fetchAll(PDO::FETCH_CLASS);
-    $output = $rows;
+    foreach ($rows as $row) {
+      $row->lifeTime = date('Y-m-d h:s:i e', strtotime($row->lifeTime));
+      $row->lifeLeft = date('Y-m-d h:s:i e', strtotime($row->lifeLeft));
+      $row->modifiedTime = date('Y-m-d h:s:i e', strtotime($row->modifiedTime));
+      $output[] = $row;
+    }
 }

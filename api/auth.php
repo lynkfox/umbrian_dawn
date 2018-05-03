@@ -40,7 +40,7 @@ if (isset($_REQUEST['maskID']) && !empty($_REQUEST['maskID'])) {
     if ($characters = $stmt->fetchAll(PDO::FETCH_CLASS)) {
         foreach ($characters AS $character) {
             $checkMask = explode('.', $_REQUEST['maskID']);
-            if (count($checkMask) === 2) {
+            if (count($checkMask) != 2) {
               header('HTTP/1.0 400 Bad Request');
               echo 'MaskID must be a decimal';
               exit;
