@@ -631,7 +631,7 @@ var chain = new function() {
 							+	"<h4 class='nodeSystem'>"
 							+ 	(tripwire.systems[node.child.systemID] ? "<a href='.?system="+tripwire.systems[node.child.systemID].name+"'>"+(node.parent.name ? node.parent.name : tripwire.systems[node.child.systemID].name)+"</a>" : (node.parent.name ? node.parent.name : "<a class='invisible'>system</a>"))
 							+	"</h4>"
-							+	"<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "") : (node.child.type || "") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"
+							+	"<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") : (node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
 							+	"</div>"
@@ -684,7 +684,7 @@ var chain = new function() {
 		//var startTime = window.performance.now();
 
 		// We need to make sure Google chart is ready and we have signature data for this system before we begin, otherwise delay
-		if (!this.map || !tripwire.client.signatures) {
+		if (!this.map || (Object.size(data.map) && !tripwire.client.signatures)) {
 			setTimeout(() => chain.draw(data), 100);
 			return;
 		}
@@ -816,8 +816,6 @@ var chain = new function() {
 		google.visualization.events.addListener(chain.map, "collapse", chain.collapse);
 
 		chain.map.draw(new google.visualization.DataView(new google.visualization.DataTable({cols:[{label: "System", type: "string"}, {label: "Parent", type: "string"}]})), this.options);
-
-		// chain.redraw();
 	}
 
 	google.charts.setOnLoadCallback(this.init);

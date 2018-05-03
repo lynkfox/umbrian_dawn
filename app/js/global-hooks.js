@@ -594,11 +594,11 @@ $("#chainMap").contextmenu({
 		}
 	},
 	beforeOpen: function(e, ui) {
-		var sigID = $(ui.target[0]).closest("[data-nodeid]").data("sigid") || null;
-		var id = $(ui.target[0]).closest("[data-nodeid]").data("nodeid");
+		var wormholeID = $(ui.target[0]).closest("[data-nodeid]").data("sigid") || null;
+		var systemID = $(ui.target[0]).closest("[data-nodeid]").data("nodeid");
 
 		// Add check for k-space
-		if (tripwire.systems[id].class || !tripwire.esi.characters[options.tracking.active]) {
+		if (tripwire.systems[systemID].class || !tripwire.esi.characters[options.tracking.active]) {
 			$(this).contextmenu("enableEntry", "setDest", false);
 			$(this).contextmenu("enableEntry", "addWay", false);
 			$(this).contextmenu("enableEntry", "showMap", false);
@@ -608,7 +608,7 @@ $("#chainMap").contextmenu({
 			$(this).contextmenu("enableEntry", "showMap", false);
 		}
 
-		if (sigID) {
+		if (wormholeID) {
 			$(this).contextmenu("enableEntry", "mass", true);
 		} else {
 			$(this).contextmenu("enableEntry", "mass", false);
@@ -626,20 +626,22 @@ $("#chainMap").contextmenu({
 				}
 			},
 			open: function() {
-				var sigID = $(this).data("id");
+				var wormholeID = $(this).data("id");
 				var systemID = $(this).data("systemID");
-				var sig = Object.find(chain.data.rawMap, "id", sigID);
+				var wormhole = tripwire.client.wormholes[wormholeID];
+				var signature = tripwire.client.signatures[wormhole.initialID];
+				var otherSignature = tripwire.client.signatures[wormhole.secondaryID];
 
-				$("#dialog-mass").dialog("option", "title", "From "+(sig.systemID == systemID ? tripwire.systems[sig.connectionID].name : tripwire.systems[sig.systemID].name)+" to "+tripwire.systems[systemID].name);
+				$("#dialog-mass").dialog("option", "title", "From "+tripwire.systems[signature.systemID].name+" to "+tripwire.systems[otherSignature.systemID].name);
 
 				$("#dialog-mass #massTable tbody tr").remove();
 
-				var data = {signatureID: sigID};
+				var payload = {wormholeID: wormhole.id};
 
 				$.ajax({
 					url: "mass.php",
 					type: "POST",
-					data: data,
+					data: payload,
 					dataType: "JSON"
 				}).done(function(data) {
 					if (data && data.mass) {

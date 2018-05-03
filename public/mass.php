@@ -13,13 +13,13 @@ require_once('../db.inc.php');
 
 header('Content-Type: application/json');
 
-$signatureID = $_REQUEST['signatureID'];
+$wormholeID = $_REQUEST['wormholeID'];
 $maskID = $_SESSION['mask'];
 $output = null;
 
-$query = 'SELECT characterName, toID, shipType, mass, time FROM jumps INNER JOIN '. EVE_DUMP .'.invTypes ON typeID = shipTypeID WHERE maskID = :maskID AND wormholeID = :signatureID ORDER BY time DESC';
+$query = 'SELECT characterName, toID, shipType, mass, time FROM jumps INNER JOIN '. EVE_DUMP .'.invTypes ON typeID = shipTypeID WHERE maskID = :maskID AND wormholeID = :wormholeID ORDER BY time DESC';
 $stmt = $mysql->prepare($query);
-$stmt->bindValue(':signatureID', $signatureID);
+$stmt->bindValue(':wormholeID', $wormholeID);
 $stmt->bindValue(':maskID', $maskID);
 $stmt->execute();
 
