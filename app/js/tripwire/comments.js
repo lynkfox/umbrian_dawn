@@ -21,8 +21,8 @@ tripwire.comments = function() {
                     $comment.find(".commentFooter .commentControls").hide();
                 }
 
-                $comment.find(".commentModified").html("Edited by " + data[x].modifiedBy + " at " + data[x].modified);
-                $comment.find(".commentCreated").html("Posted by " + data[x].createdBy + " at " + data[x].created);
+                $comment.find(".commentModified").html("Edited by " + data[x].modifiedByName + " at " + data[x].modified);
+                $comment.find(".commentCreated").html("Posted by " + data[x].createdByName + " at " + data[x].created);
                 $comment.find(".commentBody").attr("id", "comment" + commentID);
                 $comment.find(".commentSticky").addClass(data[x].sticky ? "active" : "");
                 $comment.removeClass("hidden");
@@ -40,7 +40,7 @@ tripwire.comments = function() {
                     $comment.find(".commentFooter .commentControls").hide();
                 }
 
-                $comment.find(".commentModified").html("Edited by " + data[x].modifiedBy + " at " + data[x].modified);
+                $comment.find(".commentModified").html("Edited by " + data[x].modifiedByName + " at " + data[x].modified);
                 $comment.find(".commentSticky").addClass(data[x].sticky ? "active" : "");
 
                 //tripwire.comments.data[id] = data[id];

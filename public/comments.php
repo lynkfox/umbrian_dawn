@@ -26,6 +26,7 @@ header('Content-Type: application/json');
 
 $maskID = 		$_SESSION['mask'];
 $characterID = 	$_SESSION['characterID'];
+$characterName = $_SESSION['characterName'];
 $systemID = 	isset($_REQUEST['systemID']) ? $_REQUEST['systemID'] : null;
 $commentID = 	isset($_REQUEST['commentID']) ? $_REQUEST['commentID'] : null;
 $comment = 		isset($_REQUEST['comment']) ? $_REQUEST['comment'] : null;
@@ -33,21 +34,23 @@ $mode = 		isset($_REQUEST['mode']) ? $_REQUEST['mode'] : null;
 $output = 		null;
 
 if ($mode == 'save') {
-	$query = 'INSERT INTO comments (id, systemID, comment, created, createdBy, modifiedBy, maskID)
-				VALUES (:commentID, :systemID, :comment, NOW(), :createdBy, :modifiedBy, :maskID)
+	$query = 'INSERT INTO comments (id, systemID, comment, created, createdByID, createdByName, modifiedByID, modifiedByName, maskID)
+				VALUES (:commentID, :systemID, :comment, NOW(), :createdByID, :createdByNmae, :modifiedByID, :modifiedByName, :maskID)
 				ON DUPLICATE KEY UPDATE
-				systemID = :systemID, comment = :comment, modifiedBy = :modifiedBy, modified = NOW()';
+				systemID = :systemID, comment = :comment, modifiedByID = :modifiedByID, modifiedByName = :modifiedByName, modified = NOW()';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':commentID', $commentID);
 	$stmt->bindValue(':systemID', $systemID);
 	$stmt->bindValue(':comment', $comment);
-	$stmt->bindValue(':createdBy', $characterID);
-	$stmt->bindValue(':modifiedBy', $characterID);
+	$stmt->bindValue(':createdByID', $characterID);
+	$stmt->bindValue(':createdByName', $characterName);
+	$stmt->bindValue(':modifiedByID', $characterID);
+	$stmt->bindValue(':modifiedByName', $characterName);
 	$stmt->bindValue(':maskID', $maskID);
 	$output['result'] = $stmt->execute();
 
 	if ($output['result']) {
-		$query = 'SELECT id, created AS createdDate, c.characterName AS createdBy, modified AS modifiedDate, m.characterName AS modifiedBy FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE id = :commentID AND maskID = :maskID';
+		$query = 'SELECT id, created AS createdDate, createdByName, modified AS modifiedDate, modifiedByName FROM comments WHERE id = :commentID AND maskID = :maskID';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':commentID', ($commentID ? $commentID : $mysql->lastInsertId()));
 		$stmt->bindValue(':maskID', $maskID);
