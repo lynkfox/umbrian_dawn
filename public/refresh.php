@@ -309,13 +309,13 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	$output['flares']['last_modified'] = date('m/d/Y H:i:s e', $result ? strtotime($result[0]->time) : time());
 
 	// Get Comments
-	$query = 'SELECT id, comment, created AS createdDate, c.characterName AS createdBy, modified AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
+	$query = 'SELECT id, comment, created AS createdDate, createdByName, modified AS modifiedDate, modifiedByName, systemID FROM comments WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':systemID', $systemID);
 	$stmt->bindValue(':maskID', $maskID);
 	$stmt->execute();
 	while ($row = $stmt->fetchObject()) {
-		$output['comments'][] = array('id' => $row->id, 'comment' => $row->comment, 'created' => $row->createdDate, 'createdBy' => $row->createdBy, 'modified' => $row->modifiedDate, 'modifiedBy' => $row->modifiedBy, 'sticky' => $row->systemID == 0 ? true : false);
+		$output['comments'][] = array('id' => $row->id, 'comment' => $row->comment, 'created' => $row->createdDate, 'createdByName' => $row->createdByName, 'modified' => $row->modifiedDate, 'modifiedByName' => $row->modifiedByName, 'sticky' => $row->systemID == 0 ? true : false);
 	}
 } else if ((isset($_REQUEST['mode']) && ($_REQUEST['mode'] == 'refresh')) || $refresh['sigUpdate'] == true || $refresh['chainUpdate'] == true) {
 	$signatureCount 	= isset($_REQUEST['signatureCount']) ? $_REQUEST['signatureCount'] : null;
@@ -426,13 +426,13 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	if ((int)$commentCount != (int)$row->count || strtotime($commentTime) < strtotime($row->modified)) {
 		$output['comments'] = array();
 		// Get Comments
-		$query = 'SELECT id, comment, created AS createdDate, c.characterName AS createdBy, modified AS modifiedDate, m.characterName AS modifiedBy, systemID FROM comments LEFT JOIN characters c ON createdBy = c.characterID LEFT JOIN characters m ON modifiedBy = m.characterID WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
+		$query = 'SELECT id, comment, created AS createdDate, createdByName, modified AS modifiedDate, modifiedByName, systemID FROM comments WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':systemID', $systemID);
 		$stmt->bindValue(':maskID', $maskID);
 		$stmt->execute();
 		while ($row = $stmt->fetchObject()) {
-			$output['comments'][] = array('id' => $row->id, 'comment' => $row->comment, 'created' => $row->createdDate, 'createdBy' => $row->createdBy, 'modified' => $row->modifiedDate, 'modifiedBy' => $row->modifiedBy, 'sticky' => $row->systemID == 0 ? true : false);
+			$output['comments'][] = array('id' => $row->id, 'comment' => $row->comment, 'created' => $row->createdDate, 'createdByName' => $row->createdByName, 'modified' => $row->modifiedDate, 'modifiedByName' => $row->modifiedByName, 'sticky' => $row->systemID == 0 ? true : false);
 		}
 	}
 }
