@@ -35,7 +35,7 @@ $output = 		null;
 
 if ($mode == 'save') {
 	$query = 'INSERT INTO comments (id, systemID, comment, created, createdByID, createdByName, modifiedByID, modifiedByName, maskID)
-				VALUES (:commentID, :systemID, :comment, NOW(), :createdByID, :createdByNmae, :modifiedByID, :modifiedByName, :maskID)
+				VALUES (:commentID, :systemID, :comment, NOW(), :createdByID, :createdByName, :modifiedByID, :modifiedByName, :maskID)
 				ON DUPLICATE KEY UPDATE
 				systemID = :systemID, comment = :comment, modifiedByID = :modifiedByID, modifiedByName = :modifiedByName, modified = NOW()';
 	$stmt = $mysql->prepare($query);
