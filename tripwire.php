@@ -594,14 +594,14 @@ if ($row = $stmt->fetchObject()) {
 			<h3><a href="#">Preferences</a></h3>
 			<div>
 				<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
-					<tr>
+					<!-- <tr>
 						<th>Chain Type format:</th>
-						<td><!--<a href="http://forums.eve-apps.com/viewtopic.php?f=2&t=12" target="_blank" data-icon="help" style="color: #333; font-size: 1.2em;"></a> --><input type="text" id="typeFormat" size="4" maxlength="3" /></td>
-					</tr>
-					<tr>
+						<td><input type="text" id="typeFormat" size="4" maxlength="3" /></td>
+					</tr> -->
+					<!-- <tr>
 						<th>Chain Class format:</th>
-						<td><!--<a href="http://forums.eve-apps.com/viewtopic.php?f=2&t=12" target="_blank" data-icon="help" style="color: #333; font-size: 1.2em;"></a> --><input type="text" id="classFormat" size="4" maxlength="3" /></td>
-					</tr>
+						<td><input type="text" id="classFormat" size="4" maxlength="3" /></td>
+					</tr> -->
 					<tr>
 						<th>Show Chain Map Gridlines:</th>
 						<td>

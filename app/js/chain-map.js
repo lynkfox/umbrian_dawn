@@ -92,13 +92,17 @@ var chain = new function() {
 
 	this.grid = function() {
 		/*  function for showing/hiding grid lines  */
-		if (options.chain.gridlines == false) { $("#chainGrid tr").addClass("hidden"); return false; }
+		// This is an optional feature
+		if (options.chain.gridlines == false) {
+			$("#chainGrid tr").addClass("hidden");
+			return false;
+		}
 
 		$("#chainGrid tr").removeClass("hidden");
 		//$("#chainGrid").css("width", "100%");
 
-		var rows = $(".google-visualization-orgchart-table tr:has(.node)").length * 2 - 1;
-
+		// Calculate how many rows have systems, max 0 hack to prevent negative numbers, and rows above this number get hidden
+		var rows = Math.max(0, $(".google-visualization-orgchart-table tr:has(.node)").length * 2 - 1);
 		$("#chainGrid tr:gt("+rows+")").addClass("hidden");
 	}
 
