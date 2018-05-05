@@ -36,7 +36,7 @@ $systemID = $_REQUEST['systemID'];
 
 //$annotations['2015-12-20 15:00:00'] = Array('label' => 'Downtime', 'text' => 'EVE Downtime');
 
-$query = 'SELECT shipJumps, shipKills, podKills, npcKills, time FROM tripwire.systemActivity WHERE systemID = :systemID ORDER BY time DESC LIMIT :limit';
+$query = 'SELECT shipJumps, shipKills, podKills, npcKills, time FROM tripwire.system_activity WHERE systemID = :systemID ORDER BY time DESC LIMIT :limit';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':systemID', $systemID);
 $stmt->bindValue(':limit', $length, PDO::PARAM_INT); // MySQL LIMIT requies this to have an int type sent

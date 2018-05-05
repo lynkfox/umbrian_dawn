@@ -86,9 +86,16 @@ $(".options").click(function(e) {
 				type: "POST",
 				dataType: "JSON"
 			}).done(function(data) {
-				for (stat in data) {
-					$("#"+stat).text(data[stat]);
+				for (i in data.stats) {
+					for (x in data.stats[i]) {
+						$("#optionsAccordion #"+ x).text(data.stats[i][x]);
+					}
 				}
+
+				$("#optionsAccordion #systems_visited").text(data.system_visits);
+				$("#optionsAccordion #logins").text(data.account.logins);
+				$("#optionsAccordion #lastLogin").text(data.account.lastLogin);
+				$("#optionsAccordion #username").text(data.username);
 			});
 
 			// Get masks

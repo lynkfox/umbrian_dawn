@@ -49,4 +49,4 @@ tripwire.API = function() {
 
     this.API.init();
 }
-tripwire.API();
+// tripwire.API();

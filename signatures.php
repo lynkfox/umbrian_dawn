@@ -223,6 +223,17 @@ function addSignature($signature, $mysql) {
     $success = $stmt->execute();
 
     if ($success) {
+        // Log the user stats
+        if ($signature->type != 'wormhole') {
+            $query = 'INSERT INTO statistics (userID, characterID, maskID, signatures_added) VALUES (:userID, :characterID, :maskID, 1)
+                ON DUPLICATE KEY UPDATE signatures_added = signatures_added + 1';
+            $stmt = $mysql->prepare($query);
+            $stmt->bindValue(':userID', $_SESSION['userID']);
+            $stmt->bindValue(':characterID', $signature->createdByID);
+            $stmt->bindValue(':maskID', $signature->maskID);
+            $success = $stmt->execute();
+        }
+
         $signature->id = $mysql->lastInsertId();
         return array(true, $signature, null);
     }
@@ -245,6 +256,15 @@ function addWormhole($wormhole, $mysql) {
     $success = $stmt->execute();
 
     if ($success) {
+        // Log the user stats
+        $query = 'INSERT INTO statistics (userID, characterID, maskID, wormholes_added) VALUES (:userID, :characterID, :maskID, 1)
+            ON DUPLICATE KEY UPDATE wormholes_added = wormholes_added + 1';
+        $stmt = $mysql->prepare($query);
+        $stmt->bindValue(':userID', $_SESSION['userID']);
+        $stmt->bindValue(':characterID', $_SESSION['characterID']);
+        $stmt->bindValue(':maskID', $wormhole->maskID);
+        $success = $stmt->execute();
+
         $wormhole->id = $mysql->lastInsertId();
         return array(true, $wormhole, null);
     }
@@ -282,6 +302,17 @@ function updateSignature(signature $signature, $mysql) {
     $success = $stmt->execute();
 
     if ($success) {
+        // Log the user stats
+        if ($signature->type != 'wormhole') {
+            $query = 'INSERT INTO statistics (userID, characterID, maskID, signatures_updated) VALUES (:userID, :characterID, :maskID, 1)
+                ON DUPLICATE KEY UPDATE signatures_updated = signatures_updated + 1';
+            $stmt = $mysql->prepare($query);
+            $stmt->bindValue(':userID', $_SESSION['userID']);
+            $stmt->bindValue(':characterID', $signature->createdByID);
+            $stmt->bindValue(':maskID', $signature->maskID);
+            $success = $stmt->execute();
+        }
+
         return array(true, $signature, null);
     }
 
@@ -300,6 +331,15 @@ function updateWormhole(wormhole $wormhole, $mysql) {
     $success = $stmt->execute();
 
     if ($success) {
+        // Log the user stats
+        $query = 'INSERT INTO statistics (userID, characterID, maskID, wormholes_updated) VALUES (:userID, :characterID, :maskID, 1)
+            ON DUPLICATE KEY UPDATE wormholes_updated = wormholes_updated + 1';
+        $stmt = $mysql->prepare($query);
+        $stmt->bindValue(':userID', $_SESSION['userID']);
+        $stmt->bindValue(':characterID', $_SESSION['characterID']);
+        $stmt->bindValue(':maskID', $wormhole->maskID);
+        $success = $stmt->execute();
+
         return array(true, $wormhole, null);
     }
 
@@ -331,6 +371,17 @@ function removeSignature(signature $signature, $mysql) {
     $success = @$stmt->execute();
 
     if ($success) {
+        // Log the user stats
+        if ($signature->type != 'wormhole') {
+            $query = 'INSERT INTO statistics (userID, characterID, maskID, signatures_deleted) VALUES (:userID, :characterID, :maskID, 1)
+                ON DUPLICATE KEY UPDATE signatures_deleted = signatures_deleted + 1';
+            $stmt = $mysql->prepare($query);
+            $stmt->bindValue(':userID', $_SESSION['userID']);
+            $stmt->bindValue(':characterID', $signature->createdByID);
+            $stmt->bindValue(':maskID', $signature->maskID);
+            $success = $stmt->execute();
+        }
+
         return array(true, $signature->id, null);
     }
 
@@ -347,6 +398,15 @@ function removeWormhole($wormhole, $mysql) {
     $success = @$stmt->execute();
 
     if ($success) {
+        // Log the user stats
+        $query = 'INSERT INTO statistics (userID, characterID, maskID, wormholes_deleted) VALUES (:userID, :characterID, :maskID, 1)
+            ON DUPLICATE KEY UPDATE wormholes_deleted = wormholes_deleted + 1';
+        $stmt = $mysql->prepare($query);
+        $stmt->bindValue(':userID', $_SESSION['userID']);
+        $stmt->bindValue(':characterID', $_SESSION['characterID']);
+        $stmt->bindValue(':maskID', $wormhole->maskID);
+        $success = $stmt->execute();
+
         return array(true, $wormhole->id, null);
     }
 

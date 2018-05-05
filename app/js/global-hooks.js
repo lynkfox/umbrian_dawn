@@ -52,7 +52,7 @@ $(document).keydown(function(e)	{
 	}
 });
 
-$("#APIclock").knob({angleArc: 359.9, height: 20, width: 20, max: 60, readOnly: true, displayInput: false, fgColor: "#CCC", bgColor: "#666"});
+// $("#APIclock").knob({angleArc: 359.9, height: 20, width: 20, max: 60, readOnly: true, displayInput: false, fgColor: "#CCC", bgColor: "#666"});
 
 $("#follow").click(function(e) {
 	e.preventDefault();

@@ -245,35 +245,6 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	}
 	// $output['debugTime'] = sprintf('%.4f', microtime(true) - $debugStart);
 
-	// $output['signatures'] = Array();
-	// $query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND mask = :mask';
-	// $stmt = $mysql->prepare($query);
-	// $stmt->bindValue(':systemID', $systemID);
-	// $stmt->bindValue(':mask', $maskID);
-	// $stmt->execute();
-	//
-	// while ($row = $stmt->fetchObject()) {
-	// 	$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
-	// 	$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
-	// 	$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
-	//
-	// 	$output['signatures'][$row->id] = $row;
-	// }
-
-	// EVE Scout signatures data
-	// $query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
-	// $stmt = $mysql->prepare($query);
-	// $stmt->bindValue(':systemID', $systemID);
-	// $stmt->execute();
-	//
-	// while ($row = $stmt->fetchObject()) {
-	// 	$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
-	// 	$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
-	// 	$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
-	//
-	// 	$output['signatures'][$row->id] = $row;
-	// }
-
 	// Chain map data
 	$output['wormholes'] = array();
 	$query = "SELECT * FROM wormholes WHERE maskID = :maskID";
@@ -284,13 +255,6 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 	foreach ($rows AS $row) {
 		$output['wormholes'][$row->id] = $row;
 	}
-
-	// EVE Scout chain map data
-	// $query = "SELECT * FROM signatures USE INDEX(changeSearch2) WHERE (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL";
-	// $stmt = $mysql->prepare($query);
-	// $stmt->bindValue(':mask', $maskID);
-	// $stmt->execute();
-	// $output['chain']['map'] = array_merge($output['chain']['map'], $stmt->fetchAll(PDO::FETCH_CLASS));
 
 	// Get occupied systems
 	$query = 'SELECT systemID, COUNT(characterID) AS count FROM tracking WHERE maskID = :maskID GROUP BY systemID';
@@ -344,17 +308,6 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		if ($signatureCount != $results->total || strtotime($signatureTime) < strtotime($results->time)) {
 			$refresh['sigUpdate'] = true;
 		}
-
-		// EVE Scout signatures
-		// $query = 'SELECT COUNT(*) as total, MAX(time) as time FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
-		// $stmt = $mysql->prepare($query);
-		// $stmt->bindValue(':systemID', $systemID);
-		// $stmt->execute();
-		// $results2 = $stmt->fetchObject();
-		//
-		// if ($signatureCount != $results->total + $results2->total || strtotime($signatureTime) < strtotime($results->time) || strtotime($signatureTime) < strtotime($results2->time)) {
-		// 	$refresh['sigUpdate'] = true;
-		// }
 	}
 
 	if ($refresh['sigUpdate'] == true) {
@@ -378,20 +331,6 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		foreach ($rows AS $row) {
 			$output['wormholes'][$row->id] = $row;
 		}
-
-		// // EVE Scout signatures data
-		// $query = 'SELECT * FROM signatures USE INDEX(systemSignatures, connectionID) WHERE (systemID = :systemID OR connectionID = :systemID) AND (systemID = 31000005 OR connectionID = 31000005) AND mask = 273 AND life IS NOT NULL';
-		// $stmt = $mysql->prepare($query);
-		// $stmt->bindValue(':systemID', $systemID);
-		// $stmt->execute();
-		//
-		// while ($row = $stmt->fetchObject()) {
-		// 	$row->lifeTime = date('m/d/Y H:i:s e', strtotime($row->lifeTime));
-		// 	$row->lifeLeft = date('m/d/Y H:i:s e', strtotime($row->lifeLeft));
-		// 	$row->time = date('m/d/Y H:i:s e', strtotime($row->time));
-		//
-		// 	$output['signatures'][$row->id] = $row;
-		// }
 	}
 
 	// Get flares

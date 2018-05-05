@@ -47,22 +47,59 @@ if ($mode == 'save') {
 	$stmt->bindValue(':modifiedByID', $characterID);
 	$stmt->bindValue(':modifiedByName', $characterName);
 	$stmt->bindValue(':maskID', $maskID);
-	$output['result'] = $stmt->execute();
+	$success = $stmt->execute();
 
-	if ($output['result']) {
+	if ($success) {
 		$query = 'SELECT id, created AS createdDate, createdByName, modified AS modifiedDate, modifiedByName FROM comments WHERE id = :commentID AND maskID = :maskID';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':commentID', ($commentID ? $commentID : $mysql->lastInsertId()));
 		$stmt->bindValue(':maskID', $maskID);
 		$stmt->execute();
 		$output['comment'] = $stmt->fetchObject();
+		$output['result'] = $success;
+
+		// Log the user stats
+		if ($commentID) {
+			$query = 'INSERT INTO statistics (userID, characterID, maskID, comments_updated) VALUES (:userID, :characterID, :maskID, 1)
+			ON DUPLICATE KEY UPDATE comments_updated = comments_updated + 1';
+			$stmt = $mysql->prepare($query);
+			$stmt->bindValue(':userID', $_SESSION['userID']);
+			$stmt->bindValue(':characterID', $_SESSION['characterID']);
+			$stmt->bindValue(':maskID', $maskID);
+			$success = $stmt->execute();
+		} else {
+			$query = 'INSERT INTO statistics (userID, characterID, maskID, comments_added) VALUES (:userID, :characterID, :maskID, 1)
+			ON DUPLICATE KEY UPDATE comments_added = comments_added + 1';
+			$stmt = $mysql->prepare($query);
+			$stmt->bindValue(':userID', $_SESSION['userID']);
+			$stmt->bindValue(':characterID', $_SESSION['characterID']);
+			$stmt->bindValue(':maskID', $maskID);
+			$success = $stmt->execute();
+		}
+	} else {
+		$output['error'] = $stmt->errorInfo();
 	}
 } else if ($mode == 'delete' && $commentID) {
 	$query = 'DELETE FROM comments WHERE id = :commentID AND maskID = :maskID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':commentID', $commentID);
 	$stmt->bindValue(':maskID', $maskID);
-	$output['result'] = $stmt->execute();
+	$success = $stmt->execute();
+
+	if ($success) {
+		// Log the user stats
+        $query = 'INSERT INTO statistics (userID, characterID, maskID, comments_deleted) VALUES (:userID, :characterID, :maskID, 1)
+            ON DUPLICATE KEY UPDATE comments_deleted = comments_deleted + 1';
+        $stmt = $mysql->prepare($query);
+        $stmt->bindValue(':userID', $_SESSION['userID']);
+        $stmt->bindValue(':characterID', $_SESSION['characterID']);
+        $stmt->bindValue(':maskID', $maskID);
+        $success = $stmt->execute();
+
+		$output['result'] = $success;
+	} else {
+		$output['error'] = $stmt->errorInfo();
+	}
 } else if ($mode == 'sticky' && $commentID) {
 	$query = 'UPDATE comments SET systemID = :systemID WHERE id = :commentID AND maskID = :maskID';
 	$stmt = $mysql->prepare($query);

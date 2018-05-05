@@ -26,44 +26,33 @@ require_once('../db.inc.php');
 header('Content-Type: application/json');
 
 $userID = $_SESSION['userID'];
+$output = null;
 
-$query = 'SELECT * FROM userStats WHERE userID = :userID';
+$query = 'SELECT * FROM statistics WHERE userID = :userID';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':userID', $userID);
 $stmt->execute();
+if ($results = $stmt->fetchAll(PDO::FETCH_CLASS)) {
+	$output['stats'] = $results;
+}
 
-$i = 0;
-if ($row = $stmt->fetchObject()) {
-	foreach ($row AS $col => $val) {
-		$meta = $stmt->getColumnMeta($i);
+$query = 'SELECT logins, lastLogin FROM accounts WHERE id = :userID';
+$stmt = $mysql->prepare($query);
+$stmt->bindValue(':userID', $userID);
+$stmt->execute();
+if ($results = $stmt->fetchObject()) {
+	$output['account'] = $results;
+}
 
-		if ($meta['native_type'] == 'DATETIME')
-			$val = date('n/j/Y h:i a', strtotime($val));
-		else if ($meta['native_type'] == 'LONG')
-			$val = number_format($val);
-
-		$output[$col] = $val;
-		$i++;
-	}
+$query = 'SELECT DISTINCT systemID FROM system_visits WHERE userID = :userID';
+$stmt = $mysql->prepare($query);
+$stmt->bindValue(':userID', $userID);
+$stmt->execute();
+if ($results = number_format($stmt->rowCount())) {
+	$output['system_visits'] = $results;
 }
 
 $output['username'] = $_SESSION['username'];
-
-// Get unique visits
-$query = "SELECT DISTINCT systemID FROM systemVisits WHERE userID = :userID";
-$stmt = $mysql->prepare($query);
-$stmt->bindValue(':userID', $userID);
-$stmt->execute();
-
-$output['uniqueVisits'] = number_format($stmt->rowCount());
-
-// Get discovered whs
-$query = "SELECT DISTINCT systemID FROM systemVisits WHERE userID = :userID";
-$stmt = $mysql->prepare($query);
-$stmt->bindValue(':userID', $userID);
-$stmt->execute();
-
-$output['whDiscovered'] = number_format($stmt->rowCount());
 
 $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
 

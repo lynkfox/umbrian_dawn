@@ -73,7 +73,7 @@ if ($row = $stmt->fetchObject()) {
 			<?php } else { ?>
 				<a href="."><?= APP_NAME ?></a>
 			<?php } ?>
-				 | <span data-tooltip="System activity update countdown"><input id="APIclock" class="hidden" /></span>
+				 |<!-- <span data-tooltip="System activity update countdown"><input id="APIclock" class="hidden" /></span> -->
 			</h1>
 			<h3 id="serverStatus" class="pointer" data-tooltip="EVE server status and player count"></h3>
 			<h3 id="systemSearch">| <i id="search" data-icon="search" data-tooltip="Toggle system search"></i>
@@ -482,7 +482,6 @@ if ($row = $stmt->fetchObject()) {
 								<th class="sortable">Ship Name<i data-icon=""></i></th>
 								<th class="sortable">Ship Type<i data-icon=""></i></th>
 								<th class="sortable">Station<i data-icon=""></i></th>
-								<th class="sortable">Last Login<i data-icon=""></i></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -493,7 +492,6 @@ if ($row = $stmt->fetchObject()) {
 								<td data-col="shipName"></td>
 								<td data-col="shipTypeName"></td>
 								<td data-col="stationName"></td>
-								<td data-col="lastLogin" class="text-center"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -650,27 +648,47 @@ if ($row = $stmt->fetchObject()) {
 				<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
 					<tr>
 						<th>Signatures added:</th>
-						<td id="sigCount"></td>
+						<td id="signatures_added"></td>
 					</tr>
 					<tr>
-						<th>Wormholes discovered:</th>
-						<td id="whDiscovered"></td>
+						<th>Signatures updated:</th>
+						<td id="signatures_updated"></td>
+					</tr>
+					<tr>
+						<th>Signatures deleted:</th>
+						<td id="signatures_deleted"></td>
+					</tr>
+					<tr>
+						<th>Wormholes added:</th>
+						<td id="wormholes_added"></td>
+					</tr>
+					<tr>
+						<th>Wormholes updated:</th>
+						<td id="wormholes_updated"></td>
+					</tr>
+					<tr>
+						<th>Wormholes deleted:</th>
+						<td id="wormholes_deleted"></td>
+					</tr>
+					<tr>
+						<th>Comments added:</th>
+						<td id="comments_added"></td>
+					</tr>
+					<tr>
+						<th>Comments updated:</th>
+						<td id="comments_updated"></td>
+					</tr>
+					<tr>
+						<th>Comments deleted:</th>
+						<td id="comments_deleted"></td>
 					</tr>
 					<tr>
 						<th>Systems visited:</th>
-						<td id="systemsVisited"></td>
-					</tr>
-					<tr>
-						<th>Unique systems visited:</th>
-						<td id="uniqueVisits"></td>
-					</tr>
-					<tr>
-						<th>Systems viewed:</th>
-						<td id="systemsViewed"></td>
+						<td id="systems_visited"></td>
 					</tr>
 					<tr>
 						<th>Logins:</th>
-						<td id="loginCount"></td>
+						<td id="logins"></td>
 					</tr>
 					<tr>
 						<th>Last login:</th>

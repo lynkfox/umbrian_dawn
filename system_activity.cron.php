@@ -23,7 +23,7 @@ foreach ($esi->getKills() AS $systemKills) {
 }
 
 foreach ($activity AS $systemID => $data) {
-    $query = 'INSERT INTO systemActivity (systemID, time, shipJumps, shipKills, podKills, npcKills) VALUES (:systemID, :time, :shipJumps, :shipKills, :podKills, :npcKills)';
+    $query = 'INSERT INTO system_activity (systemID, time, shipJumps, shipKills, podKills, npcKills) VALUES (:systemID, :time, :shipJumps, :shipKills, :podKills, :npcKills)';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':systemID', $systemID);
     $stmt->bindValue(':time', $time);
