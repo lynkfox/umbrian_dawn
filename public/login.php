@@ -197,7 +197,12 @@ if ($mode == 'login') {
 				$stmt->bindValue(':userID', $account->id);
 				$stmt->execute();
 
-				header('Location: .?system=');
+				if (isset($_SESSION['ssologin_system'])) {
+					header('Location: .?system=' . $_SESSION['ssologin_system']);
+				} else {
+					header('Location: .?system=');
+				}
+
 				exit();
 			}
 
@@ -234,6 +239,10 @@ if ($mode == 'login') {
 		}
 	} else {
 		if ($login == 'sso') {
+			// Keep the URL param system
+			if (isset($_GET['system'])) {
+				$_SESSION['ssologin_system'] = $_GET['system'];
+			}
 			$esi->login();
 		} else if ($login == 'esi') {
 			$esi->login('esi-location.read_online.v1 esi-location.read_location.v1 esi-location.read_ship_type.v1 esi-ui.write_waypoint.v1 esi-ui.open_window.v1', 'evessoesi');
