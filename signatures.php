@@ -482,7 +482,7 @@ if (isset($_POST['signatures'])) {
                         list($result, $signature2, $msg) = addSignature($request['signatures'][1], $mysql);
                     }
 
-                    if ($result && isset($request['wormhole']['id'])) {
+                    if ($result) {
                         list($result, $wormhole, $msg) = fetchWormhole($request['wormhole']['id'], $mysql);
                         if ($result && $wormhole) {
                             // Set wormhole to/from critical life
