@@ -477,6 +477,9 @@ if (isset($_POST['signatures'])) {
                             // Used to be just a regular signature so we need ot add the 2nd signature
                             list($result, $signature2, $msg) = addSignature($request['signatures'][1], $mysql);
                         }
+                    } else {
+                        // Used to be just a regular signature so we need ot add the 2nd signature
+                        list($result, $signature2, $msg) = addSignature($request['signatures'][1], $mysql);
                     }
 
                     if ($result && isset($request['wormhole']['id'])) {
