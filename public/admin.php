@@ -27,16 +27,9 @@ if ($mode == 'active-users' && (checkOwner($mask) || checkAdmin($mask))) {
 
     $output['results'] = $stmt->fetchAll(PDO::FETCH_CLASS);
 } else if ($mode == 'user-stats' && (checkOwner($mask) || checkAdmin($mask))) {
-	$maskCheck = explode('.', $mask);
-	if ($maskCheck[1] == 2) {
-		$query = 'SELECT s.userID AS id, characterName, corporationName, sigCount, systemsVisited, systemsViewed, loginCount, lastLogin FROM userStats s INNER JOIN characters c ON s.userID = c.userID WHERE corporationID = :corporationID';
-		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':corporationID', $maskCheck[0]);
-	} else {
-		$query = 'SELECT s.userID AS id, characterName, corporationName, sigCount, systemsVisited, systemsViewed, loginCount, lastLogin FROM userStats s INNER JOIN characters c ON s.userID = c.userID WHERE (corporationID IN (SELECT eveID FROM groups WHERE eveType = 2 AND joined = 1 AND maskID = :mask UNION SELECT ownerID FROM masks WHERE ownerType = 2 AND maskID = :mask) OR characterID IN (SELECT eveID FROM groups WHERE eveType = 1373 AND joined = 1 AND maskID = :mask UNION SELECT ownerID FROM masks WHERE ownerType = 1373 AND maskID = :mask))';
-		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':mask', $mask);
-	}
+	$query = 'SELECT a.id, characterName, corporationName, signatures_added, signatures_updated, signatures_deleted, wormholes_added, wormholes_updated, wormholes_deleted, comments_added, comments_updated, comments_deleted, logins, lastLogin FROM statistics s INNER JOIN characters c ON s.characterID = c.characterID INNER JOIN accounts a ON a.id = s.userID WHERE maskID = :maskID';
+	$stmt = $mysql->prepare($query);
+	$stmt->bindValue(':maskID', $mask);
 
 	$stmt->execute();
 

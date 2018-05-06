@@ -7,31 +7,35 @@ $("#infoWidget .tutorial").click(function() {
         steps: [
             {
                 element: document.querySelector("#infoWidget"),
-                intro: "<h4>System information widget</h4><br/><p>Displays information on the currently <b>selected</b> Tripwire system (not the in-game system).</p>"
+                intro: "<h4>System information widget</h4><br/><p>Displays information on the currently <b>selected</b> Tripwire system.</p>"
             },
             {
                 element: document.querySelector("#infoGeneral"),
-                intro: "<p>This section includes the system name, security rating, region, and owning faction.<br/>If viewing a wormhole with a system effect, that will also be shown, hover over it to view the effect breakdown.</p>"
+                intro: "<p>This section includes:<br/>System Name<br/>Security Rating<br/>Region<br/>Owning Faction Name</p><br/><p>If the selected system is a wormhole with a system effect, that will also be shown - hover over it to view the effect breakdown.</p>"
             },
             {
                 element: document.querySelector("#activityGraph"),
-                intro: "<p>This is the graph containing historical ship jump and kill information.</p>"
+                intro: "<p>This is the graph containing historical ship jump and kill information from the EVE API.</p><br/><p>This data is only available for K-Space systems and not wormhole systems.</p><br/><p>The EVE API updates this data each hour, so this graph will update itself at the top of every hour.</p>"
             },
             {
                 element: $("#activityGraph svg > g > g:nth-child(5)")[0],
-                intro: "<p>Each value can be toggled by clicking these keys to drill down the graph into finer detail.</p>"
+                intro: "<p>Each category can be toggled by clicking these keys to drill down the graph into finer detail.</p>"
             },
             {
                 element: document.querySelector("#activityGraphControls"),
-                intro: "<p>Select different lengths of historical data to show</p>"
+                intro: "<p>Select different lengths of historical data to adjust the graph to display more or less information.</p>"
             },
             {
                 element: document.querySelector("#infoStatics"),
-                intro: "<p>If a wormhole system is selected, the static wormholes will appear here.</p>"
+                intro: "<p>If a wormhole system is selected, the publicaly known static wormholes will appear here.</p>"
             },
             {
                 element: document.querySelector("#infoLinks"),
                 intro: "<p>These are some quick links to various sites for this specific system.</p>"
+            },
+            {
+                element: document.querySelector("#system-favorite"),
+                intro: "<p>This toggles wether this is a 'favorite' system, orange is active.</p><br/><p>'Favorite' systems can be rendered in the chain map to be able to see how far away trade hub systems are from your wormhole chain K-Space exits.</p>"
             }
         ]
     }).start();
@@ -44,15 +48,15 @@ $("#signaturesWidget .tutorial").click(function() {
         steps: [
             {
                 element: document.querySelector("#signaturesWidget"),
-                intro: "<h4>System signatures widget</h4><br/><p>Displays all signatures and wormholes in the currently <b>selected</b> Tripwire system (not the in-game system).</p>"
+                intro: "<h4>System signatures widget</h4><br/><p>Displays all signatures and wormholes in the currently <b>selected</b> Tripwire system.</p>"
             },
             {
                 element: document.querySelector("#add-signature"),
-                intro: "<p>Add new signatures / wormholes manually by clicking the + icon.<br/>Copy & Paste EVE scanner results anywhere once Tripwire has focus to add / update signatures, repeated pastes will only update with new information.</p>"
+                intro: "<p>Add new signatures and wormholes manually by clicking the + icon.</p><br/><p>Copy & Paste EVE scanner results anywhere once Tripwire has focus to add or update signatures, repeated pastes will only update with new information.</p>"
             },
             {
                 element: document.querySelector("#delete-signature"),
-                intro: "<p>Click here to delete <b>selected</b> signatures from the list.</p>"
+                intro: "<p>Click here or use the keyboard shortcut <b>DELETE</b> to delete <b>selected</b> signatures from this system.</p><br/><p>Click on a row to select it, click multiple rows to delete multiple signatures at once, click a selected row again to unselect it.</p>"
             },
             {
                 element: document.querySelector("#signature-count"),
@@ -60,15 +64,15 @@ $("#signaturesWidget .tutorial").click(function() {
             },
             {
                 element: document.querySelector("#undo"),
-                intro: "<p>Click here or use the keyboard shortcut <b>CTRL-Z</b> to undo the last changes made in this sytem (this includes clipboard pasted changes).</p><br/><p>You can undo multiple times as history is kept in the browser.</p>"
+                intro: "<p>Click here or use the keyboard shortcut <b>CTRL-Z</b> to undo the last changes you made in this sytem (this includes clipboard pasted changes).</p><br/><p>You can undo multiple times as history is kept in the browser.</p>"
             },
             {
                 element: document.querySelector("#redo"),
-                intro: "<p>Click here or use the keyboard shortcut <b>CTRL-Y</b> to redo the last changes made in this system (this includes clipboard pasted changes).</p><br/><p>You can redo multiple times as history is kept in the browser.</p>"
+                intro: "<p>Click here or use the keyboard shortcut <b>CTRL-Y</b> to redo the last changes you made in this system (this includes clipboard pasted changes).</p><br/><p>You can redo multiple times as history is kept in the browser.</p>"
             },
             {
                 element: document.querySelector("#toggle-automapper"),
-                intro: "<p>Click here to toggle the Auto-mapper feature on (orange) or off. This feature only works when an in-game character is being actively tracked, otherwise this icon appears disabled.</p>"
+                intro: "<p>Click here to toggle the Auto-mapper feature on (orange) or off.</p><br/><p>This feature only works when an in-game character is being actively tracked, otherwise this icon appears disabled.</p><br/><p>The automapper will watch for a change in your in-game system not via a star gate and try to automatically add or update wormholes.</p><br/><p>First it tries to seach for wormholes already added but missing a leads to system, this includes via wormhole type (B274) or with a leads to of 'High-Sec' for example.</p><br/><p>Next it searches for wormholes without any type or leads to at all.</p><br/><p>Finally if there are no wormholes or they all have a leads to system already, it will add a new wormhole.</p><br/><p>If at any time if finds multiple wormholes it can update, a dialog window will appear asking which wormhole you want to update.</p>"
             },
             {
                 element: document.querySelector("#sigTable"),
@@ -90,7 +94,7 @@ $("#notesWidget .tutorial").click(function(e) {
         steps: [
             {
                 element: document.querySelector("#notesWidget"),
-                intro: "<h4>System notes widget</h4><br/><p>Displays comments based on the currently <b>selected</b> Tripwire system (not the in-game system).</p><br/><p>The rest of this tutorial will guide you through actually adding a comment, but don't worry we will switch you to your private Tripwire mask so we don't disturb anyone else.</p><br/><p>When you finish or leave this tutorial we will switch you back to your previous Tripwire mask.</p>"
+                intro: "<h4>System notes widget</h4><br/><p>Displays comments based on the currently <b>selected</b> Tripwire system.</p><br/><p>The rest of this tutorial will guide you through actually adding a comment, but don't worry we will switch you to your private Tripwire mask so we don't disturb anyone else.</p><br/><p>When you finish or leave this tutorial we will switch you back to your previous Tripwire mask.</p>"
             },
             {
                 element: document.querySelector("#add-comment"),

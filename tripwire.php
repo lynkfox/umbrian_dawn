@@ -500,11 +500,24 @@ if ($row = $stmt->fetchObject()) {
 					<table data-sortable="true" width="100%" cellpadding="0" cellspacing="0">
 						<thead>
 							<tr>
+								<th colspan="2"></th>
+								<th colspan="3">Signatures</th>
+								<th colspan="3">Wormholes</th>
+								<th colspan="3">Comments</th>
+								<th colspan="3"></th>
+							</tr>
+							<tr>
 								<th class="sortable">Character<i data-icon=""></i></th>
 								<th class="sortable">Corporation<i data-icon=""></i></th>
-								<th class="sortable">Signatures Added<i data-icon=""></i></th>
-								<th class="sortable">Systems Visited<i data-icon=""></i></th>
-								<th class="sortable">Systems Viewed<i data-icon=""></i></th>
+								<th class="sortable">Added<i data-icon=""></i></th>
+								<th class="sortable">Updated<i data-icon=""></i></th>
+								<th class="sortable">Deleted<i data-icon=""></i></th>
+								<th class="sortable">Added<i data-icon=""></i></th>
+								<th class="sortable">Updated<i data-icon=""></i></th>
+								<th class="sortable">Deleted<i data-icon=""></i></th>
+								<th class="sortable">Added<i data-icon=""></i></th>
+								<th class="sortable">Updated<i data-icon=""></i></th>
+								<th class="sortable">Deleted<i data-icon=""></i></th>
 								<th class="sortable"># of Logins<i data-icon=""></i></th>
 								<th class="sortable">Last Login<i data-icon=""></i></th>
 							</tr>
@@ -513,10 +526,16 @@ if ($row = $stmt->fetchObject()) {
 							<tr class="hidden">
 								<td data-col="characterName"></td>
 								<td data-col="corporationName"></td>
-								<td data-col="sigCount" data-format="number" class="text-center"></td>
-								<td data-col="systemsVisited" data-format="number" class="text-center"></td>
-								<td data-col="systemsViewed" data-format="number" class="text-center"></td>
-								<td data-col="loginCount" data-format="number" class="text-center"></td>
+								<td data-col="signatures_added" data-format="number" class="text-center"></td>
+								<td data-col="signatures_updated" data-format="number" class="text-center"></td>
+								<td data-col="signatures_deleted" data-format="number" class="text-center"></td>
+								<td data-col="wormholes_added" data-format="number" class="text-center"></td>
+								<td data-col="wormholes_updated" data-format="number" class="text-center"></td>
+								<td data-col="wormholes_deleted" data-format="number" class="text-center"></td>
+								<td data-col="comments_added" data-format="number" class="text-center"></td>
+								<td data-col="comments_updated" data-format="number" class="text-center"></td>
+								<td data-col="comments_deleted" data-format="number" class="text-center"></td>
+								<td data-col="logins" data-format="number" class="text-center"></td>
 								<td data-col="lastLogin" class="text-center"></td>
 							</tr>
 						</tbody>
