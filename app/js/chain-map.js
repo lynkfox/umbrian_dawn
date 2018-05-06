@@ -355,9 +355,7 @@ var chain = new function() {
 						node.child.signatureID = parent.signatureID;
 
 						chainLinks.push(node);
-						if (tripwire.systems[node.child.systemID]) {
-								chainList.push([node.child.systemID, node.child.id, system[2]]);
-						}
+						chainList.push([node.child.systemID, node.child.id, system[2]]);
 						usedLinks.push(node.id);
 						// usedLinks[system[2]].push(node.id);
 
@@ -441,9 +439,7 @@ var chain = new function() {
 						node.child.signatureID = child.signatureID;
 
 						chainLinks.push(node);
-						if (tripwire.systems[node.child.systemID]) {
-								chainList.push([node.child.systemID, node.child.id, system[2]]);
-						}
+						chainList.push([node.child.systemID, node.child.id, system[2]]);
 						usedLinks.push(node.id);
 						// usedLinks[system[2]].push(node.id);
 
