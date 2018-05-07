@@ -4,6 +4,7 @@ $("#add-signature").click({mode: "add"}, openSignatureDialog);
 function openSignatureDialog(e) {
 	e.preventDefault();
 	mode = e.data.mode;
+	element = this;
 
 	if (mode == "update") {
 		$("#sigTable tr.selected").removeClass("selected");
@@ -306,6 +307,10 @@ function openSignatureDialog(e) {
 				});
 			},
 			open: function() {
+				$("#dialog-signature").data("signatureid", "");
+				$("#dialog-signature").data("signature2id", "");
+				$("#dialog-signature").data("wormholeid", "");
+
 				$("#dialog-signature input").val("");
 				$("#dialog-signature [name='signatureType']").val("unknown").selectmenu("refresh");
 
@@ -319,8 +324,8 @@ function openSignatureDialog(e) {
 				// Default signature life
 				$("#dialog-signature #durationPicker").val(options.signatures.pasteLife * 60 * 60).change();
 
-				if (mode == "update") {
-					var id = $("#sigTable tr.selected").data("id");
+				if (mode == "update" && $(element).data("id") && tripwire.client.signatures[$(element).data("id")]) {
+					var id = $(element).data("id");
 					var signature = tripwire.client.signatures[id];
 					$("#dialog-signature").data("signatureid", id);
 
@@ -331,7 +336,6 @@ function openSignatureDialog(e) {
 					// Change the dialog title
 					$("#dialog-signature").dialog("option", "title", "Edit Signature");
 
-					// console.log(signature);
 					if (signature.type == "wormhole") {
 						var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == id || wormhole.secondaryID == id) return wormhole; })[0];
 						var otherSignature = id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
@@ -375,6 +379,9 @@ function openSignatureDialog(e) {
 			close: function() {
 				ValidationTooltips.close();
 				$("#sigTable tr.selected").removeClass("selected");
+				$("#dialog-signature").data("signatureid", "");
+				$("#dialog-signature").data("signature2id", "");
+				$("#dialog-signature").data("wormholeid", "");
 			}
 		});
 	} else if (!$("#dialog-signature").dialog("isOpen")) {
