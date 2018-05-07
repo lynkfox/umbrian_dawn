@@ -8,7 +8,9 @@ tripwire.addSig = function(add, option, disabled) {
 
     if (add.type == "wormhole") {
         var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == add.id || wormhole.secondaryID == add.id) return wormhole; })[0];
+        if (!wormhole) return false;
         var otherSignature = add.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
+        if (!otherSignature) return false;
 
         if (add.name) {
           leadsTo = tripwire.systems[otherSignature.systemID] ? "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+add.name+"</a>" : add.name;

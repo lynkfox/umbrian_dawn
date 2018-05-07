@@ -6,7 +6,9 @@ tripwire.editSig = function(edit, disabled) {
 
     if (edit.type == "wormhole") {
         var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == edit.id || wormhole.secondaryID == edit.id) return wormhole; })[0];
+        if (!wormhole) return false;
         var otherSignature = edit.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
+        if (!otherSignature) return false;
 
         if (edit.name) {
           leadsTo = tripwire.systems[otherSignature.systemID] ? "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+edit.name+"</a>" : edit.name;

@@ -327,7 +327,7 @@ var chain = new function() {
 				}
 
 				if ($.inArray(wormhole.id, usedLinks) == -1) {
-					if (parent.systemID == system[0]) {
+					if (parent && parent.systemID == system[0]) {
 						var node = {};
 						node.id = wormhole.id;
 						node.life = wormhole.life;
@@ -409,7 +409,7 @@ var chain = new function() {
 								chainList.push([0, childID]);
 							}
 						}
-					} else if (child.systemID == system[0]) {
+					} else if (child && child.systemID == system[0]) {
 						var node = {};
 						node.id = wormhole.id;
 						node.life = wormhole.life;
