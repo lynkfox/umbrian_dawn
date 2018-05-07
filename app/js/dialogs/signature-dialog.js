@@ -218,18 +218,20 @@ function openSignatureDialog(e) {
 							wormhole.id = $("#dialog-signature").data("wormholeid");
 
 							// Update the initial and type based on which side of the wormhole we are editing
-							if (form.wormholeType.length > 0 && $.inArray(form.wormholeType.toUpperCase(), aSigWormholes) != -1 && form.wormholeType.toUpperCase() != "K162") {
-								wormhole.parent = tripwire.client.wormholes[wormhole.id].initialID == signature.id ? "initial" : "secondary";
-								wormhole.type = form.wormholeType.toUpperCase();
-							} else if (form.wormholeType2.length > 0 && $.inArray(form.wormholeType2.toUpperCase(), aSigWormholes) != -1 && form.wormholeType2.toUpperCase() != "K162") {
-								wormhole.parent = tripwire.client.wormholes[wormhole.id].initialID == signature.id ? "secondary" : "initial";
-								wormhole.type = form.wormholeType2.toUpperCase();
-							} else if (form.wormholeType.toUpperCase() == "K162") {
-								wormhole.parent = tripwire.client.wormholes[wormhole.id].initialID == signature.id ? "secondary" : "initial";
-								wormhole.type = "????";
-							} else if (form.wormholeType2.toUpperCase() == "K162") {
-								wormhole.parent = tripwire.client.wormholes[wormhole.id].initialID == signature.id ? "initial" : "secondary";
-								wormhole.type = "????";
+							if (tripwire.client.wormholes[wormhole.id]) {
+								if (form.wormholeType.length > 0 && $.inArray(form.wormholeType.toUpperCase(), aSigWormholes) != -1 && form.wormholeType.toUpperCase() != "K162") {
+									wormhole.parent = tripwire.client.wormholes[wormhole.id].initialID == signature.id ? "initial" : "secondary";
+									wormhole.type = form.wormholeType.toUpperCase();
+								} else if (form.wormholeType2.length > 0 && $.inArray(form.wormholeType2.toUpperCase(), aSigWormholes) != -1 && form.wormholeType2.toUpperCase() != "K162") {
+									wormhole.parent = tripwire.client.wormholes[wormhole.id].initialID == signature.id ? "secondary" : "initial";
+									wormhole.type = form.wormholeType2.toUpperCase();
+								} else if (form.wormholeType.toUpperCase() == "K162") {
+									wormhole.parent = tripwire.client.wormholes[wormhole.id].initialID == signature.id ? "secondary" : "initial";
+									wormhole.type = "????";
+								} else if (form.wormholeType2.toUpperCase() == "K162") {
+									wormhole.parent = tripwire.client.wormholes[wormhole.id].initialID == signature.id ? "initial" : "secondary";
+									wormhole.type = "????";
+								}
 							}
 
 							payload = {"signatures": {"update": [{"wormhole": wormhole, "signatures": [signature, signature2]}]}};
