@@ -116,23 +116,23 @@ tripwire.pasteSignatures = function() {
                                     "signatureID": scanner.id[0] + scanner.id[1],
                                     "systemID": viewingSystemID,
                                     "type": "wormhole",
-                                    "name": null
+                                    "lifeLength": options.signatures.pasteLife * 60 * 60
                                 },
                                 {
                                     "signatureID": null,
                                     "systemID": null,
                                     "type": "wormhole",
-                                    "name": null
+                                    "lifeLength": options.signatures.pasteLife * 60 * 60
                                 }
                             ]
                         });
                     } else {
                         payload.signatures.add.push({
-                            signatureID: scanner.id[0] + scanner.id[1],
-                            systemID: viewingSystemID,
-                            type: scanner.type || 'unknown',
-                            name: scanner.name,
-                            lifeLength: options.signatures.pasteLife * 60 * 60
+                            "signatureID": scanner.id[0] + scanner.id[1],
+                            "systemID": viewingSystemID,
+                            "type": scanner.type || 'unknown',
+                            "name": scanner.name,
+                            "lifeLength": options.signatures.pasteLife * 60 * 60
                         });
                     }
                 }
@@ -201,7 +201,7 @@ tripwire.pasteSignatures = function() {
             for (var i in tripwire.client.signatures) {
                 var signature = tripwire.client.signatures[i];
 
-                if (signature.systemID == viewingSystemID && (!signature.signatureID || $.inArray(signature.signatureID.toLowerCase(), pasteIDs) === -1)) {
+                if (signature.systemID == viewingSystemID && signature.signatureID && $.inArray(signature.signatureID.toLowerCase(), pasteIDs) === -1 && signature.signatureID !== "???") {
                     if (signature.type == "wormhole") {
                         var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == signature.id || wormhole.secondaryID == signature.id) return wormhole; })[0] || {};
                         var otherSignature = wormhole.id ? (signature.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID]) : {};

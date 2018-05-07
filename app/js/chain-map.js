@@ -375,9 +375,8 @@ var chain = new function() {
 							calcNode.child.id = ++childID;
 							calcNode.child.systemID = viewingSystemID
 							calcNode.child.name = tripwire.systems[viewingSystemID].name;
-							calcNode.child.type = jumps;
+							calcNode.child.jumps = jumps;
 							calcNode.child.nth = null;
-							calcNode.child.signatureID = jumps;
 
 							chainLinks.push(calcNode);
 							chainList.push([0, childID]);
@@ -403,9 +402,8 @@ var chain = new function() {
 								calcNode.child.id = ++childID;
 								calcNode.child.systemID = options.favorites[x];
 								calcNode.child.name = tripwire.systems[options.favorites[x]].name;
-								calcNode.child.type = jumps;
+								calcNode.child.jumps = jumps;
 								calcNode.child.nth = null;
-								calcNode.child.signatureID = jumps;
 
 								chainLinks.push(calcNode);
 								chainList.push([0, childID]);
@@ -459,9 +457,8 @@ var chain = new function() {
 							calcNode.child.id = ++childID;
 							calcNode.child.systemID = viewingSystemID;
 							calcNode.child.name = tripwire.systems[viewingSystemID].name;
-							calcNode.child.type = jumps;
 							calcNode.child.nth = null;
-							calcNode.child.signatureID = jumps;
+							calcNode.child.jumps = jumps;
 
 							chainLinks.push(calcNode);
 							chainList.push([0, childID]);
@@ -486,9 +483,8 @@ var chain = new function() {
 								calcNode.child.id = ++childID;
 								calcNode.child.systemID = options.favorites[x];
 								calcNode.child.name = tripwire.systems[options.favorites[x]].name;
-								calcNode.child.type = jumps;
 								calcNode.child.nth = null;
-								calcNode.child.signatureID = jumps;
+								calcNode.child.jumps = jumps;
 
 								chainLinks.push(calcNode);
 								chainList.push([0, childID]);
@@ -562,7 +558,7 @@ var chain = new function() {
 			var systemType;
 			var nodeClass = tripwire.systems[node.child.systemID] ? tripwire.systems[node.child.systemID].class : null;
 			var nodeSecurity = tripwire.systems[node.child.systemID] ? tripwire.systems[node.child.systemID].security : null;
-			var leadsToPointer = node.child.systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[node.child.systemID.substring(0, node.child.systemID.indexOf("|"))] : null;
+			var leadsToPointer = typeof(node.child.systemID) === "string" && node.child.systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[node.child.systemID.substring(0, node.child.systemID.indexOf("|"))] : null;
 			if (nodeClass == 6 || leadsToPointer == "Class-6" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 6"))
 				systemType = "<span class='wh'>C6</span>";
 			else if (nodeClass == 5 || leadsToPointer == "Class-5" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 5"))
@@ -632,7 +628,7 @@ var chain = new function() {
 							+	"<h4 class='nodeSystem'>"
 							+ 	(tripwire.systems[node.child.systemID] ? "<a href='.?system="+tripwire.systems[node.child.systemID].name+"'>"+(node.parent.name ? node.parent.name : tripwire.systems[node.child.systemID].name)+"</a>" : (node.parent.name ? node.parent.name : "<a class='invisible'>system</a>"))
 							+	"</h4>"
-							+	"<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") : (node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"
+							+	(node.child.jumps ? "<h4 class='nodeType'>" + node.child.jumps + "</h4>" : ("<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") : (node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"))
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
 							+	"</div>"
