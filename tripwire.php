@@ -333,12 +333,13 @@ if ($row = $stmt->fetchObject()) {
 	</div>
 
 	<div id="dialog-signature" title="Add Signature" class="hidden">
-		<form id="form-signature">
+		<form id="form-signature" autocomplete="off">
+			<input autocomplete="false" name="hidden" type="text" class="hidden" />
 			<div class="row">
 				<span class="label">ID:</span>
-				<input name="signatureID_Alpha" type="text" maxlength="3" size="2" class="signatureID" />
+				<input name="signatureID_Alpha" type="text" maxlength="3" size="2" class="signatureID" autocomplete="off" />
 				<span class="label">-</span>
-				<input name="signatureID_Numeric" type="text" maxlength="3" size="2" placeholder="###" class="signatureID" />
+				<input name="signatureID_Numeric" type="text" maxlength="3" size="2" placeholder="###" class="signatureID" autocomplete="off" />
 				<span id="signatureType" class="select">
 					<select name="signatureType">
 						<option value="unknown">Unknown</option>
@@ -358,7 +359,7 @@ if ($row = $stmt->fetchObject()) {
 			<div id="site">
 				<div id="signatureName" class="row">
 					<span class="label">Name:</span>
-					<span><input name="signatureName" type="text" maxlength="100" /></span>
+					<span><input name="signatureName" type="text" maxlength="100" autocomplete="off" /></span>
 				</div>
 			</div>
 			<div id="wormhole" class="hidden">
@@ -366,7 +367,7 @@ if ($row = $stmt->fetchObject()) {
 					<div class="sideLabel"></div>
 					<div class="row">
 						<span class="label">Type:</span>
-						<input name="wormholeType" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
+						<input name="wormholeType" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" autocomplete="off" />
 						<!-- <span class="bookmark">
 							<span class="label">BM:</span>
 							<input name="" type="text" maxlength="10" size="8" />
@@ -375,7 +376,7 @@ if ($row = $stmt->fetchObject()) {
 					<div class="row">
 						<span class="label">Leads:</span>
 						<span data-autocomplete="sigSystems">
-							<input name="leadsTo" type="text" maxlength="20" size="20" class="leadsTo" />
+							<input name="leadsTo" type="text" maxlength="20" size="20" class="leadsTo" autocomplete="off" />
 							<select>
 								<option value="Null-Sec">Null-Sec</option>
 								<option value="Low-Sec">Low-Sec</option>
@@ -393,7 +394,7 @@ if ($row = $stmt->fetchObject()) {
 					</div>
 					<div class="row">
 						<span class="label">Name:</span>
-						<input name="wormholeName" type="text" maxlength="100" size="20" />
+						<input name="wormholeName" type="text" maxlength="100" size="20" autocomplete="off" />
 					</div>
 				</div>
 				<hr/>
@@ -401,13 +402,13 @@ if ($row = $stmt->fetchObject()) {
 					<div class="sideLabel"></div>
 					<div class="row">
 						<span class="label">ID:</span>
-						<input name="signatureID2_Alpha" type="text" maxlength="3" size="2" class="signatureID" />
+						<input name="signatureID2_Alpha" type="text" maxlength="3" size="2" class="signatureID" autocomplete="off" />
 						<span class="label">-</span>
-						<input name="signatureID2_Numeric" type="text" maxlength="3" size="2" placeholder="###" class="signatureID" />
+						<input name="signatureID2_Numeric" type="text" maxlength="3" size="2" placeholder="###" class="signatureID" autocomplete="off" />
 					</div>
 					<div class="row">
 						<span class="label">Type:</span>
-						<input name="wormholeType2" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" />
+						<input name="wormholeType2" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" autocomplete="off" />
 						<!-- <span class="bookmark">
 							<span class="label">BM:</span>
 							<input name="" type="text" maxlength="10" size="8" />
@@ -415,7 +416,7 @@ if ($row = $stmt->fetchObject()) {
 					</div>
 					<div class="row">
 						<span class="label">Name:</span>
-						<input name="wormholeName2" type="text" maxlength="100" size="20" />
+						<input name="wormholeName2" type="text" maxlength="100" size="20" autocomplete="off" />
 					</div>
 					<div class="row">
 						<span class="label">Life:</span>
