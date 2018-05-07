@@ -358,7 +358,7 @@ if ($row = $stmt->fetchObject()) {
 			<div id="site">
 				<div id="signatureName" class="row">
 					<span class="label">Name:</span>
-					<span><input name="signatureName" type="text" maxlength="35" /></span>
+					<span><input name="signatureName" type="text" maxlength="100" /></span>
 				</div>
 			</div>
 			<div id="wormhole" class="hidden">
@@ -393,7 +393,7 @@ if ($row = $stmt->fetchObject()) {
 					</div>
 					<div class="row">
 						<span class="label">Name:</span>
-						<input name="wormholeName" type="text" maxlength="20" size="20" />
+						<input name="wormholeName" type="text" maxlength="100" size="20" />
 					</div>
 				</div>
 				<hr/>
@@ -415,7 +415,7 @@ if ($row = $stmt->fetchObject()) {
 					</div>
 					<div class="row">
 						<span class="label">Name:</span>
-						<input name="wormholeName2" type="text" maxlength="20" size="20" />
+						<input name="wormholeName2" type="text" maxlength="100" size="20" />
 					</div>
 					<div class="row">
 						<span class="label">Life:</span>
