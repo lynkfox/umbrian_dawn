@@ -336,7 +336,7 @@ var chain = new function() {
 
 						node.parent = {};
 						node.parent.id = parentID;
-						node.parent.systemID = parent.systemID;
+						node.parent.systemID = tripwire.systems[parent.systemID] ? parent.systemID : parent.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
 						node.parent.name = parent.name;
 						node.parent.type = 'K162';
 						node.parent.typeBM = null;
@@ -346,7 +346,7 @@ var chain = new function() {
 
 						node.child = {};
 						node.child.id = ++childID;
-						node.child.systemID = child.systemID;
+						node.child.systemID = tripwire.systems[child.systemID] ? child.systemID : child.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
 						node.child.name = child.name;
 						node.child.type = wormhole.type;
 						node.child.typeBM = null;
@@ -420,7 +420,7 @@ var chain = new function() {
 
 						node.parent = {};
 						node.parent.id = parentID;
-						node.parent.systemID = child.systemID;
+						node.parent.systemID = tripwire.systems[child.systemID] ? child.systemID : child.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
 						node.parent.name = child.name;
 						node.parent.type = wormhole.type;
 						node.parent.typeBM = null;
@@ -430,7 +430,7 @@ var chain = new function() {
 
 						node.child = {};
 						node.child.id = ++childID;
-						node.child.systemID = parent.systemID;
+						node.child.systemID = tripwire.systems[parent.systemID] ? parent.systemID : parent.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
 						node.child.name = parent.name;
 						node.child.type = 'K162';
 						node.child.typeBM = null;
@@ -562,27 +562,28 @@ var chain = new function() {
 			var systemType;
 			var nodeClass = tripwire.systems[node.child.systemID] ? tripwire.systems[node.child.systemID].class : null;
 			var nodeSecurity = tripwire.systems[node.child.systemID] ? tripwire.systems[node.child.systemID].security : null;
-			if (nodeClass == 6 || tripwire.aSigSystems[node.child.systemID] == "Class-6" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 6"))
+			var leadsToPointer = node.child.systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[node.child.systemID.substring(0, node.child.systemID.indexOf("|"))] : null;
+			if (nodeClass == 6 || leadsToPointer == "Class-6" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 6"))
 				systemType = "<span class='wh'>C6</span>";
-			else if (nodeClass == 5 || tripwire.aSigSystems[node.child.systemID] == "Class-5" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 5"))
+			else if (nodeClass == 5 || leadsToPointer == "Class-5" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 5"))
 				systemType = "<span class='wh'>C5</span>";
-			else if (nodeClass == 4 || tripwire.aSigSystems[node.child.systemID] == "Class-4" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 4"))
+			else if (nodeClass == 4 || leadsToPointer == "Class-4" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 4"))
 				systemType = "<span class='wh'>C4</span>";
-			else if (nodeClass == 3 || tripwire.aSigSystems[node.child.systemID] == "Class-3" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 3"))
+			else if (nodeClass == 3 || leadsToPointer == "Class-3" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 3"))
 				systemType = "<span class='wh'>C3</span>";
-			else if (nodeClass == 2 || tripwire.aSigSystems[node.child.systemID] == "Class-2" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 2"))
+			else if (nodeClass == 2 || leadsToPointer == "Class-2" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 2"))
 				systemType = "<span class='wh'>C2</span>";
-			else if (nodeClass == 1 || tripwire.aSigSystems[node.child.systemID] == "Class-1" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 1"))
+			else if (nodeClass == 1 || leadsToPointer == "Class-1" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 1"))
 				systemType = "<span class='wh'>C1</span>";
 			else if (nodeClass > 6)
 				systemType = "<span class='wh'>C" + nodeClass + "</span>";
 			else if (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo.split(" ").length > 1)
 				systemType = "<span class='wh'>C" + tripwire.wormholes[node.child.type].leadsTo.split(" ")[1] + "</span>";
-			else if (nodeSecurity >= 0.45 || tripwire.aSigSystems[node.child.systemID] == "High-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "High-Sec" && !nodeSecurity))
+			else if (nodeSecurity >= 0.45 || leadsToPointer == "High-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "High-Sec" && !nodeSecurity))
 				systemType = "<span class='hisec'>HS</span>";
-			else if (nodeSecurity > 0.0 || tripwire.aSigSystems[node.child.systemID] == "Low-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Low-Sec" && !nodeSecurity))
+			else if (nodeSecurity > 0.0 || leadsToPointer == "Low-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Low-Sec" && !nodeSecurity))
 				systemType = "<span class='lowsec'>LS</span>";
-			else if ((nodeSecurity <= 0.0 && nodeSecurity != null) || tripwire.aSigSystems[node.child.systemID] == "Null-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Null-Sec"))
+			else if ((nodeSecurity <= 0.0 && nodeSecurity != null) || leadsToPointer == "Null-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Null-Sec"))
 				systemType = "<span class='nullsec'>NS</span>";
 			else
 				systemType = "<span>&nbsp;</span>";
