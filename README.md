@@ -1,23 +1,43 @@
 # README #
 
-This is just some basic info on the source atm - more details on how to setup and the database still to come.
+Some things have changed, read carefully - also Docker has some isssues yet, recommend not using it or helping solve the issues.
+
+The landing page twitter feed won't work since the one I used requires a private token, I will have to find a new way to do it later.
 
 ### Tripwire - EVE Online wormhole mapping web tool ###
 
-* [Tripwire database](https://bitbucket.org/daimian/tripwire/downloads/tripwire.sql)
-* [EVE_API database](https://bitbucket.org/daimian/tripwire/downloads/eve_api.sql)
 * MIT license
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
-### How do I get set up? ###
+### Setup guide for Linux ###
 
-* Setup PHP PDO compatible database (MySQL) -- make sure event scheduler is on
-* Import blank Tripwire database and EVE_API database (links above)
-* EVE_API database needs 1 row inserted before use:
-* `INSERT INTO eve_api.cacheTime (type, time) VALUES ('activity', now())`
-* Create a `db.inc.php` file in root from `db.inc.example`
-* Setup `tools/api_pull.php` under a 3 minute cron
-* More to come...
+Requirements:
+* PHP7+ (older requires polyfill for public/login.php as documented in that file)
+* php-mbstring must be installed
+* MySQL (or some flavor of MySQL - needed because database EVENTS)
+* A my.cnf MySQL config file example is located in `.docker/mysql/my.cnf`
+* CRON or some other scheduler to execute PHP scripts
+
+Setup:
+* Create a `tripwire` database using the export located in `.docker/mysql/tripwire.sql`
+* Create an EVE dump database, define it's name later in `config.php`. Download from: https://www.fuzzwork.co.uk/dump/ To download the latest use the following link: https://www.fuzzwork.co.uk/dump/mysql-latest.tar.bz2
+* Clone the Tripwire repo to where you are going to serve to the public OR manually download repo and copy files yourself
+* Copy `db.inc.example.php` to `db.inc.php` - modify file per your setup
+* Copy `config.example.php` to `config.php` - modify file per your setup
+* Create an EVE developer application via https://developers.eveonline.com/applications
+* EVE SSO `Callback URL` should be: `https://your-domain.com/index.php?mode=sso`
+* Use the following scopes:
+esi-location.read_location.v1
+esi-location.read_ship_type.v1
+esi-ui.open_window.v1
+esi-ui.write_waypoint.v1
+esi-characters.read_corporation_roles.v1
+esi-location.read_online.v1
+esi-characters.read_titles.v1
+* Settings go in the `config.php` file
+* Modify your web server to serve Tripwire from the `tripwire/public` folder so the files like `config.php` and `db.inc.php` are not accessible via URL
+* Setup a CRON or schedule for `system_activity.cron.php` to run at the top of every hour. CRON: `0 * * * * php /dir/to/system_activity.cron.php`
+* Setup a CRON or schedule for `account_update.cron.php` to run every 3 minutes or however often you want to check for corporation changes. CRON: `*/3 * * * * php /dir/to/account_update.cron.php`
 
 ### Setup guide for Docker ###
 
@@ -29,20 +49,33 @@ Note: Be sure to properly fully shutdown Docker, and quit! Otherwise you will ha
 * Copy db.inc.example.php to db.inc.php
 * Copy config.example.php to config.php
 * Modify the constants with your own settings in both files
+* Create an EVE developer application via https://developers.eveonline.com/applications
+* EVE SSO `Callback URL` should be: `https://your-domain.com/index.php?mode=sso`
+* Use the following scopes:
+esi-location.read_location.v1
+esi-location.read_ship_type.v1
+esi-ui.open_window.v1
+esi-ui.write_waypoint.v1
+esi-characters.read_corporation_roles.v1
+esi-location.read_online.v1
+esi-characters.read_titles.v1
+* Settings go in the `config.php` file
+* Modify your web server to serve Tripwire from the `tripwire/public` folder so the files like `config.php` and `db.inc.php` are not accessible via URL
+* Setup a CRON or schedule for `system_activity.cron.php` to run at the top of every hour. CRON: `0 * * * * php /dir/to/system_activity.cron.php`
+* Setup a CRON or schedule for `account_update.cron.php` to run every 3 minutes or however often you want to check for corporation changes. CRON: `*/3 * * * * php /dir/to/account_update.cron.php`
 * MySQL connection settings will be the server `mysql` with the user `root` with an empty password
 * Create a new table for the EVE dump, specify the name in `db.inc.php` for `EVE_DUMP`
 * Import using the dump downloaded from: https://www.fuzzwork.co.uk/dump/ To download the latest use the following link: https://www.fuzzwork.co.uk/dump/mysql-latest.tar.bz2
-* Create a new table for the EVE API data, use the name `eve_api`
-* Import using the dump located in this repo under /.docker/mysql/eve_api_dump.sql
 * Create a new table for the actual Tripwire data, use the name `tripwire`
-* Import using the dump located in this repo under /.docker/mysql/tripwire_dump.sql
+* Create a `tripwire` database using the export located in `.docker/mysql/tripwire.sql`
 
 ### Contribution guidelines ###
 
-* Base off of master
+* Base off of production
 * Look over issues, branches or get with me to ensure it isn't already being worked on
 
 ### Who do I talk to? ###
 
 * Josh Glassmaker AKA Daimian Mercer (Project lead / Creator)
 * Tripwire Public in-game channel
+* Discord: https://discord.gg/3PzM3BJ
