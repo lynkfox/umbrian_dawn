@@ -12,6 +12,7 @@ The landing page twitter feed won't work since the one I used requires a private
 ### Setup guide for Linux ###
 
 Requirements:
+
 * PHP7+ (older requires polyfill for public/login.php as documented in that file)
 * php-mbstring must be installed
 * MySQL (or some flavor of MySQL - needed because database EVENTS)
@@ -19,6 +20,7 @@ Requirements:
 * CRON or some other scheduler to execute PHP scripts
 
 Setup:
+
 * Create a `tripwire` database using the export located in `.docker/mysql/tripwire.sql`
 * Create an EVE dump database, define it's name later in `config.php`. Download from: https://www.fuzzwork.co.uk/dump/ To download the latest use the following link: https://www.fuzzwork.co.uk/dump/mysql-latest.tar.bz2
 * Clone the Tripwire repo to where you are going to serve to the public OR manually download repo and copy files yourself
