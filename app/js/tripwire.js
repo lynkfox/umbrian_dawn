@@ -123,16 +123,16 @@ var tripwire = new function() {
 
 		var tooltip = "<table class=\"age-tooltip-table\"><tr>"
         + "<th>Created:</th><td>"+(date.getMonth()+1)+"/"+date.getDate()+" "+(date.getHours() < 10?'0':'')+date.getHours()+":"+(date.getMinutes() < 10?'0':'')+date.getMinutes()+"</td>"
-        + "<td>"+sig.createdByName+"</td>"
+        + "<td>"+sig.createdByName.replace(/'/g, '&#39;').replace(/"/g, '&#34;')+"</td>"
         + "</tr>";
 
 		if (sig.lifeTime != sig.modifiedTime) {
 			date = new Date(sig.modifiedTime);
 			// localOffset = date.getTimezoneOffset() * 60000;
 			// date = new Date(date.getTime() + localOffset);
-
+      
 			tooltip += "<tr><th>Last Modified:</th><td>"+(date.getMonth()+1)+"/"+date.getDate()+" "+(date.getHours() < 10?'0':'')+date.getHours()+":"+(date.getMinutes() < 10?'0':'')+date.getMinutes()+"</td>"
-          + "<td>"+sig.modifiedByName+"</td>"
+          + "<td>"+sig.modifiedByName.replace(/'/g, '&#39;').replace(/"/g, '&#34;')+"</td>"
           + "</tr>";
 		}
 
