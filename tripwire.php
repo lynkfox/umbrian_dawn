@@ -1072,6 +1072,21 @@ if ($row = $stmt->fetchObject()) {
 
 		setTimeout("passiveHit()", 240000);
 
+		// Monitor event listeners
+		var listenerCount = 0;
+		(function() {
+		    var ael = Node.prototype.addEventListener;
+		    Node.prototype.addEventListener = function() {
+		         listenerCount++;
+		         ael.apply(this, arguments);
+		    }
+		    var rel = Node.prototype.removeEventListener;
+		    Node.prototype.removeEventListener = function() {
+		         listenerCount--;
+		         rel.apply(this, arguments);
+		    }
+		})();
+
 	</script>
 
 	<!-- JS Includes -->
