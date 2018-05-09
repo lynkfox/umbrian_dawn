@@ -67,13 +67,11 @@ if ($row = $stmt->fetchObject()) {
 	<div id="inner-wrapper">
 	<div id="topbar">
 		<span class="align-left">
-			<h1 id="logo" class="pointer">
-			<?php if (CDN_DOMAIN  == 'galileo.eve-apps.com') { ?>
-				<a href="."><?= APP_NAME ?></a><span id="dev">Dev</span>
-			<?php } else { ?>
+			<h1 id="logo">
 				<a href="."><?= APP_NAME ?></a>
-			<?php } ?>
-				 |<!-- <span data-tooltip="System activity update countdown"><input id="APIclock" class="hidden" /></span> -->
+				<span id="version"><?= VERSION ?></span>
+				<span>|</span>
+				<!-- <span data-tooltip="System activity update countdown"><input id="APIclock" class="hidden" /></span> -->
 			</h1>
 			<h3 id="serverStatus" class="pointer" data-tooltip="EVE server status and player count"></h3>
 			<h3 id="systemSearch">| <i id="search" data-icon="search" data-tooltip="Toggle system search"></i>

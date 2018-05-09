@@ -62,22 +62,17 @@
 	padding-left: 25px;
 }
 
-#dev {
-	position: absolute;
-	color: red;
-	height: 0;
-	font-size: 0.5em;
-	top: 13px;
-	left: 76px;
+#logo {
+	position: relative;
 }
 
-#beta {
+#version {
 	position: absolute;
-	top: 13px;
-	left: 89px;
-	color: red;
+	color: #4399f0;
+	font-size: 0.4em;
 	height: 0;
-	font-size: 0.5em;
+	top: 4px;
+	right: 20px;
 }
 
 #clipboard {
