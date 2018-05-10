@@ -31,6 +31,11 @@ tripwire.EVE = function(EVE, characterChange) {
 
         // Update current system
         if (EVE.systemID) {
+            // add system to Leads To dropdown
+            if ($("#dialog-signature [data-autocomplete='sigSystems']").hasClass("custom-combobox")) {
+                $("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete("removeFromSelect");
+                $("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete("addToSelect", tripwire.systems[EVE.systemID].name);
+            }
             $("#EVEsystem").html(tripwire.systems[EVE.systemID].name).attr("href", ".?system="+ tripwire.systems[EVE.systemID].name);
         }
     } else {
@@ -39,6 +44,10 @@ tripwire.EVE = function(EVE, characterChange) {
         $("#currentSpan").hide();
         // Disable automapper
         $("#toggle-automapper").addClass("disabled");
+        // remove system from Leads To dropdown
+        if ($("#dialog-signature [data-autocomplete='sigSystems']").hasClass("custom-combobox")) {
+            $("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete("removeFromSelect");
+        }
     }
 
     this.client.EVE = {

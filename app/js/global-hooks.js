@@ -567,7 +567,7 @@ $("#chainMap").contextmenu({
 				tripwire.esi.showInfo(id, options.tracking.active);
 				break;
 			case "setDest":
-				tripwire.esi.setDestination(id, options.tracking.active);
+				tripwire.esi.setDestination(id, options.tracking.active, true);
 				break;
 			case "addWay":
 				tripwire.esi.setDestination(id, options.tracking.active, false);
@@ -845,6 +845,18 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 		// Invoke the parent function
 		return this._super(event);
 	},
+	addToSelect: function(value) {
+		this.options.select_added_value = value;
+		this.options.select_source.unshift(value);
+	},
+	removeFromSelect: function(value) {
+		if (value) {
+			this.options.select_source.splice(value, 1);
+		} else if (this.options.select_added_value) {
+			this.options.select_source.splice(this.options.select_added_value, 1);
+		}
+		this.options.select_added_value = null;
+	},
 	_selectInit: function() {
 		this.element.addClass("custom-combobox");
 		this.wrapper = this.element;
@@ -884,7 +896,7 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 				that.options.source = that.options.select_source;
 				that._search("");
 			});
-		},
+	},
 });
 
 // Initialize tablesorter plugin on signaturesWidget table

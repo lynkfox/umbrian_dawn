@@ -813,7 +813,7 @@ if ($row = $stmt->fetchObject()) {
 						</div>
 						<div id="accessList">
 							<input type="checkbox" onclick="return false" id="edit_add" value="" class="selector static">
-							<label for="edit_add" style="width: 100%; margin-left: -5px;" class="static">
+							<label for="edit_add" class="static">
 								<i data-icon="plus" style="font-size: 3em; margin: 16px 0 0 16px; display: block;" class="static"></i>
 							</label>
 						</div>

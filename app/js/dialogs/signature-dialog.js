@@ -51,6 +51,19 @@ function openSignatureDialog(e) {
 					}
 				});
 
+				// Move to the numeric ID after filling out alpha ID
+				$("#dialog-signature [name='signatureID_Alpha']").on("input", function() {
+					if (this.value.length === 3) {
+						$("#dialog-signature [name='signatureID_Numeric']").select();
+					}
+				});
+
+				$("#dialog-signature [name='signatureID2_Alpha']").on("input", function() {
+					if (this.value.length === 3) {
+						$("#dialog-signature [name='signatureID2_Numeric']").select();
+					}
+				});
+
 				// Ensure second signature ID field only accepts numbers
 				$("#dialog-signature [name='signatureID_Numeric'], #dialog-signature [name='signatureID2_Numeric']").on("input", function() {
 					while (!/^[0-9?]*$/g.test(this.value)) {
@@ -315,6 +328,9 @@ function openSignatureDialog(e) {
 
 				$("#dialog-signature input").val("");
 				$("#dialog-signature [name='signatureType']").val("unknown").selectmenu("refresh");
+
+				$("#dialog-signature [name='wormholeLife']").val("stable").selectmenu("refresh");
+				$("#dialog-signature [name='wormholeMass']").val("stable").selectmenu("refresh");
 
 				$("#dialog-signature #site").show();
 				$("#dialog-signature #wormhole").hide();
