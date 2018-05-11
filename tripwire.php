@@ -979,6 +979,25 @@ if ($row = $stmt->fetchObject()) {
 		</form>
 	</div>
 
+	<div id="dialog-select-signature" title="&nbsp;" class="hidden">
+			<span data-icon="info"></span>
+			Which signature would you like to update?<br/><br/>
+			<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
+					<thead>
+							<tr>
+									<th></th>
+									<th class="centerAlign">ID</th>
+									<th class="centerAlign">Type</th>
+									<th class="centerAlign">Age</th>
+									<th class="centerAlign">Leads To</th>
+									<th class="centerAlign">Life</th>
+									<th class="centerAlign">Mass</th>
+							</tr>
+					</thead>
+					<tbody></tbody>
+			</table>
+	</div>
+
 	<div id="dialog-error" title="Error" class="hidden">
 		<span data-icon="alert" class="critical"></span>
 		<span id="msg"></span>

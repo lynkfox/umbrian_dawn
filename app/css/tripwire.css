@@ -233,3 +233,31 @@ ul.ui-autocomplete {
 	max-height: 140px;
 	overflow: hidden;
 }
+
+td.leftAlign {
+	text-align: left;
+	padding-left: 2px;
+}
+
+td.centerAlign {
+	text-align: center;
+}
+
+td.rightAlign {
+	text-align: right;
+	padding-right: 2px;
+}
+
+th.leftAlign {
+	text-align: left;
+	padding-left: 2px;
+}
+
+th.centerAlign {
+	text-align: center;
+}
+
+th.rightAlign {
+	text-align: right;
+	padding-right: 2px;
+}

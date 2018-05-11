@@ -2,16 +2,24 @@ tripwire.autoMapper = function(from, to) {
     var pods = [33328, 670];
     var undo = [];
 
-    // Make sure from and to are valid systems
-    if (!tripwire.systems[from] || !tripwire.systems[to])
-        return false;
+    // Convert from & to from system name to system ID for diagnostic testing
+    // from = viewingSystemID;
+    // to = Object.index(tripwire.systems, 'name', to);
 
     // Make sure the automapper is turned on & not disabled
     if (!$("#toggle-automapper").hasClass("active") || $("#toggle-automapper").hasClass("disabled"))
         return false;
 
+    // Make sure from and to are valid systems
+    if (!tripwire.systems[from] || !tripwire.systems[to])
+        return false;
+
+    // Make sure from and to are not the same system
+    if (from == to)
+        return false;
+
     // Is pilot in a pod?
-    if ($.inArray(parseInt(tripwire.client.EVE.shipTypeID), pods) >= 0)
+    if (tripwire.client.EVE && tripwire.client.EVE.shipTypeID && $.inArray(parseInt(tripwire.client.EVE.shipTypeID), pods) >= 0)
         return false;
 
     // Is this a gate?
@@ -26,7 +34,7 @@ tripwire.autoMapper = function(from, to) {
     var sig, toClass = null;
 
     if (tripwire.systems[to].class)
-        toClass = "Class " + tripwire.systems[to].class;
+        toClass = "Class-" + tripwire.systems[to].class;
     else if (tripwire.systems[to].security >= 0.45)
         toClass = "High-Sec";
     else if (tripwire.systems[to].security > 0)
@@ -39,22 +47,23 @@ tripwire.autoMapper = function(from, to) {
         if (tripwire.client.signatures[wormhole.initialID].systemID == from && !tripwire.systems[tripwire.client.signatures[wormhole.secondaryID].systemID]) {
             if (tripwire.aSigSystems[tripwire.client.signatures[wormhole.secondaryID].systemID] == toClass) {
                 return wormhole;
-            } else if (wormhole.type && tripwire.wormholes[wormhole.type] && tripwire.wormholes[wormhole.type].leadsTo == toClass) {
+            } else if (wormhole.type && tripwire.wormholes[wormhole.type] && tripwire.wormholes[wormhole.type].leadsTo.replace(' ', '-') == toClass) {
                 return wormhole;
             }
         }
     });
     if (wormholes.length) {
         if (wormholes.length > 1) {
-            $("#dialog-msg").dialog({
+            $("#dialog-select-signature").dialog({
                 autoOpen: true,
                 title: "Which Signature?",
+                width: 390,
                 buttons: {
                     Cancel: function() {
                         $(this).dialog("close");
                     },
                     Ok: function() {
-                        var i = $("#dialog-msg #msg [name=sig]:checked").val();
+                        var i = $("#dialog-select-signature [name=sig]:checked").val();
                         var wormhole = wormholes[i];
                         var signature = tripwire.client.signatures[wormhole.initialID];
                         var signature2 = tripwire.client.signatures[wormhole.secondaryID];
@@ -77,7 +86,7 @@ tripwire.autoMapper = function(from, to) {
                         var success = function(data) {
                             if (data.resultSet && data.resultSet[0].result == true) {
                                 undo.push({"wormhole": wormhole, "signatures": [signature, signature2]});
-                                $("#dialog-msg").dialog("close");
+                                $("#dialog-select-signature").dialog("close");
                             }
                         }
 
@@ -85,10 +94,18 @@ tripwire.autoMapper = function(from, to) {
                     }
                 },
                 open: function() {
-                    $("#dialog-msg #msg").html("Which signature would you like to update?<br/><br/>");
+                    $("#dialog-select-signature .optionsTable tbody").empty();
 
                     $.each(wormholes, function(i) {
-                        $("#dialog-msg #msg").append("<input type='radio' name='sig' value='"+i+"' />"+tripwire.client.signatures[wormholes[i].initialID].signatureID+"<br/>");
+                        var signature = tripwire.client.signatures[wormholes[i].initialID];
+                        var signatureRow = $("#sigTable tr[data-id='"+signature.id+"']").html();
+                        var tr = "<tr>"
+                          + "<td><input type='radio' name='sig' value='"+i+"' id='sig"+i+"' /></td>"
+                          + signatureRow
+                          + "</tr>";
+
+                        $("#dialog-select-signature .optionsTable tbody").append(tr);
+                        $("#dialog-select-signature .optionsTable tbody td").wrapInner("<label for='sig"+i+"' />");
                     });
                 }
             });
@@ -119,23 +136,22 @@ tripwire.autoMapper = function(from, to) {
         // Find wormholes that have no set Leads To system at all
         var wormholes = $.map(tripwire.client.wormholes, function(wormhole) {
             if (tripwire.client.signatures[wormhole.initialID].systemID == from && !tripwire.systems[tripwire.client.signatures[wormhole.secondaryID].systemID]) {
-                if (!tripwire.client.signatures[wormhole.secondaryID].systemID) {
-                    return wormhole;
-                }
+                return wormhole;
             }
         });
         if (wormholes.length) {
             // Find wormholes that have no set Leads To system, and have no type or are a K162
             if (wormholes.length > 1) {
-                $("#dialog-msg").dialog({
+                $("#dialog-select-signature").dialog({
                     autoOpen: true,
                     title: "Which Signature?",
+                    width: 390,
                     buttons: {
                         Cancel: function() {
                             $(this).dialog("close");
                         },
                         Ok: function() {
-                            var i = $("#dialog-msg #msg [name=sig]:checked").val();
+                            var i = $("#dialog-select-signature [name=sig]:checked").val();
                             var wormhole = wormholes[i];
                             var signature = tripwire.client.signatures[wormhole.initialID];
                             var signature2 = tripwire.client.signatures[wormhole.secondaryID];
@@ -158,7 +174,7 @@ tripwire.autoMapper = function(from, to) {
                             var success = function(data) {
                                 if (data.resultSet && data.resultSet[0].result == true) {
                                     undo.push({"wormhole": wormhole, "signatures": [signature, signature2]});
-                                    $("#dialog-msg").dialog("close");
+                                    $("#dialog-select-signature").dialog("close");
                                 }
                             }
 
@@ -166,10 +182,18 @@ tripwire.autoMapper = function(from, to) {
                         }
                     },
                     open: function() {
-                        $("#dialog-msg #msg").html("Which signature would you like to update?<br/><br/>");
+                        $("#dialog-select-signature .optionsTable tbody").empty();
 
                         $.each(wormholes, function(i) {
-                            $("#dialog-msg #msg").append("<input type='radio' name='sig' value='"+i+"' />"+tripwire.client.signatures[wormholes[i].initialID].signatureID+"<br/>");
+                            var signature = tripwire.client.signatures[wormholes[i].initialID];
+                            var signatureRow = $("#sigTable tr[data-id='"+signature.id+"']").html();
+                            var tr = "<tr>"
+                              + "<td><input type='radio' name='sig' value='"+i+"' id='sig"+i+"' /></td>"
+                              + signatureRow
+                              + "</tr>";
+
+                            $("#dialog-select-signature .optionsTable tbody").append(tr);
+                            $("#dialog-select-signature .optionsTable tbody td").wrapInner("<label for='sig"+i+"' />");
                         });
                     }
                 });
@@ -205,16 +229,12 @@ tripwire.autoMapper = function(from, to) {
                 },
                 "signatures": [
                     {
-                        "signatureID": null,
                         "systemID": from,
-                        "type": "wormhole",
-                        "name": null
+                        "type": "wormhole"
                     },
                     {
-                        "signatureID": null,
                         "systemID": to,
-                        "type": "wormhole",
-                        "name": null
+                        "type": "wormhole"
                     }
                 ]
             });
