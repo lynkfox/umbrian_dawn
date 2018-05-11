@@ -419,7 +419,7 @@ if (isset($_POST['signatures'])) {
         foreach ($_POST['signatures']['add'] AS $request) {
             if (isset($request['wormhole'])) {
                 // Wormhole
-                if (isset($request['signatures']) && count($request['signatures'])  > 0) {
+                if (isset($request['signatures']) && count($request['signatures'])  > 1) {
                     list($result, $signature, $msg) = addSignature($request['signatures'][0], $mysql);
                     if ($result) {
                         $parent = $signature;
