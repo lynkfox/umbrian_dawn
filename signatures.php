@@ -550,9 +550,21 @@ if (isset($_POST['signatures'])) {
     // Delete signatures
     if (isset($_POST['signatures']['remove'])) {
         foreach ($_POST['signatures']['remove'] AS $request) {
-            if (isset($request['id']) && isset($request['initialID']) && isset($request['secondaryID'])) {
+            if (isset($request['id'])) {
                 // Wormhole
-                list($result, $wormhole, $msg) = removeWormhole(array('id' => $request['id']), $mysql);
+                list($result, $wormhole, $msg) = fetchWormhole($request['id'], $mysql);
+                $output['debug'] = $result;
+                if ($result && $wormhole) {
+                    list($result, $signature, $msg) = fetchSignature($wormhole->initialID, $mysql);
+                    list($result, $signature, $msg) = removeSignature($signature, $mysql);
+                    if ($result && $signature) {
+                        list($result, $signature2, $msg) = fetchSignature($wormhole->secondaryID, $mysql);
+                        list($result, $signature2, $msg) = removeSignature($signature2, $mysql);
+                        if ($result && $signature2) {
+                            list($result, $wormhole, $msg) = removeWormhole(array('id' => $wormhole->id), $mysql);
+                        }
+                    }
+                }
                 $output['resultSet'][] = array('result' => $result, 'value' => $msg);
             } else {
                 // Regular Signature
