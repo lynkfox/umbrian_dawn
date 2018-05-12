@@ -63,7 +63,7 @@ CREATE TABLE `_history_signatures` (
   KEY `id` (`id`),
   KEY `maskID` (`maskID`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=38978 DEFAULT CHARSET=utf8 PACK_KEYS=0 DELAY_KEY_WRITE=1 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 PACK_KEYS=0 DELAY_KEY_WRITE=1 ROW_FORMAT=FIXED;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,7 +85,7 @@ CREATE TABLE `_history_wormholes` (
   `maskID` decimal(12,1) NOT NULL,
   `status` enum('add','update','delete','undo:add','undo:update','undo:delete') NOT NULL,
   PRIMARY KEY (`historyID`)
-) ENGINE=MyISAM AUTO_INCREMENT=11547 DEFAULT CHARSET=utf8 PACK_KEYS=0 DELAY_KEY_WRITE=1;
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 PACK_KEYS=0 DELAY_KEY_WRITE=1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +107,7 @@ CREATE TABLE `accounts` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `ban` (`ban`)
-) ENGINE=MyISAM AUTO_INCREMENT=57047 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +183,7 @@ CREATE TABLE `comments` (
   PRIMARY KEY (`id`),
   KEY `maskID` (`maskID`),
   KEY `systemID, maskID` (`maskID`,`systemID`)
-) ENGINE=MyISAM AUTO_INCREMENT=229496 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -346,7 +346,7 @@ CREATE TABLE `signatures` (
   KEY `modifiedTime` (`modifiedTime`),
   KEY `maskID` (`maskID`),
   KEY `lifeLeft, lifeLength` (`lifeLeft`,`lifeLength`)
-) ENGINE=InnoDB AUTO_INCREMENT=97537 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -515,7 +515,7 @@ CREATE TABLE `tracking` (
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `systemVisits` AFTER UPDATE ON `tracking`
-FOR EACH ROW BEGIN 
+FOR EACH ROW BEGIN
 	IF NEW.systemID <> OLD.systemID THEN
 		INSERT INTO system_visits (userID, characterID, systemID, date) VALUES (NEW.userID, NEW.characterID, NEW.systemID, NOW());
 	END IF;
@@ -535,7 +535,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `jumpHistory` AFTER UPDATE ON `tracking`
-FOR EACH ROW BEGIN 
+FOR EACH ROW BEGIN
 	IF NEW.systemID <> OLD.systemID THEN
 		SET @wormholeID = (SELECT w.id FROM wormholes w INNER JOIN signatures a ON initialID = a.id INNER JOIN signatures b ON secondaryID = b.id WHERE (a.systemID = NEW.systemID OR b.systemID = NEW.systemID) AND (a.systemID = OLD.systemID OR b.systemID = OLD.systemID));
         IF @wormholeID IS NOT NULL THEN
@@ -569,7 +569,7 @@ CREATE TABLE `wormholes` (
   KEY `maskID` (`maskID`),
   KEY `initialID` (`initialID`),
   KEY `secondaryID` (`secondaryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=23141 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
