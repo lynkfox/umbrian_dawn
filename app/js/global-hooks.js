@@ -34,18 +34,20 @@ $(document).keydown(function(e)	{
 
 	// Ctrl key hooks
 	if (e.metaKey || e.ctrlKey) {
-		e.preventDefault();
 
 		if (e.keyCode === 89 && !$("#redo").hasClass("disabled")) {
 			// Ctrl-y redo hook
+			e.preventDefault();
 			$("#redo").click();
 			Notify.trigger("Redoing last undo");
 		} else if (e.keyCode === 90 && !$("#undo").hasClass("disabled")) {
 			// Ctrl-z undo hook
+			e.preventDefault();
 			$("#undo").click();
 			Notify.trigger("Undoing last action");
 		} else if (e.keyCode === 65) {
 			// Ctrl-a select all (signatures) hook
+			e.preventDefault();
 			$("#sigTable tbody tr").addClass("selected");
 			$("#signaturesWidget #delete-signature").trigger("delete:refresh");
 		}
