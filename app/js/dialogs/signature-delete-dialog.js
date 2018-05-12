@@ -10,9 +10,6 @@ $("#signaturesWidget").on("click", "#delete-signature", function(e) {
 		return false;
 	}
 
-	// $(this).closest("tr").addClass("selected");
-	//$(this).addClass("invisible");
-
 	// check if dialog is open
 	if (!$("#dialog-deleteSig").hasClass("ui-dialog-content")) {
 		$("#dialog-deleteSig").dialog({
@@ -65,7 +62,7 @@ $("#signaturesWidget").on("click", "#delete-signature", function(e) {
 				}
 			},
 			close: function() {
-				// $("#sigTable tr.selected").removeClass("selected");
+				$("#sigTable tr.selected").removeClass("selected");
 				//$("#sigTable .sigDelete").removeClass("invisible");
 			}
 		});

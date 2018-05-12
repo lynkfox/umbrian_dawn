@@ -32,17 +32,22 @@ $(document).keydown(function(e)	{
 	//Abort - user is in input or textarea
 	if ($(document.activeElement).is("textarea, input")) return;
 
-	if ((e.metaKey || e.ctrlKey) && (e.keyCode == 89 || e.keyCode == 90)) {
-
+	// Ctrl key hooks
+	if (e.metaKey || e.ctrlKey) {
 		e.preventDefault();
 
-		// ctrl-z (undo) & ctrl-y (redo) keyhooks
-		if (e.keyCode == 89 && !$("#redo").hasClass("disabled")) {
+		if (e.keyCode === 89 && !$("#redo").hasClass("disabled")) {
+			// Ctrl-y redo hook
 			$("#redo").click();
 			Notify.trigger("Redoing last undo");
-		} else if (e.keyCode == 90 && !$("#undo").hasClass("disabled")) {
+		} else if (e.keyCode === 90 && !$("#undo").hasClass("disabled")) {
+			// Ctrl-z undo hook
 			$("#undo").click();
 			Notify.trigger("Undoing last action");
+		} else if (e.keyCode === 65) {
+			// Ctrl-a select all (signatures) hook
+			$("#sigTable tbody tr").addClass("selected");
+			$("#signaturesWidget #delete-signature").trigger("delete:refresh");
 		}
 	} else {
 		// delete key keyhooks
@@ -202,7 +207,6 @@ $("#logout").click(function() {
 });
 
 var Notify = new function() {
-
 	this.trigger = function(content, color, stick, id) {
 		var color = typeof(color) !== "undefined" ? color : "blue";
 		var stick = typeof(stick) !== "undefined" ? stick : 10000;
@@ -552,7 +556,7 @@ $("#signaturesWidget #sigTable thead").contextmenu({
 
 // Chain Map Context Menu
 $("#chainMap").contextmenu({
-	delegate: ".node a",
+	delegate: ".nodeSystem a",
 	position: function(event, ui) {
         return {my: "left top-1", at: "right top", of: ui.target};
     },
@@ -910,25 +914,50 @@ $("#sigTable").tablesorter({
 
 // Highlight signaturesWidget tr on click
 $("#sigTable tbody").on("click", "tr", function(e) {
-	if ($(this).hasClass("selected")) {
-		$(this).removeClass("selected");
+	if (e.metaKey || e.ctrlKey) {
+		// ctrl or cmd key
+		$(this).toggleClass("selected");
+	} else if (e.shiftKey) {
+		// shift key
+		$(this).addClass("selected");
+		$("#sigTable tbody tr.selected:first").nextUntil("#sigTable tbody tr.selected:last").addBack().add("#sigTable tbody tr.selected:last").addClass("selected");
 	} else {
+		$("#sigTable tbody tr.selected").removeClass("selected");
 		$(this).addClass("selected");
 	}
-
-	// Enable/Disable icon
-	$("#signaturesWidget #delete-signature").trigger("delete:refresh");
 });
 
-// Update signaturesWidget delete icon based on .selected rows
-$("#signaturesWidget #delete-signature").on("delete:refresh", function(e) {
-	// Enable/Disable icon
-	if ($("#sigTable tr.selected").length == 0) {
+// Un-Highlight signaturesWidget tr on clicking outside
+$(document).click(function(e) {
+    if(!$(e.target).closest('#sigTable tbody').length && !$(e.target).closest('#edit-signature').length && !$(e.target).closest('#delete-signature').length) {
+		$("#sigTable tbody tr.selected").removeClass("selected");
+    }
+});
+
+// Monitor custom 'classchange' event
+$("#sigTable tbody").on("classchange", "tr", function(e, className) {
+	// Trigger signaturesWidget selected row change custom event
+	if (className === "selected") {
+		$("#signaturesWidget").trigger("selected:change");
+	}
+});
+
+// Update signaturesWidget based on .selected rows change
+$("#signaturesWidget").on("selected:change", function() {
+	// Enable/Disable delete icon
+	if ($("#sigTable tr.selected").length === 0) {
 		$("#signaturesWidget #delete-signature").addClass("disabled");
 	} else {
 		$("#signaturesWidget #delete-signature").removeClass("disabled");
 	}
-});
+
+	// Enable/Disable edit icon
+	if ($("#sigTable tr.selected").length === 1) {
+		$("#signaturesWidget #edit-signature").removeClass("disabled");
+	} else {
+		$("#signaturesWidget #edit-signature").addClass("disabled");
+	}
+})
 
 $("#dialog-error").dialog({
 	autoOpen: false,

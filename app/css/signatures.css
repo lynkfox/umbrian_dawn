@@ -38,6 +38,7 @@ html .ui-selectmenu-menu ul {
 	text-align: center;
 	table-layout: fixed;
 	margin-left: -1px;
+	user-select: none;
 }
 
 #sigTable th {

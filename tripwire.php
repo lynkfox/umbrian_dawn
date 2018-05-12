@@ -184,6 +184,7 @@ if ($row = $stmt->fetchObject()) {
 			<li id="signaturesWidget" class="gridWidget" data-row="1" data-col="8" data-sizex="7" data-sizey="6" data-min-sizex="5" data-min-sizey="2" style="width: 410px; height: 350px;">
 				<div class="controls">
 					<i id="add-signature" data-icon="plus" data-tooltip="Add a new signature"></i>
+					<i id="edit-signature" data-icon="edit" data-tooltip="Edit selected signature" class="disabled"></i>
 					<i id="delete-signature" data-icon="trash" data-tooltip="Delete selected signature(s)" class="disabled"></i>
 					<span>|</span>
 					<i id="signature-count" style="font-style: normal; cursor: default;" data-tooltip="Total signature count">0</i>
@@ -394,6 +395,25 @@ if ($row = $stmt->fetchObject()) {
 						<span class="label">Name:</span>
 						<input name="wormholeName" type="text" maxlength="100" size="20" autocomplete="off" />
 					</div>
+					<div class="row">
+						<span class="label">Life:</span>
+						<span class="select">
+							<select name="wormholeLife">
+								<option value="stable">Stable</option>
+								<option value="critical">Critical</option>
+							</select>
+						</span>
+						<span id="wormholeMass">
+							<span class="label">Mass:</span>
+							<span class="select">
+								<select name="wormholeMass">
+									<option value="stable">Stable</option>
+									<option value="destab">Destab</option>
+									<option value="critical">Critical</option>
+								</select>
+							</span>
+						</span>
+					</div>
 				</div>
 				<hr/>
 				<div class="side">
@@ -415,25 +435,6 @@ if ($row = $stmt->fetchObject()) {
 					<div class="row">
 						<span class="label">Name:</span>
 						<input name="wormholeName2" type="text" maxlength="100" size="20" autocomplete="off" />
-					</div>
-					<div class="row">
-						<span class="label">Life:</span>
-						<span class="select">
-							<select name="wormholeLife">
-								<option value="stable">Stable</option>
-								<option value="critical">Critical</option>
-							</select>
-						</span>
-						<span id="wormholeMass">
-							<span class="label">Mass:</span>
-							<span class="select">
-								<select name="wormholeMass">
-									<option value="stable">Stable</option>
-									<option value="destab">Destab</option>
-									<option value="critical">Critical</option>
-								</select>
-							</span>
-						</span>
 					</div>
 				</div>
 			</div>
@@ -1107,12 +1108,12 @@ if ($row = $stmt->fetchObject()) {
 	</script>
 
 	<!-- JS Includes -->
-	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery-ui-1.12.1.min.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.tablesorter.combined.min.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.ui-contextmenu.min.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.plugin.min.js"></script>
-	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.countdown.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.countdown.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.inlinecomplete.min.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.gridster.min.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.knob.min.js"></script>

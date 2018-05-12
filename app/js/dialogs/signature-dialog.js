@@ -1,4 +1,5 @@
-$("#sigTable tbody").on("dblclick", "tr", {mode: "update"}, openSignatureDialog);
+$("#sigTable tbody").on("dblclick", "tr", {mode: "dblclick-update"}, openSignatureDialog);
+$("#edit-signature").on("click", {mode: "update"}, openSignatureDialog);
 $("#add-signature").click({mode: "add"}, openSignatureDialog);
 
 function openSignatureDialog(e) {
@@ -6,9 +7,12 @@ function openSignatureDialog(e) {
 	mode = e.data.mode;
 	element = this;
 
-	if (mode == "update") {
+	if (mode == "dblclick-update") {
 		$("#sigTable tr.selected").removeClass("selected");
 		$(this).closest("tr").addClass("selected");
+		mode = "update";
+	} else if (mode == "update") {
+		element = $("#sigTable tbody tr.selected")[0];
 	}
 
 	if (!$("#dialog-signature").hasClass("ui-dialog-content")) {
@@ -43,6 +47,13 @@ function openSignatureDialog(e) {
 				$("#dialog-signature [data-autocomplete='sigType']").inlinecomplete({source: aSigWormholes, maxSize: 10, delay: 0});
 
 				$("#dialog-signature #durationPicker").durationPicker();
+				$("#dialog-signature #durationPicker").on("change", function() {
+					// prevent negative values
+					if (this.value < 0) {
+						this.value = 0;
+						$(this).change();
+					}
+				});
 
 				// Ensure first signature ID field only accepts letters
 				$("#dialog-signature [name='signatureID_Alpha'], #dialog-signature [name='signatureID2_Alpha']").on("input", function() {

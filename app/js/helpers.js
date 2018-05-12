@@ -140,7 +140,7 @@ var numFormat = function(num) {
 	n[0] = n[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	//Combines the two sections
 	return n.join(".");
-}
+};
 
 var letterToNumbers = function(string) {
     string = string.toUpperCase();
@@ -149,7 +149,7 @@ var letterToNumbers = function(string) {
         sum += Math.pow(letters.length, i) * (letters.indexOf(string.substr(((i + 1) * -1), 1)) + 1);
     }
     return sum;
-}
+};
 
 var sigFormat = function(input, type) {
 	if (!input) return "";
@@ -179,7 +179,7 @@ var sigFormat = function(input, type) {
 	}
 
 	return format;
-}
+};
 
 var sigClass = function(name, type) {
 	var id = $.map(tripwire.systems, function(system, id) { return system.name == name ? id : null })[0];
@@ -210,7 +210,7 @@ var sigClass = function(name, type) {
 		systemType = "NS";
 
 	return systemType;
-}
+};
 
 var isEmpty = function(obj) {
     for(var key in obj) {
@@ -218,7 +218,7 @@ var isEmpty = function(obj) {
             return false;
     }
     return true;
-}
+};
 
 var getCookie = function(c_name) {
 	var c_value = document.cookie;
@@ -242,7 +242,7 @@ var getCookie = function(c_name) {
 	}
 
 	return c_value;
-}
+};
 
 var setCookie = function(c_name, value, exdays) {
 	var exdate = new Date();
@@ -250,4 +250,32 @@ var setCookie = function(c_name, value, exdays) {
 	var c_value = escape(value) + ((exdays == null) ? "" : "; expires="+exdate.toUTCString());
 
 	document.cookie = c_name + "=" + c_value + ";" + (document.location.protocol == "https:" ? "secure;" : "");
-}
+};
+
+// Global CSS class change event
+(function($) {
+    var originalAddClassMethod = $.fn.addClass;
+	var originalRemoveClassMethod = $.fn.removeClass;
+
+    $.fn.addClass = function(className) {
+        // Execute the original method.
+        var result = originalAddClassMethod.apply(this, arguments);
+
+        // trigger a custom event
+        this.trigger('classchange', className);
+
+        // return the original result
+        return result;
+    }
+
+	$.fn.removeClass = function(className) {
+        // Execute the original method.
+        var result = originalRemoveClassMethod.apply(this, arguments);
+
+        // trigger a custom event
+        this.trigger('classchange', className);
+
+        // return the original result
+        return result;
+    }
+})(jQuery);
