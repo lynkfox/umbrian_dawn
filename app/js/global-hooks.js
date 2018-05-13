@@ -30,7 +30,7 @@ $("body").on("click", "#redo:not(.disabled)", function() {
 
 
 // Chain map zooming (Gets funking if you push things too far)
-$("#chainParent").bind("mousewheel", function(e) {
+$("#chainParent").on("mousewheel", function(e) {
 	e.preventDefault();
 	var zoom = parseFloat($("#chainParent").css("zoom")) || 1.0;
 	var min = 0.6;
@@ -42,8 +42,19 @@ $("#chainParent").bind("mousewheel", function(e) {
 		$("#chainParent").css("zoom", zoom - 0.1);
     }
 
+	// Show the reset zoom button for awhile
+	$("#chain-zoom-reset").fadeIn(200);
+	if (this.timeout) clearTimeout(this.timeout);
+	this.timeout = setTimeout('$("#chain-zoom-reset").fadeOut(200);', 3000);
+
 	// Save options
 	options.chain.zoom = parseFloat($("#chainParent").css("zoom"));
+	options.saveDelay(2000);
+});
+
+$("#chain-zoom-reset").on("click", function() {
+	$("#chainParent").css("zoom", 1);
+	options.chain.zoom = 1;
 	options.saveDelay(2000);
 });
 

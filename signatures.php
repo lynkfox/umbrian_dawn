@@ -67,6 +67,9 @@ class signature {
                 $this->lifeTime = (bool)strtotime($value) ? date('Y-m-d H:i:s', strtotime($value)) : $this->lifeTime;
                 break;
             case 'lifeLength':
+                if ((int)$value !== 0 && (int)$this->lifeLength === 0) {
+                    $this->lifeTime = date('Y-m-d H:i:s', time());
+                }
                 $this->lifeLength = is_numeric($value) ? (int)$value : $this->lifeLength;
                 $this->lifeLeft = date('Y-m-d H:i:s', strtotime('+'.$this->lifeLength.' seconds', strtotime($this->lifeTime)));
                 break;
@@ -279,6 +282,7 @@ function updateSignature(signature $signature, $mysql) {
                 type = :type,
                 name = :name,
                 bookmark = :bookmark,
+                lifeTime = :lifeTime,
                 lifeLeft = :lifeLeft,
                 lifeLength = :lifeLength,
                 modifiedByID = :modifiedByID,
@@ -293,6 +297,7 @@ function updateSignature(signature $signature, $mysql) {
     $stmt->bindValue(':type', $signature->type);
     $stmt->bindValue(':name', $signature->name);
     $stmt->bindValue(':bookmark', $signature->bookmark);
+    $stmt->bindValue(':lifeTime', $signature->lifeTime);
     $stmt->bindValue(':lifeLeft', $signature->lifeLeft);
     $stmt->bindValue(':lifeLength', $signature->lifeLength);
     $stmt->bindValue(':modifiedByID', $_SESSION['characterID']);

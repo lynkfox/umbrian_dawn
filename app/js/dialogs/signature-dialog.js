@@ -145,13 +145,6 @@ function openSignatureDialog(e) {
 					}
 					if (!valid) return false;
 
-					// Validate life length (> 5 minutes)
-					if (isNaN(parseInt($("#dialog-signature #durationPicker").val())) || !(parseInt($("#dialog-signature #durationPicker").val()) >= 300)) {
-						ValidationTooltips.open({target: $("#dialog-signature #durationPicker + .bdp-input")}).setContent("Must be at least 5 minutes!");
-						$("#dialog-signature #durationPicker").select();
-						return false;
-					}
-
 					// Validate wormhole types (blank | wormhole)
 					$.each($("#dialog-signature .wormholeType:visible"), function() {
 						if (this.value.length > 0 && $.inArray(this.value.toUpperCase(), aSigWormholes) == -1 && this.value != "????") {

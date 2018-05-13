@@ -108,6 +108,10 @@ html .ui-selectmenu-menu ul {
 	color: #990;
 }
 
+#sigTable tbody .disabled {
+	color: #444;
+}
+
 .tablesorter .tablesorter-header {
 	cursor: pointer;
 	vertical-align: middle;
