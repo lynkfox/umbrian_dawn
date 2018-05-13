@@ -381,14 +381,23 @@ var OccupiedToolTips = new jBox("Tooltip", {
 			data: "systemID="+systemID,
 			cache: false
 		}).done(function(data) {
-			var chars = "<table>";
+			if (data && data.occupants) {
+				var chars = "<table>";
 
-			for (var x in data.occupants) {
-				chars += "<tr><td>"+data.occupants[x].characterName+"</td><td style='padding-left: 10px;'>"+(data.occupants[x].shipTypeName?data.occupants[x].shipTypeName:"")+"</td></tr>";
+				// Sort by characterName
+				data.occupants.sort(function(a, b) {
+					if (a.characterName.toLowerCase() < b.characterName.toLowerCase()) return -1;
+					if (a.characterName.toLowerCase() > b.characterName.toLowerCase()) return 1;
+					return 0;
+				});
+
+				for (var x in data.occupants) {
+					chars += "<tr><td>"+data.occupants[x].characterName+"</td><td style='padding-left: 10px;'>"+(data.occupants[x].shipTypeName?data.occupants[x].shipTypeName:"")+"</td></tr>";
+				}
+
+				chars += "</table>";
+				tooltip.setContent(chars);
 			}
-
-			chars += "</table>";
-			tooltip.setContent(chars);
 		});
 	}
 });
