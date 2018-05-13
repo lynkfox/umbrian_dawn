@@ -310,10 +310,11 @@ var OccupiedToolTips = new jBox("Tooltip", {
 		var tooltip = this;
 		var systemID = this.source.closest("[data-nodeid]").data("nodeid");
 		var parentPos = this.source.closest("[data-nodeid]").position();
+		var targetPos = this.target.position();
 		var tooltipWidth = this.container.parent().width();
 		var tooltipHeight = this.container.parent().height();
 
-		this.options.position = {x: parentPos.left + 50, y: parentPos.top - tooltipHeight/4};
+		this.options.position = {x: parentPos.left + 50, y: parentPos.top + targetPos.top};
 
 		tooltip.setContent("&nbsp;");
 
