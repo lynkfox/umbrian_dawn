@@ -303,8 +303,10 @@ var OccupiedToolTips = new jBox("Tooltip", {
 	appendTo: $("#chainParent"),
 	outside: "x",
 	animation: "move",
+	adjustPosition: "flip",
 	reposition: true,
 	repositionOnOpen: true,
+	repositionOnContent: true,
 	createOnInit: true,
 	onOpen: function() {
 		var tooltip = this;
