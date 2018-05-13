@@ -80,6 +80,44 @@ $(document).keydown(function(e)	{
 			e.preventDefault();
 			$("#sigTable tbody tr").addClass("selected");
 			$("#signaturesWidget #delete-signature").trigger("delete:refresh");
+		} else if (e.keyCode === 67) {
+			// Ctrl-c copy selected signatures hook
+			if (window.getSelection().toString() === "") {
+				var output = "";
+				$("#sigTable tbody tr.selected").each(function(row) {
+					var signature = tripwire.client.signatures[$(this).data("id")];
+
+					if (signature.signatureID) {
+						output += signature.signatureID.substring(0, 3).toUpperCase() + "-" + (signature.signatureID.substring(3, 6) || "###") + ",";
+					} else {
+						output += null + ",";
+					}
+
+					output += signature.type + ",";
+					if (signature.type === "wormhole") {
+						var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == signature.id || wormhole.secondaryID == signature.id) return wormhole; })[0];
+						var otherSignature = signature.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
+						output += (wormhole.type || null ) + ",";
+						output += (tripwire.systems[signature.systemID] ? tripwire.systems[signature.systemID].name : tripwire.aSigSystems[signature.systemID]) + ",";
+						output += (tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : tripwire.aSigSystems[otherSignature.systemID]) + ",";
+						output += wormhole.life + ",";
+						output += wormhole.mass + ",";
+					} else {
+						output += signature.name + ",";
+					}
+
+					output += signature.createdByName + ",";
+					output += signature.lifeTime + ",";
+					output += signature.lifeLength + ",";
+					output += signature.lifeLeft + ",";
+					output += signature.modifiedByName + ",";
+					output += signature.modifiedTime;
+					output += "\r\n";
+				});
+				$("#clipboard").text(output);
+				$("#clipboard").focus();
+				$("#clipboard").select();
+			}
 		}
 	} else {
 		// delete key keyhooks
@@ -271,20 +309,22 @@ var Tooltips = new jBox("Tooltip", {
 });
 
 var SystemActivityToolTips = new jBox("Tooltip", {
+	getContent: "data-tooltip",
 	position: {y: "bottom"},
 	appendTo: $("#chainParent"),
 	reposition: true,
 	repositionOnOpen: true,
 	createOnInit: true,
 	onOpen: function() {
-		var parentPos = this.source.closest("[data-nodeid]").position();
-		var parentHeight = this.source.closest("[data-nodeid]").height();
-		var parentWidth = this.source.closest("[data-nodeid]").width();
-		var targetPos = this.target.position();
+		var nodePos = this.source.closest("[data-nodeid]").position();
+		var parentPos = this.source.closest(".nodeActivity").position();
+		var nodeHeight = this.source.closest("[data-nodeid]").height();
+		// var nodeWidth = this.source.closest("[data-nodeid]").width();
+		var targetPos = this.target.position()
 		var tooltipWidth = this.container.parent().width();
-		var tooltipHeight = this.container.parent().height();
+		// var tooltipHeight = this.container.parent().height();
 
-		this.options.position = {x: parentPos.left - (parentWidth / 2) + targetPos.left - 10, y: parentPos.top + parentHeight + 10};
+		this.options.position = {x: nodePos.left + parentPos.left + targetPos.left + 3 - tooltipWidth /2 , y: nodePos.top + nodeHeight + 15};
 	}
 });
 
@@ -301,12 +341,13 @@ var WormholeTypeToolTips = new jBox("Tooltip", {
 	createOnInit: true,
 	onOpen: function() {
 		var parentPos = this.source.closest("[data-nodeid]").position();
-		var parentHeight = this.source.closest("[data-nodeid]").height();
-		var parentWidth = this.source.closest("[data-nodeid]").width();
+		// var parentHeight = this.source.closest("[data-nodeid]").height();
+		// var parentWidth = this.source.closest("[data-nodeid]").width();
+		var targetPos = this.target.position()
 		var tooltipWidth = this.container.parent().width();
-		var tooltipHeight = this.container.parent().height();
+		// var tooltipHeight = this.container.parent().height();
 
-		this.options.position = {x: parentPos.left - tooltipWidth - 10, y: parentPos.top - tooltipHeight/4};
+		this.options.position = {x: parentPos.left - tooltipWidth - 10, y: parentPos.top + targetPos.top - 3};
 	}
 });
 
@@ -315,6 +356,7 @@ var OccupiedToolTips = new jBox("Tooltip", {
 	position: {x: "right", y: "center"},
 	appendTo: $("#chainParent"),
 	outside: "x",
+	minWidth: 100,
 	animation: "move",
 	adjustDistance: 100,
 	responsiveWidth: false,
@@ -326,11 +368,10 @@ var OccupiedToolTips = new jBox("Tooltip", {
 		var tooltip = this;
 		var systemID = this.source.closest("[data-nodeid]").data("nodeid");
 		var parentPos = this.source.closest("[data-nodeid]").position();
+		var parentWidth = this.source.closest("[data-nodeid]").width();
 		var targetPos = this.target.position();
-		var tooltipWidth = this.container.parent().width();
-		var tooltipHeight = this.container.parent().height();
 
-		this.options.position = {x: parentPos.left + 50, y: parentPos.top + targetPos.top};
+		this.options.position = {x: parentPos.left + parentWidth, y: parentPos.top + targetPos.top - 3};
 
 		tooltip.setContent("&nbsp;");
 

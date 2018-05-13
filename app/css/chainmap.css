@@ -126,14 +126,17 @@
 }
 
 #chainMap i[data-icon="user"] {
-	padding: 2px;
+	padding: 3px;
 	cursor: default;
 }
 
 #chainMap i.whEffect {
-	padding-left: 2px;
-
+	padding-left: 3px;
 	cursor: default;
+}
+
+#chainMap i.nodeActivity > span {
+	padding: 2px;
 }
 
 #chainMap .left-critical {
@@ -367,7 +370,7 @@
 [data-icon="user"] + .badge {
 	position: absolute;
 	top: -5px;
-	right: -10px;
+	right: -12px;
 }
 
 td.google-visualization-orgchart-linenode[data-signatureid] {

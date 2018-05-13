@@ -24,24 +24,24 @@ var chain = new function() {
 				var $node = $(this).find(".nodeActivity");
 
 				if (shipJumps > 0) {
-					$node.find(".jumps").removeClass("invisible").attr("title", shipJumps+" Jumps");
+					$node.find(".jumps").removeClass("invisible").attr("data-tooltip", shipJumps+" Jumps");
 				}
 
 				if (podKills > 0) {
-					$node.find(".pods").removeClass("invisible").attr("title", podKills+" Pod Kills");
+					$node.find(".pods").removeClass("invisible").attr("data-tooltip", podKills+" Pod Kills");
 				}
 
 				if (shipKills > 0) {
-					$node.find(".ships").removeClass("invisible").attr("title", shipKills+" Ship Kills");
+					$node.find(".ships").removeClass("invisible").attr("data-tooltip", shipKills+" Ship Kills");
 				}
 
 				if (npcKills > 0) {
-					$node.find(".npcs").removeClass("invisible").attr("title", npcKills+" NPC Kills");
+					$node.find(".npcs").removeClass("invisible").attr("data-tooltip", npcKills+" NPC Kills");
 				}
 			}
 		});
 
-		SystemActivityToolTips.attach($("#chainMap .nodeActivity > span[title]"));
+		SystemActivityToolTips.attach($("#chainMap .nodeActivity > span[data-tooltip]"));
 
 		return data;
 	}

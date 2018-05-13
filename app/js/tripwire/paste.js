@@ -239,6 +239,7 @@ tripwire.pasteSignatures = function() {
         $("#clipboard").on("paste", function(e) {
             e.preventDefault();
             var paste = window.clipboardData ? window.clipboardData.getData("Text") : (e.originalEvent || e).clipboardData.getData('text/plain');
+            console.log(paste)
 
             $("#clipboard").blur();
             Notify.trigger("Paste detected<br/>(<a id='fullPaste' href=''>Click to delete missing sigs</a>)");
