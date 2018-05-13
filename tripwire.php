@@ -254,6 +254,26 @@ if ($row = $stmt->fetchObject()) {
 					<i id="show-chainLegend" data-icon="tree" data-tooltip="<table id='guide'><tr><td><div class='guide-stable'></td><td>Stable</td></tr><tr><td><div class='guide-eol'></div></td><td>End of Life</td></tr><tr><td><div class='guide-destab'></div></td><td>Mass Destabbed</td></tr><tr><td><div class='guide-critical'></div></td><td>Mass Critical</td></tr><tr><td><div class='guide-frigate'></div></td><td>Frigate</td></tr></table>"></i>
 				</div>
 				<div id="chainParent" class="content dragscroll">
+					<ul id="chainMenu" class="hidden">
+						<!-- <li data-command="showInfo"><a>Show Info</a> -->
+						<li><a>Navigation</a>
+							<ul style="width: 10em;">
+								<li data-command="setDest"><a>Set Destination</a></li>
+								<li data-command="addWay"><a>Add Waypoint</a></li>
+							</ul>
+						</li>
+						<li>
+							<li><a>Flares</a>
+								<ul style="width: 10em;">
+									<li data-command="red"><a>Battle (red)</a></li>
+									<li data-command="yellow"><a>Hold (yellow)</a></li>
+									<li data-command="green"><a>Fleet Op (green)</a></li>
+								</ul>
+							</li>
+							<li data-command="mass"><a>Mass</a></li>
+							<li data-command="collapse"><a>Collapse</a></li>
+						</li>
+					</ul>
 					<span style="position: relative; display: table; width: 100%;">
 						<table id="chainGrid">
 							<tr class="top"><td></td></tr>
@@ -1014,26 +1034,6 @@ if ($row = $stmt->fetchObject()) {
 		<span id="msg"></span>
 	</div>
 
-	<ul id="chainMenu" class="hidden">
-		<!-- <li data-command="showInfo"><a>Show Info</a> -->
-		<li><a>Navigation</a>
-			<ul style="width: 10em;">
-				<li data-command="setDest"><a>Set Destination</a></li>
-				<li data-command="addWay"><a>Add Waypoint</a></li>
-			</ul>
-		</li>
-		<li>
-		<li><a>Flares</a>
-			<ul style="width: 10em;">
-				<li data-command="red"><a>Battle (red)</a></li>
-				<li data-command="yellow"><a>Hold (yellow)</a></li>
-				<li data-command="green"><a>Fleet Op (green)</a></li>
-			</ul>
-		</li>
-		<li data-command="mass"><a>Mass</a></li>
-		<li data-command="collapse"><a>Collapse</a></li>
-	</ul>
-
 	<ul id="signatureColumnMenu" class="hidden">
 		<li data-command="leftAlign"><a>Left align</a></li>
 		<li data-command="centerAlign"><a>Center align</a></li>
@@ -1117,8 +1117,8 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.inlinecomplete.min.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.gridster.min.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.knob.min.js"></script>
-	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.jbox-0.4.7.min.js"></script>
-	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.jbox-notice-0.4.6.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.jbox-0.4.9.min.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.jbox-notice-0.4.9.min.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.duration-picker.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/dragscroll.js"></script>

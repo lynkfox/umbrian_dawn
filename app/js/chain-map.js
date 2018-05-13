@@ -41,7 +41,7 @@ var chain = new function() {
 			}
 		});
 
-		$("#chainMap .nodeActivity > span[title]").jBox("Tooltip", {position: {y: "bottom"}});
+		SystemActivityToolTips.attach($("#chainMap .nodeActivity > span[title]"));
 
 		return data;
 	}

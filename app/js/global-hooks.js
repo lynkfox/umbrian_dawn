@@ -28,6 +28,25 @@ $("body").on("click", "#redo:not(.disabled)", function() {
 	tripwire.redo();
 });
 
+
+// Chain map zooming (Gets funking if you push things too far)
+$("#chainParent").bind("mousewheel", function(e) {
+	e.preventDefault();
+	var zoom = parseFloat($("#chainParent").css("zoom")) || 1.0;
+	var min = 0.6;
+	var max = 2.0;
+
+    if (e.originalEvent.wheelDelta / 120 > 0 && zoom < max) {
+		$("#chainParent").css("zoom", zoom + 0.1);
+    } else if (e.originalEvent.wheelDelta / 120 < 0 && zoom > min) {
+		$("#chainParent").css("zoom", zoom - 0.1);
+    }
+
+	// Save options
+	options.chain.zoom = parseFloat($("#chainParent").css("zoom"));
+	options.saveDelay(2000);
+});
+
 $(document).keydown(function(e)	{
 	//Abort - user is in input or textarea
 	if ($(document.activeElement).is("textarea, input")) return;
@@ -240,22 +259,61 @@ var Tooltips = new jBox("Tooltip", {
 	outside: "x"
 });
 
+var SystemActivityToolTips = new jBox("Tooltip", {
+	position: {y: "bottom"},
+	appendTo: $("#chainParent"),
+	reposition: true,
+	repositionOnOpen: true,
+	createOnInit: true,
+	onOpen: function() {
+		var parentPos = this.source.closest("[data-nodeid]").position();
+		var parentHeight = this.source.closest("[data-nodeid]").height();
+		var parentWidth = this.source.closest("[data-nodeid]").width();
+		var targetPos = this.target.position();
+		var tooltipWidth = this.container.parent().width();
+		var tooltipHeight = this.container.parent().height();
+
+		this.options.position = {x: parentPos.left - (parentWidth / 2) + targetPos.left - 10, y: parentPos.top + parentHeight + 10};
+	}
+});
+
 var WormholeTypeToolTips = new jBox("Tooltip", {
 	attach: $(".whEffect[data-tooltip]"),
 	getContent: "data-tooltip",
 	position: {x: "left", y: "center"},
-	outside: "x"
+	appendTo: $("#chainParent"),
+	outside: "x",
+	reposition: true,
+	repositionOnOpen: true,
+	createOnInit: true,
+	onOpen: function() {
+		var parentPos = this.source.closest("[data-nodeid]").position();
+		var parentHeight = this.source.closest("[data-nodeid]").height();
+		var parentWidth = this.source.closest("[data-nodeid]").width();
+		var tooltipWidth = this.container.parent().width();
+		var tooltipHeight = this.container.parent().height();
+
+		this.options.position = {x: parentPos.left - tooltipWidth - 10, y: parentPos.top - tooltipHeight/4};
+	}
 });
 
 var OccupiedToolTips = new jBox("Tooltip", {
 	pointer: "top:-3",
 	position: {x: "right", y: "center"},
+	appendTo: $("#chainParent"),
 	outside: "x",
 	animation: "move",
+	reposition: true,
 	repositionOnOpen: true,
+	createOnInit: true,
 	onOpen: function() {
 		var tooltip = this;
-		var systemID = $(this.source).closest("[data-nodeid]").data("nodeid");
+		var systemID = this.source.closest("[data-nodeid]").data("nodeid");
+		var parentPos = this.source.closest("[data-nodeid]").position();
+		var tooltipWidth = this.container.parent().width();
+		var tooltipHeight = this.container.parent().height();
+
+		this.options.position = {x: parentPos.left + 50, y: parentPos.top - tooltipHeight/4};
 
 		tooltip.setContent("&nbsp;");
 
@@ -557,7 +615,8 @@ $("#signaturesWidget #sigTable thead").contextmenu({
 });
 
 // Chain Map Context Menu
-$("#chainMap").contextmenu({
+$("#chainParent").contextmenu({
+	appendTo: "#chainParent",
 	delegate: ".nodeSystem a",
 	position: function(event, ui) {
         return {my: "left top-1", at: "right top", of: ui.target};
@@ -621,6 +680,10 @@ $("#chainMap").contextmenu({
 		}
 	},
 	create: function(e, ui) {
+		// Fix some bad CSS from jQuery Position
+		$(this).find(".ui-front").css("width", "10em");
+		$(this).find(".ui-front").css("position", "");
+
 		$("#dialog-mass").dialog({
 			autoOpen: false,
 			width: "auto",

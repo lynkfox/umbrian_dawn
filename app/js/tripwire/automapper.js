@@ -31,8 +31,13 @@ tripwire.autoMapper = function(from, to) {
         return false;
 
     // Is this an existing connection?
-    if ($.map(tripwire.client.wormholes, function(wormhole) { return (tripwire.client.signatures[wormhole.initialID].systemID == from && tripwire.client.signatures[wormhole.secondaryID].systemID == to) || (tripwire.client.signatures[wormhole.initialID].systemID == to && tripwire.client.signatures[wormhole.secondaryID].systemID == from) ? wormhole : null; }).length > 0)
+    if ($.map(tripwire.client.wormholes, function(wormhole) { return tripwire.client.signatures[wormhole.initialID] && tripwire.client.signatures[wormhole.secondaryID] && tripwire.client.signatures[wormhole.initialID].systemID == from && tripwire.client.signatures[wormhole.secondaryID].systemID == to}))
         return false;
+    if ($.map(tripwire.client.wormholes, function(wormhole) { return tripwire.client.signatures[wormhole.initialID] && tripwire.client.signatures[wormhole.secondaryID] && tripwire.client.signatures[wormhole.initialID].systemID == to && tripwire.client.signatures[wormhole.secondaryID].systemID == from}))
+        return false;
+
+    // if ($.map(tripwire.client.wormholes, function(wormhole) { return (tripwire.client.signatures[wormhole.initialID].systemID == from && tripwire.client.signatures[wormhole.secondaryID].systemID == to) || (tripwire.client.signatures[wormhole.initialID].systemID == to && tripwire.client.signatures[wormhole.secondaryID].systemID == from) ? wormhole : null; }).length > 0)
+    //     return false;
 
     var payload = {"signatures": {"add": [], "update": []}};
     var sig, toClass;

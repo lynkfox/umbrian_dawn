@@ -1,6 +1,7 @@
 var options = new function() {
 	var localOverrides = ["grid"];
 	var localOptions = JSON.parse(localStorage.getItem("tripwire_options"));
+	var saveTimer;
 
 	this.userID = init.userID;
 	this.character = {id: init.characterID, name: init.characterName};
@@ -10,13 +11,19 @@ var options = new function() {
 	this.grid = {};
 	this.tracking = {active: "new"};
 	this.masks = {active: init.corporationID + ".2"};
-	this.chain = {typeFormat: null, classFormat: null, gridlines: true, active: 0, tabs: [], "node-reference": "type"};
+	this.chain = {typeFormat: null, classFormat: null, gridlines: true, active: 0, tabs: [], "node-reference": "type", zoom: 1.0};
 	this.signatures = {pasteLife: 72, alignment: {sigID: "centerAlign", sigType: "centerAlign", sigAge: "centerAlign", leadsTo: "centerAlign", sigLife: "centerAlign", sigMass: "centerAlign"}};
 	this.buttons = {follow: false, chainWidget: {viewing: false, favorites: false}, signaturesWidget: {autoMapper: false}};
 
+	this.saveDelay = function(delay) {
+		if (saveTimer) clearTimeout(saveTimer);
+
+		saveTimer = setTimeout("options.save()", delay);
+	};
+
 	// Saves options in both cookie and database
 	this.save = function() {
-		var options = JSON.stringify(this.get());
+		var options = JSON.stringify(window.options.get());
 
 		localStorage.setItem("tripwire_options", options);
 
@@ -26,7 +33,7 @@ var options = new function() {
 			type: "POST",
 			dataType: "JSON"
 		});
-	}
+	};
 
 	// Loads options via passed object else cookie
 	this.load = function(data) {
@@ -37,7 +44,7 @@ var options = new function() {
 		}
 
 		this.apply();
-	}
+	};
 
 	// Gets options from this by exluding types == function
 	this.get = function() {
@@ -50,7 +57,7 @@ var options = new function() {
 		}
 
 		return data;
-	}
+	};
 
 	// Sets this from passed object
 	this.set = function(local, data) {
@@ -63,7 +70,7 @@ var options = new function() {
 				local[prop] = data[prop];
 			}
 		}
-	}
+	};
 
 	this.reset = function() {
 		for (var x in this) {
@@ -71,7 +78,7 @@ var options = new function() {
 				this[x] = JSON.parse(JSON.stringify(this.reset.defaults[x]));
 			}
 		}
-	}
+	};
 
 	// Applies settings
 	this.apply = function() {
@@ -115,6 +122,11 @@ var options = new function() {
 			$("body").css("zoom", this.uiscale);
 		}
 
+		// Chain zoom
+		if (this.chain.zoom) {
+			$("#chainParent").css("zoom", this.chain.zoom);
+		}
+
 		// Background
 		if (this.background) {
 			var a = $('<a>', { href:this.background } )[0];
@@ -146,7 +158,7 @@ var options = new function() {
 		if (typeof(tripwire) !== "undefined") {
 			chain.redraw();
 		}
-	}
+	};
 
 	this.reset.defaults = JSON.parse(JSON.stringify(this.get()));
 	this.load(init && init.options ? init.options : null);

@@ -1,9 +1,9 @@
-.gridster ul {
+.gridster > ul {
 	//background: rgba(0, 0, 0, .8);
 	list-style-type: none;
 }
 
-.gridster li {
+.gridster > li {
     overflow: hidden;
 }
 
