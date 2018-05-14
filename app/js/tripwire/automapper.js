@@ -3,8 +3,8 @@ tripwire.autoMapper = function(from, to) {
     var undo = [];
 
     // Convert from & to from system name to system ID for diagnostic testing
-    // from = viewingSystemID;
-    // to = Object.index(tripwire.systems, 'name', to);
+    from = viewingSystemID;
+    to = Object.index(tripwire.systems, 'name', to);
 
     // Make sure the automapper is turned on & not disabled
     if (!$("#toggle-automapper").hasClass("active") || $("#toggle-automapper").hasClass("disabled"))
@@ -31,13 +31,8 @@ tripwire.autoMapper = function(from, to) {
         return false;
 
     // Is this an existing connection?
-    if ($.map(tripwire.client.wormholes, function(wormhole) { return tripwire.client.signatures[wormhole.initialID] && tripwire.client.signatures[wormhole.secondaryID] && tripwire.client.signatures[wormhole.initialID].systemID == from && tripwire.client.signatures[wormhole.secondaryID].systemID == to}))
+    if ($.map(tripwire.client.wormholes, function(wormhole) { return (tripwire.client.signatures[wormhole.initialID].systemID == from && tripwire.client.signatures[wormhole.secondaryID].systemID == to) || (tripwire.client.signatures[wormhole.initialID].systemID == to && tripwire.client.signatures[wormhole.secondaryID].systemID == from) ? wormhole : null; }).length > 0)
         return false;
-    if ($.map(tripwire.client.wormholes, function(wormhole) { return tripwire.client.signatures[wormhole.initialID] && tripwire.client.signatures[wormhole.secondaryID] && tripwire.client.signatures[wormhole.initialID].systemID == to && tripwire.client.signatures[wormhole.secondaryID].systemID == from}))
-        return false;
-
-    // if ($.map(tripwire.client.wormholes, function(wormhole) { return (tripwire.client.signatures[wormhole.initialID].systemID == from && tripwire.client.signatures[wormhole.secondaryID].systemID == to) || (tripwire.client.signatures[wormhole.initialID].systemID == to && tripwire.client.signatures[wormhole.secondaryID].systemID == from) ? wormhole : null; }).length > 0)
-    //     return false;
 
     var payload = {"signatures": {"add": [], "update": []}};
     var sig, toClass;

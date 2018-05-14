@@ -781,11 +781,13 @@ var chain = new function() {
 	this.collapse = function(c) {
 		if (chain.drawing) return false;
 
-		var collapsed = chain.map.getCollapsedNodes();
-		options.chain.tabs[options.chain.active].collapsed = [];
-		for (x in collapsed) {
-			var systemID = $("#chainMap #node"+(collapsed[x] +1)).data("nodeid");
-			options.chain.tabs[options.chain.active].collapsed.push(systemID);
+		if (options.chain.tabs[options.chain.active]) {
+			var collapsed = chain.map.getCollapsedNodes();
+			options.chain.tabs[options.chain.active].collapsed = [];
+			for (x in collapsed) {
+				var systemID = $("#chainMap #node"+(collapsed[x] +1)).data("nodeid");
+				options.chain.tabs[options.chain.active].collapsed.push(systemID);
+			}
 		}
 
 		chain.lines(chain.data);
