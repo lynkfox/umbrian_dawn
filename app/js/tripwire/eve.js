@@ -10,10 +10,10 @@ tripwire.EVE = function(EVE, characterChange) {
                 systemChange = true;
 
                 // Check if location was updated after the last ship update
-                if (moment(EVE.locationDate).isAfter(moment(this.client.EVE.shipDate))) {
+                // if (moment(EVE.locationDate).isAfter(moment(this.client.EVE.shipDate))) {
                     systemChange = false;
                     tripwire.autoMapper(this.client.EVE.systemID, EVE.systemID);
-                }
+                // }
             }
         }
 
