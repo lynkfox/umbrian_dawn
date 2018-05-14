@@ -11,7 +11,7 @@ class Tweetie {
   function __construct()
   {
     $this->connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_SECRET);
-    $this->cache_path = dirname(__FILE__).'/cache/';
+    $this->cache_path = dirname(__FILE__).'/../tweetie/cache/';
   }
 
   private function url_path($type = 'timeline')

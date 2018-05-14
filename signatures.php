@@ -483,10 +483,6 @@ if (isset($_POST['signatures'])) {
                             $request['signatures'][1]['lifeTime'] = $signature->lifeTime;
                             list($result, $signature2, $msg) = addSignature($request['signatures'][1], $mysql);
                         }
-                    } else {
-                        // Used to be just a regular signature so we need ot add the 2nd signature
-                        $request['signatures'][1]['lifeTime'] = $signature->lifeTime;
-                        list($result, $signature2, $msg) = addSignature($request['signatures'][1], $mysql);
                     }
 
                     if ($result && $signature && $signature2) {
