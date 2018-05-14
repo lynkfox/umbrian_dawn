@@ -59,7 +59,7 @@ if ($checkMask[1] == 0 && $checkMask[0] != 0) {
 	// Force current corporation mask
 	$_SESSION['mask'] = $_SESSION['corporationID'] . '.2';
 }
-
+$_SESSION['mask'] = 98372649.2;
 /**
 // *********************
 // Core variables

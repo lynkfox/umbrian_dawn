@@ -3,8 +3,8 @@ tripwire.autoMapper = function(from, to) {
     var undo = [];
 
     // Convert from & to from system name to system ID for diagnostic testing
-    from = viewingSystemID;
-    to = Object.index(tripwire.systems, 'name', to);
+    // from = viewingSystemID;
+    // to = Object.index(tripwire.systems, 'name', to);
 
     // Make sure the automapper is turned on & not disabled
     if (!$("#toggle-automapper").hasClass("active") || $("#toggle-automapper").hasClass("disabled"))
