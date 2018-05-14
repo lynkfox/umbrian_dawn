@@ -559,14 +559,16 @@ if (isset($_POST['signatures'])) {
                 $output['debug'] = $result;
                 if ($result && $wormhole) {
                     list($result, $signature, $msg) = fetchSignature($wormhole->initialID, $mysql);
-                    list($result, $signature, $msg) = removeSignature($signature, $mysql);
                     if ($result && $signature) {
-                        list($result, $signature2, $msg) = fetchSignature($wormhole->secondaryID, $mysql);
-                        list($result, $signature2, $msg) = removeSignature($signature2, $mysql);
-                        if ($result && $signature2) {
-                            list($result, $wormhole, $msg) = removeWormhole(array('id' => $wormhole->id), $mysql);
-                        }
+                        list($result, $signature, $msg) = removeSignature($signature, $mysql);
                     }
+
+                    list($result, $signature2, $msg) = fetchSignature($wormhole->secondaryID, $mysql);
+                    if ($result && $signature2) {
+                        list($result, $signature2, $msg) = removeSignature($signature2, $mysql);
+                    }
+
+                    list($result, $wormhole, $msg) = removeWormhole(array('id' => $wormhole->id), $mysql);
                 }
                 $output['resultSet'][] = array('result' => $result, 'value' => $msg);
             } else {
