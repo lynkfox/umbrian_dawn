@@ -12,7 +12,7 @@ var options = new function() {
 	this.tracking = {active: "new"};
 	this.masks = {active: init.corporationID + ".2"};
 	this.chain = {typeFormat: null, classFormat: null, gridlines: true, active: 0, tabs: [], "node-reference": "type", zoom: 1.0};
-	this.signatures = {pasteLife: 72, alignment: {sigID: "centerAlign", sigType: "centerAlign", sigAge: "centerAlign", leadsTo: "centerAlign", sigLife: "centerAlign", sigMass: "centerAlign"}};
+	this.signatures = {editType: "unknown", copySeparator: ",", pasteLife: 72, alignment: {sigID: "centerAlign", sigType: "centerAlign", sigAge: "centerAlign", leadsTo: "centerAlign", sigLife: "centerAlign", sigMass: "centerAlign"}};
 	this.buttons = {follow: false, chainWidget: {viewing: false, favorites: false}, signaturesWidget: {autoMapper: false}};
 
 	this.saveDelay = function(delay) {

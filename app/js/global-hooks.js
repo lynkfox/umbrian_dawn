@@ -28,8 +28,7 @@ $("body").on("click", "#redo:not(.disabled)", function() {
 	tripwire.redo();
 });
 
-
-// Chain map zooming (Gets funking if you push things too far)
+// Chain map zooming (Gets funky if you push things too far)
 $("#chainParent").on("mousewheel", function(e) {
 	e.preventDefault();
 	var zoom = parseFloat($("#chainParent").css("zoom")) || 1.0;
@@ -86,33 +85,34 @@ $(document).keydown(function(e)	{
 				var output = "";
 				$("#sigTable tbody tr.selected").each(function(row) {
 					var signature = tripwire.client.signatures[$(this).data("id")];
+					var row = [];
 
 					if (signature.signatureID) {
-						output += signature.signatureID.substring(0, 3).toUpperCase() + "-" + (signature.signatureID.substring(3, 6) || "###") + ",";
+						row.push(signature.signatureID.substring(0, 3).toUpperCase() + "-" + (signature.signatureID.substring(3, 6) || "###"));
 					} else {
-						output += null + ",";
+						row.push("null");
 					}
 
-					output += signature.type + ",";
+					row.push(signature.type);
 					if (signature.type === "wormhole") {
 						var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == signature.id || wormhole.secondaryID == signature.id) return wormhole; })[0];
 						var otherSignature = signature.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
-						output += (wormhole.type || null ) + ",";
-						output += (tripwire.systems[signature.systemID] ? tripwire.systems[signature.systemID].name : tripwire.aSigSystems[signature.systemID]) + ",";
-						output += (tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : tripwire.aSigSystems[otherSignature.systemID]) + ",";
-						output += wormhole.life + ",";
-						output += wormhole.mass + ",";
+						row.push(wormhole.type || "null" );
+						row.push(tripwire.systems[signature.systemID] ? tripwire.systems[signature.systemID].name : tripwire.aSigSystems[signature.systemID]);
+						row.push(tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : tripwire.aSigSystems[otherSignature.systemID]);
+						row.push(wormhole.life);
+						row.push(wormhole.mass);
 					} else {
-						output += signature.name + ",";
+						row.push(signature.name);
 					}
 
-					output += signature.createdByName + ",";
-					output += signature.lifeTime + ",";
-					output += signature.lifeLength + ",";
-					output += signature.lifeLeft + ",";
-					output += signature.modifiedByName + ",";
-					output += signature.modifiedTime;
-					output += "\r\n";
+					row.push(signature.createdByName);
+					row.push(signature.lifeTime);
+					row.push(signature.lifeLength);
+					row.push(signature.lifeLeft);
+					row.push(signature.modifiedByName);
+					row.push(signature.modifiedTime);
+					output += row.join(options.signatures.copySeparator) + "\r\n";
 				});
 				$("#clipboard").text(output);
 				$("#clipboard").focus();

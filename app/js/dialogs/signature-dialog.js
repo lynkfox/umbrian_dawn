@@ -389,6 +389,9 @@ function openSignatureDialog(e) {
 						$("#dialog-signature [name='signatureName']").val(signature.name);
 						$("#dialog-signature #durationPicker").val(signature.lifeLength).change();
 					}
+
+					// Heightlight first ID section
+					$("#dialog-signature input[name='signatureID_Alpha']").select();
 				} else {
 					// Change the dialog buttons
 					$("#dialog-signature").parent().find("button:contains('Add')").show();
@@ -396,6 +399,12 @@ function openSignatureDialog(e) {
 
 					// Change the dialog title
 					$("#dialog-signature").dialog("option", "title", "Add Signature");
+
+					$("#dialog-signature [name='signatureType']").val(options.signatures.editType || "unknown").selectmenu("refresh")
+					if ($("#dialog-signature [name='signatureType']").val() === "wormhole") {
+						$("#dialog-signature #site").hide();
+						$("#dialog-signature #wormhole").show();
+					}
 				}
 			},
 			close: function() {

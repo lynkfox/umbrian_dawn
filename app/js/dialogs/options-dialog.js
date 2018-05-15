@@ -24,7 +24,11 @@ $(".options").click(function(e) {
 
 				options.chain["node-reference"] = $("#dialog-options input[name=node-reference]:checked").val();
 
+				options.signatures.editType = $("#dialog-options #editType").val();
+
 				options.signatures.pasteLife = $("#dialog-options #pasteLife").val();
+
+				options.signatures.copySeparator = $("#dialog-options #copySeparator").val();
 
 				options.background = $("#dialog-options #background-image").val();
 
@@ -139,7 +143,9 @@ $(".options").click(function(e) {
 				}
 			});
 
+			$("#dialog-options #editType").val(options.signatures.editType);
 			$("#dialog-options #pasteLife").val(options.signatures.pasteLife);
+			$("#dialog-options #copySeparator").val(options.signatures.copySeparator);
 			$("#dialog-options #typeFormat").val(options.chain.typeFormat);
 			$("#dialog-options #classFormat").val(options.chain.classFormat);
 			$("#dialog-options input[name='node-reference'][value='"+options.chain["node-reference"]+"']").prop("checked", true);

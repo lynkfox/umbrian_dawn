@@ -46,14 +46,17 @@ tripwire.autoMapper = function(from, to) {
     else
         toClass = "Null-Sec";
 
-    // Find wormholes that have no set Leads To system, and either leads To matches toClass or type matches toClass
     var wormholes = $.map(tripwire.client.wormholes, function(wormhole) {
+        // Find wormholes that have no set Leads To system, and their initial system is from the wormhole we just jumped from
         if (tripwire.client.signatures[wormhole.initialID].systemID == from && !tripwire.systems[tripwire.client.signatures[wormhole.secondaryID].systemID]) {
             if (tripwire.aSigSystems[tripwire.client.signatures[wormhole.secondaryID].systemID] == toClass) {
+                // Find wormholes that Leads To is generically set to the class we just jumped into
                 return wormhole;
             } else if (wormhole.type && tripwire.wormholes[wormhole.type] && tripwire.wormholes[wormhole.type].leadsTo.replace(' ', '-') == toClass) {
+                // Find wormholes that Type is known to lead to the class we just jumped into
                 return wormhole;
-            } else if (!tripwire.systems[tripwire.client.signatures[wormhole.secondaryID].systemID]) {
+            } else if (tripwire.client.signatures[wormhole.secondaryID].systemID === null && (!wormhole.type || !tripwire.wormholes[wormhole.type])) {
+                // Find wormholes that don't have a Type or any kind of Leads To entered
                 return wormhole;
             }
         }

@@ -28,7 +28,7 @@ header('Content-Type: application/json');
 $userID = $_SESSION['userID'];
 $output = null;
 
-$query = 'SELECT * FROM statistics WHERE userID = :userID';
+$query = 'SELECT SUM(signatures_added) as signatures_added, SUM(signatures_updated) as signatures_updated, SUM(signatures_deleted) as signatures_deleted, SUM(wormholes_added) as wormholes_added, SUM(wormholes_updated) as wormholes_updated, SUM(wormholes_deleted) as wormholes_deleted, SUM(comments_added) as comments_added, SUM(comments_updated) as comments_updated, SUM(comments_deleted) as comments_deleted FROM statistics WHERE userID = :userID GROUP BY userID';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':userID', $userID);
 $stmt->execute();
