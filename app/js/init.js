@@ -10,3 +10,7 @@ if (getCookie("loadedFromBrowserCache") == "true") {
 }
 
 // setCookie('loadedFromBrowserCache', true);
+
+// Use this to test performance of javascript code lines
+// var startTime = window.performance.now();
+// console.log("stint: "+ (window.performance.now() - startTime));

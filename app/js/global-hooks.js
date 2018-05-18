@@ -329,7 +329,7 @@ var SystemActivityToolTips = new jBox("Tooltip", {
 });
 
 var WormholeTypeToolTips = new jBox("Tooltip", {
-	attach: $(".whEffect[data-tooltip]"),
+	attach: $("#chainMap .whEffect[data-icon]"),
 	getContent: "data-tooltip",
 	position: {x: "left", y: "center"},
 	appendTo: $("#chainParent"),

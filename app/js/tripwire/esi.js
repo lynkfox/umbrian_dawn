@@ -1,6 +1,7 @@
 tripwire.esi = function() {
     var baseUrl = "https://esi.tech.ccp.is";
     var userAgent = "Tripwire Client " + tripwire.version + " (" + window.location.hostname + ") - " + window.navigator.userAgent;
+    var locationTimer, shipTimer, onlineTimer;
     this.esi.connection = true;
     this.esi.characters = {};
 
@@ -8,10 +9,8 @@ tripwire.esi = function() {
         $("#tracking .tracking-clone[data-characterid='"+ characterID +"']").find(".alert").show();
     }
 
-    var location = function() {
-        location.timer;
-
-        clearTimeout(location.timer);
+    this.esi.location = function() {
+        clearTimeout(locationTimer);
 
         for (characterID in tripwire.esi.characters) {
             var character = tripwire.esi.characters[characterID];
@@ -120,13 +119,11 @@ tripwire.esi = function() {
             });
         }
 
-        location.timer = setTimeout(location, 5000);
+        locationTimer = setTimeout("tripwire.esi.location()", 5000);
     }
 
-    var ship = function() {
-        ship.timer;
-
-        clearTimeout(ship.timer);
+    this.esi.ship = function() {
+        clearTimeout(shipTimer);
 
         for (characterID in tripwire.esi.characters) {
             var character = tripwire.esi.characters[characterID];
@@ -244,13 +241,11 @@ tripwire.esi = function() {
             });
         }
 
-        ship.timer = setTimeout(ship, 5000);
+        shipTimer = setTimeout("tripwire.esi.ship()", 5000);
     }
 
-    var online = function() {
-        online.timer;
-
-        clearTimeout(online.timer);
+    this.esi.online = function() {
+        clearTimeout(onlineTimer);
 
         for (characterID in tripwire.esi.characters) {
             var character = tripwire.esi.characters[characterID];
@@ -270,7 +265,7 @@ tripwire.esi = function() {
                 });
         }
 
-        online.timer = setTimeout(online, 60000);
+        onlineTimer = setTimeout("tripwire.esi.online()", 60000);
     }
 
     this.esi.typeLookup = function(typeID, reference) {
@@ -484,9 +479,9 @@ tripwire.esi = function() {
             tripwire.esi.characters[characterID] = characters[characterID];
         }
 
-        ship();
-        location();
-        online();
+        tripwire.esi.ship();
+        tripwire.esi.location();
+        tripwire.esi.online();
     }
 }
 tripwire.esi();

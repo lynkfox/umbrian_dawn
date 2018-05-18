@@ -12,7 +12,12 @@ function openSignatureDialog(e) {
 		$(this).closest("tr").addClass("selected");
 		mode = "update";
 	} else if (mode == "update") {
-		element = $("#sigTable tbody tr.selected")[0];
+		var elements = $("#sigTable tbody tr.selected");
+		if (elements.length !== 1) {
+			return false;
+		} else {
+			element = elements[0];
+		}
 	}
 
 	if (!$("#dialog-signature").hasClass("ui-dialog-content")) {

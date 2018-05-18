@@ -11,37 +11,52 @@ var chain = new function() {
 		//var data = typeof(data) !== "undefined" ? data : this.data.activity;
 
 		// Hide all activity colored dots instead of checking each one
-		$("#chainMap .nodeActivity > span:not(.invisible)").addClass("invisible");
+		var elements = document.querySelectorAll("#chainMap .nodeActivity span");
+		for (var i = 0, l = elements.length; i < l; ++i) {
+		   elements[i].className = elements[i].className + " invisible";
+		}
 
 		// Loop through passed data and show dots by system
-		$("#chainMap [data-nodeid]").each(function() {
-			var systemID = $(this).attr("data-nodeid");
-			if (data[systemID]) {
-				var shipJumps = data[systemID].shipJumps;
-				var podKills = data[systemID].podKills;
-				var shipKills = data[systemID].shipKills;
-				var npcKills = data[systemID].npcKills;
-				var $node = $(this).find(".nodeActivity");
+		var elements = document.querySelectorAll("#chainMap [data-nodeid]");
+		for (var i = 0, l = elements.length; i < l; ++i) {
+		   var systemID = elements[i].getAttribute("data-nodeid");
+		   if (data[systemID]) {
+			   var shipJumps = data[systemID].shipJumps;
+			   var podKills = data[systemID].podKills;
+			   var shipKills = data[systemID].shipKills;
+			   var npcKills = data[systemID].npcKills;
+			   var node = elements[i].getElementsByClassName("nodeActivity")[0];
 
-				if (shipJumps > 0) {
-					$node.find(".jumps").removeClass("invisible").attr("data-tooltip", shipJumps+" Jumps");
-				}
+			   if (shipJumps > 0) {
+				   var jumps = node.getElementsByClassName("jumps")[0];
+				   jumps.className = jumps.className.replace(/invisible/g, "");
+				   jumps.setAttribute("data-tooltip", shipJumps + " Jumps");
+			   }
 
-				if (podKills > 0) {
-					$node.find(".pods").removeClass("invisible").attr("data-tooltip", podKills+" Pod Kills");
-				}
+			   if (podKills > 0) {
+				   var pods = node.getElementsByClassName("pods")[0];
+				   pods.className = pods.className.replace(/invisible/g, "");
+				   pods.setAttribute("data-tooltip", podKills + " Pod Kills");
+			   }
 
-				if (shipKills > 0) {
-					$node.find(".ships").removeClass("invisible").attr("data-tooltip", shipKills+" Ship Kills");
-				}
+			   if (shipKills > 0) {
+				   var ships = node.getElementsByClassName("ships")[0];
+				   ships.className = ships.className.replace(/invisible/g, "");
+				   ships.setAttribute("data-tooltip", shipKills + " Ship Kills");
+			   }
 
-				if (npcKills > 0) {
-					$node.find(".npcs").removeClass("invisible").attr("data-tooltip", npcKills+" NPC Kills");
-				}
-			}
-		});
+			   if (npcKills > 0) {
+				   var npcs = node.getElementsByClassName("npcs")[0];
+				   npcs.className = npcs.className.replace(/invisible/g, "");
+				   npcs.setAttribute("data-tooltip", npcKills + " NPC Kills");
+			   }
+		   }
+		}
 
-		SystemActivityToolTips.attach($("#chainMap .nodeActivity > span[data-tooltip]"));
+		if (SystemActivityToolTips.attachedElements && SystemActivityToolTips.attachedElements.length > 0) {
+			SystemActivityToolTips.detach($("#chainMap .whEffect"));
+		}
+		SystemActivityToolTips.attach($("#chainMap .nodeActivity > span[data-tooltip]:not(.invisible)"));
 
 		return data;
 	}
@@ -678,7 +693,6 @@ var chain = new function() {
 
 	this.draw = function(data) {
 		var data = typeof(data) !== "undefined" ? data : {};
-		//var startTime = window.performance.now();
 
 		// We need to make sure Google chart is ready and we have signature data for this system before we begin, otherwise delay
 		if (!this.map || (Object.size(data.map) && !tripwire.client.signatures)) {
@@ -723,9 +737,14 @@ var chain = new function() {
 			this.grid(); // 4ms
 
 			// Apply current system style
-			$("#chainMap [data-nodeid='"+viewingSystemID+"']").parent().addClass("currentNode"); // 1ms
+			$("#chainMap [data-nodeid='"+viewingSystemID+"']").parent().addClass("currentNode"); // 0.1ms
 
-			WormholeTypeToolTips.attach($("#chainMap .whEffect")); // 30ms
+			// Remove old system effect tooltips and add current ones
+			if (WormholeTypeToolTips.attachedElements && WormholeTypeToolTips.attachedElements.length > 0) {
+				WormholeTypeToolTips.detach($("#chainMap .whEffect"));
+			}
+			WormholeTypeToolTips.attach($("#chainMap .whEffect[data-icon]")); // 0.30ms
+
 			this.drawing = false;
 		}
 
@@ -775,7 +794,6 @@ var chain = new function() {
 		if (data.flares) { // 20ms
 			this.data.flares = this.flares(data.flares);
 		}
-		//console.log("stint: "+ (window.performance.now() - startTime));
 	}
 
 	this.collapse = function(c) {
@@ -795,7 +813,10 @@ var chain = new function() {
 		// Apply current system style
 		$("#chainMap [data-nodeid='"+viewingSystemID+"']").parent().addClass("currentNode");
 
-		WormholeTypeToolTips.attach($("#chainMap .whEffect"));
+		if (WormholeTypeToolTips.attachedElements && WormholeTypeToolTips.attachedElements.length > 0) {
+			WormholeTypeToolTips.detach($("#chainMap .whEffect"));
+		}
+		WormholeTypeToolTips.attach($("#chainMap .whEffect[data-icon]"));
 
 		chain.activity(chain.data.activity);
 
