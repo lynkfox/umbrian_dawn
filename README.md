@@ -80,4 +80,4 @@ esi-characters.read_titles.v1
 
 * Josh Glassmaker AKA Daimian Mercer (Project lead / Creator)
 * Tripwire Public in-game channel
-* Discord: https://discord.gg/3PzM3BJ
+* Discord: https://discord.gg/xjFkJAx
