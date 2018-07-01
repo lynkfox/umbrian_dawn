@@ -46,6 +46,35 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
         if (data) {
             tripwire.server = data;
 
+            // Purge bad wormhole signatures
+            for (var i in data.signatures) {
+              var hasWormhole = false;
+              var hasInitial = false;
+              var hasSecondary = false;
+              var wormholeID = null;
+              if (data.signatures[i].type == "wormhole") {
+                for (var x in data.wormholes) {
+                  if (data.wormholes[x].initialID == data.signatures[i].id) {
+                    hasInitial = true;
+                    hasWormhole = true;
+                    wormholeID = data.wormholes[x].id;
+                  }
+                  if (data.wormholes[x].secondaryID == data.signatures[i].id) {
+                    hasSecondary = true;
+                    hasWormhole = true;
+                    wormholeID = data.wormholes[x].id;
+                  }
+                }
+              }
+
+              if (!hasWormhole || !hasSecondary || !hasInitial) {
+                delete data.signatures[i];
+                if (wormholeID) {
+                  delete data.wormholes[wormholeID];
+                }
+              }
+            }
+
             if (data.esi) {
                 tripwire.esi.parse(data.esi);
             }
