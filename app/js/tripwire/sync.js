@@ -58,11 +58,16 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
                     hasInitial = true;
                     hasWormhole = true;
                     wormholeID = data.wormholes[x].id;
-                  }
-                  if (data.wormholes[x].secondaryID == data.signatures[i].id) {
+                    if (data.signatures[data.wormholes[x].secondaryID]) {
+                      hasSecondary = true;
+                    }
+                  } else if (data.wormholes[x].secondaryID == data.signatures[i].id) {
                     hasSecondary = true;
                     hasWormhole = true;
                     wormholeID = data.wormholes[x].id;
+                    if (data.signatures[data.wormholes[x].initialID]) {
+                      hasInitial = true;
+                    }
                   }
                 }
 
