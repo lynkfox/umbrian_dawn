@@ -17,6 +17,7 @@ Requirements:
 * php-mbstring must be installed
 * MySQL (or some flavor of MySQL - needed because database EVENTS)
 * A my.cnf MySQL config file example is located in `.docker/mysql/my.cnf`
+* The `sql_mode` and `event_scheduler` my.cnf lines are important, make sure you have them in your my.cnf file & reboot MySQL
 * CRON or some other scheduler to execute PHP scripts
 
 Setup:
