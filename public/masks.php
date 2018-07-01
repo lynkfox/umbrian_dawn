@@ -108,7 +108,7 @@ if ($mode == 'create') {
 	$stmt->execute();
 	$output['results'] = $stmt->fetchAll(PDO::FETCH_COLUMN);
 } else if ($mode == 'delete' && $mask && (checkOwner($mask) || checkAdmin($mask))) {
-	$query = 'DELETE masks, groups, comments, signatures FROM masks LEFT JOIN groups ON groups.maskID = masks.maskID LEFT JOIN comments ON comments.maskID = masks.maskID LEFT JOIN signatures ON signatures.mask = masks.maskID WHERE masks.maskID = :mask';
+	$query = 'DELETE masks, groups, comments, signatures FROM masks LEFT JOIN groups ON groups.maskID = masks.maskID LEFT JOIN comments ON comments.maskID = masks.maskID LEFT JOIN signatures ON signatures.maskID = masks.maskID WHERE masks.maskID = :mask';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':mask', $mask);
 	$output['result'] = $stmt->execute();
