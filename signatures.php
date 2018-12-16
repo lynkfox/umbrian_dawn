@@ -422,6 +422,12 @@ if (isset($_POST['signatures'])) {
     // Add signatures
     if (isset($_POST['signatures']['add'])) {
         foreach ($_POST['signatures']['add'] AS $request) {
+            // initialize variables
+            $result = null;
+            $signature = null;
+            $signature2 = null;
+            $wormhole = null;
+
             if (isset($request['wormhole'])) {
                 // Wormhole
                 if (isset($request['signatures']) && count($request['signatures'])  > 1) {
@@ -459,6 +465,12 @@ if (isset($_POST['signatures'])) {
     // Update signatures
     if (isset($_POST['signatures']['update'])) {
         foreach ($_POST['signatures']['update'] AS $request) {
+            // initialize variables
+            $result = null;
+            $signature = null;
+            $signature2 = null;
+            $wormhole = null;
+
             if (isset($request['wormhole'])) {
                 // Wormhole
                 if (isset($request['signatures']) && count($request['signatures']) > 0 && isset($request['signatures'][0]['id'])) {
@@ -468,22 +480,34 @@ if (isset($_POST['signatures'])) {
                             $signature->$property = $value;
                         }
 
+                        // signature MUST be a wormhole type
+                        $signature->type = 'wormhole';
+
                         list($result, $signature, $msg) = updateSignature($signature, $mysql);
-                    }
-                    if ($result && count($request['signatures']) == 2 && isset($request['signatures'][1]['id'])) {
-                        list($result, $signature2, $msg) = fetchSignature($request['signatures'][1]['id'], $mysql);
-                        if ($result && $signature2) {
+                        if ($result && count($request['signatures']) == 2 && isset($request['signatures'][1]['id'])) {
+                          list($result, $signature2, $msg) = fetchSignature($request['signatures'][1]['id'], $mysql);
+                          if ($result && $signature2) {
                             foreach ($request['signatures'][1] AS $property => $value) {
-                                $signature2->$property = $value;
+                              $signature2->$property = $value;
                             }
 
+                            // signature MUST be a wormhole type
+                            $signature2->type = 'wormhole';
+
+                            // make certain the two signatures life fields match or DB issues happen
+                            $request['signatures'][1]['lifeTime'] = $signature->lifeTime;
+                            $request['signatures'][1]['lifeLeft'] = $signature->lifeLeft;
+                            $request['signatures'][1]['lifeLength'] = $signature->lifeLength;
+
                             list($result, $signature2, $msg) = updateSignature($signature2, $mysql);
-                        } else {
+                          } else {
                             // Used to be just a regular signature so we need ot add the 2nd signature
                             $request['signatures'][1]['lifeTime'] = $signature->lifeTime;
                             $request['signatures'][1]['lifeLeft'] = $signature->lifeLeft;
                             $request['signatures'][1]['lifeLength'] = $signature->lifeLength;
+
                             list($result, $signature2, $msg) = addSignature($request['signatures'][1], $mysql);
+                          }
                         }
                     }
 
@@ -555,6 +579,12 @@ if (isset($_POST['signatures'])) {
     // Delete signatures
     if (isset($_POST['signatures']['remove'])) {
         foreach ($_POST['signatures']['remove'] AS $request) {
+            // initialize variables
+            $result = null;
+            $signature = null;
+            $signature2 = null;
+            $wormhole = null;
+
             if (isset($request['id'])) {
                 // Wormhole
                 list($result, $wormhole, $msg) = fetchWormhole($request['id'], $mysql);
