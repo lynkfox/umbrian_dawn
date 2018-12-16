@@ -232,7 +232,7 @@ function addSignature($signature, $mysql) {
                 ON DUPLICATE KEY UPDATE signatures_added = signatures_added + 1';
             $stmt = $mysql->prepare($query);
             $stmt->bindValue(':userID', $_SESSION['userID']);
-            $stmt->bindValue(':characterID', $signature->createdByID);
+            $stmt->bindValue(':characterID', $_SESSION['characterID']);
             $stmt->bindValue(':maskID', $signature->maskID);
             $success = $stmt->execute();
         }
@@ -313,7 +313,7 @@ function updateSignature(signature $signature, $mysql) {
                 ON DUPLICATE KEY UPDATE signatures_updated = signatures_updated + 1';
             $stmt = $mysql->prepare($query);
             $stmt->bindValue(':userID', $_SESSION['userID']);
-            $stmt->bindValue(':characterID', $signature->createdByID);
+            $stmt->bindValue(':characterID', $_SESSION['characterID']);
             $stmt->bindValue(':maskID', $signature->maskID);
             $success = $stmt->execute();
         }
@@ -382,7 +382,7 @@ function removeSignature(signature $signature, $mysql) {
                 ON DUPLICATE KEY UPDATE signatures_deleted = signatures_deleted + 1';
             $stmt = $mysql->prepare($query);
             $stmt->bindValue(':userID', $_SESSION['userID']);
-            $stmt->bindValue(':characterID', $signature->createdByID);
+            $stmt->bindValue(':characterID', $_SESSION['characterID']);
             $stmt->bindValue(':maskID', $signature->maskID);
             $success = $stmt->execute();
         }
