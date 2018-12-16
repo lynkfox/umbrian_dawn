@@ -527,6 +527,7 @@ if (isset($_POST['signatures'])) {
                                     updateSignature($signature, $mysql);
                                     updateSignature($signature2, $mysql);
                                 }
+                                
                                 foreach ($request['wormhole'] AS $property => $value) {
                                     $wormhole->$property = $value;
                                 }
