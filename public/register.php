@@ -114,7 +114,7 @@ if ($mode == 'user') {
 		$roles = $esi->getCharacterRoles($esi->characterID);
 		$titles = $esi->getCharacterTitles($esi->characterID);
 
-		if (!empty(array_intersect($roles->roles, $adminRoles)) || !empty(array_intersect($titles, $adminTitles))) {
+		if ($roles && (!empty(array_intersect($roles->roles, $adminRoles)) || !empty(array_intersect($titles, $adminTitles)))) {
 			$query = 'UPDATE characters SET admin = 1 WHERE characterID = :characterID';
 			$stmt = $mysql->prepare($query);
 			$stmt->bindValue(':characterID', $esi->characterID);

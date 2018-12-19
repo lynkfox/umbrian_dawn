@@ -1,5 +1,5 @@
 tripwire.esi = function() {
-    var baseUrl = "https://esi.tech.ccp.is";
+    var baseUrl = "https://esi.evetech.net";
     var userAgent = "Tripwire Client " + tripwire.version + " (" + window.location.hostname + ") - " + window.navigator.userAgent;
     var locationTimer, shipTimer, onlineTimer;
     this.esi.connection = true;

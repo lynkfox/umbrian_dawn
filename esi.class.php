@@ -3,7 +3,7 @@
 class esi {
     // https://sisilogin.testeveonline.com
     private static $loginUrl = 'https://login.eveonline.com/oauth';
-    private static $esiUrl = 'https://esi.tech.ccp.is';
+    private static $esiUrl = 'https://esi.evetech.net';
     public $lastError = null;
     public $characterID = null;
     public $characterName = null;
@@ -156,6 +156,7 @@ class esi {
 
         // convert array of objects into just an array of titles
         $titles = [];
+        printf($result);
         foreach (json_decode($result) AS $title) {
             $titles[] = $title->name;
         }
