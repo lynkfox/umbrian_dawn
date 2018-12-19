@@ -156,7 +156,6 @@ class esi {
 
         // convert array of objects into just an array of titles
         $titles = [];
-        printf($result);
         foreach (json_decode($result) AS $title) {
             $titles[] = $title->name;
         }
