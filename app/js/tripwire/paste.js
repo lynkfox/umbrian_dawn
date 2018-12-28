@@ -6,10 +6,10 @@ tripwire.pasteSignatures = function() {
         var scanner = {};
         var columns = row.split("	"); // Split by tab
         var validScanGroups = ["Cosmic Signature", "Cosmic Anomaly", "Kosmische Anomalie", "Kosmische Signatur",
-                                "Источники сигналов", "Космическая аномалия"];
+                                "Скрытый сигнал", "Космическая аномалия"];
         var validTypes = {"Gas Site": "Gas", "Data Site": "Data", "Relic Site": "Relic", "Ore Site": "Ore", "Combat Site": "Combat", "Wormhole": "Wormhole",
                             "Gasgebiet": "Gas", "Datengebiet": "Data", "Reliktgebiet": "Relic", "Mineraliengebiet": "Ore", "Kampfgebiet": "Combat", "Wurmloch": "Wormhole",
-                            "ГАЗ: район добычи газа": "Gas", "ДАННЫЕ: район сбора данных": "Data", "АРТЕФАКТЫ: район поиска артефактов": "Relic", "РУДА: район добычи руды": "Ore", "ОПАСНО: район повышенной опасности": "Combat", "Червоточина": "Wormhole"};
+                            "Газовый район": "Gas", "Информационный район": "Data", "Археологический район": "Relic", "Астероидный район": "Ore", "Боевой район": "Combat", "Червоточина": "Wormhole"};
 
         for (var x in columns) {
             if (columns[x].match(/^([A-Z]{3}[-]\d{3})$/)) {
