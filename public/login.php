@@ -15,6 +15,9 @@ if (!session_id()) session_start();
 
 require_once('../config.php');
 require_once('../db.inc.php');
+require_once('../esi.class.php');
+
+$esi = new esi();
 
 function login_history($ip, $username, $method, $result) {
 	global $mysql;
@@ -113,6 +116,23 @@ if ($mode == 'login') {
 					// Log the attempt
 					login_history($ip, $username, $method, 'fail');
 				} else {
+					// check and update character corp and admin powers
+					$character = $esi->getCharacter($account->characterID);
+					$corporation = $esi->getCorporation($character->corporation_id);
+					$query = 'UPDATE characters SET corporationID = :corporationID, corporationName = :corporationName, ban = 0, admin = 0 WHERE characterID = :characterID AND corporationID <> :corporationID';
+					$stmt = $mysql->prepare($query);
+					$stmt->bindValue(':characterID', $account->characterID);
+					$stmt->bindValue(':corporationID', $character->corporation_id);
+					$stmt->bindValue(':corporationName', $corporation->name);
+					$stmt->execute();
+					if ($stmt->rowCount()) {
+						$query = 'SELECT id, username, password, accounts.ban, characterID, characterName, corporationID, corporationName, admin, super, options FROM accounts LEFT JOIN preferences ON id = preferences.userID LEFT JOIN characters ON id = characters.userID WHERE username = :username';
+						$stmt = $mysql->prepare($query);
+						$stmt->bindValue(':username', $username);
+						$stmt->execute();
+						$account = $stmt->fetchObject();
+					}
+
 					$options = json_decode($account->options);
 
 					$_SESSION['userID'] = $account->id;
@@ -122,9 +142,9 @@ if ($mode == 'login') {
 					$_SESSION['characterID'] = $account->characterID;
 					$_SESSION['characterName'] = $account->characterName;
 					$_SESSION['corporationID'] = $account->corporationID;
-                    $_SESSION['corporationName'] = $account->corporationName;
-                    $_SESSION['admin'] = $account->admin;
-                    $_SESSION['super'] = $account->super;
+          $_SESSION['corporationName'] = $account->corporationName;
+          $_SESSION['admin'] = $account->admin;
+          $_SESSION['super'] = $account->super;
 					$_SESSION['options'] = $options;
 
 					$output['result'] = 'success';
@@ -164,9 +184,6 @@ if ($mode == 'login') {
 } else if ($mode == 'sso') {
 	$method		= 'sso';
 
-	require('../esi.class.php');
-	$esi = new esi();
-
 	if ($code && $state == 'evessologin') {
 		if ($esi->authenticate($code)) {
 			$query = 'SELECT id, username, password, accounts.ban, characterID, characterName, corporationID, corporationName, admin, super, options FROM accounts LEFT JOIN preferences ON id = preferences.userID LEFT JOIN characters ON id = characters.userID WHERE characterID = :characterID';
@@ -175,6 +192,23 @@ if ($mode == 'login') {
 			$stmt->execute();
 
 			if ($account = $stmt->fetchObject()) {
+				// check and update character corp and admin powers
+				$character = $esi->getCharacter($account->characterID);
+				$corporation = $esi->getCorporation($character->corporation_id);
+				$query = 'UPDATE characters SET corporationID = :corporationID, corporationName = :corporationName, ban = 0, admin = 0 WHERE characterID = :characterID AND corporationID <> :corporationID';
+				$stmt = $mysql->prepare($query);
+				$stmt->bindValue(':characterID', $account->characterID);
+				$stmt->bindValue(':corporationID', $character->corporation_id);
+				$stmt->bindValue(':corporationName', $corporation->name);
+				$stmt->execute();
+				if ($stmt->rowCount()) {
+					$query = 'SELECT id, username, password, accounts.ban, characterID, characterName, corporationID, corporationName, admin, super, options FROM accounts LEFT JOIN preferences ON id = preferences.userID LEFT JOIN characters ON id = characters.userID WHERE characterID = :characterID';
+					$stmt = $mysql->prepare($query);
+					$stmt->bindValue(':characterID', $esi->characterID);
+					$stmt->execute();
+					$account = $stmt->fetchObject();
+				}
+
 				$options = json_decode($account->options);
 
 				$_SESSION['userID'] = $account->id;
@@ -286,6 +320,23 @@ if ($mode == 'login') {
 				// Log the attempt
 				login_history($ip, $account->username, $method, 'fail');
 			} else {
+				// check and update character corp and admin powers
+				$character = $esi->getCharacter($account->characterID);
+				$corporation = $esi->getCorporation($character->corporation_id);
+				$query = 'UPDATE characters SET corporationID = :corporationID, corporationName = :corporationName, ban = 0, admin = 0 WHERE characterID = :characterID AND corporationID <> :corporationID';
+				$stmt = $mysql->prepare($query);
+				$stmt->bindValue(':characterID', $account->characterID);
+				$stmt->bindValue(':corporationID', $character->corporation_id);
+				$stmt->bindValue(':corporationName', $corporation->name);
+				$stmt->execute();
+				if ($stmt->rowCount()) {
+					$query = 'SELECT id, username, password, accounts.ban, characterID, characterName, corporationID, corporationName, admin, super, options, token FROM accounts LEFT JOIN tokens ON id = tokens.userID LEFT JOIN preferences ON id = preferences.userID LEFT JOIN characters ON id = characters.userID WHERE id = :userID';
+					$stmt = $mysql->prepare($query);
+					$stmt->bindValue(':userID', $userID);
+					$stmt->execute();
+					$account = $stmt->fetchObject();
+				}
+
 				$options = json_decode($account->options);
 
 				$_SESSION['userID'] = $account->id;
