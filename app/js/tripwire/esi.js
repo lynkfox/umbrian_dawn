@@ -66,7 +66,7 @@ tripwire.esi = function() {
                                     Tooltips.attach($("#tracking .tracking-clone[data-characterid='"+ this.reference +"'] .station[data-tooltip]"));
 
                                     // Send to Tripwire server on next refresh call
-                                    tripwire.data.tracking[characterID] = {
+                                    tripwire.data.tracking[this.reference] = {
                                         characterID: character.characterID,
                                         characterName: character.characterName,
                                         systemID: character.systemID,
@@ -193,7 +193,7 @@ tripwire.esi = function() {
                                     $("#tracking .tracking-clone[data-characterid='"+ this.reference +"']").find(".ship").html(data.name || "&nbsp;");
 
                                     // Send to Tripwire server on next refresh call
-                                    tripwire.data.tracking[this.characterID] = {
+                                    tripwire.data.tracking[this.reference] = {
                                         characterID: character.characterID,
                                         characterName: character.characterName,
                                         systemID: character.systemID,
