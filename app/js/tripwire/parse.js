@@ -12,7 +12,11 @@ tripwire.parse = function(server, mode) {
     }
 
     if (mode == 'refresh') {
+        // preserve client.EVE across refresh otherwise tracking/automapper will be confused
+        var EVE = this.client.EVE;
         this.client = server;
+        this.client.EVE = EVE;
+
         for (var key in data.signatures) {
             if (data.signatures[key].systemID != viewingSystemID) {
                 continue;
