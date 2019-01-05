@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.23, for Win64 (x86_64)
 --
--- Host: localhost    Database: tripwire
+-- Host: 127.0.0.1    Database: tripwire
 -- ------------------------------------------------------
--- Server version	5.7.20-19
+-- Server version	8.0.13
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -63,7 +63,7 @@ CREATE TABLE `_history_signatures` (
   KEY `id` (`id`),
   KEY `maskID` (`maskID`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 PACK_KEYS=0 DELAY_KEY_WRITE=1 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=0 DELAY_KEY_WRITE=1 ROW_FORMAT=FIXED;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,7 +85,7 @@ CREATE TABLE `_history_wormholes` (
   `maskID` decimal(12,1) NOT NULL,
   `status` enum('add','update','delete','undo:add','undo:update','undo:delete') NOT NULL,
   PRIMARY KEY (`historyID`)
-) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 PACK_KEYS=0 DELAY_KEY_WRITE=1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 PACK_KEYS=0 DELAY_KEY_WRITE=1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +107,7 @@ CREATE TABLE `accounts` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `ban` (`ban`)
-) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +183,7 @@ CREATE TABLE `comments` (
   PRIMARY KEY (`id`),
   KEY `maskID` (`maskID`),
   KEY `systemID, maskID` (`maskID`,`systemID`)
-) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,7 +229,7 @@ DROP TABLE IF EXISTS `flares`;
 CREATE TABLE `flares` (
   `maskID` decimal(12,1) NOT NULL,
   `systemID` int(8) unsigned NOT NULL,
-  `flare` enum('red','yellow','green') CHARACTER SET latin1 NOT NULL,
+  `flare` enum('red','yellow','green') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`maskID`,`systemID`),
   KEY `time` (`time`),
@@ -346,7 +346,7 @@ CREATE TABLE `signatures` (
   KEY `modifiedTime` (`modifiedTime`),
   KEY `maskID` (`maskID`),
   KEY `lifeLeft, lifeLength` (`lifeLeft`,`lifeLength`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -492,7 +492,7 @@ CREATE TABLE `tracking` (
   `systemName` varchar(100) NOT NULL,
   `stationID` int(10) unsigned DEFAULT NULL,
   `stationName` varchar(100) DEFAULT NULL,
-  `shipID` int(12) unsigned DEFAULT NULL,
+  `shipID` bigint(12) unsigned DEFAULT NULL,
   `shipName` varchar(100) DEFAULT NULL,
   `shipTypeID` int(10) unsigned DEFAULT NULL,
   `shipTypeName` varchar(100) DEFAULT NULL,
@@ -514,8 +514,7 @@ CREATE TABLE `tracking` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `systemVisits` AFTER UPDATE ON `tracking`
-FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `systemVisits` AFTER UPDATE ON `tracking` FOR EACH ROW BEGIN
 	IF NEW.systemID <> OLD.systemID THEN
 		INSERT INTO system_visits (userID, characterID, systemID, date) VALUES (NEW.userID, NEW.characterID, NEW.systemID, NOW());
 	END IF;
@@ -534,8 +533,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `jumpHistory` AFTER UPDATE ON `tracking`
-FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `jumpHistory` AFTER UPDATE ON `tracking` FOR EACH ROW BEGIN
 	IF NEW.systemID <> OLD.systemID THEN
 		SET @wormholeID = (SELECT w.id FROM wormholes w INNER JOIN signatures a ON initialID = a.id INNER JOIN signatures b ON secondaryID = b.id WHERE (a.systemID = NEW.systemID OR b.systemID = NEW.systemID) AND (a.systemID = OLD.systemID OR b.systemID = OLD.systemID));
         IF @wormholeID IS NOT NULL THEN
@@ -567,9 +565,8 @@ CREATE TABLE `wormholes` (
   `maskID` decimal(12,1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `maskID` (`maskID`),
-  KEY `initialID` (`initialID`),
   KEY `secondaryID` (`secondaryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -792,4 +789,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-12  0:34:19
+-- Dump completed on 2019-01-05 15:40:11
