@@ -514,7 +514,7 @@ CREATE TABLE `tracking` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `systemVisits` AFTER UPDATE ON `tracking` FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `systemVisits` AFTER UPDATE ON `tracking` FOR EACH ROW BEGIN 
 	IF NEW.systemID <> OLD.systemID THEN
 		INSERT INTO system_visits (userID, characterID, systemID, date) VALUES (NEW.userID, NEW.characterID, NEW.systemID, NOW());
 	END IF;
@@ -533,7 +533,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `jumpHistory` AFTER UPDATE ON `tracking` FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `jumpHistory` AFTER UPDATE ON `tracking` FOR EACH ROW BEGIN 
 	IF NEW.systemID <> OLD.systemID THEN
 		SET @wormholeID = (SELECT w.id FROM wormholes w INNER JOIN signatures a ON initialID = a.id INNER JOIN signatures b ON secondaryID = b.id WHERE (a.systemID = NEW.systemID OR b.systemID = NEW.systemID) AND (a.systemID = OLD.systemID OR b.systemID = OLD.systemID));
         IF @wormholeID IS NOT NULL THEN
@@ -565,7 +565,8 @@ CREATE TABLE `wormholes` (
   `maskID` decimal(12,1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `maskID` (`maskID`),
-  KEY `secondaryID` (`secondaryID`)
+  KEY `secondaryID` (`secondaryID`),
+  KEY `initialID` (`initialID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -789,4 +790,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-05 15:40:11
+-- Dump completed on 2019-01-05 15:50:12
