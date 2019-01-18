@@ -64,6 +64,20 @@ if ($mode == 'user') {
 			exit();
 		}
 
+    $character = $esi->getCharacter($esi->characterID);
+    if (!$character) {
+      // Something crazy happened on CCP's end
+      header('Location: ./?error=register-unknown#register');
+      exit();
+    }
+
+    $corporation = $esi->getCorporation($character->corporation_id);
+    if (!$corporation) {
+      // Something crazy happened on CCP's end
+      header('Location: ./?error=register-unknown#register');
+      exit();
+    }
+
 		$hasher = new PasswordHash(8, FALSE);
 		$password = $hasher->HashPassword(random_str(20));
 		$username = $esi->characterName;
@@ -75,9 +89,6 @@ if ($mode == 'user') {
 		$success = $stmt->execute();
 
 		$userID = $mysql->lastInsertId();
-
-		$character = $esi->getCharacter($esi->characterID);
-		$corporation = $esi->getCorporation($character->corporation_id);
 
 		$query = 'INSERT INTO characters (userID, characterID, characterName, corporationID, corporationName) VALUES (:userID, :characterID, :characterName, :corporationID, :corporationName)';
 		$stmt = $mysql->prepare($query);
@@ -114,6 +125,12 @@ if ($mode == 'user') {
 		$roles = $esi->getCharacterRoles($esi->characterID);
 		$titles = $esi->getCharacterTitles($esi->characterID);
 
+    if (!$roles || $titles) {
+      // Something crazy happened on CCP's end
+  		header('Location: ./?error=register-unknown#register#admin');
+  		exit();
+    }
+
 		if ($roles && (!empty(array_intersect($roles->roles, $adminRoles)) || !empty(array_intersect($titles, $adminTitles)))) {
 			$query = 'UPDATE characters SET admin = 1 WHERE characterID = :characterID';
 			$stmt = $mysql->prepare($query);
@@ -128,6 +145,10 @@ if ($mode == 'user') {
 			header('Location: ./?error=registeradmin-roles#register#admin');
 			exit();
 		}
+	} else {
+		// Something crazy happened on CCP's end
+		header('Location: ./?error=register-unknown#register#admin');
+		exit();
 	}
 }
 
