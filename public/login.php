@@ -115,22 +115,16 @@ if ($mode == 'login') {
 
 					// Log the attempt
 					login_history($ip, $username, $method, 'fail');
+				} else if (!$character = $esi->getCharacter($account->characterID)) {
+					// Something crazy happened on CCP's end
+					$output['field'] = 'password';
+					$output['error'] = 'EVE ESI error.';
+				} else if (!$corporation = $esi->getCorporation($character->corporation_id)) {
+					// Something crazy happened on CCP's end
+					$output['field'] = 'password';
+					$output['error'] = 'EVE ESI error.';
 				} else {
 					// check and update character corp and admin powers
-					$character = $esi->getCharacter($esi->characterID);
-			    if (!$character) {
-			      // Something crazy happened on CCP's end
-			      header('Location: ./?error=register-unknown#register');
-			      exit();
-			    }
-
-			    $corporation = $esi->getCorporation($character->corporation_id);
-			    if (!$corporation) {
-			      // Something crazy happened on CCP's end
-			      header('Location: ./?error=register-unknown#register');
-			      exit();
-			    }
-
 					$query = 'UPDATE characters SET corporationID = :corporationID, corporationName = :corporationName, ban = 0, admin = 0 WHERE characterID = :characterID AND corporationID <> :corporationID';
 					$stmt = $mysql->prepare($query);
 					$stmt->bindValue(':characterID', $account->characterID);
@@ -205,17 +199,15 @@ if ($mode == 'login') {
 
 			if ($account = $stmt->fetchObject()) {
 				// check and update character corp and admin powers
-				$character = $esi->getCharacter($esi->characterID);
-		    if (!$character) {
+		    if (!$character = $esi->getCharacter($account->characterID)) {
 		      // Something crazy happened on CCP's end
-		      header('Location: ./?error=register-unknown#register');
+		      header('Location: ./?error=login-unknown#login#sso');
 		      exit();
 		    }
 
-		    $corporation = $esi->getCorporation($character->corporation_id);
-		    if (!$corporation) {
+		    if (!$corporation = $esi->getCorporation($character->corporation_id)) {
 		      // Something crazy happened on CCP's end
-		      header('Location: ./?error=register-unknown#register');
+		      header('Location: ./?error=login-unknown#login#sso');
 		      exit();
 		    }
 
@@ -343,10 +335,15 @@ if ($mode == 'login') {
 
 				// Log the attempt
 				login_history($ip, $account->username, $method, 'fail');
+			} else if (!$character = $esi->getCharacter($account->characterID)) {
+				// Something crazy happened on CCP's end
+				$output['field'] = 'username';
+				$output['error'] = 'EVE ESI error.';
+			} else if (!$corporation = $esi->getCorporation($character->corporation_id)) {
+				// Something crazy happened on CCP's end
+				$output['field'] = 'username';
+				$output['error'] = 'EVE ESI error.';
 			} else {
-				// check and update character corp and admin powers
-				$character = $esi->getCharacter($account->characterID);
-				$corporation = $esi->getCorporation($character->corporation_id);
 				$query = 'UPDATE characters SET corporationID = :corporationID, corporationName = :corporationName, ban = 0, admin = 0 WHERE characterID = :characterID AND corporationID <> :corporationID';
 				$stmt = $mysql->prepare($query);
 				$stmt->bindValue(':characterID', $account->characterID);

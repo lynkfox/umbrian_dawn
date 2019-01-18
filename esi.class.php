@@ -14,22 +14,23 @@ class esi {
     private function getAPI($url, $headers = array(), $params = false) {
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
-        if ($params) {
-            curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));
-        }
+    if ($params) {
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));
+    }
 
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		// curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($curl, CURLOPT_USERAGENT, USER_AGENT);
 
 		$result = curl_exec($curl);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-        if ($result === false) {
-            $this->lastError = curl_error($curl);
-        }
+    if ($result === false) {
+        $this->lastError = curl_error($curl);
+    }
 
 		return $result;
 	}
@@ -118,7 +119,7 @@ class esi {
     public function getCharacter($characterID) {
         $result = $this->getAPI(self::$esiUrl.'/v4/characters/'.$characterID.'/');
 
-        if ($result === false) {
+        if ($result === false || !json_decode($result) || !json_decode($result)->name) {
             return false;
         }
 
@@ -128,7 +129,7 @@ class esi {
     public function getCorporation($corporationID) {
         $result = $this->getAPI(self::$esiUrl.'/v4/corporations/'.$corporationID.'/');
 
-        if ($result === false) {
+        if ($result === false || !json_decode($result) || !json_decode($result)->name) {
             return false;
         }
 

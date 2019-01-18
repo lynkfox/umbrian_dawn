@@ -64,15 +64,13 @@ if ($mode == 'user') {
 			exit();
 		}
 
-    $character = $esi->getCharacter($esi->characterID);
-    if (!$character) {
+    if (!$character = $esi->getCharacter($esi->characterID)) {
       // Something crazy happened on CCP's end
       header('Location: ./?error=register-unknown#register');
       exit();
     }
 
-    $corporation = $esi->getCorporation($character->corporation_id);
-    if (!$corporation) {
+    if (!$corporation = $esi->getCorporation($character->corporation_id)) {
       // Something crazy happened on CCP's end
       header('Location: ./?error=register-unknown#register');
       exit();
