@@ -242,7 +242,12 @@ $("#login").on("click", "#removeESI", function() {
 	$("#tracking .tracking-clone[data-characterid='"+ characterID +"']").remove();
 
 	$("#removeESI").attr("disabled", "disabled");
-	tripwire.data.esi.delete = characterID;
+
+	if ($.isArray(tripwire.data.esi.delete)) {
+		tripwire.data.esiDelete.push(characterID);
+	} else {
+		tripwire.data.esiDelete = [characterID];
+	}
 });
 
 $("#user").click(function(e) {

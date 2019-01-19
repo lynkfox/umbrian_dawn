@@ -37,7 +37,9 @@ var cssFiles = [
     }
 ];
 
-gulp.task('default', ['js', 'css']);
+// Gulp v4 changed how you call .task with multiple subtasks, gulp parallel needed instead
+// gulp.task('default', ['js', 'css']);
+//gulp.task('default', gulp.parallel('js', 'css'));
 
 gulp.task('js', function(cb) {
     for (var j in jsFiles) {

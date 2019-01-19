@@ -140,17 +140,17 @@ if (isset($_REQUEST['tracking'])) {
 // note: must be below Character Tracking
 // *********************
 */
-if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi'])) {
+if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi']) || isset($_REQUEST['esiDelete'])) {
 	$output['esi'] = array();
 
-	if (isset($_REQUEST['esi']['delete'])) {
-		$characterID = $_REQUEST['esi']['delete'];
-
-		$query = 'DELETE FROM esi WHERE userID = :userID AND characterID = :characterID';
-		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':userID', $userID);
-		$stmt->bindValue(':characterID', $characterID);
-		$stmt->execute();
+	if (isset($_REQUEST['esiDelete'])) {
+		foreach ($_REQUEST['esiDelete'] as $characterID) {
+			$query = 'DELETE FROM esi WHERE userID = :userID AND characterID = :characterID';
+			$stmt = $mysql->prepare($query);
+			$stmt->bindValue(':userID', $userID);
+			$stmt->bindValue(':characterID', $characterID);
+			$stmt->execute();
+		}
 	}
 
 	$query = 'SELECT characterID, characterName, accessToken, refreshToken, CONCAT(tokenExpire, @@global.time_zone) as tokenExpire FROM esi WHERE userID = :userID';

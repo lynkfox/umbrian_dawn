@@ -184,7 +184,7 @@ require_once('config.php');
 								This login method requires that you first create a Tripwire account via <a href="#register#user">User Registration</a>.
 							</p>
 							<br/>
-							<p><em>Forgot your login? <a href="#login#api">Use API method instead</a>.</em></p>
+							<p><em>Forgot your login? <a href="#login#sso">Use SSO method instead</a>.</em></p>
 							<br/>
 							<div class="row">
 								<p class="left">

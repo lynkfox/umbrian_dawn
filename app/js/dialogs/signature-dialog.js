@@ -102,7 +102,7 @@ function openSignatureDialog(e) {
 							$("#dialog-signature #durationPicker").val(tripwire.wormholes[this.value.toUpperCase()].life.substring(0, 2) * 60 * 60).change();
 						}
 					} else if (this.value.toUpperCase() === "K162") {
-						if ($.inArray($("#dialog-signature .wormholeType").not(this).val(), aSigWormholes) != -1) {
+						if ($.inArray($("#dialog-signature .wormholeType").not(this).val().toUpperCase(), aSigWormholes) === -1 || $("#dialog-signature .wormholeType").not(this).val().toUpperCase() === "K162") {
 							$("#dialog-signature .wormholeType").not(this).val("????");
 						}
 					} else if (this.value == "????") {

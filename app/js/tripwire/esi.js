@@ -106,7 +106,7 @@ tripwire.esi = function() {
                 if (data.status == 403) {
                     tripwire.refresh("refresh", {"esi": {"expired": true}});
                 }
-            }).always(function(data, status) {
+            }).always(function(data, status, xhr) {
                 if (status != "success" && status != "abort" && tripwire.esi.connection == true) {
                     tripwire.esi.connection = false;
                     $("#esiConnectionSuccess, #esiConnectionError").click();
@@ -115,6 +115,11 @@ tripwire.esi = function() {
                     tripwire.esi.connection = true;
                     $("#esiConnectionSuccess, #esiConnectionError").click();
                     Notify.trigger("ESI Connection Resumed", "green", 5000, "esiConnectionSuccess");
+                }
+
+                var headers = parseHeaders(xhr.getAllResponseHeaders());
+                if (headers.warning) {
+                  console.log('ESI API Warning: ', headers.warning, this.url);
                 }
             });
         }
@@ -228,7 +233,7 @@ tripwire.esi = function() {
                 if (data.status == 403) {
                     tripwire.refresh("refresh", {"esi": {"expired": true}});
                 }
-            }).always(function(data, status) {
+            }).always(function(data, status, xhr) {
                 if (status != "success" && status != "abort" && tripwire.esi.connection == true) {
                     tripwire.esi.connection = false;
                     $("#esiConnectionSuccess, #esiConnectionError").click();
@@ -237,6 +242,11 @@ tripwire.esi = function() {
                     tripwire.esi.connection = true;
                     $("#esiConnectionSuccess, #esiConnectionError").click();
                     Notify.trigger("ESI Connection Resumed", "green", 5000, "esiConnectionSuccess");
+                }
+
+                var headers = parseHeaders(xhr.getAllResponseHeaders());
+                if (headers.warning) {
+                  console.log('ESI API Warning: ', headers.warning, this.url);
                 }
             });
         }
@@ -252,7 +262,7 @@ tripwire.esi = function() {
 
             tripwire.esi.characterStatus(character.characterID, character)
                 .done(function(data) {
-                    if (data) {
+                    if (data.online) {
                         $("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("critical").addClass("stable");
                     } else {
                         $("#tracking .tracking-clone[data-characterid='"+ this.reference.characterID +"']").find(".online").removeClass("stable").addClass("critical");
@@ -270,11 +280,16 @@ tripwire.esi = function() {
 
     this.esi.typeLookup = function(typeID, reference) {
         return $.ajax({
-            url: baseUrl + "/v2/universe/types/"+ typeID +"/?" + $.param({"user_agent": userAgent}),
+            url: baseUrl + "/v3/universe/types/"+ typeID +"/?" + $.param({"user_agent": userAgent}),
             // headers: {"X-User-Agent": userAgent},
             type: "GET",
             dataType: "JSON",
             reference: reference
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
@@ -285,6 +300,11 @@ tripwire.esi = function() {
             type: "GET",
             dataType: "JSON",
             reference: reference
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
@@ -296,6 +316,11 @@ tripwire.esi = function() {
             headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
             type: "POST",
             dataType: "JSON"
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
@@ -305,16 +330,26 @@ tripwire.esi = function() {
             headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
             type: "POST",
             dataType: "JSON"
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
     this.esi.characterStatus = function(characterID, reference) {
         return $.ajax({
-            url: baseUrl + "/v1/characters/" + characterID + "/online/?" + $.param({"token": tripwire.esi.characters[characterID].accessToken, "user_agent": userAgent}),
+            url: baseUrl + "/v2/characters/" + characterID + "/online/?" + $.param({"token": tripwire.esi.characters[characterID].accessToken, "user_agent": userAgent}),
             // headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
             type: "GET",
             dataType: "JSON",
             reference: reference
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
@@ -324,6 +359,11 @@ tripwire.esi = function() {
             // headers: {"X-User-Agent": userAgent},
             type: "GET",
             dataType: "JSON"
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
@@ -335,6 +375,11 @@ tripwire.esi = function() {
             contentType: "application/json",
             processData: false,
             data: JSON.stringify(eveIDs)
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
@@ -347,6 +392,11 @@ tripwire.esi = function() {
             async: async,
             eveID: eveID,
             reference: reference
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
@@ -359,6 +409,11 @@ tripwire.esi = function() {
             async: async,
             eveID: eveID,
             reference: reference
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
@@ -371,6 +426,11 @@ tripwire.esi = function() {
             async: async,
             eveID: eveID,
             reference: reference
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
@@ -381,6 +441,11 @@ tripwire.esi = function() {
             dataType: "JSON",
             contentType: "application/json",
             data: {"search": searchString, "categories": categories, "strict": strict}
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
@@ -389,6 +454,11 @@ tripwire.esi = function() {
             url: baseUrl + "/v1/universe/system_jumps/?" + $.param({"user_agent": userAgent}),
             type: "GET",
             dataType: "JSON"
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
@@ -397,6 +467,11 @@ tripwire.esi = function() {
             url: baseUrl + "/v2/universe/system_kills/?" + $.param({"user_agent": userAgent}),
             type: "GET",
             dataType: "JSON"
+        }).always(function(results, status, xhr) {
+          var headers = parseHeaders(xhr.getAllResponseHeaders());
+          if (headers.warning) {
+            console.log('ESI API Warning: ', headers.warning, this.url);
+          }
         });
     }
 
