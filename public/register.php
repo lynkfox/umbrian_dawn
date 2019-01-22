@@ -123,7 +123,7 @@ if ($mode == 'user') {
 		$roles = $esi->getCharacterRoles($esi->characterID);
 		$titles = $esi->getCharacterTitles($esi->characterID);
 
-    if (!$roles || $titles) {
+    if (!$roles || !$titles) {
       // Something crazy happened on CCP's end
   		header('Location: ./?error=register-unknown#register#admin');
   		exit();

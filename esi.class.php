@@ -119,7 +119,7 @@ class esi {
     public function getCharacter($characterID) {
         $result = $this->getAPI(self::$esiUrl.'/v4/characters/'.$characterID.'/');
 
-        if ($result === false || !json_decode($result) || !json_decode($result)->name) {
+        if ($result === false || !json_decode($result) || !isset(json_decode($result)->name)) {
             return false;
         }
 
@@ -129,7 +129,7 @@ class esi {
     public function getCorporation($corporationID) {
         $result = $this->getAPI(self::$esiUrl.'/v4/corporations/'.$corporationID.'/');
 
-        if ($result === false || !json_decode($result) || !json_decode($result)->name) {
+        if ($result === false || !json_decode($result) || !isset(json_decode($result)->name)) {
             return false;
         }
 
