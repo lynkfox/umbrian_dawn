@@ -114,7 +114,7 @@ if ($mode == 'user') {
 		$stmt->bindValue(':characterID', $esi->characterID);
 		$stmt->execute();
 
-		// User account already exists for this character, tell them to login
+		// User account doesn't exist - they need to register as a user first
 		if (!$account = $stmt->fetchObject()) {
 			header('Location: ./?error=registeradmin-account#register#admin');
 			exit();
@@ -123,9 +123,9 @@ if ($mode == 'user') {
 		$roles = $esi->getCharacterRoles($esi->characterID);
 		$titles = $esi->getCharacterTitles($esi->characterID);
 
-    if (!$roles || !$titles) {
+    if (!$roles || !is_array($titles)) {
       // Something crazy happened on CCP's end
-  		header('Location: ./?error=register-unknown#register#admin');
+  		header('Location: ./?error=registeradmin-unknown#register#admin');
   		exit();
     }
 
@@ -145,7 +145,7 @@ if ($mode == 'user') {
 		}
 	} else {
 		// Something crazy happened on CCP's end
-		header('Location: ./?error=register-unknown#register#admin');
+		header('Location: ./?error=registeradmin-unknown#register#admin');
 		exit();
 	}
 }
