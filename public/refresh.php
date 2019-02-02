@@ -159,7 +159,7 @@ if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi']) || isset($_REQUEST['e
 	$stmt->execute();
 	$characters = $stmt->fetchAll(PDO::FETCH_OBJ);
 	foreach ($characters as $character) {
-		if (strtotime($character->tokenExpire) < strtotime('+30 minutes')) {
+		if (strtotime($character->tokenExpire) < strtotime('+5 minutes')) {
 			require_once("../esi.class.php");
 
 			$esi = new esi();
