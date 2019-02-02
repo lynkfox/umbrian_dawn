@@ -5,6 +5,7 @@ class esi {
     private static $loginUrl = 'https://login.eveonline.com/oauth';
     private static $esiUrl = 'https://esi.evetech.net';
     public $lastError = null;
+    public $httpCode = null;
     public $characterID = null;
     public $characterName = null;
     public $accessToken = null;
@@ -26,7 +27,7 @@ class esi {
 		curl_setopt($curl, CURLOPT_USERAGENT, USER_AGENT);
 
 		$result = curl_exec($curl);
-    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $this->httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
     if ($result === false) {
         $this->lastError = curl_error($curl);

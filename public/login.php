@@ -279,7 +279,7 @@ if ($mode == 'login') {
 			$stmt->bindValue(':characterName', $esi->characterName);
 			$stmt->bindValue(':accessToken', $esi->accessToken);
 			$stmt->bindValue(':refreshToken', $esi->refreshToken);
-			$stmt->bindValue(':tokenExpire', $esi->tokenExpire);
+			$stmt->bindValue(':tokenExpire', date('Y-m-d H:i:s', strtotime($esi->tokenExpire)));
 			$stmt->execute();
 
 			header('Location: ./?system=');

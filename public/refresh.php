@@ -153,13 +153,13 @@ if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi']) || isset($_REQUEST['e
 		}
 	}
 
-	$query = 'SELECT characterID, characterName, accessToken, refreshToken, CONCAT(tokenExpire, @@global.time_zone) as tokenExpire FROM esi WHERE userID = :userID';
+	$query = 'SELECT characterID, characterName, accessToken, refreshToken, tokenExpire FROM esi WHERE userID = :userID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':userID', $userID);
 	$stmt->execute();
 	$characters = $stmt->fetchAll(PDO::FETCH_OBJ);
 	foreach ($characters as $character) {
-		if (strtotime($character->tokenExpire) < strtotime('+10 minutes')) {
+		if (strtotime($character->tokenExpire) < strtotime('+30 minutes')) {
 			require_once("../esi.class.php");
 
 			$esi = new esi();
@@ -168,14 +168,14 @@ if ($_REQUEST['mode'] == 'init' || isset($_REQUEST['esi']) || isset($_REQUEST['e
 				$stmt = $mysql->prepare($query);
 				$stmt->bindValue(':accessToken', $esi->accessToken);
 				$stmt->bindValue(':refreshToken', $esi->refreshToken);
-				$stmt->bindValue(':tokenExpire', $esi->tokenExpire);
+				$stmt->bindValue(':tokenExpire', date('Y-m-d H:i:s', strtotime($esi->tokenExpire)));
 				$stmt->bindValue(':characterID', $character->characterID);
 				$stmt->execute();
 
 				$character->accessToken = $esi->accessToken;
 				$character->refreshToken = $esi->refreshToken;
 				$character->tokenExpire = $esi->tokenExpire;
-			} else {
+			} else if ($esi->httpCode >= 400 && $esi->httpCode < 500) {
 				$query = 'DELETE FROM esi WHERE characterID = :characterID';
 				$stmt = $mysql->prepare($query);
 				$stmt->bindValue(':characterID', $character->characterID);
