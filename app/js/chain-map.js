@@ -518,22 +518,22 @@ var chain = new function() {
 			var usedLinks = [];
 
 			if (systems == 0) {
-				var i = 0;
-				for (var x in map) {
-					var parent = tripwire.client.signatures[map[x].initialID];
-					var child = tripwire.client.signatures[map[x].secondaryID];
-					if (typeof(tripwire.systems[parent.systemID].class) == "undefined") {
+                                let i = 0;
+                                Object.keys(map).slice()/*.reverse()*/.forEach(x => {
+				        const parent = tripwire.client.signatures[map[x].initialID];
+				        const child = tripwire.client.signatures[map[x].secondaryID];
+                                        if (parent && tripwire.systems[parent.systemID] && typeof(tripwire.systems[parent.systemID].class) == "undefined") {
 						i++;
 						// usedLinks[parent.systemID] = [];
 						chain.rows.push({c: [topLevel(parent.systemID, i), {v: null}]});
 						chainList.push([parent.systemID, i, parent.systemID]);
-					} else if (tripwire.systems[child.systemID] && typeof(tripwire.systems[child.systemID].class) == "undefined") {
-						i++;
-						// usedLinks[child.systemID] = [];
+                                        } else if (child && tripwire.systems[child.systemID] && typeof(tripwire.systems[child.systemID].class) == "undefined") {
+				  	        i++;
+				  		// usedLinks[child.systemID] = [];
 						chain.rows.push({c: [topLevel(child.systemID, i), {v: null}]});
 						chainList.push([child.systemID, i, child.systemID]);
 					}
-				}
+				});
 			} else {
 				for (var x in systems) {
 					// usedLinks[systems[x]] = [];

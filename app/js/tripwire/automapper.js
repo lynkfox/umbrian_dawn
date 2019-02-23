@@ -30,9 +30,17 @@ tripwire.autoMapper = function(from, to) {
     if (typeof(tripwire.map.shortest[from - 30000000]) != "undefined" && typeof(tripwire.map.shortest[from - 30000000][to - 30000000]) != "undefined")
         return false;
 
-    // Is this an existing connection?
-    if ($.map(tripwire.client.wormholes, function(wormhole) { return (tripwire.client.signatures[wormhole.initialID].systemID == from && tripwire.client.signatures[wormhole.secondaryID].systemID == to) || (tripwire.client.signatures[wormhole.initialID].systemID == to && tripwire.client.signatures[wormhole.secondaryID].systemID == from) ? wormhole : null; }).length > 0)
-        return false;
+     // Is this an existing connection?
+     if ($.map(tripwire.client.wormholes,
+               function(wormhole) {
+                 const initial = tripwire.client.signatures[wormhole.initialID];
+                 const secondary = tripwire.client.signatures[wormhole.secondaryID];
+                 return initial && secondary &&
+                   ((initial.systemID == from && secondary.systemID == to) ||
+                    (initial.systemID == to && secondary.systemID == from))  ? wormhole : null;
+               }).length > 0) {
+       return false;
+     }
 
     var payload = {"signatures": {"add": [], "update": []}};
     var sig, toClass;
