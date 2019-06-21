@@ -30,7 +30,7 @@ var guidance = (function (undefined) {
 
 		costs[start] = 0;
 
-		while (open) {
+		while (open && !costs[end]) {
 			if(!(keys = extractKeys(open)).length) break;
 
 			keys.sort(sorter);

@@ -325,6 +325,29 @@ var chain = new function() {
 
 			return system;
 		}
+		
+		function makeCalcChildNode(childID, node, targetSystem) {
+			var path = guidance.findShortestPath(tripwire.map.shortest, [targetSystem - 30000000, node.child.systemID - 30000000]);
+			
+			var calcNode = {};
+			calcNode.life = "Gate";
+			calcNode.parent = {};
+			calcNode.parent.id = node.child.id;
+			calcNode.parent.systemID = node.child.systemID;
+			calcNode.parent.name = node.child.name;
+			calcNode.parent.type = node.child.type;
+			calcNode.parent.nth = node.child.nth;
+
+			calcNode.child = {};
+			calcNode.child.id = ++childID;
+			calcNode.child.systemID = targetSystem;
+			calcNode.child.name = tripwire.systems[targetSystem].name;
+			calcNode.child.path = path;
+			calcNode.child.jumps = path.length - 1;
+			calcNode.child.nth = null;			
+			
+			return { childID, calcNode };
+		}
 
 		function findLinks(system) {
 			if (system[0] <= 0) return false;
@@ -334,180 +357,87 @@ var chain = new function() {
 			for (var x in chainData) {
 				var wormhole = chainData[x];
 				if (wormhole.parent == "secondary") {
-					var parent = tripwire.client.signatures[wormhole.secondaryID];
-					var child = tripwire.client.signatures[wormhole.initialID];
+					var sig1 = tripwire.client.signatures[wormhole.secondaryID];
+					var sig2 = tripwire.client.signatures[wormhole.initialID];
 				} else {
-					var parent = tripwire.client.signatures[wormhole.initialID];
-					var child = tripwire.client.signatures[wormhole.secondaryID];
+					var sig1 = tripwire.client.signatures[wormhole.initialID];
+					var sig2 = tripwire.client.signatures[wormhole.secondaryID];
 				}
-
+				
 				if ($.inArray(wormhole.id, usedLinks) == -1) {
-					if (parent && parent.systemID == system[0]) {
-						var node = {};
-						node.id = wormhole.id;
-						node.life = wormhole.life;
-						node.mass = wormhole.mass;
-						node.time = parent.modifiedTime;
+					var parent, child;
+					if (sig1 && sig1.systemID == system[0]) {
+						parent = sig1; child = sig2;
+					} else if(sig2 && sig2.systemID == system[0]) {
+						parent = sig2; child = sig1;
+					} else { continue; }
+					
+					var node = {};
+					node.id = wormhole.id;
+					node.life = wormhole.life;
+					node.mass = wormhole.mass;
+					node.time = parent.modifiedTime;
 
-						node.parent = {};
-						node.parent.id = parentID;
-						node.parent.systemID = tripwire.systems[parent.systemID] ? parent.systemID : parent.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
-						node.parent.name = parent.name;
-						node.parent.type = 'K162';
-						node.parent.typeBM = null;
-						node.parent.classBM = null;
-						node.parent.nth = null;
-						node.parent.signatureID = child.signatureID;
+					node.parent = {};
+					node.parent.id = parentID;
+					node.parent.systemID = tripwire.systems[parent.systemID] ? parent.systemID : parent.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
+					node.parent.name = parent.name;
+					node.parent.type = 'K162';
+					node.parent.typeBM = null;
+					node.parent.classBM = null;
+					node.parent.nth = null;
+					node.parent.signatureID = child.signatureID;
 
-						node.child = {};
-						node.child.id = ++childID;
-						node.child.systemID = tripwire.systems[child.systemID] ? child.systemID : child.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
-						node.child.name = child.name;
-						node.child.type = wormhole.type;
-						node.child.typeBM = null;
-						node.child.classBM = null;
-						node.child.nth = null;
-						node.child.signatureID = parent.signatureID;
+					node.child = {};
+					node.child.id = ++childID;
+					node.child.systemID = tripwire.systems[child.systemID] ? child.systemID : child.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
+					node.child.name = child.name;
+					node.child.type = wormhole.type;
+					node.child.typeBM = null;
+					node.child.classBM = null;
+					node.child.nth = null;
+					node.child.signatureID = parent.signatureID;
 
-						chainLinks.push(node);
-						chainList.push([node.child.systemID, node.child.id, system[2]]);
-						usedLinks.push(node.id);
-						// usedLinks[system[2]].push(node.id);
+					chainLinks.push(node);
+					chainList.push([node.child.systemID, node.child.id, system[2]]);
+					usedLinks.push(node.id);
+					// usedLinks[system[2]].push(node.id);
 
-						if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class) {
-							var jumps = guidance.findShortestPath(tripwire.map.shortest, [viewingSystemID - 30000000, node.child.systemID - 30000000]).length - 1;
+					if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class) {
+						var calcNode = makeCalcChildNode(childID, node, viewingSystemID);
+						childID = calcNode.childID;
 
-							var calcNode = {};
-							calcNode.life = "Gate";
-							calcNode.parent = {};
-							calcNode.parent.id = node.child.id;
-							calcNode.parent.systemID = node.child.systemID;
-							calcNode.parent.name = node.child.name;
-							calcNode.parent.type = node.child.type;
-							calcNode.parent.nth = node.child.nth;
+						chainLinks.push(calcNode.calcNode);
+						chainList.push([0, childID]);
+					}
 
-							calcNode.child = {};
-							calcNode.child.id = ++childID;
-							calcNode.child.systemID = viewingSystemID
-							calcNode.child.name = tripwire.systems[viewingSystemID].name;
-							calcNode.child.jumps = jumps;
-							calcNode.child.nth = null;
+					if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID]) {
+						for (x in options.favorites) {
+							if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000)
+								continue;
 
-							chainLinks.push(calcNode);
+							var calcNode = makeCalcChildNode(childID, node, options.favorites[x]);
+							childID = calcNode.childID;
+
+							chainLinks.push(calcNode.calcNode);
 							chainList.push([0, childID]);
-						}
-
-						if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID]) {
-							for (x in options.favorites) {
-								if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000)
-									continue;
-
-								var jumps = guidance.findShortestPath(tripwire.map.shortest, [options.favorites[x] - 30000000, node.child.systemID - 30000000]).length - 1;
-
-								var calcNode = {};
-								calcNode.life = "Gate";
-								calcNode.parent = {};
-								calcNode.parent.id = node.child.id;
-								calcNode.parent.systemID = node.child.systemID;
-								calcNode.parent.name = node.child.name;
-								calcNode.parent.type = node.child.type;
-								calcNode.parent.nth = node.child.nth;
-
-								calcNode.child = {};
-								calcNode.child.id = ++childID;
-								calcNode.child.systemID = options.favorites[x];
-								calcNode.child.name = tripwire.systems[options.favorites[x]].name;
-								calcNode.child.jumps = jumps;
-								calcNode.child.nth = null;
-
-								chainLinks.push(calcNode);
-								chainList.push([0, childID]);
-							}
-						}
-					} else if (child && child.systemID == system[0]) {
-						var node = {};
-						node.id = wormhole.id;
-						node.life = wormhole.life;
-						node.mass = wormhole.mass;
-						node.time = wormhole.modifiedTime;
-
-						node.parent = {};
-						node.parent.id = parentID;
-						node.parent.systemID = tripwire.systems[child.systemID] ? child.systemID : child.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
-						node.parent.name = child.name;
-						node.parent.type = wormhole.type;
-						node.parent.typeBM = null;
-						node.parent.classBM = null;
-						node.parent.nth = null;
-						node.parent.signatureID = parent.signatureID;
-
-						node.child = {};
-						node.child.id = ++childID;
-						node.child.systemID = tripwire.systems[parent.systemID] ? parent.systemID : parent.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
-						node.child.name = parent.name;
-						node.child.type = 'K162';
-						node.child.typeBM = null;
-						node.child.classBM = null;
-						node.child.nth = null;
-						node.child.signatureID = child.signatureID;
-
-						chainLinks.push(node);
-						chainList.push([node.child.systemID, node.child.id, system[2]]);
-						usedLinks.push(node.id);
-						// usedLinks[system[2]].push(node.id);
-
-						if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class) {
-							var jumps = guidance.findShortestPath(tripwire.map.shortest, [viewingSystemID - 30000000, node.child.systemID - 30000000]).length - 1;
-
-							var calcNode = {};
-							calcNode.life = "Gate";
-							calcNode.parent = {};
-							calcNode.parent.id = node.child.id;
-							calcNode.parent.systemID = node.child.systemID;
-							calcNode.parent.name = node.child.name;
-							calcNode.parent.type = node.child.type;
-							calcNode.parent.nth = node.child.nth;
-
-							calcNode.child = {};
-							calcNode.child.id = ++childID;
-							calcNode.child.systemID = viewingSystemID;
-							calcNode.child.name = tripwire.systems[viewingSystemID].name;
-							calcNode.child.nth = null;
-							calcNode.child.jumps = jumps;
-
-							chainLinks.push(calcNode);
-							chainList.push([0, childID]);
-						}
-						if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID]) {
-							for (x in options.favorites) {
-								if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000)
-									continue;
-
-								var jumps = guidance.findShortestPath(tripwire.map.shortest, [options.favorites[x] - 30000000, node.child.systemID - 30000000]).length - 1;
-
-								var calcNode = {};
-								calcNode.life = "Gate";
-								calcNode.parent = {};
-								calcNode.parent.id = node.child.id;
-								calcNode.parent.systemID = node.child.systemID;
-								calcNode.parent.name = node.child.name;
-								calcNode.parent.type = node.child.type;
-								calcNode.parent.nth = node.child.nth;
-
-								calcNode.child = {};
-								calcNode.child.id = ++childID;
-								calcNode.child.systemID = options.favorites[x];
-								calcNode.child.name = tripwire.systems[options.favorites[x]].name;
-								calcNode.child.nth = null;
-								calcNode.child.jumps = jumps;
-
-								chainLinks.push(calcNode);
-								chainList.push([0, childID]);
-							}
 						}
 					}
 				}
 			}
+		}
+		
+		function renderPath(path) {
+			return (path.length <= 3 || path.length > 15) ? '' + path.length - 1 :
+			'<span class="path">' + path
+				.slice(1, path.length - 1).reverse()
+				.map(s => {
+				var system = appData.systems[30000000 + 1 * s];
+				var securityClass = system.security >= 0.45 ? 'hisec' :
+					system.security >= 0.0 ? 'lowsec' :
+					'nullsec';
+				return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">&#x25a0</span>';
+			}).join('') + '</span>';
 		}
 
 		if ($("#chainTabs .current").length > 0) {
@@ -643,7 +573,7 @@ var chain = new function() {
 							+	"<h4 class='nodeSystem'>"
 							+ 	(tripwire.systems[node.child.systemID] ? "<a href='.?system="+tripwire.systems[node.child.systemID].name+"'>"+(node.parent.name ? node.parent.name : tripwire.systems[node.child.systemID].name)+"</a>" : (node.parent.name ? node.parent.name : "<a class='invisible'>system</a>"))
 							+	"</h4>"
-							+	(node.child.jumps ? "<h4 class='nodeType'>" + node.child.jumps + "</h4>" : ("<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") : (node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"))
+							+	(node.child.path ? "<h4 class='nodeType'>" + renderPath(node.child.path) + "</h4>" : ("<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") : (node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"))
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
 							+	"</div>"
@@ -744,6 +674,7 @@ var chain = new function() {
 				WormholeTypeToolTips.detach($("#chainMap .whEffect"));
 			}
 			WormholeTypeToolTips.attach($("#chainMap .whEffect[data-icon]")); // 0.30ms
+			Tooltips.attach($(".path span[data-tooltip]"));
 
 			this.drawing = false;
 		}
