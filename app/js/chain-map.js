@@ -428,16 +428,24 @@ var chain = new function() {
 		}
 		
 		function renderPath(path) {
-			return (path.length <= 3 || path.length > 15) ? '' + path.length - 1 :
-			'<span class="path">' + path
-				.slice(1, path.length - 1).reverse()
+			if(path.length <= 3 || path.length > 15) { return '' + path.length - 1; }
+			else {
+				var systemMarkup = path
+				.slice(0, path.length - 1).reverse()
 				.map(s => {
-				var system = appData.systems[30000000 + 1 * s];
-				var securityClass = system.security >= 0.45 ? 'hisec' :
-					system.security >= 0.0 ? 'lowsec' :
-					'nullsec';
-				return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">&#x25a0</span>';
-			}).join('') + '</span>';
+					var system = appData.systems[30000000 + 1 * s];
+					var securityClass = system.security >= 0.45 ? 'hisec' :
+						system.security >= 0.0 ? 'lowsec' :
+						'nullsec';
+					return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">&#x25a0</span>';
+				});
+				var r = '<span class="path">';
+				for(var i = 0; i < systemMarkup.length; i++) {
+					if(i > 0 && 0 == i % 5) { r += '|'; }
+					r += systemMarkup[i];				 
+				}
+				return r + '</span>';
+			}
 		}
 
 		if ($("#chainTabs .current").length > 0) {
@@ -674,7 +682,7 @@ var chain = new function() {
 				WormholeTypeToolTips.detach($("#chainMap .whEffect"));
 			}
 			WormholeTypeToolTips.attach($("#chainMap .whEffect[data-icon]")); // 0.30ms
-			Tooltips.attach($(".path span[data-tooltip]"));
+			WormholeRouteToolTips.attach($(".path span[data-tooltip]"));
 
 			this.drawing = false;
 		}
