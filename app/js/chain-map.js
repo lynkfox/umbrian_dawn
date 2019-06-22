@@ -355,21 +355,25 @@ var chain = new function() {
 			var parentID = parseInt(system[1]), childID = chainList.length;
 
 			for (var x in chainData) {
-				var wormhole = chainData[x];
-				if (wormhole.parent == "secondary") {
-					var sig1 = tripwire.client.signatures[wormhole.secondaryID];
-					var sig2 = tripwire.client.signatures[wormhole.initialID];
-				} else {
-					var sig1 = tripwire.client.signatures[wormhole.initialID];
-					var sig2 = tripwire.client.signatures[wormhole.secondaryID];
-				}
-				
+				var wormhole = chainData[x];				
 				if ($.inArray(wormhole.id, usedLinks) == -1) {
-					var parent, child;
+					var sig1, sig2, sig1Type, sig2Type,
+						parent, child, parentType, childType;
+					if (wormhole.parent == "secondary") {
+						sig1 = tripwire.client.signatures[wormhole.secondaryID];
+						sig2 = tripwire.client.signatures[wormhole.initialID];
+					} else {
+						sig1 = tripwire.client.signatures[wormhole.initialID];
+						sig2 = tripwire.client.signatures[wormhole.secondaryID];
+					}
+					sig1Type = wormhole.type; sig2Type = 'K162';
+					
 					if (sig1 && sig1.systemID == system[0]) {
 						parent = sig1; child = sig2;
+						parentType = sig2Type; childType = sig1Type;
 					} else if(sig2 && sig2.systemID == system[0]) {
 						parent = sig2; child = sig1;
+						childType = sig2Type; parentType = sig1Type;
 					} else { continue; }
 					
 					var node = {};
@@ -382,7 +386,7 @@ var chain = new function() {
 					node.parent.id = parentID;
 					node.parent.systemID = tripwire.systems[parent.systemID] ? parent.systemID : parent.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
 					node.parent.name = parent.name;
-					node.parent.type = 'K162';
+					node.parent.type = parentType;
 					node.parent.typeBM = null;
 					node.parent.classBM = null;
 					node.parent.nth = null;
@@ -392,7 +396,7 @@ var chain = new function() {
 					node.child.id = ++childID;
 					node.child.systemID = tripwire.systems[child.systemID] ? child.systemID : child.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
 					node.child.name = child.name;
-					node.child.type = wormhole.type;
+					node.child.type = childType;
 					node.child.typeBM = null;
 					node.child.classBM = null;
 					node.child.nth = null;
