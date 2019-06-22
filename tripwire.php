@@ -674,6 +674,17 @@ if ($row = $stmt->fetchObject()) {
 						</td>
 					</tr>
 					<tr>
+						<th>K-space route selection:</th>
+						<td>
+							<select id="chainRouteSecurity" style="width: 30%">
+								<option value="shortest">Shortest</option>
+								<option value="highsec">Prefer HS</option>
+								<option value="avoid-null">Avoid NS</option>
+								<option value="avoid-high">Avoid HS</option>
+							</select> <label><input type="checkbox" name="route-ignore-enabled" id="route-ignore-enabled">Avoiding:</label> <input type="text" style="width: 30%" name="route-ignore" id="route-ignore" />
+						</td>
+					</tr>				
+					<tr>
 						<th>Signature Add Dialog default type:</th>
 						<td>
 							<select id="editType">
