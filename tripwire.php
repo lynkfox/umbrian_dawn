@@ -661,6 +661,19 @@ if ($row = $stmt->fetchObject()) {
 						</td>
 					</tr>
 					<tr>
+						<th>Show Route as Blobs up to:</th>
+						<td>
+							<select id="chainRoutingLimit">
+								<option value="0">Off</option>
+								<option value="5">5 Jumps</option>
+								<option value="10">10 Jumps</option>
+								<option value="15">15 Jumps</option>
+								<option value="20">20 Jumps</option>
+								<option value="1000">Entire Cluster</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
 						<th>Signature Add Dialog default type:</th>
 						<td>
 							<select id="editType">

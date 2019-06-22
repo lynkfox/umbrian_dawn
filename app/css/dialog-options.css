@@ -9,6 +9,8 @@
     margin-top: 3px;
 }
 
+#dialog-options input[type="text"], #dialog-options input[type="password"], #dialog-options select { width: 75% }
+
 #dialog-options label[for=uiscale-slider] {
     padding: 0 8px;
 }

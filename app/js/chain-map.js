@@ -428,7 +428,7 @@ var chain = new function() {
 		}
 		
 		function renderPath(path) {
-			if(path.length <= 3 || path.length > 15) { return '' + path.length - 1; }
+			if(path.length <= 1 || path.length > options.chain.routingLimit) { return '' + path.length - 1; }
 			else {
 				var systemMarkup = path
 				.slice(0, path.length - 1).reverse()
@@ -442,6 +442,7 @@ var chain = new function() {
 				var r = '<span class="path">';
 				for(var i = 0; i < systemMarkup.length; i++) {
 					if(i > 0 && 0 == i % 5) { r += '|'; }
+					
 					r += systemMarkup[i];				 
 				}
 				return r + '</span>';
