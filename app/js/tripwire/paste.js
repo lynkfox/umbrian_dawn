@@ -32,7 +32,7 @@ tripwire.pasteSignatures = function() {
             }
 
             if (columns[x] != "") {
-                scanner.name = columns[x];
+                scanner.name = columns[x].trim();
             }
         }
 
