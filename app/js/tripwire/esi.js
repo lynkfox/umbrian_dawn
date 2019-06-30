@@ -8,7 +8,11 @@ tripwire.esi = function() {
     var scopeError = function(characterID) {
         $("#tracking .tracking-clone[data-characterid='"+ characterID +"']").find(".alert").show();
     }
-
+	
+	var isExpired = function(tokenExpire) {
+		return moment.utc(tokenExpire).subtract(5, "minutes").isBefore(moment());
+	}
+	
     this.esi.location = function() {
         clearTimeout(locationTimer);
 
@@ -16,7 +20,7 @@ tripwire.esi = function() {
             var character = tripwire.esi.characters[characterID];
 
             // Check for expiring token
-            if (moment(character.tokenExpire).subtract(5, "minutes").isBefore(moment())) {
+            if (isExpired(character.tokenExpire)) {
                 tripwire.data.esi = {"expired": true};
                 continue;
             }
@@ -134,7 +138,7 @@ tripwire.esi = function() {
             var character = tripwire.esi.characters[characterID];
 
             // Check for expiring token
-            if (moment(character.tokenExpire).subtract(5, "minutes").isBefore(moment())) {
+            if (isExpired(character.tokenExpire)) {
                 tripwire.data.esi = {"expired": true};
                 continue;
             }
