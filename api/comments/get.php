@@ -1,7 +1,7 @@
 <?php
 
 if (isset($_REQUEST['systemID']) && $maskID) {
-    $query = 'SELECT * FROM comments WHERE (systemID = :systemID) AND maskID = :maskID';
+    $query = 'SELECT * FROM comments WHERE systemID = :systemID AND maskID = :maskID';
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':systemID', $_REQUEST['systemID']);
     $stmt->bindValue(':maskID', $maskID);
