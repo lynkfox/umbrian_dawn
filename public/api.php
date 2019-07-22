@@ -24,6 +24,10 @@ if (isset($path[1])) {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             include('../api/wormholes/get.php');
         }
+    } else if ($path[1] == 'comments') {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            include('../api/comments/get.php');
+        }
     }
 }
 
