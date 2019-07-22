@@ -20,7 +20,9 @@ foreach ($esi->getJumps() AS $systemJumps) {
 }
 
 foreach ($esi->getKills() AS $systemKills) {
-    $activity[$systemKills->system_id] = array_fill_keys($keys, '');
+    if(!isset($activity[$systemKills->system_id])) {
+		$activity[$systemKills->system_id] = array_fill_keys($keys, '');
+	} 
     $activity[$systemKills->system_id]['ship_kills'] = $systemKills->ship_kills;
     $activity[$systemKills->system_id]['pod_kills'] = $systemKills->pod_kills;
     $activity[$systemKills->system_id]['npc_kills'] = $systemKills->npc_kills;
