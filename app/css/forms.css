@@ -107,7 +107,7 @@ input[disabled], a[disabled] {
 	cursor: default;
 }
 
-input[type=checkbox] {
+#dialog-editMask input[type=checkbox] {
 	display: none;
 }
 
