@@ -73,6 +73,9 @@ Setup:
 
 **General**
 
+To start the stack run `docker-compose up -d --build`
+To view logs in real time run `docker-compose logs -f`
+
 _TODO: Use either a docker cron or use docker exec commands in crontab_
 
 - Setup a CRON or schedule for `system_activity.cron.php` to run at the top of every hour. CRON: `0 * * * * php /dir/to/system_activity.cron.php`
