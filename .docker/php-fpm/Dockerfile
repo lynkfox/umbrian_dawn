@@ -18,5 +18,6 @@ COPY ./.docker/php-fpm/www.conf /etc/php-fpm.d/www.conf
 COPY ./.docker/php-fpm/php.ini /etc/php.ini
 
 RUN yum clean all
+RUN mkdir -p /run/php-fpm
 
 CMD php-fpm
