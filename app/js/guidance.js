@@ -14,6 +14,20 @@ var guidance = (function (undefined) {
 		return parseFloat (a) - parseFloat (b);
 	}
 
+	function adjustCostForOptions(mapCost, system) {
+		var system = tripwire.systems[30000000 + 1 * system];
+		if(!system) { return mapCost; }
+		if(options.chain.routeIgnore.enabled && options.chain.routeIgnore.systems.indexOf(system.name) >= 0) {
+			mapCost += 100;	// Penalty for an avoided system
+		}
+		switch(options.chain.routeSecurity) {
+			case 'highsec': return mapCost + (system.security < 0.45 ? 100 : 0);
+			case 'avoid-high': return mapCost + (system.security >= 0.45 ? 100 : 0);
+			case 'avoid-null': return mapCost + (system.security <= 0.0 ? 100 : 0);
+			default: return mapCost;	// in case of some invalid option, default to shortest
+		}
+	}
+
 	var findPaths = function (map, start, end, infinity) {
 		infinity = infinity || Infinity;
 
@@ -30,7 +44,7 @@ var guidance = (function (undefined) {
 
 		costs[start] = 0;
 
-		while (open) {
+		while (open && !costs[end]) {
 			if(!(keys = extractKeys(open)).length) break;
 
 			keys.sort(sorter);
@@ -45,7 +59,7 @@ var guidance = (function (undefined) {
 
 			for (var vertex in adjacentNodes) {
 			    if (Object.prototype.hasOwnProperty.call(adjacentNodes, vertex)) {
-					var cost = adjacentNodes[vertex],
+					var cost = adjustCostForOptions(adjacentNodes[vertex], vertex),
 					    totalCost = cost + currentCost,
 					    vertexCost = costs[vertex];
 

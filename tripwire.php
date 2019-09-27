@@ -661,6 +661,30 @@ if ($row = $stmt->fetchObject()) {
 						</td>
 					</tr>
 					<tr>
+						<th>Show Route as Blobs up to:</th>
+						<td>
+							<select id="chainRoutingLimit">
+								<option value="0">Off</option>
+								<option value="5">5 Jumps</option>
+								<option value="10">10 Jumps</option>
+								<option value="15">15 Jumps</option>
+								<option value="20">20 Jumps</option>
+								<option value="1000">Entire Cluster</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>K-space route selection:</th>
+						<td>
+							<select id="chainRouteSecurity" style="width: 30%">
+								<option value="shortest">Shortest</option>
+								<option value="highsec">Prefer HS</option>
+								<option value="avoid-null">Avoid NS</option>
+								<option value="avoid-high">Avoid HS</option>
+							</select> <label><input type="checkbox" name="route-ignore-enabled" id="route-ignore-enabled">Avoiding:</label> <input type="text" style="width: 30%" name="route-ignore" id="route-ignore" />
+						</td>
+					</tr>				
+					<tr>
 						<th>Signature Add Dialog default type:</th>
 						<td>
 							<select id="editType">

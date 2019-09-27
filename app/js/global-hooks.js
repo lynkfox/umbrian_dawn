@@ -333,6 +333,26 @@ var SystemActivityToolTips = new jBox("Tooltip", {
 	}
 });
 
+var WormholeRouteToolTips = new jBox("Tooltip", {
+	getContent: "data-tooltip",
+	position: {y: "bottom"},
+	appendTo: $("#chainParent"),
+	reposition: true,
+	repositionOnOpen: true,
+	createOnInit: true,
+	onOpen: function() {
+		var nodePos = this.source.closest("[data-nodeid]").position();
+		var parentPos = this.source.closest(".path").position();
+		var nodeHeight = this.source.closest("[data-nodeid]").height();
+		// var nodeWidth = this.source.closest("[data-nodeid]").width();
+		var targetPos = this.target.position()
+		var tooltipWidth = this.container.parent().width();
+		// var tooltipHeight = this.container.parent().height();
+
+		this.options.position = {x: nodePos.left + parentPos.left + targetPos.left + 3 - tooltipWidth /2 , y: nodePos.top + nodeHeight + 15};
+	}
+});
+
 var WormholeTypeToolTips = new jBox("Tooltip", {
 	attach: $("#chainMap .whEffect[data-icon]"),
 	getContent: "data-tooltip",

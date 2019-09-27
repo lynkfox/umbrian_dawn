@@ -1,4 +1,4 @@
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], select {
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#888), to(#FFF));
     background-image: linear-gradient(to bottom, #888 0%,#FFF 100%);
 
@@ -107,7 +107,7 @@ input[disabled], a[disabled] {
 	cursor: default;
 }
 
-input[type=checkbox] {
+#dialog-editMask input[type=checkbox] {
 	display: none;
 }
 
