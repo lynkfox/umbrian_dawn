@@ -687,7 +687,7 @@ var chain = new function() {
 				WormholeTypeToolTips.detach($("#chainMap .whEffect"));
 			}
 			WormholeTypeToolTips.attach($("#chainMap .whEffect[data-icon]")); // 0.30ms
-			WormholeRouteToolTips.attach($(".path span[data-tooltip]"));
+			WormholeRouteToolTips.attach($("#chainMap .path span[data-tooltip]"));
 
 			this.drawing = false;
 		}
