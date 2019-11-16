@@ -111,7 +111,7 @@ tripwire.systemChange = function(systemID, mode) {
 		// Route to favourites
 		for (var fi in options.favorites) {
 			const f = options.favorites[fi];
-			const path = guidance.findShortestPath(tripwire.map.shortest, viewingSystemID - 30000000, f - 30000000);
+			const path = guidance.findShortestPath(tripwire.map.shortest, f - 30000000, viewingSystemID - 30000000);
 			if(path) { $('#infoStatics').append('<p><b>' + tripwire.systems[f].name + '</b>: ' + chain.renderPath(path) + '</p>'); }
 		}
         Tooltips.attach($("#infoStatics [data-tooltip]"));
