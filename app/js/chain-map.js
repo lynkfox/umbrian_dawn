@@ -123,9 +123,20 @@ var chain = new function() {
 
 	this.lines = function(data) {
 		//var data = typeof(data) !== "undefined" ? data : this.data.lines;
-
 		function drawNodeLine(system, parent, mode, signatureID) {
 			/*	function for drawing colored lines  */
+			if(typeof mode == 'string') { mode = [mode]; }
+
+			function addModes(jquerySelector, prefixes) { return doModeClasses(jquerySelector, prefixes, function(s, c) { s.addClass(c); }); }
+			function removeModes(jquerySelector, prefixes) { return doModeClasses(jquerySelector, prefixes, function(s, c) { s.removeClass(c); }); }
+			function doModeClasses(jquerySelector, prefixes, classFunc) {
+				prefixes = prefixes || [];
+				prefixes.push('');
+				prefixes.forEach(function(prefix) { 
+					mode.forEach( function(mode) { classFunc(jquerySelector, (prefix.length ? prefix + '-' : '') + mode); });
+				});
+				return jquerySelector;
+			}
 
 			// Find node in chainmap
 			//var $node = $("#chainMap [data-nodeid='"+system+"']").parent();
@@ -139,8 +150,7 @@ var chain = new function() {
 			var nodeIndex = Math.ceil(($node[0].cellIndex + 1) / 2 - 1);
 
 			// applly to my top line
-			var $connector = $($node.parent().prev().children("td.google-visualization-orgchart-lineleft, td.google-visualization-orgchart-lineright")[nodeIndex]).addClass("left-"+mode+" right-"+mode);
-			//var $connector = $($node.parent().prev().find("td:not([colspan])")[nodeIndex]).addClass("left-"+mode+" right-"+mode).attr("data-signatureid", signatureID);
+			var $connector = addModes($($node.parent().prev().children("td.google-visualization-orgchart-lineleft, td.google-visualization-orgchart-lineright")[nodeIndex]), [ 'left', 'right' ]);
 
 			// Find parent node
 			//var $parent = $("#chainMap [data-nodeid='"+parent+"']").parent();
@@ -181,8 +191,7 @@ var chain = new function() {
 			parentIndex = newparentIndex;
 
 			// Apply to parent bottom line
-			var $connecte = $($node.parent().prev().prev().children("td.google-visualization-orgchart-lineleft, td.google-visualization-orgchart-lineright")[parentIndex]).addClass("left-"+mode+" right-"+mode);
-			//var $connecte = $($node.parent().prev().prev().find("td:not([colspan])")[parentIndex]).addClass("left-"+mode+" right-"+mode).attr("data-signatureid", signatureID);
+			var $connecte = addModes($($node.parent().prev().prev().children("td.google-visualization-orgchart-lineleft, td.google-visualization-orgchart-lineright")[parentIndex]), [ 'left', 'right'] );
 
 			// the beans
 			var col = 0, parent = false, me = false;
@@ -195,11 +204,11 @@ var chain = new function() {
 				} else if (typeof($connecte[0]) != "undefined" && $connecte[0].cellIndex == index) {
 					parent = true;
 
-					$(this).addClass("left-"+mode);
+					addModes($(this), ['left']);
 
 					// remove bottom border that points to the right
 					if (!me && col != nodeCol) {
-						$(this).addClass("bottom-"+mode);
+						addModes($(this), ['bottom']);
 					}
 
 					// parent and node are same - we are done
@@ -209,7 +218,7 @@ var chain = new function() {
 				} else if (col == nodeCol) {
 					me = true;
 
-					$(this).addClass("bottom-"+mode);
+					addModes($(this), [ 'bottom' ]);
 				} else if (me || parent) {
 					var tempCol = 0, breaker = false, skip = false;
 
@@ -220,17 +229,16 @@ var chain = new function() {
 							if (parent == false) {
 								// Stop looking cuz there is another node between us and parent
 								breaker = true;
-								$connecte.removeClass("left-"+mode+" right-"+mode);
-
+								removeModes($connecte, [ 'left', 'right' ]);
 								return false;
 							} else if (parent == true) {
 								// Lets make sure there isnt a node between the parent and me
-								$connecte.removeClass("left-"+mode+" right-"+mode);
+								removeModes($connecte, [ 'left', 'right' ]);
 
 								$node.parent().prev().prev().find("td").each(function(index) {
 									if (index >= $connecte[0].cellIndex) {
 										// there is a node after parent but before me
-										$(this).removeClass("bottom-"+mode);
+										removeModes($(this), [ 'bottom' ]);
 									}
 								});
 								skip = true;
@@ -243,7 +251,7 @@ var chain = new function() {
 					}
 
 					if (!skip) {
-						$(this).addClass("bottom-"+mode);
+						addModes($(this), ['bottom'] );
 					}
 				}
 			});
@@ -256,7 +264,7 @@ var chain = new function() {
 
 	this.nodes = function(map) {
 		var chain = {cols: [{label: "System", type: "string"}, {label: "Parent", type: "string"}], rows: []};
-		var frigTypes = ["Q003", "E004", "L005", "Z006", "M001", "C008", "G008", "A009", "SML", "MED", "LRG", "XLG"];
+		var frigTypes = ["Q003", "E004", "L005", "Z006", "M001", "C008", "G008", "A009", "SML" ];
 		var connections = [];
 		var chainMap = this;
 
@@ -538,25 +546,15 @@ var chain = new function() {
 
 			row.c.push(child, parent);
 			chain.rows.push(row);
-
-			if (node.life == "critical" && ($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1))
-				connections.push(Array(child.v, parent.v, "eol-frig", node.id));
-			else if (node.life == "critical" && node.mass == "critical")
-				connections.push(Array(child.v, parent.v, "eol-critical", node.id));
-			else if (node.life == "critical" && node.mass == "destab")
-				connections.push(Array(child.v, parent.v, "eol-destab", node.id));
-			else if ($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1)
-				connections.push(Array(child.v, parent.v, "frig", node.id));
-			else if (node.life == "critical")
-				connections.push(Array(child.v, parent.v, "eol", node.id));
-			else if (node.mass == "critical")
-				connections.push(Array(child.v, parent.v, "critical", node.id));
-			else if (node.mass == "destab")
-				connections.push(Array(child.v, parent.v, "destab", node.id));
-			else if (node.life == "Gate" || node.parent.type == "GATE" || node.child.type == "GATE")
-				connections.push(Array(child.v, parent.v, "gate", node.id));
-			//else
-			//	connections.push(Array(child.v, parent.v, "", node.id));
+			
+			var modifiers = [];			
+			if (node.life == "critical") { modifiers.push('eol'); }
+			if (node.mass == "critical") { modifiers.push('critical'); }
+			else if (node.mass == "destab") { modifiers.push('destab'); }
+			
+			if($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1) { modifiers.push('frig'); }
+			
+			if(modifiers.length) { connections.push(Array(child.v, parent.v, modifiers, node.id)); }
 		}
 
 		// Apply critical/destab line colors

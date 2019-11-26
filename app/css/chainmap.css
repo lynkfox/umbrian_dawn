@@ -157,141 +157,12 @@
 	padding: 2px;
 }
 
-#chainMap .left-critical {
-	border-left-color: #FF4747;
-}
-
-#chainMap .right-critical {
-	border-right-color: #FF4747;
-}
-
-#chainMap .bottom-critical {
-	border-bottom-color: #FF4747;
-}
-
-#chainMap .top-critical {
-	border-top-color: #FF4747;
-}
-
-#chainMap .left-destab {
-	border-left-color: #F5B544;
-}
-
-#chainMap .right-destab {
-	border-right-color: #F5B544;
-}
-
-#chainMap .bottom-destab {
-	border-bottom-color: #F5B544;
-}
-
-#chainMap .top-gate {
-	border-top-color: darkgray;
-}
-
-#chainMap .left-gate {
-	border-left-color: darkgray;
-}
-
-#chainMap .right-gate {
-	border-right-color: darkgray;
-}
-
-#chainMap .bottom-gate {
-	border-bottom-color: darkgray;
-}
-
-#chainMap .left-eol {
-	border-style: dashed;
-}
-
-#chainMap .right-eol {
-	border-style: dashed;
-}
-
-#chainMap .bottom-eol {
-	border-style: dashed;
-}
-
-#chainMap .top-eol {
-	border-style: dashed;
-}
-
-#chainMap .top-frig {
-	border-top-color: #50D25A;
-}
-
-#chainMap .left-frig {
-	border-left-color: #50D25A;
-}
-
-#chainMap .right-frig {
-	border-right-color: #50D25A;
-}
-
-#chainMap .bottom-frig {
-	border-bottom-color: #50D25A;
-}
-
-#chainMap .left-eol-frig {
-	border-style: dashed;
-	border-left-color: #50D25A;
-}
-
-#chainMap .right-eol-frig {
-	border-style: dashed;
-	border-right-color: #50D25A;
-}
-
-#chainMap .bottom-eol-frig {
-	border-style: dashed;
-	border-bottom-color: #50D25A;
-}
-
-#chainMap .top-eol-frig {
-	border-style: dashed;
-	border-top-color: #50D25A;
-}
-
-#chainMap .left-eol-critical {
-	border-style: dashed;
-	border-left-color: #FF4747;
-}
-
-#chainMap .right-eol-critical {
-	border-style: dashed;
-	border-right-color: #FF4747;
-}
-
-#chainMap .bottom-eol-critical {
-	border-style: dashed;
-	border-bottom-color: #FF4747;
-}
-
-#chainMap .top-eol-critical {
-	border-style: dashed;
-	border-top-color: #FF4747;
-}
-
-#chainMap .left-eol-destab {
-	border-style: dashed;
-	border-left-color: #F5B544;
-}
-
-#chainMap .right-eol-destab {
-	border-style: dashed;
-	border-right-color: #F5B544;
-}
-
-#chainMap .bottom-eol-destab {
-	border-style: dashed;
-	border-bottom-color: #F5B544;
-}
-
-#chainMap .top-eol-destab {
-	border-style: dashed;
-	border-top-color: #F5B544;
-}
+/* These styles need the specific selectors because they need to override presets */
+.critical, #chainMap .critical, #guide .critical { border-color: #FF4747; }
+.destab, #chainMap .destab, #guide .destab { border-color: #F5B544; }
+.gate, #chainMap .gate, #guide .gate { border-color: darkgray; }
+.eol, #chainMap .eol, #guide .eol { border-style: dashed; }
+.frig, #chainMap .frig, #guide .frig { border-color: #50D25A; }
 
 #massTable td:nth-child(1) {
 	min-width: 12em;
@@ -363,26 +234,8 @@
 
 #guide div {
 	width: 20px;
-}
-
-.guide-stable {
+	border-width: 0;
 	border-bottom: 1px solid #38d;
-}
-
-.guide-eol {
-	border-bottom: 1px dashed #38d;
-}
-
-.guide-destab {
-	border-bottom: 1px solid #F5B544;
-}
-
-.guide-critical {
-	border-bottom: 1px solid #FF4747;
-}
-
-.guide-frigate {
-	border-bottom: 1px solid #50D25A;
 }
 
 [data-icon="user"] + .badge {
