@@ -454,7 +454,7 @@ var chain = new function() {
 					}
 
 					if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID]) {
-						for (x in options.favorites) {
+						for (var x in options.favorites) {
 							if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000)
 								continue;
 
@@ -469,28 +469,6 @@ var chain = new function() {
 			}
 		}
 		
-		function renderPath(path) {
-			if(path.length <= 1 || path.length > options.chain.routingLimit) { return '' + path.length - 1; }
-			else {
-				var systemMarkup = path
-				.slice(0, path.length - 1).reverse()
-				.map(s => {
-					var system = appData.systems[30000000 + 1 * s];
-					var securityClass = system.security >= 0.45 ? 'hisec' :
-						system.security >= 0.0 ? 'lowsec' :
-						'nullsec';
-					return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">&#x25a0</span>';
-				});
-				var r = '<span class="path">';
-				for(var i = 0; i < systemMarkup.length; i++) {
-					if(i > 0 && 0 == i % 5) { r += '|'; }
-					
-					r += systemMarkup[i];				 
-				}
-				return r + '</span>';
-			}
-		}
-
 		if ($("#chainTabs .current").length > 0) {
 			var systems = $("#chainTabs .current .name").data("tab").toString().split(",");
 			var chainList = [];
@@ -589,6 +567,28 @@ var chain = new function() {
 		return {"map": chain, "lines": connections};
 	}
 
+	this.renderPath = function(path) {
+		if(path.length <= 1 || path.length > options.chain.routingLimit) { return '' + path.length - 1; }
+		else {
+			var systemMarkup = path
+			.slice(0, path.length - 1).reverse()
+			.map(function(s) {
+				var system = appData.systems[30000000 + 1 * s];
+				var securityClass = system.security >= 0.45 ? 'hisec' :
+					system.security >= 0.0 ? 'lowsec' :
+					'nullsec';
+				return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">&#x25a0</span>';
+			});
+			var r = '<span class="path">';
+			for(var i = 0; i < systemMarkup.length; i++) {
+				if(i > 0 && 0 == i % 5) { r += '|'; }
+				
+				r += systemMarkup[i];				 
+			}
+			return r + '</span>';
+		}
+	}
+
 	this.redraw = function() {
 		var data = $.extend(true, {}, this.data);
 		data.map = $.extend(true, {}, data.rawMap);
@@ -649,7 +649,7 @@ var chain = new function() {
 				WormholeTypeToolTips.detach($("#chainMap .whEffect"));
 			}
 			WormholeTypeToolTips.attach($("#chainMap .whEffect[data-icon]")); // 0.30ms
-			WormholeRouteToolTips.attach($(".path span[data-tooltip]"));
+			WormholeRouteToolTips.attach($("#chainMap .path span[data-tooltip]"));
 
 			this.drawing = false;
 		}

@@ -146,7 +146,14 @@ i.disabled {
 	height: 16px;
 }
 
-/* Scrollbar */
+/* Scrollbar. Body properties are standards-compliant but only work in Firefox.
+-webkit-* works in Chrome/Safari/etc */
+body {
+	/* Standards - Firefox. Use slightly less contrasty colours because the bar will be wider */
+	scrollbar-width: thin;
+	scrollbar-color: #444 #111;
+}
+
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;

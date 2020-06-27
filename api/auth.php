@@ -47,14 +47,15 @@ if (isset($_REQUEST['maskID']) && !empty($_REQUEST['maskID'])) {
             }
 
             if ($checkMask[1] == 0 && $checkMask[0] != 0) {
-                $query = 'SELECT masks.maskID as maskID FROM masks INNER JOIN groups ON masks.maskID = groups.maskID WHERE (ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373) OR (eveID = :corporationID AND eveType = 2)';
+                $query = 'SELECT masks.maskID as maskID FROM masks INNER JOIN groups ON masks.maskID = groups.maskID WHERE (ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373) OR (eveID = :corporationID AND eveType = 2) AND masks.maskID = :maskID';
                 $stmt = $mysql->prepare($query);
                 $stmt->bindValue(':characterID', $character->characterID);
                 $stmt->bindValue(':corporationID', $character->corporationID);
+                $stmt->bindValue(':maskID', $_REQUEST['maskID']);
                 $stmt->execute();
-                $mask = $stmt->fetchObject();
-                if ($mask && $mask->maskID == $_REQUEST['maskID']) {
-                    $maskID = $mask->maskID;
+                $masks = $stmt->fetchAll();
+                if ($masks && $masks['0']['maskID'] == $_REQUEST['maskID']) {
+                    $maskID = $masks['0']['maskID'];
                     break;
                 }
             } else if ($checkMask[1] == 1 && $checkMask[0] == $character->characterID) {
@@ -66,4 +67,10 @@ if (isset($_REQUEST['maskID']) && !empty($_REQUEST['maskID'])) {
             }
         }
     }
+
+    if ($maskID === null) {
+        echo 'You are not authorized to use this mask';
+    }
+} else {
+    echo 'Mask ID is required';
 }
