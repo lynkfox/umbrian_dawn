@@ -1,6 +1,8 @@
 tripwire.parse = function(server, mode) {
     var data = $.extend(true, {}, server);
 
+    var updateSignatureTable = false;
+
     if (options.chain.active == null || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout != true)) {
         if (options.masks.active != "273.0") {
             for (var key in data.signatures) {
@@ -26,6 +28,7 @@ tripwire.parse = function(server, mode) {
             // Check for differences
             if (!tripwire.signatures.list[key]) {
                 this.addSig(data.signatures[key], {animate: true}, disabled);
+                updateSignatureTable = true;
             } else if (tripwire.signatures.list[key].modifiedTime !== data.signatures[key].modifiedTime) {
                 var edit = false;
                 for (column in data.signatures[key]) {
@@ -58,6 +61,7 @@ tripwire.parse = function(server, mode) {
             var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
 
             this.addSig(data.signatures[key], {animate: false}, disabled);
+            updateSignatureTable = true;
 
             if (data.signatures[key].editing) {
                 this.sigEditing(data.signatures[key]);
@@ -65,6 +69,9 @@ tripwire.parse = function(server, mode) {
         }
     }
 
+    if (updateSignatureTable) {
+        $("#sigTable").trigger("update");
+    }
     tripwire.signatures.list = data.signatures;
 
     // set the sig count in the UI
