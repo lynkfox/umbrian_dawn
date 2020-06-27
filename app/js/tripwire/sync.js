@@ -9,7 +9,7 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
     if (this.xhr) this.xhr.abort();
 
     if (mode == 'refresh' || mode == 'change') {
-        data.signatureCount = Object.size(this.client.signatures);
+        data.signatureCount = tripwire.serverSignatureCount;
         data.signatureTime = Object.maxTime(this.client.signatures, "modifiedTime");
 
         data.flareCount = chain.data.flares ? chain.data.flares.flares.length : 0;
@@ -45,6 +45,9 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
     }).done(function(data) {
         if (data) {
             tripwire.server = data;
+            if(data.signatures) { // Save this count before we delete entries
+                tripwire.serverSignatureCount = Object.size(data.signatures);
+            }
 
             // Purge bad wormhole signatures
             for (var i in data.signatures) {
