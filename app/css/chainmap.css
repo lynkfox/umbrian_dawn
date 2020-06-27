@@ -118,12 +118,14 @@
 
 #chainMap .nodeActivity {
 	position: absolute;
-	top: 2.8em;
+	bottom: 3px;
 	right: 50%;
 	width: 50px;
 	height: 1px;
 	margin-right: -25px;
 }
+
+#chainMap .statics { display: none }	/* for now */
 
 #chainMap i[data-icon="user"] {
 	padding: 3px;

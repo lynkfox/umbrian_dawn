@@ -260,28 +260,6 @@ var chain = new function() {
 		var connections = [];
 		var chainMap = this;
 
-		function formatChainNode(node) {
-			return "<div id='node"+node.child.id+"' data-nodeid='"+node.child.systemID+"' data-sigid='"+node.id+"'>"
-							+	"<div class='nodeIcons'>"
-							+		"<div style='float: left;'>"
-							+			"<i class='whEffect' "+(effectClass ? "data-icon='"+effectClass+"' data-tooltip='"+effect+"'" : null)+"></i>"
-							+		"</div>"
-							+		"<div style='float: right;'>"
-							+			"<i data-icon='user' class='invisible'></i>"
-							+			"<span class='badge invisible'></span>"
-							+		"</div>"
-							+	"</div>"
-							+	"<h4 class='nodeClass'>"+(systemType + sigFormat(node.child.classBM, "class"))+"</h4>"
-							+	"<h4 class='nodeSystem'>"
-							+ 	(tripwire.systems[node.child.systemID] ? "<a href='.?system="+tripwire.systems[node.child.systemID].name+"'>"+(node.parent.name ? node.parent.name : tripwire.systems[node.child.systemID].name)+"</a>" : (node.parent.name ? node.parent.name : "<a class='invisible'>system</a>"))
-							+	"</h4>"
-							+	(node.child.path ? "<h4 class='nodeType'>" + chainMap.renderPath(node.child.path) + "</h4>" : ("<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") : (node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"))
-							+	"<div class='nodeActivity'>"
-							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
-							+	"</div>"
-							+"</div>"			
-		}
-		
 		function formatStatics(statics) {
 			const shortCodeMap = {}
 			return 'x';
@@ -290,13 +268,18 @@ var chain = new function() {
 		function topLevel(systemID, id) {
 			if (!systemID || !tripwire.systems[systemID])
 				return false;
+			const tabName = options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].systemID != 0 ? options.chain.tabs[options.chain.active].name : undefined;
+			return makeSystemNode(systemID, id, null, tabName, '&nbsp;');
+		}
 
+		function makeSystemNode(systemID, id, sigId, systemName, nodeTypeMarkup) {
 			// System type switch
 			var systemType = getSystemType(systemID);
+			const system = tripwire.systems[systemID];
 
 			var effectClass = null, effect = null;
-			if (tripwire.systems[systemID].class) {
-				switch(tripwire.systems[systemID].effect) {
+			if (system && system.effect) {
+				switch(system.effect) {
 					case "Black Hole":
 						effectClass = "blackhole";
 						break;
@@ -317,11 +300,11 @@ var chain = new function() {
 						break;
 				}
 
-				effect = tripwire.systems[systemID].effect;
+				effect = system.effect;
 			}
 
-			var system = {v: id};
-			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'>"
+			var node = {v: id};
+			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"+(sigId ? " data-sigid='"+sigId+"'" : null)+">"
 							+	"<div class='nodeIcons'>"
 							+		"<div style='float: left;'>"
 							+			"<i class='whEffect' "+(effectClass ? "data-icon='"+effectClass+"' data-tooltip='"+effect+"'" : null)+"></i>"
@@ -333,20 +316,20 @@ var chain = new function() {
 							+	"</div>"
 							+	"<h4 class='nodeClass'>"+systemType+"</h4>"
 							+	"<h4 class='nodeSystem'>"
-							+		"<a href='.?system="+tripwire.systems[systemID].name+"'>"+(options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].systemID != 0 ? options.chain.tabs[options.chain.active].name : tripwire.systems[systemID].name)+"</a>"
+							+		(system ? "<a href='.?system="+system.name+"'>"+(systemName ? systemName : system.name)+"</a>" : systemName ? systemName : '&nbsp;')
 							+	"</h4>"
-							+	"<h4 class='nodeType'>&nbsp;</h4>"
+							+	"<h4 class='nodeType'>" + nodeTypeMarkup + "</h4>"
 							+	"<div class='statics'>"
-							+ formatStatics(tripwire.systems[systemID].statics)
+							+ formatStatics(system ? system.statics : [])
 							+	"</div>"
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
 							+	"</div>"
 							+"</div>"
 
-			system.f = chainNode;
+			node.f = chainNode;
 
-			return system;
+			return node;
 		}
 		
 		function makeCalcChildNode(childID, node, targetSystem) {
@@ -376,12 +359,13 @@ var chain = new function() {
 			const system = tripwire.systems[systemID];
 			var leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[systemID.substring(0, systemID.indexOf("|"))] : null;
 			const nodeClass = system ? system.class : 
-				leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) : undefined;
+				leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
+				undefined;
 			const nodeSecurity = system ? system.security : 
 				leadsToPointer == "High-Sec" ? 0.8 :
 				leadsToPointer == "Low-Sec" ? 0.4 :
 				leadsToPointer == "Null-Sec" ? -0.1 :
-				null;
+				undefined;
 				
 			if (nodeClass)
 				return "<span class='wh class-" + nodeClass + "'>C" + nodeClass + "</span>";
@@ -391,6 +375,7 @@ var chain = new function() {
 				return "<span class='lowsec'>LS</span>";
 			else if (nodeSecurity <= 0.0)
 				return "<span class='nullsec'>NS</span>";
+			else return '&nbsp;';	// unknown
 		}		
 
 		function findLinks(system) {
@@ -555,42 +540,12 @@ var chain = new function() {
 		for (var x in chainLinks) {
 			var node = chainLinks[x];
 			var row = {c: []};
-
-			// System type switch
-			var systemType = getSystemType(node.child.systemID);
-			var effectClass = null, effect = null;
-			if (typeof(tripwire.systems[node.child.systemID]) != "undefined") {
-				switch(tripwire.systems[node.child.systemID].effect) {
-					case "Black Hole":
-						effectClass = "blackhole";
-						break;
-					case "Cataclysmic Variable":
-						effectClass = "cataclysmic-variable";
-						break;
-					case "Magnetar":
-						effectClass = "magnetar";
-						break;
-					case "Pulsar":
-						effectClass = "pulsar";
-						break;
-					case "Red Giant":
-						effectClass = "red-giant";
-						break;
-					case "Wolf-Rayet Star":
-						effectClass = "wolf-rayet";
-						break;
-					default:
-						effectClass = null;
-						break;
-				}
-
-				effect = tripwire.systems[node.child.systemID].effect;
-			}
-
-			var child = {v: node.child.id};
-			var chainNode = formatChainNode(node);
-
-			child.f = chainNode;
+			
+			const nodeTypeMarkup = node.child.path ? 
+				chainMap.renderPath(node.child.path) :
+				options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") :
+				(node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;";
+			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.parent.name, nodeTypeMarkup);
 
 			var parent = {v: node.parent.id};
 
