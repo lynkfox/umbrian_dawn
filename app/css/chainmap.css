@@ -127,18 +127,20 @@
 
 #chainMap .statics {
 	position: absolute;
-	bottom: -1em;
-	width: 100%;	/* to centre */
+	bottom: -1.5em;
 }
 
 #chainMap .statics span {
 	display: inline-block;
 	background: navy;
-	border-radius: 50px;
-	margin: 2px;
-	width: 10px;
+	border-radius: 0 0 50px 50px;
+	width: 8px;
 	height: 10px;
 	border: 2px solid #333;
+}
+
+#chainMap .statics span:nth-child(2) {
+	margin-right: 10px;	/* To leave a gap for the connection when 3+ statics */
 }
 
 #chainMap i[data-icon="user"] {
