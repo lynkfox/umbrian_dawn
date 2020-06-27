@@ -258,21 +258,41 @@ var chain = new function() {
 		var chain = {cols: [{label: "System", type: "string"}, {label: "Parent", type: "string"}], rows: []};
 		var frigTypes = ["Q003", "E004", "L005", "Z006", "M001", "C008", "G008", "A009", "SML", "MED", "LRG", "XLG"];
 		var connections = [];
+		var chainMap = this;
+
+		function formatChainNode(node) {
+			return "<div id='node"+node.child.id+"' data-nodeid='"+node.child.systemID+"' data-sigid='"+node.id+"'>"
+							+	"<div class='nodeIcons'>"
+							+		"<div style='float: left;'>"
+							+			"<i class='whEffect' "+(effectClass ? "data-icon='"+effectClass+"' data-tooltip='"+effect+"'" : null)+"></i>"
+							+		"</div>"
+							+		"<div style='float: right;'>"
+							+			"<i data-icon='user' class='invisible'></i>"
+							+			"<span class='badge invisible'></span>"
+							+		"</div>"
+							+	"</div>"
+							+	"<h4 class='nodeClass'>"+(systemType + sigFormat(node.child.classBM, "class"))+"</h4>"
+							+	"<h4 class='nodeSystem'>"
+							+ 	(tripwire.systems[node.child.systemID] ? "<a href='.?system="+tripwire.systems[node.child.systemID].name+"'>"+(node.parent.name ? node.parent.name : tripwire.systems[node.child.systemID].name)+"</a>" : (node.parent.name ? node.parent.name : "<a class='invisible'>system</a>"))
+							+	"</h4>"
+							+	(node.child.path ? "<h4 class='nodeType'>" + chainMap.renderPath(node.child.path) + "</h4>" : ("<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") : (node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"))
+							+	"<div class='nodeActivity'>"
+							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
+							+	"</div>"
+							+"</div>"			
+		}
+		
+		function formatStatics(statics) {
+			const shortCodeMap = {}
+			return 'x';
+		}
 
 		function topLevel(systemID, id) {
 			if (!systemID || !tripwire.systems[systemID])
 				return false;
 
 			// System type switch
-			var systemType;
-			if (tripwire.systems[systemID].class)
-				systemType = "<span class='wh'>C" + tripwire.systems[systemID].class + "</span>";
-			else if (tripwire.systems[systemID].security >= 0.45)
-				systemType = "<span class='hisec'>HS</span>";
-			else if (tripwire.systems[systemID].security > 0.0)
-				systemType = "<span class='lowsec'>LS</span>";
-			else if (tripwire.systems[systemID].security <= 0.0)
-				systemType = "<span class='nullsec'>NS</span>";
+			var systemType = getSystemType(systemID);
 
 			var effectClass = null, effect = null;
 			if (tripwire.systems[systemID].class) {
@@ -316,6 +336,9 @@ var chain = new function() {
 							+		"<a href='.?system="+tripwire.systems[systemID].name+"'>"+(options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].systemID != 0 ? options.chain.tabs[options.chain.active].name : tripwire.systems[systemID].name)+"</a>"
 							+	"</h4>"
 							+	"<h4 class='nodeType'>&nbsp;</h4>"
+							+	"<div class='statics'>"
+							+ formatStatics(tripwire.systems[systemID].statics)
+							+	"</div>"
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
 							+	"</div>"
@@ -348,6 +371,27 @@ var chain = new function() {
 			
 			return { childID, calcNode };
 		}
+		
+		function getSystemType(systemID) {
+			const system = tripwire.systems[systemID];
+			var leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[systemID.substring(0, systemID.indexOf("|"))] : null;
+			const nodeClass = system ? system.class : 
+				leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) : undefined;
+			const nodeSecurity = system ? system.security : 
+				leadsToPointer == "High-Sec" ? 0.8 :
+				leadsToPointer == "Low-Sec" ? 0.4 :
+				leadsToPointer == "Null-Sec" ? -0.1 :
+				null;
+				
+			if (nodeClass)
+				return "<span class='wh class-" + nodeClass + "'>C" + nodeClass + "</span>";
+			else if (nodeSecurity >= 0.45)
+				return "<span class='hisec'>HS</span>";
+			else if (nodeSecurity > 0.0)
+				return "<span class='lowsec'>LS</span>";
+			else if (nodeSecurity <= 0.0)
+				return "<span class='nullsec'>NS</span>";
+		}		
 
 		function findLinks(system) {
 			if (system[0] <= 0) return false;
@@ -513,35 +557,7 @@ var chain = new function() {
 			var row = {c: []};
 
 			// System type switch
-			var systemType;
-			var nodeClass = tripwire.systems[node.child.systemID] ? tripwire.systems[node.child.systemID].class : null;
-			var nodeSecurity = tripwire.systems[node.child.systemID] ? tripwire.systems[node.child.systemID].security : null;
-			var leadsToPointer = typeof(node.child.systemID) === "string" && node.child.systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[node.child.systemID.substring(0, node.child.systemID.indexOf("|"))] : null;
-			if (nodeClass == 6 || leadsToPointer == "Class-6" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 6"))
-				systemType = "<span class='wh'>C6</span>";
-			else if (nodeClass == 5 || leadsToPointer == "Class-5" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 5"))
-				systemType = "<span class='wh'>C5</span>";
-			else if (nodeClass == 4 || leadsToPointer == "Class-4" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 4"))
-				systemType = "<span class='wh'>C4</span>";
-			else if (nodeClass == 3 || leadsToPointer == "Class-3" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 3"))
-				systemType = "<span class='wh'>C3</span>";
-			else if (nodeClass == 2 || leadsToPointer == "Class-2" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 2"))
-				systemType = "<span class='wh'>C2</span>";
-			else if (nodeClass == 1 || leadsToPointer == "Class-1" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 1"))
-				systemType = "<span class='wh'>C1</span>";
-			else if (nodeClass > 6)
-				systemType = "<span class='wh'>C" + nodeClass + "</span>";
-			else if (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo.split(" ").length > 1)
-				systemType = "<span class='wh'>C" + tripwire.wormholes[node.child.type].leadsTo.split(" ")[1] + "</span>";
-			else if (nodeSecurity >= 0.45 || leadsToPointer == "High-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "High-Sec" && !nodeSecurity))
-				systemType = "<span class='hisec'>HS</span>";
-			else if (nodeSecurity > 0.0 || leadsToPointer == "Low-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Low-Sec" && !nodeSecurity))
-				systemType = "<span class='lowsec'>LS</span>";
-			else if ((nodeSecurity <= 0.0 && nodeSecurity != null) || leadsToPointer == "Null-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Null-Sec"))
-				systemType = "<span class='nullsec'>NS</span>";
-			else
-				systemType = "<span>&nbsp;</span>";
-
+			var systemType = getSystemType(node.child.systemID);
 			var effectClass = null, effect = null;
 			if (typeof(tripwire.systems[node.child.systemID]) != "undefined") {
 				switch(tripwire.systems[node.child.systemID].effect) {
@@ -572,25 +588,7 @@ var chain = new function() {
 			}
 
 			var child = {v: node.child.id};
-			var chainNode = "<div id='node"+node.child.id+"' data-nodeid='"+node.child.systemID+"' data-sigid='"+node.id+"'>"
-							+	"<div class='nodeIcons'>"
-							+		"<div style='float: left;'>"
-							+			"<i class='whEffect' "+(effectClass ? "data-icon='"+effectClass+"' data-tooltip='"+effect+"'" : null)+"></i>"
-							+		"</div>"
-							+		"<div style='float: right;'>"
-							+			"<i data-icon='user' class='invisible'></i>"
-							+			"<span class='badge invisible'></span>"
-							+		"</div>"
-							+	"</div>"
-							+	"<h4 class='nodeClass'>"+(systemType + sigFormat(node.child.classBM, "class"))+"</h4>"
-							+	"<h4 class='nodeSystem'>"
-							+ 	(tripwire.systems[node.child.systemID] ? "<a href='.?system="+tripwire.systems[node.child.systemID].name+"'>"+(node.parent.name ? node.parent.name : tripwire.systems[node.child.systemID].name)+"</a>" : (node.parent.name ? node.parent.name : "<a class='invisible'>system</a>"))
-							+	"</h4>"
-							+	(node.child.path ? "<h4 class='nodeType'>" + renderPath(node.child.path) + "</h4>" : ("<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") : (node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"))
-							+	"<div class='nodeActivity'>"
-							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
-							+	"</div>"
-							+"</div>"
+			var chainNode = formatChainNode(node);
 
 			child.f = chainNode;
 
