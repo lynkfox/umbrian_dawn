@@ -107,6 +107,14 @@ tripwire.systemChange = function(systemID, mode) {
 
         // Faction
         $("#infoFaction").html(tripwire.systems[systemID].factionID ? tripwire.factions[tripwire.systems[systemID].factionID].name : "&nbsp;");
+		
+		// Route to favourites
+		for (var fi in options.favorites) {
+			const f = options.favorites[fi];
+			const path = guidance.findShortestPath(tripwire.map.shortest, f - 30000000, viewingSystemID - 30000000);
+			if(path) { $('#infoStatics').append('<p><b>' + tripwire.systems[f].name + '</b>: ' + chain.renderPath(path) + '</p>'); }
+		}
+        Tooltips.attach($("#infoStatics [data-tooltip]"));
     }
 
     // Region

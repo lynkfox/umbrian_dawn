@@ -20,6 +20,8 @@ var jsFiles = [
             'app/js/layout.js',
             'app/js/tripwire.js',
             'app/js/global-hooks.js',
+            'app/js/guidance.js',
+            'app/js/chain-map.js',
             'app/js/tripwire/*.js',
             'app/js/*.js',
             'app/js/**/*.js'

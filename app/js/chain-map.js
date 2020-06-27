@@ -416,7 +416,7 @@ var chain = new function() {
 					}
 
 					if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID]) {
-						for (x in options.favorites) {
+						for (var x in options.favorites) {
 							if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000)
 								continue;
 
@@ -431,28 +431,6 @@ var chain = new function() {
 			}
 		}
 		
-		function renderPath(path) {
-			if(path.length <= 1 || path.length > options.chain.routingLimit) { return '' + path.length - 1; }
-			else {
-				var systemMarkup = path
-				.slice(0, path.length - 1).reverse()
-				.map(s => {
-					var system = appData.systems[30000000 + 1 * s];
-					var securityClass = system.security >= 0.45 ? 'hisec' :
-						system.security >= 0.0 ? 'lowsec' :
-						'nullsec';
-					return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">&#x25a0</span>';
-				});
-				var r = '<span class="path">';
-				for(var i = 0; i < systemMarkup.length; i++) {
-					if(i > 0 && 0 == i % 5) { r += '|'; }
-					
-					r += systemMarkup[i];				 
-				}
-				return r + '</span>';
-			}
-		}
-
 		if ($("#chainTabs .current").length > 0) {
 			var systems = $("#chainTabs .current .name").data("tab").toString().split(",");
 			var chainList = [];
@@ -586,7 +564,7 @@ var chain = new function() {
 							+	"<h4 class='nodeSystem'>"
 							+ 	(tripwire.systems[node.child.systemID] ? "<a href='.?system="+tripwire.systems[node.child.systemID].name+"'>"+(node.parent.name ? node.parent.name : tripwire.systems[node.child.systemID].name)+"</a>" : (node.parent.name ? node.parent.name : "<a class='invisible'>system</a>"))
 							+	"</h4>"
-							+	(node.child.path ? "<h4 class='nodeType'>" + renderPath(node.child.path) + "</h4>" : ("<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") : (node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"))
+							+	(node.child.path ? "<h4 class='nodeType'>" + this.renderPath(node.child.path) + "</h4>" : ("<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") : (node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"))
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
 							+	"</div>"
@@ -625,6 +603,28 @@ var chain = new function() {
 		//this.data.map = chain;
 		//this.data.lines = connections;
 		return {"map": chain, "lines": connections};
+	}
+
+	this.renderPath = function(path) {
+		if(path.length <= 1 || path.length > options.chain.routingLimit) { return '' + path.length - 1; }
+		else {
+			var systemMarkup = path
+			.slice(0, path.length - 1).reverse()
+			.map(function(s) {
+				var system = appData.systems[30000000 + 1 * s];
+				var securityClass = system.security >= 0.45 ? 'hisec' :
+					system.security >= 0.0 ? 'lowsec' :
+					'nullsec';
+				return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">&#x25a0</span>';
+			});
+			var r = '<span class="path">';
+			for(var i = 0; i < systemMarkup.length; i++) {
+				if(i > 0 && 0 == i % 5) { r += '|'; }
+				
+				r += systemMarkup[i];				 
+			}
+			return r + '</span>';
+		}
 	}
 
 	this.redraw = function() {
@@ -687,7 +687,7 @@ var chain = new function() {
 				WormholeTypeToolTips.detach($("#chainMap .whEffect"));
 			}
 			WormholeTypeToolTips.attach($("#chainMap .whEffect[data-icon]")); // 0.30ms
-			WormholeRouteToolTips.attach($(".path span[data-tooltip]"));
+			WormholeRouteToolTips.attach($("#chainMap .path span[data-tooltip]"));
 
 			this.drawing = false;
 		}
