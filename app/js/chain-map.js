@@ -261,8 +261,17 @@ var chain = new function() {
 		var chainMap = this;
 
 		function formatStatics(statics) {
-			const shortCodeMap = {}
-			return 'x';
+			if(!statics) { return ''; }
+			const shortCodeMap = { 'High-Sec': 'H', 'Low-Sec': 'L', 'Null-Sec': 'N',
+				'Class 1': '1', 'Class 2': '2', 'Class 3': '3', 'Class 4': '4', 'Class 5' : 5, 'Class 6': 6
+			};
+			const classMap = { H: 'hisec', L: 'lowsec', N: 'nullsec'};
+			return statics.map(function(s) {
+				const text = shortCodeMap[tripwire.wormholes[s].leadsTo];
+				const className = classMap[text] || 'class-' +  text;
+				const tip = tripwire.wormholes[s].leadsTo + ' via ' + s;
+				return '<span class="' + className + '" data-tooltip="' + tip + '">' + text + '</span>';
+			}).join('');
 		}
 
 		function topLevel(systemID, id) {
