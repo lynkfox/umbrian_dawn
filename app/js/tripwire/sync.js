@@ -9,7 +9,7 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
     if (this.xhr) this.xhr.abort();
 
     if (mode == 'refresh' || mode == 'change') {
-        data.signatureCount = Object.size(this.client.signatures);
+        data.signatureCount = tripwire.serverSignatureCount;
         data.signatureTime = Object.maxTime(this.client.signatures, "modifiedTime");
 
         data.flareCount = chain.data.flares ? chain.data.flares.flares.length : 0;
@@ -45,39 +45,26 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
     }).done(function(data) {
         if (data) {
             tripwire.server = data;
+            if(data.signatures) { // Save this count before we delete entries
+                tripwire.serverSignatureCount = Object.size(data.signatures);
+            }
 
-            // Purge bad wormhole signatures
-            for (var i in data.signatures) {
-              if (data.signatures[i].type == "wormhole") {
-                var hasWormhole = false;
-                var hasInitial = false;
-                var hasSecondary = false;
-                var wormholeID = null;
-                for (var x in data.wormholes) {
-                  if (data.wormholes[x].initialID == data.signatures[i].id) {
-                    hasInitial = true;
-                    hasWormhole = true;
-                    wormholeID = data.wormholes[x].id;
-                    if (data.signatures[parseInt(data.wormholes[x].secondaryID)]) {
-                      hasSecondary = true;
-                    }
-                  } else if (data.wormholes[x].secondaryID == data.signatures[i].id) {
-                    hasSecondary = true;
-                    hasWormhole = true;
-                    wormholeID = data.wormholes[x].id;
-                    if (data.signatures[parseInt(data.wormholes[x].initialID)]) {
-                      hasInitial = true;
+            if (data.wormholes) {
+                // Purge bad wormhole signatures
+                var wormholeInitialIDs = {};
+                var wormholeSecondaryIDs = {};
+                Object.values(data.wormholes).forEach(function (wh) {
+                    wormholeInitialIDs[parseInt(wh.initialID)] = wh.id;
+                    wormholeSecondaryIDs[parseInt(wh.secondaryID)] = wh.id;
+                })
+                for (var i in data.signatures) {
+                  if (data.signatures[i].type == "wormhole") {
+                    var id = data.signatures[i].id;
+                    if (wormholeInitialIDs[id] === undefined && wormholeSecondaryIDs[id] === undefined) {
+                      delete data.signatures[i];
                     }
                   }
                 }
-
-                if (!hasWormhole || !hasSecondary || !hasInitial) {
-                  delete data.signatures[i];
-                  if (wormholeID) {
-                    delete data.wormholes[wormholeID];
-                  }
-                }
-              }
             }
 
             if (data.esi) {

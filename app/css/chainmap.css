@@ -118,11 +118,29 @@
 
 #chainMap .nodeActivity {
 	position: absolute;
-	top: 2.8em;
+	bottom: 3px;
 	right: 50%;
 	width: 50px;
 	height: 1px;
 	margin-right: -25px;
+}
+
+#chainMap .statics {
+	position: absolute;
+	bottom: -1.5em;
+}
+
+#chainMap .statics span {
+	display: inline-block;
+	background: navy;
+	border-radius: 0 0 50px 50px;
+	width: 8px;
+	height: 10px;
+	border: 2px solid #333;
+}
+
+#chainMap .statics span:nth-child(2) {
+	margin-right: 10px;	/* To leave a gap for the connection when 3+ statics */
 }
 
 #chainMap i[data-icon="user"] {
