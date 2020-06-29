@@ -341,15 +341,17 @@ var WormholeRouteToolTips = new jBox("Tooltip", {
 	repositionOnOpen: true,
 	createOnInit: true,
 	onOpen: function() {
-		var nodePos = this.source.closest("[data-nodeid]").position();
+		var nodePos = this.source.closest("[data-nodeid]").position();		
 		var parentPos = this.source.closest(".path").position();
 		var nodeHeight = this.source.closest("[data-nodeid]").height();
 		// var nodeWidth = this.source.closest("[data-nodeid]").width();
 		var targetPos = this.target.position()
 		var tooltipWidth = this.container.parent().width();
 		// var tooltipHeight = this.container.parent().height();
-
-		this.options.position = {x: nodePos.left + parentPos.left + targetPos.left + 3 - tooltipWidth /2 , y: nodePos.top + nodeHeight + 15};
+		
+		if(nodePos && parentPos && nodeHeight) {
+			this.options.position = {x: nodePos.left + parentPos.left + targetPos.left + 3 - tooltipWidth /2 , y: nodePos.top + nodeHeight + 15};
+		}
 	}
 });
 

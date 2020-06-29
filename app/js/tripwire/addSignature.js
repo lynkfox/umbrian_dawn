@@ -7,7 +7,7 @@ tripwire.addSig = function(add, option, disabled) {
     var wormhole = {};
 
     if (add.type == "wormhole") {
-        var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == add.id || wormhole.secondaryID == add.id) return wormhole; })[0];
+        var wormhole = Object.values(tripwire.client.wormholes).find(function (wh) { return wh.initialID == add.id || wh.secondaryID == add.id});
         if (!wormhole) return false;
         var otherSignature = add.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
         if (!otherSignature) return false;
@@ -46,8 +46,6 @@ tripwire.addSig = function(add, option, disabled) {
     Tooltips.attach($(tr).find("[data-tooltip]"));
 
     $("#sigTable").append(tr);
-
-    $("#sigTable").trigger("update");
 
     // Add counter
     if (wormhole.life == "critical") {

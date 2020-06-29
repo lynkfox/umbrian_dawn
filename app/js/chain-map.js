@@ -258,25 +258,37 @@ var chain = new function() {
 		var chain = {cols: [{label: "System", type: "string"}, {label: "Parent", type: "string"}], rows: []};
 		var frigTypes = ["Q003", "E004", "L005", "Z006", "M001", "C008", "G008", "A009", "SML", "MED", "LRG", "XLG"];
 		var connections = [];
+		var chainMap = this;
+
+		function formatStatics(statics) {
+			if(!statics) { return ''; }
+			const shortCodeMap = { 'High-Sec': 'H', 'Low-Sec': 'L', 'Null-Sec': 'N',
+				'Class 1': '1', 'Class 2': '2', 'Class 3': '3', 'Class 4': '4', 'Class 5' : 5, 'Class 6': 6
+			};
+			const classMap = { H: 'hisec', L: 'lowsec', N: 'nullsec'};
+			return statics.map(function(s) {
+				const text = shortCodeMap[tripwire.wormholes[s].leadsTo];
+				const className = classMap[text] || 'class-' +  text;
+				const tip = tripwire.wormholes[s].leadsTo + ' via ' + s;
+				return '<span class="' + className + '" data-tooltip="' + tip + '">' + text + '</span>';
+			}).join('');
+		}
 
 		function topLevel(systemID, id) {
 			if (!systemID || !tripwire.systems[systemID])
 				return false;
+			const tabName = options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].systemID != 0 ? options.chain.tabs[options.chain.active].name : undefined;
+			return makeSystemNode(systemID, id, null, tabName, '&nbsp;');
+		}
 
+		function makeSystemNode(systemID, id, sigId, systemName, nodeTypeMarkup) {
 			// System type switch
-			var systemType;
-			if (tripwire.systems[systemID].class)
-				systemType = "<span class='wh'>C" + tripwire.systems[systemID].class + "</span>";
-			else if (tripwire.systems[systemID].security >= 0.45)
-				systemType = "<span class='hisec'>HS</span>";
-			else if (tripwire.systems[systemID].security > 0.0)
-				systemType = "<span class='lowsec'>LS</span>";
-			else if (tripwire.systems[systemID].security <= 0.0)
-				systemType = "<span class='nullsec'>NS</span>";
+			var systemType = getSystemType(systemID);
+			const system = tripwire.systems[systemID];
 
 			var effectClass = null, effect = null;
-			if (tripwire.systems[systemID].class) {
-				switch(tripwire.systems[systemID].effect) {
+			if (system && system.effect) {
+				switch(system.effect) {
 					case "Black Hole":
 						effectClass = "blackhole";
 						break;
@@ -297,11 +309,11 @@ var chain = new function() {
 						break;
 				}
 
-				effect = tripwire.systems[systemID].effect;
+				effect = system.effect;
 			}
 
-			var system = {v: id};
-			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'>"
+			var node = {v: id};
+			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"+(sigId ? " data-sigid='"+sigId+"'" : null)+">"
 							+	"<div class='nodeIcons'>"
 							+		"<div style='float: left;'>"
 							+			"<i class='whEffect' "+(effectClass ? "data-icon='"+effectClass+"' data-tooltip='"+effect+"'" : null)+"></i>"
@@ -313,17 +325,20 @@ var chain = new function() {
 							+	"</div>"
 							+	"<h4 class='nodeClass'>"+systemType+"</h4>"
 							+	"<h4 class='nodeSystem'>"
-							+		"<a href='.?system="+tripwire.systems[systemID].name+"'>"+(options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].systemID != 0 ? options.chain.tabs[options.chain.active].name : tripwire.systems[systemID].name)+"</a>"
+							+		(system ? "<a href='.?system="+system.name+"'>"+(systemName ? systemName : system.name)+"</a>" : systemName ? systemName : '&nbsp;')
 							+	"</h4>"
-							+	"<h4 class='nodeType'>&nbsp;</h4>"
+							+	"<h4 class='nodeType'>" + nodeTypeMarkup + "</h4>"
+							+	"<div class='statics'>"
+							+ formatStatics(system ? system.statics : [])
+							+	"</div>"
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
 							+	"</div>"
 							+"</div>"
 
-			system.f = chainNode;
+			node.f = chainNode;
 
-			return system;
+			return node;
 		}
 		
 		function makeCalcChildNode(childID, node, targetSystem) {
@@ -348,6 +363,29 @@ var chain = new function() {
 			
 			return { childID, calcNode };
 		}
+		
+		function getSystemType(systemID) {
+			const system = tripwire.systems[systemID];
+			var leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[systemID.substring(0, systemID.indexOf("|"))] : null;
+			const nodeClass = system ? system.class : 
+				leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
+				undefined;
+			const nodeSecurity = system ? system.security : 
+				leadsToPointer == "High-Sec" ? 0.8 :
+				leadsToPointer == "Low-Sec" ? 0.4 :
+				leadsToPointer == "Null-Sec" ? -0.1 :
+				undefined;
+				
+			if (nodeClass)
+				return "<span class='wh class-" + nodeClass + "'>C" + nodeClass + "</span>";
+			else if (nodeSecurity >= 0.45)
+				return "<span class='hisec'>HS</span>";
+			else if (nodeSecurity > 0.0)
+				return "<span class='lowsec'>LS</span>";
+			else if (nodeSecurity <= 0.0)
+				return "<span class='nullsec'>NS</span>";
+			else return '&nbsp;';	// unknown
+		}		
 
 		function findLinks(system) {
 			if (system[0] <= 0) return false;
@@ -416,7 +454,7 @@ var chain = new function() {
 					}
 
 					if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID]) {
-						for (x in options.favorites) {
+						for (var x in options.favorites) {
 							if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000)
 								continue;
 
@@ -431,28 +469,6 @@ var chain = new function() {
 			}
 		}
 		
-		function renderPath(path) {
-			if(path.length <= 1 || path.length > options.chain.routingLimit) { return '' + path.length - 1; }
-			else {
-				var systemMarkup = path
-				.slice(0, path.length - 1).reverse()
-				.map(s => {
-					var system = appData.systems[30000000 + 1 * s];
-					var securityClass = system.security >= 0.45 ? 'hisec' :
-						system.security >= 0.0 ? 'lowsec' :
-						'nullsec';
-					return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">&#x25a0</span>';
-				});
-				var r = '<span class="path">';
-				for(var i = 0; i < systemMarkup.length; i++) {
-					if(i > 0 && 0 == i % 5) { r += '|'; }
-					
-					r += systemMarkup[i];				 
-				}
-				return r + '</span>';
-			}
-		}
-
 		if ($("#chainTabs .current").length > 0) {
 			var systems = $("#chainTabs .current .name").data("tab").toString().split(",");
 			var chainList = [];
@@ -511,88 +527,12 @@ var chain = new function() {
 		for (var x in chainLinks) {
 			var node = chainLinks[x];
 			var row = {c: []};
-
-			// System type switch
-			var systemType;
-			var nodeClass = tripwire.systems[node.child.systemID] ? tripwire.systems[node.child.systemID].class : null;
-			var nodeSecurity = tripwire.systems[node.child.systemID] ? tripwire.systems[node.child.systemID].security : null;
-			var leadsToPointer = typeof(node.child.systemID) === "string" && node.child.systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[node.child.systemID.substring(0, node.child.systemID.indexOf("|"))] : null;
-			if (nodeClass == 6 || leadsToPointer == "Class-6" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 6"))
-				systemType = "<span class='wh'>C6</span>";
-			else if (nodeClass == 5 || leadsToPointer == "Class-5" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 5"))
-				systemType = "<span class='wh'>C5</span>";
-			else if (nodeClass == 4 || leadsToPointer == "Class-4" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 4"))
-				systemType = "<span class='wh'>C4</span>";
-			else if (nodeClass == 3 || leadsToPointer == "Class-3" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 3"))
-				systemType = "<span class='wh'>C3</span>";
-			else if (nodeClass == 2 || leadsToPointer == "Class-2" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 2"))
-				systemType = "<span class='wh'>C2</span>";
-			else if (nodeClass == 1 || leadsToPointer == "Class-1" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Class 1"))
-				systemType = "<span class='wh'>C1</span>";
-			else if (nodeClass > 6)
-				systemType = "<span class='wh'>C" + nodeClass + "</span>";
-			else if (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo.split(" ").length > 1)
-				systemType = "<span class='wh'>C" + tripwire.wormholes[node.child.type].leadsTo.split(" ")[1] + "</span>";
-			else if (nodeSecurity >= 0.45 || leadsToPointer == "High-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "High-Sec" && !nodeSecurity))
-				systemType = "<span class='hisec'>HS</span>";
-			else if (nodeSecurity > 0.0 || leadsToPointer == "Low-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Low-Sec" && !nodeSecurity))
-				systemType = "<span class='lowsec'>LS</span>";
-			else if ((nodeSecurity <= 0.0 && nodeSecurity != null) || leadsToPointer == "Null-Sec" || (typeof(tripwire.wormholes[node.child.type]) != "undefined" && tripwire.wormholes[node.child.type].leadsTo == "Null-Sec"))
-				systemType = "<span class='nullsec'>NS</span>";
-			else
-				systemType = "<span>&nbsp;</span>";
-
-			var effectClass = null, effect = null;
-			if (typeof(tripwire.systems[node.child.systemID]) != "undefined") {
-				switch(tripwire.systems[node.child.systemID].effect) {
-					case "Black Hole":
-						effectClass = "blackhole";
-						break;
-					case "Cataclysmic Variable":
-						effectClass = "cataclysmic-variable";
-						break;
-					case "Magnetar":
-						effectClass = "magnetar";
-						break;
-					case "Pulsar":
-						effectClass = "pulsar";
-						break;
-					case "Red Giant":
-						effectClass = "red-giant";
-						break;
-					case "Wolf-Rayet Star":
-						effectClass = "wolf-rayet";
-						break;
-					default:
-						effectClass = null;
-						break;
-				}
-
-				effect = tripwire.systems[node.child.systemID].effect;
-			}
-
-			var child = {v: node.child.id};
-			var chainNode = "<div id='node"+node.child.id+"' data-nodeid='"+node.child.systemID+"' data-sigid='"+node.id+"'>"
-							+	"<div class='nodeIcons'>"
-							+		"<div style='float: left;'>"
-							+			"<i class='whEffect' "+(effectClass ? "data-icon='"+effectClass+"' data-tooltip='"+effect+"'" : null)+"></i>"
-							+		"</div>"
-							+		"<div style='float: right;'>"
-							+			"<i data-icon='user' class='invisible'></i>"
-							+			"<span class='badge invisible'></span>"
-							+		"</div>"
-							+	"</div>"
-							+	"<h4 class='nodeClass'>"+(systemType + sigFormat(node.child.classBM, "class"))+"</h4>"
-							+	"<h4 class='nodeSystem'>"
-							+ 	(tripwire.systems[node.child.systemID] ? "<a href='.?system="+tripwire.systems[node.child.systemID].name+"'>"+(node.parent.name ? node.parent.name : tripwire.systems[node.child.systemID].name)+"</a>" : (node.parent.name ? node.parent.name : "<a class='invisible'>system</a>"))
-							+	"</h4>"
-							+	(node.child.path ? "<h4 class='nodeType'>" + renderPath(node.child.path) + "</h4>" : ("<h4 class='nodeType'>"+(options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") : (node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;")+"</h4>"))
-							+	"<div class='nodeActivity'>"
-							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
-							+	"</div>"
-							+"</div>"
-
-			child.f = chainNode;
+			
+			const nodeTypeMarkup = node.child.path ? 
+				chainMap.renderPath(node.child.path) :
+				options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") :
+				(node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;";
+			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.parent.name, nodeTypeMarkup);
 
 			var parent = {v: node.parent.id};
 
@@ -627,19 +567,44 @@ var chain = new function() {
 		return {"map": chain, "lines": connections};
 	}
 
+	this.renderPath = function(path) {
+		if(path.length <= 1 || path.length > options.chain.routingLimit) { return '' + path.length - 1; }
+		else {
+			var systemMarkup = path
+			.slice(0, path.length - 1).reverse()
+			.map(function(s) {
+				var system = appData.systems[30000000 + 1 * s];
+				var securityClass = system.security >= 0.45 ? 'hisec' :
+					system.security >= 0.0 ? 'lowsec' :
+					'nullsec';
+				return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">&#x25a0</span>';
+			});
+			var r = '<span class="path">';
+			for(var i = 0; i < systemMarkup.length; i++) {
+				if(i > 0 && 0 == i % 5) { r += '|'; }
+				
+				r += systemMarkup[i];				 
+			}
+			return r + '</span>';
+		}
+	}
+
 	this.redraw = function() {
 		var data = $.extend(true, {}, this.data);
 		data.map = $.extend(true, {}, data.rawMap);
 
 		this.draw(data);
 	}
+	
+	var drawRetryTimer = null;
 
 	this.draw = function(data) {
 		var data = typeof(data) !== "undefined" ? data : {};
+		clearTimeout(drawRetryTimer);
 
 		// We need to make sure Google chart is ready and we have signature data for this system before we begin, otherwise delay
 		if (!this.map || (Object.size(data.map) && !tripwire.client.signatures)) {
-			setTimeout(() => chain.draw(data), 100);
+			drawRetryTimer = setTimeout(function() { chain.draw(data) }, 100);
 			return;
 		}
 
@@ -687,7 +652,7 @@ var chain = new function() {
 				WormholeTypeToolTips.detach($("#chainMap .whEffect"));
 			}
 			WormholeTypeToolTips.attach($("#chainMap .whEffect[data-icon]")); // 0.30ms
-			WormholeRouteToolTips.attach($(".path span[data-tooltip]"));
+			WormholeRouteToolTips.attach($("#chainMap .path span[data-tooltip]"));
 
 			this.drawing = false;
 		}

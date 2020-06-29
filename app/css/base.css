@@ -78,8 +78,24 @@ i.disabled {
 	color: orange;
 }
 
-.wh {
+.wh, .class-1, .class-2, .class-3 {
 	color: #4399F0;
+}
+
+.class-4, .class-5 {
+	color: #9060f0;
+}
+
+.class-6 {
+	color: #f06090;
+}
+
+.class-12 {	/* Thera */
+	color: #ffc800;
+}
+
+.class-15, .class-16, .class-17 {	/* Drifter */
+	color: #f06060;
 }
 
 .hisec, .stable {
@@ -130,7 +146,14 @@ i.disabled {
 	height: 16px;
 }
 
-/* Scrollbar */
+/* Scrollbar. Body properties are standards-compliant but only work in Firefox.
+-webkit-* works in Chrome/Safari/etc */
+body {
+	/* Standards - Firefox. Use slightly less contrasty colours because the bar will be wider */
+	scrollbar-width: thin;
+	scrollbar-color: #444 #111;
+}
+
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
