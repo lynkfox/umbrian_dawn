@@ -595,13 +595,16 @@ var chain = new function() {
 
 		this.draw(data);
 	}
+	
+	var drawRetryTimer = null;
 
 	this.draw = function(data) {
 		var data = typeof(data) !== "undefined" ? data : {};
+		clearTimeout(drawRetryTimer);
 
 		// We need to make sure Google chart is ready and we have signature data for this system before we begin, otherwise delay
 		if (!this.map || (Object.size(data.map) && !tripwire.client.signatures)) {
-			setTimeout(() => chain.draw(data), 100);
+			drawRetryTimer = setTimeout(function() { chain.draw(data) }, 100);
 			return;
 		}
 
