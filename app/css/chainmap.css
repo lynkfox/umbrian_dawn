@@ -20,7 +20,6 @@
 }
 
 #chainMap td.node {
-	height: 30px;
 	min-width: 5em;
 	white-space: nowrap;
 	text-align: center;
@@ -28,9 +27,14 @@
 	font-family: verdana;
 	font-size: 1em;
 	cursor: default;
-	border: 2px solid #333;
 	line-height: 1;
+	border: none;
+	background: none;
+}
 
+#chainMap div.node {
+	height: 30px;
+	border: 2px solid #333;
     border-top-left-radius: 15px 50px;
     border-top-right-radius: 15px 50px;
 	border-bottom-left-radius: 15px 50px;
@@ -42,7 +46,7 @@
 	box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
 }
 
-#chainMap td.currentNode {
+#chainMap td.currentNode > div.node {
 	border-color: #00286E;
 	background: #001B47;
 
@@ -50,7 +54,7 @@
 	background: -webkit-gradient(linear, left top, left bottom, from(#001B47), to(#00286E));
 }
 
-#chainMap td.redNode {
+#chainMap td.redNode > div.node {
 	border-color: #810;
 	background: #610;
 
@@ -58,7 +62,7 @@
 	background: -webkit-gradient(linear, left top, left bottom, from(#610), to(#810));
 }
 
-#chainMap td.yellowNode {
+#chainMap td.yellowNode > div.node {
 	border-color: #8A4117;
 	background: #80370D;
 
@@ -66,7 +70,7 @@
 	background: -webkit-gradient(linear, left top, left bottom, from(#80370D), to(#8A4117));
 }
 
-#chainMap td.greenNode {
+#chainMap td.greenNode > div.node {
 	border-color: #040;
 	background: #030;
 
