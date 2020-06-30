@@ -20,7 +20,6 @@
 }
 
 #chainMap td.node {
-	min-width: 5em;
 	white-space: nowrap;
 	text-align: center;
 	vertical-align: middle;
@@ -34,6 +33,8 @@
 
 #chainMap div.node {
 	height: 30px;
+	min-width: 5em;
+	margin-left: auto; margin-right: auto;	/* centre horizontally within cell */
 	border: 2px solid #333;
     border-top-left-radius: 15px 50px;
     border-top-right-radius: 15px 50px;
@@ -46,6 +47,21 @@
 	box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
 }
 
+#chainMap td.node > div.node.loop {	/* more specific than others nearby, because we want these over flares/current node */
+	min-width: auto;
+/*	width: 30px;*/
+	border-radius: 100px;
+	border-color: #0070a0;
+}
+
+#chainMap div.loop {	/* less specific, so flares/current node works over this */
+	background: #000810;
+}
+
+div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivity {
+	display:none;
+}
+	
 #chainMap td.currentNode > div.node {
 	border-color: #00286E;
 	background: #001B47;
