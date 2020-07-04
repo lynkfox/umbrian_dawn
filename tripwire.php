@@ -722,6 +722,15 @@ if ($row = $stmt->fetchObject()) {
 						</td>
 					</tr>
 					<tr>
+						<th>Chain Renderer:</th>
+						<td>
+							<select id="renderer">
+								<option value="orgChart">Org Chart</option>
+								<option value="radial">Radial (System in middle)</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
 						<th>UI Scale:</th>
 						<td>
 							<label for="uiscale-slider"></label>

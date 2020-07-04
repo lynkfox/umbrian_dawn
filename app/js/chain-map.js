@@ -12,7 +12,9 @@ var chain = new function() {
 		orgChart: new ChainMapRendererOrgchart(this),
 		radial: new ChainMapRendererRadial(this)
 	};
-	this.renderer = renderers.orgChart;
+	
+	this.renderer = renderers[options.chain.renderer];
+	this.renderer.switchTo();
 	
 	this.useRenderer = function(name) {
 		if(!renderers[name]) { throw 'Unknown renderer ' + name; }
@@ -466,6 +468,8 @@ var chain = new function() {
 	}
 
 	this.redraw = function() {
+		this.useRenderer(options.chain.renderer);
+		
 		var data = $.extend(true, {}, this.data);
 		data.map = $.extend(true, {}, data.rawMap);
 

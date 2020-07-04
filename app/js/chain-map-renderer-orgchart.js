@@ -10,8 +10,6 @@ const ChainMapRendererOrgchart = function(owner) {
 
 		_this.map.draw(new google.visualization.DataView(new google.visualization.DataTable({cols:[{label: "System", type: "string"}, {label: "Parent", type: "string"}]})), _this.options);
 	}
-
-	google.charts.setOnLoadCallback(this.init);	
 	
 	/** Is this renderer ready to accept draw calls? */
 	this.ready = function() { return !this.drawing && !!this.map; }
@@ -19,6 +17,7 @@ const ChainMapRendererOrgchart = function(owner) {
 	/** Switch to this renderer. The renderer can be in a blank state; draw() will be called after */
 	this.switchTo = function() {
 		document.getElementById('chainGrid').style.display = '';
+		this.init();
 	}
 	
 	/** Switch away from this renderer. All node divs should be removed from the DOM */

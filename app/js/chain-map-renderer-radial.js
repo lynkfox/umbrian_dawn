@@ -149,13 +149,15 @@ const ChainMapRendererRadial = function(owner) {
 			ctx.translate(finalPositions.cx, finalPositions.cy);
 				
 			for(var ci = map.circles.length - 1; ci >= 1; ci--) {	// don't need to draw ring 0
-				ctx.beginPath();
-				if(ctx.ellipse) {
-					ctx.lineWidth = 0.5;
-					ctx.ellipse(0, 0, CIRCLE_SIZE.ringX(ci), CIRCLE_SIZE.ringY(ci), 0, 0, Math.PI * 2);
+				if(options.chain.gridlines) {
+					ctx.beginPath();
+					if(ctx.ellipse) {
+						ctx.lineWidth = 0.5;
+						ctx.ellipse(0, 0, CIRCLE_SIZE.ringX(ci), CIRCLE_SIZE.ringY(ci), 0, 0, Math.PI * 2);
+					}
+					ctx.strokeStyle = propertyFromCssClass('grid-default', 'color');
+					ctx.stroke();		
 				}
-				ctx.strokeStyle = propertyFromCssClass('grid-default', 'color');
-				ctx.stroke();		
 				
 				for(var ni = 0; ni < map.circles[ci].nodes.length; ni++) {
 					const node = map.circles[ci].nodes[ni];
