@@ -1,0 +1,43 @@
+/* Styles relating to the radial map renderer */
+#chainMap .radial-map .node.top-level {
+	border-radius:200px;
+	padding: 10px;
+	border: 4px #004080 solid;
+	font-size: 120%;
+}
+
+#chainMap .radial-map .top-level .nodeIcons {
+    top: 0.9em;
+}
+
+.radial-map  {
+	position: relative;
+	width: 100%;
+	background: #000020;	
+}
+
+.radial-map  .map-chain-wrapper {
+	overflow:hidden;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.map-outer-container {
+	position: relative;
+}
+
+.map-inner-container {
+	position: absolute;
+}
+
+.map-inner-container .node-wrapper {
+	position:absolute;
+}
+
+#chainMap .node-wrapper > div.node {
+	transform: translate(-50%, -50%);	/* centre around position */
+}
+
+.map-drawing {
+	position: absolute;
+}

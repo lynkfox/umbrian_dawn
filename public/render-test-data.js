@@ -1,7 +1,5 @@
-<html><head>Map rendering testbed</title>
-
-<script>
-const chain_map = 
+const chain1 = {};
+chain1.map = 
 {
   "cols": [
     {
@@ -456,202 +454,406 @@ const chain_map =
     }
   ]
 };
-</script>
-<link rel=stylesheet href=css/app.min.css />
-</head>
 
-<body>
+chain1.lines = /*[
+  [
+    6,
+    1,
+    [
+      "destab"
+    ],
+    "6"
+  ],
+  [
+    3,
+    1,
+    [
+      "eol",
+      "frig"
+    ],
+    "2"
+  ],
+  [
+    2,
+    1,
+    [
+      "critical"
+    ],
+    "1"
+  ]
+];*/
+[
+  [
+    4,
+    1,
+    [],
+    "?"
+  ],
+  [
+    5,
+    1,
+    [],
+    "?"
+  ],
+  [
+    6,
+    1,
+    ['eol'],
+    "?"
+  ],
+  [
+    7,
+    2,
+    [],
+    "?"
+  ],
+  [
+    8,
+    2,
+    [ 'destab' ],
+    "?"
+  ],
+  [
+    9,
+    2,
+    [],
+    "?"
+  ],
+  [
+    10,
+    3,
+    ['eol', 'frig'],
+    "?"
+  ],
+  [
+    11,
+    3,
+    [],
+    "?"
+  ],
+  [
+    12,
+    3,
+    [],
+    "?"
+  ],
+  [
+    13,
+    4,
+    [],
+    "?"
+  ],
+  [
+    14,
+    5,
+    [],
+    "?"
+  ],
+  [
+    15,
+    5,
+    [],
+    "?"
+  ],
+  [
+    16,
+    5,
+    [],
+    "?"
+  ],
+  [
+    17,
+    6,
+    [],
+    "?"
+  ],
+  [
+    18,
+    6,
+    [ 'frig' ],
+    "?"
+  ],
+  [
+    19,
+    14,
+    [],
+    "?"
+  ],
+  [
+    20,
+    18,
+    [ 'eol', 'critical'],
+    "?"
+  ],
+  [
+    21,
+    18,
+    [],
+    "?"
+  ],
+  [
+    22,
+    18,
+    [],
+    "?"
+  ],
+  [
+    23,
+    18,
+    [],
+    "?"
+  ],
+  [
+    24,
+    18,
+    [],
+    "?"
+  ],
+  [
+    25,
+    18,
+    [],
+    "?"
+  ],
+  [
+    26,
+    18,
+    [],
+    "?"
+  ],
+  [
+    27,
+    18,
+    [],
+    "?"
+  ],
+  [
+    28,
+    22,
+    [],
+    "?"
+  ],
+  [
+    29,
+    27,
+    [],
+    "?"
+  ],
+  [
+    30,
+    28,
+    [],
+    "?"
+  ],
+  [
+    31,
+    28,
+    [],
+    "?"
+  ],
+  [
+    32,
+    28,
+    [],
+    "?"
+  ],
+  [
+    33,
+    28,
+    [],
+    "?"
+  ],
+  [
+    34,
+    28,
+    [],
+    "?"
+  ],
+  [
+    35,
+    28,
+    [],
+    "?"
+  ],
+  [
+    36,
+    29,
+    [],
+    "?"
+  ],
+  [
+    37,
+    36,
+    [],
+    "?"
+  ],
+  [
+    38,
+    37,
+    [],
+    "?"
+  ],
+  [
+    39,
+    38,
+    [],
+    "?"
+  ],
+  [
+    40,
+    39,
+    [],
+    "?"
+  ]
+];
 
-<style>
-</style>
+const chain2 = { map: {
+  "cols": [
+    {
+      "label": "System",
+      "type": "string"
+    },
+    {
+      "label": "Parent",
+      "type": "string"
+    }
+  ],
+  "rows": [
+    {
+      "c": [
+        {
+          "v": 1,
+          "f": "<div id='node1' data-nodeid='31001779'null class='node top-level'><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='wh class-4'>C4</span></h4><h4 class='nodeSystem'><a href='.?system=J172502'>J172502</a></h4><h4 class='nodeType'>&nbsp;</h4><div class='statics'><span class=\"class-3\" data-tooltip=\"Class 3 via C247\">3</span><span class=\"class-5\" data-tooltip=\"Class 5 via H900\">5</span></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": null
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 2,
+          "f": "<div id='node2' data-nodeid='31001168'null class='node top-level'><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='wh class-3'>C3</span></h4><h4 class='nodeSystem'><a href='.?system=J101354'>J101354</a></h4><h4 class='nodeType'>&nbsp;</h4><div class='statics'><span class=\"hisec\" data-tooltip=\"High-Sec via D845\">H</span></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": null
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 3,
+          "f": "<div id='node3' data-nodeid='31002465'null class='node top-level'><div class='nodeIcons'><div style='float: left;'><i class='whEffect' data-icon='wolf-rayet' data-tooltip='Wolf-Rayet Star'></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='wh class-6'>C6</span></h4><h4 class='nodeSystem'><a href='.?system=J164701'>J164701</a></h4><h4 class='nodeType'>&nbsp;</h4><div class='statics'><span class=\"class-5\" data-tooltip=\"Class 5 via V911\">5</span></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": null
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 4,
+          "f": "<div id='node4' data-nodeid='31001189' data-sigid='53060' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='wh class-3'>C3</span></h4><h4 class='nodeSystem'><a href='.?system=J113048'>1</a></h4><h4 class='nodeType'>lex</h4><div class='statics'><span class=\"lowsec\" data-tooltip=\"Low-Sec via U210\">L</span></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 1
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 5,
+          "f": "<div id='node5' data-nodeid='31002268' data-sigid='53061' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' data-icon='cataclysmic-variable' data-tooltip='Cataclysmic Variable'></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='wh class-5'>C5</span></h4><h4 class='nodeSystem'><a href='.?system=J110634'>2</a></h4><h4 class='nodeType'>vel</h4><div class='statics'><span class=\"class-5\" data-tooltip=\"Class 5 via H296\">5</span></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 1
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 6,
+          "f": "<div id='node6' data-nodeid='null|4174' data-sigid='53045' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'>&nbsp;</h4><h4 class='nodeSystem'>1 c45?</h4><h4 class='nodeType'>kle</h4><div class='statics'></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 2
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 7,
+          "f": "<div id='node7' data-nodeid='30002715' data-sigid='53054' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='hisec'>HS</span></h4><h4 class='nodeSystem'><a href='.?system=Bourynes'>H1 Bourynes</a></h4><h4 class='nodeType'>sfj</h4><div class='statics'></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 2
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 8,
+          "f": "<div id='node8' data-nodeid='null|5368' data-sigid='52838' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'>&nbsp;</h4><h4 class='nodeSystem'>&nbsp;</h4><h4 class='nodeType'>tqs</h4><div class='statics'></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 3
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 9,
+          "f": "<div id='node9' data-nodeid='31001596' data-sigid='52878' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='wh class-4'>C4</span></h4><h4 class='nodeSystem'><a href='.?system=J215935'>J215935</a></h4><h4 class='nodeType'>rxp</h4><div class='statics'><span class=\"class-5\" data-tooltip=\"Class 5 via H900\">5</span><span class=\"class-4\" data-tooltip=\"Class 4 via X877\">4</span></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 3
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 10,
+          "f": "<div id='node10' data-nodeid='null|2625' data-sigid='52879' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'>&nbsp;</h4><h4 class='nodeSystem'>&nbsp;</h4><h4 class='nodeType'>xxm</h4><div class='statics'></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 3
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 11,
+          "f": "<div id='node11' data-nodeid='31001896' data-sigid='53062' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' data-icon='red-giant' data-tooltip='Red Giant'></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='wh class-5'>C5</span></h4><h4 class='nodeSystem'><a href='.?system=J100724'>J100724</a></h4><h4 class='nodeType'>&nbsp;</h4><div class='statics'><span class=\"class-1\" data-tooltip=\"Class 1 via Y790\">1</span></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 5
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 12,
+          "f": "<div id='node12' data-nodeid='30000907' data-sigid='53063' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='nullsec'>NS</span></h4><h4 class='nodeSystem'><a href='.?system=6EG7-R'>6EG7-R</a></h4><h4 class='nodeType'>&nbsp;</h4><div class='statics'></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 11
+        }
+      ]
+    }
+  ]
+}, lines: []
 
-<div id="chainMap">
-	<div id="map-container" class="radial-map">
-	</div>
-</div>
-
-<pre id="json" />
-
-<script>
-const maps = [];
-const nodesById = {};
-
-// First pass: arrange nodes into rings
-for(var ri = 0; ri < chain_map.rows.length; ri++) {
-	const item = chain_map.rows[ri];
-	const inNode = item.c[0], id = inNode.v, parent = item.c[1].v;
-	
-	const mapNode = { id: id, children: [], minArc: 0 };
-	
-	if(parent == null) {
-		const newMap =  { circles: [ { arc: 0, nodes: [ mapNode ] } ] };
-		mapNode.map = newMap;
-		mapNode.circle = 0;
-		maps.push(newMap);
-	} else {
-		const parentNode = nodesById[parent];
-		if(!parentNode) { throw 'Parent id ' + parent + ' not on map yet'; }
-		parentNode.children.push(mapNode);
-		mapNode.parent = parentNode;
-		mapNode.connection = chain.lines.filter(function(l) { return l[0] == id; })[0] || [id, parent, [], '?'];
-		mapNode.connection[2].unshift('connection');
-		mapNode.map = parentNode.map;
-		mapNode.circle = parentNode.circle + 1;
-		if(mapNode.map.circles.length <= mapNode.circle) {
-			mapNode.map.circles.push({ arc: 0, nodes:[mapNode] });
-		} else { mapNode.map.circles[mapNode.circle].nodes.push(mapNode); }
-	}
-	nodesById[id] = mapNode;
-	mapNode.markup = inNode.f;
 }
 
-// Second pass - for each map, find the allocation of arc needed for each node
-for(var mi = 0; mi < maps.length; mi++) {
-	const map = maps[mi];
-	for(var ci = map.circles.length - 1; ci >= 1; ci--) {	// don't need to calculate ring 0
-		for(var ni = 0; ni < map.circles[ci].nodes.length; ni++) {
-			const node = map.circles[ci].nodes[ni];
-			node.minArc *= ci / (ci + 1.0);
-			if(node.minArc < 1) { node.minArc = 1; }
-			node.parent.minArc += node.minArc;
-			map.circles[ci].arc += node.minArc;
-		}
-	}
-}
-
-// Third pass - lay out each ring based on the arc values
-const CIRCLE_SIZE = { x: 90, y: 45 };
-for(var mi = 0; mi < 1 /*maps.length*/; mi++) {
-	const map = maps[mi];
-	const mapDiv = document.createElement('div');
-	mapDiv.style.top = '300px';
-	mapDiv.style.left = '300px';
-	mapDiv.id = "map" + mi;
-	mapDiv.className = "map-chain-wrapper";
-	mapDiv.innerHTML = '<div class="map-outer-container"><div class="map-inner-container"><canvas class="map-drawing" id="map-canvas-' + mi + '"/></div></div>';
-	const innerContainer = mapDiv.firstChild.firstChild;
-	document.getElementById('map-container').appendChild(mapDiv);
-
-	map.bounds = makeDivsForRing(innerContainer, 0, map.circles[0].nodes, 0, Math.PI * 2);
-	map.domNode = mapDiv;
-	map.innerContainer = innerContainer;
-}
-
-// Fourth pass: update div and canvas bounds, and draw rings/links
-const CANVAS_SCALE = 1;
-for(var mi = 0; mi < maps.length; mi++) {
-	const map = maps[mi];
-	const finalPositions = {
-		w: 200 + map.bounds.x[1] - map.bounds.x[0],
-		h: 100 + map.bounds.y[1] - map.bounds.y[0],
-		cx: 100 - map.bounds.x[0],
-		cy: 50 - map.bounds.y[0]
-	}
-	map.domNode.style.width = finalPositions.w + 'px';
-	map.domNode.style.height = finalPositions.h + 'px';
-	const outerContainer = map.domNode.firstChild;
-	outerContainer.style.left = finalPositions.cx + 'px';
-	outerContainer.style.top = finalPositions.cy + 'px';
-	const canvas = outerContainer.getElementsByTagName('canvas')[0];
-	canvas.width = CANVAS_SCALE * finalPositions.w;
-	canvas.style.width = finalPositions.w + 'px';
-	canvas.height = CANVAS_SCALE * finalPositions.h;
-	canvas.style.height = finalPositions.h + 'px';
-	canvas.style.left = -finalPositions.cx + 'px';
-	canvas.style.top = -finalPositions.cy + 'px';
-	const ctx = canvas.getContext('2d');
-	ctx.scale(2, 2);
-	ctx.translate(300, 300);
-	
-	for(var ci = map.circles.length - 1; ci >= 1; ci--) {	// don't need to draw ring 0
-		ctx.beginPath();
-		if(ctx.ellipse) {
-			ctx.lineWidth = 0.5;
-			ctx.ellipse(0, 0, ci * CIRCLE_SIZE.x, ci * CIRCLE_SIZE.y, 0, 0, Math.PI * 2);
-		}
-		ctx.strokeStyle = colourFromCssClass('grid-default');
-		ctx.stroke();		
-		
-		for(var ni = 0; ni < map.circles[ci].nodes.length; ni++) {
-			const node = map.circles[ci].nodes[ni];
-			ctx.beginPath();
-			ctx.lineWidth = node.connection[2].reduce(function(w, c) { return c == 'frig' ? 1 : w; }, 3);
-			ctx.moveTo(node.position.x, node.position.y);
-			ctx.lineTo(node.parent.position.x, node.parent.position.y);			
-			ctx.strokeStyle = propertyFromCssClass(node.connection[2], 'border-top-color');
-			ctx.setLineDash ({ dashed: [3, 2] }[propertyFromCssClass(node.connection[2], 'border-top-style')] || []);
-			ctx.stroke();
-		}
-	}	
-	
-	renderCircle(innerContainer, 0, map.circles[0].nodes, 0, Math.PI * 2);
-}
-
-function renderCircle(innerContainer, ci, nodes, minRad, maxRad) {
-	const totalArc = nodes.reduce(function(acc, x) { return acc + x.minArc; }, 0);
-	const rads_per_arc = (maxRad - minRad) / totalArc;
-	var rad_offset = minRad;
-	var alignment_delta = 0;
-	
-	for(var ni = 0; ni < nodes.length; ni++) {
-		const node = nodes[ni];	
-		
-		// Make the node
-		const frag = document.createRange().createContextualFragment('<div class="node-wrapper">' + node.markup + '</div>');
-		node.domNode = frag.firstChild;
-		innerContainer.appendChild(node.domNode);
-		
-		// Position the node
-		const dr = node.minArc * rads_per_arc;
-		const rad_centre = rad_offset + (dr / 2);
-		
-		if(ci == 1 && ni == 0) { // First node on first ring should be axis aligned
-			alignment_delta -= rad_centre;
-		}
-		
-		node.position = { 
-			x: ci * CIRCLE_SIZE.x * Math.sin(rad_centre + alignment_delta), 
-			y: ci * CIRCLE_SIZE.y * Math.cos(rad_centre + alignment_delta)
-		};
-		
-		node.domNode.style.left = node.position.x + 'px';
-		node.domNode.style.top = node.position.y + 'px';
-		
-		if(node.parent) {
-			const canvas = innerContainer.getElementsByTagName('canvas')[0];
-			const ctx = canvas.getContext('2d');
-			ctx.beginPath();
-			ctx.lineWidth = 2;
-			ctx.moveTo(node.position.x, node.position.y);
-			ctx.lineTo(node.parent.position.x, node.parent.position.y);
-			ctx.strokeStyle = 'white';
-			ctx.stroke();
-		}
-		
-		// Do the segment of the next circle
-		renderCircle(innerContainer, ci + 1, node.children, rad_offset + alignment_delta, rad_offset + alignment_delta + dr);
-		
-		rad_offset += dr;
-	}
-}
-
-/** https://stackoverflow.com/questions/40978050 */
-function propertyFromCssClass(className, property) {
-	if(Array.isArray(className)) { className = className.join(' '); }
-	var elem = document.getElementById('temp-div-' + className);
-	if(!elem) {
-	  elem = document.createElement("div");
-	  elem.id = 'temp-div-' + className;
-	  elem.style.cssText = "position:fixed;left:-100px;top:-100px;width:1px;height:1px";
-	  elem.className = className + ' temp';
-	  document.body.appendChild(elem);  // required in some browsers
-	  }
-  const color = getComputedStyle(elem).getPropertyValue("color");
-  //document.body.removeChild(tmp);
-  return color;
-}
-
-//json.textContent = JSON.stringify(maps);
-</script>
-
-</body></html>
+const chain = chain1;

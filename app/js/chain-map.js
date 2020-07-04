@@ -1,10 +1,9 @@
 var chain = new function() {
-	this.map, this.view, this.options, this.drawing, this.data = {};
-
-	this.newView = function(json) {
-		this.view = new google.visualization.DataView(new google.visualization.DataTable(json));
-		return this.view;
-	};
+	var chain = this;
+	this.map, this.view, this.drawing, this.data = {};
+	// Renderer should have:
+	//  lines(data) - 
+	this.renderer = new ChainMapRendererOrgchart(this);
 
 	this.activity = function(data) {
 		/*	function for adding recent activity to chain map nodes	*/
@@ -121,147 +120,6 @@ var chain = new function() {
 		$("#chainGrid tr:gt("+rows+")").addClass("hidden");
 	}
 
-	this.lines = function(data) {
-		//var data = typeof(data) !== "undefined" ? data : this.data.lines;
-		function drawNodeLine(system, parent, mode, signatureID) {
-			/*	function for drawing colored lines  */
-			if(typeof mode == 'string') { mode = [mode]; }
-
-			function addModes(jquerySelector, prefixes) { return doModeClasses(jquerySelector, prefixes, function(s, c) { s.addClass(c); }); }
-			function removeModes(jquerySelector, prefixes) { return doModeClasses(jquerySelector, prefixes, function(s, c) { s.removeClass(c); }); }
-			function doModeClasses(jquerySelector, prefixes, classFunc) {
-				prefixes = prefixes || [];
-				prefixes.push('');
-				prefixes.forEach(function(prefix) { 
-					mode.forEach( function(mode) { classFunc(jquerySelector, (prefix.length ? prefix + '-' : '') + mode); });
-				});
-				return jquerySelector;
-			}
-
-			// Find node in chainmap
-			//var $node = $("#chainMap [data-nodeid='"+system+"']").parent();
-			var $node = $("#chainMap #node"+system).parent();
-
-			if ($node.length == 0) {
-				return false;
-			}
-
-			// Get node # in this line
-			var nodeIndex = Math.ceil(($node[0].cellIndex + 1) / 2 - 1);
-
-			// applly to my top line
-			var $connector = addModes($($node.parent().prev().children("td.google-visualization-orgchart-lineleft, td.google-visualization-orgchart-lineright")[nodeIndex]), [ 'left', 'right' ]);
-
-			// Find parent node
-			//var $parent = $("#chainMap [data-nodeid='"+parent+"']").parent();
-			var $parent = $("#chainMap #node"+parent).parent();
-
-			if ($parent.length == 0 || $connector.length == 0)
-				return false;
-
-			// Find the col of my top line
-			var nodeCol = 0, connectorCell = $connector[0].cellIndex;
-			$node.parent().prev().find("td").each(function(index) {
-				nodeCol += this.colSpan;
-
-				if (index == connectorCell) {
-					return false;
-				}
-			});
-
-			// Get node # in this line
-			var parentIndex = Math.ceil(($parent[0].cellIndex + 1) / 2 - 1);
-
-			// Compensate for non-parent nodes (slight performance hit ~10ms)
-			var newparentIndex = parentIndex;
-			for (var i = 0; i <= parentIndex; i++) {
-				var checkSystem = 0;//$node.parent().prev().prev().prev().find("td:has([data-nodeid]):eq("+i+")").find("[data-nodeid]").data("nodeid");
-				$node.parent().prev().prev().prev().find("td > [data-nodeid]").each(function(index) {
-					if (index == i) {
-						checkSystem = $(this).attr("id").replace("node", "");//$(this).data("nodeid");
-
-						return false;
-					}
-				});
-
-				if ($.map(data.map.rows, function(node) { return node.c[1].v == checkSystem ? node : null; }).length <= 0) {
-					newparentIndex--;
-				}
-			}
-			parentIndex = newparentIndex;
-
-			// Apply to parent bottom line
-			var $connecte = addModes($($node.parent().prev().prev().children("td.google-visualization-orgchart-lineleft, td.google-visualization-orgchart-lineright")[parentIndex]), [ 'left', 'right'] );
-
-			// the beans
-			var col = 0, parent = false, me = false;
-			$node.parent().prev().prev().find("td").each(function(index, value) {
-				col += this.colSpan;
-
-				if (me && parent) {
-					// All done - get outta here
-					return false;
-				} else if (typeof($connecte[0]) != "undefined" && $connecte[0].cellIndex == index) {
-					parent = true;
-
-					addModes($(this), ['left']);
-
-					// remove bottom border that points to the right
-					if (!me && col != nodeCol) {
-						addModes($(this), ['bottom']);
-					}
-
-					// parent and node are same - we are done
-					if (nodeCol == col) {
-						return false;
-					}
-				} else if (col == nodeCol) {
-					me = true;
-
-					addModes($(this), [ 'bottom' ]);
-				} else if (me || parent) {
-					var tempCol = 0, breaker = false, skip = false;
-
-					$node.parent().prev().find("td").each(function(index) {
-						tempCol += this.colSpan;
-
-						if (tempCol == col && ($(this).hasClass("google-visualization-orgchart-lineleft") || $(this).hasClass("google-visualization-orgchart-lineright"))) {
-							if (parent == false) {
-								// Stop looking cuz there is another node between us and parent
-								breaker = true;
-								removeModes($connecte, [ 'left', 'right' ]);
-								return false;
-							} else if (parent == true) {
-								// Lets make sure there isnt a node between the parent and me
-								removeModes($connecte, [ 'left', 'right' ]);
-
-								$node.parent().prev().prev().find("td").each(function(index) {
-									if (index >= $connecte[0].cellIndex) {
-										// there is a node after parent but before me
-										removeModes($(this), [ 'bottom' ]);
-									}
-								});
-								skip = true;
-							}
-						}
-					});
-
-					if (breaker) {
-						return false;
-					}
-
-					if (!skip) {
-						addModes($(this), ['bottom'] );
-					}
-				}
-			});
-		}
-
-		for (var x in data.lines) {
-			drawNodeLine(data.lines[x][0], data.lines[x][1], data.lines[x][2], data.lines[x][3]);
-		}
-	}
-
 	this.nodes = function(map) {
 		var chain = {cols: [{label: "System", type: "string"}, {label: "Parent", type: "string"}], rows: []};
 		var frigTypes = ["Q003", "E004", "L005", "Z006", "M001", "C008", "G008", "A009", "SML" ];
@@ -321,8 +179,8 @@ var chain = new function() {
 				effect = system.effect;
 			}
 
-			var node = {v: id};
-			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"+(sigId ? " data-sigid='"+sigId+"'" : null)+">"
+			var node = {v: id, systemID: systemID };
+			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"+(sigId ? " data-sigid='"+sigId+"'" : null)+" class='node " + ((additionalClasses || []).join(' ')) + "'>"
 							+	"<div class='nodeIcons'>"
 							+		"<div style='float: left;'>"
 							+			"<i class='whEffect' "+(effectClass ? "data-icon='"+effectClass+"' data-tooltip='"+effect+"'" : null)+"></i>"
@@ -602,7 +460,7 @@ var chain = new function() {
 		clearTimeout(drawRetryTimer);
 
 		// We need to make sure Google chart is ready and we have signature data for this system before we begin, otherwise delay
-		if (!this.map || (Object.size(data.map) && !tripwire.client.signatures)) {
+		if (!this.renderer.ready() || (Object.size(data.map) && !tripwire.client.signatures)) {
 			drawRetryTimer = setTimeout(function() { chain.draw(data) }, 100);
 			return;
 		}
@@ -627,20 +485,13 @@ var chain = new function() {
 
 			$.extend(data, this.nodes(data.map)); // 250ms -> <100ms
 			$.extend(this.data, data);
-			this.map.draw(this.newView(data.map), this.options); // 150ms
+			
+			const collapsedSystems = options.chain.tabs[options.chain.active] ? (options.chain.tabs[options.chain.active].collapsed || []) : [];
 
-			if (options.chain.tabs[options.chain.active]) {
-				for (var x in options.chain.tabs[options.chain.active].collapsed) {
-					var node = $("#chainMap [data-nodeid='"+options.chain.tabs[options.chain.active].collapsed[x]+"']").attr("id");
+			this.renderer.draw(data.map, data.lines, collapsedSystems); // 150ms
+			//this.map.draw(this.newView(data.map), this.options); // 150ms
 
-					if (node) {
-						node = node.split("node")[1];
-						this.map.collapse(node - 1, true);
-					}
-				}
-			}
-
-			this.lines(data); // 300ms
+//			this.renderer.lines(data); // 300ms
 			this.grid(); // 4ms
 
 			// Apply current system style
@@ -704,20 +555,11 @@ var chain = new function() {
 		}
 	}
 
-	this.collapse = function(c) {
-		if (chain.drawing) return false;
-
+	this.updateCollapsed = function(collapsedSystems) {
 		if (options.chain.tabs[options.chain.active]) {
-			var collapsed = chain.map.getCollapsedNodes();
-			options.chain.tabs[options.chain.active].collapsed = [];
-			for (x in collapsed) {
-				var systemID = $("#chainMap #node"+(collapsed[x] +1)).data("nodeid");
-				options.chain.tabs[options.chain.active].collapsed.push(systemID);
-			}
+			options.chain.tabs[options.chain.active].collapsed = collapsedSystems;
 		}
-
-		chain.lines(chain.data);
-
+		
 		// Apply current system style
 		$("#chainMap [data-nodeid='"+viewingSystemID+"']").parent().addClass("currentNode");
 
@@ -737,14 +579,4 @@ var chain = new function() {
 		options.save();
 	}
 
-	this.init = function() {
-		chain.map = new google.visualization.OrgChart(document.getElementById("chainMap"));
-		chain.options = {allowHtml: true, allowCollapse: true, size: "medium", nodeClass: "node"};
-
-		google.visualization.events.addListener(chain.map, "collapse", chain.collapse);
-
-		chain.map.draw(new google.visualization.DataView(new google.visualization.DataTable({cols:[{label: "System", type: "string"}, {label: "Parent", type: "string"}]})), this.options);
-	}
-
-	google.charts.setOnLoadCallback(this.init);
 }
