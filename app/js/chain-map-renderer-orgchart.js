@@ -14,7 +14,18 @@ const ChainMapRendererOrgchart = function(owner) {
 	google.charts.setOnLoadCallback(this.init);	
 	
 	/** Is this renderer ready to accept draw calls? */
-	this.ready = function() { return !!this.map; }
+	this.ready = function() { return !this.drawing && !!this.map; }
+	
+	/** Switch to this renderer. The renderer can be in a blank state; draw() will be called after */
+	this.switchTo = function() {
+		document.getElementById('chainGrid').style.display = '';
+	}
+	
+	/** Switch away from this renderer. All node divs should be removed from the DOM */
+	this.switchFrom = function() {
+		document.getElementById('chainGrid').style.display = 'none';
+		_this.map.draw(new google.visualization.DataView(new google.visualization.DataTable({cols:[{label: "System", type: "string"}, {label: "Parent", type: "string"}]})), _this.options);		
+	}
 	
 	/** Redraw the map, based on the given node set, line overrides and list of collapsed systems */
 	this.draw = function(map, lines, collapsed) {
@@ -30,17 +41,17 @@ const ChainMapRendererOrgchart = function(owner) {
 			}
 		}
 		
-		this.lines(map, lines);
+		updateLines(map, lines);
 		this.drawing = false;
 	};
 	
 	const newView = function(json) {
-		this.view = new google.visualization.DataView(new google.visualization.DataTable(json));
-		return this.view;
+		const view = new google.visualization.DataView(new google.visualization.DataTable(json));
+		return view;
 	};
 	
-	this.lines = function(map, lines) {
-		this.lastLineData = { map: map, lines: lines };
+	const updateLines = function(map, lines) {
+		_this.lastLineData = { map: map, lines: lines };
 		function drawNodeLine(system, parent, mode, signatureID) {
 			/*	function for drawing colored lines  */
 			if(typeof mode == 'string') { mode = [mode]; }
@@ -191,7 +202,7 @@ const ChainMapRendererOrgchart = function(owner) {
 		}
 		owner.updateCollapsed(collapsedSystems);
 		
-		if(_this.lastLineData) { _this.lines(_this.lastLineData.map, _this.lastLineData.lines); }
+		if(_this.lastLineData) { updateLines(_this.lastLineData.map, _this.lastLineData.lines); }
 	}
 
 

@@ -856,4 +856,4 @@ const chain2 = { map: {
 
 }
 
-const chain = chain1;
+const test_chain = chain1;

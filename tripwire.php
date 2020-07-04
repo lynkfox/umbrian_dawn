@@ -275,10 +275,10 @@ if ($row = $stmt->fetchObject()) {
 								</ul>
 							</li>
 							<li data-command="mass"><a>Mass</a></li>
-							<li data-command="collapse"><a>Collapse</a></li>
+							<!-- <li data-command="collapse"><a>Collapse</a></li> -->
 						</li>
 					</ul>
-					<span style="position: relative; display: table; width: 100%;">
+					<div style="position: relative; display: table; width: 100%;">
 						<table id="chainGrid">
 							<tr class="top"><td></td></tr>
 							<tr class="space hidden"><td></td></tr>
@@ -327,8 +327,8 @@ if ($row = $stmt->fetchObject()) {
 							<tr class="line hidden"><td></td></tr>
 							<tr class="space hidden"><td>22</td></tr>
 						</table>
-						<span id="chainMap"></span>
-					</span>
+						<div id="chainMap"></div>
+					</div>
 				</div>
 			</li>
 		</ul>

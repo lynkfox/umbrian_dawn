@@ -2,8 +2,27 @@ var chain = new function() {
 	var chain = this;
 	this.map, this.view, this.drawing, this.data = {};
 	// Renderer should have:
-	//  lines(data) - 
-	this.renderer = new ChainMapRendererOrgchart(this);
+	//  ready() - Whether the renderer is initialised and can accept draw calls
+	// switchTo() - Make this renderer active. The renderer can be in a blank state; draw() will be called after
+	// switchFrom() - Switch away from this renderer. All node divs should be removed from the DOM, other items can be removed or made invisible
+	// draw(map, lines, collapsedSystems) - Redraw the map, based on the given node set, line overrides and list of collapsed systems 
+	// If the renderer allows collapsing of nodes then it will call updateCollapsed on the owner (the chain) with a list of collapsed systems in the current tab
+	
+	const renderers = { 
+		orgChart: new ChainMapRendererOrgchart(this),
+		radial: new ChainMapRendererRadial(this)
+	};
+	this.renderer = renderers.orgChart;
+	
+	this.useRenderer = function(name) {
+		if(!renderers[name]) { throw 'Unknown renderer ' + name; }
+		if(this.renderer != renderers[name]) {
+			this.renderer.switchFrom();
+			this.renderer = renderers[name];
+			this.renderer.switchTo();
+			this.redraw();
+		}
+	}
 
 	this.activity = function(data) {
 		/*	function for adding recent activity to chain map nodes	*/

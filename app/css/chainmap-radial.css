@@ -13,13 +13,13 @@
 .radial-map  {
 	position: relative;
 	width: 100%;
-	background: #000020;	
 }
 
 .radial-map  .map-chain-wrapper {
 	overflow:hidden;
 	display: inline-block;
 	vertical-align: middle;
+	margin: 0 10px;
 }
 
 .map-outer-container {
