@@ -17,8 +17,7 @@ const ChainMapRendererOrgchart = function(owner) {
 	/** Switch to this renderer. The renderer can be in a blank state; draw() will be called after */
 	this.switchTo = function() {
 		document.getElementById('chainGrid').style.display = '';
-		if(google.visualization) { this.init(); }
-		else { google.charts.setOnLoadCallback(this.init); }
+		if(!_this.map) { google.charts.setOnLoadCallback(this.init); }
 	}
 	
 	/** Switch away from this renderer. All node divs should be removed from the DOM */
