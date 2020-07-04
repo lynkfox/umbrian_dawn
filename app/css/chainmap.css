@@ -263,12 +263,17 @@ td.google-visualization-orgchart-linenode[data-signatureid] {
 	cursor: pointer;
 }
 
+/* Grid lines and flare text */
+#chainGrid .grid-default { color: #777;}
+.red { color: #FF4747;}
+.yellow { color: #F5B544;}
+.green { color: #50D25A;}
+
 #chainGrid {
 	position: absolute;
 	width: 100%;
 	z-index: -10;
-	margin-left: -3px;
-	color: #777;
+	margin-left: -3px;	
 }
 
 #chainGrid .top td {
@@ -286,17 +291,14 @@ td.google-visualization-orgchart-linenode[data-signatureid] {
 
 #chainGrid .red td {
 	border-bottom-color: #FF4747;
-	color: #FF4747;
 }
 
 #chainGrid .yellow td {
 	border-bottom-color: #F5B544;
-	color: #F5B544;
 }
 
 #chainGrid .green td {
 	border-bottom-color: #50D25A;
-	color: #50D25A;
 }
 
 #chainTabs {
