@@ -42,7 +42,22 @@
 	box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
 }
 
-#chainMap td.currentNode {
+#chainMap /*td.node >*/ div.node.loop {	/* more specific than others nearby, because we want these over flares/current node */
+	min-width: auto;
+/*	width: 30px;*/
+	border-radius: 100px;
+	border-color: #0070a0;
+}
+
+#chainMap div.loop {	/* less specific, so flares/current node works over this */
+	background: #000810;
+}
+
+div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivity {
+	display:none;
+}
+	
+#chainMap td.currentNode > div.node {
 	border-color: #00286E;
 	background: #001B47;
 
@@ -50,7 +65,7 @@
 	background: -webkit-gradient(linear, left top, left bottom, from(#001B47), to(#00286E));
 }
 
-#chainMap td.redNode {
+#chainMap div.redNode.node {
 	border-color: #810;
 	background: #610;
 
@@ -58,7 +73,7 @@
 	background: -webkit-gradient(linear, left top, left bottom, from(#610), to(#810));
 }
 
-#chainMap td.yellowNode {
+#chainMap div.yellowNode.node {
 	border-color: #8A4117;
 	background: #80370D;
 
@@ -66,7 +81,7 @@
 	background: -webkit-gradient(linear, left top, left bottom, from(#80370D), to(#8A4117));
 }
 
-#chainMap td.greenNode {
+#chainMap div.greenNode.node {
 	border-color: #040;
 	background: #030;
 
@@ -74,7 +89,7 @@
 	background: -webkit-gradient(linear, left top, left bottom, from(#030), to(#040));
 }
 
-#chainMap td.node a {
+#chainMap .node a {
 	font-weight: normal;
 }
 

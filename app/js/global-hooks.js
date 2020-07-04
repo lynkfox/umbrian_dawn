@@ -718,8 +718,9 @@ $("#chainParent").contextmenu({
 	menu: "#chainMenu",
 	show: {effect: "slideDown", duration: 150},
 	select: function(e, ui) {
-		var id = $(ui.target[0]).closest("[data-nodeid]").data("nodeid");
-		var row = $(ui.target[0]).closest("[data-nodeid]").attr("id").replace("node", "") -1;
+		const nodeElem = $(ui.target[0]).closest("[data-nodeid]");
+		var id = nodeElem.data("nodeid");
+		var row = nodeElem.attr("id").replace("node", "") -1;
 
 		switch(ui.cmd) {
 			case "showInfo":
@@ -735,16 +736,16 @@ $("#chainParent").contextmenu({
 				// CCPEVE.showMap(id);
 				break;
 			case "red":
-				$(ui.target[0]).closest("td").hasClass("redNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
+				nodeElem.hasClass("redNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
 				break;
 			case "yellow":
-				$(ui.target[0]).closest("td").hasClass("yellowNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
+				nodeElem.hasClass("yellowNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
 				break;
 			case "green":
-				$(ui.target[0]).closest("td").hasClass("greenNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
+				nodeElem.hasClass("greenNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
 				break;
 			case "mass":
-				$("#dialog-mass").data("id", $(ui.target[0]).closest("[data-nodeid]").data("sigid")).data("systemID", $(ui.target[0]).closest("[data-nodeid]").data("nodeid")).dialog("open");
+				$("#dialog-mass").data("id", nodeElem.data("sigid")).data("systemID", nodeElem.data("nodeid")).dialog("open");
 				break;
 			case "collapse":
 				var toggle = options.chain.tabs[options.chain.active] ? ($.inArray(id, options.chain.tabs[options.chain.active].collapsed) == -1 ? true : false) : true;

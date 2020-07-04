@@ -83,7 +83,7 @@ var chain = new function() {
 		//var data = typeof(data) !== "undefined" ? data : this.data.flares;
 
 		// Remove all current node coloring instead of checking each one
-		$("#chainMap td.node").removeClass("redNode yellowNode greenNode");
+		$("#chainMap div.node").removeClass("redNode yellowNode greenNode");
 
 		// Remove all coloring from chain grid
 		$("#chainGrid tr").removeClass("red yellow green");
@@ -94,7 +94,7 @@ var chain = new function() {
 				var systemID = data.flares[x].systemID;
 				var flare = data.flares[x].flare;
 
-				var row = ($("#chainMap [data-nodeid="+systemID+"]").parent().addClass(flare+"Node").parent().index() - 1) / 3 * 2;
+				var row = ($("#chainMap [data-nodeid="+systemID+"]").addClass(flare+"Node").parent().index() - 1) / 3 * 2;
 
 				if (row > 0) {
 					$("#chainGrid tr:eq("+row+")").addClass(flare).next().addClass(flare);
@@ -285,8 +285,9 @@ var chain = new function() {
 		function topLevel(systemID, id) {
 			if (!systemID || !tripwire.systems[systemID])
 				return false;
-			const tabName = options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].systemID != 0 ? options.chain.tabs[options.chain.active].name : undefined;
-			return makeSystemNode(systemID, id, null, tabName, '&nbsp;');
+			const tab = options.chain.tabs[options.chain.active];
+			const tabName = tab && tab.systemID != 0 && 0 > tab.systemID.indexOf(',') ? options.chain.tabs[options.chain.active].name : undefined;
+			return makeSystemNode(systemID, id, null, tabName, '&nbsp;', ['top-level']);
 		}
 
 		function makeSystemNode(systemID, id, sigId, systemName, nodeTypeMarkup) {
