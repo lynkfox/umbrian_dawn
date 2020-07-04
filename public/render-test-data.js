@@ -854,6 +854,117 @@ const chain2 = { map: {
   ]
 }, lines: []
 
-}
+};
 
-const test_chain = chain1;
+const chain3 = { map: {
+  "cols": [
+    {
+      "label": "System",
+      "type": "string"
+    },
+    {
+      "label": "Parent",
+      "type": "string"
+    }
+  ],
+  "rows": [
+    {
+      "c": [
+        {
+          "v": 1,
+          "systemID": "31001168",
+          "f": "<div id='node1' data-nodeid='31001168'null class='node top-level'><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='wh class-3'>C3</span></h4><h4 class='nodeSystem'><a href='.?system=J101354'>J101354</a></h4><h4 class='nodeType'>&nbsp;</h4><div class='statics'><span class=\"hisec\" data-tooltip=\"High-Sec via D845\">H</span></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": null
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 2,
+          "systemID": "31001779",
+          "f": "<div id='node2' data-nodeid='31001779'null class='node top-level'><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='wh class-4'>C4</span></h4><h4 class='nodeSystem'><a href='.?system=J172502'>J172502</a></h4><h4 class='nodeType'>&nbsp;</h4><div class='statics'><span class=\"class-3\" data-tooltip=\"Class 3 via C247\">3</span><span class=\"class-5\" data-tooltip=\"Class 5 via H900\">5</span></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": null
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 3,
+          "systemID": "30014971",
+          "f": "<div id='node3' data-nodeid='30014971' data-sigid='22' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='hisec'>HS</span></h4><h4 class='nodeSystem'><a href='.?system=Couster'>Couster</a></h4><h4 class='nodeType'>D845</h4><div class='statics'></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 1
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 4,
+          "systemID": "31002237",
+          "f": "<div id='node4' data-nodeid='31002237' data-sigid='23' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' data-icon='cataclysmic-variable' data-tooltip='Cataclysmic Variable'></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='wh class-5'>C5</span></h4><h4 class='nodeSystem'><a href='.?system=J131505'>J131505</a></h4><h4 class='nodeType'>H900</h4><div class='statics'><span class=\"class-5\" data-tooltip=\"Class 5 via H296\">5</span></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 2
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 5,
+          "systemID": "31001075",
+          "f": "<div id='node5' data-nodeid='31001075' data-sigid='25' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' data-icon='red-giant' data-tooltip='Red Giant'></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='wh class-3'>C3</span></h4><h4 class='nodeSystem'><a href='.?system=J122854'>J122854</a></h4><h4 class='nodeType'>C247</h4><div class='statics'><span class=\"hisec\" data-tooltip=\"High-Sec via D845\">H</span></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 2
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 6,
+          "systemID": "30000580",
+          "f": "<div id='node6' data-nodeid='30000580' data-sigid='24' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='nullsec'>NS</span></h4><h4 class='nodeSystem'><a href='.?system=MN-Q26'>MN-Q26</a></h4><h4 class='nodeType'>Z142</h4><div class='statics'></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 4
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 7,
+          "systemID": "30003288",
+          "f": "<div id='node7' data-nodeid='30003288' data-sigid='31' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='nullsec'>NS</span></h4><h4 class='nodeSystem'><a href='.?system=X-PYH5'>X-PYH5</a></h4><h4 class='nodeType'>&nbsp;</h4><div class='statics'></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 4
+        }
+      ]
+    },
+    {
+      "c": [
+        {
+          "v": 8,
+          "systemID": "30005308",
+          "f": "<div id='node8' data-nodeid='30005308' data-sigid='30' class='node '><div class='nodeIcons'><div style='float: left;'><i class='whEffect' null></i></div><div style='float: right;'><i data-icon='user' class='invisible'></i><span class='badge invisible'></span></div></div><h4 class='nodeClass'><span class='hisec'>HS</span></h4><h4 class='nodeSystem'><a href='.?system=Jufvitte'>Jufvitte</a></h4><h4 class='nodeType'>&nbsp;</h4><div class='statics'></div><div class='nodeActivity'><span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span></div></div>"
+        },
+        {
+          "v": 5
+        }
+      ]
+    }
+  ]
+}, lines: [] };
+
+const test_chain = chain3;

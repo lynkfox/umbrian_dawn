@@ -39,6 +39,8 @@ const ChainMapRendererRadial = function(owner) {
 		const maps = [];
 		const nodesById = {};
 		
+		window.maps = maps;
+		
 		// First pass: arrange nodes into rings
 		for(var ri = 0; ri < map.rows.length; ri++) {
 			const item = map.rows[ri];
@@ -190,7 +192,8 @@ const ChainMapRendererRadial = function(owner) {
 			node.domNode.style.top = node.position.y + 'px';
 			
 			// Do the segment of the next circle
-			const nextBounds = makeDivsForRing(innerContainer, ci + 1, node.children, rad_offset + alignment_delta, rad_offset + alignment_delta + dr);
+			const excess = (ci > 0 && dr > node.minArc * ci) ? dr - node.minArc * ci : 0;
+			const nextBounds = makeDivsForRing(innerContainer, ci + 1, node.children, rad_offset + (0.5 * excess) + alignment_delta, rad_offset - (0.5 * excess) + alignment_delta + dr);
 			if(nextBounds.x[0] < bounds.x[0]) { bounds.x[0] = nextBounds.x[0]; }
 			if(nextBounds.x[1] > bounds.x[1]) { bounds.x[1] = nextBounds.x[1]; }
 			if(nextBounds.y[0] < bounds.y[0]) { bounds.y[0] = nextBounds.y[0]; }

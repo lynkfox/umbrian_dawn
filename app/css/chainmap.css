@@ -66,7 +66,7 @@ div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivi
 	display:none;
 }
 	
-#chainMap td.currentNode > div.node {
+#chainMap .currentNode > div.node {
 	border-color: #00286E;
 	background: #001B47;
 
@@ -134,6 +134,7 @@ div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivi
 
 #chainMap [data-nodeid] h4 {
 	font-weight: normal;
+	white-space: nowrap;
 }
 
 #chainMap .nodeType {

@@ -10,13 +10,15 @@ const ChainMapRendererRadial = function(owner) {
 			newDiv.className = 'radial-map';
 			document.getElementById('chainMap').appendChild(newDiv);
 		}
-		document.getElementById('map-container').style.display = '';
+		this.container = document.getElementById('map-container');
+		this.container.style.display = '';
 	}
 	
 	/** Switch away from this renderer. All node divs should be removed from the DOM */
 	this.switchFrom = function() {
 		const div = document.getElementById('map-container');
 		if(div) { div.parentNode.removeChild(div); }
+		this.container = null;
 	}
 	
 	/** Redraw the map, based on the given node set, line overrides and list of collapsed systems */
@@ -35,6 +37,7 @@ const ChainMapRendererRadial = function(owner) {
 		ringY: function(ci) { return ci == 0 ? 0 : (ci + this.first_ring_delta) * this.y},
 	 };
 
+	const _this = this;
 	const drawInner = function(map, lines, collapsed) {
 		const maps = [];
 		const nodesById = {};
@@ -107,6 +110,28 @@ const ChainMapRendererRadial = function(owner) {
 				cx: 100 - map.bounds.x[0],
 				cy: 50 - map.bounds.y[0]
 			}
+			
+			// Fill the space available, if we didn't already
+			if(maps.length == 1) {
+				const parentWidth = -38 + _this.container.offsetWidth;	// 20px for map margins, 18 for scrollbar
+				if(finalPositions.w < parentWidth) {
+					finalPositions.cx += 0.5 * (parentWidth - finalPositions.w);
+					finalPositions.w = parentWidth;
+				}
+			}			
+			const parentHeight = document.getElementById('chainParent').offsetHeight;
+			if(finalPositions.h < parentHeight) {
+				finalPositions.cy += 0.5 * (parentHeight - finalPositions.h);
+				finalPositions.h = parentHeight;
+			}
+			
+			// If there's enough space to centre the top level node now, do it
+			if(finalPositions.h >= 2 * (map.bounds.y[1] > -map.bounds.y[0] ? map.bounds.y[1] : -map.bounds.y[0])) {
+				finalPositions.cy = finalPositions.h / 2;
+			}
+			if(finalPositions.w >= 2 * (map.bounds.x[1] > -map.bounds.x[0] ? map.bounds.x[1] : -map.bounds.x[0])) {
+				finalPositions.cx = finalPositions.w / 2;
+			}			
 			map.domNode.style.width = finalPositions.w + 'px';
 			map.domNode.style.height = finalPositions.h + 'px';
 			const outerContainer = map.domNode.firstChild;
@@ -190,7 +215,8 @@ const ChainMapRendererRadial = function(owner) {
 			node.domNode.style.top = node.position.y + 'px';
 			
 			// Do the segment of the next circle
-			const nextBounds = makeDivsForRing(innerContainer, ci + 1, node.children, rad_offset + alignment_delta, rad_offset + alignment_delta + dr);
+			const excess = (ci > 0 && dr > node.minArc * ci) ? dr - node.minArc * ci : 0;
+			const nextBounds = makeDivsForRing(innerContainer, ci + 1, node.children, rad_offset + (0.5 * excess) + alignment_delta, rad_offset - (0.5 * excess) + alignment_delta + dr);
 			if(nextBounds.x[0] < bounds.x[0]) { bounds.x[0] = nextBounds.x[0]; }
 			if(nextBounds.x[1] > bounds.x[1]) { bounds.x[1] = nextBounds.x[1]; }
 			if(nextBounds.y[0] < bounds.y[0]) { bounds.y[0] = nextBounds.y[0]; }
