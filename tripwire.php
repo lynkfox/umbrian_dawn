@@ -726,7 +726,7 @@ if ($row = $stmt->fetchObject()) {
 						<td>
 							<select id="renderer">
 								<option value="orgChart">Org Chart</option>
-								<option value="radial">Radial (System in middle)</option>
+								<option value="radial">Radial (System in middle) - Experimental</option>
 							</select>
 						</td>
 					</tr>
