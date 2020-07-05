@@ -32,6 +32,7 @@
 
 .map-inner-container .node-wrapper {
 	position:absolute;
+	width: 0; height: 0;
 }
 
 #chainMap .node-wrapper > div.node {

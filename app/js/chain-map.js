@@ -169,7 +169,7 @@ var chain = new function() {
 			return makeSystemNode(systemID, id, null, tabName, '&nbsp;', ['top-level']);
 		}
 
-		function makeSystemNode(systemID, id, sigId, systemName, nodeTypeMarkup) {
+		function makeSystemNode(systemID, id, sigId, systemName, nodeTypeMarkup, additionalClasses) {
 			// System type switch
 			var systemType = getSystemType(systemID);
 			const system = tripwire.systems[systemID];

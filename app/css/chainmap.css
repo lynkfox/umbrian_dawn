@@ -20,26 +20,23 @@
 }
 
 #chainMap td.node {
-	height: 30px;
-	min-width: 5em;
-	white-space: nowrap;
-	text-align: center;
-	vertical-align: middle;
-	font-family: verdana;
-	font-size: 1em;
-	cursor: default;
-	border: 2px solid #333;
-	line-height: 1;
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+    font-family: verdana;
+    font-size: 1em;
+    cursor: default;
+    line-height: 1;
+    border: none;
+    background: 0 0;
+}
 
-<<<<<<< HEAD
-=======
 #chainMap div.node {
 	height: 30px;
 	min-width: 5em;
 	display: inline-block;
 	margin-left: auto; margin-right: auto;	/* centre horizontally within cell */
 	border: 2px solid #333;
->>>>>>> Alternative renderer
     border-top-left-radius: 15px 50px;
     border-top-right-radius: 15px 50px;
 	border-bottom-left-radius: 15px 50px;
@@ -183,10 +180,7 @@ div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivi
 }
 
 /* These styles need the specific selectors because they need to override presets */
-<<<<<<< HEAD
-=======
 .connection { border-color: #004080; }
->>>>>>> Alternative renderer
 .critical, #chainMap .critical, #guide .critical { border-color: #FF4747; }
 .destab, #chainMap .destab, #guide .destab { border-color: #F5B544; }
 .gate, #chainMap .gate, #guide .gate { border-color: darkgray; }
