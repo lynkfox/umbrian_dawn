@@ -153,6 +153,7 @@ const ChainMapRendererRadial = function(owner) {
 					ctx.beginPath();
 					if(ctx.ellipse) {
 						ctx.lineWidth = 0.5;
+						ctx.setLineDash([]);
 						ctx.ellipse(0, 0, CIRCLE_SIZE.ringX(ci), CIRCLE_SIZE.ringY(ci), 0, 0, Math.PI * 2);
 					}
 					ctx.strokeStyle = propertyFromCssClass('grid-default', 'color');
