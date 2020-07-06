@@ -224,7 +224,10 @@ var isEmpty = function(obj) {
 function positionRelativeTo(elem, ancestor) {
 	const elemPos = elem.getBoundingClientRect(),
 		ancestorPos = ancestor.getBoundingClientRect();
-	return { left: elemPos.left - ancestorPos.left, top: elemPos.top - ancestorPos.top };
+	return { 
+		left: elemPos.left - ancestorPos.left + ancestor.scrollLeft,
+		top: elemPos.top - ancestorPos.top + ancestor.scrollTop
+	};
 }
 
 var getCookie = function(c_name) {
