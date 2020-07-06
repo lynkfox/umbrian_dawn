@@ -220,6 +220,13 @@ var isEmpty = function(obj) {
     return true;
 };
 
+/** Find the relative position of one element within the hierarchy tree of another */
+function positionRelativeTo(elem, ancestor) {
+	const elemPos = elem.getBoundingClientRect(),
+		ancestorPos = ancestor.getBoundingClientRect();
+	return { left: elemPos.left - ancestorPos.left, top: elemPos.top - ancestorPos.top };
+}
+
 var getCookie = function(c_name) {
 	var c_value = document.cookie;
 

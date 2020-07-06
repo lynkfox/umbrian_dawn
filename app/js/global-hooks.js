@@ -321,15 +321,15 @@ var SystemActivityToolTips = new jBox("Tooltip", {
 	repositionOnOpen: true,
 	createOnInit: true,
 	onOpen: function() {
+		var targetPos = positionRelativeTo(this.target[0], document.getElementById('chainParent'));
 		var nodePos = this.source.closest("[data-nodeid]").position();
 		var parentPos = this.source.closest(".nodeActivity").position();
 		var nodeHeight = this.source.closest("[data-nodeid]").height();
 		// var nodeWidth = this.source.closest("[data-nodeid]").width();
-		var targetPos = this.target.position()
 		var tooltipWidth = this.container.parent().width();
 		// var tooltipHeight = this.container.parent().height();
 
-		this.options.position = {x: nodePos.left + parentPos.left + targetPos.left + 3 - tooltipWidth /2 , y: nodePos.top + nodeHeight + 15};
+		this.options.position = {x: targetPos.left + 3 - tooltipWidth /2 , y: targetPos.top + this.target[0].offsetHeight};
 	}
 });
 
@@ -341,17 +341,13 @@ var WormholeRouteToolTips = new jBox("Tooltip", {
 	repositionOnOpen: true,
 	createOnInit: true,
 	onOpen: function() {
-		var nodePos = this.source.closest("[data-nodeid]").position();		
-		var parentPos = this.source.closest(".path").position();
+		var targetPos = positionRelativeTo(this.target[0], document.getElementById('chainParent'));
 		var nodeHeight = this.source.closest("[data-nodeid]").height();
 		// var nodeWidth = this.source.closest("[data-nodeid]").width();
-		var targetPos = this.target.position()
 		var tooltipWidth = this.container.parent().width();
 		// var tooltipHeight = this.container.parent().height();
 		
-		if(nodePos && parentPos && nodeHeight) {
-			this.options.position = {x: nodePos.left + parentPos.left + targetPos.left + 3 - tooltipWidth /2 , y: nodePos.top + nodeHeight + 15};
-		}
+		this.options.position = {x: targetPos.left + 3 - tooltipWidth /2 , y: targetPos.top + this.target[0].offsetHeight};
 	}
 });
 
@@ -367,14 +363,10 @@ var WormholeTypeToolTips = new jBox("Tooltip", {
 	repositionOnOpen: true,
 	createOnInit: true,
 	onOpen: function() {
-		var parentPos = this.source.closest("[data-nodeid]").position();
-		// var parentHeight = this.source.closest("[data-nodeid]").height();
-		// var parentWidth = this.source.closest("[data-nodeid]").width();
-		var targetPos = this.target.position()
+		var targetPos = positionRelativeTo(this.target[0], document.getElementById('chainParent'));
 		var tooltipWidth = this.container.parent().width();
-		// var tooltipHeight = this.container.parent().height();
 
-		this.options.position = {x: parentPos.left - tooltipWidth - 10, y: parentPos.top + targetPos.top - 3};
+		this.options.position = {x: targetPos.left - tooltipWidth - 10, y: targetPos.top - 3};
 	}
 });
 
@@ -393,12 +385,11 @@ var OccupiedToolTips = new jBox("Tooltip", {
 	createOnInit: true,
 	onOpen: function() {
 		var tooltip = this;
-		var systemID = this.source.closest("[data-nodeid]").data("nodeid");
-		var parentPos = this.source.closest("[data-nodeid]").position();
-		var parentWidth = this.source.closest("[data-nodeid]").width();
-		var targetPos = this.target.position();
+		const nodeElemJ = this.source.closest("[data-nodeid]");
+		var systemID = nodeElemJ.data("nodeid");
+		var targetPos = positionRelativeTo(this.target[0], document.getElementById('chainParent'));
 
-		this.options.position = {x: parentPos.left + parentWidth, y: parentPos.top + targetPos.top - 3};
+		this.options.position = {x: targetPos.left + this.target[0].offsetWidth, y: targetPos.top - 3};
 
 		tooltip.setContent("&nbsp;");
 
