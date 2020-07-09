@@ -123,7 +123,10 @@
 	width: 50px;
 	height: 1px;
 	margin-right: -25px;
+	pointer-events: none;	/* so it doesn't overlay the link */
 }
+
+#chainMap .nodeActivity * { pointer-events: initial }
 
 #chainMap .statics {
 	position: absolute;
