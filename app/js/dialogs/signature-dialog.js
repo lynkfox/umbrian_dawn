@@ -23,7 +23,7 @@ function openSignatureDialog(e) {
 				}
 			} else { sigDialogVM.sigId = e.data.signature; }
 			break;
-		default: delete sigDialogVM.id;
+		default: delete sigDialogVM.sigId;
 	}
 	
 	sigDialogVM.viewingSystemID = (tripwire.client.signatures[sigDialogVM.sigId] || {systemID: viewingSystemID }).systemID;
