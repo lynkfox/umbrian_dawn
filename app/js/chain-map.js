@@ -278,10 +278,10 @@ var chain = new function() {
 			if (!systemID || !tripwire.systems[systemID])
 				return false;
 			const tabName = options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].systemID != 0 ? options.chain.tabs[options.chain.active].name : undefined;
-			return makeSystemNode(systemID, id, null, tabName, '&nbsp;');
+			return makeSystemNode(systemID, id, null, tabName, '&nbsp;', []);
 		}
 
-		function makeSystemNode(systemID, id, sigId, systemName, nodeTypeMarkup) {
+		function makeSystemNode(systemID, id, sigId, systemName, nodeTypeMarkup, additionalClasses) {
 			// System type switch
 			var systemType = getSystemType(systemID);
 			const system = tripwire.systems[systemID];
@@ -312,8 +312,8 @@ var chain = new function() {
 				effect = system.effect;
 			}
 
-			var node = {v: id};
-			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"+(sigId ? " data-sigid='"+sigId+"'" : null)+">"
+			var node = {v: id };
+			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"+(sigId ? " data-sigid='"+sigId+"'" : null)+" class='node " + ((additionalClasses || []).join(' ')) + "'>"
 							+	"<div class='nodeIcons'>"
 							+		"<div style='float: left;'>"
 							+			"<i class='whEffect' "+(effectClass ? "data-icon='"+effectClass+"' data-tooltip='"+effect+"'" : null)+"></i>"
@@ -344,7 +344,7 @@ var chain = new function() {
 		function makeCalcChildNode(childID, node, targetSystem) {
 			var path = guidance.findShortestPath(tripwire.map.shortest, [targetSystem - 30000000, node.child.systemID - 30000000]);
 			
-			var calcNode = {};
+			var calcNode = { calculated: true};
 			calcNode.life = "Gate";
 			calcNode.parent = {};
 			calcNode.parent.id = node.child.id;
@@ -445,7 +445,7 @@ var chain = new function() {
 					usedLinks.push(node.id);
 					// usedLinks[system[2]].push(node.id);
 
-					if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class) {
+					if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class && viewingSystemID != node.child.systemID ) {
 						var calcNode = makeCalcChildNode(childID, node, viewingSystemID);
 						childID = calcNode.childID;
 
@@ -453,9 +453,9 @@ var chain = new function() {
 						chainList.push([0, childID]);
 					}
 
-					if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID]) {
+					if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[node.child.systemID].class) {
 						for (var x in options.favorites) {
-							if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000)
+							if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000 || options.favorites[x] == node.child.systemID)
 								continue;
 
 							var calcNode = makeCalcChildNode(childID, node, options.favorites[x]);
@@ -524,6 +524,7 @@ var chain = new function() {
 			}
 		}
 
+		const systemsInChainMap = {};
 		for (var x in chainLinks) {
 			var node = chainLinks[x];
 			var row = {c: []};
@@ -532,12 +533,15 @@ var chain = new function() {
 				chainMap.renderPath(node.child.path) :
 				options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") :
 				(node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;";
-			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.parent.name, nodeTypeMarkup);
+			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
+			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.parent.name, nodeTypeMarkup, additionalClasses);
 
 			var parent = {v: node.parent.id};
 
 			row.c.push(child, parent);
 			chain.rows.push(row);
+			
+			if(!node.calculated) { systemsInChainMap[node.child.systemID] = row; }	// store for loops
 
 			if (node.life == "critical" && ($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1))
 				connections.push(Array(child.v, parent.v, "eol-frig", node.id));
