@@ -278,10 +278,10 @@ var chain = new function() {
 			if (!systemID || !tripwire.systems[systemID])
 				return false;
 			const tabName = options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].systemID != 0 ? options.chain.tabs[options.chain.active].name : undefined;
-			return makeSystemNode(systemID, id, null, tabName, '&nbsp;', []);
+			return makeSystemNode(systemID, id, null, null, tabName, '&nbsp;', []);
 		}
 
-		function makeSystemNode(systemID, id, sigId, systemName, nodeTypeMarkup, additionalClasses) {
+		function makeSystemNode(systemID, id, whId, inSigId, systemName, nodeTypeMarkup, additionalClasses) {
 			// System type switch
 			var systemType = getSystemType(systemID);
 			const system = tripwire.systems[systemID];
@@ -312,8 +312,11 @@ var chain = new function() {
 				effect = system.effect;
 			}
 
-			var node = {v: id };
-			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"+(sigId ? " data-sigid='"+sigId+"'" : null)+" class='node " + ((additionalClasses || []).join(' ')) + "'>"
+			var node = {v: id, systemID: systemID };
+			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"
+				+(whId ? " data-sigid='"+whId+"'" : '')
+				+(inSigId ? " data-inSigid='"+inSigId+"'" : '')
+				+" class='node " + ((additionalClasses || []).join(' ')) + "'>"
 							+	"<div class='nodeIcons'>"
 							+		"<div style='float: left;'>"
 							+			"<i class='whEffect' "+(effectClass ? "data-icon='"+effectClass+"' data-tooltip='"+effect+"'" : null)+"></i>"
@@ -334,7 +337,7 @@ var chain = new function() {
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
 							+	"</div>"
-							+"</div>"
+							+"</div>";
 
 			node.f = chainNode;
 
@@ -429,6 +432,7 @@ var chain = new function() {
 					node.parent.classBM = null;
 					node.parent.nth = null;
 					node.parent.signatureID = child.signatureID;
+					node.parent.sigIndex = child.id;
 
 					node.child = {};
 					node.child.id = ++childID;
@@ -439,6 +443,7 @@ var chain = new function() {
 					node.child.classBM = null;
 					node.child.nth = null;
 					node.child.signatureID = parent.signatureID;
+					node.child.sigIndex = parent.id;
 
 					chainLinks.push(node);
 					chainList.push([node.child.systemID, node.child.id, system[2]]);
@@ -531,10 +536,12 @@ var chain = new function() {
 			
 			const nodeTypeMarkup = node.child.path ? 
 				chainMap.renderPath(node.child.path) :
-				options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") :
-				(node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;";
+				"<a href='#' onclick='openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + (
+					options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "???") :
+					(node.child.type || "(?)") + sigFormat(node.child.typeBM, "type")
+				) + '</a>';
 			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
-			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.parent.name, nodeTypeMarkup, additionalClasses);
+			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.child.sigIndex, node.parent.name, nodeTypeMarkup, additionalClasses);
 
 			var parent = {v: node.parent.id};
 
