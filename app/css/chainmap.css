@@ -20,15 +20,15 @@
 }
 
 #chainMap td.node {
-    white-space: nowrap;
-    text-align: center;
-    vertical-align: middle;
-    font-family: verdana;
-    font-size: 1em;
-    cursor: default;
-    line-height: 1;
-    border: none;
-    background: 0 0;
+	white-space: nowrap;
+	text-align: center;
+	vertical-align: middle;
+	font-family: verdana;
+	font-size: 1em;
+	cursor: default;
+	line-height: 1;
+	border: none;
+	background: none;
 }
 
 #chainMap div.node {
@@ -145,7 +145,10 @@ div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivi
 	width: 50px;
 	height: 1px;
 	margin-right: -25px;
+	pointer-events: none;	/* so it doesn't overlay the link */
 }
+
+#chainMap .nodeActivity * { pointer-events: initial }
 
 #chainMap .statics {
 	position: absolute;
