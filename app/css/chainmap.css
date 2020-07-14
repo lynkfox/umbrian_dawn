@@ -47,6 +47,12 @@
 	box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
 }
 
+#chainMap div.node.third-party {
+	background: #111;
+	font-style: italic;
+	filter: saturate(50%) brightness(80%)
+}
+
 #chainMap td.node > div.node.loop {	/* more specific than others nearby, because we want these over flares/current node */
 	min-width: auto;
 /*	width: 30px;*/

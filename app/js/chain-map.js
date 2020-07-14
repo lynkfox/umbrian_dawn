@@ -259,6 +259,8 @@ var chain = new function() {
 		var frigTypes = ["Q003", "E004", "L005", "Z006", "M001", "C008", "G008", "A009", "SML", "MED", "LRG", "XLG"];
 		var connections = [];
 		var chainMap = this;
+		
+		const linkToThera = options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout;
 
 		function formatStatics(statics) {
 			if(!statics) { return ''; }
@@ -394,6 +396,7 @@ var chain = new function() {
 			if (system[0] <= 0) return false;
 
 			var parentID = parseInt(system[1]), childID = chainList.length;
+			const connectedTo = [];	// Local cache, in addition to usedLinks, for extra link sources
 
 			for (var x in chainData) {
 				var wormhole = chainData[x];				
@@ -448,8 +451,9 @@ var chain = new function() {
 					chainLinks.push(node);
 					chainList.push([node.child.systemID, node.child.id, system[2]]);
 					usedLinks.push(node.id);
+					if(tripwire.systems[child.systemID]) { connectedTo.push(1 * child.systemID); }	// cast to number - sigs have the system as a string
 					// usedLinks[system[2]].push(node.id);
-
+					
 					if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class && viewingSystemID != node.child.systemID ) {
 						var calcNode = makeCalcChildNode(childID, node, viewingSystemID);
 						childID = calcNode.childID;
@@ -472,6 +476,61 @@ var chain = new function() {
 					}
 				}
 			}
+			
+			if(linkToThera && thera.links) {
+				for(var ti = 0; ti < thera.links.length; ti++) {
+					var theraNode;
+					const theraLink = thera.links[ti];
+					const theraID = 'T-' + theraLink.id;
+					
+					if(theraLink.solarSystemId == system[0]) {	// Connection from this hole
+						theraNode = {
+							parent: {
+								id: parentID,
+								systemID: system[0],
+								signatureID: theraLink.wormholeDestinationSignatureId,
+								type: theraLink.sourceWormholeType.name,
+							},	child: {
+								id: ++childID,
+								systemID: theraLink.wormholeDestinationSolarSystemId,
+								signatureID: theraLink.signatureId,
+								type: theraLink.destinationWormholeType.name,								
+							}
+						};
+					} else if(theraLink.wormholeDestinationSolarSystemId == system[0]) { // Connection to this hole
+						theraNode = {
+							parent: {
+								id: parentID,
+								systemID: system[0],
+								signatureID: theraLink.signatureId,
+								type: theraLink.destinationWormholeType.name,
+							},	child: {
+								id: ++childID,
+								systemID: theraLink.solarSystemId,
+								signatureID: theraLink.wormholeDestinationSignatureId,
+								type: theraLink.sourceWormholeType.name,								
+							}
+						};								
+					}
+					
+					if(theraNode	&& 0 > usedLinks.indexOf(theraID)) {
+						if(0 > connectedTo.indexOf(theraNode.child.systemID)) { // not in our map already
+							theraNode.life = theraLink.wormholeEol;
+							theraNode.mass = theraLink.wormholeMass;
+							theraNode.thirdParty = 'eve-scout-thera';
+							theraNode.id = theraID;
+								
+							chainLinks.push(theraNode);
+							chainList.push([theraNode.child.systemID, theraNode.child.id, system[2]]);
+							connectedTo.push(theraNode.child.systemID);		
+						}							
+						// Always want to do this, even if we didn't add it, because in that case the link is overridden by one on this mask, so it is 'used' even if not made visible
+						usedLinks.push(theraID);	
+					}
+					
+				}
+					
+			}			
 		}
 		
 		if ($("#chainTabs .current").length > 0) {
@@ -536,11 +595,12 @@ var chain = new function() {
 			
 			const nodeTypeMarkup = node.child.path ? 
 				chainMap.renderPath(node.child.path) :
-				"<a href='#' onclick='openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + (
+				(node.child.sigIndex ? "<a href='#' onclick='openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" : '') + (
 					options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "???") :
 					(node.child.type || "(?)") + sigFormat(node.child.typeBM, "type")
-				) + '</a>';
+				) + (node.child.sigIndex ? '</a>' : '');
 			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
+			if(node.thirdParty) { additionalClasses.push('third-party', 'third-party-' + node.thirdParty); }
 			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.child.sigIndex, node.parent.name, nodeTypeMarkup, additionalClasses);
 
 			var parent = {v: node.parent.id};
