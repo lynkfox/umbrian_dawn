@@ -1,5 +1,7 @@
 var chain = new function() {
 	this.map, this.view, this.options, this.drawing, this.data = {};
+	
+	thirdPartySuppliers = [ thera ];
 
 	this.newView = function(json) {
 		this.view = new google.visualization.DataView(new google.visualization.DataTable(json));
@@ -454,6 +456,8 @@ var chain = new function() {
 					if(tripwire.systems[child.systemID]) { connectedTo.push(1 * child.systemID); }	// cast to number - sigs have the system as a string
 					// usedLinks[system[2]].push(node.id);
 					
+					
+					
 					if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class && viewingSystemID != node.child.systemID ) {
 						var calcNode = makeCalcChildNode(childID, node, viewingSystemID);
 						childID = calcNode.childID;
@@ -477,60 +481,26 @@ var chain = new function() {
 				}
 			}
 			
-			if(linkToThera && thera.links) {
-				for(var ti = 0; ti < thera.links.length; ti++) {
-					var theraNode;
-					const theraLink = thera.links[ti];
-					const theraID = 'T-' + theraLink.id;
-					
-					if(theraLink.solarSystemId == system[0]) {	// Connection from this hole
-						theraNode = {
-							parent: {
-								id: parentID,
-								systemID: system[0],
-								signatureID: theraLink.wormholeDestinationSignatureId,
-								type: theraLink.sourceWormholeType.name,
-							},	child: {
-								id: ++childID,
-								systemID: theraLink.wormholeDestinationSolarSystemId,
-								signatureID: theraLink.signatureId,
-								type: theraLink.destinationWormholeType.name,								
-							}
-						};
-					} else if(theraLink.wormholeDestinationSolarSystemId == system[0]) { // Connection to this hole
-						theraNode = {
-							parent: {
-								id: parentID,
-								systemID: system[0],
-								signatureID: theraLink.signatureId,
-								type: theraLink.destinationWormholeType.name,
-							},	child: {
-								id: ++childID,
-								systemID: theraLink.solarSystemId,
-								signatureID: theraLink.wormholeDestinationSignatureId,
-								type: theraLink.sourceWormholeType.name,								
-							}
-						};								
-					}
-					
-					if(theraNode	&& 0 > usedLinks.indexOf(theraID)) {
-						if(0 > connectedTo.indexOf(theraNode.child.systemID)) { // not in our map already
-							theraNode.life = theraLink.wormholeEol;
-							theraNode.mass = theraLink.wormholeMass;
-							theraNode.thirdParty = 'eve-scout-thera';
-							theraNode.id = theraID;
+			thirdPartySuppliers.forEach(function(supplier) {				
+				const ids = { parentID: parentID, nextChildID: ++childID };
+				const supplierNodes = supplier.findLinks(1 * system[0], ids);
+				childID = ids.nextChildID - 1;
+
+				for(var ti = 0; ti < supplierNodes.length; ti++) {
+					var supplierNode = supplierNodes[ti];
+					if(0 > usedLinks.indexOf(supplierNode.id)) {
+						if(0 > connectedTo.indexOf(supplierNode.child.systemID)) { // not in our map already
+							supplierNode.thirdParty = supplier.nodeNameSuffix;
 								
-							chainLinks.push(theraNode);
-							chainList.push([theraNode.child.systemID, theraNode.child.id, system[2]]);
-							connectedTo.push(theraNode.child.systemID);		
+							chainLinks.push(supplierNode);
+							chainList.push([supplierNode.child.systemID, supplierNode.child.id, system[2]]);
+							connectedTo.push(supplierNode.child.systemID);		
 						}							
 						// Always want to do this, even if we didn't add it, because in that case the link is overridden by one on this mask, so it is 'used' even if not made visible
-						usedLinks.push(theraID);	
+						usedLinks.push(supplierNode.id);	
 					}
-					
 				}
-					
-			}			
+			});
 		}
 		
 		if ($("#chainTabs .current").length > 0) {
