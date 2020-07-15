@@ -63,7 +63,7 @@ function _TheraConnection() {
 	
 	/** Refresh the Thera data from the public Eve-Scout API */
 	this.refresh = function() {
-		if(!this.active()) {
+		if(!_this.active()) {
 			return;	// only look for Thera data if on a tab with the option selected
 		}
 		
