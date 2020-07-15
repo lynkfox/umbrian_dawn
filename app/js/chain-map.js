@@ -400,6 +400,30 @@ var chain = new function() {
 			var parentID = parseInt(system[1]), childID = chainList.length;
 			const connectedTo = [];	// Local cache, in addition to usedLinks, for extra link sources
 
+			/** Add the 'current' and 'favourite' calculated nodes if appropriate */
+			const addCalcChildNodes = function(node) {
+				if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class && viewingSystemID != node.child.systemID ) {
+					var calcNode = makeCalcChildNode(childID, node, viewingSystemID);
+					childID = calcNode.childID;
+
+					chainLinks.push(calcNode.calcNode);
+					chainList.push([0, childID]);
+				}
+
+				if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[node.child.systemID].class) {
+					for (var x in options.favorites) {
+						if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000 || options.favorites[x] == node.child.systemID)
+							continue;
+
+						var calcNode = makeCalcChildNode(childID, node, options.favorites[x]);
+						childID = calcNode.childID;
+
+						chainLinks.push(calcNode.calcNode);
+						chainList.push([0, childID]);
+					}
+				}				
+			};
+
 			for (var x in chainData) {
 				var wormhole = chainData[x];				
 				if ($.inArray(wormhole.id, usedLinks) == -1) {
@@ -456,28 +480,7 @@ var chain = new function() {
 					if(tripwire.systems[child.systemID]) { connectedTo.push(1 * child.systemID); }	// cast to number - sigs have the system as a string
 					// usedLinks[system[2]].push(node.id);
 					
-					
-					
-					if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class && viewingSystemID != node.child.systemID ) {
-						var calcNode = makeCalcChildNode(childID, node, viewingSystemID);
-						childID = calcNode.childID;
-
-						chainLinks.push(calcNode.calcNode);
-						chainList.push([0, childID]);
-					}
-
-					if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[node.child.systemID].class) {
-						for (var x in options.favorites) {
-							if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000 || options.favorites[x] == node.child.systemID)
-								continue;
-
-							var calcNode = makeCalcChildNode(childID, node, options.favorites[x]);
-							childID = calcNode.childID;
-
-							chainLinks.push(calcNode.calcNode);
-							chainList.push([0, childID]);
-						}
-					}
+					addCalcChildNodes(node);					
 				}
 			}
 			
@@ -495,6 +498,8 @@ var chain = new function() {
 							chainLinks.push(supplierNode);
 							chainList.push([supplierNode.child.systemID, supplierNode.child.id, system[2]]);
 							connectedTo.push(supplierNode.child.systemID);		
+							
+							addCalcChildNodes(supplierNode);		
 						}							
 						// Always want to do this, even if we didn't add it, because in that case the link is overridden by one on this mask, so it is 'used' even if not made visible
 						usedLinks.push(supplierNode.id);	
