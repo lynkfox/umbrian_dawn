@@ -148,7 +148,7 @@ const ChainMapRendererRadial = function(owner) {
 			ctx.scale(CANVAS_SCALE, CANVAS_SCALE);
 			ctx.translate(finalPositions.cx, finalPositions.cy);
 				
-			for(var ci = map.circles.length - 1; ci >= 1; ci--) {	// don't need to draw ring 0
+			for(var ci = map.bounds.maxCi - 1; ci >= 1; ci--) {	// don't need to draw ring 0
 				if(options.chain.gridlines) {
 					ctx.beginPath();
 					if(ctx.ellipse) {
@@ -159,6 +159,7 @@ const ChainMapRendererRadial = function(owner) {
 					ctx.strokeStyle = propertyFromCssClass('grid-default', 'color');
 					ctx.stroke();		
 				}
+				if(ci >= map.circles.length) { continue; }
 				
 				for(var ni = 0; ni < map.circles[ci].nodes.length; ni++) {
 					const node = map.circles[ci].nodes[ni];
@@ -184,11 +185,15 @@ const ChainMapRendererRadial = function(owner) {
 	
 
 	function makeDivsForRing(innerContainer, ci, nodes, minRad, maxRad) {
+		const max_nodes_per_rad = 1.1;
+		if(ci > 0) {
+			while(nodes.length > max_nodes_per_rad * ci * (maxRad - minRad)) { ci++; }
+		}
 		const totalArc = nodes.reduce(function(acc, x) { return acc + x.minArc; }, 0);
 		const rads_per_arc = (maxRad - minRad) / totalArc;
 		var rad_offset = minRad;
 		var alignment_delta = 0;
-		const bounds = { x: [0, 0], y: [0, 0] };
+		const bounds = { x: [0, 0], y: [0, 0], maxCi: ci };
 		
 		for(var ni = 0; ni < nodes.length; ni++) {
 			const node = nodes[ni];	
@@ -224,6 +229,7 @@ const ChainMapRendererRadial = function(owner) {
 			if(nextBounds.x[1] > bounds.x[1]) { bounds.x[1] = nextBounds.x[1]; }
 			if(nextBounds.y[0] < bounds.y[0]) { bounds.y[0] = nextBounds.y[0]; }
 			if(nextBounds.y[1] > bounds.y[1]) { bounds.y[1] = nextBounds.y[1]; }
+			if(nextBounds.maxCi > bounds.maxCi) { bounds.maxCi = nextBounds.maxCi; }
 			
 			rad_offset += dr;
 		}
