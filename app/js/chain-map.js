@@ -487,6 +487,7 @@ var chain = new function() {
 			thirdPartySuppliers.forEach(function(supplier) {				
 				const ids = { parentID: parentID, nextChildID: ++childID };
 				const supplierNodes = supplier.findLinks(1 * system[0], ids);
+				if(!supplierNodes) { return; }
 				childID = ids.nextChildID - 1;
 
 				for(var ti = 0; ti < supplierNodes.length; ti++) {

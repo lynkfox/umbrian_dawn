@@ -12,7 +12,7 @@ function _TheraConnection() {
 	this.nodeNameSuffix = 'eve-scout-thera';
 	
 	this.findLinks = function(systemID, ids) {
-		if(!this.active()) { return; }
+		if(!this.active()) { return []; }
 		
 		const r = [];
 		for(var ti = 0; ti < this.links.length; ti++) {
