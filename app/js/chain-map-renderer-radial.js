@@ -184,6 +184,13 @@ const ChainMapRendererRadial = function(owner) {
 				}
 			}	
 		}
+		
+		// Remove any maps which aren't in use any more
+		for(var mi = maps.length; ; mi++) {
+			const div = document.getElementById('map' + mi);
+			if(div) { div.parentNode.removeChild(div); }
+			else { break; }
+		}
 	}
 	
 
