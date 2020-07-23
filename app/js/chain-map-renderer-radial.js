@@ -26,13 +26,13 @@ const ChainMapRendererRadial = function(owner) {
 		this.drawing = true;
 		
 		// Clear the map for a new one
-		this.switchFrom(); this.switchTo();
+		//this.switchFrom(); this.switchTo();
 
 		try { drawInner(map, lines, collapsed); }
 		finally { this.drawing = false; }
 	}
 	
-	const CIRCLE_SIZE = { x: 70, y: 45, first_ring_delta: 0.3,
+	const CIRCLE_SIZE = { x: 70, y: 60, first_ring_delta: 0.3,
 		ringX: function(ci) { return ci == 0 ? 0 : (ci + this.first_ring_delta) * this.x},
 		ringY: function(ci) { return ci == 0 ? 0 : (ci + this.first_ring_delta) * this.y},
 	 };
@@ -88,9 +88,12 @@ const ChainMapRendererRadial = function(owner) {
 		// Third pass - lay out each ring based on the arc values
 		for(var mi = 0; mi < maps.length; mi++) {
 			const map = maps[mi];
-			const mapDiv = document.createElement('div');
-			mapDiv.id = "map" + mi;
-			mapDiv.className = "map-chain-wrapper";
+			var mapDiv = document.getElementById("map" + mi);
+			if(!mapDiv) {
+				mapDiv = document.createElement('div');
+				mapDiv.id = "map" + mi;
+				mapDiv.className = "map-chain-wrapper";
+			}
 			mapDiv.innerHTML = '<div class="map-outer-container"><div class="map-inner-container"><canvas class="map-drawing" id="map-canvas-' + mi + '"/></div></div>';
 			const innerContainer = mapDiv.firstChild.firstChild;
 			document.getElementById('map-container').appendChild(mapDiv);
@@ -185,9 +188,10 @@ const ChainMapRendererRadial = function(owner) {
 	
 
 	function makeDivsForRing(innerContainer, ci, nodes, minRad, maxRad) {
-		const max_nodes_per_rad = 1.1;
+		const max_nodes_per_rad = 1.4;
 		if(ci > 0) {
-			while(nodes.length > max_nodes_per_rad * ci * (maxRad - minRad)) { ci++; }
+			var skipped = 0;
+			while(++skipped < 2 && nodes.length > max_nodes_per_rad * ci * (maxRad - minRad)) { ci++; }
 		}
 		const totalArc = nodes.reduce(function(acc, x) { return acc + x.minArc; }, 0);
 		const rads_per_arc = (maxRad - minRad) / totalArc;
