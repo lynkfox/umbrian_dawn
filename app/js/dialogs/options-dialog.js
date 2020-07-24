@@ -20,6 +20,7 @@ $(".options").click(function(e) {
 				options.chain.typeFormat = $("#dialog-options #typeFormat").val();
 				options.chain.classFormat = $("#dialog-options #classFormat").val();
 				
+				options.chain.sigNameLocation = $("#dialog-options #chainSigNameLocation").val();
 				options.chain.routingLimit = 1 * $("#dialog-options #chainRoutingLimit").val();
 				options.chain.routeSecurity = $("#dialog-options #chainRouteSecurity").val();
 				options.chain.routeIgnore.enabled = $("#dialog-options #route-ignore-enabled").prop('checked');
@@ -153,6 +154,7 @@ $(".options").click(function(e) {
 			$("#dialog-options #copySeparator").val(options.signatures.copySeparator);
 			$("#dialog-options #typeFormat").val(options.chain.typeFormat);
 			$("#dialog-options #chainRoutingLimit").val(options.chain.routingLimit);
+			$("#dialog-options #chainSigNameLocation").val(options.chain.sigNameLocation);
 			$("#dialog-options #chainRouteSecurity").val(options.chain.routeSecurity);
 			$("#dialog-options #route-ignore-enabled").prop('checked', options.chain.routeIgnore.enabled);
 			$("#dialog-options #route-ignore").val(options.chain.routeIgnore.systems.join(','));

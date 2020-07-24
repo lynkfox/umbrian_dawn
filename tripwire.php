@@ -661,6 +661,18 @@ if ($row = $stmt->fetchObject()) {
 						</td>
 					</tr>
 					<tr>
+						<th>Show sig name on map:</th>
+						<td>
+							<select id="chainSigNameLocation">
+								<option value="name">System name - replace</option>
+								<option value="name_prefix">System name - prefix</option>
+								<option value="ref">Reference - replace</option>
+								<option value="ref_prefix">Reference - prefix</option>
+								<option value="none">Don't put it on the map</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
 						<th>Show Route as Blobs up to:</th>
 						<td>
 							<select id="chainRoutingLimit">
