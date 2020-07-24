@@ -311,6 +311,12 @@ var chain = new function() {
 
 				effect = system.effect;
 			}
+			
+			const systemNameText = 
+				options.chain.sigNameLocation == 'name' ? (systemName ? systemName : system ? system.name : '&nbsp;') :
+				options.chain.sigNameLocation == 'name_prefix' ?
+					(systemName ? systemName + (system ? ' - ' + system.name : '') : (system ? system.name : '&nbsp;')) :
+				(system ? system.name : '&nbsp;');	
 
 			var node = {v: id, systemID: systemID };
 			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"
@@ -328,7 +334,7 @@ var chain = new function() {
 							+	"</div>"
 							+	"<h4 class='nodeClass'>"+systemType+"</h4>"
 							+	"<h4 class='nodeSystem'>"
-							+		(system ? "<a href='.?system="+system.name+"'>"+(systemName ? systemName : system.name)+"</a>" : systemName ? systemName : '&nbsp;')
+							+		(system ? "<a href='.?system="+system.name+"'>"+systemNameText+"</a>" : systemNameText)
 							+	"</h4>"
 							+	"<h4 class='nodeType'>" + nodeTypeMarkup + "</h4>"
 							+	"<div class='statics'>"
@@ -534,11 +540,14 @@ var chain = new function() {
 			var node = chainLinks[x];
 			var row = {c: []};
 			
+			const sigText = options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "???") :
+					(node.child.type || "(?)") + sigFormat(node.child.typeBM, "type");
 			const nodeTypeMarkup = node.child.path ? 
 				chainMap.renderPath(node.child.path) :
 				"<a href='#' onclick='openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + (
-					options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "???") :
-					(node.child.type || "(?)") + sigFormat(node.child.typeBM, "type")
+					node.parent.name && options.chain.sigNameLocation == 'ref' ? node.parent.name :
+					node.parent.name && options.chain.sigNameLocation == 'ref_prefix' ? node.parent.name + ' - ' + sigText :
+					sigText
 				) + '</a>';
 			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
 			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.child.sigIndex, node.parent.name, nodeTypeMarkup, additionalClasses);
