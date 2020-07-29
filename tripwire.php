@@ -251,7 +251,7 @@ if ($row = $stmt->fetchObject()) {
 					<span>|</span>
 					<i id="show-viewing" data-icon="eye" data-tooltip="Add viewing system to chain"></i>
 					<i id="show-favorite" data-icon="star" data-tooltip="Add favorite systems to chain"></i>
-					<i id="show-chainLegend" data-icon="tree" data-tooltip="<table id='guide'><tr><td><div class='guide-stable'></td><td>Stable</td></tr><tr><td><div class='guide-eol'></div></td><td>End of Life</td></tr><tr><td><div class='guide-destab'></div></td><td>Mass Destabbed</td></tr><tr><td><div class='guide-critical'></div></td><td>Mass Critical</td></tr><tr><td><div class='guide-frigate'></div></td><td>Frigate</td></tr></table>"></i>
+					<i id="show-chainLegend" data-icon="tree" data-tooltip="<table id='guide'><tr><td><div class='guide stable'></td><td>Stable</td></tr><tr><td><div class='guide eol'></div></td><td>End of Life</td></tr><tr><td><div class='guide destab'></div></td><td>Mass Destabbed</td></tr><tr><td><div class='guide critical'></div></td><td>Mass Critical</td></tr><tr><td><div class='guide frig'></div></td><td>Frigate</td></tr></table>"></i>
 					<div style="float: right;">
 						<button id="chain-zoom-reset" class="hidden">Reset Zoom</button>
 						<!-- <i class="tutorial" data-tooltip="Show tutorial for this section">?</i> -->
@@ -275,10 +275,10 @@ if ($row = $stmt->fetchObject()) {
 								</ul>
 							</li>
 							<li data-command="mass"><a>Mass</a></li>
-							<li data-command="collapse"><a>Collapse</a></li>
+							<!-- <li data-command="collapse"><a>Collapse</a></li> -->
 						</li>
 					</ul>
-					<span style="position: relative; display: table; width: 100%;">
+					<div style="position: relative; display: table; width: 100%;">
 						<table id="chainGrid">
 							<tr class="top"><td></td></tr>
 							<tr class="space hidden"><td></td></tr>
@@ -327,8 +327,8 @@ if ($row = $stmt->fetchObject()) {
 							<tr class="line hidden"><td></td></tr>
 							<tr class="space hidden"><td>22</td></tr>
 						</table>
-						<span id="chainMap"></span>
-					</span>
+						<div id="chainMap"></div>
+					</div>
 				</div>
 			</li>
 		</ul>
@@ -719,6 +719,15 @@ if ($row = $stmt->fetchObject()) {
 						<th>Background Image:</th>
 						<td>
 							<input type="text" id="background-image" maxlength="200" />
+						</td>
+					</tr>
+					<tr>
+						<th>Chain Renderer:</th>
+						<td>
+							<select id="renderer">
+								<option value="orgChart">Org Chart</option>
+								<option value="radial">Radial (System in middle) - Experimental</option>
+							</select>
 						</td>
 					</tr>
 					<tr>
