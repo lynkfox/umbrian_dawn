@@ -220,6 +220,16 @@ var isEmpty = function(obj) {
     return true;
 };
 
+/** Find the relative position of one element within the hierarchy tree of another */
+function positionRelativeTo(elem, ancestor) {
+	const elemPos = elem.getBoundingClientRect(),
+		ancestorPos = ancestor.getBoundingClientRect();
+	return { 
+		left: elemPos.left - ancestorPos.left + ancestor.scrollLeft,
+		top: elemPos.top - ancestorPos.top + ancestor.scrollTop
+	};
+}
+
 /** Look up one or more values in a comma separated string as keys in a data map, and return a property from the results in a new comma separated string.
 Convenience function for UI mapping.
 Will throw a failure message, unless suppress=true in which case it will return undefined, if 
