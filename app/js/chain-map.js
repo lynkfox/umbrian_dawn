@@ -6,6 +6,7 @@ var chain = new function() {
 	// switchTo() - Make this renderer active. The renderer can be in a blank state; draw() will be called after
 	// switchFrom() - Switch away from this renderer. All node divs should be removed from the DOM, other items can be removed or made invisible
 	// draw(map, lines, collapsedSystems) - Redraw the map, based on the given node set, line overrides and list of collapsed systems 
+	// collapse(systemID, toggle) - marks the system as collapsed/not collapsed
 	// If the renderer allows collapsing of nodes then it will call updateCollapsed on the owner (the chain) with a list of collapsed systems in the current tab
 	
 	const renderers = { 

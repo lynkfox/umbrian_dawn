@@ -21,9 +21,17 @@ const ChainMapRendererRadial = function(owner) {
 		this.container = null;
 	}
 	
+	this.collapse = function(systemID, collapse) {
+		if(collapse) { this.mapData.collapsed.push(systemID); }
+		else {  this.mapData.collapsed = this.mapData.collapsed.filter(x => x != systemID); }
+		owner.updateCollapsed(this.mapData.collapsed);
+		drawInner(this.mapData.map, this.mapData.lines, this.mapData.collapsed);
+	}
+	
 	/** Redraw the map, based on the given node set, line overrides and list of collapsed systems */
 	this.draw = function(map, lines, collapsed) {
 		this.drawing = true;
+		this.mapData = {map: map, lines: lines, collapsed: collapsed};
 		
 		// Clear the map for a new one
 		this.switchFrom(); this.switchTo();
@@ -47,7 +55,7 @@ const ChainMapRendererRadial = function(owner) {
 			const item = map.rows[ri];
 			const inNode = item.c[0], id = inNode.v, parent = item.c[1].v;
 			
-			const mapNode = { id: id, children: [], minArc: 0 };
+			const mapNode = { id: id, children: [], systemID: inNode.systemID, minArc: 0 };
 			
 			if(parent == null) {
 				const newMap =  { circles: [ { arc: 0, nodes: [ mapNode ] } ] };
@@ -78,7 +86,7 @@ const ChainMapRendererRadial = function(owner) {
 				for(var ni = 0; ni < map.circles[ci].nodes.length; ni++) {
 					const node = map.circles[ci].nodes[ni];
 					node.minArc *= ci / (ci + 1.0);
-					if(node.minArc < 1) { node.minArc = 1; }
+					if(node.minArc < 1 || collapsed.indexOf(node.systemID * 1) >= 0) { node.minArc = 1; }
 					node.parent.minArc += node.minArc;
 					map.circles[ci].arc += node.minArc;
 				}
@@ -95,7 +103,7 @@ const ChainMapRendererRadial = function(owner) {
 			const innerContainer = mapDiv.firstChild.firstChild;
 			document.getElementById('map-container').appendChild(mapDiv);
 
-			map.bounds = makeDivsForRing(innerContainer, 0, map.circles[0].nodes, 0, Math.PI * 2);
+			map.bounds = makeDivsForRing(innerContainer, 0, map.circles[0].nodes, 0, Math.PI * 2, collapsed);
 			map.domNode = mapDiv;
 			map.innerContainer = innerContainer;
 		}
@@ -163,6 +171,7 @@ const ChainMapRendererRadial = function(owner) {
 				
 				for(var ni = 0; ni < map.circles[ci].nodes.length; ni++) {
 					const node = map.circles[ci].nodes[ni];
+					if(!node.position) { continue; }	// not drawn on map
 					ctx.beginPath();
 					ctx.lineWidth = node.connection[2].reduce(function(w, c) { return c == 'frig' ? 1 : w; }, 3);
 					ctx.moveTo(node.position.x, node.position.y);
@@ -174,7 +183,7 @@ const ChainMapRendererRadial = function(owner) {
 					} else {
 						ctx.lineTo(node.parent.position.x, node.parent.position.y);			
 					}
-					const dist2 = (node.position.y - node.parent.position)
+					const dist2 = (node.position.y - node.parent.position);
 					ctx.strokeStyle = propertyFromCssClass(node.connection[2], 'border-top-color');
 					ctx.setLineDash ({ dashed: [3, 2] }[propertyFromCssClass(node.connection[2], 'border-top-style')] || []);
 					ctx.stroke();
@@ -183,17 +192,19 @@ const ChainMapRendererRadial = function(owner) {
 		}
 	}
 	
-
-	function makeDivsForRing(innerContainer, ci, nodes, minRad, maxRad) {
-		const max_nodes_per_rad = 1.1;
-		if(ci > 0) {
-			while(nodes.length > max_nodes_per_rad * ci * (maxRad - minRad)) { ci++; }
+	function makeDivsForRing(innerContainer, ci, nodes, minRad, maxRad, collapsed) {
+		const bounds = { x: [0, 0], y: [0, 0], maxCi: ci };
+		if(!nodes.length) { return bounds; }
+		const parentCollapsed = collapsed.indexOf(1 * (nodes[0].parent || {}).systemID) >= 0;
+		const max_nodes_per_rad = 1.4;
+		if(ci > 0 && !parentCollapsed) {
+			var skipped = 0;
+			while(++skipped < 2 && nodes.length > max_nodes_per_rad * ci * (maxRad - minRad)) { ci++; }
 		}
-		const totalArc = nodes.reduce(function(acc, x) { return acc + x.minArc; }, 0);
+		const totalArc = parentCollapsed ? nodes.length : nodes.reduce(function(acc, x) { return acc + x.minArc; }, 0);
 		const rads_per_arc = (maxRad - minRad) / totalArc;
 		var rad_offset = minRad;
 		var alignment_delta = 0;
-		const bounds = { x: [0, 0], y: [0, 0], maxCi: ci };
 		
 		for(var ni = 0; ni < nodes.length; ni++) {
 			const node = nodes[ni];	
@@ -202,9 +213,11 @@ const ChainMapRendererRadial = function(owner) {
 			const frag = document.createRange().createContextualFragment('<div class="node-wrapper">' + node.markup + '</div>');
 			node.domNode = frag.firstChild;
 			innerContainer.appendChild(node.domNode);
+			const systemID = 1 * node.systemID;
+			$(node.domNode).dblclick(() => _this.collapse(systemID, collapsed.indexOf(systemID) < 0));
 			
 			// Position the node
-			const dr = node.minArc * rads_per_arc;
+			const dr = (parentCollapsed ? 1 : node.minArc) * rads_per_arc;
 			const rad_centre = rad_offset + (dr / 2);
 			
 			if(ci == 1 && ni == 0) { // First node on first ring should be axis aligned
@@ -222,15 +235,18 @@ const ChainMapRendererRadial = function(owner) {
 			node.domNode.style.left = node.position.x + 'px';
 			node.domNode.style.top = node.position.y + 'px';
 			
-			// Do the segment of the next circle
-			const excess = (ci > 0 && dr > node.minArc * ci) ? dr - node.minArc * ci : 0;
-			const nextBounds = makeDivsForRing(innerContainer, ci + 1, node.children, rad_offset + (0.5 * excess) + alignment_delta, rad_offset - (0.5 * excess) + alignment_delta + dr);
-			if(nextBounds.x[0] < bounds.x[0]) { bounds.x[0] = nextBounds.x[0]; }
-			if(nextBounds.x[1] > bounds.x[1]) { bounds.x[1] = nextBounds.x[1]; }
-			if(nextBounds.y[0] < bounds.y[0]) { bounds.y[0] = nextBounds.y[0]; }
-			if(nextBounds.y[1] > bounds.y[1]) { bounds.y[1] = nextBounds.y[1]; }
-			if(nextBounds.maxCi > bounds.maxCi) { bounds.maxCi = nextBounds.maxCi; }
-			
+			if(parentCollapsed) {
+				node.domNode.style.display = 'none';
+			} else {				
+				// Do the segment of the next circle
+				const excess = (ci > 0 && dr > node.minArc * ci) ? dr - node.minArc * ci : 0;
+				const nextBounds = makeDivsForRing(innerContainer, ci + 1, node.children, rad_offset + (0.5 * excess) + alignment_delta, rad_offset - (0.5 * excess) + alignment_delta + dr, collapsed);
+				if(nextBounds.x[0] < bounds.x[0]) { bounds.x[0] = nextBounds.x[0]; }
+				if(nextBounds.x[1] > bounds.x[1]) { bounds.x[1] = nextBounds.x[1]; }
+				if(nextBounds.y[0] < bounds.y[0]) { bounds.y[0] = nextBounds.y[0]; }
+				if(nextBounds.y[1] > bounds.y[1]) { bounds.y[1] = nextBounds.y[1]; }
+				if(nextBounds.maxCi > bounds.maxCi) { bounds.maxCi = nextBounds.maxCi; }
+			}
 			rad_offset += dr;
 		}
 		

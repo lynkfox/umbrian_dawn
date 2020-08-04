@@ -275,7 +275,7 @@ if ($row = $stmt->fetchObject()) {
 								</ul>
 							</li>
 							<li data-command="mass"><a>Mass</a></li>
-							<!-- <li data-command="collapse"><a>Collapse</a></li> -->
+							<li data-command="collapse"><a>Collapse</a></li>
 						</li>
 					</ul>
 					<div style="position: relative; display: table; width: 100%;">
