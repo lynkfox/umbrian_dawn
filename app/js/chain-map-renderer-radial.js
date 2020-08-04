@@ -159,7 +159,7 @@ const ChainMapRendererRadial = function(owner) {
 			ctx.scale(CANVAS_SCALE, CANVAS_SCALE);
 			ctx.translate(finalPositions.cx, finalPositions.cy);
 				
-			for(var ci = map.bounds.maxCi - 1; ci >= 1; ci--) {	// don't need to draw ring 0
+			for(var ci = map.bounds.maxCi; ci >= 1; ci--) {	// don't need to draw ring 0
 				if(options.chain.gridlines) {
 					ctx.beginPath();
 					if(ctx.ellipse) {
@@ -250,12 +250,14 @@ const ChainMapRendererRadial = function(owner) {
 			} else {				
 				// Do the segment of the next circle
 				const excess = (ci > 0 && dr > node.minArc * ci) ? dr - node.minArc * ci : 0;
-				const nextBounds = makeDivsForRing(innerContainer, ci + 1, node.children, rad_offset + (0.5 * excess) + alignment_delta, rad_offset - (0.5 * excess) + alignment_delta + dr, collapsed);
-				if(nextBounds.x[0] < bounds.x[0]) { bounds.x[0] = nextBounds.x[0]; }
-				if(nextBounds.x[1] > bounds.x[1]) { bounds.x[1] = nextBounds.x[1]; }
-				if(nextBounds.y[0] < bounds.y[0]) { bounds.y[0] = nextBounds.y[0]; }
-				if(nextBounds.y[1] > bounds.y[1]) { bounds.y[1] = nextBounds.y[1]; }
-				if(nextBounds.maxCi > bounds.maxCi) { bounds.maxCi = nextBounds.maxCi; }
+				if(node.children.length) {
+					const nextBounds = makeDivsForRing(innerContainer, ci + 1, node.children, rad_offset + (0.5 * excess) + alignment_delta, rad_offset - (0.5 * excess) + alignment_delta + dr, collapsed);
+					if(nextBounds.x[0] < bounds.x[0]) { bounds.x[0] = nextBounds.x[0]; }
+					if(nextBounds.x[1] > bounds.x[1]) { bounds.x[1] = nextBounds.x[1]; }
+					if(nextBounds.y[0] < bounds.y[0]) { bounds.y[0] = nextBounds.y[0]; }
+					if(nextBounds.y[1] > bounds.y[1]) { bounds.y[1] = nextBounds.y[1]; }
+					if(nextBounds.maxCi > bounds.maxCi) { bounds.maxCi = nextBounds.maxCi; }
+				}
 			}
 			rad_offset += dr;
 		}
