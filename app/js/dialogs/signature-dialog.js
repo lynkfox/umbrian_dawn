@@ -5,15 +5,14 @@ $("#add-signature").click({mode: "add"}, openSignatureDialog);
 const sigDialogVM = {};
 function openSignatureDialog(e) {
 	if(e.preventDefault) { e.preventDefault(); }	// Allow calls with fake event-like objects too
-	var mode = e.data.mode;
+	sigDialogVM.mode = e.data.mode;
 	
-	switch(mode) {
+	switch(sigDialogVM.mode) {
 		case 'update':
 			if (e.data.source == "sig-row") {
 				$("#sigTable tr.selected").removeClass("selected");
 				$(this).closest("tr").addClass("selected");
 				sigDialogVM.sigId = $(this).data('id');
-				mode = "update";
 			} else if (e.data.source == "edit-sig") {
 				var elements = $("#sigTable tbody tr.selected");
 				if (elements.length !== 1) {
@@ -243,7 +242,7 @@ function openSignatureDialog(e) {
 							"life": form.wormholeLife,
 							"mass": form.wormholeMass
 						};
-						if (mode == "update") {
+						if (sigDialogVM.mode == "update") {
 							signature.id = $("#dialog-signature").data("signatureid");
 							signature2.id = $("#dialog-signature").data("signature2id");
 							wormhole.id = $("#dialog-signature").data("wormholeid");
@@ -278,7 +277,7 @@ function openSignatureDialog(e) {
 							payload = {"signatures": {"add": [{"wormhole": wormhole, "signatures": [signature, signature2]}]}};
 						}
 					} else {
-						if (mode == "update") {
+						if (sigDialogVM.mode == "update") {
 							var signature = {
 								"id": $("#dialog-signature").data("signatureid"),
 								"signatureID": form.signatureID_Alpha + form.signatureID_Numeric,
@@ -318,13 +317,13 @@ function openSignatureDialog(e) {
 
 							$("#undo").removeClass("disabled");
 
-							if (mode == "add") {
+							if (sigDialogVM.mode == "add") {
 								undo = data.results;
 							}
 							if (sigDialogVM.viewingSystemID in tripwire.signatures.undo) {
-								tripwire.signatures.undo[sigDialogVM.viewingSystemID].push({action: mode, signatures: undo});
+								tripwire.signatures.undo[sigDialogVM.viewingSystemID].push({action: sigDialogVM.mode, signatures: undo});
 							} else {
-								tripwire.signatures.undo[sigDialogVM.viewingSystemID] = [{action: mode, signatures: undo}];
+								tripwire.signatures.undo[sigDialogVM.viewingSystemID] = [{action: sigDialogVM.mode, signatures: undo}];
 							}
 
 							sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
@@ -361,7 +360,7 @@ function openSignatureDialog(e) {
 				$("#dialog-signature #durationPicker").val(options.signatures.pasteLife * 60 * 60).change();
 
 				var id = sigDialogVM.sigId;
-				if (mode == "update" && id && tripwire.client.signatures[id]) {
+				if (sigDialogVM.mode == "update" && id && tripwire.client.signatures[id]) {
 					var signature = tripwire.client.signatures[id];
 					$("#dialog-signature").data("signatureid", id);
 
