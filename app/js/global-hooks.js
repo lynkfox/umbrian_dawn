@@ -740,7 +740,7 @@ $("#chainParent").contextmenu({
 				break;
 			case "collapse":
 				var toggle = options.chain.tabs[options.chain.active] ? ($.inArray(id, options.chain.tabs[options.chain.active].collapsed) == -1 ? true : false) : true;
-				chain.map.collapse(row, toggle);
+				chain.renderer.collapse(id, toggle);
 				break;
 		}
 	},
