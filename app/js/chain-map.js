@@ -1,10 +1,31 @@
 var chain = new function() {
-	this.map, this.view, this.options, this.drawing, this.data = {};
-
-	this.newView = function(json) {
-		this.view = new google.visualization.DataView(new google.visualization.DataTable(json));
-		return this.view;
+	var chain = this;
+	this.map, this.view, this.drawing, this.data = {};
+	// Renderer should have:
+	//  ready() - Whether the renderer is initialised and can accept draw calls
+	// switchTo() - Make this renderer active. The renderer can be in a blank state; draw() will be called after
+	// switchFrom() - Switch away from this renderer. All node divs should be removed from the DOM, other items can be removed or made invisible
+	// draw(map, lines, collapsedSystems) - Redraw the map, based on the given node set, line overrides and list of collapsed systems 
+	// collapse(systemID, toggle) - marks the system as collapsed/not collapsed
+	// If the renderer allows collapsing of nodes then it will call updateCollapsed on the owner (the chain) with a list of collapsed systems in the current tab
+	
+	const renderers = { 
+		orgChart: new ChainMapRendererOrgchart(this),
+		radial: new ChainMapRendererRadial(this)
 	};
+	
+	this.renderer = renderers[options.chain.renderer];
+	this.renderer.switchTo();
+	
+	this.useRenderer = function(name) {
+		if(!renderers[name]) { throw 'Unknown renderer ' + name; }
+		if(this.renderer != renderers[name]) {
+			this.renderer.switchFrom();
+			this.renderer = renderers[name];
+			this.renderer.switchTo();
+			this.redraw();
+		}
+	}
 
 	this.activity = function(data) {
 		/*	function for adding recent activity to chain map nodes	*/
@@ -83,7 +104,7 @@ var chain = new function() {
 		//var data = typeof(data) !== "undefined" ? data : this.data.flares;
 
 		// Remove all current node coloring instead of checking each one
-		$("#chainMap td.node").removeClass("redNode yellowNode greenNode");
+		$("#chainMap div.node").removeClass("redNode yellowNode greenNode");
 
 		// Remove all coloring from chain grid
 		$("#chainGrid tr").removeClass("red yellow green");
@@ -94,7 +115,7 @@ var chain = new function() {
 				var systemID = data.flares[x].systemID;
 				var flare = data.flares[x].flare;
 
-				var row = ($("#chainMap [data-nodeid="+systemID+"]").parent().addClass(flare+"Node").parent().index() - 1) / 3 * 2;
+				var row = ($("#chainMap [data-nodeid="+systemID+"]").addClass(flare+"Node").parent().index() - 1) / 3 * 2;
 
 				if (row > 0) {
 					$("#chainGrid tr:eq("+row+")").addClass(flare).next().addClass(flare);
@@ -121,142 +142,9 @@ var chain = new function() {
 		$("#chainGrid tr:gt("+rows+")").addClass("hidden");
 	}
 
-	this.lines = function(data) {
-		//var data = typeof(data) !== "undefined" ? data : this.data.lines;
-
-		function drawNodeLine(system, parent, mode, signatureID) {
-			/*	function for drawing colored lines  */
-
-			// Find node in chainmap
-			//var $node = $("#chainMap [data-nodeid='"+system+"']").parent();
-			var $node = $("#chainMap #node"+system).parent();
-
-			if ($node.length == 0) {
-				return false;
-			}
-
-			// Get node # in this line
-			var nodeIndex = Math.ceil(($node[0].cellIndex + 1) / 2 - 1);
-
-			// applly to my top line
-			var $connector = $($node.parent().prev().children("td.google-visualization-orgchart-lineleft, td.google-visualization-orgchart-lineright")[nodeIndex]).addClass("left-"+mode+" right-"+mode);
-			//var $connector = $($node.parent().prev().find("td:not([colspan])")[nodeIndex]).addClass("left-"+mode+" right-"+mode).attr("data-signatureid", signatureID);
-
-			// Find parent node
-			//var $parent = $("#chainMap [data-nodeid='"+parent+"']").parent();
-			var $parent = $("#chainMap #node"+parent).parent();
-
-			if ($parent.length == 0 || $connector.length == 0)
-				return false;
-
-			// Find the col of my top line
-			var nodeCol = 0, connectorCell = $connector[0].cellIndex;
-			$node.parent().prev().find("td").each(function(index) {
-				nodeCol += this.colSpan;
-
-				if (index == connectorCell) {
-					return false;
-				}
-			});
-
-			// Get node # in this line
-			var parentIndex = Math.ceil(($parent[0].cellIndex + 1) / 2 - 1);
-
-			// Compensate for non-parent nodes (slight performance hit ~10ms)
-			var newparentIndex = parentIndex;
-			for (var i = 0; i <= parentIndex; i++) {
-				var checkSystem = 0;//$node.parent().prev().prev().prev().find("td:has([data-nodeid]):eq("+i+")").find("[data-nodeid]").data("nodeid");
-				$node.parent().prev().prev().prev().find("td > [data-nodeid]").each(function(index) {
-					if (index == i) {
-						checkSystem = $(this).attr("id").replace("node", "");//$(this).data("nodeid");
-
-						return false;
-					}
-				});
-
-				if ($.map(data.map.rows, function(node) { return node.c[1].v == checkSystem ? node : null; }).length <= 0) {
-					newparentIndex--;
-				}
-			}
-			parentIndex = newparentIndex;
-
-			// Apply to parent bottom line
-			var $connecte = $($node.parent().prev().prev().children("td.google-visualization-orgchart-lineleft, td.google-visualization-orgchart-lineright")[parentIndex]).addClass("left-"+mode+" right-"+mode);
-			//var $connecte = $($node.parent().prev().prev().find("td:not([colspan])")[parentIndex]).addClass("left-"+mode+" right-"+mode).attr("data-signatureid", signatureID);
-
-			// the beans
-			var col = 0, parent = false, me = false;
-			$node.parent().prev().prev().find("td").each(function(index, value) {
-				col += this.colSpan;
-
-				if (me && parent) {
-					// All done - get outta here
-					return false;
-				} else if (typeof($connecte[0]) != "undefined" && $connecte[0].cellIndex == index) {
-					parent = true;
-
-					$(this).addClass("left-"+mode);
-
-					// remove bottom border that points to the right
-					if (!me && col != nodeCol) {
-						$(this).addClass("bottom-"+mode);
-					}
-
-					// parent and node are same - we are done
-					if (nodeCol == col) {
-						return false;
-					}
-				} else if (col == nodeCol) {
-					me = true;
-
-					$(this).addClass("bottom-"+mode);
-				} else if (me || parent) {
-					var tempCol = 0, breaker = false, skip = false;
-
-					$node.parent().prev().find("td").each(function(index) {
-						tempCol += this.colSpan;
-
-						if (tempCol == col && ($(this).hasClass("google-visualization-orgchart-lineleft") || $(this).hasClass("google-visualization-orgchart-lineright"))) {
-							if (parent == false) {
-								// Stop looking cuz there is another node between us and parent
-								breaker = true;
-								$connecte.removeClass("left-"+mode+" right-"+mode);
-
-								return false;
-							} else if (parent == true) {
-								// Lets make sure there isnt a node between the parent and me
-								$connecte.removeClass("left-"+mode+" right-"+mode);
-
-								$node.parent().prev().prev().find("td").each(function(index) {
-									if (index >= $connecte[0].cellIndex) {
-										// there is a node after parent but before me
-										$(this).removeClass("bottom-"+mode);
-									}
-								});
-								skip = true;
-							}
-						}
-					});
-
-					if (breaker) {
-						return false;
-					}
-
-					if (!skip) {
-						$(this).addClass("bottom-"+mode);
-					}
-				}
-			});
-		}
-
-		for (var x in data.lines) {
-			drawNodeLine(data.lines[x][0], data.lines[x][1], data.lines[x][2], data.lines[x][3]);
-		}
-	}
-
 	this.nodes = function(map) {
 		var chain = {cols: [{label: "System", type: "string"}, {label: "Parent", type: "string"}], rows: []};
-		var frigTypes = ["Q003", "E004", "L005", "Z006", "M001", "C008", "G008", "A009", "SML", "MED", "LRG", "XLG"];
+		var frigTypes = ["Q003", "E004", "L005", "Z006", "M001", "C008", "G008", "A009", "SML" ];
 		var connections = [];
 		var chainMap = this;
 
@@ -277,11 +165,12 @@ var chain = new function() {
 		function topLevel(systemID, id) {
 			if (!systemID || !tripwire.systems[systemID])
 				return false;
-			const tabName = options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].systemID != 0 ? options.chain.tabs[options.chain.active].name : undefined;
-			return makeSystemNode(systemID, id, null, tabName, '&nbsp;');
+			const tab = options.chain.tabs[options.chain.active];
+			const tabName = tab && tab.systemID != 0 && 0 > tab.systemID.indexOf(',') ? options.chain.tabs[options.chain.active].name : undefined;
+			return makeSystemNode(systemID, id, null, null, tabName, '&nbsp;', ['top-level']);
 		}
 
-		function makeSystemNode(systemID, id, sigId, systemName, nodeTypeMarkup) {
+		function makeSystemNode(systemID, id, whId, inSigId, systemName, nodeTypeMarkup, additionalClasses) {
 			// System type switch
 			var systemType = getSystemType(systemID);
 			const system = tripwire.systems[systemID];
@@ -311,9 +200,18 @@ var chain = new function() {
 
 				effect = system.effect;
 			}
+			
+			const systemNameText = 
+				options.chain.sigNameLocation == 'name' ? (systemName ? systemName : system ? system.name : '&nbsp;') :
+				options.chain.sigNameLocation == 'name_prefix' ?
+					(systemName ? systemName + (system ? ' - ' + system.name : '') : (system ? system.name : '&nbsp;')) :
+				(system ? system.name : '&nbsp;');	
 
-			var node = {v: id};
-			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"+(sigId ? " data-sigid='"+sigId+"'" : null)+">"
+			var node = {v: id, systemID: systemID };
+			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"
+				+(whId ? " data-sigid='"+whId+"'" : '')
+				+(inSigId ? " data-inSigid='"+inSigId+"'" : '')
+				+" class='node " + ((additionalClasses || []).join(' ')) + "'>"
 							+	"<div class='nodeIcons'>"
 							+		"<div style='float: left;'>"
 							+			"<i class='whEffect' "+(effectClass ? "data-icon='"+effectClass+"' data-tooltip='"+effect+"'" : null)+"></i>"
@@ -325,7 +223,7 @@ var chain = new function() {
 							+	"</div>"
 							+	"<h4 class='nodeClass'>"+systemType+"</h4>"
 							+	"<h4 class='nodeSystem'>"
-							+		(system ? "<a href='.?system="+system.name+"'>"+(systemName ? systemName : system.name)+"</a>" : systemName ? systemName : '&nbsp;')
+							+		(system ? "<a href='.?system="+system.name+"'>"+systemNameText+"</a>" : systemNameText)
 							+	"</h4>"
 							+	"<h4 class='nodeType'>" + nodeTypeMarkup + "</h4>"
 							+	"<div class='statics'>"
@@ -334,7 +232,7 @@ var chain = new function() {
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
 							+	"</div>"
-							+"</div>"
+							+"</div>";
 
 			node.f = chainNode;
 
@@ -344,7 +242,7 @@ var chain = new function() {
 		function makeCalcChildNode(childID, node, targetSystem) {
 			var path = guidance.findShortestPath(tripwire.map.shortest, [targetSystem - 30000000, node.child.systemID - 30000000]);
 			
-			var calcNode = {};
+			var calcNode = { calculated: true};
 			calcNode.life = "Gate";
 			calcNode.parent = {};
 			calcNode.parent.id = node.child.id;
@@ -429,6 +327,7 @@ var chain = new function() {
 					node.parent.classBM = null;
 					node.parent.nth = null;
 					node.parent.signatureID = child.signatureID;
+					node.parent.sigIndex = child.id;
 
 					node.child = {};
 					node.child.id = ++childID;
@@ -439,13 +338,14 @@ var chain = new function() {
 					node.child.classBM = null;
 					node.child.nth = null;
 					node.child.signatureID = parent.signatureID;
+					node.child.sigIndex = parent.id;
 
 					chainLinks.push(node);
 					chainList.push([node.child.systemID, node.child.id, system[2]]);
 					usedLinks.push(node.id);
 					// usedLinks[system[2]].push(node.id);
 
-					if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class) {
+					if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class && viewingSystemID != node.child.systemID ) {
 						var calcNode = makeCalcChildNode(childID, node, viewingSystemID);
 						childID = calcNode.childID;
 
@@ -453,9 +353,9 @@ var chain = new function() {
 						chainList.push([0, childID]);
 					}
 
-					if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID]) {
+					if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[node.child.systemID].class) {
 						for (var x in options.favorites) {
-							if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000)
+							if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000 || options.favorites[x] == node.child.systemID)
 								continue;
 
 							var calcNode = makeCalcChildNode(childID, node, options.favorites[x]);
@@ -524,39 +424,38 @@ var chain = new function() {
 			}
 		}
 
+		const systemsInChainMap = {};
 		for (var x in chainLinks) {
 			var node = chainLinks[x];
 			var row = {c: []};
 			
+			const sigText = options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "???") :
+					(node.child.type || "(?)") + sigFormat(node.child.typeBM, "type");
 			const nodeTypeMarkup = node.child.path ? 
 				chainMap.renderPath(node.child.path) :
-				options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "&nbsp;") :
-				(node.child.type || "&nbsp;") + sigFormat(node.child.typeBM, "type") || "&nbsp;";
-			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.parent.name, nodeTypeMarkup);
+				"<a href='#' onclick='openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + (
+					node.parent.name && options.chain.sigNameLocation == 'ref' ? node.parent.name :
+					node.parent.name && options.chain.sigNameLocation == 'ref_prefix' ? node.parent.name + ' - ' + sigText :
+					sigText
+				) + '</a>';
+			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
+			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.child.sigIndex, node.parent.name, nodeTypeMarkup, additionalClasses);
 
 			var parent = {v: node.parent.id};
 
 			row.c.push(child, parent);
 			chain.rows.push(row);
-
-			if (node.life == "critical" && ($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1))
-				connections.push(Array(child.v, parent.v, "eol-frig", node.id));
-			else if (node.life == "critical" && node.mass == "critical")
-				connections.push(Array(child.v, parent.v, "eol-critical", node.id));
-			else if (node.life == "critical" && node.mass == "destab")
-				connections.push(Array(child.v, parent.v, "eol-destab", node.id));
-			else if ($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1)
-				connections.push(Array(child.v, parent.v, "frig", node.id));
-			else if (node.life == "critical")
-				connections.push(Array(child.v, parent.v, "eol", node.id));
-			else if (node.mass == "critical")
-				connections.push(Array(child.v, parent.v, "critical", node.id));
-			else if (node.mass == "destab")
-				connections.push(Array(child.v, parent.v, "destab", node.id));
-			else if (node.life == "Gate" || node.parent.type == "GATE" || node.child.type == "GATE")
-				connections.push(Array(child.v, parent.v, "gate", node.id));
-			//else
-			//	connections.push(Array(child.v, parent.v, "", node.id));
+			
+			var modifiers = [];			
+			if (node.life == "critical") { modifiers.push('eol'); }
+			if (node.mass == "critical") { modifiers.push('critical'); }
+			else if (node.mass == "destab") { modifiers.push('destab'); }
+			
+			if($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1) { modifiers.push('frig'); }
+			
+			if(modifiers.length) { connections.push(Array(child.v, parent.v, modifiers, node.id)); }
+			
+			if(!node.calculated) { systemsInChainMap[node.child.systemID] = row; }	// store for loops
 		}
 
 		// Apply critical/destab line colors
@@ -590,6 +489,8 @@ var chain = new function() {
 	}
 
 	this.redraw = function() {
+		this.useRenderer(options.chain.renderer);
+		
 		var data = $.extend(true, {}, this.data);
 		data.map = $.extend(true, {}, data.rawMap);
 
@@ -603,7 +504,7 @@ var chain = new function() {
 		clearTimeout(drawRetryTimer);
 
 		// We need to make sure Google chart is ready and we have signature data for this system before we begin, otherwise delay
-		if (!this.map || (Object.size(data.map) && !tripwire.client.signatures)) {
+		if (!this.renderer.ready() || (Object.size(data.map) && !tripwire.client.signatures)) {
 			drawRetryTimer = setTimeout(function() { chain.draw(data) }, 100);
 			return;
 		}
@@ -628,20 +529,13 @@ var chain = new function() {
 
 			$.extend(data, this.nodes(data.map)); // 250ms -> <100ms
 			$.extend(this.data, data);
-			this.map.draw(this.newView(data.map), this.options); // 150ms
+			
+			const collapsedSystems = options.chain.tabs[options.chain.active] ? (options.chain.tabs[options.chain.active].collapsed || []) : [];
 
-			if (options.chain.tabs[options.chain.active]) {
-				for (var x in options.chain.tabs[options.chain.active].collapsed) {
-					var node = $("#chainMap [data-nodeid='"+options.chain.tabs[options.chain.active].collapsed[x]+"']").attr("id");
+			this.renderer.draw(data.map, data.lines, collapsedSystems); // 150ms
+			//this.map.draw(this.newView(data.map), this.options); // 150ms
 
-					if (node) {
-						node = node.split("node")[1];
-						this.map.collapse(node - 1, true);
-					}
-				}
-			}
-
-			this.lines(data); // 300ms
+//			this.renderer.lines(data); // 300ms
 			this.grid(); // 4ms
 
 			// Apply current system style
@@ -705,20 +599,11 @@ var chain = new function() {
 		}
 	}
 
-	this.collapse = function(c) {
-		if (chain.drawing) return false;
-
+	this.updateCollapsed = function(collapsedSystems) {
 		if (options.chain.tabs[options.chain.active]) {
-			var collapsed = chain.map.getCollapsedNodes();
-			options.chain.tabs[options.chain.active].collapsed = [];
-			for (x in collapsed) {
-				var systemID = $("#chainMap #node"+(collapsed[x] +1)).data("nodeid");
-				options.chain.tabs[options.chain.active].collapsed.push(systemID);
-			}
+			options.chain.tabs[options.chain.active].collapsed = collapsedSystems;
 		}
-
-		chain.lines(chain.data);
-
+		
 		// Apply current system style
 		$("#chainMap [data-nodeid='"+viewingSystemID+"']").parent().addClass("currentNode");
 
@@ -738,14 +623,4 @@ var chain = new function() {
 		options.save();
 	}
 
-	this.init = function() {
-		chain.map = new google.visualization.OrgChart(document.getElementById("chainMap"));
-		chain.options = {allowHtml: true, allowCollapse: true, size: "medium", nodeClass: "node"};
-
-		google.visualization.events.addListener(chain.map, "collapse", chain.collapse);
-
-		chain.map.draw(new google.visualization.DataView(new google.visualization.DataTable({cols:[{label: "System", type: "string"}, {label: "Parent", type: "string"}]})), this.options);
-	}
-
-	google.charts.setOnLoadCallback(this.init);
 }

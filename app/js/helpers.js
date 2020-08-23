@@ -220,6 +220,54 @@ var isEmpty = function(obj) {
     return true;
 };
 
+/** Find the relative position of one element within the hierarchy tree of another */
+function positionRelativeTo(elem, ancestor) {
+	const elemPos = elem.getBoundingClientRect(),
+		ancestorPos = ancestor.getBoundingClientRect();
+	return { 
+		left: elemPos.left - ancestorPos.left + ancestor.scrollLeft,
+		top: elemPos.top - ancestorPos.top + ancestor.scrollTop
+	};
+}
+
+/** Look up one or more values in a comma separated string as keys in a data map, and return a property from the results in a new comma separated string.
+Convenience function for UI mapping.
+Will throw a failure message, unless suppress=true in which case it will return undefined, if 
+any of the lookups fail to resolve. */
+function lookupMultiple(map, propertyName, lookupString, suppress) {
+	const values = lookupString.split(',');
+	const results = [];
+	for(var i = 0; i < values.length; i++) {
+		const v = values[i];
+		const r = map[v];
+		if(!r) { 
+			if(suppress) { return undefined;}
+			else { throw 'Value ' + v + ' did not match anything in ' + map; }
+		}
+		results.push(r[propertyName]);
+	}
+	return results.join(',');
+}
+
+/** Look up one or more values in a comma separated string as property values in a data map, and return the key from the results in a new comma separated string.
+Convenience function for UI mapping.
+Will throw a failure message, unless suppress=true in which case it will return undefined, if 
+any of the lookups fail to resolve. */
+function lookupByPropertyMultiple(map, propertyName, lookupString, suppress) {
+	const values = lookupString.split(',');
+	const results = [];
+	for(var i = 0; i < values.length; i++) {
+		const v = values[i];
+		const r = Object.index(map, propertyName, v);
+		if(!r) { 
+			if(suppress) { return undefined;}
+			else { throw 'Value ' + v + ' did not match anything by property ' + propertyName + ' in ' + map; }
+		}
+		results.push(r);
+	}
+	return results.join(',');
+}
+
 var getCookie = function(c_name) {
 	var c_value = document.cookie;
 

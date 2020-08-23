@@ -1,25 +1,33 @@
-$("#sigTable tbody").on("dblclick", "tr", {mode: "dblclick-update"}, openSignatureDialog);
-$("#edit-signature").on("click", {mode: "update"}, openSignatureDialog);
+$("#sigTable tbody").on("dblclick", "tr", {mode: "update", source:"sig-row"}, openSignatureDialog);
+$("#edit-signature").on("click", {mode: "update", source:"edit-sig"}, openSignatureDialog);
 $("#add-signature").click({mode: "add"}, openSignatureDialog);
 
+const sigDialogVM = {};
 function openSignatureDialog(e) {
-	e.preventDefault();
-	mode = e.data.mode;
-	element = this;
-
-	if (mode == "dblclick-update") {
-		$("#sigTable tr.selected").removeClass("selected");
-		$(this).closest("tr").addClass("selected");
-		mode = "update";
-	} else if (mode == "update") {
-		var elements = $("#sigTable tbody tr.selected");
-		if (elements.length !== 1) {
-			return false;
-		} else {
-			element = elements[0];
-		}
+	if(e.preventDefault) { e.preventDefault(); }	// Allow calls with fake event-like objects too
+	sigDialogVM.mode = e.data.mode;
+	
+	switch(sigDialogVM.mode) {
+		case 'update':
+			if (e.data.source == "sig-row") {
+				$("#sigTable tr.selected").removeClass("selected");
+				$(this).closest("tr").addClass("selected");
+				sigDialogVM.sigId = $(this).data('id');
+			} else if (e.data.source == "edit-sig") {
+				var elements = $("#sigTable tbody tr.selected");
+				if (elements.length !== 1) {
+					return false;
+				} else {
+					sigDialogVM.sigId = $(elements[0]).data('id');
+				}
+			} else { sigDialogVM.sigId = e.data.signature; }
+			break;
+		default: delete sigDialogVM.sigId;
 	}
-
+	
+	sigDialogVM.viewingSystemID = (tripwire.client.signatures[sigDialogVM.sigId] || {systemID: viewingSystemID }).systemID;
+	sigDialogVM.viewingSystem = tripwire.systems[sigDialogVM.viewingSystemID];
+	
 	if (!$("#dialog-signature").hasClass("ui-dialog-content")) {
 		$("#dialog-signature").dialog({
 			autoOpen: true,
@@ -174,7 +182,7 @@ function openSignatureDialog(e) {
 
 					// Validate leads to isn't the viewing system which causes a inner loop
 					$.each($("#dialog-signature .leadsTo:visible"), function() {
-						if (this.value.length > 0 && this.value.toLowerCase() === viewingSystem.toLowerCase()) {
+						if (this.value.length > 0 && this.value.toLowerCase() === sigDialogVM.viewingSystem.name.toLowerCase()) {
 							ValidationTooltips.open({target: $(this)}).setContent("Wormhole cannot lead to the same system it comes from!");
 							$(this).select();
 							valid = false;
@@ -188,7 +196,7 @@ function openSignatureDialog(e) {
 					if (form.signatureType === "wormhole") {
 						var signature = {
 							"signatureID": form.signatureID_Alpha + form.signatureID_Numeric,
-							"systemID": viewingSystemID,
+							"systemID": sigDialogVM.viewingSystemID,
 							"type": "wormhole",
 							"name": form.wormholeName,
 							"lifeLength": form.signatureLength
@@ -234,7 +242,7 @@ function openSignatureDialog(e) {
 							"life": form.wormholeLife,
 							"mass": form.wormholeMass
 						};
-						if (mode == "update") {
+						if (sigDialogVM.mode == "update") {
 							signature.id = $("#dialog-signature").data("signatureid");
 							signature2.id = $("#dialog-signature").data("signature2id");
 							wormhole.id = $("#dialog-signature").data("wormholeid");
@@ -269,11 +277,11 @@ function openSignatureDialog(e) {
 							payload = {"signatures": {"add": [{"wormhole": wormhole, "signatures": [signature, signature2]}]}};
 						}
 					} else {
-						if (mode == "update") {
+						if (sigDialogVM.mode == "update") {
 							var signature = {
 								"id": $("#dialog-signature").data("signatureid"),
 								"signatureID": form.signatureID_Alpha + form.signatureID_Numeric,
-								"systemID": viewingSystemID,
+								"systemID": sigDialogVM.viewingSystemID,
 								"type": form.signatureType,
 								"name": form.signatureName,
 								"lifeLength": form.signatureLength
@@ -292,7 +300,7 @@ function openSignatureDialog(e) {
 						} else {
 							var signature = {
 								"signatureID": form.signatureID_Alpha + form.signatureID_Numeric,
-								"systemID": viewingSystemID,
+								"systemID": sigDialogVM.viewingSystemID,
 								"type": form.signatureType,
 								"name": form.signatureName,
 								"lifeLength": form.signatureLength
@@ -309,13 +317,13 @@ function openSignatureDialog(e) {
 
 							$("#undo").removeClass("disabled");
 
-							if (mode == "add") {
+							if (sigDialogVM.mode == "add") {
 								undo = data.results;
 							}
-							if (viewingSystemID in tripwire.signatures.undo) {
-								tripwire.signatures.undo[viewingSystemID].push({action: mode, signatures: undo});
+							if (sigDialogVM.viewingSystemID in tripwire.signatures.undo) {
+								tripwire.signatures.undo[sigDialogVM.viewingSystemID].push({action: sigDialogVM.mode, signatures: undo});
 							} else {
-								tripwire.signatures.undo[viewingSystemID] = [{action: mode, signatures: undo}];
+								tripwire.signatures.undo[sigDialogVM.viewingSystemID] = [{action: sigDialogVM.mode, signatures: undo}];
 							}
 
 							sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
@@ -345,14 +353,14 @@ function openSignatureDialog(e) {
 				$("#dialog-signature #wormhole").hide();
 
 				// Side labels
-				$("#dialog-signature .sideLabel:first").html(viewingSystem + " Side");
+				$("#dialog-signature .sideLabel:first").html(sigDialogVM.viewingSystem.name + " Side");
 				$("#dialog-signature .sideLabel:last").html("Other Side");
 
 				// Default signature life
 				$("#dialog-signature #durationPicker").val(options.signatures.pasteLife * 60 * 60).change();
 
-				if (mode == "update" && $(element).data("id") && tripwire.client.signatures[$(element).data("id")]) {
-					var id = $(element).data("id");
+				var id = sigDialogVM.sigId;
+				if (sigDialogVM.mode == "update" && id && tripwire.client.signatures[id]) {
 					var signature = tripwire.client.signatures[id];
 					$("#dialog-signature").data("signatureid", id);
 
@@ -368,8 +376,9 @@ function openSignatureDialog(e) {
 						var otherSignature = id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
 						$("#dialog-signature").data("signature2id", otherSignature.id);
 						$("#dialog-signature").data("wormholeid", wormhole.id);
-
-						$("#dialog-signature input[name='signatureID_Alpha']").val(signature.signatureID ? signature.signatureID.substr(0, 3) : "???");
+						
+						const sigAlpha = signature.signatureID ? signature.signatureID.substr(0, 3) : "???";
+						$("#dialog-signature input[name='signatureID_Alpha']").val(sigAlpha);
 						$("#dialog-signature input[name='signatureID_Numeric']").val(signature.signatureID ? signature.signatureID.substr(3, 5) : "");
 						$("#dialog-signature [name='signatureType']").val(signature.type).selectmenu("refresh").trigger("selectmenuchange");
 						$("#dialog-signature [name='wormholeName']").val(signature.name);
@@ -387,16 +396,22 @@ function openSignatureDialog(e) {
 							$("#dialog-signature input[name='wormholeType2']").val(wormhole.type).change();
 						}
 						$("#dialog-signature #durationPicker").val(signature.lifeLength).change();
+						
+						// Focus the sig ID, if it isn't set, otherwise the sig name
+						if(sigAlpha != '???') { $("#dialog-signature input[name='wormholeName']").select(); }
+						else { $("#dialog-signature input[name='signatureID_Alpha']").select(); }
 					} else {
 						$("#dialog-signature input[name='signatureID_Alpha']").val(signature.signatureID ? signature.signatureID.substr(0, 3) : "???");
 						$("#dialog-signature input[name='signatureID_Numeric']").val(signature.signatureID ? signature.signatureID.substr(3, 5) : "");
 						$("#dialog-signature [name='signatureType']").val(signature.type).selectmenu("refresh").trigger("selectmenuchange");
 						$("#dialog-signature [name='signatureName']").val(signature.name);
 						$("#dialog-signature #durationPicker").val(signature.lifeLength).change();
+						
+						// Not a wormhole - always focus the sig ID
+						$("#dialog-signature input[name='signatureID_Alpha']").select();
 					}
 
-					// Heightlight first ID section
-					$("#dialog-signature input[name='signatureID_Alpha']").select();
+					// Hightlight first ID section, if not set, otherwise the name
 				} else {
 					// Change the dialog buttons
 					$("#dialog-signature").parent().find("button:contains('Add')").show();

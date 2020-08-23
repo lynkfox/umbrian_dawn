@@ -321,15 +321,15 @@ var SystemActivityToolTips = new jBox("Tooltip", {
 	repositionOnOpen: true,
 	createOnInit: true,
 	onOpen: function() {
+		var targetPos = positionRelativeTo(this.target[0], document.getElementById('chainParent'));
 		var nodePos = this.source.closest("[data-nodeid]").position();
 		var parentPos = this.source.closest(".nodeActivity").position();
 		var nodeHeight = this.source.closest("[data-nodeid]").height();
 		// var nodeWidth = this.source.closest("[data-nodeid]").width();
-		var targetPos = this.target.position()
 		var tooltipWidth = this.container.parent().width();
 		// var tooltipHeight = this.container.parent().height();
 
-		this.options.position = {x: nodePos.left + parentPos.left + targetPos.left + 3 - tooltipWidth /2 , y: nodePos.top + nodeHeight + 15};
+		this.options.position = {x: targetPos.left + 3 - tooltipWidth /2 , y: targetPos.top + this.target[0].offsetHeight};
 	}
 });
 
@@ -341,17 +341,13 @@ var WormholeRouteToolTips = new jBox("Tooltip", {
 	repositionOnOpen: true,
 	createOnInit: true,
 	onOpen: function() {
-		var nodePos = this.source.closest("[data-nodeid]").position();		
-		var parentPos = this.source.closest(".path").position();
+		var targetPos = positionRelativeTo(this.target[0], document.getElementById('chainParent'));
 		var nodeHeight = this.source.closest("[data-nodeid]").height();
 		// var nodeWidth = this.source.closest("[data-nodeid]").width();
-		var targetPos = this.target.position()
 		var tooltipWidth = this.container.parent().width();
 		// var tooltipHeight = this.container.parent().height();
 		
-		if(nodePos && parentPos && nodeHeight) {
-			this.options.position = {x: nodePos.left + parentPos.left + targetPos.left + 3 - tooltipWidth /2 , y: nodePos.top + nodeHeight + 15};
-		}
+		this.options.position = {x: targetPos.left + 3 - tooltipWidth /2 , y: targetPos.top + this.target[0].offsetHeight};
 	}
 });
 
@@ -367,14 +363,10 @@ var WormholeTypeToolTips = new jBox("Tooltip", {
 	repositionOnOpen: true,
 	createOnInit: true,
 	onOpen: function() {
-		var parentPos = this.source.closest("[data-nodeid]").position();
-		// var parentHeight = this.source.closest("[data-nodeid]").height();
-		// var parentWidth = this.source.closest("[data-nodeid]").width();
-		var targetPos = this.target.position()
+		var targetPos = positionRelativeTo(this.target[0], document.getElementById('chainParent'));
 		var tooltipWidth = this.container.parent().width();
-		// var tooltipHeight = this.container.parent().height();
 
-		this.options.position = {x: parentPos.left - tooltipWidth - 10, y: parentPos.top + targetPos.top - 3};
+		this.options.position = {x: targetPos.left - tooltipWidth - 10, y: targetPos.top - 3};
 	}
 });
 
@@ -393,12 +385,11 @@ var OccupiedToolTips = new jBox("Tooltip", {
 	createOnInit: true,
 	onOpen: function() {
 		var tooltip = this;
-		var systemID = this.source.closest("[data-nodeid]").data("nodeid");
-		var parentPos = this.source.closest("[data-nodeid]").position();
-		var parentWidth = this.source.closest("[data-nodeid]").width();
-		var targetPos = this.target.position();
+		const nodeElemJ = this.source.closest("[data-nodeid]");
+		var systemID = nodeElemJ.data("nodeid");
+		var targetPos = positionRelativeTo(this.target[0], document.getElementById('chainParent'));
 
-		this.options.position = {x: parentPos.left + parentWidth, y: parentPos.top + targetPos.top - 3};
+		this.options.position = {x: targetPos.left + this.target[0].offsetWidth, y: targetPos.top - 3};
 
 		tooltip.setContent("&nbsp;");
 
@@ -528,14 +519,14 @@ $("#newTab").on("click", function() {
 					e.preventDefault();
 					var $tab = $("#chainTab .tab").clone();
 					var name = $("#dialog-newTab .name").val();
-					var systemID = Object.index(tripwire.systems, "name", $("#dialog-newTab .sigSystemsAutocomplete").val());
+					var systemID = lookupByPropertyMultiple(tripwire.systems, "name", $("#dialog-newTab .sigSystemsAutocomplete").val(), true);
 					var thera = $("#tabThera")[0].checked ? true : false;
 
 					if (!name) {
 						ValidationTooltips.open({target: $("#dialog-newTab .name")}).setContent("Must have a name!");
 						return false;
 					} else if (!systemID && $("#tabType1")[0].checked) {
-						ValidationTooltips.open({target: $("#dialog-newTab .sigSystemsAutocomplete")}).setContent("Must have a valid system!");
+						ValidationTooltips.open({target: $("#dialog-newTab .sigSystemsAutocomplete")}).setContent("Must have valid systems (comma separated if multiple)!");
 						return false;
 					} else if ($("#tabType2")[0].checked) {
 						systemID = 0;
@@ -579,8 +570,8 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 			},
 			open: function() {
 				$("#dialog-editTab .name").val(options.chain.tabs[options.chain.active].name).focus();
-				$("#dialog-editTab .sigSystemsAutocomplete").val(options.chain.tabs[options.chain.active].systemID > 0 ? tripwire.systems[options.chain.tabs[options.chain.active].systemID].name : "");
-				options.chain.tabs[options.chain.active].systemID > 0 ? $("#dialog-editTab #editTabType1")[0].checked = true : $("#dialog-editTab #editTabType2")[0].checked = true;
+				$("#dialog-editTab .sigSystemsAutocomplete").val(options.chain.tabs[options.chain.active].systemID != 0 ? lookupMultiple(tripwire.systems, 'name', options.chain.tabs[options.chain.active].systemID) : "");
+				options.chain.tabs[options.chain.active].systemID != 0 ? $("#dialog-editTab #editTabType1")[0].checked = true : $("#dialog-editTab #editTabType2")[0].checked = true;
 				$("#dialog-editTab #editTabThera")[0].checked = options.chain.tabs[options.chain.active].evescout;
 			},
 			close: function() {
@@ -593,14 +584,14 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 					e.preventDefault();
 					var $tab = $("#chainTabs .tab").eq([options.chain.active]);
 					var name = $("#dialog-editTab .name").val();
-					var systemID = Object.index(tripwire.systems, "name", $("#dialog-editTab .sigSystemsAutocomplete").val());
+					var systemID = lookupByPropertyMultiple(tripwire.systems, "name", $("#dialog-editTab .sigSystemsAutocomplete").val(), true);
 					var thera = $("#editTabThera")[0].checked ? true : false;
 
 					if (!name) {
 						ValidationTooltips.open({target: $("#dialog-editTab .name")}).setContent("Must have a name!");
 						return false;
 					} else if (!systemID && $("#editTabType1")[0].checked) {
-						ValidationTooltips.open({target: $("#dialog-editTab .sigSystemsAutocomplete")}).setContent("Must have a valid system!");
+						ValidationTooltips.open({target: $("#dialog-editTab .sigSystemsAutocomplete")}).setContent("Must have valid systems (comma separated if multiple)!");
 						return false;
 					} else if ($("#editTabType2")[0].checked) {
 						systemID = 0;
@@ -718,8 +709,9 @@ $("#chainParent").contextmenu({
 	menu: "#chainMenu",
 	show: {effect: "slideDown", duration: 150},
 	select: function(e, ui) {
-		var id = $(ui.target[0]).closest("[data-nodeid]").data("nodeid");
-		var row = $(ui.target[0]).closest("[data-nodeid]").attr("id").replace("node", "") -1;
+		const nodeElem = $(ui.target[0]).closest("[data-nodeid]");
+		var id = nodeElem.data("nodeid");
+		var row = nodeElem.attr("id").replace("node", "") -1;
 
 		switch(ui.cmd) {
 			case "showInfo":
@@ -735,20 +727,20 @@ $("#chainParent").contextmenu({
 				// CCPEVE.showMap(id);
 				break;
 			case "red":
-				$(ui.target[0]).closest("td").hasClass("redNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
+				nodeElem.hasClass("redNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
 				break;
 			case "yellow":
-				$(ui.target[0]).closest("td").hasClass("yellowNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
+				nodeElem.hasClass("yellowNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
 				break;
 			case "green":
-				$(ui.target[0]).closest("td").hasClass("greenNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
+				nodeElem.hasClass("greenNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
 				break;
 			case "mass":
-				$("#dialog-mass").data("id", $(ui.target[0]).closest("[data-nodeid]").data("sigid")).data("systemID", $(ui.target[0]).closest("[data-nodeid]").data("nodeid")).dialog("open");
+				$("#dialog-mass").data("id", nodeElem.data("sigid")).data("systemID", nodeElem.data("nodeid")).dialog("open");
 				break;
 			case "collapse":
 				var toggle = options.chain.tabs[options.chain.active] ? ($.inArray(id, options.chain.tabs[options.chain.active].collapsed) == -1 ? true : false) : true;
-				chain.map.collapse(row, toggle);
+				chain.renderer.collapse(id, toggle);
 				break;
 		}
 	},

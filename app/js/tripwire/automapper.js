@@ -23,8 +23,8 @@ tripwire.autoMapper = function(from, to) {
         return false;
 
     // Is pilot in a pod?
-    // if (tripwire.client.EVE && tripwire.client.EVE.shipTypeID && $.inArray(parseInt(tripwire.client.EVE.shipTypeID), pods) >= 0)
-    //     return false;
+    if (tripwire.client.EVE && tripwire.client.EVE.shipTypeID && $.inArray(parseInt(tripwire.client.EVE.shipTypeID), pods) >= 0)
+         return false;
 
     // Is this a gate?
     if (typeof(tripwire.map.shortest[from - 30000000]) != "undefined" && typeof(tripwire.map.shortest[from - 30000000][to - 30000000]) != "undefined")
