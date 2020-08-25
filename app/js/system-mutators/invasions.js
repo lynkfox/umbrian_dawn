@@ -12,6 +12,15 @@ function _Invasions() {
 		edencom_minor_victory: '△',
 		fortress: '▲',
 	};
+	const textMap = {
+		stellar_reconnaissance: 'Stellar Reconnaissance',
+		
+		triglavian_minor_victory: 'Triglavian Minor Victory',
+		final_liminality: 'Final Liminality',
+		
+		edencom_minor_victory: 'EDENCOM Minor Victory',
+		fortress: 'EDENCOM Fortress',
+	}
 	
 	this.invasions = {};
 	
@@ -21,6 +30,9 @@ function _Invasions() {
 		if(systemInvasion) {
 			if(systemInvasion.derived_security_status) { system.security = 1 * systemInvasion.derived_security_status; }
 			system.pathSymbol = pathSymbolMap[systemInvasion.status];
+			const tip = textMap[systemInvasion.status] +
+				(systemInvasion.derived_security_status ? '<br>Effective security lowered to ' + systemInvasion.derived_security_status : '');
+			system.systemTypeModifiers.push('<span class="invasion ' + systemInvasion.status + '" data-tooltip="' + tip + '">' + system.pathSymbol + '</span>');
 		}
 	}
 	

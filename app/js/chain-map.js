@@ -263,26 +263,21 @@ var chain = new function() {
 		}
 		
 		function getSystemType(systemID) {
-			const system = systemAnalysis.analyse(systemID);
-			var leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[systemID.substring(0, systemID.indexOf("|"))] : null;
-			const nodeClass = system ? system.class : 
-				leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
-				undefined;
-			const nodeSecurity = system ? system.security : 
-				leadsToPointer == "High-Sec" ? 0.8 :
-				leadsToPointer == "Low-Sec" ? 0.4 :
-				leadsToPointer == "Null-Sec" ? -0.1 :
-				undefined;
+			var system = systemAnalysis.analyse(systemID);
+			if(!system) { 
+				var leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[systemID.substring(0, systemID.indexOf("|"))] : null;
+				const nodeClass = 
+					leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
+					undefined;
+				const nodeSecurity = 
+					leadsToPointer == "High-Sec" ? 0.8 :
+					leadsToPointer == "Low-Sec" ? 0.4 :
+					leadsToPointer == "Null-Sec" ? -0.1 :
+					undefined;
 				
-			if (nodeClass)
-				return "<span class='wh class-" + nodeClass + "'>C" + nodeClass + "</span>";
-			else if (nodeSecurity >= 0.45)
-				return "<span class='hisec'>HS</span>";
-			else if (nodeSecurity > 0.0)
-				return "<span class='lowsec'>LS</span>";
-			else if (nodeSecurity <= 0.0)
-				return "<span class='nullsec'>NS</span>";
-			else return '&nbsp;';	// unknown
+				system = systemAnalysis.analyse(systemID, { security: nodeSecurity, class: nodeClass } );
+			}
+			return "<span class='" + system.systemTypeClass + "'>" + system.systemTypeName + system.systemTypeModifiers.join('') + "</span>";
 		}		
 
 		function findLinks(system) {
@@ -473,9 +468,7 @@ var chain = new function() {
 			.slice(0, path.length - 1).reverse()
 			.map(function(s) {
 				var system = systemAnalysis.analyse(30000000 + 1 * s);
-				var securityClass = system.security >= 0.45 ? 'hisec' :
-					system.security >= 0.0 ? 'lowsec' :
-					'nullsec';
+				var securityClass = system.systemTypeClass;
 				return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">' + system.pathSymbol + '</span>';
 			});
 			var r = '<span class="path">';
@@ -547,6 +540,7 @@ var chain = new function() {
 			}
 			WormholeTypeToolTips.attach($("#chainMap .whEffect[data-icon]")); // 0.30ms
 			WormholeRouteToolTips.attach($("#chainMap .path span[data-tooltip]"));
+			SystemActivityToolTips.attach($("#chainMap .nodeClass span[data-tooltip]"));
 
 			this.drawing = false;
 		}
