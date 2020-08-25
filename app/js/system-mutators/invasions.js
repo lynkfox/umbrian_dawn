@@ -47,6 +47,7 @@ function _Invasions() {
 				console.info('Updating map for invasions update');
 				_this.invasions = _.keyBy(data, function(x) { return x.system_id; });
 				chain.redraw();
+				tripwire.systemChange(viewingSystemID);
 			}
 		}).fail(function(xhr, status, error) {
 			console.warn('Failed to fetch invasion data from kybernaut.space: ' + status, error);

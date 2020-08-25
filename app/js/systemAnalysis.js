@@ -10,7 +10,7 @@ const systemAnalysis = new function() {
 		const r = Object.assign({}, system);
 		
 		// Defaults or saved original values
-		r.baseSecurity = system.security;
+		r.baseSecurity = 1 * system.security;
 		r.pathSymbol = '■';
 		r.systemTypeModifiers = [];		
 		
