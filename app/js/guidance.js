@@ -15,7 +15,7 @@ var guidance = (function (undefined) {
 	}
 
 	function adjustCostForOptions(mapCost, system) {
-		var system = systemAnalysis.analyse(tripwire.systems[30000000 + 1 * system]);
+		var system = systemAnalysis.analyse(30000000 + 1 * system);
 		if(!system) { return mapCost; }
 		if(options.chain.routeIgnore.enabled && options.chain.routeIgnore.systems.indexOf(system.name) >= 0) {
 			mapCost += 100;	// Penalty for an avoided system
