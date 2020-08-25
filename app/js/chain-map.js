@@ -263,7 +263,7 @@ var chain = new function() {
 		}
 		
 		function getSystemType(systemID) {
-			const system = tripwire.systems[systemID];
+			const system = systemAnalysis.analyse(systemID);
 			var leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[systemID.substring(0, systemID.indexOf("|"))] : null;
 			const nodeClass = system ? system.class : 
 				leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
@@ -472,11 +472,11 @@ var chain = new function() {
 			var systemMarkup = path
 			.slice(0, path.length - 1).reverse()
 			.map(function(s) {
-				var system = appData.systems[30000000 + 1 * s];
+				var system = systemAnalysis.analyse(30000000 + 1 * s);
 				var securityClass = system.security >= 0.45 ? 'hisec' :
 					system.security >= 0.0 ? 'lowsec' :
 					'nullsec';
-				return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">&#x25a0</span>';
+				return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">' + system.pathSymbol + '</span>';
 			});
 			var r = '<span class="path">';
 			for(var i = 0; i < systemMarkup.length; i++) {
