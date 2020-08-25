@@ -7,18 +7,22 @@ function _Invasions() {
 		stellar_reconnaissance: '◆',
 		
 		triglavian_minor_victory: '▽',
+		escalating_liminality: '▽',
 		final_liminality: '▼',
 		
 		edencom_minor_victory: '△',
+		redoubt_bulwark: '△',
 		fortress: '▲',
 	};
 	const textMap = {
 		stellar_reconnaissance: 'Stellar Reconnaissance',
 		
 		triglavian_minor_victory: 'Triglavian Minor Victory',
+		escalating_liminality: 'Escalating Liminality',
 		final_liminality: 'Final Liminality',
 		
 		edencom_minor_victory: 'EDENCOM Minor Victory',
+		redoubt_bulwark: 'Redoubt/Bulwark',
 		fortress: 'EDENCOM Fortress',
 	}
 	
