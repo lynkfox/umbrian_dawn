@@ -11,7 +11,7 @@ function _Invasions() {
 		final_liminality: '▼',
 		
 		edencom_minor_victory: '△',
-		redoubt_bulwark: '△',
+		redoubt: '△', bulwark: '△',
 		fortress: '▲',
 	};
 	const textMap = {
@@ -22,7 +22,8 @@ function _Invasions() {
 		final_liminality: 'Final Liminality',
 		
 		edencom_minor_victory: 'EDENCOM Minor Victory',
-		redoubt_bulwark: 'Redoubt/Bulwark',
+		redoubt: 'Redoubt',
+		bulwark: 'Bulwark',
 		fortress: 'EDENCOM Fortress',
 	}
 	
