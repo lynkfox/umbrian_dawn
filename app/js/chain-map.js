@@ -2,7 +2,7 @@ var chain = new function() {
 	var chain = this;
 	this.map, this.view, this.drawing, this.data = {};
 	
-	thirdPartySuppliers = [ thera ];
+	thirdPartySuppliers = [ /*thera*/ ];
 
 	// Renderer should have:
 	//  ready() - Whether the renderer is initialised and can accept draw calls
