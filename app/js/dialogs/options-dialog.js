@@ -20,6 +20,7 @@ $(".options").click(function(e) {
 				options.chain.typeFormat = $("#dialog-options #typeFormat").val();
 				options.chain.classFormat = $("#dialog-options #classFormat").val();
 				
+				options.chain.sigNameLocation = $("#dialog-options #chainSigNameLocation").val();
 				options.chain.routingLimit = 1 * $("#dialog-options #chainRoutingLimit").val();
 				options.chain.routeSecurity = $("#dialog-options #chainRouteSecurity").val();
 				options.chain.routeIgnore.enabled = $("#dialog-options #route-ignore-enabled").prop('checked');
@@ -28,6 +29,8 @@ $(".options").click(function(e) {
 				options.chain.gridlines = JSON.parse($("#dialog-options input[name=gridlines]:checked").val());
 
 				options.chain["node-reference"] = $("#dialog-options input[name=node-reference]:checked").val();
+				
+				options.chain.renderer = $("#dialog-options #renderer").val();
 
 				options.signatures.editType = $("#dialog-options #editType").val();
 
@@ -153,9 +156,11 @@ $(".options").click(function(e) {
 			$("#dialog-options #copySeparator").val(options.signatures.copySeparator);
 			$("#dialog-options #typeFormat").val(options.chain.typeFormat);
 			$("#dialog-options #chainRoutingLimit").val(options.chain.routingLimit);
+			$("#dialog-options #chainSigNameLocation").val(options.chain.sigNameLocation);
 			$("#dialog-options #chainRouteSecurity").val(options.chain.routeSecurity);
 			$("#dialog-options #route-ignore-enabled").prop('checked', options.chain.routeIgnore.enabled);
 			$("#dialog-options #route-ignore").val(options.chain.routeIgnore.systems.join(','));
+			$("#dialog-options #renderer").val(options.chain.renderer);
 			$("#dialog-options #classFormat").val(options.chain.classFormat);
 			$("#dialog-options input[name='node-reference'][value='"+options.chain["node-reference"]+"']").prop("checked", true);
 			$("#dialog-options input[name='gridlines'][value='"+options.chain.gridlines+"']").prop("checked", true);

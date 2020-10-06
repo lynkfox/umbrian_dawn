@@ -22,6 +22,7 @@ var jsFiles = [
             'app/js/global-hooks.js',
             'app/js/guidance.js',
             'app/js/thera.js',
+            'app/js/chain-map-renderer*.js',
             'app/js/chain-map.js',
             'app/js/tripwire/*.js',
             'app/js/*.js',

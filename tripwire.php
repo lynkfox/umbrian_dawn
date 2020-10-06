@@ -177,7 +177,7 @@ if ($row = $stmt->fetchObject()) {
 						<a class="infoLink" data-href="http://anoik.is/systems/$systemName" href="" target="_blank">Anoik.is</a><br/>
 						<a class="infoLink" data-href="http://evemaps.dotlan.net/search?q=$systemName" href="" target="_blank">dotlan</a><br/>
 						<!--<a class="infoLink" style="float: right;" data-href='http://eve-kill.net/?a=system_detail&sys_name=$systemName' href="" target="_blank">Eve-kill.net&nbsp;&nbsp;</a>-->
-						<a class="infoLink" data-href='https://zkillboard.com/system/$systemID' href="" target="_blank">zKillboard</a>
+						<a class="infoLink" data-href='https://zkillboard.com/system/$systemID/' href="" target="_blank">zKillboard</a>
 					</div>
 				</div>
 			</li>
@@ -251,7 +251,7 @@ if ($row = $stmt->fetchObject()) {
 					<span>|</span>
 					<i id="show-viewing" data-icon="eye" data-tooltip="Add viewing system to chain"></i>
 					<i id="show-favorite" data-icon="star" data-tooltip="Add favorite systems to chain"></i>
-					<i id="show-chainLegend" data-icon="tree" data-tooltip="<table id='guide'><tr><td><div class='guide-stable'></td><td>Stable</td></tr><tr><td><div class='guide-eol'></div></td><td>End of Life</td></tr><tr><td><div class='guide-destab'></div></td><td>Mass Destabbed</td></tr><tr><td><div class='guide-critical'></div></td><td>Mass Critical</td></tr><tr><td><div class='guide-frigate'></div></td><td>Frigate</td></tr></table>"></i>
+					<i id="show-chainLegend" data-icon="tree" data-tooltip="<table id='guide'><tr><td><div class='guide stable'></td><td>Stable</td></tr><tr><td><div class='guide eol'></div></td><td>End of Life</td></tr><tr><td><div class='guide destab'></div></td><td>Mass Destabbed</td></tr><tr><td><div class='guide critical'></div></td><td>Mass Critical</td></tr><tr><td><div class='guide frig'></div></td><td>Frigate</td></tr></table>"></i>
 					<div style="float: right;">
 						<button id="chain-zoom-reset" class="hidden">Reset Zoom</button>
 						<!-- <i class="tutorial" data-tooltip="Show tutorial for this section">?</i> -->
@@ -278,7 +278,7 @@ if ($row = $stmt->fetchObject()) {
 							<li data-command="collapse"><a>Collapse</a></li>
 						</li>
 					</ul>
-					<span style="position: relative; display: table; width: 100%;">
+					<div style="position: relative; display: table; width: 100%;">
 						<table id="chainGrid">
 							<tr class="top"><td></td></tr>
 							<tr class="space hidden"><td></td></tr>
@@ -327,8 +327,8 @@ if ($row = $stmt->fetchObject()) {
 							<tr class="line hidden"><td></td></tr>
 							<tr class="space hidden"><td>22</td></tr>
 						</table>
-						<span id="chainMap"></span>
-					</span>
+						<div id="chainMap"></div>
+					</div>
 				</div>
 			</li>
 		</ul>
@@ -661,6 +661,18 @@ if ($row = $stmt->fetchObject()) {
 						</td>
 					</tr>
 					<tr>
+						<th>Show sig name on map:</th>
+						<td>
+							<select id="chainSigNameLocation">
+								<option value="name">System name - replace</option>
+								<option value="name_prefix">System name - prefix</option>
+								<option value="ref">Reference - replace</option>
+								<option value="ref_prefix">Reference - prefix</option>
+								<option value="none">Don't put it on the map</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
 						<th>Show Route as Blobs up to:</th>
 						<td>
 							<select id="chainRoutingLimit">
@@ -719,6 +731,15 @@ if ($row = $stmt->fetchObject()) {
 						<th>Background Image:</th>
 						<td>
 							<input type="text" id="background-image" maxlength="200" />
+						</td>
+					</tr>
+					<tr>
+						<th>Chain Renderer:</th>
+						<td>
+							<select id="renderer">
+								<option value="orgChart">Org Chart</option>
+								<option value="radial">Radial (System in middle) - Experimental</option>
+							</select>
 						</td>
 					</tr>
 					<tr>
