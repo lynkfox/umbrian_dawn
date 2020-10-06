@@ -150,8 +150,6 @@ var chain = new function() {
 		var frigTypes = ["Q003", "E004", "L005", "Z006", "M001", "C008", "G008", "A009", "SML" ];
 		var connections = [];
 		var chainMap = this;
-		
-		const linkToThera = options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout;
 
 		function formatStatics(statics) {
 			if(!statics) { return ''; }
