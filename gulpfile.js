@@ -20,6 +20,7 @@ var jsFiles = [
             'app/js/layout.js',
             'app/js/tripwire.js',
             'app/js/global-hooks.js',
+            'app/js/systemAnalysis.js',
             'app/js/guidance.js',
             'app/js/chain-map-renderer*.js',
             'app/js/chain-map.js',
@@ -50,6 +51,23 @@ gulp.task('js', function(cb) {
             gulp.src(jsFiles[j].src),
             sourcemaps.init(),
             uglify(),
+            concat(jsFiles[j].name),
+            rename(jsFiles[j].nameMin),
+            sourcemaps.write('.'),
+            gulp.dest(jsFiles[j].output),
+            notify({
+                message: "Finished javascript",
+                onLast: true
+            })
+        ], cb);
+    }
+});
+
+gulp.task('js_dev', function(cb) {
+    for (var j in jsFiles) {
+        pump([
+            gulp.src(jsFiles[j].src),
+            sourcemaps.init(),
             concat(jsFiles[j].name),
             rename(jsFiles[j].nameMin),
             sourcemaps.write('.'),

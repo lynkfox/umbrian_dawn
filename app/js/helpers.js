@@ -181,37 +181,6 @@ var sigFormat = function(input, type) {
 	return format;
 };
 
-var sigClass = function(name, type) {
-	var id = $.map(tripwire.systems, function(system, id) { return system.name == name ? id : null })[0];
-	var system = {
-		"name": name,
-		"class": id ? tripwire.systems[id].class : null,
-		"security":  id ? tripwire.systems[id].security : null,
-		"type": type};
-	var systemType = null;
-
-	if (system.class == 6 || system.name == "Class-6" || (typeof(tripwire.wormholes[system.type]) != "undefined" && tripwire.wormholes[system.type].leadsTo == "Class 6"))
-		systemType = "C6";
-	else if (system.class == 5 || system.name == "Class-5" || (typeof(tripwire.wormholes[system.type]) != "undefined" && tripwire.wormholes[system.type].leadsTo == "Class 5"))
-		systemType = "C5";
-	else if (system.class == 4 || system.name == "Class-4" || (typeof(tripwire.wormholes[system.type]) != "undefined" && tripwire.wormholes[system.type].leadsTo == "Class 4"))
-		systemType = "C4";
-	else if (system.class == 3 || system.name == "Class-3" || (typeof(tripwire.wormholes[system.type]) != "undefined" && tripwire.wormholes[system.type].leadsTo == "Class 3"))
-		systemType = "C3";
-	else if (system.class == 2 || system.name == "Class-2" || (typeof(tripwire.wormholes[system.type]) != "undefined" && tripwire.wormholes[system.type].leadsTo == "Class 2"))
-		systemType = "C2";
-	else if (system.class == 1 || system.name == "Class-1" || (typeof(tripwire.wormholes[system.type]) != "undefined" && tripwire.wormholes[system.type].leadsTo == "Class 1"))
-		systemType = "C1";
-	else if (system.security >= 0.45 || system.name == "High-Sec" || (typeof(tripwire.wormholes[system.type]) != "undefined" && tripwire.wormholes[system.type].leadsTo == "High-Sec" && !system.security))
-		systemType = "HS";
-	else if (system.security > 0.0 || system.name == "Low-Sec" || (typeof(tripwire.wormholes[system.type]) != "undefined" && tripwire.wormholes[system.type].leadsTo == "Low-Sec" && !system.security))
-		systemType = "LS";
-	else if ((system.security <= 0.0 && system.security != null) || system.name == "Null-Sec" || (typeof(tripwire.wormholes[system.type]) != "undefined" && tripwire.wormholes[system.type].leadsTo == "Null-Sec"))
-		systemType = "NS";
-
-	return systemType;
-};
-
 var isEmpty = function(obj) {
     for(var key in obj) {
         if(obj.hasOwnProperty(key))

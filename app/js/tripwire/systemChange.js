@@ -1,10 +1,12 @@
 // Change the currently viewed system
 tripwire.systemChange = function(systemID, mode) {
+	const system = systemAnalysis.analyse(systemID);
+		
     if (mode != "init") {
         $("#infoSecurity").removeClass();
         $("#infoStatics").empty();
 
-        viewingSystem = tripwire.systems[systemID].name;
+        viewingSystem = system.name;
         viewingSystemID = systemID;
 
         // Reset activity
@@ -31,25 +33,25 @@ tripwire.systemChange = function(systemID, mode) {
     }
 
     // Change the title
-    document.title = tripwire.systems[systemID].name + " - " + app_name;
+    document.title = system.name + " - " + app_name;
 
-    $("#infoSystem").text(tripwire.systems[systemID].name);
+    $("#infoSystem").text(system.name);
 
     // Current system favorite
     $.inArray(parseInt(viewingSystemID), options.favorites) != -1 ? $("#system-favorite").attr("data-icon", "star").addClass("active") : $("#system-favorite").attr("data-icon", "star-empty").removeClass("active");
-
-    if (tripwire.systems[systemID].class) {
+	
+    if (system.class) {
         // Security
-        $("#infoSecurity").html("<span class='wh pointer'>Class " + tripwire.systems[systemID].class + "</span>");
+        $("#infoSecurity").html("<span class='wh pointer'>Class " + system.class + "</span>");
 
         // Effects
-        if (tripwire.systems[systemID].effect) {
+        if (system.effect) {
             var tooltip = "<table cellpadding=\"0\" cellspacing=\"1\">";
-            for (var x in tripwire.effects[tripwire.systems[systemID].effect]) {
-                var effect = tripwire.effects[tripwire.systems[systemID].effect][x].name;
-                var base = tripwire.effects[tripwire.systems[systemID].effect][x].base;
-                var bad = tripwire.effects[tripwire.systems[systemID].effect][x].bad;
-                var whClass = tripwire.systems[systemID].class > 6 ? 6 : tripwire.systems[systemID].class;
+            for (var x in tripwire.effects[system.effect]) {
+                var effect = tripwire.effects[system.effect][x].name;
+                var base = tripwire.effects[system.effect][x].base;
+                var bad = tripwire.effects[system.effect][x].bad;
+                var whClass = system.class > 6 ? 6 : system.class;
                 var modifier = 0;
 
                 switch (Math.abs(base)) {
@@ -68,13 +70,12 @@ tripwire.systemChange = function(systemID, mode) {
                 tooltip += base + (modifier * (whClass -1)) + "%</td></tr>";
             }
             tooltip += "</table>";
-            $("#infoSecurity").append("&nbsp;<span class='pointer' data-tooltip='" + tooltip + "'>" + tripwire.systems[systemID].effect + "</span>");
-            Tooltips.attach($("#infoSecurity [data-tooltip]"));
+            $("#infoSecurity").append("&nbsp;<span class='pointer' data-tooltip='" + tooltip + "'>" + system.effect + "</span>");
         }
 
         // Statics
-        for (var x in tripwire.systems[systemID].statics) {
-            var type = tripwire.systems[systemID].statics[x];
+        for (var x in system.statics) {
+            var type = system.statics[x];
             var wormhole = tripwire.wormholes[type];
             var color = "wh";
 
@@ -97,32 +98,29 @@ tripwire.systemChange = function(systemID, mode) {
         $("#infoFaction").html("&nbsp;");
     } else {
         // Security
-        if (tripwire.systems[systemID].security >= 0.45) {
-            $("#infoSecurity").addClass("hisec").text("High-Sec " + tripwire.systems[systemID].security);
-        } else if (tripwire.systems[systemID].security > 0.0) {
-            $("#infoSecurity").addClass("lowsec").text("Low-Sec " + tripwire.systems[systemID].security);
-        } else {
-            $("#infoSecurity").addClass("nullsec").text("Null-Sec " + tripwire.systems[systemID].security);
-        }
+		const securityText = {HS: 'High-Sec', LS: 'Low-Sec', NS: 'Null-Sec' }[system.systemTypeName];
+       $("#infoSecurity").addClass(system.systemTypeClass).html(securityText + " " + system.baseSecurity.toFixed(2) + system.systemTypeModifiers.join(' '));
 
         // Faction
-        $("#infoFaction").html(tripwire.systems[systemID].factionID ? tripwire.factions[tripwire.systems[systemID].factionID].name : "&nbsp;");
+        $("#infoFaction").html(system.factionID ? tripwire.factions[system.factionID].name : "&nbsp;");
 		
 		// Route to favourites
 		for (var fi in options.favorites) {
 			const f = options.favorites[fi];
 			const path = guidance.findShortestPath(tripwire.map.shortest, f - 30000000, viewingSystemID - 30000000);
-			if(path) { $('#infoStatics').append('<p><b>' + tripwire.systems[f].name + '</b>: ' + chain.renderPath(path) + '</p>'); }
+			if(path) { $('#infoStatics').append('<p><b><a href=".?system=' + tripwire.systems[f].name + '">' +tripwire.systems[f].name + '</a></b>: ' + chain.renderPath(path) + '</p>'); }
 		}
-        Tooltips.attach($("#infoStatics [data-tooltip]"));
     }
+	
+	Tooltips.attach($("#infoStatics [data-tooltip]"));
+    Tooltips.attach($("#infoSecurity [data-tooltip]"));
 
     // Region
-    $("#infoRegion").text(tripwire.regions[tripwire.systems[systemID].regionID].name);
+    $("#infoRegion").text(tripwire.regions[system.regionID].name);
 
     // Info Links
     $("#infoWidget .infoLink").each(function() {
-        this.href = $(this).data("href").replace(/\$systemName/gi, tripwire.systems[systemID].name).replace(/\$systemID/gi, systemID);
+        this.href = $(this).data("href").replace(/\$systemName/gi, system.name).replace(/\$systemID/gi, systemID);
     });
 
     // Reset undo/redo
