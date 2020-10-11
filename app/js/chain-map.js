@@ -1,6 +1,9 @@
 var chain = new function() {
 	var chain = this;
 	this.map, this.view, this.drawing, this.data = {};
+	
+	thirdPartySuppliers = [ /*thera*/ ];
+
 	// Renderer should have:
 	//  ready() - Whether the renderer is initialised and can accept draw calls
 	// switchTo() - Make this renderer active. The renderer can be in a blank state; draw() will be called after
@@ -263,32 +266,52 @@ var chain = new function() {
 		}
 		
 		function getSystemType(systemID) {
-			const system = tripwire.systems[systemID];
-			var leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[systemID.substring(0, systemID.indexOf("|"))] : null;
-			const nodeClass = system ? system.class : 
-				leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
-				undefined;
-			const nodeSecurity = system ? system.security : 
-				leadsToPointer == "High-Sec" ? 0.8 :
-				leadsToPointer == "Low-Sec" ? 0.4 :
-				leadsToPointer == "Null-Sec" ? -0.1 :
-				undefined;
+			var system = systemAnalysis.analyse(systemID);
+			if(!system) { 
+				var leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[systemID.substring(0, systemID.indexOf("|"))] : null;
+				const nodeClass = 
+					leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
+					undefined;
+				const nodeSecurity = 
+					leadsToPointer == "High-Sec" ? 0.8 :
+					leadsToPointer == "Low-Sec" ? 0.4 :
+					leadsToPointer == "Null-Sec" ? -0.1 :
+					undefined;
 				
-			if (nodeClass)
-				return "<span class='wh class-" + nodeClass + "'>C" + nodeClass + "</span>";
-			else if (nodeSecurity >= 0.45)
-				return "<span class='hisec'>HS</span>";
-			else if (nodeSecurity > 0.0)
-				return "<span class='lowsec'>LS</span>";
-			else if (nodeSecurity <= 0.0)
-				return "<span class='nullsec'>NS</span>";
-			else return '&nbsp;';	// unknown
+				system = systemAnalysis.analyse(systemID, { security: nodeSecurity, class: nodeClass } );
+			}
+			return "<span class='" + system.systemTypeClass + "'>" + system.systemTypeName + system.systemTypeModifiers.join('') + "</span>";
 		}		
 
 		function findLinks(system) {
 			if (system[0] <= 0) return false;
 
 			var parentID = parseInt(system[1]), childID = chainList.length;
+			const connectedTo = [];	// Local cache, in addition to usedLinks, for extra link sources
+
+			/** Add the 'current' and 'favourite' calculated nodes if appropriate */
+			const addCalcChildNodes = function(node) {
+				if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class && viewingSystemID != node.child.systemID ) {
+					var calcNode = makeCalcChildNode(childID, node, viewingSystemID);
+					childID = calcNode.childID;
+
+					chainLinks.push(calcNode.calcNode);
+					chainList.push([0, childID]);
+				}
+
+				if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[node.child.systemID].class) {
+					for (var x in options.favorites) {
+						if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000 || options.favorites[x] == node.child.systemID)
+							continue;
+
+						var calcNode = makeCalcChildNode(childID, node, options.favorites[x]);
+						childID = calcNode.childID;
+
+						chainLinks.push(calcNode.calcNode);
+						chainList.push([0, childID]);
+					}
+				}				
+			};
 
 			for (var x in chainData) {
 				var wormhole = chainData[x];				
@@ -343,30 +366,36 @@ var chain = new function() {
 					chainLinks.push(node);
 					chainList.push([node.child.systemID, node.child.id, system[2]]);
 					usedLinks.push(node.id);
+					if(tripwire.systems[child.systemID]) { connectedTo.push(1 * child.systemID); }	// cast to number - sigs have the system as a string
 					// usedLinks[system[2]].push(node.id);
-
-					if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class && viewingSystemID != node.child.systemID ) {
-						var calcNode = makeCalcChildNode(childID, node, viewingSystemID);
-						childID = calcNode.childID;
-
-						chainLinks.push(calcNode.calcNode);
-						chainList.push([0, childID]);
-					}
-
-					if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[node.child.systemID].class) {
-						for (var x in options.favorites) {
-							if (tripwire.systems[options.favorites[x]].regionID >= 11000000 || tripwire.systems[node.child.systemID].regionID >= 11000000 || options.favorites[x] == node.child.systemID)
-								continue;
-
-							var calcNode = makeCalcChildNode(childID, node, options.favorites[x]);
-							childID = calcNode.childID;
-
-							chainLinks.push(calcNode.calcNode);
-							chainList.push([0, childID]);
-						}
-					}
+					
+					addCalcChildNodes(node);					
 				}
 			}
+			
+			thirdPartySuppliers.forEach(function(supplier) {				
+				const ids = { parentID: parentID, nextChildID: ++childID };
+				const supplierNodes = supplier.findLinks(1 * system[0], ids);
+				if(!supplierNodes) { return; }
+				childID = ids.nextChildID - 1;
+
+				for(var ti = 0; ti < supplierNodes.length; ti++) {
+					var supplierNode = supplierNodes[ti];
+					if(0 > usedLinks.indexOf(supplierNode.id)) {
+						if(0 > connectedTo.indexOf(supplierNode.child.systemID)) { // not in our map already
+							supplierNode.thirdParty = supplier.nodeNameSuffix;
+								
+							chainLinks.push(supplierNode);
+							chainList.push([supplierNode.child.systemID, supplierNode.child.id, system[2]]);
+							connectedTo.push(supplierNode.child.systemID);		
+							
+							addCalcChildNodes(supplierNode);		
+						}							
+						// Always want to do this, even if we didn't add it, because in that case the link is overridden by one on this mask, so it is 'used' even if not made visible
+						usedLinks.push(supplierNode.id);	
+					}
+				}
+			});
 		}
 		
 		if ($("#chainTabs .current").length > 0) {
@@ -439,6 +468,7 @@ var chain = new function() {
 					sigText
 				) + '</a>';
 			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
+			if(node.thirdParty) { additionalClasses.push('third-party', 'third-party-' + node.thirdParty); }
 			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.child.sigIndex, node.parent.name, nodeTypeMarkup, additionalClasses);
 
 			var parent = {v: node.parent.id};
@@ -472,11 +502,10 @@ var chain = new function() {
 			var systemMarkup = path
 			.slice(0, path.length - 1).reverse()
 			.map(function(s) {
-				var system = appData.systems[30000000 + 1 * s];
-				var securityClass = system.security >= 0.45 ? 'hisec' :
-					system.security >= 0.0 ? 'lowsec' :
-					'nullsec';
-				return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')">&#x25a0</span>';
+				const systemID = 30000000 + 1 * s;
+				const system = systemAnalysis.analyse(systemID);
+				const securityClass = system.systemTypeClass;
+				return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')" onclick="tripwire.systemChange(' + systemID + ')">' + system.pathSymbol + '</span>';
 			});
 			var r = '<span class="path">';
 			for(var i = 0; i < systemMarkup.length; i++) {
@@ -547,6 +576,7 @@ var chain = new function() {
 			}
 			WormholeTypeToolTips.attach($("#chainMap .whEffect[data-icon]")); // 0.30ms
 			WormholeRouteToolTips.attach($("#chainMap .path span[data-tooltip]"));
+			SystemActivityToolTips.attach($("#chainMap .nodeClass span[data-tooltip]"));
 
 			this.drawing = false;
 		}
