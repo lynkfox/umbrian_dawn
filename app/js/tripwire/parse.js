@@ -27,6 +27,7 @@ tripwire.parse = function(server, mode) {
 
             // Check for differences
             if (!tripwire.signatures.list[key]) {
+				tripwire.signatures.list[key] = data.signatures[key];	// To reduce race condition chance
                 this.addSig(data.signatures[key], {animate: true}, disabled);
                 updateSignatureTable = true;
             } else if (tripwire.signatures.list[key].modifiedTime !== data.signatures[key].modifiedTime) {
@@ -59,10 +60,11 @@ tripwire.parse = function(server, mode) {
                 continue;
             }
             var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
-
-            this.addSig(data.signatures[key], {animate: false}, disabled);
-            updateSignatureTable = true;
-
+			
+			if(!tripwire.signatures.list[key]) {
+				this.addSig(data.signatures[key], {animate: false}, disabled);
+				updateSignatureTable = true;
+			}
             if (data.signatures[key].editing) {
                 this.sigEditing(data.signatures[key]);
             }

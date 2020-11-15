@@ -6,7 +6,12 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
 
     // Remove old timer to prevent multiple
     if (this.timer) clearTimeout(this.timer);
-    if (this.xhr) this.xhr.abort();
+    if (this.xhr) {
+		console.log('Awaiting existing XHR ' + this.xhr.data.mode + ': ', this.xhr);
+		tripwire.data = data;
+		this.timer = setTimeout(function() { tripwire.sync(mode, data, successCallback, alwaysCallback); }, 50);
+		return false;
+	}
 
     if (mode == 'refresh' || mode == 'change') {
         data.signatureCount = tripwire.serverSignatureCount;
@@ -113,8 +118,12 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
             $("#connectionError").click();
             Notify.trigger("Successfully reconnected with server", "green", 5000, "connectionSuccess");
         }
+		
+		tripwire.xhr = null;
     });
-
+	this.xhr.data = data;
+//	console.log('Submitted XHR:' + this.xhr.data.mode, this.xhr);
+	
     return true;
 }
 tripwire.sync("init");
