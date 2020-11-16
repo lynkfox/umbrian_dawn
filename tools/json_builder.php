@@ -15,6 +15,7 @@ if(!isset($_SESSION['super']) || $_SESSION['super'] != 1) {
 	exit();
 }
 
+require_once('../config.php');
 require_once('../db.inc.php');
 
 /*
@@ -44,7 +45,7 @@ if (isset($_REQUEST['combine'])) {
 			if ($row->factionID) $output['systems'][$row->solarSystemID]['factionID'] = $row->factionID;
 			if ((int)$row->regionID > 11000000) $output['systems'][$row->solarSystemID]['class'] = $row->wormholeClassID;
 			if ((int)$row->regionID > 11000000 && $row->typeName) $output['systems'][$row->solarSystemID]['effect'] = $row->typeName;
-			if ((int)$row->regionID > 11000000) $output['systems'][$row->solarSystemID]['statics'] = $statics[$row->solarSystemName];
+			if ((int)$row->regionID > 11000000 && isset($statics[$row->solarSystemName])) $output['systems'][$row->solarSystemID]['statics'] = $statics[$row->solarSystemName];
 		}
 
 		// Regions
