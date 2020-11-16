@@ -244,6 +244,7 @@ var chain = new function() {
 		
 		function makeCalcChildNode(childID, node, targetSystem) {
 			var path = guidance.findShortestPath(tripwire.map.shortest, [targetSystem - 30000000, node.child.systemID - 30000000]);
+			if(!path) { return null; }
 			
 			var calcNode = { calculated: true};
 			calcNode.life = "Gate";
@@ -277,8 +278,11 @@ var chain = new function() {
 					leadsToPointer == "Low-Sec" ? 0.4 :
 					leadsToPointer == "Null-Sec" ? -0.1 :
 					undefined;
+				const nodeFaction = 
+					leadsToPointer == "Triglavian" ? 500026 :
+					undefined;
 				
-				system = systemAnalysis.analyse(systemID, { security: nodeSecurity, class: nodeClass } );
+				system = systemAnalysis.analyse(systemID, { security: nodeSecurity, class: nodeClass, factionID: nodeFaction } );
 			}
 			return "<span class='" + system.systemTypeClass + "'>" + system.systemTypeName + system.systemTypeModifiers.join('') + "</span>";
 		}		
@@ -293,10 +297,12 @@ var chain = new function() {
 			const addCalcChildNodes = function(node) {
 				if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class && viewingSystemID != node.child.systemID ) {
 					var calcNode = makeCalcChildNode(childID, node, viewingSystemID);
-					childID = calcNode.childID;
+					if(calcNode) {
+						childID = calcNode.childID;
 
-					chainLinks.push(calcNode.calcNode);
-					chainList.push([0, childID]);
+						chainLinks.push(calcNode.calcNode);
+						chainList.push([0, childID]);
+					}
 				}
 
 				if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[node.child.systemID].class) {
@@ -305,10 +311,12 @@ var chain = new function() {
 							continue;
 
 						var calcNode = makeCalcChildNode(childID, node, options.favorites[x]);
-						childID = calcNode.childID;
+						if(calcNode) {
+							childID = calcNode.childID;
 
-						chainLinks.push(calcNode.calcNode);
-						chainList.push([0, childID]);
+							chainLinks.push(calcNode.calcNode);
+							chainList.push([0, childID]);
+						}
 					}
 				}				
 			};
