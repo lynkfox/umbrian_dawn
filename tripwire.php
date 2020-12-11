@@ -1190,6 +1190,7 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.duration-picker.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/dragscroll.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/lodash.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<!-- Google Charts -->
 	<script type="text/javascript">google.charts.load('current', {packages: ['corechart', 'orgchart']});</script>
