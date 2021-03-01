@@ -15,12 +15,6 @@ require_once('settings.php');
 require_once('db.inc.php');
 require('lib.inc.php');
 
-// Track this system view
-$query = 'UPDATE userStats SET systemsViewed = systemsViewed + 1 WHERE userID = :userID';
-$stmt = $mysql->prepare($query);
-$stmt->bindValue(':userID', $_SESSION['userID']);
-$stmt->execute();
-
 // Verify correct system otherwise goto default...
 $query = 'SELECT solarSystemName, systems.solarSystemID, regionName, regions.regionID FROM '. EVE_DUMP .'.mapSolarSystems systems LEFT JOIN '. EVE_DUMP .'.mapRegions regions ON regions.regionID = systems.regionID WHERE solarSystemName = :system';
 $stmt = $mysql->prepare($query);
