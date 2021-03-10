@@ -119,45 +119,17 @@ var guidance = (function (undefined) {
 			start = end;
 		}
 	}
-
-	var toArray = function (list, offset) {
-		try {
-			return Array.prototype.slice.call(list, offset);
-		} catch (e) {
-			var a = [];
-			for (var i = offset || 0, l = list.length; i < l; ++i) {
-				a.push(list[i]);
-			}
-			return a;
-		}
-	}
-
-	var Guidance = function (map) {
-		this.map = map;
-	}
-
-	Guidance.prototype.findShortestPath = function (start, end) {
-		var result;
-
-		if (Object.prototype.toString.call(start) === '[object Array]') {
-			result = findShortestPath(this.map, start);
-		} else if (arguments.length === 2) {
-			result = findShortestPath(this.map, [start, end]);
-		} else {
-			result = findShortestPath(this.map, toArray(arguments));
-		}
-
-		return result;
-	}
-
+	
+	var Guidance = { kSpaceCache: {} };
+	Guidance.clearCache = function() { Guidance.kSpaceCache = {}; }
+	
 	Guidance.findShortestPath = function (map, start, end) {
-		if (Object.prototype.toString.call(start) === '[object Array]') {
-			return findShortestPath(map, start);
-		} else if (arguments.length === 3) {
-			return findShortestPath(map, [start, end]);
-		} else {
-			return findShortestPath(map, toArray(arguments, 1));
-		}
+		const nodes = [start, end];
+
+		const cacheKey = nodes.join(',');
+		const cachedPath = Guidance.kSpaceCache[cacheKey] || findShortestPath(map, nodes);
+		Guidance.kSpaceCache[cacheKey] = cachedPath;
+		return cachedPath;
 	}
 
 	return Guidance;

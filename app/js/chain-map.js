@@ -243,7 +243,8 @@ var chain = new function() {
 		}
 		
 		function makeCalcChildNode(childID, node, targetSystem) {
-			var path = guidance.findShortestPath(tripwire.map.shortest, [targetSystem - 30000000, node.child.systemID - 30000000]);
+			var path = guidance.findShortestPath(tripwire.map.shortest, targetSystem - 30000000, node.child.systemID - 30000000);
+			if(!path) { return null; }
 			
 			var calcNode = { calculated: true};
 			calcNode.life = "Gate";
