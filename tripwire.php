@@ -163,12 +163,15 @@ if ($row = $stmt->fetchObject()) {
 					</div>
 				</div>
 				<div class="content">
-					<div id="infoGeneral">
+					<div id="infoGeneral" style="float: left; width: 50%; text-align: left;">
 						<h1 id="infoSystem" class="pointer" style="color: #CCC;"><?=$system?></h1>
 						<h4 id="infoSecurity" class="pointer">&nbsp;</h4>
 						<h4 id="infoRegion" class="pointer">&nbsp;</h4>
 						<h4 id="infoFaction" class="pointer">&nbsp;</h4>
 					</div>
+					<div id="infoExtra" style="float: right; width: 50%; text-align: right;">
+					</div>
+					<br clear="all"/>
 					<div id="activityGraph"></div>
 					<div id="activityGraphControls" style="text-align: center;"><a href="javascript: activity.time(168);">Week</a> - <a href="javascript: activity.time(48);">48Hour</a> - <a href="javascript: activity.time(24);">24Hour</a></div>
 					<div id="infoStatics" class="pointer" style="float: left; width: 50%; text-align: left;"></div>
