@@ -466,13 +466,13 @@ var chain = new function() {
 			const nodeTypeMarkup = node.child.path ? 
 				chainMap.renderPath(node.child.path) :
 				"<a href='#' onclick='openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + (
-					node.parent.name && options.chain.sigNameLocation == 'ref' ? node.parent.name :
-					node.parent.name && options.chain.sigNameLocation == 'ref_prefix' ? node.parent.name + ' - ' + sigText :
+					node.child.name && options.chain.sigNameLocation == 'ref' ? node.child.name :
+					node.child.name && options.chain.sigNameLocation == 'ref_prefix' ? node.child.name + ' - ' + sigText :
 					sigText
 				) + '</a>';
 			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
 			if(node.thirdParty) { additionalClasses.push('third-party', 'third-party-' + node.thirdParty); }
-			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.child.sigIndex, node.parent.name, nodeTypeMarkup, additionalClasses);
+			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.child.sigIndex, node.child.name, nodeTypeMarkup, additionalClasses);
 
 			var parent = {v: node.parent.id};
 
