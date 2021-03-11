@@ -498,7 +498,7 @@ var chain = new function() {
 				const pathToViewed = guidance.findShortestPath(tripwire.map.shortest, viewingSystemID - 30000000, node.child.systemID - 30000000);
 				if((viewingSystemID == node.child.systemID) || 
 					(pathToViewed && (!closestToViewing || pathToViewed.length < closestToViewing.pathLength)) ) {
-					closestToViewing = { system: node.child.systemID, pathLength: pathToViewed.length, pathHome: row.pathHome };
+					closestToViewing = { systemID: node.child.systemID, pathLength: pathToViewed.length, pathHome: row.pathHome };
 				}
 			}	
 			
@@ -593,7 +593,19 @@ var chain = new function() {
 			WormholeTypeToolTips.attach($("#chainMap .whEffect[data-icon]")); // 0.30ms
 			WormholeRouteToolTips.attach($("#chainMap .path span[data-tooltip]"));
 			SystemActivityToolTips.attach($("#chainMap .nodeClass span[data-tooltip]"));
-
+			
+			// Update dependent controls: Path to chain/home
+			if(data.closestToViewing) {
+				const inChain = data.closestToViewing.pathLength <= 1;
+				const prefixText = inChain ? 'In chain: ' : (data.closestToViewing.pathLength - 1) + 'j from ' ;
+				const pathHomeText = data.closestToViewing.pathHome.slice().reverse()
+					.map(function(n) { return '<a href=".?system=' + tripwire.systems[n.systemID].name + '">' + (n.name || n.signatureID || '???') + '</a>'; })
+					.join(' &gt; ');
+				const pathToChainText = inChain ? '' : '<br/>' + this.renderPath(guidance.findShortestPath(tripwire.map.shortest, data.closestToViewing.systemID - 30000000, viewingSystemID - 30000000));
+				$("#infoExtra").html(prefixText + pathHomeText + pathToChainText);
+				Tooltips.attach($("#infoExtra [data-tooltip]"));
+			} else { $("#infoExtra").text(''); }
+			
 			this.drawing = false;
 		}
 
