@@ -345,7 +345,7 @@ var chain = new function() {
 					node.parent = {};
 					node.parent.id = parentID;
 					node.parent.systemID = tripwire.systems[parent.systemID] ? parent.systemID : parent.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
-					node.parent.name = parent.name;
+					node.parent.name = child.name;
 					node.parent.type = parentType;
 					node.parent.typeBM = null;
 					node.parent.classBM = null;
@@ -356,7 +356,7 @@ var chain = new function() {
 					node.child = {};
 					node.child.id = ++childID;
 					node.child.systemID = tripwire.systems[child.systemID] ? child.systemID : child.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
-					node.child.name = child.name;
+					node.child.name = parent.name;
 					node.child.type = childType;
 					node.child.typeBM = null;
 					node.child.classBM = null;
@@ -455,6 +455,8 @@ var chain = new function() {
 		}
 
 		const systemsInChainMap = {};
+		var closestToViewing = null;
+		
 		for (var x in chainLinks) {
 			var node = chainLinks[x];
 			var row = {c: []};
@@ -486,7 +488,20 @@ var chain = new function() {
 			
 			if(modifiers.length) { connections.push(Array(child.v, parent.v, modifiers, node.id)); }
 			
-			if(!node.calculated) { systemsInChainMap[node.child.systemID] = row; }	// store for loops
+			const parentPathHome = (systemsInChainMap[node.parent.systemID] || { pathHome:[]}).pathHome;
+			row.pathHome = parentPathHome.concat(node.child);
+			
+			if(!node.calculated) { 
+				systemsInChainMap[node.child.systemID] = row; // store for loops
+				
+				// check for closest entrance/way home
+				const pathToViewed = guidance.findShortestPath(tripwire.map.shortest, viewingSystemID - 30000000, node.child.systemID - 30000000);
+				if((viewingSystemID == node.child.systemID) || 
+					(pathToViewed && (!closestToViewing || pathToViewed.length < closestToViewing.pathLength)) ) {
+					closestToViewing = { system: node.child.systemID, pathLength: pathToViewed.length, pathHome: row.pathHome };
+				}
+			}	
+			
 		}
 
 		// Apply critical/destab line colors
@@ -494,7 +509,7 @@ var chain = new function() {
 
 		//this.data.map = chain;
 		//this.data.lines = connections;
-		return {"map": chain, "lines": connections};
+		return {"map": chain, "lines": connections, "closestToViewing": closestToViewing};
 	}
 
 	this.renderPath = function(path) {
