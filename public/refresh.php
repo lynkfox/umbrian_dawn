@@ -377,4 +377,9 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 }
 
 $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
+
+require_once('../ping.inc.php');
+$hook = discord_webhook_for_current_mask();
+$output['discord_integration'] = !!$hook;
+
 echo json_encode($output);
