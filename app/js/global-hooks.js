@@ -738,6 +738,9 @@ $("#chainParent").contextmenu({
 			case "mass":
 				$("#dialog-mass").data("id", nodeElem.data("sigid")).data("systemID", nodeElem.data("nodeid")).dialog("open");
 				break;
+			case "ping":
+				$("#dialog-ping").data("id", nodeElem.data("sigid") || null).data("systemID", id).dialog("open");
+				break;
 			case "collapse":
 				var toggle = options.chain.tabs[options.chain.active] ? ($.inArray(id, options.chain.tabs[options.chain.active].collapsed) == -1 ? true : false) : true;
 				chain.renderer.collapse(id, toggle);

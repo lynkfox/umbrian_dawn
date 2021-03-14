@@ -22,3 +22,6 @@ define('USER_AGENT', 'Tripwire Server - adminEmail@example.com');
 define('EVE_SSO_CLIENT', 'clientID');
 define('EVE_SSO_SECRET', 'secret');
 define('EVE_SSO_REDIRECT', 'http://localhost/index.php?mode=sso');
+
+// Discord integration
+//define('DISCORD_WEB_HOOK', 'https://discord.com/api/webhooks/[discord web hook url]');
