@@ -21,6 +21,9 @@ $stmt = $mysql->prepare($query);
 $stmt->bindValue(':userID', $_SESSION['userID']);
 $stmt->execute();
 
+require_once('../ping.inc.php');
+$hook = discord_webhook_for_current_mask();
+
 // Verify correct system otherwise goto default...
 $query = 'SELECT solarSystemName, systems.solarSystemID, regionName, regions.regionID FROM '. EVE_DUMP .'.mapSolarSystems systems LEFT JOIN '. EVE_DUMP .'.mapRegions regions ON regions.regionID = systems.regionID WHERE solarSystemName = :system';
 $stmt = $mysql->prepare($query);
@@ -276,7 +279,7 @@ if ($row = $stmt->fetchObject()) {
 							</li>
 							<li data-command="mass"><a>Mass</a></li>
 							<li data-command="collapse"><a>Collapse</a></li>
-							<?php if(defined('DISCORD_WEB_HOOK')) {
+							<?php	if($hook) {
 								?><li data-command="ping"><a>Ping ...</a></li><?php
 							} ?>
 							<li data-command="makeTab"><a id="makeTabMenuItem">[makeTab]</a></li>

@@ -6,15 +6,16 @@ if(!isset($_SESSION['userID'])) {
 	exit();
 }
 
-require_once('../config.php');
+require_once('../ping.inc.php');
+$hook = discord_webhook_for_current_mask();
 
-if(!defined('DISCORD_WEB_HOOK')) {
-	http_response_code(500);
-	die('No endpoint configured to send pings to');
+if(!$hook) {
+	http_response_code(400);
+	die('No endpoint configured to send pings to on mask ' . $_SESSION['mask']);
 }
 
 $url_base = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'].dirname($_SERVER["REQUEST_URI"].'?');
-$content = 'Tripwire ping in **' . $_REQUEST['systemText'] . "**\n" . $url_base . '/?system=' . $_REQUEST['systemName'] . "\n" . $_REQUEST['message'];
+$content = 'Tripwire ping from *' . $_SESSION['username'] . '* in **' . $_REQUEST['systemText'] . "**\n" . $url_base . '/?system=' . $_REQUEST['systemName'] . "\n" . $_REQUEST['message'];
 
 $data = array('content' => $content);
 
@@ -27,7 +28,7 @@ $options = array(
     )
 );
 $context  = stream_context_create($options);
-$result = @file_get_contents(DISCORD_WEB_HOOK, false, $context);
+$result = @file_get_contents($hook, false, $context);
 
 header('Content-type: application/json');
 if ($result === FALSE) { 

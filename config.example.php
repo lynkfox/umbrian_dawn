@@ -24,4 +24,6 @@ define('EVE_SSO_SECRET', 'secret');
 define('EVE_SSO_REDIRECT', 'http://localhost/index.php?mode=sso');
 
 // Discord integration
-//define('DISCORD_WEB_HOOK', 'https://discord.com/api/webhooks/[discord web hook url]');
+/*define('DISCORD_WEB_HOOK', array(
+	'maskID' => 'https://discord.com/api/webhooks/[discord web hook url]'
+));*/
