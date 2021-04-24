@@ -127,9 +127,12 @@ var guidance = (function (undefined) {
 		const nodes = [start, end];
 
 		const cacheKey = nodes.join(',');
-		const cachedPath = Guidance.kSpaceCache[cacheKey] || findShortestPath(map, nodes);
-		Guidance.kSpaceCache[cacheKey] = cachedPath;
-		return cachedPath;
+		const cachedPath = Guidance.kSpaceCache[cacheKey];
+		if(cachedPath === undefined) {
+			return Guidance.kSpaceCache[cacheKey] = findShortestPath(map, nodes);
+		} else {
+			return cachedPath;
+		}
 	}
 
 	return Guidance;
