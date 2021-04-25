@@ -29,6 +29,8 @@ var guidance = (function (undefined) {
 	}
 
 	var findPaths = function (map, start, end, infinity) {
+		if(!(map[start] && map[end])) { return null; }	// both ends of path must be in network somewhere
+		
 		infinity = infinity || Infinity;
 
 		var costs = {},
