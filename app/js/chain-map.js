@@ -496,8 +496,10 @@ var chain = new function() {
 				
 				// check for closest entrance/way home
 				const pathToViewed = guidance.findShortestPath(tripwire.map.shortest, viewingSystemID - 30000000, node.child.systemID - 30000000);
-				if((viewingSystemID == node.child.systemID) || 
-					(pathToViewed && (!closestToViewing || pathToViewed.length < closestToViewing.pathLength)) ) {
+				if(pathToViewed && (
+					(viewingSystemID == node.child.systemID) || 
+					(pathToViewed && (!closestToViewing || pathToViewed.length < closestToViewing.pathLength))
+				)) {
 					closestToViewing = { systemID: node.child.systemID, pathLength: pathToViewed.length, pathHome: row.pathHome };
 				}
 			}	
