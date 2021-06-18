@@ -517,6 +517,18 @@ var chain = new function() {
 		}
 	}
 
+	this.setActiveTab = function(newIndex) {
+		$("#chainTabs .tab").removeClass("current");
+		options.chain.active = newIndex;
+		if(newIndex != null) {
+			$("#chainTabs .tab").eq(newIndex).addClass('current');
+		}
+		
+		options.save();
+		chain.redraw();
+		tripwire.parse(tripwire.client, "refresh");
+	}
+
 	this.redraw = function() {
 		this.useRenderer(options.chain.renderer);
 		
