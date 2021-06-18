@@ -98,6 +98,8 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
             tripwire.active(data.activity);
 
             if (data.notify && !$("#serverNotification")[0]) Notify.trigger(data.notify, "yellow", false, "serverNotification");
+			
+			$('[data-command=ping]')[data.discord_integration ? 'show' : 'hide']();
         }
 
         tripwire.data = {tracking: {}, esi: {}};

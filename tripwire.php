@@ -270,6 +270,7 @@ if ($row = $stmt->fetchObject()) {
 							</li>
 							<li data-command="mass"><a>Mass</a></li>
 							<li data-command="collapse"><a>Collapse</a></li>
+							<li data-command="ping"><a>Ping ...</a></li>
 							<li data-command="makeTab"><a id="makeTabMenuItem">[makeTab]</a></li>
 						</li>
 					</ul>
@@ -1018,6 +1019,13 @@ if ($row = $stmt->fetchObject()) {
 			</thead>
 			<tbody></tbody>
 		</table>
+	</div>
+
+	<div id="dialog-ping" title="" class="hidden" style="width:300px">
+		<form id="ping_form">
+			<p>Enter information about why you're pinging the system. You don't need to include the system name, Tripwire will add system information to the message.</p>
+			<textarea id="ping-text" style="width:100%; margin-left: 0; margin-top: 8px; height: 150px"></textarea>
+		</form>
 	</div>
 
 	<div id="dialog-newTab" title="New Tab" class="hidden">
