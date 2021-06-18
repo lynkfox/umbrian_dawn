@@ -15,6 +15,7 @@ if(!isset($_SESSION['super']) || $_SESSION['super'] != 1) {
 	exit();
 }
 
+require_once('../config.php');
 require_once('../db.inc.php');
 
 /*
@@ -24,6 +25,28 @@ foreach ($contents AS $line) {
 }
 echo json_encode($statics);
 */
+
+if(isset($_REQUEST['map'])) {
+	$shortest = array();
+	$maps = array('shortest' => $shortest);
+
+	// Systems
+	$query = 'SELECT j.fromSolarSystemID, j.toSolarSystemID FROM '. EVE_DUMP .'.mapSolarSystemJumps j';
+	$stmt = $mysql->prepare($query);
+	$stmt->execute();
+	while ($row = $stmt->fetchObject()) {	
+		$id = '' . ($row->fromSolarSystemID - 30000000);
+		if(!isset($shortest[$id])) {
+			$shortest[$id] = array();
+		}
+		$shortest[$id][$row->toSolarSystemID - 30000000] = 0;
+	}
+
+	if ($file = fopen(dirname(__FILE__).'/map.json', 'w')) {
+		fwrite($file, json_encode(array('shortest' => $shortest)));
+		fclose($file);
+	}
+}
 
 if (isset($_REQUEST['combine'])) {
 	$output = null;
@@ -44,7 +67,7 @@ if (isset($_REQUEST['combine'])) {
 			if ($row->factionID) $output['systems'][$row->solarSystemID]['factionID'] = $row->factionID;
 			if ((int)$row->regionID > 11000000) $output['systems'][$row->solarSystemID]['class'] = $row->wormholeClassID;
 			if ((int)$row->regionID > 11000000 && $row->typeName) $output['systems'][$row->solarSystemID]['effect'] = $row->typeName;
-			if ((int)$row->regionID > 11000000) $output['systems'][$row->solarSystemID]['statics'] = $statics[$row->solarSystemName];
+			if ((int)$row->regionID > 11000000 && isset($statics[$row->solarSystemName])) $output['systems'][$row->solarSystemID]['statics'] = $statics[$row->solarSystemName];
 		}
 
 		// Regions
@@ -80,5 +103,6 @@ if (isset($_REQUEST['combine'])) {
 ?>
 
 <div style="margin: 0 auto; width: 50%;">
+	<input type="button" value="Generate map.json" onclick="window.location.href='?map=true';" />
 	<input type="button" value="Generate combine.json" onclick="window.location.href='?combine=true';" />
 </div>
