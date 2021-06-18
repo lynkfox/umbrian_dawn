@@ -1,4 +1,4 @@
-<?php
+<?PHP
 //***********************************************************
 //	File: 		masks.php
 //	Author: 	Daimian
@@ -63,7 +63,7 @@ if ($mode == 'create') {
 				foreach ($adds as $add) {
 					list($id, $type) = explode('_', $add);
 
-					$query = 'INSERT INTO groups (maskID, eveID, eveType) VALUES (:mask, :id, :type)';
+					$query = 'INSERT INTO `groups` (maskID, eveID, eveType) VALUES (:mask, :id, :type)';
 					$stmt = $mysql->prepare($query);
 					$stmt->bindValue(':mask', $mask);
 					$stmt->bindValue(':id', $id);
@@ -81,7 +81,7 @@ if ($mode == 'create') {
 	foreach ($adds as $add) {
 		list($id, $type) = explode('_', $add);
 
-		$query = 'INSERT INTO groups (maskID, eveID, eveType) VALUES (:mask, :id, :type)';
+		$query = 'INSERT INTO `groups` (maskID, eveID, eveType) VALUES (:mask, :id, :type)';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':mask', $mask);
 		$stmt->bindValue(':id', $id);
@@ -92,7 +92,7 @@ if ($mode == 'create') {
 	foreach ($deletes as $delete) {
 		list($id, $type) = explode('_', $delete);
 
-		$query = 'DELETE FROM groups WHERE maskID = :mask AND eveID = :id AND eveType = :type';
+		$query = 'DELETE FROM `groups` WHERE maskID = :mask AND eveID = :id AND eveType = :type';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':mask', $mask);
 		$stmt->bindValue(':id', $id);
@@ -102,20 +102,20 @@ if ($mode == 'create') {
 
 	$output['result'] = true;
 } else if ($mode == 'edit' && $mask && (checkOwner($mask) || checkAdmin($mask))) {
-	$query = 'SELECT eveID FROM masks INNER JOIN groups ON groups.maskID = masks.maskID WHERE masks.maskID = :mask';
+	$query = 'SELECT eveID FROM masks INNER JOIN `groups` ON `groups`.maskID = masks.maskID WHERE masks.maskID = :mask';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':mask', $mask);
 	$stmt->execute();
 	$output['results'] = $stmt->fetchAll(PDO::FETCH_COLUMN);
 } else if ($mode == 'delete' && $mask && (checkOwner($mask) || checkAdmin($mask))) {
-	$query = 'DELETE masks, groups, comments, signatures FROM masks LEFT JOIN groups ON groups.maskID = masks.maskID LEFT JOIN comments ON comments.maskID = masks.maskID LEFT JOIN signatures ON signatures.maskID = masks.maskID WHERE masks.maskID = :mask';
+	$query = 'DELETE masks, `groups`, comments, signatures FROM masks LEFT JOIN `groups` ON `groups`.maskID = masks.maskID LEFT JOIN comments ON comments.maskID = masks.maskID LEFT JOIN signatures ON signatures.maskID = masks.maskID WHERE masks.maskID = :mask';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':mask', $mask);
 	$output['result'] = $stmt->execute();
 } else if ($mode == 'find') {
 	$name = $name ? $name : '%';
 
-	$query = "SELECT masks.maskID, name, ownerID, ownerType FROM masks INNER JOIN groups ON groups.maskID = masks.maskID WHERE ('personal' = :type AND joined = 0 AND eveID = :characterID AND eveType = 1373 AND name LIKE :name) OR ('corporate' = :type AND joined = 0 AND eveID = :corporationID AND eveType = 2 AND name LIKE :name)";
+	$query = "SELECT masks.maskID, name, ownerID, ownerType FROM masks INNER JOIN `groups` ON `groups`.maskID = masks.maskID WHERE ('personal' = :type AND joined = 0 AND eveID = :characterID AND eveType = 1373 AND name LIKE :name) OR ('corporate' = :type AND joined = 0 AND eveID = :corporationID AND eveType = 2 AND name LIKE :name)";
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':name', $name.'%');
 	$stmt->bindValue(':characterID', $_SESSION['characterID']);
@@ -141,14 +141,14 @@ if ($mode == 'create') {
 		$output['error'] = "No masks found";
 	}
 } else if ($mode == 'join') {
-	$query = 'UPDATE groups SET joined = 1 WHERE maskID = :mask AND ((eveID = :characterID AND eveType = 1373) OR (eveID = (SELECT corporationID FROM characters WHERE characterID = :characterID AND admin = 1) AND eveType = 2))';
+	$query = 'UPDATE `groups` SET joined = 1 WHERE maskID = :mask AND ((eveID = :characterID AND eveType = 1373) OR (eveID = (SELECT corporationID FROM characters WHERE characterID = :characterID AND admin = 1) AND eveType = 2))';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':characterID', $_SESSION['characterID']);
 	$stmt->bindValue(':mask', $mask);
 	$stmt->execute();
 
 	if ($output['result'] = $stmt->rowCount()) {
-		$query = 'SELECT eveType FROM groups WHERE maskID = :mask AND joined = 1';
+		$query = 'SELECT eveType FROM `groups` WHERE maskID = :mask AND joined = 1';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':mask', $mask);
 		$stmt->execute();
@@ -156,7 +156,7 @@ if ($mode == 'create') {
 		$output['type'] = $stmt->fetchColumn(0) == 2 ? 'corporate' : 'personal';
 	}
 } else if ($mode == 'leave') {
-	$query = 'UPDATE groups SET joined = 0 WHERE maskID = :mask AND ((eveID = :characterID AND eveType = 1373) OR (eveID = (SELECT corporationID FROM characters WHERE characterID = :characterID AND admin = 1) AND eveType = 2))';
+	$query = 'UPDATE `groups` SET joined = 0 WHERE maskID = :mask AND ((eveID = :characterID AND eveType = 1373) OR (eveID = (SELECT corporationID FROM characters WHERE characterID = :characterID AND admin = 1) AND eveType = 2))';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':characterID', $_SESSION['characterID']);
 	$stmt->bindValue(':mask', $mask);
@@ -173,7 +173,7 @@ if ($mode == 'create') {
 	$output['masks'][] = array('mask' => $_SESSION['corporationID'].'.2', 'label' => 'Corp', 'owner' => false, 'admin' => checkAdmin($_SESSION['corporationID'].'.2'), 'type' => 'default', 'img' => '//image.eveonline.com/Corporation/'.$_SESSION['corporationID'].'_64.png');
 
 	// Custom masks
-	$query = 'SELECT DISTINCT masks.maskID, name, ownerID, ownerType, eveID, eveType, admin, joined FROM masks LEFT JOIN groups ON groups.maskID = masks.maskID INNER JOIN characters ON characterID = :characterID WHERE (ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373 AND joined = 1) OR (eveID = :corporationID AND eveType = 2 AND joined = 1) GROUP BY masks.maskID';
+	$query = 'SELECT DISTINCT masks.maskID, name, ownerID, ownerType, eveID, eveType, admin, joined FROM masks LEFT JOIN `groups` ON `groups`.maskID = masks.maskID INNER JOIN characters ON characterID = :characterID WHERE (ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373 AND joined = 1) OR (eveID = :corporationID AND eveType = 2 AND joined = 1) GROUP BY masks.maskID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':characterID', $_SESSION['characterID']);
 	$stmt->bindValue(':corporationID', $_SESSION['corporationID']);

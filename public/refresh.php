@@ -44,7 +44,7 @@ if ($row = $stmt->fetchObject()) {
 $checkMask = explode('.', $_SESSION['mask']);
 if ($checkMask[1] == 0 && $checkMask[0] != 0) {
 	// Check custom mask
-	$query = 'SELECT masks.maskID FROM masks INNER JOIN groups ON masks.maskID = groups.maskID WHERE masks.maskID = :maskID AND ((ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373) OR (eveID = :corporationID AND eveType = 2))';
+	$query = 'SELECT masks.maskID FROM masks INNER JOIN `groups` ON masks.maskID = `groups`.maskID WHERE masks.maskID = :maskID AND ((ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373) OR (eveID = :corporationID AND eveType = 2))';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':characterID', $_SESSION['characterID']);
 	$stmt->bindValue(':corporationID', $_SESSION['corporationID']);

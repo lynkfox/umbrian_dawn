@@ -86,4 +86,14 @@
 "C414": {"life": "16 Hours", "leadsTo": "Class 17", "mass": 750000000, "jump": 300000000},
 "R259": {"life": "16 Hours", "leadsTo": "Class 18", "mass": 750000000, "jump": 300000000},
 "S877": {"life": "16 Hours", "leadsTo": "Class 14", "mass": 750000000, "jump": 300000000},
-"V928": {"life": "16 Hours", "leadsTo": "Class 16", "mass": 750000000, "jump": 300000000}}
+"V928": {"life": "16 Hours", "leadsTo": "Class 16", "mass": 750000000, "jump": 300000000},
+
+"C729": {"life": "12 Hours", "leadsTo": "Triglavian", "mass": 1000000000, "jump": 410000000},
+"F216": {"life": "16 Hours", "leadsTo": "Triglavian", "mass": 1000000000, "jump": 300000000},
+"U372": {"life": "16 Hours", "leadsTo": "Triglavian", "mass": 1000000000, "jump": 300000000},
+"R081": {"life": "16 Hours", "leadsTo": "Class 4", "mass": 1000000000, "jump": 300000000},
+"X450": {"life": "16 Hours", "leadsTo": "Null-Sec", "mass": 1000000000, "jump": 300000000}
+
+
+
+}
