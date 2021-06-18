@@ -36,7 +36,3 @@ if ($result === FALSE) {
 	error_log(error_get_last()['message']);
 	die(json_encode(array('error' => 'Failed to post to hook')));
 }
-
-echo json_encode(array('success' => true));
-
-?>
