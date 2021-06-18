@@ -122,7 +122,6 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
 		tripwire.xhr = null;
     });
 	this.xhr.data = data;
-//	console.log('Submitted XHR:' + this.xhr.data.mode, this.xhr);
 	
     return true;
 }
