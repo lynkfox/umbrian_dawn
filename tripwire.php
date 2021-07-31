@@ -15,12 +15,6 @@ require_once('settings.php');
 require_once('db.inc.php');
 require('lib.inc.php');
 
-// Track this system view
-$query = 'UPDATE userStats SET systemsViewed = systemsViewed + 1 WHERE userID = :userID';
-$stmt = $mysql->prepare($query);
-$stmt->bindValue(':userID', $_SESSION['userID']);
-$stmt->execute();
-
 // Verify correct system otherwise goto default...
 $query = 'SELECT solarSystemName, systems.solarSystemID, regionName, regions.regionID FROM '. EVE_DUMP .'.mapSolarSystems systems LEFT JOIN '. EVE_DUMP .'.mapRegions regions ON regions.regionID = systems.regionID WHERE solarSystemName = :system';
 $stmt = $mysql->prepare($query);
@@ -276,6 +270,8 @@ if ($row = $stmt->fetchObject()) {
 							</li>
 							<li data-command="mass"><a>Mass</a></li>
 							<li data-command="collapse"><a>Collapse</a></li>
+							<li data-command="ping"><a>Ping ...</a></li>
+							<li data-command="makeTab"><a id="makeTabMenuItem">[makeTab]</a></li>
 						</li>
 					</ul>
 					<div style="position: relative; display: table; width: 100%;">
@@ -1025,6 +1021,13 @@ if ($row = $stmt->fetchObject()) {
 		</table>
 	</div>
 
+	<div id="dialog-ping" title="" class="hidden" style="width:300px">
+		<form id="ping_form">
+			<p>Enter information about why you're pinging the system. You don't need to include the system name, Tripwire will add system information to the message.</p>
+			<textarea id="ping-text" style="width:100%; margin-left: 0; margin-top: 8px; height: 150px"></textarea>
+		</form>
+	</div>
+
 	<div id="dialog-newTab" title="New Tab" class="hidden">
 		<form id="newTab_form">
 			<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
@@ -1190,6 +1193,7 @@ if ($row = $stmt->fetchObject()) {
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/jquery.duration-picker.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/dragscroll.js"></script>
+	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/lodash.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<!-- Google Charts -->
 	<script type="text/javascript">google.charts.load('current', {packages: ['corechart', 'orgchart']});</script>

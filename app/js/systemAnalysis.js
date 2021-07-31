@@ -18,11 +18,13 @@ const systemAnalysis = new function() {
 		
 		// Calculated final values
 		r.systemTypeClass = r.class ? 'wh class-' + r.class :
+			r.factionID == 500026 ? 'triglavian' :
 			r.security >= 0.45 ? 'hisec' :
 			r.security > 0.0 ? 'lowsec' :
 			r.security <= 0.0 ? 'nullsec' :
 			'unknown';
 		r.systemTypeName = r.class ? 'C' + r.class :
+			r.factionID == 500026 ? 'Trig' :
 			r.baseSecurity >= 0.45 ? 'HS' :
 			r.baseSecurity > 0.0 ? 'LS' :
 			r.baseSecurity <= 0.0 ? 'NS' :
