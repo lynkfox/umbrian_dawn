@@ -10,9 +10,9 @@
 						url: "ping.php",
 						type: "POST",
 						data: payload,
-						dataType: "JSON"
+						dataType: "text"
 					}).done(function(data) {	$(_this).dialog("close"); })
-					.error(function(data) { alert((data && data.error) ? data.error : data); });
+					.fail(function(xhr, status, error) { console.log(status, error); });
 				},
 				Cancel: function() {
 					$(this).dialog("close");
