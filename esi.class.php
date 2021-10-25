@@ -118,7 +118,7 @@ class esi {
     }
 
     public function getCharacter($characterID) {
-        $result = $this->getAPI(self::$esiUrl.'/v4/characters/'.$characterID.'/');
+        $result = $this->getAPI(self::$esiUrl.'/latest/characters/'.$characterID.'/');
 
         if ($result === false || !json_decode($result) || !isset(json_decode($result)->name)) {
             return false;
