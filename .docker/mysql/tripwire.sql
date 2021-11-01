@@ -197,7 +197,7 @@ CREATE TABLE `esi` (
   `userID` int(11) NOT NULL,
   `characterID` int(10) unsigned NOT NULL,
   `characterName` varchar(100) NOT NULL,
-  `accessToken` text NOT NULL,
+  `accessToken` varchar(1000) NOT NULL,
   `refreshToken` varchar(1000) NOT NULL,
   `tokenExpire` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`userID`,`characterID`),
@@ -567,18 +567,12 @@ DELIMITER ;;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;;
 /*!50003 SET @saved_time_zone      = @@time_zone */ ;;
 /*!50003 SET time_zone             = 'SYSTEM' */ ;;
-/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `signatureClean` ON SCHEDULE EVERY 1 MINUTE STARTS '2018-05-11 15:57:18' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-
-
-
-UPDATE signatures SET modifiedByID = 0, modifiedByName = "Tripwire" WHERE lifeLeft < NOW() AND lifeLength <> '0' AND type <> 'wormhole';
-
-
-
-DELETE FROM signatures WHERE lifeLeft < NOW() AND lifeLength <> '0' AND type <> 'wormhole';
-
-
-
+/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `signatureClean` ON SCHEDULE EVERY 1 MINUTE STARTS '2018-05-11 15:57:18' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+
+UPDATE signatures SET modifiedByID = 0, modifiedByName = "Tripwire" WHERE lifeLeft < NOW() AND lifeLength <> '0' AND type <> 'wormhole';
+
+DELETE FROM signatures WHERE lifeLeft < NOW() AND lifeLength <> '0' AND type <> 'wormhole';
+
 END */ ;;
 /*!50003 SET time_zone             = @saved_time_zone */ ;;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;;
@@ -615,22 +609,14 @@ DELIMITER ;;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;;
 /*!50003 SET @saved_time_zone      = @@time_zone */ ;;
 /*!50003 SET time_zone             = 'SYSTEM' */ ;;
-/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `wormholeClean` ON SCHEDULE EVERY 1 MINUTE STARTS '2018-05-12 02:24:17' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-
-
-
-DELETE FROM wormholes WHERE initialID IN (SELECT id FROM signatures WHERE lifeLeft < NOW() AND lifeLength <> 0 AND type = 'wormhole');
-
-
-
-UPDATE signatures SET modifiedByID = 0, modifiedByName = "Tripwire" WHERE lifeLeft < NOW() AND lifeLength <> 0 AND type = 'wormhole';
-
-
-
-DELETE FROM signatures WHERE lifeLeft < NOW() AND lifeLength <> 0 AND type = 'wormhole';
-
-
-
+/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `wormholeClean` ON SCHEDULE EVERY 1 MINUTE STARTS '2018-05-12 02:24:17' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+
+DELETE FROM wormholes WHERE initialID IN (SELECT id FROM signatures WHERE lifeLeft < NOW() AND lifeLength <> 0 AND type = 'wormhole');
+
+UPDATE signatures SET modifiedByID = 0, modifiedByName = "Tripwire" WHERE lifeLeft < NOW() AND lifeLength <> 0 AND type = 'wormhole';
+
+DELETE FROM signatures WHERE lifeLeft < NOW() AND lifeLength <> 0 AND type = 'wormhole';
+
 END */ ;;
 /*!50003 SET time_zone             = @saved_time_zone */ ;;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;;
@@ -649,18 +635,12 @@ DELIMITER ;;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;;
 /*!50003 SET @saved_time_zone      = @@time_zone */ ;;
 /*!50003 SET time_zone             = 'SYSTEM' */ ;;
-/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `wormholeCritical` ON SCHEDULE EVERY 1 MINUTE STARTS '2014-08-21 03:16:46' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-
-
-
-UPDATE signatures s INNER JOIN wormholes w ON (s.id = initialID OR s.id = secondaryID) AND life = 'stable' SET modifiedByID = 0, modifiedByName = 'Tripwire', modifiedTime = NOW() WHERE s.type = 'wormhole' AND lifeLength <> '0' AND DATE_SUB(lifeLeft, INTERVAL 4 HOUR) < NOW();
-
-
-
-UPDATE wormholes w INNER JOIN signatures s ON (s.id = initialID OR s.id = secondaryID) AND (s.type = 'wormhole' AND life = 'stable' AND lifeLength <> '0' AND DATE_SUB(lifeLeft, INTERVAL 4 HOUR) < NOW()) SET life = 'critical';
-
-
-
+/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `wormholeCritical` ON SCHEDULE EVERY 1 MINUTE STARTS '2014-08-21 03:16:46' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+
+UPDATE signatures s INNER JOIN wormholes w ON (s.id = initialID OR s.id = secondaryID) AND life = 'stable' SET modifiedByID = 0, modifiedByName = 'Tripwire', modifiedTime = NOW() WHERE s.type = 'wormhole' AND lifeLength <> '0' AND DATE_SUB(lifeLeft, INTERVAL 4 HOUR) < NOW();
+
+UPDATE wormholes w INNER JOIN signatures s ON (s.id = initialID OR s.id = secondaryID) AND (s.type = 'wormhole' AND life = 'stable' AND lifeLength <> '0' AND DATE_SUB(lifeLeft, INTERVAL 4 HOUR) < NOW()) SET life = 'critical';
+
 END */ ;;
 /*!50003 SET time_zone             = @saved_time_zone */ ;;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;;
