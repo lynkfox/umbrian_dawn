@@ -470,7 +470,7 @@ var chain = new function() {
 					(node.child.type || "(?)") + sigFormat(node.child.typeBM, "type");
 			const nodeTypeMarkup = node.child.path ? 
 				chainMap.renderPath(node.child.path) :
-				"<a href='#' onclick='openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + (
+				"<a href='#' onclick='openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + _.escape(
 					node.parent.name && options.chain.sigNameLocation == 'ref' ? node.parent.name :
 					node.parent.name && options.chain.sigNameLocation == 'ref_prefix' ? node.parent.name + ' - ' + sigText :
 					sigText
