@@ -204,6 +204,7 @@ var chain = new function() {
 				effect = system.effect;
 			}
 			
+			systemName = _.escape(systemName);
 			const systemNameText = 
 				options.chain.sigNameLocation == 'name' ? (systemName ? systemName : system ? system.name : '&nbsp;') :
 				options.chain.sigNameLocation == 'name_prefix' ?
