@@ -26,7 +26,7 @@ function openSignatureDialog(e) {
 	}
 
 	if ( 'sigId' in sigDialogVM ) {
-		sigDialogVM.viewingSystemID = tripwire.client.signatures[sigDialogVM.sigId];
+		sigDialogVM.viewingSystemID = tripwire.client.signatures[sigDialogVM.sigId].systemID;
 	} else {
 		sigDialogVM.viewingSystemID = {systemID: viewingSystemID }.systemID;
 	}
