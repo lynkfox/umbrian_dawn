@@ -28,6 +28,10 @@ if (isset($path[1])) {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             include('../api/comments/get.php');
         }
+    } else if ($path[1] == 'statistics') {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            include('../api/statistics/get.php');
+        }
     }
 }
 
