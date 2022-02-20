@@ -619,7 +619,7 @@ DELIMITER ;;
 
 
 
-DELETE FROM wormholes WHERE initialID IN (SELECT id FROM signatures WHERE lifeLeft < NOW() AND lifeLength <> 0 AND type = 'wormhole');
+DELETE FROM wormholes WHERE initialID IN (SELECT id FROM signatures WHERE DATE_ADD(lifeLeft, interval 0.1*lifeLength SECOND) < NOW() AND lifeLength <> 0 AND type = 'wormhole');
 
 
 
