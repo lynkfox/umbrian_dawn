@@ -2,7 +2,10 @@
 /**
  * Tweetie API
  */
-if ((@include '../tweetie/config.php') == FALSE) return;
+
+if ( ! file_exists( '../tweetie/config.php') ) return;
+
+require_once('../tweetie/config.php');
 require_once('../tweetie/twitteroauth/twitteroauth.php');
 
 class Tweetie {
