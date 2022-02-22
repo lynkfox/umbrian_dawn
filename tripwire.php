@@ -1140,18 +1140,14 @@ if ($row = $stmt->fetchObject()) {
 
 	<textarea id="clipboard"></textarea>
 
+	<?php
+		$analytics_file = dirname( __FILE__ ) . "/analytics.inc.php";
+		if ( file_exists( $analytics_file ) ) include_once( $analytics_file );
+	?>
+
 	<script type="text/javascript">
 
 		var init = <?= json_encode($_SESSION) ?>;
-
-		// Google Analytics
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-		ga('create', 'UA-48258312-1', 'auto');
-		ga('send', 'pageview');
 
 		var passiveHitTimer;
 		function passiveHit() {
