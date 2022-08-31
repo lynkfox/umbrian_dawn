@@ -20,14 +20,12 @@ services:
     command: nginx
 
   php-fpm:
-    build:
-      context: .
-      dockerfile: .docker/php-fpm/Dockerfile
+    build: .docker/php-fpm
+    container_name: php-fpm
     networks:
       - tripwire
     volumes:
       - "./:/opt/app"
-    command: php-fpm
 
   mysql:
     # image: percona
