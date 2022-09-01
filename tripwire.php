@@ -1147,7 +1147,15 @@ if ($row = $stmt->fetchObject()) {
 
 	<script type="text/javascript">
 
-		var init = <?= json_encode($_SESSION) ?>;
+		<?php
+			// Sanitize some of the session items that should not be exposed
+			// in rendered HTML, e.g., OAuth tokens.
+			$sanitized = array_filter($_SESSION, function($v, $k) {
+				$sensitive = array("oauth");
+				return !in_array($k, $sensitive);
+			}, ARRAY_FILTER_USE_BOTH);
+		?>
+		var init = <?= json_encode($sanitized) ?>;
 
 		var passiveHitTimer;
 		function passiveHit() {

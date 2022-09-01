@@ -239,6 +239,13 @@ if ($mode == 'login') {
 				$_SESSION['super'] = $account->super;
 				$_SESSION['options'] = $options;
 
+				// Primary user access token (vs. tracked user tokens) is used
+				// to make authenticated requests needed to manage mask access.
+				$_SESSION['oauth']['subject'] = $esi->characterID;
+				$_SESSION['oauth']['accessToken'] = $esi->accessToken;
+				$_SESSION['oauth']['refreshToken'] = $esi->refreshToken;
+				$_SESSION['oauth']['tokenExpire'] = $esi->tokenExpire;
+
 				// Log the attempt
 				login_history($ip, $account->username, $method, 'success');
 
@@ -293,7 +300,7 @@ if ($mode == 'login') {
 			if (isset($_GET['system'])) {
 				$_SESSION['ssologin_system'] = $_GET['system'];
 			}
-			$esi->login();
+			$esi->login('esi-search.search_structures.v1');
 		} else if ($login == 'esi') {
 			$esi->login('esi-location.read_online.v1 esi-location.read_location.v1 esi-location.read_ship_type.v1 esi-ui.write_waypoint.v1 esi-ui.open_window.v1', 'evessoesi');
 		}

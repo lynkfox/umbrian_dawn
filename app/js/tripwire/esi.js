@@ -4,6 +4,7 @@ tripwire.esi = function() {
     var locationTimer, shipTimer, onlineTimer;
     this.esi.connection = true;
     this.esi.characters = {};
+    this.esi.oauth = { subject: "", accessToken: ""};
 
     var scopeError = function(characterID) {
         $("#tracking .tracking-clone[data-characterid='"+ characterID +"']").find(".alert").show();
@@ -440,7 +441,8 @@ tripwire.esi = function() {
 
     this.esi.search = function(searchString, categories, strict) {
         return $.ajax({
-            url: baseUrl + "/v2/search/?" + $.param({"user_agent": userAgent}),
+            url: baseUrl + "/latest/characters/" + tripwire.esi.oauth.subject + "/search/?" + $.param({"user_agent": userAgent}),
+            headers: {"Authorization": "Bearer "+ tripwire.esi.oauth.accessToken},
             type: "GET",
             dataType: "JSON",
             contentType: "application/json",
@@ -519,6 +521,13 @@ tripwire.esi = function() {
             });
 
         return promise;
+    }
+
+    // Parse main account oauth information out of refresh data. This is used
+    // to make authenticated ESI requests for enpoints that are not specific to
+    // tracking characters, e.g., mask access management.
+    this.esi.parseOauth = function({subject, accessToken}) {
+        tripwire.esi.oauth = {subject, accessToken};
     }
 
     this.esi.parse = function(characters) {
