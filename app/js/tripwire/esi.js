@@ -512,8 +512,12 @@ tripwire.esi = function() {
     // Parse main account oauth information out of refresh data. This is used
     // to make authenticated ESI requests for enpoints that are not specific to
     // tracking characters, e.g., mask access management.
-    this.esi.parseOauth = function({subject, accessToken}) {
-        tripwire.esi.oauth = {subject, accessToken};
+    this.esi.parseOauth = function(data) {
+        const _data = data || {}
+        tripwire.esi.oauth = {
+            subject: _data.subject,
+            accessToken: _data.accessToken
+        };
     }
 
     this.esi.parse = function(characters) {
