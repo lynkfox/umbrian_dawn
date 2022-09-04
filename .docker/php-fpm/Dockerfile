@@ -1,23 +1,13 @@
-FROM centos:7
-RUN yum update -y && \
-    yum install -y epel-release
+FROM php:7.4.27-fpm-alpine
 
-RUN yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
-    yum install -y yum-utils && \
-    yum-config-manager --enable remi-php72 && \
-    yum -y update
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions pdo_mysql gd intl
 
-RUN yum install -y php-fpm php-xml php-cli php-bcmath php-dba php-gd php-intl php-mbstring php-mysql php-pdo php-soap php-pecl-apcu php-pecl-imagick
+# Session path must exist when session.save_handler is set to "files"
+RUN mkdir -m 700 -p /var/lib/php/session \
+ && chown www-data /var/lib/php/session
 
-RUN useradd -M -d /opt/app -s /bin/false nginx
-
-RUN chown -R nginx:nginx /var/lib/php
-
-COPY ./.docker/php-fpm/php-fpm.conf /etc/php-fpm.conf
-COPY ./.docker/php-fpm/www.conf /etc/php-fpm.d/www.conf
-COPY ./.docker/php-fpm/php.ini /etc/php.ini
-
-RUN yum clean all
-RUN mkdir -p /run/php-fpm
-
-CMD php-fpm
+# Customize PHP and PHP-FPM through configuration files
+COPY php.ini /usr/local/etc/php/php.ini
+COPY www.conf /usr/local/etc/php-fpm.d/www.conf
