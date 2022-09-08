@@ -332,7 +332,7 @@ CREATE TABLE `signatures` (
   `signatureID` char(6) DEFAULT NULL,
   `systemID` int(8) unsigned DEFAULT NULL,
   `type` enum('unknown','combat','data','relic','ore','gas','wormhole') NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 DEFAULT NULL,
   `bookmark` varchar(100) DEFAULT NULL,
   `lifeTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `lifeLeft` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
