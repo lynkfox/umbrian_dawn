@@ -12,6 +12,9 @@ var tripwire = new function() {
 	this.ageFormat = "HM";
 	this.instance = window.name ? window.name : (new Date().getTime() / 1000, window.name = new Date().getTime() / 1000);
 
+	// Reference to `this` that can be used inside of functions
+	var _this = this
+
     // Command to start/stop tripwire updates
 	// ToDo: Include API and Server timers
 	this.stop = function() {
@@ -146,5 +149,30 @@ var tripwire = new function() {
 		var mode = mode || 'refresh';
 
 		this.sync(mode, data, successCallback, alwaysCallback);
+	}
+
+	// getSystemIDsByNames performs a case-insensitive search of the internal
+	// list of systems looking for matches on each system name in the given
+	// comma-separated list of names. A comma-separated list of system IDs is
+	// returned if all systems are found, otherwise the empty string is returned.
+	this.getSystemIDsByNames = function(systemNames) {
+		if (!_this.systems) {
+			return "";
+		}
+		const values = systemNames.split(",");
+		const systems = [];
+		for(var i = 0; i < values.length; i++) {
+			for (systemID in _this.systems) {
+				const system = _this.systems[systemID];
+				if (system.name.toLowerCase() == values[i].toLowerCase()) {
+					systems.push(systemID);
+					break;
+				}
+			}
+		}
+		if (values.length != systems.length) {
+			return "";
+		}
+		return systems.join(",");
 	}
 }

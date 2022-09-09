@@ -507,7 +507,7 @@ $("#newTab").on("click", function() {
 					e.preventDefault();
 					var $tab = $("#chainTab .tab").clone();
 					var name = $("#dialog-newTab .name").val();
-					var systemID = lookupByPropertyMultiple(tripwire.systems, "name", $("#dialog-newTab .sigSystemsAutocomplete").val(), true);
+					var systemID = tripwire.getSystemIDsByNames($("#dialog-newTab .sigSystemsAutocomplete").val());
 					var thera = $("#tabThera")[0].checked ? true : false;
 
 					if (!name) {
@@ -572,7 +572,7 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 					e.preventDefault();
 					var $tab = $("#chainTabs .tab").eq([options.chain.active]);
 					var name = $("#dialog-editTab .name").val();
-					var systemID = lookupByPropertyMultiple(tripwire.systems, "name", $("#dialog-editTab .sigSystemsAutocomplete").val(), true);
+					var systemID = tripwire.getSystemIDsByNames($("#dialog-editTab .sigSystemsAutocomplete").val());
 					var thera = $("#editTabThera")[0].checked ? true : false;
 
 					if (!name) {
