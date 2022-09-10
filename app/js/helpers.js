@@ -48,15 +48,6 @@ Object.maxTime = function(obj, prop) {
 	return maxTimeString;
 }
 
-Object.size = function(obj) {
-    var size = 0, key;
-    for (key in obj) {
-        if (obj.hasOwnProperty(key)) size++;
-    }
-
-    return size;
-};
-
 Object.time = function(obj) {
 	var dates = [], key;
 	for (key in obj) {

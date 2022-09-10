@@ -554,7 +554,7 @@ var chain = new function() {
 		clearTimeout(drawRetryTimer);
 
 		// We need to make sure Google chart is ready and we have signature data for this system before we begin, otherwise delay
-		if (!this.renderer.ready() || (Object.size(data.map) && !tripwire.client.signatures)) {
+		if (!this.renderer.ready() || (Object.keys(data.map||{}).length && !tripwire.client.signatures)) {
 			drawRetryTimer = setTimeout(function() { chain.draw(data) }, 100);
 			return;
 		}
