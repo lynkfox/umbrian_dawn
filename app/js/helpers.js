@@ -181,14 +181,6 @@ var sigFormat = function(input, type) {
 	return format;
 };
 
-var isEmpty = function(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
-};
-
 /** Find the relative position of one element within the hierarchy tree of another */
 function positionRelativeTo(elem, ancestor) {
 	const elemPos = elem.getBoundingClientRect(),
