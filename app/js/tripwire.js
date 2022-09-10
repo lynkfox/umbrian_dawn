@@ -107,9 +107,9 @@ var tripwire = new function() {
 			tooltip += "<b>Leads To:</b> <span>Unknown</span><br/>";
 		}
 
-		tooltip += "<b>Max Mass</b>: "+(whType?numFormat(tripwire.wormholes[type].mass):"Unknown")+" Kg<br/>";
+		tooltip += "<b>Max Mass</b>: "+(whType?Intl.NumberFormat().format(tripwire.wormholes[type].mass):"Unknown")+" Kg<br/>";
 
-		tooltip += "<b>Max Jumpable</b>: "+(whType?numFormat(tripwire.wormholes[type].jump):"Unknown")+" Kg<br/>";
+		tooltip += "<b>Max Jumpable</b>: "+(whType?Intl.NumberFormat().format(tripwire.wormholes[type].jump):"Unknown")+" Kg<br/>";
 
 		return tooltip;
 	}
