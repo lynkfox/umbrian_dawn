@@ -4,15 +4,16 @@ tripwire.esi = function() {
     var locationTimer, shipTimer, onlineTimer;
     this.esi.connection = true;
     this.esi.characters = {};
+    this.esi.oauth = { subject: "", accessToken: ""};
 
     var scopeError = function(characterID) {
         $("#tracking .tracking-clone[data-characterid='"+ characterID +"']").find(".alert").show();
     }
-	
+
 	var isExpired = function(tokenExpire) {
 		return moment.utc(tokenExpire).subtract(5, "minutes").isBefore(moment());
 	}
-	
+
     this.esi.location = function() {
         clearTimeout(locationTimer);
 
@@ -429,7 +430,8 @@ tripwire.esi = function() {
 
     this.esi.search = function(searchString, categories, strict) {
         const xhr = $.ajax({
-            url: baseUrl + "/v2/search/?" + $.param({"user_agent": userAgent}),
+            url: baseUrl + "/latest/characters/" + tripwire.esi.oauth.subject + "/search/?" + $.param({"user_agent": userAgent}),
+            headers: {"Authorization": "Bearer "+ tripwire.esi.oauth.accessToken},
             type: "GET",
             dataType: "JSON",
             contentType: "application/json",
@@ -505,6 +507,17 @@ tripwire.esi = function() {
             });
 
         return promise;
+    }
+
+    // Parse main account oauth information out of refresh data. This is used
+    // to make authenticated ESI requests for enpoints that are not specific to
+    // tracking characters, e.g., mask access management.
+    this.esi.parseOauth = function(data) {
+        const _data = data || {}
+        tripwire.esi.oauth = {
+            subject: _data.subject,
+            accessToken: _data.accessToken
+        };
     }
 
     this.esi.parse = function(characters) {
