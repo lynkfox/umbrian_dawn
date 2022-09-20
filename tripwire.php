@@ -1194,7 +1194,6 @@ if ($row = $stmt->fetchObject()) {
 	<!-- Google Charts -->
 	<script type="text/javascript">google.charts.load('current', {packages: ['corechart', 'orgchart']});</script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/moment.min.js"></script>
-	<!-- <script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/mustache.min.js"></script> -->
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/intro.min.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/combine.js?v=<?= VERSION ?>"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/app.min.js?v=<?= VERSION ?>"></script>

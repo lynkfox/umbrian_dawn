@@ -97,6 +97,26 @@ $stmt->rowCount() ? $output['activity'] = $stmt->fetchAll(PDO::FETCH_OBJ) : null
 
 /**
 // *********************
+// Account OAuth
+// *********************
+*/
+if (isset($_SESSION['oauth']) && isset($_SESSION['oauth']['tokenExpire'])) {
+	if (strtotime($_SESSION['oauth']['tokenExpire']) < strtotime('+5 minutes')) {
+		require_once("../esi.class.php");
+		$esi = new esi();
+		if ($esi->refresh($_SESSION['oauth']['refreshToken'])) {
+			$_SESSION['oauth']['accessToken'] = $esi->accessToken;
+			$_SESSION['oauth']['refreshToken'] = $esi->refreshToken;
+			$_SESSION['oauth']['tokenExpire'] = $esi->tokenExpire;
+		} else if ($esi->httpCode >= 400 && $esi->httpCode < 500) {
+			error_log("unable to refresh account oauth token");
+		}
+	}
+	$output['oauth'] = $_SESSION['oauth'];
+}
+
+/**
+// *********************
 // Character Tracking
 // *********************
 */

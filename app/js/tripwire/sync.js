@@ -76,6 +76,10 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
                 tripwire.esi.parse(data.esi);
             }
 
+            if (data.oauth) {
+                tripwire.esi.parseOauth(data.oauth);
+            }
+
             if (data.sync) {
                 tripwire.serverTime.time = new Date(data.sync);
             }
