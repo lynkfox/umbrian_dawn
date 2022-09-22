@@ -300,7 +300,11 @@ if ($mode == 'login') {
 			if (isset($_GET['system'])) {
 				$_SESSION['ssologin_system'] = $_GET['system'];
 			}
-			$esi->login('esi-search.search_structures.v1');
+			if (defined('ENABLE_SEARCH_SCOPE') && ENABLE_SEARCH_SCOPE) {
+				$esi->login('esi-search.search_structures.v1');
+			} else {
+				$esi->login();
+			}
 		} else if ($login == 'esi') {
 			$esi->login('esi-location.read_online.v1 esi-location.read_location.v1 esi-location.read_ship_type.v1 esi-ui.write_waypoint.v1 esi-ui.open_window.v1', 'evessoesi');
 		}
