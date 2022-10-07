@@ -4,15 +4,16 @@ tripwire.esi = function() {
     var locationTimer, shipTimer, onlineTimer;
     this.esi.connection = true;
     this.esi.characters = {};
+    this.esi.oauth = { subject: "", accessToken: ""};
 
     var scopeError = function(characterID) {
         $("#tracking .tracking-clone[data-characterid='"+ characterID +"']").find(".alert").show();
     }
-	
+
 	var isExpired = function(tokenExpire) {
 		return moment.utc(tokenExpire).subtract(5, "minutes").isBefore(moment());
 	}
-	
+
     this.esi.location = function() {
         clearTimeout(locationTimer);
 
@@ -25,17 +26,17 @@ tripwire.esi = function() {
                 continue;
             }
 
-            $.ajax({
+            const xhr = $.ajax({
                 url: baseUrl + "/v1/characters/"+ characterID +"/location/?" + $.param({"token": character.accessToken, "user_agent": userAgent}),
                 // headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
                 type: "GET",
                 dataType: "JSON",
                 characterID: characterID
-            }).done(function(data, status, xhr) {
+            }).done(function(data, status, jqXHR) {
                 var character = tripwire.esi.characters[this.characterID];
 
                 if (character) {
-                    character.locationDate = moment(xhr.getResponseHeader("last-modified"), "ddd, DD MMMM YYYY HH:mm:ss").format();
+                    character.locationDate = moment(jqXHR.getResponseHeader("last-modified"), "ddd, DD MMMM YYYY HH:mm:ss").format();
 
                     if (character.systemID != data.solar_system_id) {
                         character.systemID = data.solar_system_id || null;
@@ -110,7 +111,7 @@ tripwire.esi = function() {
                 if (data.status == 403) {
                     tripwire.refresh("refresh", {"esi": {"expired": true}});
                 }
-            }).always(function(data, status, xhr) {
+            }).always(function(data, status, jqXHR) {
                 if (status != "success" && status != "abort" && tripwire.esi.connection == true) {
                     tripwire.esi.connection = false;
                     $("#esiConnectionSuccess, #esiConnectionError").click();
@@ -120,11 +121,10 @@ tripwire.esi = function() {
                     $("#esiConnectionSuccess, #esiConnectionError").click();
                     Notify.trigger("ESI Connection Resumed", "green", 5000, "esiConnectionSuccess");
                 }
-
-                var headers = parseHeaders(xhr.getAllResponseHeaders());
-                if (headers.warning) {
-                  console.log('ESI API Warning: ', headers.warning, this.url);
-                }
+            });
+            xhr.always(function(){
+                const warn = xhr.getResponseHeader('warning');
+                if (warn) console.warn('ESI API Warning: ', warn, this.url);
             });
         }
 
@@ -143,17 +143,17 @@ tripwire.esi = function() {
                 continue;
             }
 
-            $.ajax({
+            const xhr = $.ajax({
                 url: baseUrl + "/v1/characters/"+ characterID +"/ship/?" + $.param({"token": character.accessToken, "user_agent": userAgent}),
                 // headers: {"Authorization": "Bearer "+ character.accessToken, "X-User-Agent": userAgent},
                 type: "GET",
                 dataType: "JSON",
                 characterID: characterID
-            }).done(function(data, status, xhr) {
+            }).done(function(data, status, jqXHR) {
                 var character = tripwire.esi.characters[this.characterID];
 
                 if (character) {
-                    character.shipDate = moment(xhr.getResponseHeader("last-modified"), "ddd, DD MMMM YYYY HH:mm:ss").format();
+                    character.shipDate = moment(jqXHR.getResponseHeader("last-modified"), "ddd, DD MMMM YYYY HH:mm:ss").format();
 
                     if (character.shipID != data.ship_item_id) {
                         character.shipID = data.ship_item_id || null;
@@ -237,7 +237,7 @@ tripwire.esi = function() {
                 if (data.status == 403) {
                     tripwire.refresh("refresh", {"esi": {"expired": true}});
                 }
-            }).always(function(data, status, xhr) {
+            }).always(function(data, status, jqXHR) {
                 if (status != "success" && status != "abort" && tripwire.esi.connection == true) {
                     tripwire.esi.connection = false;
                     $("#esiConnectionSuccess, #esiConnectionError").click();
@@ -247,12 +247,12 @@ tripwire.esi = function() {
                     $("#esiConnectionSuccess, #esiConnectionError").click();
                     Notify.trigger("ESI Connection Resumed", "green", 5000, "esiConnectionSuccess");
                 }
-
-                var headers = parseHeaders(xhr.getAllResponseHeaders());
-                if (headers.warning) {
-                  console.log('ESI API Warning: ', headers.warning, this.url);
-                }
             });
+            xhr.always(function(){
+                const warn = xhr.getResponseHeader('warning');
+                if (warn) console.warn('ESI API Warning: ', warn, this.url);
+            });
+
         }
 
         shipTimer = setTimeout("tripwire.esi.ship()", 5000);
@@ -283,199 +283,187 @@ tripwire.esi = function() {
     }
 
     this.esi.typeLookup = function(typeID, reference) {
-        return $.ajax({
+        const xhr = $.ajax({
             url: baseUrl + "/v3/universe/types/"+ typeID +"/?" + $.param({"user_agent": userAgent}),
             // headers: {"X-User-Agent": userAgent},
             type: "GET",
             dataType: "JSON",
             reference: reference
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
     this.esi.stationLookup = function(stationID, reference) {
-        return $.ajax({
+        const xhr = $.ajax({
             url: baseUrl + "/v2/universe/stations/"+ stationID +"/?" + $.param({"user_agent": userAgent}),
             // headers: {"X-User-Agent": userAgent},
             type: "GET",
             dataType: "JSON",
             reference: reference
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
     this.esi.setDestination = function(destinationID, characterID, clear_waypoints, beginning) {
         clear_waypoints = clear_waypoints ? clear_waypoints : false;
         beginning = beginning ? beginning : false;
-        return $.ajax({
+        const xhr = $.ajax({
             url: baseUrl + "/v2/ui/autopilot/waypoint/?" + $.param({destination_id: destinationID, clear_other_waypoints: clear_waypoints, add_to_beginning: beginning}),
             headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
             type: "POST",
             dataType: "JSON"
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
     this.esi.showInfo = function(targetID, characterID) {
-        return $.ajax({
+        const xhr = $.ajax({
             url: baseUrl + "/v1/ui/openwindow/information/?" + $.param({target_id: targetID}),
             headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
             type: "POST",
             dataType: "JSON"
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
     this.esi.characterStatus = function(characterID, reference) {
-        return $.ajax({
+        const xhr = $.ajax({
             url: baseUrl + "/v2/characters/" + characterID + "/online/?" + $.param({"token": tripwire.esi.characters[characterID].accessToken, "user_agent": userAgent}),
             // headers: {"Authorization": "Bearer "+ tripwire.esi.characters[characterID].accessToken, "X-User-Agent": userAgent},
             type: "GET",
             dataType: "JSON",
             reference: reference
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
     this.esi.eveStatus = function() {
-        return $.ajax({
+        const xhr = $.ajax({
             url: baseUrl + "/v1/status/?" + $.param({"user_agent": userAgent}),
             // headers: {"X-User-Agent": userAgent},
             type: "GET",
             dataType: "JSON"
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
     this.esi.idLookup = function(eveIDs) {
-        return $.ajax({
+        const xhr = $.ajax({
             url: baseUrl + "/v2/universe/names/?" + $.param({"user_agent": userAgent}),
             type: "POST",
             dataType: "JSON",
             contentType: "application/json",
             processData: false,
             data: JSON.stringify(eveIDs)
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
     this.esi.characterLookup = function(eveID, reference, async) {
         var async = typeof(async) !== 'undefined' ? async : true;
-        return $.ajax({
+        const xhr = $.ajax({
             url: baseUrl + "/latest/characters/" + eveID + "/?" + $.param({"user_agent": userAgent}),
             type: "GET",
             dataType: "JSON",
             async: async,
             eveID: eveID,
             reference: reference
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
     this.esi.corporationLookup = function(eveID, reference, async) {
         var async = typeof(async) !== 'undefined' ? async : true;
-        return $.ajax({
+        const xhr = $.ajax({
             url: baseUrl + "/v4/corporations/" + eveID + "/?" + $.param({"user_agent": userAgent}),
             type: "GET",
             dataType: "JSON",
             async: async,
             eveID: eveID,
             reference: reference
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
     this.esi.allianceLookup = function(eveID, reference, async) {
         var async = typeof(async) !== 'undefined' ? async : true;
-        return $.ajax({
+        const xhr = $.ajax({
             url: baseUrl + "/v3/alliances/" + eveID + "/?" + $.param({"user_agent": userAgent}),
             type: "GET",
             dataType: "JSON",
             async: async,
             eveID: eveID,
             reference: reference
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
     this.esi.search = function(searchString, categories, strict) {
-        return $.ajax({
-            url: baseUrl + "/v2/search/?" + $.param({"user_agent": userAgent}),
+        const xhr = $.ajax({
+            url: baseUrl + "/latest/characters/" + tripwire.esi.oauth.subject + "/search/?" + $.param({"user_agent": userAgent}),
+            headers: {"Authorization": "Bearer "+ tripwire.esi.oauth.accessToken},
             type: "GET",
             dataType: "JSON",
             contentType: "application/json",
             data: {"search": searchString, "categories": categories, "strict": strict}
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
     this.esi.universeJumps = function() {
-        return $.ajax({
+        const xhr = $.ajax({
             url: baseUrl + "/v1/universe/system_jumps/?" + $.param({"user_agent": userAgent}),
             type: "GET",
             dataType: "JSON"
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
     this.esi.universeKills = function() {
-        return $.ajax({
+        const xhr = $.ajax({
             url: baseUrl + "/v2/universe/system_kills/?" + $.param({"user_agent": userAgent}),
             type: "GET",
             dataType: "JSON"
-        }).always(function(results, status, xhr) {
-          var headers = parseHeaders(xhr.getAllResponseHeaders());
-          if (headers.warning) {
-            console.log('ESI API Warning: ', headers.warning, this.url);
-          }
+        });
+        return xhr.always(function(){
+            const warn = xhr.getResponseHeader('warning');
+            if (warn) console.warn('ESI API Warning: ', warn, this.url);
         });
     }
 
@@ -519,6 +507,17 @@ tripwire.esi = function() {
             });
 
         return promise;
+    }
+
+    // Parse main account oauth information out of refresh data. This is used
+    // to make authenticated ESI requests for enpoints that are not specific to
+    // tracking characters, e.g., mask access management.
+    this.esi.parseOauth = function(data) {
+        const _data = data || {}
+        tripwire.esi.oauth = {
+            subject: _data.subject,
+            accessToken: _data.accessToken
+        };
     }
 
     this.esi.parse = function(characters) {

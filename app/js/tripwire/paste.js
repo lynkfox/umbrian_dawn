@@ -5,12 +5,81 @@ tripwire.pasteSignatures = function() {
     var rowParse = function(row) {
         var scanner = {};
         var columns = row.split("	"); // Split by tab
-        var validScanGroups = ["Cosmic Signature", "Cosmic Anomaly", "Kosmische Anomalie", "Kosmische Signatur",
-                                "Скрытый сигнал", "Космическая аномалия", "코즈믹 시그니처", "코즈믹 어노말리"];
-        var validTypes = {"Gas Site": "Gas", "Data Site": "Data", "Relic Site": "Relic", "Ore Site": "Ore", "Combat Site": "Combat", "Wormhole": "Wormhole",
-                            "Gasgebiet": "Gas", "Datengebiet": "Data", "Reliktgebiet": "Relic", "Mineraliengebiet": "Ore", "Kampfgebiet": "Combat", "Wurmloch": "Wormhole",
-                            "Газовый район": "Gas", "Информационный район": "Data", "Археологический район": "Relic", "Астероидный район": "Ore", "Боевой район": "Combat", "Червоточина": "Wormhole", 
-                            "가스 사이트": "Gas", "데이터 사이트": "Data", "유물 사이트": "Relic", "채광 사이트": "Ore", "전투 사이트": "Combat", "웜홀": "Wormhole"};
+        var validScanGroups = [
+            // English (en-us)
+            "Cosmic Signature",
+            "Cosmic Anomaly",
+
+            // French (fr)
+            "Signature cosmique",
+            "Anomalie cosmique",
+
+            // German (de)
+            "Kosmische Anomalie",
+            "Kosmische Signatur",
+
+            // Japanese (ja)
+            "宇宙の特異点",
+            "宇宙のシグネチャ",
+
+            // Korean (ko)
+            "코즈믹 시그니처",
+            "코즈믹 어노말리",
+
+            // Russian (ru)
+            "Скрытый сигнал",
+            "Космическая аномалия",
+        ];
+
+        var validTypes = {
+            // English (en-us)
+            "Combat Site": "Combat",
+            "Data Site": "Data",
+            "Gas Site": "Gas",
+            "Ore Site": "Ore",
+            "Relic Site": "Relic",
+            "Wormhole": "Wormhole",
+
+            // French (fr)
+            "Site de combat": "Combat",
+            "Site de données": "Data",
+            "Site de collecte de gaz": "Gas",
+            "Site de minerai": "Ore",
+            "Site de reliques": "Relic",
+            "Trou de ver": "Wormhole",
+
+            // German (de)
+            "Kampfgebiet": "Combat",
+            "Datengebiet": "Data",
+            "Gasgebiet": "Gas",
+            "Mineraliengebiet": "Ore",
+            "Reliktgebiet": "Relic",
+            "Wurmloch": "Wormhole",
+
+            // Japanese (ja)
+            "戦闘サイト": "Combat",
+            "データサイト": "Data",
+            "ガスサイト": "Gas",
+            "鉱石サイト": "Ore",
+            "遺物サイト": "Relic",
+            "ワームホール": "Wormhole",
+
+            // Korean (ko)
+            "전투 사이트": "Combat",
+            "데이터 사이트": "Data",
+            "가스 사이트": "Gas",
+            "채광 사이트": "Ore",
+            "유물 사이트": "Relic",
+            "웜홀": "Wormhole",
+
+            // Russian (ru)
+            "Боевой район": "Combat",
+            "Информационный район": "Data",
+            "Газовый район": "Gas",
+            "Астероидный район": "Ore",
+            "Археологический район": "Relic",
+            "Червоточина": "Wormhole",
+        };
 
         for (var x in columns) {
             if (columns[x].match(/^([A-Z]{3}[-]\d{3})$/)) {
@@ -18,7 +87,7 @@ tripwire.pasteSignatures = function() {
                 continue;
             }
 
-            if (columns[x].match(/(\d([.|,]\d)?[ ]?(%))/) || columns[x].match(/(\d[.|,]?\d+\s(AU|AE|km|m|а.е.|км|м))/i)) { // Exclude scan % || AU
+            if (columns[x].match(/(\d([.|,]\d)?[ ]?(%))/) || columns[x].match(/(\d[.|,]?\d+\s?(UA|AU|AE|km|m|а.е.|км|м))/i)) { // Exclude scan % || AU
                 continue;
             }
 

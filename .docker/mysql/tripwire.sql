@@ -332,7 +332,7 @@ CREATE TABLE `signatures` (
   `signatureID` char(6) DEFAULT NULL,
   `systemID` int(8) unsigned DEFAULT NULL,
   `type` enum('unknown','combat','data','relic','ore','gas','wormhole') NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 DEFAULT NULL,
   `bookmark` varchar(100) DEFAULT NULL,
   `lifeTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `lifeLeft` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -617,19 +617,11 @@ DELIMITER ;;
 /*!50003 SET time_zone             = 'SYSTEM' */ ;;
 /*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `wormholeClean` ON SCHEDULE EVERY 1 MINUTE STARTS '2018-05-12 02:24:17' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
 
+UPDATE signatures SET modifiedByID = 0, modifiedByName = "Tripwire" WHERE DATE_ADD(lifeLeft, interval 0.1*lifeLength SECOND) < NOW() AND lifeLength <> 0 AND type = 'wormhole';
 
+DELETE FROM signatures WHERE DATE_ADD(lifeLeft, interval 0.1*lifeLength SECOND) < NOW() AND lifeLength <> 0 AND type = 'wormhole';
 
-DELETE FROM wormholes WHERE initialID IN (SELECT id FROM signatures WHERE lifeLeft < NOW() AND lifeLength <> 0 AND type = 'wormhole');
-
-
-
-UPDATE signatures SET modifiedByID = 0, modifiedByName = "Tripwire" WHERE lifeLeft < NOW() AND lifeLength <> 0 AND type = 'wormhole';
-
-
-
-DELETE FROM signatures WHERE lifeLeft < NOW() AND lifeLength <> 0 AND type = 'wormhole';
-
-
+DELETE FROM wormholes WHERE (not exists (select id from signatures s where s.id=wormholes.secondaryID)) or (not exists (select id from signatures s where s.id=wormholes.initialID));
 
 END */ ;;
 /*!50003 SET time_zone             = @saved_time_zone */ ;;
