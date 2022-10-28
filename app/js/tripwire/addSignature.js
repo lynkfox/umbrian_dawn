@@ -22,11 +22,16 @@ tripwire.addSig = function(add, option, disabled) {
             leadsTo = "";
         }
 
+		const leadsToText = leadsTo ? leadsTo :
+			add.signatureID && add.signatureID.length && add.signatureID[0] != '?' ?
+			'<a class="return-link" href="#" onclick="setReturn(event, ' + add.id + ')">&gt;&gt; Set ' + 
+				add.signatureID.substring(0, 3).toUpperCase() + '-' + add.signatureID.substring(3) +
+				' as return</a>' : '';
         var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
             + "<td class='"+ options.signatures.alignment.sigID +"'>"+(add.signatureID ? add.signatureID.substring(0, 3)+"-"+(add.signatureID.substring(3, 6) || "###") : "???-###")+"</td>"
             + "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(wormhole)+"\">"+(wormhole[wormhole.parent+"ID"] == add.id ? wormhole.type || "" : (wormhole.parent ? "K162" : ""))+"</td>"
             + "<td class='age-tooltip "+ options.signatures.alignment.sigAge + (parseInt(add.lifeLength) === 0 ? " disabled" : "") +"' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
-            + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+(leadsTo || "")+"</td>"
+            + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+leadsToText+"</td>"
             + "<td class='"+wormhole.life+" "+ options.signatures.alignment.sigLife +"'>"+wormhole.life+"</td>"
             + "<td class='"+wormhole.mass+" "+ options.signatures.alignment.sigMass +"'>"+wormhole.mass+"</td>"
             + "</tr>";

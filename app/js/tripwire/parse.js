@@ -2,6 +2,7 @@ tripwire.parse = function(server, mode) {
     var data = $.extend(true, {}, server);
 
     var updateSignatureTable = false;
+	const newSigsInSystem = { };
 
     if (options.chain.active == null || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout != true)) {
         if (options.masks.active != "273.0") {
@@ -23,6 +24,7 @@ tripwire.parse = function(server, mode) {
             if (data.signatures[key].systemID != viewingSystemID) {
                 continue;
             }
+			newSigsInSystem[key] = data.signatures[key];
             var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
 
             // Check for differences
@@ -59,6 +61,7 @@ tripwire.parse = function(server, mode) {
             if (data.signatures[key].systemID != viewingSystemID) {
                 continue;
             }
+			newSigsInSystem[key] = data.signatures[key];
             var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
 			
 			if(!tripwire.signatures.list[key]) {
@@ -69,12 +72,16 @@ tripwire.parse = function(server, mode) {
                 this.sigEditing(data.signatures[key]);
             }
         }
-    }
+    } else { return; }	// unknown type of parse request so do nothing
 
     if (updateSignatureTable) {
         $("#sigTable").trigger("update");
     }
     tripwire.signatures.list = data.signatures;
+	tripwire.signatures.currentSystem = newSigsInSystem;
+	
+	const needReturn = Object.values(tripwire.signatures.currentSystem)[0].signatureID == '???';
+	document.getElementById('sigTableWrapper').className = needReturn ? 'return-visible' : 'return-invisible';
 
     // set the sig count in the UI
     var signatureCount = 0;

@@ -190,19 +190,21 @@ if ($row = $stmt->fetchObject()) {
 					</div>
 				</div>
 				<div class="content">
-					<table id="sigTable" width="100%">
-						<thead>
-							<tr>
-								<th class="sortable">ID<i data-icon=""></i></th>
-								<th class="sortable">Type<i data-icon=""></i></th>
-								<th class="sortable" data-sorter="usLongDate">Age<i data-icon=""></i></th>
-								<th class="sortable">Leads To<i data-icon=""></i></th>
-								<th class="sortable">Life<i data-icon=""></i></th>
-								<th class="sortable">Mass<i data-icon=""></i></th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
+					<div id="sigTableWrapper">
+						<table id="sigTable" width="100%">
+							<thead>
+								<tr>
+									<th class="sortable">ID<i data-icon=""></i></th>
+									<th class="sortable">Type<i data-icon=""></i></th>
+									<th class="sortable" data-sorter="usLongDate">Age<i data-icon=""></i></th>
+									<th class="sortable">Leads To<i data-icon=""></i></th>
+									<th class="sortable">Life<i data-icon=""></i></th>
+									<th class="sortable">Mass<i data-icon=""></i></th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
 				</div>
 			</li>
 			<li id="notesWidget" class="gridWidget" data-row="1" data-col="15" data-sizex="7" data-sizey="6" data-min-sizex="5" data-min-sizey="2" style="width: 410px; height: 350px;">
