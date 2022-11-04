@@ -80,9 +80,17 @@ tripwire.parse = function(server, mode) {
     tripwire.signatures.list = data.signatures;
 	tripwire.signatures.currentSystem = newSigsInSystem;
 	
-	const needReturn = Object.values(tripwire.signatures.currentSystem)[0].signatureID == '???';
+	// Find if there is an unknown return.
+	// Known issue - this won't work on page reload because the chain data won't be ready yet
+	const inSigId = $("#chainMap [data-nodeid='"+viewingSystemID+"']").attr('data-insigid');
+	const wormholeId = $("#chainMap [data-nodeid='"+viewingSystemID+"']").attr('data-sigid');
+	const wormhole = tripwire.client.wormholes[wormholeId] || {};
+	// One of the two ends should be in this system, In sig will be the wrong end, so find the other end
+	const returnSigId = wormhole.initialID == inSigId ? wormhole.secondaryID : wormhole.initialID;
+	tripwire.signatures.returnSig = tripwire.signatures.list[returnSigId];
+	const needReturn = tripwire.signatures.returnSig && tripwire.signatures.returnSig.signatureID == '???';
 	document.getElementById('sigTableWrapper').className = needReturn ? 'return-visible' : 'return-invisible';
-
+	
     // set the sig count in the UI
     var signatureCount = 0;
     $.map(data.signatures, function(signature) {signature.systemID == viewingSystemID ? signatureCount++ : null;});
