@@ -99,6 +99,8 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
                 tripwire.chainMap.parse({"occupied": []});
             }
 
+			tripwire.updateReturnStatus();
+
             tripwire.active(data.activity);
 
             if (data.notify && !$("#serverNotification")[0]) Notify.trigger(data.notify, "yellow", false, "serverNotification");

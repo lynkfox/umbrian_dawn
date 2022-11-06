@@ -79,9 +79,15 @@ tripwire.parse = function(server, mode) {
     }
     tripwire.signatures.list = data.signatures;
 	tripwire.signatures.currentSystem = newSigsInSystem;
-	
-	// Find if there is an unknown return.
-	// Known issue - this won't work on page reload because the chain data won't be ready yet
+		
+    // set the sig count in the UI
+    var signatureCount = 0;
+    $.map(data.signatures, function(signature) {signature.systemID == viewingSystemID ? signatureCount++ : null;});
+    $("#signature-count").html(signatureCount);
+}
+
+/** Find if there is an unknown return sig. The markup is always generated (in addSignature.js) */
+tripwire.updateReturnStatus = function() {
 	const inSigId = $("#chainMap [data-nodeid='"+viewingSystemID+"']").attr('data-insigid');
 	const wormholeId = $("#chainMap [data-nodeid='"+viewingSystemID+"']").attr('data-sigid');
 	const wormhole = tripwire.client.wormholes[wormholeId] || {};
@@ -89,10 +95,5 @@ tripwire.parse = function(server, mode) {
 	const returnSigId = wormhole.initialID == inSigId ? wormhole.secondaryID : wormhole.initialID;
 	tripwire.signatures.returnSig = tripwire.signatures.list[returnSigId];
 	const needReturn = tripwire.signatures.returnSig && tripwire.signatures.returnSig.signatureID == '???';
-	document.getElementById('sigTableWrapper').className = needReturn ? 'return-visible' : 'return-invisible';
-	
-    // set the sig count in the UI
-    var signatureCount = 0;
-    $.map(data.signatures, function(signature) {signature.systemID == viewingSystemID ? signatureCount++ : null;});
-    $("#signature-count").html(signatureCount);
+	document.getElementById('sigTableWrapper').className = needReturn ? 'return-visible' : 'return-invisible';	
 }

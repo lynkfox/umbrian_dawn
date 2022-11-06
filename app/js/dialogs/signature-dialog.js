@@ -457,7 +457,7 @@ sigDialog.overwriteSignature = function(sigToRemove, completeFunction, always) {
 		payload.signatures.remove.push(wormhole);
 	}
 
-	var sucess = function() {
+	var success = function() {
 		$("#undo").removeClass("disabled");
 		if (viewingSystemID in tripwire.signatures.undo) {
 			tripwire.signatures.undo[viewingSystemID].push({action: "remove", signatures: undo});
@@ -466,15 +466,14 @@ sigDialog.overwriteSignature = function(sigToRemove, completeFunction, always) {
 		}
 
 		sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
-	}		
-
-	var always = function() {
-		$("#overwrite").removeAttr("disable");
+		
+		completeFunction(data);
 	}
 
-	tripwire.refresh('refresh', payload, completeFunction, always);
+	tripwire.refresh('refresh', payload, success, always);
 }
 
+/** Delegate the next action after sig overwrite to the save dialog */
 sigDialog.delegateSave = function(data) {
 	if (data.resultSet && data.resultSet[0].result == true) {
 		ValidationTooltips.close();

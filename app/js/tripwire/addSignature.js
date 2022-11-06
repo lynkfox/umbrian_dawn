@@ -6,7 +6,7 @@ tripwire.addSig = function(add, option, disabled) {
     var disabled = disabled || false;
     var wormhole = {};
 
-	const returnLinkText = '<a class="return-link" href="#" onclick="setReturn(event, ' + add.id + ')">&gt;&gt; Set ' + 
+	const returnLinkText = '<a class="return-link" href="#" onclick="tripwire.setReturnSig(event, ' + add.id + ')">&gt;&gt; Set ' + 
 				add.signatureID.substring(0, 3).toUpperCase() + '-' + add.signatureID.substring(3) +
 				' as return</a>';
 
@@ -79,4 +79,19 @@ tripwire.addSig = function(add, option, disabled) {
 
         $(tr).find("td").animate({backgroundColor: "#004D16"}, 1000).delay(1000).animate({backgroundColor: "#111"}, 1000, null, function() {$(this).css({backgroundColor: ""});});
     }
+}
+
+tripwire.setReturnSig = function(event, sigToRemoveId) {
+	event.preventDefault();
+	const sigToUpdate = tripwire.signatures.returnSig;
+	const sigToRemove = tripwire.client.signatures[sigToRemoveId];
+	
+	if(!(sigToUpdate && sigToRemove)) { return; }
+	
+	sigDialog.overwriteSignature(sigToRemoveId, function(data) {
+		sigToUpdate.signatureId = sigToRemove.signatureId;
+		// we need the wormhole part to make refresh.php not think the sig isn't a wormhole any more
+		const payload = {"signatures": {"update": [ { wormhole: 'dummy', signatures: [ sigToUpdate ] } ] }};
+		tripwire.refresh('refresh', payload);
+	});
 }
