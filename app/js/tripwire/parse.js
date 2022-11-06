@@ -94,6 +94,6 @@ tripwire.updateReturnStatus = function() {
 	// One of the two ends should be in this system, In sig will be the wrong end, so find the other end
 	const returnSigId = wormhole.initialID == inSigId ? wormhole.secondaryID : wormhole.initialID;
 	tripwire.signatures.returnSig = tripwire.signatures.list[returnSigId];
-	const needReturn = tripwire.signatures.returnSig && (tripwire.signatures.returnSig.signatureID == '???' || tripwire.signatures.returnSig.signatureID == '');
+	const needReturn = tripwire.signatures.returnSig && (tripwire.signatures.returnSig.signatureID == '???' || tripwire.signatures.returnSig.signatureID == '' || tripwire.signatures.returnSig.signatureID === null || tripwire.signatures.returnSig.signatureID === undefined);
 	document.getElementById('sigTableWrapper').className = needReturn ? 'return-visible' : 'return-invisible';	
 }
