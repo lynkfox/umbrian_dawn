@@ -218,25 +218,6 @@ function lookupMultiple(map, propertyName, lookupString, suppress) {
 	return results.join(',');
 }
 
-/** Look up one or more values in a comma separated string as property values in a data map, and return the key from the results in a new comma separated string.
-Convenience function for UI mapping.
-Will throw a failure message, unless suppress=true in which case it will return undefined, if 
-any of the lookups fail to resolve. */
-function lookupByPropertyMultiple(map, propertyName, lookupString, suppress) {
-	const values = lookupString.split(',');
-	const results = [];
-	for(var i = 0; i < values.length; i++) {
-		const v = values[i];
-		const r = Object.index(map, propertyName, v);
-		if(!r) { 
-			if(suppress) { return undefined;}
-			else { throw 'Value ' + v + ' did not match anything by property ' + propertyName + ' in ' + map; }
-		}
-		results.push(r);
-	}
-	return results.join(',');
-}
-
 var getCookie = function(c_name) {
 	var c_value = document.cookie;
 
