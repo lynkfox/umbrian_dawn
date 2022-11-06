@@ -1,9 +1,7 @@
-$("#sigTable tbody").on("dblclick", "tr", {mode: "update", source:"sig-row"}, openSignatureDialog);
-$("#edit-signature").on("click", {mode: "update", source:"edit-sig"}, openSignatureDialog);
-$("#add-signature").click({mode: "add"}, openSignatureDialog);
-
+const sigDialog = {};
 const sigDialogVM = {};
-function openSignatureDialog(e) {
+
+sigDialog.openSignatureDialog = function(e) {
 	if(e.preventDefault) { e.preventDefault(); }	// Allow calls with fake event-like objects too
 	sigDialogVM.mode = e.data.mode;
 	
@@ -440,12 +438,16 @@ function openSignatureDialog(e) {
 	}
 };
 
+$("#sigTable tbody").on("dblclick", "tr", {mode: "update", source:"sig-row"}, sigDialog.openSignatureDialog);
+$("#edit-signature").on("click", {mode: "update", source:"edit-sig"}, sigDialog.openSignatureDialog);
+$("#add-signature").click({mode: "add"}, sigDialog.openSignatureDialog);
+
 // Signature overwrite. Attached to document because the element gets recreated each time
-$(document).on("click", "#overwrite", function() {
+sigDialog.overwriteSignature = function(sigToRemove, completeFunction, always) {
 	var payload = {"signatures": {"remove": []}, "systemID": viewingSystemID};
 	var undo = [];
 
-	var signature = tripwire.client.signatures[$(this).data("id")];
+	var signature = tripwire.client.signatures[sigToRemove];
 	if (signature.type != "wormhole") {
 		undo.push(signature);
 		payload.signatures.remove.push(signature.id);
@@ -455,32 +457,39 @@ $(document).on("click", "#overwrite", function() {
 		payload.signatures.remove.push(wormhole);
 	}
 
-	$("#overwrite").attr("disable", true);
-
-	var success = function(data) {
-		if (data.resultSet && data.resultSet[0].result == true) {
-			ValidationTooltips.close();
-
-			$("#undo").removeClass("disabled");
-			if (viewingSystemID in tripwire.signatures.undo) {
-				tripwire.signatures.undo[viewingSystemID].push({action: "remove", signatures: undo});
-			} else {
-				tripwire.signatures.undo[viewingSystemID] = [{action: "remove", signatures: undo}];
-			}
-
-			sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
-
-			if ($("#dialog-signature").parent().find(":button:contains('Save')")) {
-				$("#dialog-signature").parent().find(":button:contains('Save')").click();
-			} else {
-				$("#dialog-signature").parent().find(":button:contains('Add')").click();
-			}
+	var sucess = function() {
+		$("#undo").removeClass("disabled");
+		if (viewingSystemID in tripwire.signatures.undo) {
+			tripwire.signatures.undo[viewingSystemID].push({action: "remove", signatures: undo});
+		} else {
+			tripwire.signatures.undo[viewingSystemID] = [{action: "remove", signatures: undo}];
 		}
-	}
+
+		sessionStorage.setItem("tripwire_undo", JSON.stringify(tripwire.signatures.undo));
+	}		
 
 	var always = function() {
 		$("#overwrite").removeAttr("disable");
 	}
 
-	tripwire.refresh('refresh', payload, success, always);
+	tripwire.refresh('refresh', payload, completeFunction, always);
+}
+
+sigDialog.delegateSave = function(data) {
+	if (data.resultSet && data.resultSet[0].result == true) {
+		ValidationTooltips.close();
+
+		if ($("#dialog-signature").parent().find(":button:contains('Save')")) {
+			$("#dialog-signature").parent().find(":button:contains('Save')").click();
+		} else {
+			$("#dialog-signature").parent().find(":button:contains('Add')").click();
+		}
+	}
+}
+
+$(document).on("click", "#overwrite", function() { 
+	$("#overwrite").attr("disable", true);
+	sigDialog.overwriteSignature($(this).data("id"), sigDialog.delegateSave, function() {
+		$("#overwrite").removeAttr("disable");
+	}); 
 });
