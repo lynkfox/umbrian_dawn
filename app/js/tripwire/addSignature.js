@@ -89,7 +89,7 @@ tripwire.setReturnSig = function(event, sigToRemoveId) {
 	if(!(sigToUpdate && sigToRemove)) { return; }
 	
 	sigDialog.overwriteSignature(sigToRemoveId, function(data) {
-		sigToUpdate.signatureId = sigToRemove.signatureId;
+		sigToUpdate.signatureID = sigToRemove.signatureID;
 		// we need the wormhole part to make refresh.php not think the sig isn't a wormhole any more
 		const payload = {"signatures": {"update": [ { wormhole: 'dummy', signatures: [ sigToUpdate ] } ] }};
 		tripwire.refresh('refresh', payload);

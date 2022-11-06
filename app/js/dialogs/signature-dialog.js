@@ -457,7 +457,7 @@ sigDialog.overwriteSignature = function(sigToRemove, completeFunction, always) {
 		payload.signatures.remove.push(wormhole);
 	}
 
-	var success = function() {
+	var success = function(data) {
 		$("#undo").removeClass("disabled");
 		if (viewingSystemID in tripwire.signatures.undo) {
 			tripwire.signatures.undo[viewingSystemID].push({action: "remove", signatures: undo});
