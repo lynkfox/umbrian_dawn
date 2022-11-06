@@ -133,15 +133,6 @@ Object.time = function(obj) {
     };
 })(jQuery);
 
-var numFormat = function(num) {
-	//Seperates the components of the number
-	var n = num.toString().split(".");
-	//Comma-fies the first part
-	n[0] = n[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	//Combines the two sections
-	return n.join(".");
-};
-
 var letterToNumbers = function(string) {
     string = string.toUpperCase();
     var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', sum = 0, i;
