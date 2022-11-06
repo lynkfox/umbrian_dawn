@@ -6,9 +6,10 @@ tripwire.addSig = function(add, option, disabled) {
     var disabled = disabled || false;
     var wormhole = {};
 
-	const returnLinkText = '<a class="return-link" href="#" onclick="tripwire.setReturnSig(event, ' + add.id + ')">&gt;&gt; Set ' + 
+	const returnLinkText = add.signatureID ? '<a class="return-link" href="#" onclick="tripwire.setReturnSig(event, ' + add.id + ')">&gt;&gt; Set ' + 
 				add.signatureID.substring(0, 3).toUpperCase() + '-' + add.signatureID.substring(3) +
-				' as return</a>';
+				' as return</a>'
+				: '';
 
     if (add.type == "wormhole") {
         var wormhole = Object.values(tripwire.client.wormholes).find(function (wh) { return wh.initialID == add.id || wh.secondaryID == add.id});
