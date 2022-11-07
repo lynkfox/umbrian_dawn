@@ -1074,7 +1074,7 @@ if ($row = $stmt->fetchObject()) {
 		</form>
 	</div>
 
-	<div id="dialog-select-signature" title="&nbsp;" class="hidden">
+	<div id="dialog-select-signature" title="&nbsp;" class="hidden return-invisible">
 			<span data-icon="info"></span>
 			Which signature would you like to update?<br/><br/>
 			<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
