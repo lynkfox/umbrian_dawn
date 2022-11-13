@@ -167,7 +167,7 @@ function commentSortHandler(sortOrder) {
 		default: throw 'sort order somehow wrong';
 	}
 	
-	setCookie('commentSort', sortOrder);
+	setCookie('commentSort', sortOrder, 3650);
 }
 
 $("body").on("click", "#comment-sort", function(e) {
