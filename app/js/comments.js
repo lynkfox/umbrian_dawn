@@ -156,13 +156,11 @@ function commentSortHandler(sortOrder) {
 			sortElem.nextSort = 'desc';
 			sortElem.setAttribute('data-icon', 'sort-asc');
 			containerElem.style.flexDirection = 'column';
-			containerElem.style.justifyContent = 'flex-start';
 			break;
 		case 'desc':
 			sortElem.nextSort = 'asc';
 			sortElem.setAttribute('data-icon', 'sort-desc');
 			containerElem.style.flexDirection = 'column-reverse';
-			containerElem.style.justifyContent = 'flex-end';
 			break;
 		default: throw 'sort order somehow wrong';
 	}

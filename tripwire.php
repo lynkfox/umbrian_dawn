@@ -213,28 +213,30 @@ if ($row = $stmt->fetchObject()) {
 						<i class="tutorial" data-tooltip="Show tutorial for this section">?</i>
 					</div>
 				</div>
-				<div class="content" id="comment-container" style="display: flex">
-					<div class="comment hidden">
-						<div class="commentToolbar">
-							<div class="commentTitle">
-								<span class="commentModified"></span>
-								<span class="commentCreated"></span>
-								<i class="commentSticky" data-icon="pin" data-tooltip="Sticky"></i>
+				<div class="content" id="comment-outer-container">
+					<div id="comment-container" style="display: flex"> <!-- https://stackoverflow.com/questions/36130760/use-justify-content-flex-end-and-to-have-vertical-scrollbar -->
+						<div class="comment hidden">
+							<div class="commentToolbar">
+								<div class="commentTitle">
+									<span class="commentModified"></span>
+									<span class="commentCreated"></span>
+									<i class="commentSticky" data-icon="pin" data-tooltip="Sticky"></i>
+								</div>
+								<div class="commentControls">
+									<a class="commentEdit" href="">Edit</a>
+									<a class="commentDelete" href="">Delete</a>
+								</div>
+								<div style="clear: both;"></div>
 							</div>
-							<div class="commentControls">
-								<a class="commentEdit" href="">Edit</a>
-								<a class="commentDelete" href="">Delete</a>
+							<div id="" class="commentBody"></div>
+							<div class="commentFooter hidden">
+								<div class="commentStatus"></div>
+								<div class="commentControls">
+									<a href="" class="commentSave">Save</a>
+									<a href="" class="commentCancel">Cancel</a>
+								</div>
+								<div style="clear: both;"></div>
 							</div>
-							<div style="clear: both;"></div>
-						</div>
-						<div id="" class="commentBody"></div>
-						<div class="commentFooter hidden">
-							<div class="commentStatus"></div>
-							<div class="commentControls">
-								<a href="" class="commentSave">Save</a>
-								<a href="" class="commentCancel">Cancel</a>
-							</div>
-							<div style="clear: both;"></div>
 						</div>
 					</div>
 				</div>
