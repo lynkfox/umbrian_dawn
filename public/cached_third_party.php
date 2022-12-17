@@ -8,8 +8,6 @@ if(!isset($_SESSION['userID'])) {
 	exit();
 }
 
-header('Content-Type: application/json');
-
 $fetch_data = array(
 	'invasions' => array('url' => 'https://kybernaut.space/invasions.json', 'cache_file' => 'invasions.json', 'cache_for' => 3600),
 	'thera' => array('url' => 'https://www.eve-scout.com/api/wormholes', 'cache_file' => 'thera.json', 'cache_for' => 60)
@@ -23,7 +21,13 @@ if(!isset($fetch_data)) {
 // Fetch into cache if not set
 $cache_file = dirname(dirname(__FILE__)) . '/cache/' . $fetch_data['cache_file'];
 if (!file_exists($cache_file) || (time() - filemtime($cache_file) >= $fetch_data['cache_for'])){
-	file_put_contents($cache_file, fopen( $fetch_data['url'], 'r'));
+	$in_resource = fopen( $fetch_data['url'], 'r');
+	if($in_resource) file_put_contents($cache_file, $in_resource);
+	else { 
+		http_response_code(500);
+		die(error_get_last());
+	}
 }
 
+header('Content-Type: application/json');
 readfile($cache_file);
