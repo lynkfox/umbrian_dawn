@@ -25,3 +25,9 @@ tripwire.serverStatus = function() {
         });
 }
 tripwire.serverStatus();
+
+tripwire.updateServerTime = function() {
+	document.getElementById('serverTime').innerText = moment.utc().format('HH:mm')
+};
+setInterval(tripwire.updateServerTime, 5000);
+tripwire.updateServerTime();
