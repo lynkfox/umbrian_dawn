@@ -112,6 +112,9 @@ html .ui-selectmenu-menu ul {
 	color: #444;
 }
 
+.return-visible .return-link { display: inline }
+.return-invisible .return-link { display: none }
+
 .tablesorter .tablesorter-header {
 	cursor: pointer;
 	vertical-align: middle;

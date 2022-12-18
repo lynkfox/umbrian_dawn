@@ -599,21 +599,21 @@ if (isset($_POST['signatures'])) {
 
             if ($signature && $signature->type == 'wormhole') {
                 if ($signature2) {
+                    list($result, $wormhole, $msg) = removeWormhole(array('id' => $wormhole->id), $mysql);
                     list($result, $signature, $msg) = removeSignature($signature, $mysql);
                     list($result, $signature2, $msg) = removeSignature($signature2, $mysql);
-                    list($result, $wormhole, $msg) = removeWormhole(array('id' => $wormhole->id), $mysql);
                 } else if ($wormhole) {
-                    list($result, $signature, $msg) = removeSignature($signature, $mysql);
                     list($result, $wormhole, $msg) = removeWormhole(array('id' => $wormhole->id), $mysql);
+                    list($result, $signature, $msg) = removeSignature($signature, $mysql);
                 } else {
                     list($result, $wormhole, $msg) = findWormhole($signature->id, $mysql);
                     if ($result && $wormhole) {
                         list($result, $signature, $msg) = fetchSignature($wormhole->initialID, $mysql);
                         list($result, $signature2, $msg) = fetchSignature($wormhole->secondaryID, $mysql);
 
+                        list($result, $wormhole, $msg) = removeWormhole(array('id' => $wormhole->id), $mysql);
                         list($result, $signature, $msg) = removeSignature($signature, $mysql);
                         list($result, $signature2, $msg) = removeSignature($signature2, $mysql);
-                        list($result, $wormhole, $msg) = removeWormhole(array('id' => $wormhole->id), $mysql);
                     }
                 }
                 $output['resultSet'][] = array('result' => $result, 'value' => $msg);

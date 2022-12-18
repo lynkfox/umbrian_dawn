@@ -2,6 +2,7 @@ tripwire.parse = function(server, mode) {
     var data = $.extend(true, {}, server);
 
     var updateSignatureTable = false;
+	const newSigsInSystem = { };
 
     if (options.chain.active == null || (options.chain.tabs[options.chain.active] && options.chain.tabs[options.chain.active].evescout != true)) {
         if (options.masks.active != "273.0") {
@@ -23,6 +24,7 @@ tripwire.parse = function(server, mode) {
             if (data.signatures[key].systemID != viewingSystemID) {
                 continue;
             }
+			newSigsInSystem[key] = data.signatures[key];
             var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
 
             // Check for differences
@@ -59,6 +61,7 @@ tripwire.parse = function(server, mode) {
             if (data.signatures[key].systemID != viewingSystemID) {
                 continue;
             }
+			newSigsInSystem[key] = data.signatures[key];
             var disabled = data.signatures[key].mask == "273.0" && options.masks.active != "273.0" ? true : false;
 			
 			if(!tripwire.signatures.list[key]) {
@@ -69,15 +72,28 @@ tripwire.parse = function(server, mode) {
                 this.sigEditing(data.signatures[key]);
             }
         }
-    }
+    } else { return; }	// unknown type of parse request so do nothing
 
     if (updateSignatureTable) {
         $("#sigTable").trigger("update");
     }
     tripwire.signatures.list = data.signatures;
-
+	tripwire.signatures.currentSystem = newSigsInSystem;
+		
     // set the sig count in the UI
     var signatureCount = 0;
     $.map(data.signatures, function(signature) {signature.systemID == viewingSystemID ? signatureCount++ : null;});
     $("#signature-count").html(signatureCount);
+}
+
+/** Find if there is an unknown return sig. The markup is always generated (in addSignature.js) */
+tripwire.updateReturnStatus = function() {
+	const inSigId = $("#chainMap [data-nodeid='"+viewingSystemID+"']").attr('data-insigid');
+	const wormholeId = $("#chainMap [data-nodeid='"+viewingSystemID+"']").attr('data-sigid');
+	const wormhole = tripwire.client.wormholes[wormholeId] || {};
+	// One of the two ends should be in this system, In sig will be the wrong end, so find the other end
+	const returnSigId = wormhole.initialID == inSigId ? wormhole.secondaryID : wormhole.initialID;
+	tripwire.signatures.returnSig = tripwire.signatures.list[returnSigId];
+	const needReturn = tripwire.signatures.returnSig && (tripwire.signatures.returnSig.signatureID == '???' || tripwire.signatures.returnSig.signatureID == '' || tripwire.signatures.returnSig.signatureID === null || tripwire.signatures.returnSig.signatureID === undefined);
+	document.getElementById('sigTableWrapper').className = needReturn ? 'return-visible' : 'return-invisible';	
 }

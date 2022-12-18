@@ -6,6 +6,11 @@ tripwire.addSig = function(add, option, disabled) {
     var disabled = disabled || false;
     var wormhole = {};
 
+	const returnLinkText = add.signatureID ? '<a class="return-link" href="#" onclick="tripwire.setReturnSig(event, ' + add.id + ')">&gt;&gt; Set ' + 
+				add.signatureID.substring(0, 3).toUpperCase() + '-' + add.signatureID.substring(3) +
+				' as return</a>'
+				: '';
+
     if (add.type == "wormhole") {
         var wormhole = Object.values(tripwire.client.wormholes).find(function (wh) { return wh.initialID == add.id || wh.secondaryID == add.id});
         if (!wormhole) return false;
@@ -22,22 +27,27 @@ tripwire.addSig = function(add, option, disabled) {
             leadsTo = "";
         }
 
+		const leadsToText = leadsTo ? leadsTo : 
+			add.signatureID && add.signatureID.length && add.signatureID[0] != '?' ? returnLinkText
+			: '';
         var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
             + "<td class='"+ options.signatures.alignment.sigID +"'>"+(add.signatureID ? add.signatureID.substring(0, 3)+"-"+(add.signatureID.substring(3, 6) || "###") : "???-###")+"</td>"
             + "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(wormhole)+"\">"+(wormhole[wormhole.parent+"ID"] == add.id ? wormhole.type || "" : (wormhole.parent ? "K162" : ""))+"</td>"
             + "<td class='age-tooltip "+ options.signatures.alignment.sigAge + (parseInt(add.lifeLength) === 0 ? " disabled" : "") +"' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
-            + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+(leadsTo || "")+"</td>"
+            + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+leadsToText+"</td>"
             + "<td class='"+wormhole.life+" "+ options.signatures.alignment.sigLife +"'>"+wormhole.life+"</td>"
             + "<td class='"+wormhole.mass+" "+ options.signatures.alignment.sigMass +"'>"+wormhole.mass+"</td>"
             + "</tr>";
 
         var tr = $(row);
     } else {
+		const leadsToText = add.type === 'unknown' ? returnLinkText : 
+			(add.name ? linkSig(add.name) : '');
         var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
             + "<td class='"+ options.signatures.alignment.sigID +"'>"+(add.signatureID ? add.signatureID.substring(0, 3)+"-"+(add.signatureID.substring(3, 6) || "###") : "???-###")+"</td>"
             + "<td class='"+ options.signatures.alignment.sigType +"'>"+add.type+"</td>"
             + "<td class='age-tooltip "+ options.signatures.alignment.sigAge + (parseInt(add.lifeLength) === 0 ? " disabled" : "") +"' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
-            + "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+(add.name?linkSig(add.name):'')+"</td>"
+            + "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+leadsToText+"</td>"
             + "</tr>";
 
         var tr = $(row);
@@ -70,4 +80,19 @@ tripwire.addSig = function(add, option, disabled) {
 
         $(tr).find("td").animate({backgroundColor: "#004D16"}, 1000).delay(1000).animate({backgroundColor: "#111"}, 1000, null, function() {$(this).css({backgroundColor: ""});});
     }
+}
+
+tripwire.setReturnSig = function(event, sigToRemoveId) {
+	event.preventDefault();
+	const sigToUpdate = tripwire.signatures.returnSig;
+	const sigToRemove = tripwire.client.signatures[sigToRemoveId];
+	
+	if(!(sigToUpdate && sigToRemove)) { return; }
+	
+	sigDialog.overwriteSignature(sigToRemoveId, function(data) {
+		sigToUpdate.signatureID = sigToRemove.signatureID;
+		// we need the wormhole part to make refresh.php not think the sig isn't a wormhole any more
+		const payload = {"signatures": {"update": [ { wormhole: 'dummy', signatures: [ sigToUpdate ] } ] }};
+		tripwire.refresh('refresh', payload);
+	});
 }
