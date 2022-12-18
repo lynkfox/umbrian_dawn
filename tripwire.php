@@ -67,7 +67,8 @@ if ($row = $stmt->fetchObject()) {
 				<span>|</span>
 				<!-- <span data-tooltip="System activity update countdown"><input id="APIclock" class="hidden" /></span> -->
 			</h1>
-			<h3 id="serverStatus" class="pointer" data-tooltip="EVE server status and player count"></h3>
+			<h3 id="serverStatus" class="pointer" data-tooltip="EVE server status and player count">TQ: ??,???</h3>
+			<h3 class="pointer" data-tooltip="EVE time (UTC)">| ET: <span id="serverTime">??.??</span></h3>
 			<h3 id="systemSearch">| <i id="search" data-icon="search" data-tooltip="Toggle system search"></i>
 				<span id="currentSpan" class="hidden"><span class="pointer">Current System: </span><a id="EVEsystem" href=""></a><i id="follow" data-icon="follow" data-tooltip="Follow my in-game system" style="padding-left: 10px;"></i></span>
 				<span id="searchSpan"><form id="systemSearch" method="GET" action=".?"><input type="text" size="18" class="systemsAutocomplete" name="system" /></form></span>
@@ -157,12 +158,15 @@ if ($row = $stmt->fetchObject()) {
 					</div>
 				</div>
 				<div class="content">
-					<div id="infoGeneral">
+					<div id="infoGeneral" style="float: left; width: 50%; text-align: left;">
 						<h1 id="infoSystem" class="pointer" style="color: #CCC;"><?=$system?></h1>
 						<h4 id="infoSecurity" class="pointer">&nbsp;</h4>
 						<h4 id="infoRegion" class="pointer">&nbsp;</h4>
 						<h4 id="infoFaction" class="pointer">&nbsp;</h4>
 					</div>
+					<div id="infoExtra" style="float: right; width: 50%; text-align: right;">
+					</div>
+					<br clear="all"/>
 					<div id="activityGraph"></div>
 					<div id="activityGraphControls" style="text-align: center;"><a href="javascript: activity.time(168);">Week</a> - <a href="javascript: activity.time(48);">48Hour</a> - <a href="javascript: activity.time(24);">24Hour</a></div>
 					<div id="infoStatics" class="pointer" style="float: left; width: 50%; text-align: left;"></div>
@@ -210,32 +214,35 @@ if ($row = $stmt->fetchObject()) {
 			<li id="notesWidget" class="gridWidget" data-row="1" data-col="15" data-sizex="7" data-sizey="6" data-min-sizex="5" data-min-sizey="2" style="width: 410px; height: 350px;">
 				<div class="controls">
 					<i id="add-comment" data-icon="plus" data-tooltip="Add a new comment"></i>
+					<i id="comment-sort" data-icon="sort" data-tooltip="Sort comments by creation date"></i>
 					<div style="float: right;">
 						<i class="tutorial" data-tooltip="Show tutorial for this section">?</i>
 					</div>
 				</div>
-				<div class="content">
-					<div class="comment hidden">
-						<div class="commentToolbar">
-							<div class="commentTitle">
-								<span class="commentModified"></span>
-								<span class="commentCreated"></span>
-								<i class="commentSticky" data-icon="pin" data-tooltip="Sticky"></i>
+				<div class="content" id="comment-outer-container">
+					<div id="comment-container" style="display: flex"> <!-- https://stackoverflow.com/questions/36130760/use-justify-content-flex-end-and-to-have-vertical-scrollbar -->
+						<div class="comment hidden">
+							<div class="commentToolbar">
+								<div class="commentTitle">
+									<span class="commentModified"></span>
+									<span class="commentCreated"></span>
+									<i class="commentSticky" data-icon="pin" data-tooltip="Sticky"></i>
+								</div>
+								<div class="commentControls">
+									<a class="commentEdit" href="">Edit</a>
+									<a class="commentDelete" href="">Delete</a>
+								</div>
+								<div style="clear: both;"></div>
 							</div>
-							<div class="commentControls">
-								<a class="commentEdit" href="">Edit</a>
-								<a class="commentDelete" href="">Delete</a>
+							<div id="" class="commentBody"></div>
+							<div class="commentFooter hidden">
+								<div class="commentStatus"></div>
+								<div class="commentControls">
+									<a href="" class="commentSave">Save</a>
+									<a href="" class="commentCancel">Cancel</a>
+								</div>
+								<div style="clear: both;"></div>
 							</div>
-							<div style="clear: both;"></div>
-						</div>
-						<div id="" class="commentBody"></div>
-						<div class="commentFooter hidden">
-							<div class="commentStatus"></div>
-							<div class="commentControls">
-								<a href="" class="commentSave">Save</a>
-								<a href="" class="commentCancel">Cancel</a>
-							</div>
-							<div style="clear: both;"></div>
 						</div>
 					</div>
 				</div>

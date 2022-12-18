@@ -9,7 +9,7 @@ tripwire.serverStatus = function() {
         .always(function(data) {
             if (data && data.players && data.players > 0) {
                 if (!tripwire.serverStatus.data || tripwire.serverStatus.data.players !== data.players) {
-                    $('#serverStatus').html("<span class='"+(data.players > 0 ? 'stable' : 'critical')+"'>TQ</span>: "+numFormat(data.players));
+                    $('#serverStatus').html("<span class='"+(data.players > 0 ? 'stable' : 'critical')+"'>TQ</span>: "+Intl.NumberFormat().format(data.players));
 
                     if (tripwire.serverStatus.data) {
                         $("#serverStatus").effect('pulsate', {times: 5});
@@ -25,3 +25,9 @@ tripwire.serverStatus = function() {
         });
 }
 tripwire.serverStatus();
+
+tripwire.updateServerTime = function() {
+	document.getElementById('serverTime').innerText = moment.utc().format('HH:mm')
+};
+setInterval(tripwire.updateServerTime, 5000);
+tripwire.updateServerTime();

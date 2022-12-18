@@ -507,7 +507,7 @@ $("#newTab").on("click", function() {
 					e.preventDefault();
 					var $tab = $("#chainTab .tab").clone();
 					var name = $("#dialog-newTab .name").val();
-					var systemID = lookupByPropertyMultiple(tripwire.systems, "name", $("#dialog-newTab .sigSystemsAutocomplete").val(), true);
+					var systemID = tripwire.getSystemIDsByNames($("#dialog-newTab .sigSystemsAutocomplete").val());
 					var thera = $("#tabThera")[0].checked ? true : false;
 
 					if (!name) {
@@ -572,7 +572,7 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 					e.preventDefault();
 					var $tab = $("#chainTabs .tab").eq([options.chain.active]);
 					var name = $("#dialog-editTab .name").val();
-					var systemID = lookupByPropertyMultiple(tripwire.systems, "name", $("#dialog-editTab .sigSystemsAutocomplete").val(), true);
+					var systemID = tripwire.getSystemIDsByNames($("#dialog-editTab .sigSystemsAutocomplete").val());
 					var thera = $("#editTabThera")[0].checked ? true : false;
 
 					if (!name) {
@@ -812,9 +812,9 @@ $("#chainParent").contextmenu({
                         var totalMass = 0;
 						for (x in data.mass) {
                             totalMass += parseFloat(data.mass[x].mass);
-							$("#dialog-mass #massTable tbody").append("<tr><td>"+data.mass[x].characterName+"</td><td>"+(data.mass[x].toID == systemID ? "In" : "Out")+"</td><td>"+data.mass[x].shipType+"</td><td>"+numFormat(data.mass[x].mass)+"Kg</td><td>"+data.mass[x].time+"</td></tr>");
+							$("#dialog-mass #massTable tbody").append("<tr><td>"+data.mass[x].characterName+"</td><td>"+(data.mass[x].toID == systemID ? "In" : "Out")+"</td><td>"+data.mass[x].shipType+"</td><td>"+Intl.NumberFormat().format(data.mass[x].mass)+"Kg</td><td>"+data.mass[x].time+"</td></tr>");
 						}
-                        $("#dialog-mass #massTable tbody").append("<tr><td></td><td></td><td></td><th>"+ numFormat(totalMass) +"Kg</th><td></td></tr>");
+                        $("#dialog-mass #massTable tbody").append("<tr><td></td><td></td><td></td><th>"+ Intl.NumberFormat().format(totalMass) +"Kg</th><td></td></tr>");
 					}
 				});
 			}

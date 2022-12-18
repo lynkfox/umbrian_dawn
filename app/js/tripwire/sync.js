@@ -20,7 +20,7 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
         data.flareCount = chain.data.flares ? chain.data.flares.flares.length : 0;
         data.flareTime = chain.data.flares ? chain.data.flares.last_modified : 0;
 
-        data.commentCount = Object.size(this.comments.data);
+        data.commentCount = Object.keys(this.comments.data||{}).length;
         data.commentTime = Object.maxTime(this.comments.data, "modified");
 
         data.activity = this.activity;
@@ -51,7 +51,7 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
         if (data) {
             tripwire.server = data;
             if(data.signatures) { // Save this count before we delete entries
-                tripwire.serverSignatureCount = Object.size(data.signatures);
+                tripwire.serverSignatureCount = Object.keys(data.signatures||{}).length;
             }
 
             if (data.wormholes) {

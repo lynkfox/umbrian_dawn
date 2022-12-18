@@ -92,7 +92,8 @@
 "F216": {"life": "16 Hours", "leadsTo": "Triglavian", "mass": 1000000000, "jump": 300000000},
 "U372": {"life": "16 Hours", "leadsTo": "Triglavian", "mass": 1000000000, "jump": 375000000},
 "R081": {"life": "16 Hours", "leadsTo": "Class 4", "mass": 1000000000, "jump": 375000000},
-"X450": {"life": "16 Hours", "leadsTo": "Null-Sec", "mass": 1000000000, "jump": 375000000}
+"X450": {"life": "16 Hours", "leadsTo": "Null-Sec", "mass": 1000000000, "jump": 375000000},
+"J377": {"life": "24 Hours", "leadsTo": "Low-Sec", "mass": 1000000000, "jump": 62000000}
 
 
 }
