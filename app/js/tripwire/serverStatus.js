@@ -9,7 +9,7 @@ tripwire.serverStatus = function() {
         .always(function(data) {
             if (data && data.players && data.players > 0) {
                 if (!tripwire.serverStatus.data || tripwire.serverStatus.data.players !== data.players) {
-                    $('#serverStatus').html("<span class='"+(data.players > 0 ? 'stable' : 'critical')+"'>TQ</span>: "+numFormat(data.players));
+                    $('#serverStatus').html("<span class='"+(data.players > 0 ? 'stable' : 'critical')+"'>TQ</span>: "+Intl.NumberFormat().format(data.players));
 
                     if (tripwire.serverStatus.data) {
                         $("#serverStatus").effect('pulsate', {times: 5});

@@ -146,3 +146,7 @@
 	overflow-y: auto;
 	max-height: 332px;
 }
+
+#tracking [data-icon="red-giant"].stable:before {
+	color:  #50d25a;
+}

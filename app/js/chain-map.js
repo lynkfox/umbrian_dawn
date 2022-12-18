@@ -153,10 +153,10 @@ var chain = new function() {
 
 		function formatStatics(statics) {
 			if(!statics) { return ''; }
-			const shortCodeMap = { 'High-Sec': 'H', 'Low-Sec': 'L', 'Null-Sec': 'N',
+			const shortCodeMap = { 'High-Sec': 'H', 'Low-Sec': 'L', 'Null-Sec': 'N', 'Triglavian':'▼',
 				'Class 1': '1', 'Class 2': '2', 'Class 3': '3', 'Class 4': '4', 'Class 5' : 5, 'Class 6': 6
 			};
-			const classMap = { H: 'hisec', L: 'lowsec', N: 'nullsec'};
+			const classMap = { H: 'hisec', L: 'lowsec', N: 'nullsec', '▼': 'triglavian' };
 			return statics.map(function(s) {
 				const text = shortCodeMap[tripwire.wormholes[s].leadsTo];
 				const className = classMap[text] || 'class-' +  text;
@@ -204,6 +204,7 @@ var chain = new function() {
 				effect = system.effect;
 			}
 			
+			systemName = _.escape(systemName);
 			const systemNameText = 
 				options.chain.sigNameLocation == 'name' ? (systemName ? systemName : system ? system.name : '&nbsp;') :
 				options.chain.sigNameLocation == 'name_prefix' ?
@@ -278,8 +279,11 @@ var chain = new function() {
 					leadsToPointer == "Low-Sec" ? 0.4 :
 					leadsToPointer == "Null-Sec" ? -0.1 :
 					undefined;
+				const nodeFaction = 
+					leadsToPointer == "Triglavian" ? 500026 :
+					undefined;
 				
-				system = systemAnalysis.analyse(systemID, { security: nodeSecurity, class: nodeClass } );
+				system = systemAnalysis.analyse(systemID, { security: nodeSecurity, class: nodeClass, factionID: nodeFaction } );
 			}
 			return "<span class='" + system.systemTypeClass + "'>" + system.systemTypeName + system.systemTypeModifiers.join('') + "</span>";
 		}		
@@ -294,10 +298,12 @@ var chain = new function() {
 			const addCalcChildNodes = function(node) {
 				if ($("#show-viewing").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[viewingSystemID].class && !tripwire.systems[node.child.systemID].class && viewingSystemID != node.child.systemID ) {
 					var calcNode = makeCalcChildNode(childID, node, viewingSystemID);
-					childID = calcNode.childID;
+					if(calcNode) {
+						childID = calcNode.childID;
 
-					chainLinks.push(calcNode.calcNode);
-					chainList.push([0, childID]);
+						chainLinks.push(calcNode.calcNode);
+						chainList.push([0, childID]);
+					}
 				}
 
 				if ($("#show-favorite").hasClass("active") && tripwire.systems[node.child.systemID] && !tripwire.systems[node.child.systemID].class) {
@@ -306,10 +312,12 @@ var chain = new function() {
 							continue;
 
 						var calcNode = makeCalcChildNode(childID, node, options.favorites[x]);
-						childID = calcNode.childID;
+						if(calcNode) {
+							childID = calcNode.childID;
 
-						chainLinks.push(calcNode.calcNode);
-						chainList.push([0, childID]);
+							chainLinks.push(calcNode.calcNode);
+							chainList.push([0, childID]);
+						}
 					}
 				}				
 			};
@@ -465,7 +473,7 @@ var chain = new function() {
 					(node.child.type || "(?)") + sigFormat(node.child.typeBM, "type");
 			const nodeTypeMarkup = node.child.path ? 
 				chainMap.renderPath(node.child.path) :
-				"<a href='#' onclick='openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + (
+				"<a href='#' onclick='openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + _.escape(
 					node.child.name && options.chain.sigNameLocation == 'ref' ? node.child.name :
 					node.child.name && options.chain.sigNameLocation == 'ref_prefix' ? node.child.name + ' - ' + sigText :
 					sigText
@@ -535,6 +543,18 @@ var chain = new function() {
 		}
 	}
 
+	this.setActiveTab = function(newIndex) {
+		$("#chainTabs .tab").removeClass("current");
+		options.chain.active = newIndex;
+		if(newIndex != null) {
+			$("#chainTabs .tab").eq(newIndex).addClass('current');
+		}
+		
+		options.save();
+		chain.redraw();
+		tripwire.parse(tripwire.client, "refresh");
+	}
+
 	this.redraw = function() {
 		this.useRenderer(options.chain.renderer);
 		
@@ -551,7 +571,7 @@ var chain = new function() {
 		clearTimeout(drawRetryTimer);
 
 		// We need to make sure Google chart is ready and we have signature data for this system before we begin, otherwise delay
-		if (!this.renderer.ready() || (Object.size(data.map) && !tripwire.client.signatures)) {
+		if (!this.renderer.ready() || (Object.keys(data.map||{}).length && !tripwire.client.signatures)) {
 			drawRetryTimer = setTimeout(function() { chain.draw(data) }, 100);
 			return;
 		}

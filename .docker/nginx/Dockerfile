@@ -1,13 +1,4 @@
-FROM centos:7
+FROM nginx:1.23.1-alpine
 
-RUN yum update -y && \
-    yum install -y epel-release
-
-RUN yum install -y nginx
-
-COPY ./.docker/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./.docker/nginx/tripwire.conf /etc/nginx/conf.d/tripwire.conf
-
-RUN yum clean all
-
-CMD nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY tripwire.conf /etc/nginx/conf.d/default.conf

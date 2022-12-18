@@ -48,15 +48,6 @@ Object.maxTime = function(obj, prop) {
 	return maxTimeString;
 }
 
-Object.size = function(obj) {
-    var size = 0, key;
-    for (key in obj) {
-        if (obj.hasOwnProperty(key)) size++;
-    }
-
-    return size;
-};
-
 Object.time = function(obj) {
 	var dates = [], key;
 	for (key in obj) {
@@ -133,15 +124,6 @@ Object.time = function(obj) {
     };
 })(jQuery);
 
-var numFormat = function(num) {
-	//Seperates the components of the number
-	var n = num.toString().split(".");
-	//Comma-fies the first part
-	n[0] = n[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	//Combines the two sections
-	return n.join(".");
-};
-
 var letterToNumbers = function(string) {
     string = string.toUpperCase();
     var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', sum = 0, i;
@@ -181,14 +163,6 @@ var sigFormat = function(input, type) {
 	return format;
 };
 
-var isEmpty = function(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
-};
-
 /** Find the relative position of one element within the hierarchy tree of another */
 function positionRelativeTo(elem, ancestor) {
 	const elemPos = elem.getBoundingClientRect(),
@@ -214,25 +188,6 @@ function lookupMultiple(map, propertyName, lookupString, suppress) {
 			else { throw 'Value ' + v + ' did not match anything in ' + map; }
 		}
 		results.push(r[propertyName]);
-	}
-	return results.join(',');
-}
-
-/** Look up one or more values in a comma separated string as property values in a data map, and return the key from the results in a new comma separated string.
-Convenience function for UI mapping.
-Will throw a failure message, unless suppress=true in which case it will return undefined, if 
-any of the lookups fail to resolve. */
-function lookupByPropertyMultiple(map, propertyName, lookupString, suppress) {
-	const values = lookupString.split(',');
-	const results = [];
-	for(var i = 0; i < values.length; i++) {
-		const v = values[i];
-		const r = Object.index(map, propertyName, v);
-		if(!r) { 
-			if(suppress) { return undefined;}
-			else { throw 'Value ' + v + ' did not match anything by property ' + propertyName + ' in ' + map; }
-		}
-		results.push(r);
 	}
 	return results.join(',');
 }
@@ -297,18 +252,3 @@ var setCookie = function(c_name, value, exdays) {
     }
 })(jQuery);
 
-var parseHeaders = function(headers) {
-		// Convert the header string into an array
-		// of individual headers
-		var arr = headers.trim().split(/[\r\n]+/);
-
-		// Create a map of header names to values
-		var headerMap = {};
-		arr.forEach(function (line) {
-				var parts = line.split(': ');
-				var header = parts.shift();
-				var value = parts.join(': ');
-				headerMap[header] = value;
-		});
-		return headerMap;
-}

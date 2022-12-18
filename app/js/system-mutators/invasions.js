@@ -44,7 +44,7 @@ function _Invasions() {
 	/** Refresh the invasion data from the public Kybernauts API */
 	this.refresh = function() {
 		$.ajax({
-			url: 'https://cors-anywhere.herokuapp.com/https://kybernaut.space/invasions.json',
+			url: 'cached_third_party.php?key=invasions',
 			type: "GET",
 			dataType: "JSON"
 		}).done(function(data, status, xhr) {	

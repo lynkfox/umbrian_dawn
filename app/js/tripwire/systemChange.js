@@ -98,7 +98,7 @@ tripwire.systemChange = function(systemID, mode) {
         $("#infoFaction").html("&nbsp;");
     } else {
         // Security
-		const securityText = {HS: 'High-Sec', LS: 'Low-Sec', NS: 'Null-Sec' }[system.systemTypeName];
+		const securityText = {HS: 'High-Sec', LS: 'Low-Sec', NS: 'Null-Sec', 'Trig': 'Triglavian' }[system.systemTypeName];
        $("#infoSecurity").addClass(system.systemTypeClass).html(securityText + " " + system.baseSecurity.toFixed(2) + system.systemTypeModifiers.join(' '));
 
         // Faction

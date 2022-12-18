@@ -1,9 +1,7 @@
 version: "3"
 services:
   nginx:
-    build:
-      context: .
-      dockerfile: .docker/nginx/Dockerfile
+    build: .docker/nginx
     container_name: nginx
     ports:
       - 8081:80
@@ -17,17 +15,14 @@ services:
       - "traefik.enable=true" # Traefik is not enabled on all services by default
     volumes:
       - "./:/opt/app"
-    command: nginx
 
   php-fpm:
-    build:
-      context: .
-      dockerfile: .docker/php-fpm/Dockerfile
+    build: .docker/php-fpm
+    container_name: php-fpm
     networks:
       - tripwire
     volumes:
       - "./:/opt/app"
-    command: php-fpm
 
   mysql:
     # image: percona

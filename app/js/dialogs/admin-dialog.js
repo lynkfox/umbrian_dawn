@@ -31,7 +31,7 @@ $("#admin").click(function(e) {
 						if ($row.length) {
 							for (col in rows[i]) {
 								var $col = $row.find("[data-col='"+col+"']");
-								$col.html(($col.attr("data-format") == "number" ? numFormat(rows[i][col]) : rows[i][col]) || "&nbsp;");
+								$col.html(($col.attr("data-format") == "number" ? Intl.NumberFormat().format(rows[i][col]) : rows[i][col]) || "&nbsp;");
 							}
 						} else {
 							$row = $("#dialog-admin .window .hasFocus table tr.hidden").clone();
@@ -39,7 +39,7 @@ $("#admin").click(function(e) {
 
 							for (col in rows[i]) {
 								var $col = $row.find("[data-col='"+col+"']");
-								$col.html(($col.attr("data-format") == "number" ? numFormat(rows[i][col]) : rows[i][col]) || "&nbsp;");
+								$col.html(($col.attr("data-format") == "number" ? Intl.NumberFormat().format(rows[i][col]) : rows[i][col]) || "&nbsp;");
 							}
 
 							$row.removeClass("hidden");

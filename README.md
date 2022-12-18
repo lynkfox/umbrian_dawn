@@ -4,6 +4,7 @@ Some things have changed, read carefully - also Docker has some isssues yet, rec
 
 The landing page twitter feed won't work since the one I used requires a private token, I will have to find a new way to do it later.
 
+
 ### Tripwire - EVE Online wormhole mapping web tool
 
 - MIT license
@@ -37,6 +38,7 @@ Setup:
   esi-characters.read_corporation_roles.v1
   esi-location.read_online.v1
   esi-characters.read_titles.v1
+  esi-search.search_structures.v1
 - Settings go in the `config.php` file
 - Modify your web server to serve Tripwire from the `tripwire/public` folder so the files like `config.php` and `db.inc.php` are not accessible via URL
 - Setup a CRON or schedule for `system_activity.cron.php` to run at the top of every hour. CRON: `0 * * * * php /dir/to/system_activity.cron.php`
@@ -70,6 +72,7 @@ Setup:
   - esi-characters.read_corporation_roles.v1
   - esi-location.read_online.v1
   - esi-characters.read_titles.v1
+  - esi-search.search_structures.v1
 
 **General**
 

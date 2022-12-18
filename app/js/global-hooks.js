@@ -443,19 +443,7 @@ $("#chainTabs").sortable({
 
 $("#chainTabs").on("click", ".tab", function(e) {
 	e.preventDefault();
-
-	if ($(this).hasClass("current")) {
-		$("#chainTabs .tab").removeClass("current");
-		options.chain.active = null;
-	} else {
-		$("#chainTabs .tab").removeClass("current");
-		$(this).addClass("current");
-		options.chain.active = $(this).index();
-	}
-
-	options.save();
-	chain.redraw();
-	tripwire.parse(tripwire.client, "refresh");
+	chain.setActiveTab($(this).hasClass("current") ? null : $(this).index())
 });
 
 $("#chainTabs").on("click", ".closeTab", function(e) {
@@ -519,7 +507,7 @@ $("#newTab").on("click", function() {
 					e.preventDefault();
 					var $tab = $("#chainTab .tab").clone();
 					var name = $("#dialog-newTab .name").val();
-					var systemID = lookupByPropertyMultiple(tripwire.systems, "name", $("#dialog-newTab .sigSystemsAutocomplete").val(), true);
+					var systemID = tripwire.getSystemIDsByNames($("#dialog-newTab .sigSystemsAutocomplete").val());
 					var thera = $("#tabThera")[0].checked ? true : false;
 
 					if (!name) {
@@ -584,7 +572,7 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 					e.preventDefault();
 					var $tab = $("#chainTabs .tab").eq([options.chain.active]);
 					var name = $("#dialog-editTab .name").val();
-					var systemID = lookupByPropertyMultiple(tripwire.systems, "name", $("#dialog-editTab .sigSystemsAutocomplete").val(), true);
+					var systemID = tripwire.getSystemIDsByNames($("#dialog-editTab .sigSystemsAutocomplete").val());
 					var thera = $("#editTabThera")[0].checked ? true : false;
 
 					if (!name) {
@@ -736,11 +724,27 @@ $("#chainParent").contextmenu({
 				nodeElem.hasClass("greenNode") ? $(this).contextmenu("removeFlare", id, ui) : $(this).contextmenu("setFlare", id, ui.cmd, ui);
 				break;
 			case "mass":
-				$("#dialog-mass").data("id", nodeElem.data("sigid")).data("systemID", nodeElem.data("nodeid")).dialog("open");
+				$("#dialog-mass").data("id", nodeElem.data("sigid")).data("systemID", id).dialog("open");
+				break;
+			case "ping":
+				$("#dialog-ping").data("id", nodeElem.data("sigid") || null).data("systemID", id).dialog("open");
 				break;
 			case "collapse":
 				var toggle = options.chain.tabs[options.chain.active] ? ($.inArray(id, options.chain.tabs[options.chain.active].collapsed) == -1 ? true : false) : true;
 				chain.renderer.collapse(id, toggle);
+				break;
+			case "makeTab":
+				const existingTabIndex = Object.index(options.chain.tabs, 'systemID', '' + id, false);
+				if(undefined !== existingTabIndex) {
+					chain.setActiveTab(existingTabIndex);
+				} else {
+					const systemName = tripwire.systems[id].name;
+					options.chain.tabs.push({systemID: '' + id, name: systemName});
+					var newTab = $("#chainTab .tab").clone();
+					newTab.attr('id', options.chain.tabs.length - 1).find(".name").data("tab", id).html(systemName);
+					$("#chainTabs").append(newTab);
+					chain.setActiveTab(options.chain.tabs.length - 1);
+				}
 				break;
 		}
 	},
@@ -758,12 +762,17 @@ $("#chainParent").contextmenu({
 			$(this).contextmenu("enableEntry", "addWay", true);
 			$(this).contextmenu("enableEntry", "showMap", false);
 		}
-
+		
+		// Add check for in-sig
 		if (wormholeID) {
 			$(this).contextmenu("enableEntry", "mass", true);
 		} else {
 			$(this).contextmenu("enableEntry", "mass", false);
 		}
+		
+		// Add check for tab validity
+		const existingTab = Object.find(options.chain.tabs, 'systemID', '' + systemID, false);
+		$('#makeTabMenuItem').text(existingTab ? 'View Tab' : 'Make Tab' );
 	},
 	create: function(e, ui) {
 		// Fix some bad CSS from jQuery Position
@@ -803,9 +812,9 @@ $("#chainParent").contextmenu({
                         var totalMass = 0;
 						for (x in data.mass) {
                             totalMass += parseFloat(data.mass[x].mass);
-							$("#dialog-mass #massTable tbody").append("<tr><td>"+data.mass[x].characterName+"</td><td>"+(data.mass[x].toID == systemID ? "In" : "Out")+"</td><td>"+data.mass[x].shipType+"</td><td>"+numFormat(data.mass[x].mass)+"Kg</td><td>"+data.mass[x].time+"</td></tr>");
+							$("#dialog-mass #massTable tbody").append("<tr><td>"+data.mass[x].characterName+"</td><td>"+(data.mass[x].toID == systemID ? "In" : "Out")+"</td><td>"+data.mass[x].shipType+"</td><td>"+Intl.NumberFormat().format(data.mass[x].mass)+"Kg</td><td>"+data.mass[x].time+"</td></tr>");
 						}
-                        $("#dialog-mass #massTable tbody").append("<tr><td></td><td></td><td></td><th>"+ numFormat(totalMass) +"Kg</th><td></td></tr>");
+                        $("#dialog-mass #massTable tbody").append("<tr><td></td><td></td><td></td><th>"+ Intl.NumberFormat().format(totalMass) +"Kg</th><td></td></tr>");
 					}
 				});
 			}

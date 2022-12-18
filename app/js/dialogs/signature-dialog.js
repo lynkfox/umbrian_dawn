@@ -25,7 +25,7 @@ function openSignatureDialog(e) {
 		default: delete sigDialogVM.sigId;
 	}
 	
-	sigDialogVM.viewingSystemID = (tripwire.client.signatures[sigDialogVM.sigId] || {systemID: viewingSystemID }).systemID;
+	sigDialogVM.viewingSystemID = ( sigDialogVM.sigId ) ? tripwire.client.signatures[sigDialogVM.sigId].systemID : viewingSystemID;
 	sigDialogVM.viewingSystem = tripwire.systems[sigDialogVM.viewingSystemID];
 	
 	if (!$("#dialog-signature").hasClass("ui-dialog-content")) {

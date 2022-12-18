@@ -41,7 +41,7 @@ if ($mode == 'active-users' && (checkOwner($mask) || checkAdmin($mask))) {
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':corporationID', $maskCheck[0]);
 	} else {
-		$query = 'SELECT c.characterID AS id, c.characterName, c.corporationID, c.corporationName, c.added FROM characters c WHERE corporationID IN (SELECT eveID FROM groups WHERE eveType = 2 AND joined = 1 AND maskID = :mask UNION SELECT ownerID FROM masks WHERE ownerType = 2 AND maskID = :mask) UNION SELECT c.characterID AS id, c.characterName, c.corporationID, c.corporationName, c.added FROM characters c WHERE characterID IN (SELECT eveID FROM groups WHERE eveType = 1373 AND joined = 1 AND maskID = :mask UNION SELECT ownerID FROM masks WHERE ownerType = 1373 AND maskID = :mask)';
+		$query = 'SELECT c.characterID AS id, c.characterName, c.corporationID, c.corporationName, c.added FROM characters c WHERE corporationID IN (SELECT eveID FROM `groups` WHERE eveType = 2 AND joined = 1 AND maskID = :mask UNION SELECT ownerID FROM masks WHERE ownerType = 2 AND maskID = :mask) UNION SELECT c.characterID AS id, c.characterName, c.corporationID, c.corporationName, c.added FROM characters c WHERE characterID IN (SELECT eveID FROM `groups` WHERE eveType = 1373 AND joined = 1 AND maskID = :mask UNION SELECT ownerID FROM masks WHERE ownerType = 1373 AND maskID = :mask)';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':mask', $mask);
 	}

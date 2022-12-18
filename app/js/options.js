@@ -90,12 +90,12 @@ var options = new function() {
 		}
 
 		// Grid layout (detect old IGB setting options)
-		if (this.grid.hasOwnProperty("oog") && !isEmpty(this.grid.oog)) {
+		if (this.grid.hasOwnProperty("oog") && Object.keys(this.grid.oog||{}).length) {
 			$.each(this.grid.oog, function() {
 				$("#"+this.id).attr({"data-col": this.col, "data-row": this.row, "data-sizex": this.size_x, "data-sizey": this.size_y})
 					.css({width: this.width, height: this.height});
 			});
-		} else if (!isEmpty(this.grid)) {
+		} else if (Object.keys(this.grid||{}).length) {
 			$.each(this.grid, function() {
 				$("#"+this.id).attr({"data-col": this.col, "data-row": this.row, "data-sizex": this.size_x, "data-sizey": this.size_y})
 					.css({width: this.width, height: this.height});

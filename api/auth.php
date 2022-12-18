@@ -47,7 +47,7 @@ if (isset($_REQUEST['maskID']) && !empty($_REQUEST['maskID'])) {
             }
 
             if ($checkMask[1] == 0 && $checkMask[0] != 0) {
-                $query = 'SELECT masks.maskID as maskID FROM masks INNER JOIN groups ON masks.maskID = groups.maskID WHERE (ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373) OR (eveID = :corporationID AND eveType = 2) AND masks.maskID = :maskID';
+                $query = 'SELECT masks.maskID as maskID FROM masks INNER JOIN `groups` ON masks.maskID = `groups`.maskID WHERE (ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373) OR (eveID = :corporationID AND eveType = 2) AND masks.maskID = :maskID';
                 $stmt = $mysql->prepare($query);
                 $stmt->bindValue(':characterID', $character->characterID);
                 $stmt->bindValue(':corporationID', $character->corporationID);
