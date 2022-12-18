@@ -145,3 +145,31 @@ $("body").on("click", ".commentSticky", function(e) {
 		}
 	});
 });
+
+function commentSortHandler(sortOrder) {
+	const sortElem = document.getElementById('comment-sort');
+	const containerElem = document.getElementById('comment-container');
+	sortOrder = sortOrder || sortElem.nextSort || getCookie('commentSort') || 'asc';
+	
+	switch(sortOrder) {
+		case 'asc':
+			sortElem.nextSort = 'desc';
+			sortElem.setAttribute('data-icon', 'sort-asc');
+			containerElem.style.flexDirection = 'column';
+			break;
+		case 'desc':
+			sortElem.nextSort = 'asc';
+			sortElem.setAttribute('data-icon', 'sort-desc');
+			containerElem.style.flexDirection = 'column-reverse';
+			break;
+		default: throw 'sort order somehow wrong';
+	}
+	
+	setCookie('commentSort', sortOrder, 3650);
+}
+
+$("body").on("click", "#comment-sort", function(e) {
+	commentSortHandler(undefined);
+});
+
+commentSortHandler();
