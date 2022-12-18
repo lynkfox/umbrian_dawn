@@ -111,7 +111,7 @@ tripwire.systemChange = function(systemID, mode) {
 			if(path) { $('#infoStatics').append('<p><b><a href=".?system=' + tripwire.systems[f].name + '">' +tripwire.systems[f].name + '</a></b>: ' + chain.renderPath(path) + '</p>'); }
 		}
     }
-	
+
 	Tooltips.attach($("#infoStatics [data-tooltip]"));
     Tooltips.attach($("#infoSecurity [data-tooltip]"));
 

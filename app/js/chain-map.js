@@ -244,7 +244,7 @@ var chain = new function() {
 		}
 		
 		function makeCalcChildNode(childID, node, targetSystem) {
-			var path = guidance.findShortestPath(tripwire.map.shortest, [targetSystem - 30000000, node.child.systemID - 30000000]);
+			var path = guidance.findShortestPath(tripwire.map.shortest, targetSystem - 30000000, node.child.systemID - 30000000);
 			if(!path) { return null; }
 			
 			var calcNode = { calculated: true};
@@ -353,7 +353,7 @@ var chain = new function() {
 					node.parent = {};
 					node.parent.id = parentID;
 					node.parent.systemID = tripwire.systems[parent.systemID] ? parent.systemID : parent.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
-					node.parent.name = parent.name;
+					node.parent.name = child.name;
 					node.parent.type = parentType;
 					node.parent.typeBM = null;
 					node.parent.classBM = null;
@@ -364,7 +364,7 @@ var chain = new function() {
 					node.child = {};
 					node.child.id = ++childID;
 					node.child.systemID = tripwire.systems[child.systemID] ? child.systemID : child.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
-					node.child.name = child.name;
+					node.child.name = parent.name;
 					node.child.type = childType;
 					node.child.typeBM = null;
 					node.child.classBM = null;
@@ -463,6 +463,8 @@ var chain = new function() {
 		}
 
 		const systemsInChainMap = {};
+		var closestToViewing = null;
+		
 		for (var x in chainLinks) {
 			var node = chainLinks[x];
 			var row = {c: []};
@@ -472,13 +474,13 @@ var chain = new function() {
 			const nodeTypeMarkup = node.child.path ? 
 				chainMap.renderPath(node.child.path) :
 				"<a href='#' onclick='openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + _.escape(
-					node.parent.name && options.chain.sigNameLocation == 'ref' ? node.parent.name :
-					node.parent.name && options.chain.sigNameLocation == 'ref_prefix' ? node.parent.name + ' - ' + sigText :
+					node.child.name && options.chain.sigNameLocation == 'ref' ? node.child.name :
+					node.child.name && options.chain.sigNameLocation == 'ref_prefix' ? node.child.name + ' - ' + sigText :
 					sigText
 				) + '</a>';
 			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
 			if(node.thirdParty) { additionalClasses.push('third-party', 'third-party-' + node.thirdParty); }
-			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.child.sigIndex, node.parent.name, nodeTypeMarkup, additionalClasses);
+			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.child.sigIndex, node.child.name, nodeTypeMarkup, additionalClasses);
 
 			var parent = {v: node.parent.id};
 
@@ -494,7 +496,22 @@ var chain = new function() {
 			
 			if(modifiers.length) { connections.push(Array(child.v, parent.v, modifiers, node.id)); }
 			
-			if(!node.calculated) { systemsInChainMap[node.child.systemID] = row; }	// store for loops
+			const parentPathHome = (systemsInChainMap[node.parent.systemID] || { pathHome:[]}).pathHome;
+			row.pathHome = parentPathHome.concat(node.child);
+			
+			if(!node.calculated) { 
+				systemsInChainMap[node.child.systemID] = row; // store for loops
+				
+				// check for closest entrance/way home
+				const pathToViewed = guidance.findShortestPath(tripwire.map.shortest, viewingSystemID - 30000000, node.child.systemID - 30000000);
+				if(pathToViewed && (
+					(viewingSystemID == node.child.systemID) || 
+					(pathToViewed && (!closestToViewing || pathToViewed.length < closestToViewing.pathLength))
+				)) {
+					closestToViewing = { systemID: node.child.systemID, pathLength: pathToViewed.length, pathHome: row.pathHome };
+				}
+			}	
+			
 		}
 
 		// Apply critical/destab line colors
@@ -502,7 +519,7 @@ var chain = new function() {
 
 		//this.data.map = chain;
 		//this.data.lines = connections;
-		return {"map": chain, "lines": connections};
+		return {"map": chain, "lines": connections, "closestToViewing": closestToViewing};
 	}
 
 	this.renderPath = function(path) {
@@ -598,7 +615,19 @@ var chain = new function() {
 			WormholeTypeToolTips.attach($("#chainMap .whEffect[data-icon]")); // 0.30ms
 			WormholeRouteToolTips.attach($("#chainMap .path span[data-tooltip]"));
 			SystemActivityToolTips.attach($("#chainMap .nodeClass span[data-tooltip]"));
-
+			
+			// Update dependent controls: Path to chain/home
+			if(data.closestToViewing) {
+				const inChain = data.closestToViewing.pathLength <= 1;
+				const prefixText = inChain ? 'In chain: ' : (data.closestToViewing.pathLength - 1) + 'j from ' ;
+				const pathHomeText = data.closestToViewing.pathHome.slice().reverse()
+					.map(function(n) { return '<a href=".?system=' + tripwire.systems[n.systemID].name + '">' + (n.name || n.signatureID || '???') + '</a>'; })
+					.join(' &gt; ');
+				const pathToChainText = inChain ? '' : '<br/>' + this.renderPath(guidance.findShortestPath(tripwire.map.shortest, data.closestToViewing.systemID - 30000000, viewingSystemID - 30000000));
+				$("#infoExtra").html(prefixText + pathHomeText + pathToChainText);
+				Tooltips.attach($("#infoExtra [data-tooltip]"));
+			} else { $("#infoExtra").text(''); }
+			
 			this.drawing = false;
 		}
 

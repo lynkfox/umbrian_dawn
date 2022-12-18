@@ -153,6 +153,9 @@ var options = new function() {
 				$("#chainTabs").append($tab);
 			}
 		}
+		
+		// Reset routing cache in case routing options changed
+		if(guidance) { guidance.clearCache(); }
 
 		// Draw chain if Tripwire is initialized
 		if (typeof(tripwire) !== "undefined") {
