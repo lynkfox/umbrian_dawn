@@ -9,7 +9,7 @@ if(!isset($_SESSION['userID'])) {
 }
 
 $fetch_data = array(
-	'invasions' => array('url' => 'https://kybernaut.space/invasions.json', 'cache_file' => 'invasions.json', 'cache_for' => 3600),
+	'invasions' => array('url' => 'https://xkybernaut.space/invasions.json', 'cache_file' => 'invasions.json', 'cache_for' => 3600),
 	'thera' => array('url' => 'https://www.eve-scout.com/api/wormholes', 'cache_file' => 'thera.json', 'cache_for' => 60)
 )[$_REQUEST['key']];
 
@@ -25,7 +25,7 @@ if (!file_exists($cache_file) || (time() - filemtime($cache_file) >= $fetch_data
 	if($in_resource) file_put_contents($cache_file, $in_resource);
 	else { 
 		http_response_code(500);
-		die(error_get_last());
+		die(print_r(error_get_last(), true));
 	}
 }
 
