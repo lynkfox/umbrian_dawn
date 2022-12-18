@@ -101,6 +101,11 @@ div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivi
 	background: -webkit-gradient(linear, left top, left bottom, from(#030), to(#040));
 }
 
+#chainMap div.node.frig-chain {
+	border-color: #0a0;
+	border-width: 1px;
+}
+
 #chainMap .node a {
 	font-weight: normal;
 }

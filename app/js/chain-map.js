@@ -480,13 +480,7 @@ var chain = new function() {
 				) + '</a>';
 			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
 			if(node.thirdParty) { additionalClasses.push('third-party', 'third-party-' + node.thirdParty); }
-			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.child.sigIndex, node.child.name, nodeTypeMarkup, additionalClasses);
 
-			var parent = {v: node.parent.id};
-
-			row.c.push(child, parent);
-			chain.rows.push(row);
-			
 			var modifiers = [];			
 			if (node.life == "critical") { modifiers.push('eol'); }
 			if (node.mass == "critical") { modifiers.push('critical'); }
@@ -494,13 +488,25 @@ var chain = new function() {
 			
 			if($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1) { modifiers.push('frig'); }
 			
+			const parentModifiers = (systemsInChainMap[node.parent.systemID] || { chainModifiers:[]}).chainModifiers;
+			row.chainModifiers = modifiers.concat(parentModifiers);
+			
+			row.chainModifiers.forEach(function(cm) { modifiers.push(cm + '-chain')});
+			
+			// Update result set (rows/connections)
+			const child = makeSystemNode(node.child.systemID, node.child.id, node.id, node.child.sigIndex, node.child.name, nodeTypeMarkup, additionalClasses.concat(modifiers));
+
+			var parent = {v: node.parent.id};
+
+			row.c.push(child, parent);
+			chain.rows.push(row);
 			if(modifiers.length) { connections.push(Array(child.v, parent.v, modifiers, node.id)); }
 			
 			const parentPathHome = (systemsInChainMap[node.parent.systemID] || { pathHome:[]}).pathHome;
 			row.pathHome = parentPathHome.concat(node.child);
 			
 			if(!node.calculated) { 
-				systemsInChainMap[node.child.systemID] = row; // store for loops
+				systemsInChainMap[node.child.systemID] = row; // store for loops/chain modifiers
 				
 				// check for closest entrance/way home
 				const pathToViewed = guidance.findShortestPath(tripwire.map.shortest, viewingSystemID - 30000000, node.child.systemID - 30000000);
@@ -511,7 +517,6 @@ var chain = new function() {
 					closestToViewing = { systemID: node.child.systemID, pathLength: pathToViewed.length, pathHome: row.pathHome };
 				}
 			}	
-			
 		}
 
 		// Apply critical/destab line colors
