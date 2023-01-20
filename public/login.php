@@ -208,7 +208,7 @@ if ($mode == 'login') {
 		      exit();
 		    }
 
-			if (!$affiliation = $esi->getAffilitation(($account->characterID))) {
+			if (!$affiliation = $esi->getAffilitation($account->characterID)) {
 			  header('Location: ./?error=login-unknown#login#sso');
 		      exit();
 			}
