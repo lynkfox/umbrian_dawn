@@ -70,7 +70,12 @@ if ($mode == 'user') {
       exit();
     }
 
-    if (!$corporation = $esi->getCorporation($character->corporation_id)) {
+	if(!$affiliation = $esi->getAffilitation($esi->characterID)){
+		header('Location: ./?error=register-unknown#register');
+      exit();
+	}
+
+    if (!$corporation = $esi->getCorporation($affiliation[$esi->characterID]->corporation_id)) {
       // Something crazy happened on CCP's end
       header('Location: ./?error=register-unknown#register');
       exit();
@@ -93,7 +98,7 @@ if ($mode == 'user') {
 		$stmt->bindValue(':userID', $userID);
 		$stmt->bindValue(':characterID', $esi->characterID);
 		$stmt->bindValue(':characterName', $esi->characterName);
-		$stmt->bindValue(':corporationID', $character->corporation_id);
+		$stmt->bindValue(':corporationID', $affiliation[$esi->characterID]->corporation_id);
 		$stmt->bindValue(':corporationName', $corporation->name);
 		$stmt->execute();
 
