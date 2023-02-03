@@ -25,7 +25,12 @@ class esi {
 
 		if ($params) {
 			curl_setopt($curl, CURLOPT_POST, true);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));
+			if(is_array($params)){
+				curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));
+			}else{
+				curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+			}
+			
 		}
 
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -172,6 +177,38 @@ class esi {
 		}
 
 		return json_decode($result);
+	}
+
+	public function getAffilitation($characterIDs){
+		if(!is_array($characterIDs))
+		{
+			$characterIDs = array($characterIDs);
+		}
+
+		$result = $this->getAPI(self::$esiUrl . "/v2/characters/affiliation/", array(), json_encode($characterIDs));
+
+		$data = json_decode($result);
+
+		$parsed = array();
+		foreach($data as $affil){
+			$parsed[$affil->character_id] = $affil;
+		}
+		return $parsed;
+	}
+
+	public function getNames($ids){
+		if(!is_array($ids))
+		{
+			$ids = array($ids);
+		}
+		$result = $this->getAPI(self::$esiUrl.'/v3/universe/names', array(), json_encode($ids));
+		$data = json_decode($result);
+		$parsed = array();
+		foreach($data as $name)
+		{
+			$parsed[$name->id] = $name;
+		}
+		return $parsed;
 	}
 
 	public function getCharacterRoles($characterID) {
