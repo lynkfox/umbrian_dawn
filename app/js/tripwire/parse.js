@@ -88,8 +88,8 @@ tripwire.parse = function(server, mode) {
 
 /** Find if there is an unknown return sig. The markup is always generated (in addSignature.js) */
 tripwire.updateReturnStatus = function() {
-	const inSigId = $("#chainMap [data-nodeid='"+viewingSystemID+"']").attr('data-insigid');
-	const wormholeId = $("#chainMap [data-nodeid='"+viewingSystemID+"']").attr('data-sigid');
+	const inSigId = $("#chainMap [data-nodeid='"+viewingSystemID+"']:not(.calc)").attr('data-insigid');
+	const wormholeId = $("#chainMap [data-nodeid='"+viewingSystemID+"']:not(.calc)").attr('data-sigid');
 	const wormhole = tripwire.client.wormholes[wormholeId] || {};
 	// One of the two ends should be in this system, In sig will be the wrong end, so find the other end
 	const returnSigId = wormhole.initialID == inSigId ? wormhole.secondaryID : wormhole.initialID;
