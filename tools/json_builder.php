@@ -4,7 +4,6 @@
  ToDo:
 	- Button to create womrhole effects JSON file & include in combine.json
 	- Button to create pirates JSON file & include in combine.json
-	- Make a statics JSON files & include in combine.json
 	- Create a way to crawl for statics and include run from here
 **/
 
@@ -17,14 +16,6 @@ if(!isset($_SESSION['super']) || $_SESSION['super'] != 1) {
 
 require_once('../config.php');
 require_once('../db.inc.php');
-
-/*
-$contents = file(dirname(__FILE__).'/statics.json');
-foreach ($contents AS $line) {
-	$statics[substr($line, 0, 7)][] = substr($line, 8, 4);
-}
-echo json_encode($statics);
-*/
 
 if(isset($_REQUEST['map'])) {
 	$shortest = array();
@@ -44,6 +35,18 @@ if(isset($_REQUEST['map'])) {
 
 	if ($file = fopen(dirname(__FILE__).'/map.json', 'w')) {
 		fwrite($file, json_encode(array('shortest' => $shortest)));
+		fclose($file);
+	}
+}
+
+if(isset($_REQUEST['mass'])) {
+	$query = 'SELECT t.typeID, t.typeName, t.mass FROM '. EVE_DUMP .'.invtypes t inner join '. EVE_DUMP .'.invgroups g on g.groupID=t.groupID inner join '. EVE_DUMP .'.invcategories c on c.categoryID=g.categoryID where c.categoryID=6';
+	$stmt = $mysql->prepare($query);
+	$stmt->execute();
+
+	$mass = $stmt->fetchAll(PDO::FETCH_CLASS);
+	if ($file = fopen(dirname(__FILE__).'/mass.json', 'w')) {
+		fwrite($file, json_encode($mass));
 		fclose($file);
 	}
 }
@@ -95,6 +98,9 @@ if (isset($_REQUEST['combine'])) {
 		// Effects
 		$output['effects'] = json_decode(file_get_contents(dirname(__FILE__).'/effects.json'));
 
+		// Ship mass
+		$output['mass'] = json_decode(file_get_contents(dirname(__FILE__).'/mass.json'));
+
 		fwrite($file, json_encode($output));
 		fclose($file);
 	}
@@ -102,7 +108,10 @@ if (isset($_REQUEST['combine'])) {
 
 ?>
 
-<div style="margin: 0 auto; width: 50%;">
-	<input type="button" value="Generate map.json" onclick="window.location.href='?map=true';" />
-	<input type="button" value="Generate combine.json" onclick="window.location.href='?combine=true';" />
+<div style="margin: 0 auto; width: 50%; text-align: center">
+	<p>
+		<input type="button" value="Generate map.json" onclick="window.location.href='?map=true';" />
+		<input type="button" value="Generate mass.json" onclick="window.location.href='?mass=true';" />
+	</p>
+	<p><input type="button" value="Generate combine.json" onclick="window.location.href='?combine=true';" /></p>
 </div>
