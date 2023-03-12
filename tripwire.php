@@ -430,7 +430,7 @@ if ($row = $stmt->fetchObject()) {
 						<span class="select">
 							<select name="wormholeLife">
 								<option value="stable">Stable</option>
-								<option value="critical">Critical</option>
+								<option value="critical">End of life</option>
 							</select>
 						</span>
 						<span id="wormholeMass">
@@ -743,7 +743,7 @@ if ($row = $stmt->fetchObject()) {
 						<td>
 							<select id="renderer">
 								<option value="orgChart">Org Chart</option>
-								<option value="radial">Radial (System in middle) - Experimental</option>
+								<option value="radial">Radial (System in middle)</option>
 							</select>
 						</td>
 					</tr>
