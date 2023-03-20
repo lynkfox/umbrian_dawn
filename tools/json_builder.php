@@ -44,7 +44,7 @@ if(isset($_REQUEST['mass'])) {
 	$stmt = $mysql->prepare($query);
 	$stmt->execute();
 
-	$mass = $stmt->fetchAll(PDO::FETCH_CLASS);
+	$mass = $stmt->fetchAll(PDO::FETCH_UNIQUE | PDO::FETCH_ASSOC);
 	if ($file = fopen(dirname(__FILE__).'/mass.json', 'w')) {
 		fwrite($file, json_encode($mass));
 		fclose($file);
