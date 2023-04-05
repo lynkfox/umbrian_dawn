@@ -120,33 +120,14 @@ require_once('config.php');
 			<!-- Start Home -->
 			<div id="home" class="page">
 				<h1>News</h1>
+				<div id="news">
+					<!-- Self hosters will probably want to put your own news items here -->
+					<h2>Tripwire in 2023</h2>
+					<p>Tripwire continues to receive feature updates (in 1.20, it got one click return, an EVE time indicator and closest way home cues from K space) and maintenance (when CCP change how ESI works, or changes the map).</p>
+					
+					<p>Please consider helping fund the server maintenance or contributing to development so we can keep this resource going and up to date!</p>
+				</div>
 
-				<div id="tweetfeed"></div>
-				<!-- <div id="slider">
-					<div class="slide" data-effect-out="slide">
-						<div class="background screenshot">
-							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/igb.jpg" alt="" width="100%" />
-						</div>
-					</div>
-					<div class="slide" data-effect-in="slide">
-						<div class="background screenshot">
-							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/chrome.jpg" alt="" width="100%" />
-						</div>
-					</div>
-					<div class="slide">
-						<div class="background android">
-							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/droid.jpg" alt="" />
-						</div>
-						<div class="foreground android">
-							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/droid.jpg" alt="" />
-						</div>
-					</div>
-					<div class="slide">
-						<div class="background ipad-black">
-							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/ipad.jpg" alt="" />
-						</div>
-					</div>
-				</div> -->
 			</div>
 			<!-- End Home -->
 
@@ -599,28 +580,5 @@ require_once('config.php');
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/jquery.infieldlabel.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/jquery.echoslider.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/landing.js"></script>
-	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/tweetie.min.js"></script>
-
-	<!-- Twitter feed -->
-	<script type="text/javascript">
-		$('#home #tweetfeed').tweetie({
-			"apiPath": "tweetie.php",
-			"type": "timeline",
-			"params": {"count": 10, "q": "#evetripwire", "result_type": "recent", "exclude_replies": true, "tweet_mode": "extended"},
-			"template": "<p class='tweet'>{{tweet.created_at}} - {{tweet.full_text}}</p>"
-		}, function() {
-			$(".tweet").each(function() {
-				// Remove hashtags
-				$(this).find("a").each(function() {
-					if ($(this).text()[0] == "#") {
-						$(this).remove()
-					}
-				});
-			});
-
-			setTimeout('FluidNav.resizePage()', 300);
-		});
-	</script>
-
 </body>
 </html>
