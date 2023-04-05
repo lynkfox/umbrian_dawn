@@ -86,11 +86,11 @@ require_once('config.php');
 			<p>Tripwire is an open source wormhole mapping tool, hosted for free to the public, built for use with <a href="https://www.eveonline.com" target="_blank">EVE Online</a>. Using the latest in internet security standards it is the most secure tool in New Eden.</p>
 
 			<div class="buttons">
-				<a href="#register#admin" class="large_button" id="corp">
+				<a href="#register#admin" class="large_button corp">
 					<span class="icon-corp"></span>
 					<em>Register now as</em> Admin
 				</a>
-				<a href="#register#user" class="large_button" id="user">
+				<a href="#register#user" class="large_button proceed">
 					<span class="icon-player"></span>
 					<em>Register now as</em> User
 				</a>
@@ -131,14 +131,19 @@ require_once('config.php');
 			<!-- Start Login -->
 			<div id="login" class="page">
 <?php if (isset($_SESSION['userID'])) { ?>
-				<h1>Your currently logged in as...</h1>
+				<h1>You're currently logged in as...</h1>
 				<div style="text-align: center;">
 					<img src="//image.eveonline.com/Character/<?= $_SESSION['characterID'] ?>_128.jpg" />
 					<p><?= $_SESSION['characterName'] ?></p>
 					<p style="padding-top: 25px;">
-						<a href="logout.php" class="large_button" style="text-align: center;" id="windows">
+						<a href="?system=" class="large_button proceed" style="text-align: center;">
+							<span>Continue</span>
+						</a>
+						
+						<a href="logout.php" class="large_button logout" style="text-align: center;">
 							<span>Logout</span>
 						</a>
+						
 					</p>
 				</div>
 <?php } else { ?>
