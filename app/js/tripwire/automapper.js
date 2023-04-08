@@ -17,6 +17,12 @@ tripwire.autoMapper = function(from, to) {
     // Make sure from and to are not the same system
     if (from == to)
         return false;
+	
+	// Not into a special region e.g. abyssal space
+	if(tripwire.systems[from].regionID > 12000000 || tripwire.systems[to].regionID > 12000000) {
+		console.info('Not automapping into abyssal or other special space');
+		return false;
+	}
 
     // Is pilot in a station?
     if (tripwire.client.EVE && tripwire.client.EVE.stationID)
