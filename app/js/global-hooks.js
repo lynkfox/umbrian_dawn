@@ -808,11 +808,12 @@ $("#chainParent").contextmenu({
 					data: payload,
 					dataType: "JSON"
 				}).done(function(data) {
-					if (data && data.mass) {
+					if (data && data.jumps) {
                         var totalMass = 0;
-						for (x in data.mass) {
-                            totalMass += parseFloat(data.mass[x].mass);
-							$("#dialog-mass #massTable tbody").append("<tr><td>"+data.mass[x].characterName+"</td><td>"+(data.mass[x].toID == systemID ? "In" : "Out")+"</td><td>"+data.mass[x].shipType+"</td><td>"+Intl.NumberFormat().format(data.mass[x].mass)+"Kg</td><td>"+data.mass[x].time+"</td></tr>");
+						for (x in data.jumps) {
+							const jumpMass = parseFloat(appData.mass[data.jumps[x].shipTypeID].mass);
+                            totalMass += jumpMass;
+							$("#dialog-mass #massTable tbody").append("<tr><td>"+data.jumps[x].characterName+"</td><td>"+(data.jumps[x].toID == systemID ? "In" : "Return")+"</td><td>"+appData.mass[data.jumps[x].shipTypeID].typeName+"</td><td>"+Intl.NumberFormat().format(jumpMass)+"Kg</td><td>"+data.jumps[x].time+"</td></tr>");
 						}
                         $("#dialog-mass #massTable tbody").append("<tr><td></td><td></td><td></td><th>"+ Intl.NumberFormat().format(totalMass) +"Kg</th><td></td></tr>");
 					}

@@ -1,4 +1,5 @@
 <?php
+require_once('db.inc.php');
 
 function checkOwner($mask) {
 	global $mysql;
