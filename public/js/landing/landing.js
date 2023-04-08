@@ -19,7 +19,7 @@ var FluidNav = {
 			}
 		});
 
-		FluidNav.goTo(window.location.hash.substring() != "" ? window.location.hash.split("#")[1] : "home", window.location.hash.substring() != "" ? window.location.hash.split("#")[2] : "");
+		FluidNav.goTo(window.location.hash.substring() != "" ? window.location.hash.split("#")[1] : "login", window.location.hash.substring() != "" ? window.location.hash.split("#")[2] : "");
 	},
 	goTo: function(page, section) {
 		if (page != $(".page.current").attr("id")) {

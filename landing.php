@@ -65,9 +65,6 @@ require_once('config.php');
 					<li><a href="#login">Login</a></li>
 					<li><a href="#register">Register</a></li>
 					<!-- <li><a href="#team">Team</a></li> -->
-					<li><a href="#features">Features</a></li>
-					<!-- <li><a href="#screenshots">Screenshots</a></li> -->
-					<!-- <li><a href="#updates">Updates</a></li> -->
 					<li><a href="https://bitbucket.org/daimian/tripwire/issues?status=new&status=open" target="_blank">Issue/Idea Tracker</a></li>
 				</ul>
 				<span class="arrow"></span>
@@ -89,11 +86,11 @@ require_once('config.php');
 			<p>Tripwire is an open source wormhole mapping tool, hosted for free to the public, built for use with <a href="https://www.eveonline.com" target="_blank">EVE Online</a>. Using the latest in internet security standards it is the most secure tool in New Eden.</p>
 
 			<div class="buttons">
-				<a href="#register#admin" class="large_button" id="corp">
+				<a href="#register#admin" class="large_button corp">
 					<span class="icon-corp"></span>
 					<em>Register now as</em> Admin
 				</a>
-				<a href="#register#user" class="large_button" id="user">
+				<a href="#register#user" class="large_button proceed">
 					<span class="icon-player"></span>
 					<em>Register now as</em> User
 				</a>
@@ -120,47 +117,33 @@ require_once('config.php');
 			<!-- Start Home -->
 			<div id="home" class="page">
 				<h1>News</h1>
+				<div id="news">
+					<!-- Self hosters will probably want to put your own news items here -->
+					<h2>Tripwire in 2023</h2>
+					<p>Tripwire continues to receive feature updates (in 1.20, it got one click return, an EVE time indicator and closest way home cues from K space) and maintenance (when CCP change how ESI works, or changes the map).</p>
+					
+					<p>Please consider helping fund the server maintenance or contributing to development so we can keep this resource going and up to date!</p>
+				</div>
 
-				<div id="tweetfeed"></div>
-				<!-- <div id="slider">
-					<div class="slide" data-effect-out="slide">
-						<div class="background screenshot">
-							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/igb.jpg" alt="" width="100%" />
-						</div>
-					</div>
-					<div class="slide" data-effect-in="slide">
-						<div class="background screenshot">
-							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/chrome.jpg" alt="" width="100%" />
-						</div>
-					</div>
-					<div class="slide">
-						<div class="background android">
-							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/droid.jpg" alt="" />
-						</div>
-						<div class="foreground android">
-							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/droid.jpg" alt="" />
-						</div>
-					</div>
-					<div class="slide">
-						<div class="background ipad-black">
-							<img src="//<?= CDN_DOMAIN ?>/images/landing/devices/ipad.jpg" alt="" />
-						</div>
-					</div>
-				</div> -->
 			</div>
 			<!-- End Home -->
 
 			<!-- Start Login -->
 			<div id="login" class="page">
 <?php if (isset($_SESSION['userID'])) { ?>
-				<h1>Your currently logged in as...</h1>
+				<h1>You're currently logged in as...</h1>
 				<div style="text-align: center;">
 					<img src="//image.eveonline.com/Character/<?= $_SESSION['characterID'] ?>_128.jpg" />
 					<p><?= $_SESSION['characterName'] ?></p>
 					<p style="padding-top: 25px;">
-						<a href="logout.php" class="large_button" style="text-align: center;" id="windows">
+						<a href="?system=" class="large_button proceed" style="text-align: center;">
+							<span>Continue</span>
+						</a>
+						
+						<a href="logout.php" class="large_button logout" style="text-align: center;">
 							<span>Logout</span>
 						</a>
+						
 					</p>
 				</div>
 <?php } else { ?>
@@ -328,168 +311,6 @@ require_once('config.php');
 			</div> -->
 			<!-- End Team -->
 
-			<!-- Start Features -->
-			<div id="features" class="page">
-				<h1>Features</h1>
-
-				<div class="feature_list content_box">
-					<div class="one_half">
-						<h2 class="icon chart">Clean Fast Pretty</h2>
-						<p>With a careful balance between a clean and beautiful interface, and speed that pushes the limits of the internet - its hard not to want to use it</p>
-					</div>
-					<div class="one_half column_last">
-						<h2 class="icon settings">Customizable</h2>
-						<p>The entire layout can be resized and moved around in order to give you the ultimate in customizable experiences</p>
-					</div>
-					<div class="one_half">
-						<h2 class="icon pencil">Shared Information</h2>
-						<p>Everything entered from signatures to system notes; from your ship to your location; even flares to draw attention to a system is instantly syncronized with your friends</p>
-					</div>
-					<div class="one_half column_last">
-						<h2 class="icon graph">Detailed Intel</h2>
-						<p>System information like activity (jumps, kills), static wormholes, wormhole effects, security and local pirates are at your fingertips</p>
-					</div>
-					<div class="one_half">
-						<h2 class="icon professional">Professionally Secure</h2>
-						<p>Secured with an A+ rated e-commerce SSL certificate and the latest internet security standards, you can be sure your intel is safe and secure</p>
-					</div>
-					<div class="one_half column_last">
-						<h2 class="icon help">Help &amp; Support</h2>
-						<p>Help is just around the corner via the "Tripwire Public" EVE channel, <a href="https://bitbucket.org/daimian/tripwire/issues?status=new&status=open" target="_blank">Issue/Idea Tracker</a>, Twitter @DaimianMercer, and email <a href="mailto: daimian.mercer@gmail.com">daimian.mercer@gmail.com</a>.</p>
-					</div>
-				</div>
-			</div>
-			<!-- End Features -->
-
-			<!-- Start Screenshots -->
-			<!-- <div id="screenshots" class="page">
-				<h1>Screenshots</h1>
-				<div class="screenshot_grid content_box">
-					<div class="one_third">
-						<a href="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss1.jpg" class="fancybox" rel="group" title="Screenshot 1"><img src="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss1thumb.jpg" alt="" /></a>
-					</div>
-					<div class="one_third">
-						<a href="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss2.jpg" class="fancybox" rel="group" title="Screenshot 2"><img src="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss2thumb.jpg" alt="" /></a>
-					</div>
-					<div class="one_third column_last">
-						<a href="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss3.jpg" class="fancybox" rel="group" title="Screenshot 3"><img src="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss3thumb.jpg" alt="" /></a>
-					</div>
-					<div class="one_third">
-						<a href="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss4.jpg" class="fancybox" rel="group" title="Screenshot 4"><img src="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss4thumb.jpg" alt="" /></a>
-					</div>
-					<div class="one_third">
-						<a href="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss5.jpg" class="fancybox" rel="group" title="Screenshot 5"><img src="//<?= CDN_DOMAIN ?>/images/landing/screenshots/ss5thumb.jpg" alt="" /></a>
-					</div>
-					<div class="one_third column_last">
-						<a href="" class="fancybox" rel="group" title="Screenshot 6"><img src="" alt="" /></a>
-					</div>
-
-					<div class="one_third">
-						<a href="" class="fancybox" rel="group" title="Screenshot 7"><img src="" alt="" /></a>
-					</div>
-					<div class="one_third">
-						<a href="" class="fancybox" rel="group" title="Screenshot 8"><img src="" alt="" /></a>
-					</div>
-					<div class="one_third column_last">
-						<a href="" class="fancybox" rel="group" title="Screenshot 9"><img src="" alt="" /></a>
-					</div>
-				</div>
-			</div> -->
-			<!-- End Screenshots -->
-
-			<!-- Start Updates -->
-			<!-- <div id="updates" class="page">
-				<h1>Updates</h1>
-				<div class="releases">
-					<article class="release">
-						<h2>Version 0.7.3</h2>
-						<span class="date">Released on July 19th, 2015</span>
-						<ul>
-							<li class="new"><span><b>new</b></span> Added Undo/Redo feature</li>
-							<li class="fix"><span><b>fix</b></span> Fixed some missing wormhole statics</li>
-							<li class="fix"><span><b>fix</b></span> Chain map rendering fixes</li>
-						</ul>
-						<h2>Version 0.7.2</h2>
-						<span class="date">Released on July 17th, 2015</span>
-						<ul>
-							<li class="new"><span><b>new</b></span> Added ability to edit chain map tabs</li>
-							<li class="new"><span><b>new</b></span> EVE-Scout Thera chain toggle added</li>
-						</ul>
-						<h2>Version 0.7.1</h2>
-						<span class="date">Released on June 4th, 2015</span>
-						<ul>
-							<li class="new"><span><b>new</b></span> Added Carnyx systems</li>
-							<li class="new"><span><b>new</b></span> Built-in system change (no more reloading)</li>
-							<li class="new"><span><b>new</b></span> System owning faction added</li>
-							<li class="new"><span><b>new</b></span> Issue/Idea Tracker added</li>
-							<li class="fix"><span><b>fix</b></span> Manual adding wormhole name bug</li>
-						</ul>
-						<h2>Version 0.7</h2>
-						<span class="date">Released on January 13th, 2015</span>
-						<ul>
-							<li class="new"><span><b>new</b></span> Chain map tabs system</li>
-							<li class="new"><span><b>new</b></span> Chain map system renaming</li>
-							<li class="new"><span><b>new</b></span> Chain map collapsible systems</li>
-							<li class="new"><span><b>new</b></span> Chain map grid lines</li>
-							<li class="new"><span><b>new</b></span> Background image can now be customized</li>
-							<li class="fix"><span><b>fix</b></span> Paste signatures can now delete missing signatures</li>
-							<li class="fix"><span><b>fix</b></span> Mass tracking enhanced and moved to right-click menu</li>
-							<li class="fix"><span><b>fix</b></span> Chain map core code fixes and performance improvements</li>
-							<li class="fix"><span><b>fix</b></span> Comments now auto-parse urls</li>
-							<li class="fix"><span><b>fix</b></span> Back-end improvements</li>
-						</ul>
-					</article>
-					<article class="release">
-						<h2>Version 0.6.3</h2>
-						<span class="date">Released on December 11th, 2014</span>
-						<ul>
-							<li class="new"><span><b>new</b></span> Completely revamped Notes section</li>
-							<li class="new"><span><b>new</b></span> New Notifications system</li>
-							<li class="new"><span><b>new</b></span> <a href="http://www.eve-scout.com" target="_blank">EvE-Scout.com</a> Thera chain view added</li>
-							<li class="fix"><span><b>fix</b></span> Back-end improvements</li>
-							<li class="fix"><span><b>fix</b></span> Auto-Follower system change improvements</li>
-							<li class="fix"><span><b>fix</b></span> Various fixes & tweaks</li>
-						</ul>
-					</article> -->
-					<!--
-					<article class="release">
-						<h2>Version 0.6.2</h2>
-						<span class="date">Released on November 17th, 2014</span>
-						<ul>
-							<li class="new"><span><b>new</b></span> Wormhole mass tracking via chain map lines</li>
-							<li class="new"><span><b>new</b></span> Tooltips & Context Menu revamp</li>
-							<li class="new"><span><b>new</b></span> Signature adding & editing enhancements</li>
-							<li class="fix"><span><b>fix</b></span> Mass adding via paste fixes & performance improvements</li>
-							<li class="fix"><span><b>fix</b></span> Mac client support improvements, more coming. (Feedback please)</li>
-							<li class="fix"><span><b>fix</b></span> Various fixes & tweaks</li>
-						</ul>
-					</article>
-					<article class="release">
-						<h2>Version 0.6.1</h2>
-						<span class="date">Released on September 26th, 2014</span>
-						<ul>
-							<li class="new"><span><b>new</b></span> Registration & Log In enhancements</li>
-							<li class="fix"><span><b>fix</b></span> jQuery & other library updates</li>
-							<li class="fix"><span><b>fix</b></span> Various fixes & tweaks</li>
-						</ul>
-					</article>
-					<article class="release">
-						<h2>Version 0.6</h2>
-						<span class="date">Released on September 23rd, 2014</span>
-						<ul>
-							<li class="new"><span><b>new</b></span> Mask management system</li>
-							<li class="new"><span><b>new</b></span> Corporate admin system</li>
-							<li class="new"><span><b>new</b></span> Landing page w/ Registration & Log In system</li>
-							<li class="fix"><span><b>fix</b></span> Activity Graph hover details</li>
-							<li class="fix"><span><b>fix</b></span> Chain Map line styling + context menu</li>
-							<li class="fix"><span><b>fix</b></span> Hundreds of minor fixes & tweaks</li>
-						</ul>
-					</article>
-					-->
-				<!-- </div>
-			</div> -->
-			<!-- End Updates -->
-
 			<div id="ccp_copyright" class="page">
 				<p>
 					All Eve Related Materials are Property Of CCP Games
@@ -599,28 +420,5 @@ require_once('config.php');
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/jquery.infieldlabel.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/jquery.echoslider.js"></script>
 	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/landing/landing.js"></script>
-	<script type="text/javascript" src="//<?= CDN_DOMAIN ?>/js/tweetie.min.js"></script>
-
-	<!-- Twitter feed -->
-	<script type="text/javascript">
-		$('#home #tweetfeed').tweetie({
-			"apiPath": "tweetie.php",
-			"type": "timeline",
-			"params": {"count": 10, "q": "#evetripwire", "result_type": "recent", "exclude_replies": true, "tweet_mode": "extended"},
-			"template": "<p class='tweet'>{{tweet.created_at}} - {{tweet.full_text}}</p>"
-		}, function() {
-			$(".tweet").each(function() {
-				// Remove hashtags
-				$(this).find("a").each(function() {
-					if ($(this).text()[0] == "#") {
-						$(this).remove()
-					}
-				});
-			});
-
-			setTimeout('FluidNav.resizePage()', 300);
-		});
-	</script>
-
 </body>
 </html>
