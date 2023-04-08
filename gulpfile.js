@@ -21,6 +21,7 @@ var jsFiles = [
             'app/js/tripwire.js',
             'app/js/global-hooks.js',
             'app/js/systemAnalysis.js',
+			'app/js/system-mutators/*.js',
             'app/js/guidance.js',
 /*            'app/js/thera.js',*/
             'app/js/chain-map-renderer*.js',
