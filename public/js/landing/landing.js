@@ -152,7 +152,7 @@ $(document).ready(function() {
 	});
 
 	// Custom jQuery Tabs
-	$(".tabs").find(".pane:first").show().end().find("ul.nav li:first").addClass("current");
+	$(".tabs").find(".pane:last").show().end().find("ul.nav li:last").addClass("current");
 	$(".tabs ul.nav li a").click(function() {
 		var tab_container = $(this).parent().parent().parent();
 		$(this).parent().parent().find("li").removeClass("current");

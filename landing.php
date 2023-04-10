@@ -150,7 +150,7 @@ require_once('config.php');
 				<h1>Login</h1>
 				<div class="tabs" style="width: 525px;">
 					<ul class="nav">
-						<li class="current">
+						<li>
 							<a href="javascript:;" class="reg">Tripwire</a>
 						</li>
 						<li>
