@@ -12,33 +12,15 @@ $startTime = microtime(true);
 
 require_once('config.php');
 require_once('settings.php');
-require_once('db.inc.php');
 require('lib.inc.php');
 
-// Verify correct system otherwise goto default...
-$query = 'SELECT solarSystemName, systems.solarSystemID, regionName, regions.regionID FROM '. EVE_DUMP .'.mapSolarSystems systems LEFT JOIN '. EVE_DUMP .'.mapRegions regions ON regions.regionID = systems.regionID WHERE solarSystemName = :system';
-$stmt = $mysql->prepare($query);
-$stmt->bindValue(':system', $_REQUEST['system']);
-$stmt->execute();
-if ($row = $stmt->fetchObject()) {
-	$system = $row->solarSystemName;
-	$systemID = $row->solarSystemID;
-	$region = $row->regionName;
-	$regionID = $row->regionID;
-} else {
-	$system = 'Jita';
-	$systemID = '30000142';
-	$region = 'The Forge';
-	$regionID = 10000002;
-}
-
+$system = $_REQUEST['system'];
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="system" content="<?= $system ?>">
-	<meta name="systemID" content="<?= $systemID ?>">
 	<meta name="server" content="<?= CDN_DOMAIN ?>">
 	<meta name="app_name" content="<?= APP_NAME ?>">
 	<meta name="version" content="<?= VERSION ?>">
@@ -430,7 +412,7 @@ if ($row = $stmt->fetchObject()) {
 						<span class="select">
 							<select name="wormholeLife">
 								<option value="stable">Stable</option>
-								<option value="critical">Critical</option>
+								<option value="critical">End of life</option>
 							</select>
 						</span>
 						<span id="wormholeMass">
@@ -743,7 +725,7 @@ if ($row = $stmt->fetchObject()) {
 						<td>
 							<select id="renderer">
 								<option value="orgChart">Org Chart</option>
-								<option value="radial">Radial (System in middle) - Experimental</option>
+								<option value="radial">Radial (System in middle)</option>
 							</select>
 						</td>
 					</tr>

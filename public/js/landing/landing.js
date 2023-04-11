@@ -19,7 +19,7 @@ var FluidNav = {
 			}
 		});
 
-		FluidNav.goTo(window.location.hash.substring() != "" ? window.location.hash.split("#")[1] : "home", window.location.hash.substring() != "" ? window.location.hash.split("#")[2] : "");
+		FluidNav.goTo(window.location.hash.substring() != "" ? window.location.hash.split("#")[1] : "login", window.location.hash.substring() != "" ? window.location.hash.split("#")[2] : "");
 	},
 	goTo: function(page, section) {
 		if (page != $(".page.current").attr("id")) {
@@ -152,7 +152,7 @@ $(document).ready(function() {
 	});
 
 	// Custom jQuery Tabs
-	$(".tabs").find(".pane:first").show().end().find("ul.nav li:first").addClass("current");
+	$(".tabs").find(".pane:last").show().end().find("ul.nav li:last").addClass("current");
 	$(".tabs ul.nav li a").click(function() {
 		var tab_container = $(this).parent().parent().parent();
 		$(this).parent().parent().find("li").removeClass("current");
