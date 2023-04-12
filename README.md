@@ -24,7 +24,7 @@ Requirements:
 Setup:
 
 - Create a `tripwire` database using the export located in `.docker/mysql/tripwire.sql`
-- Create an EVE dump database, define it's name later in `config.php`. Download from: https://www.fuzzwork.co.uk/dump/ To download the latest use the following link: https://www.fuzzwork.co.uk/dump/mysql-latest.tar.bz2
+- For development: create an EVE dump database, define it's name later in `config.php`. Download from: https://www.fuzzwork.co.uk/dump/ To download the latest use the following link: https://www.fuzzwork.co.uk/dump/mysql-latest.tar.bz2. You do not need a copy of the SDE to run Tripwire (since 1.21).
 - Clone the Tripwire repo to where you are going to serve to the public OR manually download repo and copy files yourself
 - Copy `db.inc.example.php` to `db.inc.php` - modify file per your setup
 - Copy `config.example.php` to `config.php` - modify file per your setup
@@ -86,11 +86,13 @@ _TODO: Use either a docker cron or use docker exec commands in crontab_
 
 ### Contribution guidelines
 
-- Base off of production
+- Base off of production or development
+- Create PRs into development
 - Look over issues, branches or get with me to ensure it isn't already being worked on
 
 ### Who do I talk to?
 
-- Josh Glassmaker AKA Daimian Mercer (Project lead / Creator)
+- Astriania / Kariyo Astrien (Main contributor/maintainer)
 - Tripwire Public in-game channel
 - Discord: https://discord.gg/xjFkJAx
+- Josh Glassmaker AKA Daimian Mercer (Creator)
