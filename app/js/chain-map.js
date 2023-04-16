@@ -192,7 +192,7 @@ var chain = new function() {
 				+" class='node " + ((additionalClasses || []).join(' ')) + "'>"
 							+	"<div class='nodeIcons'>"
 							+		"<div style='float: left;'>"
-							+ systemRendering.renderEffect(system)
+							+ systemRendering.renderEffect(system, 'i')
 							+		"</div>"
 							+		"<div style='float: right;'>"
 							+			"<i data-icon='user' class='invisible'></i>"

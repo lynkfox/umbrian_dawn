@@ -1,5 +1,5 @@
 /** Functions for rendering things relating to systems or parts of the chain */
-const systemRendering = function() { 
+const systemRendering = new function() { 
 	/** Render a path, as returned from guidance.findShortestPath */
 	this.renderPath = function(path) {
 		if(path.length <= 1 || path.length > options.chain.routingLimit) { return '' + path.length - 1; }
@@ -22,8 +22,8 @@ const systemRendering = function() {
 		}
 	}
 	
-	this.renderEffect = function(system) {
-		return "<i class='whEffect' "+(system.effectClass ? "data-icon='"+system.effectClass+"' data-tooltip='"+system.effect+"'" : null)+"></i>"
+	this.renderEffect = function(system, tag) {
+		return system.effectClass ? "<" + tag + " class='whEffect' data-icon='"+system.effectClass+"' data-tooltip='"+system.effect+"'></" + tag + ">" : '';
 	}
 
 };
