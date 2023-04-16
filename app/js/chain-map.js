@@ -473,11 +473,11 @@ var chain = new function() {
 					(node.child.type || "(?)") + sigFormat(node.child.typeBM, "type");
 			const nodeTypeMarkup = node.child.path ? 
 				chainMap.renderPath(node.child.path) :
-				"<a href='#' onclick='sigDialog.openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + _.escape(
+				(node.child.sigIndex ? "<a href='#' onclick='sigDialog.openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" : '') + _.escape(
 					node.child.name && options.chain.sigNameLocation == 'ref' ? node.child.name :
 					node.child.name && options.chain.sigNameLocation == 'ref_prefix' ? node.child.name + ' - ' + sigText :
 					sigText
-				) + '</a>';
+				) + (node.child.sigIndex ? '</a>' : '');
 			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
 			if(node.thirdParty) { additionalClasses.push('third-party', 'third-party-' + node.thirdParty); }
 
