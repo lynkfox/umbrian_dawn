@@ -177,8 +177,6 @@ var chain = new function() {
 			// System type switch
 			const system = systemAnalysis.analyse(systemID);
 			var systemType = "<span class='" + system.systemTypeClass + "'>" + system.systemTypeName + system.systemTypeModifiers.join('') + "</span>";
-
-			var effectClass = system.effectClass, effect = system.effect;
 			
 			systemName = _.escape(systemName);
 			const systemNameText = 
@@ -194,7 +192,7 @@ var chain = new function() {
 				+" class='node " + ((additionalClasses || []).join(' ')) + "'>"
 							+	"<div class='nodeIcons'>"
 							+		"<div style='float: left;'>"
-							+			"<i class='whEffect' "+(effectClass ? "data-icon='"+effectClass+"' data-tooltip='"+effect+"'" : null)+"></i>"
+							+ systemRendering.renderEffect(system)
 							+		"</div>"
 							+		"<div style='float: right;'>"
 							+			"<i data-icon='user' class='invisible'></i>"
@@ -427,7 +425,7 @@ var chain = new function() {
 			const sigText = options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "???") :
 					(node.child.type || "(?)") + sigFormat(node.child.typeBM, "type");
 			const nodeTypeMarkup = node.child.path ? 
-				chainMap.renderPath(node.child.path) :
+				systemRendering.renderPath(node.child.path) :
 				"<a href='#' onclick='sigDialog.openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + _.escape(
 					node.child.name && options.chain.sigNameLocation == 'ref' ? node.child.name :
 					node.child.name && options.chain.sigNameLocation == 'ref_prefix' ? node.child.name + ' - ' + sigText :
@@ -482,26 +480,6 @@ var chain = new function() {
 		return {"map": chain, "lines": connections, "closestToViewing": closestToViewing};
 	}
 
-	this.renderPath = function(path) {
-		if(path.length <= 1 || path.length > options.chain.routingLimit) { return '' + path.length - 1; }
-		else {
-			var systemMarkup = path
-			.slice(0, path.length - 1).reverse()
-			.map(function(s) {
-				const systemID = 30000000 + 1 * s;
-				const system = systemAnalysis.analyse(systemID);
-				const securityClass = system.systemTypeClass;
-				return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')" onclick="tripwire.systemChange(' + systemID + ')">' + system.pathSymbol + '</span>';
-			});
-			var r = '<span class="path">';
-			for(var i = 0; i < systemMarkup.length; i++) {
-				if(i > 0 && 0 == i % 5) { r += '|'; }
-				
-				r += systemMarkup[i];				 
-			}
-			return r + '</span>';
-		}
-	}
 
 	this.setActiveTab = function(newIndex) {
 		$("#chainTabs .tab").removeClass("current");
