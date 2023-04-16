@@ -182,6 +182,19 @@ $("#system-favorite").click(function() {
 	options.save();
 });
 
+$('#favorite-dropdown-toggle').click(function() {
+	const target = document.getElementById('favorite-panel');
+	if(target.style.display === 'none') {
+		const listWrapper = document.getElementById('favorite-panel-wrapper');
+		listWrapper.innerHTML = options.favorites.length == 0 ? '<p>You have no favourites. Use the star to add a system.</p>'
+			: options.favorites.map(function(f) {
+				const systemInfo = systemAnalysis.analyse(f);
+				return '<p><a href="?system=' + systemInfo.name + '">' + systemInfo.name + '</a> (<span class="' + systemInfo.systemTypeClass + '">' + systemInfo.systemTypeName + '</span>)';
+			}).join('\n');
+		target.style.display = '';
+	} else { target.style.display = 'none'; }
+});
+
 $("#search").click(function(e) {
 	$("#searchSpan").toggle();
 

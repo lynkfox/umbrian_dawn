@@ -175,41 +175,17 @@ var chain = new function() {
 
 		function makeSystemNode(systemID, id, whId, inSigId, systemName, nodeTypeMarkup, additionalClasses) {
 			// System type switch
-			var systemType = getSystemType(systemID);
-			const system = tripwire.systems[systemID];
+			const system = systemAnalysis.analyse(systemID);
+			var systemType = "<span class='" + system.systemTypeClass + "'>" + system.systemTypeName + system.systemTypeModifiers.join('') + "</span>";
 
-			var effectClass = null, effect = null;
-			if (system && system.effect) {
-				switch(system.effect) {
-					case "Black Hole":
-						effectClass = "blackhole";
-						break;
-					case "Cataclysmic Variable":
-						effectClass = "cataclysmic-variable";
-						break;
-					case "Magnetar":
-						effectClass = "magnetar";
-						break;
-					case "Pulsar":
-						effectClass = "pulsar";
-						break;
-					case "Red Giant":
-						effectClass = "red-giant";
-						break;
-					case "Wolf-Rayet Star":
-						effectClass = "wolf-rayet";
-						break;
-				}
-
-				effect = system.effect;
-			}
+			var effectClass = system.effectClass, effect = system.effect;
 			
 			systemName = _.escape(systemName);
 			const systemNameText = 
-				options.chain.sigNameLocation == 'name' ? (systemName ? systemName : system ? system.name : '&nbsp;') :
+				options.chain.sigNameLocation == 'name' ? (systemName ? systemName : system.name ? system.name : '&nbsp;') :
 				options.chain.sigNameLocation == 'name_prefix' ?
-					(systemName ? systemName + (system ? ' - ' + system.name : '') : (system ? system.name : '&nbsp;')) :
-				(system ? system.name : '&nbsp;');	
+					(systemName ? systemName + (system.name ? ' - ' + system.name : '') : (system.name ? system.name : '&nbsp;')) :
+				(system.name ? system.name : '&nbsp;');	
 
 			var node = {v: id, systemID: systemID };
 			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"
@@ -227,11 +203,11 @@ var chain = new function() {
 							+	"</div>"
 							+	"<h4 class='nodeClass'>"+systemType+"</h4>"
 							+	"<h4 class='nodeSystem'>"
-							+		(system ? "<a href='.?system="+system.name+"'>"+systemNameText+"</a>" : systemNameText)
+							+		(system.name ? "<a href='.?system="+system.name+"'>"+systemNameText+"</a>" : systemNameText)
 							+	"</h4>"
 							+	"<h4 class='nodeType'>" + nodeTypeMarkup + "</h4>"
 							+	"<div class='statics'>"
-							+ formatStatics(system ? system.statics : [])
+							+ formatStatics(system.name ? system.statics : [])
 							+	"</div>"
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
@@ -266,27 +242,6 @@ var chain = new function() {
 			
 			return { childID, calcNode };
 		}
-		
-		function getSystemType(systemID) {
-			var system = systemAnalysis.analyse(systemID);
-			if(!system) { 
-				var leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[systemID.substring(0, systemID.indexOf("|"))] : null;
-				const nodeClass = 
-					leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
-					undefined;
-				const nodeSecurity = 
-					leadsToPointer == "High-Sec" ? 0.8 :
-					leadsToPointer == "Low-Sec" ? 0.4 :
-					leadsToPointer == "Null-Sec" ? -0.1 :
-					undefined;
-				const nodeFaction = 
-					leadsToPointer == "Triglavian" ? 500026 :
-					undefined;
-				
-				system = systemAnalysis.analyse(systemID, { security: nodeSecurity, class: nodeClass, factionID: nodeFaction } );
-			}
-			return "<span class='" + system.systemTypeClass + "'>" + system.systemTypeName + system.systemTypeModifiers.join('') + "</span>";
-		}		
 
 		function findLinks(system) {
 			if (system[0] <= 0) return false;

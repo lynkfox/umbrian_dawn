@@ -137,8 +137,16 @@ $system = $_REQUEST['system'];
 					<div style="float: right;">
 						<span id="favorite-control-wrapper"><!-- for tutorial -->
 							<i id="system-favorite" data-icon="star-empty" data-tooltip="Add/Remove favorite"></i>
-							<span id="favorite-dropdown-toggle" data-tooltip="Show all favorites">...</span>
+							<span id="favorite-dropdown-toggle" class="control" data-tooltip="Show all favorites">...</span>
 						</span>
+						<div id="favorite-panel" class="toggle-panel" style="right: 17px; display: none">
+							<h4>Favorites</h4>
+							<div id='favorite-panel-wrapper'>
+								<p><a href="?system=Jita">Jita</a> (<span class="hisec">0.9</span>)</p>
+								<p><a href="?system=Serpentis+Prime">Serpentis Prime</a> (<span class="nullsec">-1.0</span>)</p>
+								<p><a href="?system=J204635">J204635</a> (<span class="class-4">C4</span>)</p>
+							</div>
+						</div>
 						<span>|</span>
 						<i class="tutorial" data-tooltip="Show tutorial for this section">?</i>
 					</div>
