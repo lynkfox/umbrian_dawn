@@ -561,7 +561,7 @@ var chain = new function() {
 				const pathHomeText = data.closestToViewing.pathHome.slice().reverse()
 					.map(function(n) { return '<a href=".?system=' + tripwire.systems[n.systemID].name + '">' + (n.name || n.signatureID || '???') + '</a>'; })
 					.join(' &gt; ');
-				const pathToChainText = inChain ? '' : '<br/>' + this.renderPath(guidance.findShortestPath(tripwire.map.shortest, data.closestToViewing.systemID - 30000000, viewingSystemID - 30000000));
+				const pathToChainText = inChain ? '' : '<br/>' + systemRendering.renderPath(guidance.findShortestPath(tripwire.map.shortest, data.closestToViewing.systemID - 30000000, viewingSystemID - 30000000));
 				$("#infoExtra").html(prefixText + pathHomeText + pathToChainText);
 				Tooltips.attach($("#infoExtra [data-tooltip]"));
 			} else { $("#infoExtra").text(''); }
