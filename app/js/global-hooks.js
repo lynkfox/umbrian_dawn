@@ -859,6 +859,12 @@ $("#chainParent").contextmenu({
 	}
 });
 
+/** Format a signature ID like abc123 as ABC-123 for user display */
+function formatSignatureID(signatureID) {
+	return (!signatureID) ? '???-###' :
+		(signatureID.length >= 3 ? signatureID.substring(0, 3).toUpperCase() : '') + "-" + (signatureID.length == 6 ? signatureID.substring(3, 6) : "###");
+}
+
 // Used to generate eve-survival guide link
 function linkSig(sigName) {
 	var wormholeSignatures = [

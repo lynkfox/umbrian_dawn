@@ -135,6 +135,7 @@ tripwire.autoMapper = function(from, to) {
                     }
                 },
                 open: function() {
+					pendingDecision = true;
                     $("#dialog-select-signature .optionsTable tbody").empty();
 
                     $.each(wormholes, function(i) {
@@ -148,7 +149,9 @@ tripwire.autoMapper = function(from, to) {
                         $("#dialog-select-signature .optionsTable tbody").append(tr);
                         $("#dialog-select-signature .optionsTable tbody td").wrapInner("<label for='sig"+i+"' />");
                     });
-                }
+                }, close: function() {
+					pendingDecision = false;
+				}
             });
         } else {
             var wormhole = wormholes[0];
