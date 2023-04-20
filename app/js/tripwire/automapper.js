@@ -2,6 +2,8 @@ tripwire.autoMapper = function(from, to) {
     var pods = [33328, 670];
     var undo = [];
 
+	var pendingDecision = false;
+	
     // Convert from & to from system name to system ID for diagnostic testing
     // from = viewingSystemID;
     // to = Object.index(tripwire.systems, 'name', to);
@@ -9,6 +11,12 @@ tripwire.autoMapper = function(from, to) {
     // Make sure the automapper is turned on & not disabled
     if (!$("#toggle-automapper").hasClass("active") || $("#toggle-automapper").hasClass("disabled"))
         return false;
+
+	// Not waiting on a decision for the previous jump
+	if(pendingDecision) {
+		console.info('Not automapping because there is an automap dialog up');
+		return false;
+	}
 
     // Make sure from and to are valid systems
     if (!tripwire.systems[from] || !tripwire.systems[to])
@@ -23,7 +31,7 @@ tripwire.autoMapper = function(from, to) {
 		console.info('Not automapping into abyssal or other special space');
 		return false;
 	}
-
+	
     // Is pilot in a station?
     if (tripwire.client.EVE && tripwire.client.EVE.stationID)
         return false;
@@ -47,6 +55,13 @@ tripwire.autoMapper = function(from, to) {
                }).length > 0) {
        return false;
      }
+	 
+	 // Are both systems already in chain? Loops do happen but it's much more likely ESI missed a jump
+	 function inChain(systemID) { return chain.data.map.rows.filter(r => r.c[0].systemID == 31001980).length > 0; }
+	if(inChain(from) && inChain(to)) {
+		console.info('Not automapping because both systems are already in chain');
+		return false;
+	}	 
 
     var payload = {"signatures": {"add": [], "update": []}};
     var sig, toClass;
