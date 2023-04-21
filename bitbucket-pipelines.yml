@@ -13,5 +13,6 @@ pipelines:
               - npm install gulp
               - npx gulp js css
               # These steps will do nothing if there was no change
-              - git commit public/js public/css -m "Pipeline - Updated built packages"
-              - git push
+              - (git commit public/js public/css -m "Pipeline - Updated built packages" &&
+                git push &&
+                echo 'Updated branch with new build) || echo 'No changes'
