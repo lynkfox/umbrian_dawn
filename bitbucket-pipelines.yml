@@ -1,0 +1,19 @@
+# Front end build - run gulp and check in result if different
+
+image: node:16
+
+pipelines:
+  default:
+        - step:
+            name: Build
+            caches:
+              - node
+            script:
+              - npm install gulp
+              - gulp js css
+        - step:
+            name: Check for changes
+            script:
+              - git status app
+            caches:
+              - node
