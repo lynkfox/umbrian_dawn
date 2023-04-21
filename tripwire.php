@@ -135,7 +135,17 @@ $system = $_REQUEST['system'];
 			<li id="infoWidget" class="gridWidget" data-row="1" data-col="1" data-sizex="7" data-sizey="6" data-min-sizex="5" data-min-sizey="4" style="width: 410px; height: 350px;">
 				<div class="controls">
 					<div style="float: right;">
-						<i id="system-favorite" data-icon="star-empty" data-tooltip="Add/Remove favorite"></i>
+						<span id="favorite-control-wrapper"><!-- for tutorial -->
+							<i id="system-favorite" data-icon="star-empty" data-tooltip="Add/Remove favorite"></i>
+							<span id="favorite-dropdown-toggle" class="control" data-tooltip="Show all favorites">...</span>
+						</span>
+						<div id="favorite-panel" class="toggle-panel" style="right: 17px; display: none">
+							<h4>Favorites</h4>
+							<div id='favorite-panel-wrapper'>
+								<p>Favorites loading ...</p>
+							</div>
+						</div>
+						<span>|</span>
 						<i class="tutorial" data-tooltip="Show tutorial for this section">?</i>
 					</div>
 				</div>

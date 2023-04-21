@@ -7,8 +7,15 @@
     overflow: hidden;
 }
 
-.controls i {
+.controls i, .controls span.control {
 	cursor: pointer;
+}
+
+.controls .toggle-panel {
+	position: absolute;
+    background: #080808;
+    border: 1px #404040 solid;
+    padding: 3px;
 }
 
 .gridster li div.content {
