@@ -1,14 +1,15 @@
 // Hanldes adding to Signatures section
 // ToDo: Use native JS
-tripwire.makeSigInfo = function(sig) {
-	var wormhole = Object.values(tripwire.client.wormholes).find(function (wh) { return wh.initialID == sig.id || wh.secondaryID == sig.id});
+tripwire.makeSigInfo = function(sig, wormhole) {
+	wormhole = wormhole ||	// allow to be passed in to save this lookup
+		Object.values(tripwire.client.wormholes).find(function (wh) { return wh.initialID == sig.id || wh.secondaryID == sig.id});
 	if (!wormhole) return false;
 	var otherSignature = sig.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
 	if (!otherSignature) return false;
 
 	let leadsTo;
 	if (sig.name) {
-	  leadsTo = tripwire.systems[otherSignature.systemID] ? "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+sig.name+"</a>" : sig.name;
+	  leadsTo = tripwire.systems[otherSignature.systemID] ? "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+_.escape(sig.name)+"</a>" : _.escape(sig.name);
 	} else if (tripwire.aSigSystems[otherSignature.systemID]) {
 		leadsTo = tripwire.aSigSystems[otherSignature.systemID];
 	} else if (tripwire.systems[otherSignature.systemID]) {
