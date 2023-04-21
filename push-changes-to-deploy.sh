@@ -12,7 +12,7 @@ git checkout -B $DEPLOY_BRANCH
 # Chain commands so they are all gated on whether public/js and css have changed
 (git commit public/js public/css -m "[skip ci] Pipeline - Updated built packages" \
 	&& NEW_VERSION=`git describe --tags` && sed "s/'VERSION', '.*'/'VERSION', '$NEW_VERSION'/" -i settings.php \
-	&& git commit settings.php --amend \
+	&& git commit settings.php --amend --no-edit \
 	&& git push -u origin head -f \
 	&& echo -e '\033[93mUpdated branch with new build\033[0m' \
 ) || echo -e '\033[36mNo changes\033[0m'
