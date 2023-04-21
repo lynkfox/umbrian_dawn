@@ -6,15 +6,12 @@ pipelines:
   custom:
     build and deploy:
         - step:
-            name: Build
+            name: Build and push back deployed changes
             caches:
               - node
             script:
               - npm install gulp
               - npx gulp js css
-        - step:
-            name: Check for changes
-            script:
-              - git status app
-            caches:
-              - node
+              # These steps will do nothing if there was no change
+              - git commit app -m "Pipeline - Updated built packages"
+              - git push
