@@ -13,7 +13,10 @@ pipelines:
               - npm install gulp
               - npx gulp js css
               # These steps will do nothing if there was no change
+              # Do two commits because we don't want to do the version update if nothing changed otherwise
               -  (git commit public/js public/css -m "[skip ci] Pipeline - Updated built packages"
+                  && NEW_VERSION=`git describe --tags` && sed "s/'VERSION', '.*'/'VERSION', '$NEW_VERSION'/" -i settings.php
+                  && git commit settings.php --amend
                   && git push
                   && echo -e '\033[93mUpdated branch with new build\033[0m'
                  ) || echo -e '\033[36mNo changes\033[0m'
