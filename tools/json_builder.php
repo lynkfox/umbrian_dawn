@@ -54,7 +54,7 @@ if(isset($_REQUEST['mass'])) {
 if (isset($_REQUEST['combine'])) {
 	$output = null;
 
-	if ($file = fopen(dirname(__FILE__).'/combine.json', 'w')) {
+	if ($file = fopen(dirname(dirname(__FILE__)).'/public/js/combine.js', 'w')) {
 		// Statics
 		$statics = json_decode(file_get_contents(dirname(__FILE__).'/statics.json'), true);
 
@@ -101,6 +101,7 @@ if (isset($_REQUEST['combine'])) {
 		// Ship mass
 		$output['mass'] = json_decode(file_get_contents(dirname(__FILE__).'/mass.json'));
 
+		fwrite($file, 'var appData = ');
 		fwrite($file, json_encode($output));
 		fclose($file);
 	}
