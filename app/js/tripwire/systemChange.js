@@ -77,7 +77,7 @@ tripwire.systemChange = function(systemID, mode) {
         // Statics
         for (var x in system.statics) {
             var type = system.statics[x];
-            var wormhole = tripwire.wormholes[type];
+            var wormhole = appData.wormholes[type];
             var color = "wh";
 
             switch (wormhole.leadsTo) {

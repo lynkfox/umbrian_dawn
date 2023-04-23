@@ -67,10 +67,10 @@ tripwire.autoMapper = function(from, to) {
                 if (tripwire.aSigSystems[tripwire.client.signatures[wormhole.secondaryID].systemID] == toClass) {
                     // Find wormholes that Leads To is generically set to the class we just jumped into
                     return wormhole;
-                } else if (wormhole.type && tripwire.wormholes[wormhole.type] && tripwire.wormholes[wormhole.type].leadsTo.replace(' ', '-') == toClass) {
+                } else if (wormhole.type && appData.wormholes[wormhole.type] && appData.wormholes[wormhole.type].leadsTo.replace(' ', '-') == toClass) {
                     // Find wormholes that Type is known to lead to the class we just jumped into
                     return wormhole;
-                } else if (tripwire.client.signatures[wormhole.secondaryID].systemID === null && (!wormhole.type || !tripwire.wormholes[wormhole.type])) {
+                } else if (tripwire.client.signatures[wormhole.secondaryID].systemID === null && (!wormhole.type || !appData.wormholes[wormhole.type])) {
                     // Find wormholes that don't have a Type or any kind of Leads To entered
                     return wormhole;
                 }

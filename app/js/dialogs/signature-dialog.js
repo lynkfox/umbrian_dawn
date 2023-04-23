@@ -44,7 +44,7 @@ sigDialog.openSignatureDialog = function(e) {
 				}
 			},
 			create: function() {
-				var aSigWormholes = $.map(tripwire.wormholes, function(item, index) { return index;});
+				var aSigWormholes = $.map(appData.wormholes, function(item, index) { return index;});
 				aSigWormholes.splice(26, 0, "K162");
 				aSigWormholes.push("GATE");
 				aSigWormholes.push("SML");
@@ -104,8 +104,8 @@ sigDialog.openSignatureDialog = function(e) {
 						$("#dialog-signature .wormholeType").not(this).val("K162");
 
 						// Also auto calculate duration
-						if (tripwire.wormholes[this.value.toUpperCase()]) {
-							$("#dialog-signature #durationPicker").val(tripwire.wormholes[this.value.toUpperCase()].life.substring(0, 2) * 60 * 60).change();
+						if (appData.wormholes[this.value.toUpperCase()]) {
+							$("#dialog-signature #durationPicker").val(appData.wormholes[this.value.toUpperCase()].life.substring(0, 2) * 60 * 60).change();
 						}
 					} else if (this.value.toUpperCase() === "K162") {
 						if ($.inArray($("#dialog-signature .wormholeType").not(this).val().toUpperCase(), aSigWormholes) === -1 || $("#dialog-signature .wormholeType").not(this).val().toUpperCase() === "K162") {
@@ -210,10 +210,10 @@ sigDialog.openSignatureDialog = function(e) {
 						if (Object.index(tripwire.systems, "name", form.leadsTo, true)) {
 							// Leads To is a normal EVE system, so use the sytem ID
 							leadsTo = Object.index(tripwire.systems, "name", form.leadsTo, true)
-						} else if (tripwire.wormholes[form.wormholeType.toUpperCase()]) {
+						} else if (appData.wormholes[form.wormholeType.toUpperCase()]) {
 							// Leads To can be determined by the wormhole type, so lets use what we know it leads to
-							if (tripwire.aSigSystems.findIndex((item) => tripwire.wormholes[form.wormholeType.toUpperCase()].leadsTo.replace(' ', '-').toLowerCase() === item.toLowerCase()) > -1) {
-								leadsTo = tripwire.aSigSystems.findIndex((item) => tripwire.wormholes[form.wormholeType.toUpperCase()].leadsTo.replace(' ', '-').toLowerCase() === item.toLowerCase());
+							if (tripwire.aSigSystems.findIndex((item) => appData.wormholes[form.wormholeType.toUpperCase()].leadsTo.replace(' ', '-').toLowerCase() === item.toLowerCase()) > -1) {
+								leadsTo = tripwire.aSigSystems.findIndex((item) => appData.wormholes[form.wormholeType.toUpperCase()].leadsTo.replace(' ', '-').toLowerCase() === item.toLowerCase());
 							}
 						} else if (tripwire.aSigSystems.findIndex((item) => form.leadsTo.toLowerCase() === item.toLowerCase()) !== -1) {
 							// Leads To is one of the valid types we allow, so use of of those indexes as reference

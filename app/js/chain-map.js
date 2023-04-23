@@ -158,9 +158,9 @@ var chain = new function() {
 			};
 			const classMap = { H: 'hisec', L: 'lowsec', N: 'nullsec', '▼': 'triglavian' };
 			return statics.map(function(s) {
-				const text = shortCodeMap[tripwire.wormholes[s].leadsTo];
+				const text = shortCodeMap[appData.wormholes[s].leadsTo];
 				const className = classMap[text] || 'class-' +  text;
-				const tip = tripwire.wormholes[s].leadsTo + ' via ' + s;
+				const tip = appData.wormholes[s].leadsTo + ' via ' + s;
 				return '<span class="' + className + '" data-tooltip="' + tip + '">' + text + '</span>';
 			}).join('');
 		}
