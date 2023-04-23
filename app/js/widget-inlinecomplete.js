@@ -29,7 +29,7 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 	_coerceSource: function(source) {
 		// Allow an object source like tripwire.systems - coerce it to an array
 		return $.isArray(source) ? source :
-			Object.keys(source).map(function(k) { return Object.assign({ systemID: k }, source[k]); }.bind(this) );
+			Object.keys(source).map(function(k) { return Object.assign({ key: k }, source[k]); }.bind(this) );
 	},
 	_initSource: function() {
 		this.source = function(request, response) {
@@ -39,7 +39,7 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 			var maxSize = this.options.maxSize || 25; // maximum result size
 			// simple loop for the options
 			for (var i = 0, l = dataSource.length; i < l; i++) {
-				const target = dataSource[i].name || dataSource[i];
+				const target = dataSource[i].name || dataSource[i].key || dataSource[i];
 				if (matcher.test(target)) {
 					results.push( { value: target, label: target, content: typeof dataSource[i] === 'object' ? dataSource[i] : undefined });
 
@@ -122,6 +122,7 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 
 const renderers =  {
 	system: function(system) {
-		return systemRendering.renderSystem(systemAnalysis.analyse(undefined, system), 'span');
-	}
+		return systemRendering.renderSystem(systemAnalysis.analyse(undefined, Object.assign( { systemID: system.key }, system)), 'span');
+	},
+	wormholeType: wormholeRendering.renderWormholeType
 };

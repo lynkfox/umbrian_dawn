@@ -44,18 +44,22 @@ sigDialog.openSignatureDialog = function(e) {
 				}
 			},
 			create: function() {
-				var aSigWormholes = $.map(appData.wormholes, function(item, index) { return index;});
-				aSigWormholes.splice(26, 0, "K162");
-				aSigWormholes.push("GATE");
-				aSigWormholes.push("SML");
-				aSigWormholes.push("MED");
-				aSigWormholes.push("LRG");
-				aSigWormholes.push("XLG");
+				var aSigWormholes = Object.assign(
+					{
+						"K162": { },
+						"GATE": { },
+						"SML": { "jump": 5000000 },
+						"MED": { "jump": 62000000 },
+						"LRG": { "jump": 375000000 },
+						"XLG": { "jump": 2000000000 }
+					}
+					, appData.wormholes
+				);
 
 				$("#dialog-signature [name='signatureType'], #dialog-signature [name='signatureLife']").selectmenu({width: 100});
 				$("#dialog-signature [name='wormholeLife'], #dialog-signature [name='wormholeMass']").selectmenu({width: 80});
 				$("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete({source: tripwire.aSigSystems, renderer: 'system', maxSize: 10, delay: 0});
-				$("#dialog-signature [data-autocomplete='sigType']").inlinecomplete({source: aSigWormholes, maxSize: 10, delay: 0});
+				$("#dialog-signature [data-autocomplete='sigType']").inlinecomplete({source: aSigWormholes, renderer: 'wormholeType', maxSize: 10, delay: 0});
 
 				$("#dialog-signature #durationPicker").durationPicker();
 				$("#dialog-signature #durationPicker").on("change", function() {

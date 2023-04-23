@@ -21,6 +21,7 @@ var jsFiles = [
             'app/js/layout.js',
             'app/js/tripwire.js',
             'app/js/global-hooks.js',
+            'app/js/wormholeRendering.js',
             'app/js/widget-*.js',
             'app/js/systemAnalysis.js',
 			'app/js/system-mutators/*.js',
