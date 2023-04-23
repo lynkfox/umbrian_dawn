@@ -176,7 +176,7 @@ sigDialog.openSignatureDialog = function(e) {
 
 					// Validate leads to system (blank | system)
 					$.each($("#dialog-signature .leadsTo:visible"), function() {
-						if (this.value.length > 0 && appData.genericSystemTypes.findIndex((item) => this.value.toLowerCase() === item.toLowerCase()) == -1) {
+						if (this.value.length > 0 && appData.genericSystemTypes.findIndex((item) => this.value.toLowerCase() === item.toLowerCase()) == -1 && !findSystemID(this.value)) {
 							ValidationTooltips.open({target: $(this)}).setContent("Must be a valid leads to system!");
 							$(this).select();
 							valid = false;
