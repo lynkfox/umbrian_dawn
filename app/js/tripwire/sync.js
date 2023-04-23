@@ -28,12 +28,11 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
         // Expand Tripwire with JSON data from EVE Data Dump and other static data
         $.extend(this, appData);
 
-        this.aSystems = $.map(this.systems, function(system) { return system.name; });
-        this.aSigSystems = appData.genericSystemTypes.slice();
-        $.merge(this.aSigSystems, this.aSystems.slice());
+        this.aSigSystems = Object.assign(
+			appData.genericSystemTypes.reduce(function(o, s) { o[s] = systemAnalysis.analyse(s); return o; }, {} ),
+			this.systems);
 		
-		const dataSource = Object.keys(this.systems).map(function(k) { return Object.assign({ systemID: k }, this.systems[k]); }.bind(this) );
-        $(".systemsAutocomplete").inlinecomplete({source: dataSource, maxSize: 10, delay: 0});
+        $(".systemsAutocomplete").inlinecomplete({source: this.systems, maxSize: 10, delay: 0});
     }
 
     data.mode = mode != "init" ? "refresh" : "init";

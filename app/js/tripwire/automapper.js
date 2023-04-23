@@ -81,7 +81,7 @@ tripwire.autoMapper = function(from, to) {
         if ( ( tripwire.client.signatures[wormhole.initialID] !== undefined ) && ( tripwire.client.signatures[wormhole.secondaryID] !== undefined ) ) {
             // Find wormholes that have no set Leads To system, and their initial system is from the wormhole we just jumped from
             if (tripwire.client.signatures[wormhole.initialID].systemID == from && !tripwire.systems[tripwire.client.signatures[wormhole.secondaryID].systemID]) {
-                if (tripwire.aSigSystems[tripwire.client.signatures[wormhole.secondaryID].systemID] == toClass) {
+                if (appData.genericSystemTypes[tripwire.client.signatures[wormhole.secondaryID].systemID] == toClass) {
                     // Find wormholes that Leads To is generically set to the class we just jumped into
                     return wormhole;
                 } else if (wormhole.type && appData.wormholes[wormhole.type] && appData.wormholes[wormhole.type].leadsTo.replace(' ', '-') == toClass) {

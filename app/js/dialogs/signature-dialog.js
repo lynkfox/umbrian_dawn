@@ -176,7 +176,7 @@ sigDialog.openSignatureDialog = function(e) {
 
 					// Validate leads to system (blank | system)
 					$.each($("#dialog-signature .leadsTo:visible"), function() {
-						if (this.value.length > 0 && tripwire.aSigSystems.findIndex((item) => this.value.toLowerCase() === item.toLowerCase()) == -1) {
+						if (this.value.length > 0 && appData.genericSystemTypes.findIndex((item) => this.value.toLowerCase() === item.toLowerCase()) == -1) {
 							ValidationTooltips.open({target: $(this)}).setContent("Must be a valid leads to system!");
 							$(this).select();
 							valid = false;
@@ -376,7 +376,7 @@ sigDialog.openSignatureDialog = function(e) {
 						$("#dialog-signature input[name='signatureID_Numeric']").val(signature.signatureID ? signature.signatureID.substr(3, 5) : "");
 						$("#dialog-signature [name='signatureType']").val(signature.type).selectmenu("refresh").trigger("selectmenuchange");
 						$("#dialog-signature [name='wormholeName']").val(signature.name);
-						$("#dialog-signature [name='leadsTo']").val(tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : (tripwire.aSigSystems[otherSignature.systemID] ? tripwire.aSigSystems[otherSignature.systemID] : ""));
+						$("#dialog-signature [name='leadsTo']").val(tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : (appData.genericSystemTypes[otherSignature.systemID] ? appData.genericSystemTypes[otherSignature.systemID] : ""));
 
 						$("#dialog-signature input[name='signatureID2_Alpha']").val(otherSignature.signatureID ? otherSignature.signatureID.substr(0, 3) : "???");
 						$("#dialog-signature input[name='signatureID2_Numeric']").val(otherSignature.signatureID ? otherSignature.signatureID.substr(3, 5) : "");

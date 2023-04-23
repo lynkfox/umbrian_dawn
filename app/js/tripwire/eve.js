@@ -34,7 +34,7 @@ tripwire.EVE = function(EVE, characterChange) {
             // add system to Leads To dropdown
             if ($("#dialog-signature [data-autocomplete='sigSystems']").hasClass("custom-combobox")) {
                 $("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete("removeFromSelect");
-                $("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete("addToSelect", tripwire.systems[EVE.systemID].name);
+                $("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete("addToSelect", tripwire.systems[EVE.systemID]);
             }
             $("#EVEsystem").html(systemRendering.renderSystem(systemAnalysis.analyse(EVE.systemID)));
         }

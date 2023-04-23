@@ -98,8 +98,8 @@ $(document).keydown(function(e)	{
 						var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == signature.id || wormhole.secondaryID == signature.id) return wormhole; })[0];
 						var otherSignature = signature.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
 						row.push(wormhole.type || "null" );
-						row.push(tripwire.systems[signature.systemID] ? tripwire.systems[signature.systemID].name : tripwire.aSigSystems[signature.systemID]);
-						row.push(tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : tripwire.aSigSystems[otherSignature.systemID]);
+						row.push(tripwire.systems[signature.systemID] ? tripwire.systems[signature.systemID].name : appData.genericSystemTypes[signature.systemID]);
+						row.push(tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : appData.genericSystemTypes[otherSignature.systemID]);
 						row.push(wormhole.life);
 						row.push(wormhole.mass);
 					} else {
@@ -975,6 +975,8 @@ function linkSig(sigName) {
 // Custom inlinecomplete + dropdown input
 $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 	_create: function() {
+		this.options.source = this._coerceSource(this.options.source);
+		
 		if (!this.element.is("input")) {
 			this._selectInit();
 		}
@@ -998,14 +1000,16 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 		// Invoke the parent function
 		return this._super(items);
 	},
+	_coerceSource: function(source) {
+		// Allow an object source like tripwire.systems - coerce it to an array
+		return $.isArray(source) ? source :
+			Object.keys(source).map(function(k) { return Object.assign({ systemID: k }, source[k]); }.bind(this) );
+	},
 	_initSource: function() {
-		
-		const dataSource = $.isArray(this.options.source) ? this.options.source :
-			Object.keys(this.options.source).map(function(k) { return Object.assign({ systemID: k }, this.options.source[k]); }.bind(this) );
-		
 		this.source = function(request, response) {
 			var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
 			var results = new Array(); // results array
+			const dataSource = this.options.source;
 			var maxSize = this.options.maxSize || 25; // maximum result size
 			// simple loop for the options
 			for (var i = 0, l = dataSource.length; i < l; i++) {
