@@ -7,6 +7,7 @@ const systemAnalysis = new function() {
 	this.analyse = function(systemID, system) {
 		if(!system) { system = tripwire.systems[systemID]; }
 		if(!system) { system = getDummySystem(systemID); }
+		if(!systemID) { systemID = system.systemID; }
 		const r = Object.assign({}, system);
 		
 		// Defaults or saved original values
@@ -43,7 +44,9 @@ const systemAnalysis = new function() {
 	
 	/** Create a dummy system object for fake IDs like 'Null-Sec', 'Class-5' etc */
 	function getDummySystem(systemID) {
-		const leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[systemID.substring(0, systemID.indexOf("|"))] : null;
+		const leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? appData.genericSystemTypes[systemID.substring(0, systemID.indexOf("|"))]
+		: appData.genericSystemTypes.indexOf(systemID) >= 0 ? systemID
+		: null;
 		const nodeClass = 
 			leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
 			undefined;

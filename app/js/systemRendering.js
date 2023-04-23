@@ -26,7 +26,8 @@ const systemRendering = new function() {
 		return system.effectClass ? "<" + tag + " class='whEffect' data-icon='"+system.effectClass+"' data-tooltip='"+system.effect+"'></" + tag + ">" : '';
 	}
 	
-	this.renderSystem = function(systemInfo) {
-		return '<a href=".?system=' + systemInfo.name + '">' + systemInfo.name + '</a> (' + this.renderEffect(systemInfo, 'span') + '<span class="' + systemInfo.systemTypeClass + '">' + systemInfo.systemTypeName + '</span>)';
+	this.renderSystem = function(systemInfo, tag) {
+		tag = tag || 'a';
+		return '<' + tag + (tag === 'a' ? ' href=".?system=' + systemInfo.name + '"' : '') + '>' + systemInfo.name + '</' + tag + '> (' + this.renderEffect(systemInfo, 'span') + '<span class="' + systemInfo.systemTypeClass + '">' + systemInfo.systemTypeName + '</span>)';
 	}
 };

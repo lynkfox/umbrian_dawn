@@ -1007,8 +1007,9 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 				var maxSize = this.options.maxSize || 25; // maximum result size
 				// simple loop for the options
 				for (var i = 0, l = data.length; i < l; i++) {
-					if (matcher.test(data[i])) {
-						results.push(data[i]);
+					const target = data[i].name || data[i];
+					if (matcher.test(target)) {
+						results.push( { value: target, label: target, system: typeof data[i] === 'object' ? data[i] : undefined });
 
 						if (maxSize && results.length > maxSize) {
 							break;
@@ -1022,6 +1023,12 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 			// Invoke the parent function
 			return this._super();
 		}
+	},
+	_renderItem: function( ul, item ) {
+		return item.system ? $( "<li>" )
+			.html( '<span>' + systemRendering.renderSystem(systemAnalysis.analyse(undefined, item.system), 'span') + '</span>')
+			.appendTo( ul )
+		: this._super(ul, item);
 	},
 	_close: function(event) {
 		this.options.source = this.options.input_source ? this.options.input_source : this.options.source;
