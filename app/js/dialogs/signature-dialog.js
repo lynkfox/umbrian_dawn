@@ -104,7 +104,7 @@ sigDialog.openSignatureDialog = function(e) {
 
 				// Auto fill opposite side wormhole w/ K162
 				$("#dialog-signature .wormholeType").on("input, change", function() {
-					if (this.value.length > 0 && $.inArray(this.value.toUpperCase(), aSigWormholes) != -1 && this.value.toUpperCase() != "K162") {
+					if (this.value.length > 0 && aSigWormholes[this.value.toUpperCase()] != -1 && this.value.toUpperCase() != "K162") {
 						$("#dialog-signature .wormholeType").not(this).val("K162");
 
 						// Also auto calculate duration
@@ -112,7 +112,7 @@ sigDialog.openSignatureDialog = function(e) {
 							$("#dialog-signature #durationPicker").val(appData.wormholes[this.value.toUpperCase()].life.substring(0, 2) * 60 * 60).change();
 						}
 					} else if (this.value.toUpperCase() === "K162") {
-						if ($.inArray($("#dialog-signature .wormholeType").not(this).val().toUpperCase(), aSigWormholes) === -1 || $("#dialog-signature .wormholeType").not(this).val().toUpperCase() === "K162") {
+						if (aSigWormholes[$("#dialog-signature .wormholeType").not(this).val().toUpperCase()] || $("#dialog-signature .wormholeType").not(this).val().toUpperCase() === "K162") {
 							$("#dialog-signature .wormholeType").not(this).val("????");
 						}
 					} else if (this.value == "????") {
@@ -169,7 +169,7 @@ sigDialog.openSignatureDialog = function(e) {
 
 					// Validate wormhole types (blank | wormhole)
 					$.each($("#dialog-signature .wormholeType:visible"), function() {
-						if (this.value.length > 0 && $.inArray(this.value.toUpperCase(), aSigWormholes) == -1 && this.value != "????") {
+						if (this.value.length > 0 && !aSigWormholes[this.value.toUpperCase()] && this.value != "????") {
 							ValidationTooltips.open({target: $(this)}).setContent("Must be a valid wormhole type!");
 							$(this).select();
 							valid = false;
@@ -221,10 +221,10 @@ sigDialog.openSignatureDialog = function(e) {
 						};
 						var type = null;
 						var parent = null;
-						if (form.wormholeType.length > 0 && $.inArray(form.wormholeType.toUpperCase(), aSigWormholes) != -1 && form.wormholeType.toUpperCase() != "K162") {
+						if (form.wormholeType.length > 0 && aSigWormholes[form.wormholeType.toUpperCase()] && form.wormholeType.toUpperCase() != "K162") {
 							parent = "initial";
 							type = form.wormholeType.toUpperCase();
-						} else if (form.wormholeType2.length > 0 && $.inArray(form.wormholeType2.toUpperCase(), aSigWormholes) != -1 && form.wormholeType2.toUpperCase() != "K162") {
+						} else if (form.wormholeType2.length > 0 && aSigWormholes[form.wormholeType2.toUpperCase()] && form.wormholeType2.toUpperCase() != "K162") {
 							parent = "secondary";
 							type = form.wormholeType2.toUpperCase();
 						} else if (form.wormholeType.toUpperCase() == "K162") {
@@ -247,10 +247,10 @@ sigDialog.openSignatureDialog = function(e) {
 
 							// Update the initial and type based on which side of the wormhole we are editing
 							if (tripwire.client.wormholes[wormhole.id]) {
-								if (form.wormholeType.length > 0 && $.inArray(form.wormholeType.toUpperCase(), aSigWormholes) != -1 && form.wormholeType.toUpperCase() != "K162") {
+								if (form.wormholeType.length > 0 && aSigWormholes[form.wormholeType.toUpperCase()] && form.wormholeType.toUpperCase() != "K162") {
 									wormhole.parent = tripwire.client.wormholes[wormhole.id].initialID == signature.id ? "initial" : "secondary";
 									wormhole.type = form.wormholeType.toUpperCase();
-								} else if (form.wormholeType2.length > 0 && $.inArray(form.wormholeType2.toUpperCase(), aSigWormholes) != -1 && form.wormholeType2.toUpperCase() != "K162") {
+								} else if (form.wormholeType2.length > 0 && aSigWormholes[form.wormholeType2.toUpperCase()] && form.wormholeType2.toUpperCase() != "K162") {
 									wormhole.parent = tripwire.client.wormholes[wormhole.id].initialID == signature.id ? "secondary" : "initial";
 									wormhole.type = form.wormholeType2.toUpperCase();
 								} else if (form.wormholeType.toUpperCase() == "K162") {
