@@ -999,29 +999,27 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 		return this._super(items);
 	},
 	_initSource: function() {
-		if ($.isArray(this.options.source)) {
-			this.source = function(request, response) {
-				var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
-				var results = new Array(); // results array
-				var data = this.options.source;
-				var maxSize = this.options.maxSize || 25; // maximum result size
-				// simple loop for the options
-				for (var i = 0, l = data.length; i < l; i++) {
-					const target = data[i].name || data[i];
-					if (matcher.test(target)) {
-						results.push( { value: target, label: target, system: typeof data[i] === 'object' ? data[i] : undefined });
+		
+		const dataSource = $.isArray(this.options.source) ? this.options.source :
+			Object.keys(this.options.source).map(function(k) { return Object.assign({ systemID: k }, this.options.source[k]); }.bind(this) );
+		
+		this.source = function(request, response) {
+			var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+			var results = new Array(); // results array
+			var maxSize = this.options.maxSize || 25; // maximum result size
+			// simple loop for the options
+			for (var i = 0, l = dataSource.length; i < l; i++) {
+				const target = dataSource[i].name || dataSource[i];
+				if (matcher.test(target)) {
+					results.push( { value: target, label: target, system: typeof dataSource[i] === 'object' ? dataSource[i] : undefined });
 
-						if (maxSize && results.length > maxSize) {
-							break;
-						}
+					if (maxSize && results.length > maxSize) {
+						break;
 					}
 				}
-				 // send response
-				 response(results);
 			}
-		} else {
-			// Invoke the parent function
-			return this._super();
+			 // send response
+			 response(results);
 		}
 	},
 	_renderItem: function( ul, item ) {
