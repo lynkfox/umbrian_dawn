@@ -90,14 +90,14 @@ var tripwire = new function() {
 		tooltip += "<b>Life:</b> "+(whType?appData.wormholes[type].life:"Unknown")+"<br/>";
 
 		if (whType) {
-			switch (appData.wormholes[type].leadsTo.split(" ")[0]) {
-				case 'High-Sec':
+			switch (appData.wormholes[type].leadsTo.split("-")[0]) {
+				case 'High':
 					tooltip += "<b>Leads To:</b> <span class='hisec'>"+appData.wormholes[type].leadsTo+"</span><br/>";
 					break;
-				case 'Low-Sec':
+				case 'Low':
 					tooltip += "<b>Leads To:</b> <span class='lowsec'>"+appData.wormholes[type].leadsTo+"</span><br/>";
 					break;
-				case 'Null-Sec':
+				case 'Null':
 					tooltip += "<b>Leads To:</b> <span class='nullsec'>"+appData.wormholes[type].leadsTo+"</span><br/>";
 					break;
 				case 'Class':

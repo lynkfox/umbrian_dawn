@@ -1,11 +1,11 @@
-const systemAnalysis = new function() {
+var systemAnalysis = new function() {
 	const mutators = [];
 	this.addMutator = function(m) { mutators.push(m); }
 	
 	/** Extract attributes of the system, and allow mutators to add/modify them.
 		Optionally, pass in a system object */
 	this.analyse = function(systemID, system) {
-		if(!system) { system = tripwire.systems[systemID]; }
+		if(!system) { system = appData.systems[systemID]; }
 		if(!system) { system = getDummySystem(systemID); }
 		if(!systemID) { systemID = system.systemID; }
 		const r = Object.assign({}, system);
@@ -30,6 +30,12 @@ const systemAnalysis = new function() {
 			r.baseSecurity > 0.0 ? 'LS' :
 			r.baseSecurity <= 0.0 ? 'NS' :
 			' ';
+		r.genericSystemType = r.class ? 'Class-' + r.class :
+			r.factionID == 500026 ? 'Triglavian' :
+			r.baseSecurity >= 0.45 ? 'High-Sec' :
+			r.baseSecurity > 0.0 ? 'Low-Sec' :
+			r.baseSecurity <= 0.0 ? 'Null-Sec' :
+			' ';
 		r.effectClass = 
 			r.effect === 'Black Hole' ? 'blackhole' :
 			r.effect === 'Cataclysmic Variable' ? 'cataclysmic-variable' :
@@ -46,7 +52,7 @@ const systemAnalysis = new function() {
 	function getDummySystem(systemID) {
 		const leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? appData.genericSystemTypes[systemID.substring(0, systemID.indexOf("|"))]
 		: appData.genericSystemTypes.indexOf(systemID) >= 0 ? systemID
-		: null;
+		: appData.genericSystemTypes[systemID];
 		const nodeClass = 
 			leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
 			undefined;
