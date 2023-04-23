@@ -25,5 +25,8 @@ const systemRendering = new function() {
 	this.renderEffect = function(system, tag) {
 		return system.effectClass ? "<" + tag + " class='whEffect' data-icon='"+system.effectClass+"' data-tooltip='"+system.effect+"'></" + tag + ">" : '';
 	}
-
+	
+	this.renderSystem = function(systemInfo) {
+		return '<a href=".?system=' + systemInfo.name + '">' + systemInfo.name + '</a> (' + this.renderEffect(systemInfo, 'span') + '<span class="' + systemInfo.systemTypeClass + '">' + systemInfo.systemTypeName + '</span>)';
+	}
 };

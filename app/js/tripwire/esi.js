@@ -40,9 +40,10 @@ tripwire.esi = function() {
 
                     if (character.systemID != data.solar_system_id) {
                         character.systemID = data.solar_system_id || null;
-                        character.systemName = tripwire.systems[data.solar_system_id] ? tripwire.systems[data.solar_system_id].name : null;
+						const system = systemAnalysis.analyse(data.solar_system_id);
+                        character.systemName = system ? system.name : null;
 
-                        $("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".system").html(character.systemName || "&nbsp;");
+                        $("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".system").html(systemRendering.renderSystem(system) || "&nbsp;");
 
                         // Send to Tripwire server on next refresh call
                         tripwire.data.tracking[this.characterID] = {

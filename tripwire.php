@@ -52,7 +52,7 @@ $system = $_REQUEST['system'];
 			<h3 id="serverStatus" class="pointer" data-tooltip="EVE server status and player count">TQ: ??,???</h3>
 			<h3 class="pointer" data-tooltip="EVE time (UTC)">| ET: <span id="serverTime">??.??</span></h3>
 			<h3 id="systemSearch">| <i id="search" data-icon="search" data-tooltip="Toggle system search"></i>
-				<span id="currentSpan" class="hidden"><span class="pointer">Current System: </span><a id="EVEsystem" href=""></a><i id="follow" data-icon="follow" data-tooltip="Follow my in-game system" style="padding-left: 10px;"></i></span>
+				<span id="currentSpan" class="hidden"><span class="pointer">Current System: </span><span id="EVEsystem">?</span><i id="follow" data-icon="follow" data-tooltip="Follow my in-game system" style="padding-left: 10px;"></i></span>
 				<span id="searchSpan"><form id="systemSearch" method="GET" action=".?"><input type="text" size="18" class="systemsAutocomplete" name="system" /></form></span>
 				<span id="APItimer" class="hidden"></span>
 			</h3>

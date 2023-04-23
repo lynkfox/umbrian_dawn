@@ -36,11 +36,11 @@ tripwire.EVE = function(EVE, characterChange) {
                 $("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete("removeFromSelect");
                 $("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete("addToSelect", tripwire.systems[EVE.systemID].name);
             }
-            $("#EVEsystem").html(tripwire.systems[EVE.systemID].name).attr("href", ".?system="+ tripwire.systems[EVE.systemID].name);
+            $("#EVEsystem").html(systemRendering.renderSystem(systemAnalysis.analyse(EVE.systemID)));
         }
     } else {
         // Update current system
-        $("#EVEsystem").html("");
+        $("#EVEsystem").html("Not tracking");
         $("#currentSpan").hide();
         // Disable automapper
         $("#toggle-automapper").addClass("disabled");

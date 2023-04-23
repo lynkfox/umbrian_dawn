@@ -142,7 +142,7 @@ tripwire.autoMapper = function(from, to) {
 					
 					function formatSystem(systemID) {
 						const system = systemAnalysis.analyse(systemID);
-						return '<b>' + system.name + '</b> (<span class="' + system.systemTypeClass + '">' + system.systemTypeName + '</span>)'; 
+						return systemRendering.renderSystem(system);
 					}
 					
 					document.getElementById('select-sig-from').innerHTML = formatSystem(from);

@@ -189,7 +189,7 @@ $('#favorite-dropdown-toggle').click(function() {
 		listWrapper.innerHTML = options.favorites.length == 0 ? '<p>You have no favourites. Use the star to add a system.</p>'
 			: options.favorites.map(function(f) {
 				const systemInfo = systemAnalysis.analyse(f);
-				return '<p><a href=".?system=' + systemInfo.name + '">' + systemInfo.name + '</a> (' + systemRendering.renderEffect(systemInfo, 'span') + '<span class="' + systemInfo.systemTypeClass + '">' + systemInfo.systemTypeName + '</span>)';
+				return '<p>' + systemRendering.renderSystem(systemInfo) + '</p>';
 			}).join('\n');
 		target.style.display = '';
 	} else { target.style.display = 'none'; }
