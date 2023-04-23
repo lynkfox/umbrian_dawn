@@ -206,19 +206,8 @@ sigDialog.openSignatureDialog = function(e) {
 							"name": form.wormholeName,
 							"lifeLength": form.signatureLength
 						};
-						var leadsTo = null;
-						if (Object.index(tripwire.systems, "name", form.leadsTo, true)) {
-							// Leads To is a normal EVE system, so use the sytem ID
-							leadsTo = Object.index(tripwire.systems, "name", form.leadsTo, true)
-						} else if (appData.wormholes[form.wormholeType.toUpperCase()]) {
-							// Leads To can be determined by the wormhole type, so lets use what we know it leads to
-							if (tripwire.aSigSystems.findIndex((item) => appData.wormholes[form.wormholeType.toUpperCase()].leadsTo.replace(' ', '-').toLowerCase() === item.toLowerCase()) > -1) {
-								leadsTo = tripwire.aSigSystems.findIndex((item) => appData.wormholes[form.wormholeType.toUpperCase()].leadsTo.replace(' ', '-').toLowerCase() === item.toLowerCase());
-							}
-						} else if (tripwire.aSigSystems.findIndex((item) => form.leadsTo.toLowerCase() === item.toLowerCase()) !== -1) {
-							// Leads To is one of the valid types we allow, so use of of those indexes as reference
-							leadsTo = tripwire.aSigSystems.findIndex((item) => form.leadsTo.toLowerCase() === item.toLowerCase());
-						}
+						var leadsTo = wormholeAnalysis.targetSystemID(form.leadsTo, form.wormholeType);
+
 						var signature2 = {
 							"signatureID": form.signatureID2_Alpha + form.signatureID2_Numeric,
 							"systemID": leadsTo,
