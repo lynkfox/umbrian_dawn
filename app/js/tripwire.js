@@ -69,7 +69,7 @@ var tripwire = new function() {
 				var tooltip = '';
 			} else {
 				var type = sig.sig2Type;
-				var tooltip = "<b>Type:</b> "+type+"<br/>";
+				var tooltip = "<b>Type:</b> "+(type || 'Unknown')+"<br/>";
 			}
 		} else {
 			if ($.inArray(sig.sig2Type, $.map(tripwire.wormholes, function(item, index) { return index;})) >= 0) {
@@ -77,7 +77,7 @@ var tripwire = new function() {
 				var tooltip = '';
 			} else {
 				var type = sig.type;
-				var tooltip = "<b>Type:</b> "+type+"<br/>";
+				var tooltip = "<b>Type:</b> "+(type || 'Unknown')+"<br/>";
 			}
 		}
 
@@ -87,9 +87,9 @@ var tripwire = new function() {
 			var whType = false;
 		}
 
-		tooltip += "<b>Life:</b> "+(whType?tripwire.wormholes[type].life:"Unknown")+"<br/>";
 
 		if (whType) {
+			tooltip += "<b>Life:</b> "+(tripwire.wormholes[type].life)+"<br/>";
 			switch (tripwire.wormholes[type].leadsTo.split(" ")[0]) {
 				case 'High-Sec':
 					tooltip += "<b>Leads To:</b> <span class='hisec'>"+tripwire.wormholes[type].leadsTo+"</span><br/>";
@@ -106,13 +106,11 @@ var tripwire = new function() {
 				default:
 					tooltip += "<b>Leads To:</b> <span>"+tripwire.wormholes[type].leadsTo+"</span><br/>";
 			}
-		} else {
-			tooltip += "<b>Leads To:</b> <span>Unknown</span><br/>";
+
+			tooltip += "<b>Max Mass</b>: "+(Intl.NumberFormat().format(tripwire.wormholes[type].mass))+" Kg<br/>";
+
+			tooltip += "<b>Max Jumpable</b>: "+(Intl.NumberFormat().format(tripwire.wormholes[type].jump))+" Kg<br/>";
 		}
-
-		tooltip += "<b>Max Mass</b>: "+(whType?Intl.NumberFormat().format(tripwire.wormholes[type].mass):"Unknown")+" Kg<br/>";
-
-		tooltip += "<b>Max Jumpable</b>: "+(whType?Intl.NumberFormat().format(tripwire.wormholes[type].jump):"Unknown")+" Kg<br/>";
 
 		return tooltip;
 	}

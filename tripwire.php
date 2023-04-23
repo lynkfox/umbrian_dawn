@@ -1074,15 +1074,14 @@ $system = $_REQUEST['system'];
 	</div>
 
 	<div id="dialog-select-signature" title="&nbsp;" class="hidden return-invisible">
-			<span data-icon="info"></span>
-			Which signature would you like to update?<br/><br/>
+			Jumping from <span id="select-sig-from">[from]</span> to <span id="select-sig-to">[to].</span>
+			<br>Which signature would you like to update?<br/><br/>
 			<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
 					<thead>
 							<tr>
 									<th></th>
 									<th class="centerAlign">ID</th>
 									<th class="centerAlign">Type</th>
-									<th class="centerAlign">Age</th>
 									<th class="centerAlign">Leads To</th>
 									<th class="centerAlign">Life</th>
 									<th class="centerAlign">Mass</th>
