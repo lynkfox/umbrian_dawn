@@ -122,7 +122,7 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 
 const renderers =  {
 	system: function(system) {
-		return systemRendering.renderSystem(systemAnalysis.analyse(undefined, Object.assign( { systemID: system.key }, system)), 'span');
+		return systemRendering.renderSystem(systemAnalysis.analyse(undefined, system), 'span');
 	},
 	wormholeType: wormholeRendering.renderWormholeType
 };

@@ -28,6 +28,7 @@ const systemRendering = new function() {
 	
 	this.renderSystem = function(systemInfo, tag) {
 		tag = tag || 'a';
-		return '<' + tag + (tag === 'a' ? ' href=".?system=' + systemInfo.name + '"' : '') + '>' + systemInfo.name + '</' + tag + '> (' + this.renderEffect(systemInfo, 'span') + '<span class="' + systemInfo.systemTypeClass + '">' + systemInfo.systemTypeName + '</span>)';
+		const text = systemInfo.name || systemInfo.genericSystemType;
+		return '<' + tag + (tag === 'a' ? ' href=".?system=' + systemInfo.name + '"' : '') + '>' + text + '</' + tag + '> (' + this.renderEffect(systemInfo, 'span') + '<span class="' + systemInfo.systemTypeClass + '">' + systemInfo.systemTypeName + '</span>)';
 	}
 };

@@ -22,7 +22,7 @@ wormholeAnalysis = new function() {
 	
 	/** Get all the eligible wormhole types for this connection.
 	If both systems are known (e.g. C3 to C2) then only wormhole types matching that specific connection will be returned. If either side is unknown then all connections to/from the known side are listed, which will be quite large. If both are unknown then return null (as it could be any wormhole).
-	@param sourceID The system ID, type ID (into genericSystemType) or chain format string (e.g. 12|2) for the source system
+	@param sourceID The system ID, type ID (into genericSystemType) or chain format string (e.g. 2|1232) for the source system
 	@param targetID As above for the target system
 	@return An object of the form { from: [...], to: [...] } where each list is the wormhole types (from appData.wormholes) eligible for that direction */
 	this.eligibleWormholeTypes = function(sourceDef, targetDef) {
