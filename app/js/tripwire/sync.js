@@ -32,7 +32,7 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
 			appData.genericSystemTypes.reduce(function(o, s) { o[s] = systemAnalysis.analyse(s); return o; }, {} ),
 			this.systems);
 		
-        $(".systemsAutocomplete").inlinecomplete({source: this.systems, maxSize: 10, delay: 0});
+        $(".systemsAutocomplete").inlinecomplete({source: this.systems, renderer: 'system', maxSize: 10, delay: 0});
     }
 
     data.mode = mode != "init" ? "refresh" : "init";

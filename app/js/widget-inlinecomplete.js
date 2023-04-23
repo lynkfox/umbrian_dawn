@@ -41,7 +41,7 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 			for (var i = 0, l = dataSource.length; i < l; i++) {
 				const target = dataSource[i].name || dataSource[i];
 				if (matcher.test(target)) {
-					results.push( { value: target, label: target, system: typeof dataSource[i] === 'object' ? dataSource[i] : undefined });
+					results.push( { value: target, label: target, content: typeof dataSource[i] === 'object' ? dataSource[i] : undefined });
 
 					if (maxSize && results.length > maxSize) {
 						break;
@@ -51,12 +51,14 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 			 // send response
 			 response(results);
 		}
-	},
+	},	
 	_renderItem: function( ul, item ) {
-		return item.system ? $( "<li>" )
-			.html( '<span>' + systemRendering.renderSystem(systemAnalysis.analyse(undefined, item.system), 'span') + '</span>')
-			.appendTo( ul )
-		: this._super(ul, item);
+		if(item.content && this.options.renderer) {
+			const renderResult = renderers[this.options.renderer](item.content);
+			return $( "<li>" )
+			.html( '<span>' + renderResult + '</span>')
+			.appendTo( ul );
+		} else return this._super(ul, item);
 	},
 	_close: function(event) {
 		this.options.source = this.options.input_source ? this.options.input_source : this.options.source;
@@ -117,3 +119,9 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 			});
 	},
 });
+
+const renderers =  {
+	system: function(system) {
+		return systemRendering.renderSystem(systemAnalysis.analyse(undefined, system), 'span');
+	}
+};

@@ -514,7 +514,7 @@ $("#newTab").on("click", function() {
 				ValidationTooltips.close();
 			},
 			create: function() {
-				$("#dialog-newTab .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+				$("#dialog-newTab .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0, renderer: 'system'});
 
 				$("#newTab_form").submit(function(e) {
 					e.preventDefault();
@@ -579,7 +579,7 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 				ValidationTooltips.close();
 			},
 			create: function() {
-				$("#dialog-editTab .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+				$("#dialog-editTab .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, renderer: 'system', maxSize: 10, delay: 0});
 
 				$("#editTab_form").submit(function(e) {
 					e.preventDefault();
