@@ -1,7 +1,11 @@
+const automapState = {
+	pendingDecision: false
+};
+
 tripwire.autoMapper = function(from, to) {
     var pods = [33328, 670];
     var undo = [];
-
+	
     // Convert from & to from system name to system ID for diagnostic testing
     // from = viewingSystemID;
     // to = Object.index(tripwire.systems, 'name', to);
@@ -9,6 +13,12 @@ tripwire.autoMapper = function(from, to) {
     // Make sure the automapper is turned on & not disabled
     if (!$("#toggle-automapper").hasClass("active") || $("#toggle-automapper").hasClass("disabled"))
         return false;
+
+	// Not waiting on a decision for the previous jump
+	if(automapState.pendingDecision) {
+		console.info('Not automapping because there is an automap dialog up');
+		return false;
+	}
 
     // Make sure from and to are valid systems
     if (!tripwire.systems[from] || !tripwire.systems[to])
@@ -23,7 +33,7 @@ tripwire.autoMapper = function(from, to) {
 		console.info('Not automapping into abyssal or other special space');
 		return false;
 	}
-
+	
     // Is pilot in a station?
     if (tripwire.client.EVE && tripwire.client.EVE.stationID)
         return false;
@@ -47,6 +57,13 @@ tripwire.autoMapper = function(from, to) {
                }).length > 0) {
        return false;
      }
+	 
+	 // Are both systems already in chain? Loops do happen but it's much more likely ESI missed a jump
+	 function inChain(systemID) { return chain.data.map.rows.filter(r => r.c[0].systemID == systemID).length > 0; }
+	if(inChain(from) && inChain(to)) {
+		console.info('Not automapping because both systems are already in chain');
+		return false;
+	}	 
 
     var payload = {"signatures": {"add": [], "update": []}};
     var sig, toClass;
@@ -120,20 +137,37 @@ tripwire.autoMapper = function(from, to) {
                     }
                 },
                 open: function() {
+					automapState.pendingDecision = true;
                     $("#dialog-select-signature .optionsTable tbody").empty();
+					
+					function formatSystem(systemID) {
+						const system = systemAnalysis.analyse(systemID);
+						return '<b>' + system.name + '</b> (<span class="' + system.systemTypeClass + '">' + system.systemTypeName + '</span>)'; 
+					}
+					
+					document.getElementById('select-sig-from').innerHTML = formatSystem(from);
+					document.getElementById('select-sig-to').innerHTML = formatSystem(to);
 
                     $.each(wormholes, function(i) {
-                        var signature = tripwire.client.signatures[wormholes[i].initialID];
-                        var signatureRow = $("#sigTable tr[data-id='"+signature.id+"']").html();
-                        var tr = "<tr>"
+                        const signature = tripwire.client.signatures[wormholes[i].initialID];
+						const sigInfo = tripwire.makeSigInfo(signature, wormholes[i]);
+						
+                        const tr = "<tr>"
                           + "<td><input type='radio' name='sig' value='"+i+"' id='sig"+i+"' /></td>"
-                          + signatureRow
+						  + "<td class='centerAlign'>" + formatSignatureID(signature.signatureID) + "</td>"
+						  + "<td class='centerAlign'>" + sigInfo.formattedType + "</td>"
+						  + "<td class='centerAlign'>" + sigInfo.leadsTo + "</td>"
+						  + "<td class='centerAlign " + wormholes[i].life + "'>" + sigInfo.lifeText + "</td>"
+						  + "<td class='centerAlign " + wormholes[i].mass + "'>" + wormholes[i].mass + "</td>"
                           + "</tr>";
-
-                        $("#dialog-select-signature .optionsTable tbody").append(tr);
-                        $("#dialog-select-signature .optionsTable tbody td").wrapInner("<label for='sig"+i+"' />");
+						  
+						const trElem = $(tr);
+                        $(trElem).find('td').wrapInner("<label for='sig"+i+"' />");
+                        $("#dialog-select-signature .optionsTable tbody").append(trElem);
                     });
-                }
+                }, close: function() {
+					automapState.pendingDecision = false;
+				}
             });
         } else {
             var wormhole = wormholes[0];

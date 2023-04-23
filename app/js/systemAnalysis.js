@@ -6,7 +6,7 @@ const systemAnalysis = new function() {
 		Optionally, pass in a system object */
 	this.analyse = function(systemID, system) {
 		if(!system) { system = tripwire.systems[systemID]; }
-		if(!system) { return system; }
+		if(!system) { system = getDummySystem(systemID); }
 		const r = Object.assign({}, system);
 		
 		// Defaults or saved original values
@@ -29,8 +29,33 @@ const systemAnalysis = new function() {
 			r.baseSecurity > 0.0 ? 'LS' :
 			r.baseSecurity <= 0.0 ? 'NS' :
 			' ';
+		r.effectClass = 
+			r.effect === 'Black Hole' ? 'blackhole' :
+			r.effect === 'Cataclysmic Variable' ? 'cataclysmic-variable' :
+			r.effect === 'Magnetar' ? 'magnetar' :
+			r.effect === 'Pulsar' ? 'pulsar' :
+			r.effect === 'Red Giant' ? 'red-giant' :
+			r.effect === 'Wolf-Rayet Star' ? 'wolf-rayet' :
+			undefined;
 			
 		return r;
 	};
-
+	
+	/** Create a dummy system object for fake IDs like 'Null-Sec', 'Class-5' etc */
+	function getDummySystem(systemID) {
+		const leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[systemID.substring(0, systemID.indexOf("|"))] : null;
+		const nodeClass = 
+			leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
+			undefined;
+		const nodeSecurity = 
+			leadsToPointer == "High-Sec" ? 0.8 :
+			leadsToPointer == "Low-Sec" ? 0.4 :
+			leadsToPointer == "Null-Sec" ? -0.1 :
+			undefined;
+		const nodeFaction = 
+			leadsToPointer == "Triglavian" ? 500026 :
+			undefined;
+		
+		return { security: nodeSecurity, class: nodeClass, factionID: nodeFaction };
+	}
 }
