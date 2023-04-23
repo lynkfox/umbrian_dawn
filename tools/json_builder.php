@@ -114,5 +114,5 @@ if (isset($_REQUEST['combine'])) {
 		<input type="button" value="Generate map.json" onclick="window.location.href='?map=true';" />
 		<input type="button" value="Generate mass.json" onclick="window.location.href='?mass=true';" />
 	</p>
-	<p><input type="button" value="Generate combine.json" onclick="window.location.href='?combine=true';" /></p>
+	<p><input type="button" value="Generate combine.js" onclick="window.location.href='?combine=true';" /></p>
 </div>
