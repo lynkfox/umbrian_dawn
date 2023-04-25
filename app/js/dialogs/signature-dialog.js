@@ -61,7 +61,7 @@ sigDialog.openSignatureDialog = function(e) {
 					return function() {
 						const leadsTo = $("#dialog-signature .leadsTo:visible").val();
 						const targetSystem = wormholeAnalysis.targetSystemID(leadsTo, undefined);
-						const eligible = wormholeAnalysis.eligibleWormholeTypes(sigDialogVM.viewingSystemID, targetSystem, aSigWormholes);
+						const eligible = wormholeAnalysis.eligibleWormholeTypes(sigDialogVM.viewingSystemID, targetSystem);
 						return extractor(eligible);
 					}
 				}
