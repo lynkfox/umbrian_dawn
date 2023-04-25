@@ -44,22 +44,29 @@ sigDialog.openSignatureDialog = function(e) {
 				}
 			},
 			create: function() {
-				var aSigWormholes = Object.assign(
-					{
+				var dummyWormholes = {
 						"K162": { },
-						"GATE": { },
+						"GATE": { from: [ "Null-Sec", "Low-Sec", "High-Sec", "Triglavian"], leadsTo: [ "Null-Sec", "Low-Sec", "High-Sec", "Triglavian"] },
 						"SML": { "jump": 5000000 },
 						"MED": { "jump": 62000000 },
 						"LRG": { "jump": 375000000 },
 						"XLG": { "jump": 2000000000 }
-					}
-					, appData.wormholes
-				);
+					};
+				var aSigWormholes = Object.assign({}, appData.wormholes, dummyWormholes);
 
 				$("#dialog-signature [name='signatureType'], #dialog-signature [name='signatureLife']").selectmenu({width: 100});
 				$("#dialog-signature [name='wormholeLife'], #dialog-signature [name='wormholeMass']").selectmenu({width: 80});
 				$("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete({source: tripwire.aSigSystems, renderer: 'system', maxSize: 10, delay: 0});
-				$("#dialog-signature [data-autocomplete='sigType']").inlinecomplete({source: aSigWormholes, renderer: 'wormholeType', maxSize: 10, delay: 0});
+				function sigTypeDropdownFiller(extractor) {
+					return function() {
+						const leadsTo = $("#dialog-signature .leadsTo:visible").val();
+						const targetSystem = wormholeAnalysis.targetSystemID(leadsTo, undefined);
+						const eligible = wormholeAnalysis.eligibleWormholeTypes(sigDialogVM.viewingSystemID, targetSystem, aSigWormholes);
+						return extractor(eligible);
+					}
+				}
+				$("#dialog-signature [data-autocomplete='sigTypeFrom']").inlinecomplete({source: aSigWormholes, renderer: 'wormholeType', maxSize: 10, delay: 0, customDropdown: sigTypeDropdownFiller(function(x) { return x.from; })});
+				$("#dialog-signature [data-autocomplete='sigTypeTo']").inlinecomplete({source: aSigWormholes, renderer: 'wormholeType', maxSize: 10, delay: 0, customDropdown: sigTypeDropdownFiller(function(x) { return x.to; })});
 
 				$("#dialog-signature #durationPicker").durationPicker();
 				$("#dialog-signature #durationPicker").on("change", function() {

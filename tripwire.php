@@ -388,7 +388,9 @@ $system = $_REQUEST['system'];
 					<div class="sideLabel"></div>
 					<div class="row">
 						<span class="label">Type:</span>
-						<input name="wormholeType" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" autocomplete="off" />
+						<span data-autocomplete="sigTypeFrom">
+							<input name="wormholeType" type="text" class="wormholeType" maxlength="4" size="4" autocomplete="off" />
+						</span>
 						<!-- <span class="bookmark">
 							<span class="label">BM:</span>
 							<input name="" type="text" maxlength="10" size="8" />
@@ -448,7 +450,9 @@ $system = $_REQUEST['system'];
 					</div>
 					<div class="row">
 						<span class="label">Type:</span>
-						<input name="wormholeType2" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" autocomplete="off" />
+						<span data-autocomplete="sigTypeTo">
+							<input name="wormholeType2" type="text" class="wormholeType" data-autocomplete="sigType" maxlength="4" size="4" autocomplete="off" />
+						</span>
 						<!-- <span class="bookmark">
 							<span class="label">BM:</span>
 							<input name="" type="text" maxlength="10" size="8" />

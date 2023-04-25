@@ -43,7 +43,7 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 				if (matcher.test(target)) {
 					results.push( { value: target, label: target, content: typeof dataSource[i] === 'object' ? dataSource[i] : undefined });
 
-					if (maxSize && results.length > maxSize) {
+					if (maxSize && request.term !== '' && results.length > maxSize) {
 						break;
 					}
 				}
@@ -81,13 +81,11 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 	_selectInit: function() {
 		this.element.addClass("custom-combobox");
 		this.wrapper = this.element;
-		this.element = this.wrapper.find("input:first");
+		this.element = this.wrapper.find("input:first") || this.element;
 		this.select = this.wrapper.find("select:first").remove();
 
 		this.options.input_source = this.options.source;
-		this.options.select_source = this.select.children("option[value!='']").map(function() {
-            return $.trim(this.text);
-        }).toArray();
+		this.options.select_source = this.select.children("option[value!='']").map(function() { return $.trim(this.text); }).toArray();
 
 		this._createShowAllButton();
 	},
@@ -114,6 +112,9 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 				}
 
 				// Pass empty string as value to search for, displaying all results
+				if(that.options.customDropdown) {
+					that.options.select_source = that._coerceSource(that.options.customDropdown())
+				}
 				that.options.source = that.options.select_source;
 				that._search("");
 			});

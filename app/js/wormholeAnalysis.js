@@ -24,21 +24,26 @@ wormholeAnalysis = new function() {
 	If both systems are known (e.g. C3 to C2) then only wormhole types matching that specific connection will be returned. If either side is unknown then all connections to/from the known side are listed, which will be quite large. If both are unknown then return null (as it could be any wormhole).
 	@param sourceID The system ID, type ID (into genericSystemType) or chain format string (e.g. 2|1232) for the source system
 	@param targetID As above for the target system
+	@param dataSource A source set of wormhole types to evaluate (defaults to appData.wormholes)
 	@return An object of the form { from: [...], to: [...] } where each list is the wormhole types (from appData.wormholes) eligible for that direction */
-	this.eligibleWormholeTypes = function(sourceDef, targetDef) {
-		const coerce = function(def) { return typeof def === 'undefined' || def.genericSystemType ? def : systemAnalysis.analyse(def); };
+	this.eligibleWormholeTypes = function(sourceDef, targetDef, dataSource) {
+		const coerce = function(def) { return def === undefined || def === null || def.genericSystemType ? def : systemAnalysis.analyse(def); };
 		const source = coerce(sourceDef), target = coerce(targetDef);
 		
 		if(!source && !target) { return null; }
 		
 		const from = [], to = [];
-		const matches = function(possibleSystems, system) {
-			return (!possibleSystems) || (!system) || possibleSystems.indexOf(system.name) >= 0 || possibleSystems.indexOf(system.genericSystemType) >= 0;
+		const matches = function(possibleSystems, exclusions, system) {
+			if(typeof possibleSystems === 'string') { possibleSystems = [possibleSystems]; }
+			return (!system) || (
+				((!possibleSystems) || (possibleSystems.indexOf(system.name) >= 0 || possibleSystems.indexOf(system.genericSystemType) >= 0)) && 
+				((!exclusions) || exclusions.indexOf(system.genericSystemType) < 0)	// no exclusion
+			);
 		}
-		Object.entries(appData.wormholes).forEach(function(e) {
+		Object.entries(dataSource || appData.wormholes).forEach(function(e) {
 			const wt = e[1], key = e[0];
-			if(matches(wt.from, source) && matches(wt.leadsTo, target)) { from.push(Object.assign( { key: key}, wt)); }
-			if(matches(wt.from, target) && matches(wt.leadsTo, source)) { to.push(Object.assign( { key: key}, wt)); }
+			if(matches(wt.from, wt.notFrom, source) && matches(wt.leadsTo, wt.notLeadsTo, target)) { from.push(Object.assign( { key: key}, wt)); }
+			if(matches(wt.from, wt.notFrom, target) && matches(wt.leadsTo, wt.notLeadsTo, source)) { to.push(Object.assign( { key: key}, wt)); }
 		});
 		return { from: from, to: to };
 	}
