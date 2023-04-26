@@ -29,7 +29,9 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
         $.extend(this, appData);
 
         this.aSigSystems = Object.assign(
-			appData.genericSystemTypes.reduce(function(o, s) { o[s] = systemAnalysis.analyse(s); return o; }, {} ),
+			// Using the index as a key here because numeric keys always come first and we want these before real systems
+			// see https://stackoverflow.com/questions/47881998/
+			appData.genericSystemTypes.reduce(function(o, s, i) { o[i] = systemAnalysis.analyse(s); o[i].name = s; return o; }, {} ),
 			this.systems);
 		
         $(".systemsAutocomplete").inlinecomplete({source: this.systems, renderer: 'system', maxSize: 10, delay: 0});
