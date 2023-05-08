@@ -64,7 +64,7 @@ var tripwire = new function() {
 	// ToDo: Use native JS
 	this.whTooltip = function(sig) {
 		if (viewingSystemID == sig.systemID) {
-			if ($.inArray(sig.type, $.map(tripwire.wormholes, function(item, index) { return index;})) >= 0) {
+			if ($.inArray(sig.type, $.map(appData.wormholes, function(item, index) { return index;})) >= 0) {
 				var type = sig.type;
 				var tooltip = '';
 			} else {
@@ -72,7 +72,7 @@ var tripwire = new function() {
 				var tooltip = "<b>Type:</b> "+(type || 'Unknown')+"<br/>";
 			}
 		} else {
-			if ($.inArray(sig.sig2Type, $.map(tripwire.wormholes, function(item, index) { return index;})) >= 0) {
+			if ($.inArray(sig.sig2Type, $.map(appData.wormholes, function(item, index) { return index;})) >= 0) {
 				var type = sig.sig2Type;
 				var tooltip = '';
 			} else {
@@ -81,30 +81,30 @@ var tripwire = new function() {
 			}
 		}
 
-		if ($.inArray(type, $.map(tripwire.wormholes, function(item, index) { return index;})) >= 0) {
+		if ($.inArray(type, $.map(appData.wormholes, function(item, index) { return index;})) >= 0) {
 			var whType = true;
 		} else {
 			var whType = false;
 		}
 
+		tooltip += "<b>Life:</b> "+(whType?appData.wormholes[type].life:"Unknown")+"<br/>";
 
 		if (whType) {
-			tooltip += "<b>Life:</b> "+(tripwire.wormholes[type].life)+"<br/>";
-			switch (tripwire.wormholes[type].leadsTo.split(" ")[0]) {
-				case 'High-Sec':
-					tooltip += "<b>Leads To:</b> <span class='hisec'>"+tripwire.wormholes[type].leadsTo+"</span><br/>";
+			switch (appData.wormholes[type].leadsTo.split("-")[0]) {
+				case 'High':
+					tooltip += "<b>Leads To:</b> <span class='hisec'>"+appData.wormholes[type].leadsTo+"</span><br/>";
 					break;
-				case 'Low-Sec':
-					tooltip += "<b>Leads To:</b> <span class='lowsec'>"+tripwire.wormholes[type].leadsTo+"</span><br/>";
+				case 'Low':
+					tooltip += "<b>Leads To:</b> <span class='lowsec'>"+appData.wormholes[type].leadsTo+"</span><br/>";
 					break;
-				case 'Null-Sec':
-					tooltip += "<b>Leads To:</b> <span class='nullsec'>"+tripwire.wormholes[type].leadsTo+"</span><br/>";
+				case 'Null':
+					tooltip += "<b>Leads To:</b> <span class='nullsec'>"+appData.wormholes[type].leadsTo+"</span><br/>";
 					break;
 				case 'Class':
-					tooltip += "<b>Leads To:</b> <span class='wh'>"+tripwire.wormholes[type].leadsTo+"</span><br/>";
+					tooltip += "<b>Leads To:</b> <span class='wh'>"+appData.wormholes[type].leadsTo+"</span><br/>";
 					break;
 				default:
-					tooltip += "<b>Leads To:</b> <span>"+tripwire.wormholes[type].leadsTo+"</span><br/>";
+					tooltip += "<b>Leads To:</b> <span>"+appData.wormholes[type].leadsTo+"</span><br/>";
 			}
 
 			tooltip += "<b>Max Mass</b>: "+(Intl.NumberFormat().format(tripwire.wormholes[type].mass))+" Kg<br/>";

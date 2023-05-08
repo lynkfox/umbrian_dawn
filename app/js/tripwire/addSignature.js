@@ -10,8 +10,8 @@ tripwire.makeSigInfo = function(sig, wormhole) {
 	let leadsTo;
 	if (sig.name) {
 	  leadsTo = tripwire.systems[otherSignature.systemID] ? "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+_.escape(sig.name)+"</a>" : _.escape(sig.name);
-	} else if (tripwire.aSigSystems[otherSignature.systemID]) {
-		leadsTo = tripwire.aSigSystems[otherSignature.systemID];
+	} else if (appData.genericSystemTypes[otherSignature.systemID]) {
+		leadsTo = appData.genericSystemTypes[otherSignature.systemID];
 	} else if (tripwire.systems[otherSignature.systemID]) {
 		leadsTo = "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+tripwire.systems[otherSignature.systemID].name+"</a>";
 	} else {

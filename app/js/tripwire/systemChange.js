@@ -77,7 +77,7 @@ tripwire.systemChange = function(systemID, mode) {
         // Statics
         for (var x in system.statics) {
             var type = system.statics[x];
-            var wormhole = tripwire.wormholes[type];
+            var wormhole = appData.wormholes[type];
             var color = "wh";
 
             switch (wormhole.leadsTo) {
@@ -92,7 +92,7 @@ tripwire.systemChange = function(systemID, mode) {
                     break;
             }
 
-            $("#infoStatics").append("<div><span class='"+ color +"'>&#9679;</span> <b>"+ wormhole.leadsTo +"</b> via <span class='"+ color +"'>"+ type +"</span></div>");
+            $("#infoStatics").append("<div><span class='"+ color +"'>&#9679;</span> <b class='"+ color +"'>"+ wormhole.leadsTo +"</b> via <span>"+ wormholeRendering.renderWormholeType(wormhole, type, system.genericSystemType) +"</span></div>");
         }
 
         // Faction

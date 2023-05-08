@@ -44,18 +44,29 @@ sigDialog.openSignatureDialog = function(e) {
 				}
 			},
 			create: function() {
-				var aSigWormholes = $.map(tripwire.wormholes, function(item, index) { return index;});
-				aSigWormholes.splice(26, 0, "K162");
-				aSigWormholes.push("GATE");
-				aSigWormholes.push("SML");
-				aSigWormholes.push("MED");
-				aSigWormholes.push("LRG");
-				aSigWormholes.push("XLG");
+				var dummyWormholes = {
+						"K162": { },
+						"GATE": { from: [ "Null-Sec", "Low-Sec", "High-Sec", "Triglavian"], leadsTo: [ "Null-Sec", "Low-Sec", "High-Sec", "Triglavian"] },
+						"SML": { "jump": 5000000 },
+						"MED": { "jump": 62000000 },
+						"LRG": { "jump": 375000000 },
+						"XLG": { "jump": 2000000000 }
+					};
+				var aSigWormholes = Object.assign({}, appData.wormholes, dummyWormholes);
 
 				$("#dialog-signature [name='signatureType'], #dialog-signature [name='signatureLife']").selectmenu({width: 100});
 				$("#dialog-signature [name='wormholeLife'], #dialog-signature [name='wormholeMass']").selectmenu({width: 80});
-				$("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
-				$("#dialog-signature [data-autocomplete='sigType']").inlinecomplete({source: aSigWormholes, maxSize: 10, delay: 0});
+				$("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete({source: tripwire.aSigSystems, renderer: 'system', maxSize: 10, delay: 0});
+				function sigTypeDropdownFiller(extractor) {
+					return function() {
+						const leadsTo = $("#dialog-signature .leadsTo:visible").val();
+						const targetSystem = wormholeAnalysis.targetSystemID(leadsTo, undefined);
+						const eligible = wormholeAnalysis.eligibleWormholeTypes(sigDialogVM.viewingSystemID, targetSystem);
+						return extractor(eligible);
+					}
+				}
+				$("#dialog-signature [data-autocomplete='sigTypeFrom']").inlinecomplete({source: aSigWormholes, renderer: 'wormholeType', maxSize: 10, delay: 0, customDropdown: sigTypeDropdownFiller(function(x) { return x.from; })});
+				$("#dialog-signature [data-autocomplete='sigTypeTo']").inlinecomplete({source: aSigWormholes, renderer: 'wormholeType', maxSize: 10, delay: 0, customDropdown: sigTypeDropdownFiller(function(x) { return x.to; })});
 
 				$("#dialog-signature #durationPicker").durationPicker();
 				$("#dialog-signature #durationPicker").on("change", function() {
@@ -100,15 +111,15 @@ sigDialog.openSignatureDialog = function(e) {
 
 				// Auto fill opposite side wormhole w/ K162
 				$("#dialog-signature .wormholeType").on("input, change", function() {
-					if (this.value.length > 0 && $.inArray(this.value.toUpperCase(), aSigWormholes) != -1 && this.value.toUpperCase() != "K162") {
+					if (this.value.length > 0 && aSigWormholes[this.value.toUpperCase()] != -1 && this.value.toUpperCase() != "K162") {
 						$("#dialog-signature .wormholeType").not(this).val("K162");
 
 						// Also auto calculate duration
-						if (tripwire.wormholes[this.value.toUpperCase()]) {
-							$("#dialog-signature #durationPicker").val(tripwire.wormholes[this.value.toUpperCase()].life.substring(0, 2) * 60 * 60).change();
+						if (appData.wormholes[this.value.toUpperCase()]) {
+							$("#dialog-signature #durationPicker").val(appData.wormholes[this.value.toUpperCase()].life.substring(0, 2) * 60 * 60).change();
 						}
 					} else if (this.value.toUpperCase() === "K162") {
-						if ($.inArray($("#dialog-signature .wormholeType").not(this).val().toUpperCase(), aSigWormholes) === -1 || $("#dialog-signature .wormholeType").not(this).val().toUpperCase() === "K162") {
+						if (aSigWormholes[$("#dialog-signature .wormholeType").not(this).val().toUpperCase()] || $("#dialog-signature .wormholeType").not(this).val().toUpperCase() === "K162") {
 							$("#dialog-signature .wormholeType").not(this).val("????");
 						}
 					} else if (this.value == "????") {
@@ -165,7 +176,7 @@ sigDialog.openSignatureDialog = function(e) {
 
 					// Validate wormhole types (blank | wormhole)
 					$.each($("#dialog-signature .wormholeType:visible"), function() {
-						if (this.value.length > 0 && $.inArray(this.value.toUpperCase(), aSigWormholes) == -1 && this.value != "????") {
+						if (this.value.length > 0 && !aSigWormholes[this.value.toUpperCase()] && this.value != "????") {
 							ValidationTooltips.open({target: $(this)}).setContent("Must be a valid wormhole type!");
 							$(this).select();
 							valid = false;
@@ -176,7 +187,7 @@ sigDialog.openSignatureDialog = function(e) {
 
 					// Validate leads to system (blank | system)
 					$.each($("#dialog-signature .leadsTo:visible"), function() {
-						if (this.value.length > 0 && tripwire.aSigSystems.findIndex((item) => this.value.toLowerCase() === item.toLowerCase()) == -1) {
+						if (this.value.length > 0 && appData.genericSystemTypes.findIndex((item) => this.value.toLowerCase() === item.toLowerCase()) == -1 && !findSystemID(this.value)) {
 							ValidationTooltips.open({target: $(this)}).setContent("Must be a valid leads to system!");
 							$(this).select();
 							valid = false;
@@ -206,19 +217,8 @@ sigDialog.openSignatureDialog = function(e) {
 							"name": form.wormholeName,
 							"lifeLength": form.signatureLength
 						};
-						var leadsTo = null;
-						if (Object.index(tripwire.systems, "name", form.leadsTo, true)) {
-							// Leads To is a normal EVE system, so use the sytem ID
-							leadsTo = Object.index(tripwire.systems, "name", form.leadsTo, true)
-						} else if (tripwire.wormholes[form.wormholeType.toUpperCase()]) {
-							// Leads To can be determined by the wormhole type, so lets use what we know it leads to
-							if (tripwire.aSigSystems.findIndex((item) => tripwire.wormholes[form.wormholeType.toUpperCase()].leadsTo.replace(' ', '-').toLowerCase() === item.toLowerCase()) > -1) {
-								leadsTo = tripwire.aSigSystems.findIndex((item) => tripwire.wormholes[form.wormholeType.toUpperCase()].leadsTo.replace(' ', '-').toLowerCase() === item.toLowerCase());
-							}
-						} else if (tripwire.aSigSystems.findIndex((item) => form.leadsTo.toLowerCase() === item.toLowerCase()) !== -1) {
-							// Leads To is one of the valid types we allow, so use of of those indexes as reference
-							leadsTo = tripwire.aSigSystems.findIndex((item) => form.leadsTo.toLowerCase() === item.toLowerCase());
-						}
+						var leadsTo = wormholeAnalysis.targetSystemID(form.leadsTo, form.wormholeType);
+
 						var signature2 = {
 							"signatureID": form.signatureID2_Alpha + form.signatureID2_Numeric,
 							"systemID": leadsTo,
@@ -228,10 +228,10 @@ sigDialog.openSignatureDialog = function(e) {
 						};
 						var type = null;
 						var parent = null;
-						if (form.wormholeType.length > 0 && $.inArray(form.wormholeType.toUpperCase(), aSigWormholes) != -1 && form.wormholeType.toUpperCase() != "K162") {
+						if (form.wormholeType.length > 0 && aSigWormholes[form.wormholeType.toUpperCase()] && form.wormholeType.toUpperCase() != "K162") {
 							parent = "initial";
 							type = form.wormholeType.toUpperCase();
-						} else if (form.wormholeType2.length > 0 && $.inArray(form.wormholeType2.toUpperCase(), aSigWormholes) != -1 && form.wormholeType2.toUpperCase() != "K162") {
+						} else if (form.wormholeType2.length > 0 && aSigWormholes[form.wormholeType2.toUpperCase()] && form.wormholeType2.toUpperCase() != "K162") {
 							parent = "secondary";
 							type = form.wormholeType2.toUpperCase();
 						} else if (form.wormholeType.toUpperCase() == "K162") {
@@ -254,10 +254,10 @@ sigDialog.openSignatureDialog = function(e) {
 
 							// Update the initial and type based on which side of the wormhole we are editing
 							if (tripwire.client.wormholes[wormhole.id]) {
-								if (form.wormholeType.length > 0 && $.inArray(form.wormholeType.toUpperCase(), aSigWormholes) != -1 && form.wormholeType.toUpperCase() != "K162") {
+								if (form.wormholeType.length > 0 && aSigWormholes[form.wormholeType.toUpperCase()] && form.wormholeType.toUpperCase() != "K162") {
 									wormhole.parent = tripwire.client.wormholes[wormhole.id].initialID == signature.id ? "initial" : "secondary";
 									wormhole.type = form.wormholeType.toUpperCase();
-								} else if (form.wormholeType2.length > 0 && $.inArray(form.wormholeType2.toUpperCase(), aSigWormholes) != -1 && form.wormholeType2.toUpperCase() != "K162") {
+								} else if (form.wormholeType2.length > 0 && aSigWormholes[form.wormholeType2.toUpperCase()] && form.wormholeType2.toUpperCase() != "K162") {
 									wormhole.parent = tripwire.client.wormholes[wormhole.id].initialID == signature.id ? "secondary" : "initial";
 									wormhole.type = form.wormholeType2.toUpperCase();
 								} else if (form.wormholeType.toUpperCase() == "K162") {
@@ -387,7 +387,7 @@ sigDialog.openSignatureDialog = function(e) {
 						$("#dialog-signature input[name='signatureID_Numeric']").val(signature.signatureID ? signature.signatureID.substr(3, 5) : "");
 						$("#dialog-signature [name='signatureType']").val(signature.type).selectmenu("refresh").trigger("selectmenuchange");
 						$("#dialog-signature [name='wormholeName']").val(signature.name);
-						$("#dialog-signature [name='leadsTo']").val(tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : (tripwire.aSigSystems[otherSignature.systemID] ? tripwire.aSigSystems[otherSignature.systemID] : ""));
+						$("#dialog-signature [name='leadsTo']").val(tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : (appData.genericSystemTypes[otherSignature.systemID] ? appData.genericSystemTypes[otherSignature.systemID] : ""));
 
 						$("#dialog-signature input[name='signatureID2_Alpha']").val(otherSignature.signatureID ? otherSignature.signatureID.substr(0, 3) : "???");
 						$("#dialog-signature input[name='signatureID2_Numeric']").val(otherSignature.signatureID ? otherSignature.signatureID.substr(3, 5) : "");

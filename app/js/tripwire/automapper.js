@@ -81,13 +81,13 @@ tripwire.autoMapper = function(from, to) {
         if ( ( tripwire.client.signatures[wormhole.initialID] !== undefined ) && ( tripwire.client.signatures[wormhole.secondaryID] !== undefined ) ) {
             // Find wormholes that have no set Leads To system, and their initial system is from the wormhole we just jumped from
             if (tripwire.client.signatures[wormhole.initialID].systemID == from && !tripwire.systems[tripwire.client.signatures[wormhole.secondaryID].systemID]) {
-                if (tripwire.aSigSystems[tripwire.client.signatures[wormhole.secondaryID].systemID] == toClass) {
+                if (appData.genericSystemTypes[tripwire.client.signatures[wormhole.secondaryID].systemID] == toClass) {
                     // Find wormholes that Leads To is generically set to the class we just jumped into
                     return wormhole;
-                } else if (wormhole.type && tripwire.wormholes[wormhole.type] && tripwire.wormholes[wormhole.type].leadsTo.replace(' ', '-') == toClass) {
+                } else if (wormhole.type && appData.wormholes[wormhole.type] && appData.wormholes[wormhole.type].leadsTo.replace(' ', '-') == toClass) {
                     // Find wormholes that Type is known to lead to the class we just jumped into
                     return wormhole;
-                } else if (tripwire.client.signatures[wormhole.secondaryID].systemID === null && (!wormhole.type || !tripwire.wormholes[wormhole.type])) {
+                } else if (tripwire.client.signatures[wormhole.secondaryID].systemID === null && (!wormhole.type || !appData.wormholes[wormhole.type])) {
                     // Find wormholes that don't have a Type or any kind of Leads To entered
                     return wormhole;
                 }
@@ -142,7 +142,7 @@ tripwire.autoMapper = function(from, to) {
 					
 					function formatSystem(systemID) {
 						const system = systemAnalysis.analyse(systemID);
-						return '<b>' + system.name + '</b> (<span class="' + system.systemTypeClass + '">' + system.systemTypeName + '</span>)'; 
+						return systemRendering.renderSystem(system);
 					}
 					
 					document.getElementById('select-sig-from').innerHTML = formatSystem(from);

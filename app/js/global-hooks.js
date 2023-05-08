@@ -98,8 +98,8 @@ $(document).keydown(function(e)	{
 						var wormhole = $.map(tripwire.client.wormholes, function(wormhole) { if (wormhole.initialID == signature.id || wormhole.secondaryID == signature.id) return wormhole; })[0];
 						var otherSignature = signature.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
 						row.push(wormhole.type || "null" );
-						row.push(tripwire.systems[signature.systemID] ? tripwire.systems[signature.systemID].name : tripwire.aSigSystems[signature.systemID]);
-						row.push(tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : tripwire.aSigSystems[otherSignature.systemID]);
+						row.push(tripwire.systems[signature.systemID] ? tripwire.systems[signature.systemID].name : appData.genericSystemTypes[signature.systemID]);
+						row.push(tripwire.systems[otherSignature.systemID] ? tripwire.systems[otherSignature.systemID].name : appData.genericSystemTypes[otherSignature.systemID]);
 						row.push(wormhole.life);
 						row.push(wormhole.mass);
 					} else {
@@ -189,7 +189,7 @@ $('#favorite-dropdown-toggle').click(function() {
 		listWrapper.innerHTML = options.favorites.length == 0 ? '<p>You have no favourites. Use the star to add a system.</p>'
 			: options.favorites.map(function(f) {
 				const systemInfo = systemAnalysis.analyse(f);
-				return '<p><a href=".?system=' + systemInfo.name + '">' + systemInfo.name + '</a> (' + systemRendering.renderEffect(systemInfo, 'span') + '<span class="' + systemInfo.systemTypeClass + '">' + systemInfo.systemTypeName + '</span>)';
+				return '<p>' + systemRendering.renderSystem(systemInfo) + '</p>';
 			}).join('\n');
 		target.style.display = '';
 	} else { target.style.display = 'none'; }
@@ -514,7 +514,7 @@ $("#newTab").on("click", function() {
 				ValidationTooltips.close();
 			},
 			create: function() {
-				$("#dialog-newTab .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+				$("#dialog-newTab .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0, renderer: 'system'});
 
 				$("#newTab_form").submit(function(e) {
 					e.preventDefault();
@@ -579,7 +579,7 @@ $("#chainTabs").on("click", ".editTab", function(e) {
 				ValidationTooltips.close();
 			},
 			create: function() {
-				$("#dialog-editTab .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, maxSize: 10, delay: 0});
+				$("#dialog-editTab .sigSystemsAutocomplete").inlinecomplete({source: tripwire.aSigSystems, renderer: 'system', maxSize: 10, delay: 0});
 
 				$("#editTab_form").submit(function(e) {
 					e.preventDefault();
@@ -971,117 +971,6 @@ function linkSig(sigName) {
 
 	return sigName;
 }
-
-// Custom inlinecomplete + dropdown input
-$.widget("custom.inlinecomplete", $.ui.autocomplete, {
-	_create: function() {
-		if (!this.element.is("input")) {
-			this._selectInit();
-		}
-
-		// Invoke the parent function
-		return this._super();
-	},
-	_value: function() {
-		// Invoke the parent function
-		var originalReturn = this._superApply(arguments);
-
-		this.element.change();
-
-		return originalReturn;
-	},
-	_suggest: function(items) {
-		// if (this.element.val() != items[0].value) {
-			// this.element.val(items[0].value.substr(0, this.element.val().length));
-		// }
-
-		// Invoke the parent function
-		return this._super(items);
-	},
-	_initSource: function() {
-		if ($.isArray(this.options.source)) {
-			this.source = function(request, response) {
-				var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
-				var results = new Array(); // results array
-				var data = this.options.source;
-				var maxSize = this.options.maxSize || 25; // maximum result size
-				// simple loop for the options
-				for (var i = 0, l = data.length; i < l; i++) {
-					if (matcher.test(data[i])) {
-						results.push(data[i]);
-
-						if (maxSize && results.length > maxSize) {
-							break;
-						}
-					}
-				}
-				 // send response
-				 response(results);
-			}
-		} else {
-			// Invoke the parent function
-			return this._super();
-		}
-	},
-	_close: function(event) {
-		this.options.source = this.options.input_source ? this.options.input_source : this.options.source;
-
-		// Invoke the parent function
-		return this._super(event);
-	},
-	addToSelect: function(value) {
-		this.options.select_added_value = value;
-		this.options.select_source.unshift(value);
-	},
-	removeFromSelect: function(value) {
-		if (value) {
-			this.options.select_source.splice(value, 1);
-		} else if (this.options.select_added_value) {
-			this.options.select_source.splice(this.options.select_added_value, 1);
-		}
-		this.options.select_added_value = null;
-	},
-	_selectInit: function() {
-		this.element.addClass("custom-combobox");
-		this.wrapper = this.element;
-		this.element = this.wrapper.find("input:first");
-		this.select = this.wrapper.find("select:first").remove();
-
-		this.options.input_source = this.options.source;
-		this.options.select_source = this.select.children("option[value!='']").map(function() {
-            return $.trim(this.text);
-        }).toArray();
-
-		this._createShowAllButton();
-	},
-	_createShowAllButton: function() {
-        var that = this,
-          wasOpen = false;
-
-        $("<a>")
-			.attr("tabIndex", that.element.prop("tabindex"))
-			.attr("title", "")
-			.appendTo(that.wrapper)
-			.button({icons: {primary: "ui-icon-triangle-1-s"}, text: false})
-			.removeClass("ui-corner-all")
-			.addClass("custom-combobox-toggle ui-corner-right")
-			.on("mousedown", function() {
-				wasOpen = that.widget().is(":visible");
-			})
-			.on("click", function() {
-				that.element.trigger("focus");
-
-				// Close if already visible
-				if (wasOpen) {
-				  return;
-				}
-
-				// Pass empty string as value to search for, displaying all results
-				that.options.source = that.options.select_source;
-				that._search("");
-			});
-	},
-});
 
 // Initialize tablesorter plugin on signaturesWidget table
 $("#sigTable").tablesorter({

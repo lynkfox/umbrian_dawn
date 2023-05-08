@@ -123,7 +123,7 @@ tripwire.pasteSignatures = function() {
             var scanner = rowParse(paste[i]);
 
             if (scanner.id) {
-                var signature = $.map(tripwire.client.signatures, function(signature) { if (signature.signatureID && signature.signatureID.toUpperCase() == scanner.id[0] + scanner.id[1]) return signature; })[0];
+                var signature = $.map(tripwire.client.signatures, function(signature) { if (signature.signatureID && signature.signatureID.toUpperCase() == scanner.id[0] + scanner.id[1] && signature.systemID == viewingSystemID) return signature; })[0];
                 if (signature) {
                     // Update signature (only non-wormholes can be updated to a wormhole)
                     if (scanner.type == "Wormhole" && signature.type != "wormhole") {
