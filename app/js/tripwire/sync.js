@@ -28,11 +28,13 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
         // Expand Tripwire with JSON data from EVE Data Dump and other static data
         $.extend(this, appData);
 
-        this.aSystems = $.map(this.systems, function(system) { return system.name; });
-        this.aSigSystems = ["Null-Sec", "Low-Sec", "High-Sec", "Class-1", "Class-2", "Class-3", "Class-4", "Class-5", "Class-6", "Class-13", "Triglavian"];
-        $.merge(this.aSigSystems, this.aSystems.slice());
-
-        $(".systemsAutocomplete").inlinecomplete({source: this.aSystems, maxSize: 10, delay: 0});
+        this.aSigSystems = Object.assign(
+			// Using the index as a key here because numeric keys always come first and we want these before real systems
+			// see https://stackoverflow.com/questions/47881998/
+			appData.genericSystemTypes.reduce(function(o, s, i) { o[i] = systemAnalysis.analyse(s); o[i].name = s; return o; }, {} ),
+			this.systems);
+		
+        $(".systemsAutocomplete").inlinecomplete({source: this.systems, renderer: 'system', maxSize: 10, delay: 0});
     }
 
     data.mode = mode != "init" ? "refresh" : "init";
