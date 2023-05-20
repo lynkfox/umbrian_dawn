@@ -54,7 +54,8 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 	},	
 	_renderItem: function( ul, item ) {
 		if(item.content && this.options.renderer) {
-			const renderResult = renderers[this.options.renderer](item.content);
+			const renderFunction = typeof this.options.renderer === 'function' ? this.options.renderer : renderers[this.options.renderer];
+			const renderResult = renderFunction(item.content);
 			return $( "<li>" )
 			.html( '<span>' + renderResult + '</span>')
 			.appendTo( ul );
