@@ -824,6 +824,7 @@ $("#chainParent").contextmenu({
 					if (data && data.jumps) {
                         var totalMass = 0;
 						for (x in data.jumps) {
+							if(!appData.mass[data.jumps[x].shipTypeID]) { continue; }	// sometimes ship is not recorded, or ship isn't in SDE dump yet
 							const jumpMass = parseFloat(appData.mass[data.jumps[x].shipTypeID].mass);
                             totalMass += jumpMass;
 							$("#dialog-mass #massTable tbody").append("<tr><td>"+data.jumps[x].characterName+"</td><td>"+(data.jumps[x].toID == systemID ? "In" : "Return")+"</td><td>"+appData.mass[data.jumps[x].shipTypeID].typeName+"</td><td>"+Intl.NumberFormat().format(jumpMass)+"Kg</td><td>"+data.jumps[x].time+"</td></tr>");
