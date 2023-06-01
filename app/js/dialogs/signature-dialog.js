@@ -57,16 +57,28 @@ sigDialog.openSignatureDialog = function(e) {
 				$("#dialog-signature [name='signatureType'], #dialog-signature [name='signatureLife']").selectmenu({width: 100});
 				$("#dialog-signature [name='wormholeLife'], #dialog-signature [name='wormholeMass']").selectmenu({width: 80});
 				$("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete({source: tripwire.aSigSystems, renderer: 'system', maxSize: 10, delay: 0});
+				
+				function getTargetName() { return $("#dialog-signature .leadsTo:visible").val(); }
+				function getTargetSystem() {
+					return wormholeAnalysis.targetSystemID(getTargetName(), undefined);	
+				};
+				
 				function sigTypeDropdownFiller(extractor) {
 					return function() {
-						const leadsTo = $("#dialog-signature .leadsTo:visible").val();
-						const targetSystem = wormholeAnalysis.targetSystemID(leadsTo, undefined);
-						const eligible = wormholeAnalysis.eligibleWormholeTypes(sigDialogVM.viewingSystemID, targetSystem);
+						const eligible = wormholeAnalysis.eligibleWormholeTypes(sigDialogVM.viewingSystemID, getTargetSystem());
 						return extractor(eligible);
 					}
 				}
-				$("#dialog-signature [data-autocomplete='sigTypeFrom']").inlinecomplete({source: aSigWormholes, renderer: 'wormholeType', maxSize: 10, delay: 0, customDropdown: sigTypeDropdownFiller(function(x) { return x.from; })});
-				$("#dialog-signature [data-autocomplete='sigTypeTo']").inlinecomplete({source: aSigWormholes, renderer: 'wormholeType', maxSize: 10, delay: 0, customDropdown: sigTypeDropdownFiller(function(x) { return x.to; })});
+				
+				function renderInbound(item) {	// Render with the type of the systems, if we know, so we don't get "from: [drifter wormholes]" if we know we're in a C2
+					return wormholeRendering.renderWormholeType(item, item.key, getTargetName(), sigDialogVM.viewingSystem.name);
+				}
+				function renderOutbound(item) {	// As above
+					return wormholeRendering.renderWormholeType(item, item.key, sigDialogVM.viewingSystem.name, getTargetName());
+				}
+				
+				$("#dialog-signature [data-autocomplete='sigTypeFrom']").inlinecomplete({source: aSigWormholes, renderer: renderOutbound, maxSize: 10, delay: 0, customDropdown: sigTypeDropdownFiller(function(x) { return x.from; })});
+				$("#dialog-signature [data-autocomplete='sigTypeTo']").inlinecomplete({source: aSigWormholes, renderer: renderInbound, maxSize: 10, delay: 0, customDropdown: sigTypeDropdownFiller(function(x) { return x.to; })});
 
 				$("#dialog-signature #durationPicker").durationPicker();
 				$("#dialog-signature #durationPicker").on("change", function() {
