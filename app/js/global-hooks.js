@@ -280,7 +280,7 @@ $("#user").click(function(e) {
 	}
 });
 $("#wrapper").click(function(e) { // Click outside closes
-	if(!e.originalEvent.isInPanel) {
+	if(!(e.originalEvent && e.originalEvent.isInPanel)) {
 		$("#login > #panel").css({display: "none"});
 		$("#user").removeClass("active");
 	}
