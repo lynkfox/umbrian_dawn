@@ -154,13 +154,13 @@ var chain = new function() {
 		function formatStatics(statics) {
 			if(!statics) { return ''; }
 			const shortCodeMap = { 'High-Sec': 'H', 'Low-Sec': 'L', 'Null-Sec': 'N', 'Triglavian':'▼',
-				'Class 1': '1', 'Class 2': '2', 'Class 3': '3', 'Class 4': '4', 'Class 5' : 5, 'Class 6': 6
+				'Class-1': '1', 'Class-2': '2', 'Class-3': '3', 'Class-4': '4', 'Class-5' : 5, 'Class-6': 6
 			};
 			const classMap = { H: 'hisec', L: 'lowsec', N: 'nullsec', '▼': 'triglavian' };
 			return statics.map(function(s) {
-				const text = shortCodeMap[tripwire.wormholes[s].leadsTo];
+				const text = shortCodeMap[appData.wormholes[s].leadsTo];
 				const className = classMap[text] || 'class-' +  text;
-				const tip = tripwire.wormholes[s].leadsTo + ' via ' + s;
+				const tip = appData.wormholes[s].leadsTo + ' via ' + s;
 				return '<span class="' + className + '" data-tooltip="' + tip + '">' + text + '</span>';
 			}).join('');
 		}
@@ -175,41 +175,15 @@ var chain = new function() {
 
 		function makeSystemNode(systemID, id, whId, inSigId, systemName, nodeTypeMarkup, additionalClasses) {
 			// System type switch
-			var systemType = getSystemType(systemID);
-			const system = tripwire.systems[systemID];
-
-			var effectClass = null, effect = null;
-			if (system && system.effect) {
-				switch(system.effect) {
-					case "Black Hole":
-						effectClass = "blackhole";
-						break;
-					case "Cataclysmic Variable":
-						effectClass = "cataclysmic-variable";
-						break;
-					case "Magnetar":
-						effectClass = "magnetar";
-						break;
-					case "Pulsar":
-						effectClass = "pulsar";
-						break;
-					case "Red Giant":
-						effectClass = "red-giant";
-						break;
-					case "Wolf-Rayet Star":
-						effectClass = "wolf-rayet";
-						break;
-				}
-
-				effect = system.effect;
-			}
+			const system = systemAnalysis.analyse(systemID);
+			var systemType = "<span class='" + system.systemTypeClass + "'>" + system.systemTypeName + system.systemTypeModifiers.join('') + "</span>";
 			
 			systemName = _.escape(systemName);
 			const systemNameText = 
-				options.chain.sigNameLocation == 'name' ? (systemName ? systemName : system ? system.name : '&nbsp;') :
+				options.chain.sigNameLocation == 'name' ? (systemName ? systemName : system.name ? system.name : '&nbsp;') :
 				options.chain.sigNameLocation == 'name_prefix' ?
-					(systemName ? systemName + (system ? ' - ' + system.name : '') : (system ? system.name : '&nbsp;')) :
-				(system ? system.name : '&nbsp;');	
+					(systemName ? systemName + (system.name ? ' - ' + system.name : '') : (system.name ? system.name : '&nbsp;')) :
+				(system.name ? system.name : '&nbsp;');	
 
 			var node = {v: id, systemID: systemID };
 			var chainNode = "<div id='node"+id+"' data-nodeid='"+systemID+"'"
@@ -218,7 +192,7 @@ var chain = new function() {
 				+" class='node " + ((additionalClasses || []).join(' ')) + "'>"
 							+	"<div class='nodeIcons'>"
 							+		"<div style='float: left;'>"
-							+			"<i class='whEffect' "+(effectClass ? "data-icon='"+effectClass+"' data-tooltip='"+effect+"'" : null)+"></i>"
+							+ systemRendering.renderEffect(system, 'i')
 							+		"</div>"
 							+		"<div style='float: right;'>"
 							+			"<i data-icon='user' class='invisible'></i>"
@@ -227,11 +201,11 @@ var chain = new function() {
 							+	"</div>"
 							+	"<h4 class='nodeClass'>"+systemType+"</h4>"
 							+	"<h4 class='nodeSystem'>"
-							+		(system ? "<a href='.?system="+system.name+"'>"+systemNameText+"</a>" : systemNameText)
+							+		(system.name ? "<a href='.?system="+system.name+"'>"+systemNameText+"</a>" : systemNameText)
 							+	"</h4>"
 							+	"<h4 class='nodeType'>" + nodeTypeMarkup + "</h4>"
 							+	"<div class='statics'>"
-							+ formatStatics(system ? system.statics : [])
+							+ formatStatics(system.name ? system.statics : [])
 							+	"</div>"
 							+	"<div class='nodeActivity'>"
 							+		"<span class='jumps invisible'>&#9679;</span>&nbsp;<span class='pods invisible'>&#9679;</span>&nbsp;&nbsp;<span class='ships invisible'>&#9679;</span>&nbsp;<span class='npcs invisible'>&#9679;</span>"
@@ -266,27 +240,6 @@ var chain = new function() {
 			
 			return { childID, calcNode };
 		}
-		
-		function getSystemType(systemID) {
-			var system = systemAnalysis.analyse(systemID);
-			if(!system) { 
-				var leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? tripwire.aSigSystems[systemID.substring(0, systemID.indexOf("|"))] : null;
-				const nodeClass = 
-					leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
-					undefined;
-				const nodeSecurity = 
-					leadsToPointer == "High-Sec" ? 0.8 :
-					leadsToPointer == "Low-Sec" ? 0.4 :
-					leadsToPointer == "Null-Sec" ? -0.1 :
-					undefined;
-				const nodeFaction = 
-					leadsToPointer == "Triglavian" ? 500026 :
-					undefined;
-				
-				system = systemAnalysis.analyse(systemID, { security: nodeSecurity, class: nodeClass, factionID: nodeFaction } );
-			}
-			return "<span class='" + system.systemTypeClass + "'>" + system.systemTypeName + system.systemTypeModifiers.join('') + "</span>";
-		}		
 
 		function findLinks(system) {
 			if (system[0] <= 0) return false;
@@ -472,12 +425,12 @@ var chain = new function() {
 			const sigText = options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "???") :
 					(node.child.type || "(?)") + sigFormat(node.child.typeBM, "type");
 			const nodeTypeMarkup = node.child.path ? 
-				chainMap.renderPath(node.child.path) :
-				"<a href='#' onclick='sigDialog.openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" + _.escape(
+				systemRendering.renderPath(node.child.path) :
+				(node.child.sigIndex ? "<a href='#' onclick='sigDialog.openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" : '') + _.escape(
 					node.child.name && options.chain.sigNameLocation == 'ref' ? node.child.name :
 					node.child.name && options.chain.sigNameLocation == 'ref_prefix' ? node.child.name + ' - ' + sigText :
 					sigText
-				) + '</a>';
+				) + (node.child.sigIndex ? '</a>' : '');
 			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
 			if(node.thirdParty) { additionalClasses.push('third-party', 'third-party-' + node.thirdParty); }
 
@@ -527,26 +480,6 @@ var chain = new function() {
 		return {"map": chain, "lines": connections, "closestToViewing": closestToViewing};
 	}
 
-	this.renderPath = function(path) {
-		if(path.length <= 1 || path.length > options.chain.routingLimit) { return '' + path.length - 1; }
-		else {
-			var systemMarkup = path
-			.slice(0, path.length - 1).reverse()
-			.map(function(s) {
-				const systemID = 30000000 + 1 * s;
-				const system = systemAnalysis.analyse(systemID);
-				const securityClass = system.systemTypeClass;
-				return '<span class="' + securityClass + '" data-tooltip="' + system.name + ' (' + system.security + ')" onclick="tripwire.systemChange(' + systemID + ')">' + system.pathSymbol + '</span>';
-			});
-			var r = '<span class="path">';
-			for(var i = 0; i < systemMarkup.length; i++) {
-				if(i > 0 && 0 == i % 5) { r += '|'; }
-				
-				r += systemMarkup[i];				 
-			}
-			return r + '</span>';
-		}
-	}
 
 	this.setActiveTab = function(newIndex) {
 		$("#chainTabs .tab").removeClass("current");
@@ -628,7 +561,7 @@ var chain = new function() {
 				const pathHomeText = data.closestToViewing.pathHome.slice().reverse()
 					.map(function(n) { return '<a href=".?system=' + tripwire.systems[n.systemID].name + '">' + (n.name || n.signatureID || '???') + '</a>'; })
 					.join(' &gt; ');
-				const pathToChainText = inChain ? '' : '<br/>' + this.renderPath(guidance.findShortestPath(tripwire.map.shortest, data.closestToViewing.systemID - 30000000, viewingSystemID - 30000000));
+				const pathToChainText = inChain ? '' : '<br/>' + systemRendering.renderPath(guidance.findShortestPath(tripwire.map.shortest, data.closestToViewing.systemID - 30000000, viewingSystemID - 30000000));
 				$("#infoExtra").html(prefixText + pathHomeText + pathToChainText);
 				Tooltips.attach($("#infoExtra [data-tooltip]"));
 			} else { $("#infoExtra").text(''); }

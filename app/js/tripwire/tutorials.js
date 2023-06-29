@@ -15,28 +15,28 @@ $("#infoWidget .tutorial").click(function() {
             },
             {
                 element: document.querySelector("#activityGraph"),
-                intro: "<p>This is the graph containing historical ship jump and kill information from the EVE API.</p><br/><p>This data is only available for K-Space systems and not wormhole systems.</p><br/><p>The EVE API updates this data each hour, so this graph will update itself at the top of every hour.</p>"
-            },
-            {
-                element: $("#activityGraph svg > g > g:nth-child(5)")[0],
-                intro: "<p>Each category can be toggled by clicking these keys to drill down the graph into finer detail.</p>"
-            },
-            {
-                element: document.querySelector("#activityGraphControls"),
-                intro: "<p>Select different lengths of historical data to adjust the graph to display more or less information.</p>"
+                intro: "<p>For K space systems, a graph is shown here containing hourly ship jump and kill information from the EVE API.</p><br/><p>Each category can be toggled by clicking the keys above the graph, and the time period selected with the links below.</p>"
             },
             {
                 element: document.querySelector("#infoStatics"),
-                intro: "<p>If a wormhole system is selected, the publicaly known static wormholes will appear here.</p>"
+                intro: "<p>If a wormhole system is selected, its static wormhole types will appear here. (A static is a wormhole which is always present; when it is closed or expires, a new one will spawn.)</p><br/><p>In K space, the route to each of your favorite systems is shown here.</p>"
+            },
+            {
+                element: document.querySelector("#favorite-control-wrapper"),
+                intro: "<p>Use the star to toggle whether this is a 'favorite' system. It shows orange when the current system is a favorite. The other button shows the Favorites panel which will show you all your favorite systems.</p><br/><p>'Favorite' systems in K space can be shown in the chain map, and in the routing panel to the lower left.</p>"
+            },
+            {
+                element: document.querySelector("#show-favorite"),
+                intro: "<p>Use this toggle to show favorite systems and their routes on the chain map.</p>"
+            },
+            {
+                element: document.querySelector("#infoExtra"),
+                intro: "<p>For K space systems, the shortest route to the currently visible chain will be shown here, along with the route within the chain.</p>"
             },
             {
                 element: document.querySelector("#infoLinks"),
                 intro: "<p>These are some quick links to various sites for this specific system.</p>"
-            },
-            {
-                element: document.querySelector("#system-favorite"),
-                intro: "<p>This toggles wether this is a 'favorite' system, orange is active.</p><br/><p>'Favorite' systems can be rendered in the chain map to be able to see how far away trade hub systems are from your wormhole chain K-Space exits.</p>"
-            }
+            },			
         ]
     }).start();
 });

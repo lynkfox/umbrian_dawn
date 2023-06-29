@@ -77,7 +77,7 @@ tripwire.systemChange = function(systemID, mode) {
         // Statics
         for (var x in system.statics) {
             var type = system.statics[x];
-            var wormhole = tripwire.wormholes[type];
+            var wormhole = appData.wormholes[type];
             var color = "wh";
 
             switch (wormhole.leadsTo) {
@@ -92,7 +92,7 @@ tripwire.systemChange = function(systemID, mode) {
                     break;
             }
 
-            $("#infoStatics").append("<div><span class='"+ color +"'>&#9679;</span> <b>"+ wormhole.leadsTo +"</b> via <span class='"+ color +"'>"+ type +"</span></div>");
+            $("#infoStatics").append("<div><span class='"+ color +"'>&#9679;</span> <b class='"+ color +"'>"+ wormhole.leadsTo +"</b> via <span>"+ wormholeRendering.renderWormholeType(wormhole, type, system.genericSystemType) +"</span></div>");
         }
 
         // Faction
@@ -109,7 +109,7 @@ tripwire.systemChange = function(systemID, mode) {
 		for (var fi in options.favorites) {
 			const f = options.favorites[fi];
 			const path = guidance.findShortestPath(tripwire.map.shortest, f - 30000000, viewingSystemID - 30000000);
-			if(path) { $('#infoStatics').append('<p><b><a href=".?system=' + tripwire.systems[f].name + '">' +tripwire.systems[f].name + '</a></b>: ' + chain.renderPath(path) + '</p>'); }
+			if(path) { $('#infoStatics').append('<p><b><a href=".?system=' + tripwire.systems[f].name + '">' +tripwire.systems[f].name + '</a></b>: ' + systemRendering.renderPath(path) + '</p>'); }
 		}
     }
 

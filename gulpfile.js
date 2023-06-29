@@ -1,12 +1,13 @@
-var gulp = require('gulp');
-var pump = require('pump');
-var shell = require('gulp-shell');
-var notify = require('gulp-notify');
-var uglify = require('gulp-uglify-es').default;
-var cleancss = require('gulp-clean-css');
-var concat = require('gulp-concat');
-var sourcemaps = require('gulp-sourcemaps');
-var rename = require('gulp-rename');
+const gulp = require('gulp');
+const pump = require('pump');
+const shell = require('gulp-shell');
+const mocha = require('gulp-mocha');
+const notify = require('gulp-notify');
+const uglify = require('gulp-uglify-es').default;
+const cleancss = require('gulp-clean-css');
+const concat = require('gulp-concat');
+const sourcemaps = require('gulp-sourcemaps');
+const rename = require('gulp-rename');
 
 // The order of the files in `src` are important, be sure to include a file before something else uses it
 var jsFiles = [
@@ -20,10 +21,13 @@ var jsFiles = [
             'app/js/layout.js',
             'app/js/tripwire.js',
             'app/js/global-hooks.js',
+            'app/js/wormholeRendering.js',
+            'app/js/widget-*.js',
             'app/js/systemAnalysis.js',
 			'app/js/system-mutators/*.js',
             'app/js/guidance.js',
 /*            'app/js/thera.js',*/
+            'app/js/systemRendering.js',
             'app/js/chain-map-renderer*.js',
             'app/js/chain-map.js',
             'app/js/tripwire/*.js',
@@ -98,4 +102,9 @@ gulp.task('css', function(cb) {
             })
         ], cb);
     }
+});
+
+gulp.task('test', cb => {
+	gulp.src(['app/js-test/**/*.js']).pipe(mocha());
+	cb();
 });

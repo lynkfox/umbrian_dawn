@@ -1,5 +1,33 @@
 // Hanldes adding to Signatures section
 // ToDo: Use native JS
+tripwire.makeSigInfo = function(sig, wormhole) {
+	wormhole = wormhole ||	// allow to be passed in to save this lookup
+		Object.values(tripwire.client.wormholes).find(function (wh) { return wh.initialID == sig.id || wh.secondaryID == sig.id});
+	if (!wormhole) return false;
+	var otherSignature = sig.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
+	if (!otherSignature) return false;
+
+	let leadsTo;
+	if (sig.name) {
+	  leadsTo = tripwire.systems[otherSignature.systemID] ? "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+_.escape(sig.name)+"</a>" : _.escape(sig.name);
+	} else if (appData.genericSystemTypes[otherSignature.systemID]) {
+		leadsTo = appData.genericSystemTypes[otherSignature.systemID];
+	} else if (tripwire.systems[otherSignature.systemID]) {
+		leadsTo = "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+tripwire.systems[otherSignature.systemID].name+"</a>";
+	} else {
+		leadsTo = "";
+	}
+
+	const wormholeTypeText = wormhole.type || "???";
+	return {
+		id: sig.id,
+		leadsTo: leadsTo,
+		wormhole: wormhole,
+		formattedType: (wormhole[wormhole.parent+"ID"] == sig.id ? wormholeTypeText : (wormhole.parent ? "[" + wormholeTypeText + "]" : "")),
+		lifeText: { critical: 'EOL', stable: 'Stable' }[wormhole.life] || wormhole.life,
+	}
+}
+
 tripwire.addSig = function(add, option, disabled) {
     var option = option || {};
     var animate = typeof(option.animate) !== 'undefined' ? option.animate : true;
@@ -12,30 +40,21 @@ tripwire.addSig = function(add, option, disabled) {
 				: '';
 
     if (add.type == "wormhole") {
-        var wormhole = Object.values(tripwire.client.wormholes).find(function (wh) { return wh.initialID == add.id || wh.secondaryID == add.id});
-        if (!wormhole) return false;
-        var otherSignature = add.id == wormhole.initialID ? tripwire.client.signatures[wormhole.secondaryID] : tripwire.client.signatures[wormhole.initialID];
-        if (!otherSignature) return false;
-
-        if (add.name) {
-          leadsTo = tripwire.systems[otherSignature.systemID] ? "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+add.name+"</a>" : add.name;
-        } else if (tripwire.aSigSystems[otherSignature.systemID]) {
-            leadsTo = tripwire.aSigSystems[otherSignature.systemID];
-        } else if (tripwire.systems[otherSignature.systemID]) {
-            leadsTo = "<a href='.?system="+tripwire.systems[otherSignature.systemID].name+"'>"+tripwire.systems[otherSignature.systemID].name+"</a>";
-        } else {
-            leadsTo = "";
-        }
-
-		const leadsToText = leadsTo ? leadsTo : 
+		const sigInfo = tripwire.makeSigInfo(add);
+		if(!sigInfo) return false;
+		
+		wormhole = sigInfo.wormhole;
+		
+		const leadsToText = sigInfo.leadsTo ? sigInfo.leadsTo : 
 			add.signatureID && add.signatureID.length && add.signatureID[0] != '?' ? returnLinkText
-			: '';
+			: '';	
+
         var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
-            + "<td class='"+ options.signatures.alignment.sigID +"'>"+(add.signatureID ? add.signatureID.substring(0, 3)+"-"+(add.signatureID.substring(3, 6) || "###") : "???-###")+"</td>"
-            + "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(wormhole)+"\">"+(wormhole[wormhole.parent+"ID"] == add.id ? wormhole.type || "" : (wormhole.parent ? "K162" : ""))+"</td>"
+            + "<td class='"+ options.signatures.alignment.sigID +"'>"+formatSignatureID(add.signatureID)+"</td>"
+            + "<td class='type-tooltip "+ options.signatures.alignment.sigType +"' data-tooltip=\""+this.whTooltip(wormhole)+"\">"+sigInfo.formattedType+"</td>"
             + "<td class='age-tooltip "+ options.signatures.alignment.sigAge + (parseInt(add.lifeLength) === 0 ? " disabled" : "") +"' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
             + "<td class='"+ options.signatures.alignment.leadsTo +"'>"+leadsToText+"</td>"
-            + "<td class='"+wormhole.life+" "+ options.signatures.alignment.sigLife +"'>"+wormhole.life+"</td>"
+            + "<td class='"+wormhole.life+" "+ options.signatures.alignment.sigLife +"'>"+sigInfo.lifeText+"</td>"
             + "<td class='"+wormhole.mass+" "+ options.signatures.alignment.sigMass +"'>"+wormhole.mass+"</td>"
             + "</tr>";
 
@@ -44,7 +63,7 @@ tripwire.addSig = function(add, option, disabled) {
 		const leadsToText = add.type === 'unknown' ? returnLinkText : 
 			(add.name ? linkSig(add.name) : '');
         var row = "<tr data-id='"+add.id+"' data-tooltip='' "+ (disabled ? 'disabled="disabled"' : '') +">"
-            + "<td class='"+ options.signatures.alignment.sigID +"'>"+(add.signatureID ? add.signatureID.substring(0, 3)+"-"+(add.signatureID.substring(3, 6) || "###") : "???-###")+"</td>"
+            + "<td class='"+ options.signatures.alignment.sigID +"'>"+formatSignatureID(add.signatureID)+"</td>"
             + "<td class='"+ options.signatures.alignment.sigType +"'>"+add.type+"</td>"
             + "<td class='age-tooltip "+ options.signatures.alignment.sigAge + (parseInt(add.lifeLength) === 0 ? " disabled" : "") +"' data-tooltip='"+this.ageTooltip(add)+"'><span data-age='"+add.lifeTime+"'></span></td>"
             + "<td class='"+ options.signatures.alignment.leadsTo +"' colspan='3'>"+leadsToText+"</td>"
