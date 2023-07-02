@@ -277,18 +277,18 @@ $("#user").click(function(e) {
 
 		$("#login > #panel").css({display: "inline"});
 		$("#loginForm input[name=username]").focus().select();
-
-		// Click outside closes
-		$("#wrapper").click(function(e) {
-			$("#login > #panel").css({display: "none"});
-			$("#user").removeClass("active");
-		});
-
-		$("#login").click(function(e) {
-			e.stopPropagation();
-		})
 	}
 });
+$("#wrapper").click(function(e) { // Click outside closes
+	if(!(e.originalEvent && e.originalEvent.isInPanel)) {
+		$("#login > #panel").css({display: "none"});
+		$("#user").removeClass("active");
+	}
+});
+$("#login").click(function(e) { // click inside doesn't
+	e.originalEvent.isInPanel = true;
+})
+
 
 $("#logout").click(function() {
 	window.location = "logout.php";
