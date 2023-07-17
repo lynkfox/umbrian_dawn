@@ -9,9 +9,12 @@ wormholeRendering = new function() {
 	this.renderWormholeType = function(type, key, from, target) {
 		return ((key || type.key) ? '<b>' + (key || type.key || '') + '</b>: ' : '') +
 			formatEndTypes(type.from, from) + '➔' + formatEndTypes(type.leadsTo, target) +
-			(type.jump ? ' (' + (type.jump / 1e6) + 'kt)' : '')
+			(type.jump ? ' (' + this.renderMass(type.jump) + ')' : '')
 			;
 	};
+	
+	/** Render a mass number. */
+	this.renderMass = function(mass) { return (mass / 1e6) + 'kt'; }
 	
 	function formatEndTypes(types, override) {
 		if(!types) { return '?'; }
