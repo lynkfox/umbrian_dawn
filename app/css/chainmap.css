@@ -202,6 +202,9 @@ div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivi
 .eol, #chainMap .eol, #guide .eol { border-style: dashed; }
 .frig, #chainMap .frig, #guide .frig { border-color: #50D25A; }
 
+.jm-375kt, #chainMap .jm-375kt { border-width: 3px; }
+.jm-2000kt, #chainMap .jm-2000kt { border-width: 5px; }
+
 #massTable td:nth-child(1) {
 	min-width: 12em;
 }

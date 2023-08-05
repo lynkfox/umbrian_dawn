@@ -58,4 +58,13 @@ describe('Wormhole analysis', () => {
 		})), { from: ['X987'], to: [] }));	// C3 to LS
 				
 	});
+	describe('Wormhole from type pair', () => {
+		it('Actual type and K162', () => assert.deepEqual(wormholeAnalysis.wormholeFromTypePair('B274', 'K162'), appData.wormholes.B274));
+		it('Dummy type and K162', () => assert.deepEqual(wormholeAnalysis.wormholeFromTypePair('XLG', 'K162'), wormholeAnalysis.dummyWormholes.XLG));
+		it('Unknown type and K162', () => assert.deepEqual(wormholeAnalysis.wormholeFromTypePair('???', 'K162'), {}));
+		it('K162 and Actual type', () => assert.deepEqual(wormholeAnalysis.wormholeFromTypePair('K162', 'B274'), appData.wormholes.B274));
+		it('K162 and Dummy type', () => assert.deepEqual(wormholeAnalysis.wormholeFromTypePair('K162', 'XLG'), wormholeAnalysis.dummyWormholes.XLG));
+		it('K162 and Unknown type', () => assert.deepEqual(wormholeAnalysis.wormholeFromTypePair('K162', '???'), {}));	
+		it('Actual type and unknown', () => assert.deepEqual(wormholeAnalysis.wormholeFromTypePair('B274', '???'), appData.wormholes.B274));		
+	});
 });
