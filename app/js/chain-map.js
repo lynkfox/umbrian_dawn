@@ -440,9 +440,12 @@ var chain = new function() {
 			if (node.mass == "critical") { modifiers.push('critical'); }
 			else if (node.mass == "destab") { modifiers.push('destab'); }
 			
-			if($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1) { modifiers.push('frig'); }
-			const connectionWormhole = wormholeAnalysis.wormholeFromTypePair(node.parent.type, node.child.type);
-			if(connectionWormhole.jump) { modifiers.push('jm-' + (connectionWormhole.jump / 1e6) + 'kt'); }
+			const connectionWormhole = wormholeAnalysis.wormholeFromTypePair(node.parent.type, node.child.type) || 
+				wormholeAnalysis.likelyWormhole(node.parent.systemID, node.child.systemID);
+			if(connectionWormhole.jump) { 
+				modifiers.push('jm-' + (connectionWormhole.jump / 1e6) + 'kt'); 
+				if(connectionWormhole.jump == 5000000) { modifiers.push('frig'); }
+			}
 			
 			const parentModifiers = (systemsInChainMap[node.parent.systemID] || { chainModifiers:[]}).chainModifiers;
 			row.chainModifiers = modifiers.concat(parentModifiers.filter(function(p) { return modifiers.indexOf(p) < 0; }));

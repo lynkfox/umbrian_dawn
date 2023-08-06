@@ -63,6 +63,17 @@ wormholeAnalysis = new function() {
 	this.wormholeFromTypePair = function(type1, type2) {
 		return appData.wormholes[type1] || appData.wormholes[type2] ||
 			this.dummyWormholes[type1] || this.dummyWormholes[type2] ||
-			{};	// no known properties
+			undefined;	// we don't know anything
+	}
+	
+	this.likelyWormhole = function(system1, system2) {
+		const class1 = systemAnalysis.analyse(system1).class,
+			class2 = systemAnalysis.analyse(system2).class;
+		return this.dummyWormholes[
+			class1 == 13 || class2 == 13 ? 'SML' :
+			class1 == 1 || class2 == 1 ? 'MED' :
+			class1 >= 5 && class2 >= 5 ? 'XLG' :
+			'LRG'
+		];
 	}
 }

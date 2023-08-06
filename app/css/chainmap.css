@@ -195,15 +195,12 @@ div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivi
 }
 
 /* These styles need the specific selectors because they need to override presets */
-.connection { border-color: #004080; }
+.connection, #chainMap .connection { border-color: #004080; }
 .critical, #chainMap .critical, #guide .critical { border-color: #FF4747; }
 .destab, #chainMap .destab, #guide .destab { border-color: #F5B544; }
 .gate, #chainMap .gate, #guide .gate { border-color: darkgray; }
 .eol, #chainMap .eol, #guide .eol { border-style: dashed; }
 .frig, #chainMap .frig, #guide .frig { border-color: #50D25A; }
-
-.jm-375kt, #chainMap .jm-375kt { border-width: 3px; }
-.jm-2000kt, #chainMap .jm-2000kt { border-width: 5px; }
 
 #massTable td:nth-child(1) {
 	min-width: 12em;
