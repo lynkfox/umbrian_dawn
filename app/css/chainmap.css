@@ -273,8 +273,14 @@ div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivi
 #guide div {
 	width: 20px;
 	border-width: 0;
-	border-bottom: 1px solid #38d;
+	border: 2px solid #38d;
+	border-top-style: none !important;	/* so we only get one border even when border style is overridden by eol */
+	border-left-style: none !important;
+	border-right-style: none !important;
 }
+
+#guide div.frig { border-width: 1px; }
+#guide div.aura { box-shadow: 0 0 8px 3px; }
 
 [data-icon="user"] + .badge {
 	position: absolute;

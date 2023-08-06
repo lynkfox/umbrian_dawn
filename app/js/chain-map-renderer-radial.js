@@ -201,7 +201,7 @@ const ChainMapRendererRadial = function(owner) {
 					
 					ctx.lineWidth = parseInt(propertyFromCssClass(node.styles, 'border-width')) || 2;
 					ctx.strokeStyle = propertyFromCssClass(node.styles, 'border-top-color');
-					ctx.setLineDash ({ dashed: [3, 2] }[propertyFromCssClass(node.styles, 'border-top-style')] || []);
+					ctx.setLineDash ({ dashed: [5, 3] }[propertyFromCssClass(node.styles, 'border-top-style')] || []);
 					ctx.stroke();
 				}
 				ctx.restore();
