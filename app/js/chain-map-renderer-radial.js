@@ -192,10 +192,10 @@ const ChainMapRendererRadial = function(owner) {
 					ctx.save();
 					ctx.lineWidth = 1;
 					const auraColor = propertyFromCssClass(node.styles, 'color');
-					ctx.shadowBlur = 15;
+					ctx.shadowBlur = 11;
 					ctx.shadowColor = auraColor;
 					ctx.strokeStyle = 'black';
-					for(let ai = 0; ai < 10; ai++)
+					for(let ai = 0; ai < 8; ai++)
 						ctx.stroke();
 					ctx.restore();
 					
