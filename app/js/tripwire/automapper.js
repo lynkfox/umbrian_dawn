@@ -3,6 +3,8 @@ const automapState = {
 };
 
 tripwire.autoMapper = function(from, to) {
+	console.log('Automapper: Jump from ' + from + ' to ' + to);
+	
     var pods = [33328, 670];
     var undo = [];
 	
@@ -35,16 +37,22 @@ tripwire.autoMapper = function(from, to) {
 	}
 	
     // Is pilot in a station?
-    if (tripwire.client.EVE && tripwire.client.EVE.stationID)
+    if (tripwire.client.EVE && tripwire.client.EVE.stationID) {
+		console.log('Automapper: Not recording because you are in a station');
         return false;
-
+	}
+	
     // Is pilot in a pod?
-    if (tripwire.client.EVE && tripwire.client.EVE.shipTypeID && $.inArray(parseInt(tripwire.client.EVE.shipTypeID), pods) >= 0)
-         return false;
-
+    if (tripwire.client.EVE && tripwire.client.EVE.shipTypeID && $.inArray(parseInt(tripwire.client.EVE.shipTypeID), pods) >= 0) {
+    	console.log('Automapper: Not recording because you are in a pod');
+		return false;
+	}
+	
     // Is this a gate?
-    if (typeof(tripwire.map.shortest[from - 30000000]) != "undefined" && typeof(tripwire.map.shortest[from - 30000000][to - 30000000]) != "undefined")
+    if (typeof(tripwire.map.shortest[from - 30000000]) != "undefined" && typeof(tripwire.map.shortest[from - 30000000][to - 30000000]) != "undefined") {
+		console.log('Automapper: Not recording because this jump is a stargate');
         return false;
+	}
 
      // Is this an existing connection?
      if ($.map(tripwire.client.wormholes,
@@ -55,6 +63,7 @@ tripwire.autoMapper = function(from, to) {
                    ((initial.systemID == from && secondary.systemID == to) ||
                     (initial.systemID == to && secondary.systemID == from))  ? wormhole : null;
                }).length > 0) {
+		console.log('Automapper: Not recording because the connection exists');
        return false;
      }
 	 
@@ -66,16 +75,7 @@ tripwire.autoMapper = function(from, to) {
 	}	 
 
     var payload = {"signatures": {"add": [], "update": []}};
-    var sig, toClass;
-
-    if (tripwire.systems[to].class)
-        toClass = "Class-" + tripwire.systems[to].class;
-    else if (tripwire.systems[to].security >= 0.45)
-        toClass = "High-Sec";
-    else if (tripwire.systems[to].security > 0)
-        toClass = "Low-Sec";
-    else
-        toClass = "Null-Sec";
+    const toClass = systemAnalysis.analyse(to).genericSystemType;
 
     var wormholes = $.map(tripwire.client.wormholes, function(wormhole) {
         if ( ( tripwire.client.signatures[wormhole.initialID] !== undefined ) && ( tripwire.client.signatures[wormhole.secondaryID] !== undefined ) ) {
@@ -97,6 +97,7 @@ tripwire.autoMapper = function(from, to) {
 
     if (wormholes.length) {
         if (wormholes.length > 1) {
+			console.log('Automapper: Multiple sigs matched, asking which one to update');
             $("#dialog-select-signature").dialog({
                 autoOpen: true,
                 title: "Which Signature?",
@@ -173,6 +174,7 @@ tripwire.autoMapper = function(from, to) {
             var wormhole = wormholes[0];
             var signature = tripwire.client.signatures[wormhole.initialID];
             var signature2 = tripwire.client.signatures[wormhole.secondaryID];
+			console.log('Automapper: Single signature: w=' + JSON.stringify(wormhole) + ' s1=' + signature.id + '/' + signature.signatureID + ' s2=' + signature2.id + '/' + signature2.signatureID );
 
             payload.signatures.update.push({
                 "wormhole": {
@@ -192,6 +194,7 @@ tripwire.autoMapper = function(from, to) {
         }
     } else {
         // Nothing matches, create a new wormhole
+		console.log('Automapper: No signatures match, creating a new unknown hole');
         payload.signatures.add.push({
             "wormhole": {
                 "type": null,
