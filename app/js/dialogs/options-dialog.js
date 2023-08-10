@@ -27,7 +27,11 @@ $(".options").click(function(e) {
 				options.chain.routeIgnore.systems = $("#dialog-options #route-ignore").val().split(",").map(x => x.trim());
 
 				options.chain.gridlines = JSON.parse($("#dialog-options input[name=gridlines]:checked").val());
+				options.chain.aura = JSON.parse($("#dialog-options input[name=aura]:checked").val());
 
+				options.chain.nodeSpacing.x = $("#dialog-options #node-spacing-x-slider").slider("value");
+				options.chain.nodeSpacing.y = $("#dialog-options #node-spacing-y-slider").slider("value");
+				
 				options.chain["node-reference"] = $("#dialog-options input[name=node-reference]:checked").val();
 				
 				options.chain.renderer = $("#dialog-options #renderer").val();
@@ -164,25 +168,32 @@ $(".options").click(function(e) {
 			$("#dialog-options #classFormat").val(options.chain.classFormat);
 			$("#dialog-options input[name='node-reference'][value='"+options.chain["node-reference"]+"']").prop("checked", true);
 			$("#dialog-options input[name='gridlines'][value='"+options.chain.gridlines+"']").prop("checked", true);
+			$("#dialog-options input[name='aura'][value='"+options.chain.aura+"']").prop("checked", true);
+			$("#dialog-options #node-spacing-x-slider").slider("value", options.chain.nodeSpacing.x);
+			$("#dialog-options #node-spacing-y-slider").slider("value", options.chain.nodeSpacing.y);
 			$("#dialog-options #background-image").val(options.background);
 		},
 		create: function() {
 			$("#optionsAccordion").accordion({heightStyle: "content", collapsible: true, active: false});
+			function setUpSlider(id, value, change) {
+				$("#" + id).slider({
+					min: 0.7,
+					max: 1.4,
+					step: 0.05,
+					value: value || 1.0,
+					change: change,
+					slide: function(e, ui) {
+						$("label[for='" + id + "']").html(ui.value);
+					}
+				});
 
-			$("#uiscale-slider").slider({
-				min: 0.7,
-				max: 1.4,
-				step: 0.05,
-				value: options.uiscale || 1.0,
-				change: function(e, ui) {
-					$("body").css("zoom", ui.value);
-				},
-				slide: function(e, ui) {
-					$("label[for='uiscale-slider']").html(ui.value);
-				}
-			});
-
-			$("label[for='uiscale-slider']").html($("#uiscale-slider").slider("value"));
+				$("label[for='" + id + "']").html($("#" + id).slider("value"));
+			}
+			setUpSlider('uiscale-slider', options.uiscale, function(e, ui) {
+						$("body").css("zoom", ui.value);
+					});
+			setUpSlider('node-spacing-x-slider', options.chain.nodeSpacing.x);
+			setUpSlider('node-spacing-y-slider', options.chain.nodeSpacing.y);
 
 			$("#dialog-pwChange").dialog({
 				autoOpen: false,

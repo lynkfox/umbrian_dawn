@@ -642,9 +642,18 @@ $system = $_REQUEST['system'];
 					<input type="button" id="pwChange" value="Change Password" />
 				</div>
 			</div>
-			<h3><a href="#">Preferences</a></h3>
+			<h3><a href="#">Chain Map Settings</a></h3>
 			<div>
 				<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
+					<tr>
+						<th>Chain Renderer:</th>
+						<td>
+							<select id="renderer">
+								<option value="orgChart">Org Chart</option>
+								<option value="radial">Radial (System in middle)</option>
+							</select>
+						</td>
+					</tr>
 					<!-- <tr>
 						<th>Chain Type format:</th>
 						<td><input type="text" id="typeFormat" size="4" maxlength="3" /></td>
@@ -658,6 +667,13 @@ $system = $_REQUEST['system'];
 						<td>
 							<input type="radio" name="gridlines" id="gridlines-yes" value="true" /><label for="gridlines-yes"> Yes</label>
 							<input type="radio" name="gridlines" id="gridlines-no" value="false" /><label for="gridlines-no"> No</label>
+						</td>
+					</tr>
+					<tr>
+						<th>Show Line Aura*:</th>
+						<td>
+							<input type="radio" name="aura" id="aura-yes" value="true" /><label for="aura-yes"> Yes</label>
+							<input type="radio" name="aura" id="aura-no" value="false" /><label for="aura-no"> No</label>
 						</td>
 					</tr>
 					<tr>
@@ -679,6 +695,19 @@ $system = $_REQUEST['system'];
 							</select>
 						</td>
 					</tr>
+					<tr>
+						<th>Node Spacing Factor*:</th>
+						<td>
+							X: <label for="node-spacing-x-slider"></label><div id="node-spacing-x-slider" class="spacing-slider"></div><br/>
+							Y: <label for="node-spacing-y-slider"></label><div id="node-spacing-y-slider" class="spacing-slider"></div>
+						</td>
+					</tr>
+					<tr><td colspan=2 style="font-size: 80%; text-align: left">*: No effect in old org chart renderer</td></tr>
+				</table>
+			</div>
+			<h3><a href="#">General Preferences</a></h3>
+			<div>
+				<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
 					<tr>
 						<th>Show Route as Blobs up to:</th>
 						<td>
@@ -738,15 +767,6 @@ $system = $_REQUEST['system'];
 						<th>Background Image:</th>
 						<td>
 							<input type="text" id="background-image" maxlength="200" />
-						</td>
-					</tr>
-					<tr>
-						<th>Chain Renderer:</th>
-						<td>
-							<select id="renderer">
-								<option value="orgChart">Org Chart</option>
-								<option value="radial">Radial (System in middle)</option>
-							</select>
 						</td>
 					</tr>
 					<tr>
