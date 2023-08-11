@@ -41,8 +41,8 @@ const ChainMapRendererRadial = function(owner) {
 	}
 	
 	const CIRCLE_SIZE = { x: 70, y: 60, first_ring_delta: 0.3,
-		ringX: function(ci) { return ci == 0 ? 0 : (ci + this.first_ring_delta) * this.x},
-		ringY: function(ci) { return ci == 0 ? 0 : (ci + this.first_ring_delta) * this.y},
+		ringX: function(ci) { return ci == 0 ? 0 : (ci + this.first_ring_delta) * this.x * options.chain.nodeSpacing.x},
+		ringY: function(ci) { return ci == 0 ? 0 : (ci + this.first_ring_delta) * this.y * options.chain.nodeSpacing.y},
 	 };
 
 	const _this = this;
@@ -189,15 +189,17 @@ const ChainMapRendererRadial = function(owner) {
 					const dist2 = (node.position.y - node.parent.position);
 					
 					// draw aura first
-					ctx.save();
-					ctx.lineWidth = 1;
-					const auraColor = propertyFromCssClass(node.styles, 'color');
-					ctx.shadowBlur = 11;
-					ctx.shadowColor = auraColor;
-					ctx.strokeStyle = 'black';
-					for(let ai = 0; ai < 8; ai++)
-						ctx.stroke();
-					ctx.restore();
+					if(options.chain.aura) {
+						ctx.save();
+						ctx.lineWidth = 1;
+						const auraColor = propertyFromCssClass(node.styles, 'color');
+						ctx.shadowBlur = 11;
+						ctx.shadowColor = auraColor;
+						ctx.strokeStyle = 'black';
+						for(let ai = 0; ai < 8; ai++)
+							ctx.stroke();
+						ctx.restore();
+					}
 					
 					ctx.lineWidth = parseInt(propertyFromCssClass(node.styles, 'border-width')) || 2;
 					ctx.strokeStyle = propertyFromCssClass(node.styles, 'border-top-color');
