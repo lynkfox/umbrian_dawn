@@ -14,7 +14,7 @@ var guidance = (function (undefined) {
 		return parseFloat (a) - parseFloat (b);
 	}
 
-	function adjustCostForOptions(mapCost, system) {
+	function adjustCostForOptions(mapCost, system) {		
 		var system = systemAnalysis.analyse(30000000 + 1 * system);
 		if(!system) { return mapCost; }
 		if(options.chain.routeIgnore.enabled && options.chain.routeIgnore.systems.indexOf(system.name) >= 0) {
@@ -28,10 +28,8 @@ var guidance = (function (undefined) {
 		}
 	}
 
-	var findPaths = function (map, start, end, infinity) {
+	var findPaths = function (map, start, end, limit) {
 		if(!(map[start] && map[end])) { return null; }	// both ends of path must be in network somewhere
-		
-		infinity = infinity || Infinity;
 
 		var costs = {},
 		    open = {'0': [start]},
@@ -46,7 +44,7 @@ var guidance = (function (undefined) {
 
 		costs[start] = 0;
 
-		while (open && !costs[end]) {
+		while (open && undefined === costs[end]) {
 			if(!(keys = extractKeys(open)).length) break;
 
 			keys.sort(sorter);
@@ -58,10 +56,12 @@ var guidance = (function (undefined) {
 			    adjacentNodes = map[node] || {};
 
 			if (!bucket.length) delete open[key];
+			if(currentCost >= limit) { break; }
 
-			for (var vertex in adjacentNodes) {
+			for (var vertexText in adjacentNodes) {
+				const vertex = 1 * vertexText;
 			    if (Object.prototype.hasOwnProperty.call(adjacentNodes, vertex)) {
-					var cost = adjustCostForOptions(adjacentNodes[vertex], vertex),
+					var cost = 1 + adjustCostForOptions(adjacentNodes[vertex], vertex),
 					    totalCost = cost + currentCost,
 					    vertexCost = costs[vertex];
 
@@ -96,7 +96,7 @@ var guidance = (function (undefined) {
 		return nodes;
 	}
 
-	var findShortestPath = function (map, nodes) {
+	var findShortestPath = function (map, nodes, limit) {
 		var start = nodes.shift(),
 		    end,
 		    predecessors,
@@ -105,7 +105,7 @@ var guidance = (function (undefined) {
 
 		while (nodes.length) {
 			end = nodes.shift();
-			predecessors = findPaths(map, start, end);
+			predecessors = findPaths(map, start, end, limit);
 
 			if (predecessors) {
 				shortest = extractShortest(predecessors, end);
@@ -125,13 +125,13 @@ var guidance = (function (undefined) {
 	var Guidance = { kSpaceCache: {} };
 	Guidance.clearCache = function() { Guidance.kSpaceCache = {}; }
 	
-	Guidance.findShortestPath = function (map, start, end) {
+	Guidance.findShortestPath = function (map, start, end, limit) {
 		const nodes = [start, end];
 
-		const cacheKey = nodes.join(',');
+		const cacheKey = nodes.join(',') + (limit ? '-' + limit : '');
 		const cachedPath = Guidance.kSpaceCache[cacheKey];
 		if(cachedPath === undefined) {
-			return Guidance.kSpaceCache[cacheKey] = findShortestPath(map, nodes);
+			return Guidance.kSpaceCache[cacheKey] = findShortestPath(map, nodes, limit);
 		} else {
 			return cachedPath;
 		}
