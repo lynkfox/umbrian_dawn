@@ -460,7 +460,7 @@ var chain = new function() {
 			
 			if(!node.calculated) { 
 				systemsInChainMap[node.child.systemID] = row; // store for loops/chain modifiers
-				
+				/*
 				// check for closest entrance/way home
 				const pathToViewed = guidance.findShortestPath(tripwire.map.shortest, viewingSystemID - 30000000, node.child.systemID - 30000000);
 				if(pathToViewed && (
@@ -468,16 +468,15 @@ var chain = new function() {
 					(pathToViewed && (!closestToViewing || pathToViewed.length < closestToViewing.pathLength))
 				)) {
 					closestToViewing = { systemID: node.child.systemID, pathLength: pathToViewed.length, pathHome: row.pathHome };
-				}
+				}*/
 			}	
 		}
 
 		// Apply critical/destab line colors
 		connections.reverse(); // so we apply to outer systems first
 
-		//this.data.map = chain;
-		//this.data.lines = connections;
-		return {"map": chain, "lines": connections, "closestToViewing": closestToViewing};
+		const exits = Object.keys(systemsInChainMap).filter(function(x) { return x < 31000000; });
+		return {map: chain, lines: connections, systemsInChainMap: systemsInChainMap, exits: exits};
 	}
 
 
@@ -555,15 +554,17 @@ var chain = new function() {
 			SystemActivityToolTips.attach($("#chainMap .nodeClass span[data-tooltip]"));
 			
 			// Update dependent controls: Path to chain/home
-			if(data.closestToViewing) {
-				const inChain = data.closestToViewing.pathLength <= 1;
-				const prefixText = inChain ? 'In chain: ' : (data.closestToViewing.pathLength - 1) + 'j from ' ;
-				const pathHomeText = data.closestToViewing.pathHome.slice().reverse()
+			const path = data.exits ? guidance.findShortestPath(tripwire.map.shortest, viewingSystemID - 30000000, data.exits.map(function(x) { return x  - 30000000; })) : null;
+			if(path) {
+				const inChain = path.length <= 1;
+				const exitSystem = path[path.length - 1] + 30000000;
+				const prefixText = inChain ? 'In chain: ' : (path.length - 1) + 'j from ' ;
+				const pathHomeText = data.systemsInChainMap[exitSystem].pathHome.slice().reverse()
 					.map(function(n) { return '<a href=".?system=' + tripwire.systems[n.systemID].name + '">' + (n.name || n.signatureID || '???') + '</a>'; })
 					.join(' &gt; ');
-				const pathToChainText = inChain ? '' : '<br/>' + systemRendering.renderPath(guidance.findShortestPath(tripwire.map.shortest, data.closestToViewing.systemID - 30000000, viewingSystemID - 30000000));
-				$("#infoExtra").html(prefixText + pathHomeText + pathToChainText);
-				Tooltips.attach($("#infoExtra [data-tooltip]"));
+					const pathToChainText = inChain ? '' : '<br/>' + systemRendering.renderPath(path);
+					$("#infoExtra").html(prefixText + pathHomeText + pathToChainText);
+					Tooltips.attach($("#infoExtra [data-tooltip]"));
 			} else { $("#infoExtra").text(''); }
 			
 			this.drawing = false;
