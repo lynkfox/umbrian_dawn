@@ -416,7 +416,6 @@ var chain = new function() {
 		}
 
 		const systemsInChainMap = {};
-		var closestToViewing = null;
 		
 		for (var x in chainLinks) {
 			var node = chainLinks[x];
@@ -460,15 +459,6 @@ var chain = new function() {
 			
 			if(!node.calculated) { 
 				systemsInChainMap[node.child.systemID] = row; // store for loops/chain modifiers
-				/*
-				// check for closest entrance/way home
-				const pathToViewed = guidance.findShortestPath(tripwire.map.shortest, viewingSystemID - 30000000, node.child.systemID - 30000000);
-				if(pathToViewed && (
-					(viewingSystemID == node.child.systemID) || 
-					(pathToViewed && (!closestToViewing || pathToViewed.length < closestToViewing.pathLength))
-				)) {
-					closestToViewing = { systemID: node.child.systemID, pathLength: pathToViewed.length, pathHome: row.pathHome };
-				}*/
 			}	
 		}
 
