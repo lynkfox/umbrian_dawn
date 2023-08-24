@@ -543,21 +543,9 @@ var chain = new function() {
 			WormholeRouteToolTips.attach($("#chainMap .path span[data-tooltip]"));
 			SystemActivityToolTips.attach($("#chainMap .nodeClass span[data-tooltip]"));
 			
-			// Update dependent controls: Path to chain/home
-			const path = data.exits ? guidance.findShortestPath(tripwire.map.shortest, viewingSystemID - 30000000, data.exits.map(function(x) { return x  - 30000000; })) : null;
-			if(path) {
-				const inChain = path.length <= 1;
-				const exitSystem = path[path.length - 1] + 30000000;
-				const prefixText = inChain ? 'In chain: ' : (path.length - 1) + 'j from ' ;
-				const pathHomeText = data.systemsInChainMap[exitSystem].pathHome.slice().reverse()
-					.map(function(n) { return '<a href=".?system=' + tripwire.systems[n.systemID].name + '">' + (n.name || n.signatureID || '???') + '</a>'; })
-					.join(' &gt; ');
-					const pathToChainText = inChain ? '' : '<br/>' + systemRendering.renderPath(path);
-					$("#infoExtra").html(prefixText + pathHomeText + pathToChainText);
-					Tooltips.attach($("#infoExtra [data-tooltip]"));
-			} else { $("#infoExtra").text(''); }
-			
 			this.drawing = false;
+			
+			systemPanel.update();
 		}
 
 		// Gather latest system activity
