@@ -1,4 +1,4 @@
-var systemAnalysis = new function() {
+const systemAnalysis = new function() {
 	const mutators = [];
 	this.addMutator = function(m) { mutators.push(m); }
 	

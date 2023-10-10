@@ -1,4 +1,4 @@
-wormholeAnalysis = new function() {
+const wormholeAnalysis = new function() {
 	/** Finds the ID for a target system or system type for the given system name text and wormhole type.
 	@param systemText The name of a system, or a system class from appData.genericSystemTypes, e.g. 'Low-Sec'
 	@param wormholeType The type text of a wormhole e.g. 'U210'

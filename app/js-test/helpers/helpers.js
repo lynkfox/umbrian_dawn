@@ -2,7 +2,9 @@
 var fs = require("fs");
 
 function read(f) {
-  return fs.readFileSync(f).toString();
+  return fs.readFileSync(f).toString()
+	.replace(/^const /, '')
+	.replace(/\nconst /, '');
 }
 function include(f) {
 	return eval.apply(global, [
