@@ -105,10 +105,19 @@ tripwire.systemChange = function(systemID, mode) {
         // Faction
         $("#infoFaction").html(system.factionID ? tripwire.factions[system.factionID].name : "&nbsp;");
 		
+		// Gates
+		const connections = guidance.connections(tripwire.map.shortest, viewingSystemID);
+		if(connections.length) {
+			$('#infoStatics').append('<p><b>Gates</b>: ' + connections.map(c => {
+				const system = systemAnalysis.analyse(c.systemID);
+				return c.closed ? '<s>' + system.name + '</s> (closed)' : systemRendering.renderSystem(system); 
+			}).join(', ') + '</p>');
+		}
+		
 		// Route to favourites
 		for (var fi in options.favorites) {
 			const f = options.favorites[fi];
-			const path = guidance.findShortestPath(tripwire.map.shortest, f - 30000000, viewingSystemID - 30000000);
+			const path = guidance.findShortestPath(tripwire.map.shortest, f, viewingSystemID);
 			if(path) { $('#infoStatics').append('<p><b><a href=".?system=' + tripwire.systems[f].name + '">' +tripwire.systems[f].name + '</a></b>: ' + systemRendering.renderPath(path) + '</p>'); }
 		}
     }

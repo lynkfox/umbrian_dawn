@@ -33,15 +33,33 @@ describe('Conditional gates', () => {
 		fw.SamanuniAthounonGateOpen = true;
 
 		assert.deepEqual( [ sid('Uuhulanen'), sid('Samanuni'), sid('Athounon'), sid("Mercomesier")], guidance.findShortestPath(appData.map.shortest, sid('Uuhulanen'), sid("Mercomesier"))); 
+		
+		assert.deepEqual( [ 
+			{ systemID: SID('Mercomesier') }, { systemID: SID('Samanuni') }
+		], guidance.connections(appData.map.shortest, sid('Athounon')));
+		assert.deepEqual( [
+			{ systemID: SID('Athounon') }, { systemID: SID('Uchomida') }, { systemID: SID('Uuhulanen') }, { systemID: SID('Ikoskio') }
+		], guidance.connections(appData.map.shortest, sid('Samanuni')));
 	});
 	it('Athounon-Samanuni closed', () => {
 		include('app/js/fw');
 		fw.SamanuniAthounonGateOpen = false;
 		
 		assert.deepEqual( [ sid('Uuhulanen'), sid('Onnamon'), sid('Kinakka'), sid('Innia'), sid('Eha'), sid('Oicx'), sid('Vlillirier'), sid('Aldranette'), sid('Evaulon'), sid('Anchauttes'), sid('Odamia'), sid('Arderonne'), sid('Reschard'), sid("Mercomesier")], guidance.findShortestPath(appData.map.shortest, sid('Uuhulanen'), sid("Mercomesier"))); 
+		
+		assert.deepEqual( [ 
+			{ systemID: SID('Mercomesier') }, { systemID: SID('Samanuni'), closed: true }
+		], guidance.connections(appData.map.shortest, sid('Athounon')));
+		assert.deepEqual( [
+			{ systemID: SID('Athounon'), closed: true }, { systemID: SID('Uchomida') }, { systemID: SID('Uuhulanen') }, { systemID: SID('Ikoskio') }
+		], guidance.connections(appData.map.shortest, sid('Samanuni')));
 	});
 });
 
+function SID(systemName) {
+	return Object.entries(appData.systems).filter(s => s[1].name === systemName)[0][0] * 1;
+}
+
 function sid(systemName) {
-	return Object.entries(appData.systems).filter(s => s[1].name === systemName)[0][0] - 30000000;
+	return SID(systemName) - 30000000;
 }

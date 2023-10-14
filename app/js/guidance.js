@@ -146,6 +146,18 @@ var guidance = (function (undefined) {
 			return cachedPath;
 		}
 	}
+	
+	/** Find the systems directly connected to this one. System IDs are in normal (+ 30000000) domain. */
+	Guidance.connections = function(map, start) {
+		if(start > 30000000) { start -= 30000000; }
+		return Object.keys(map[start] || {})
+			.map(k => (k * 1))
+			.map(k => {
+				const r = { systemID: k + 30000000 };
+				if(0 > adjustJumpCost(start, k, 1)) { r.closed = true; }
+				return r;
+			});
+	}
 
 	return Guidance;
 })();
