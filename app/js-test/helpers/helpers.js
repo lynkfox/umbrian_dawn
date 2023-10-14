@@ -14,18 +14,20 @@ function include(f) {
 
 /** Fake out a call to $.ajax with static data from the given source */
 function fakeAjax(url, responseFile) {
-	let responseData = fs.readFileSync(responseFile).toString();
-	if(responseFile.endsWith('.json')) { responseData = JSON.parse(responseData); }
-	if(!responseData) { throw "couldn't read " + responseFile; }
-	
-	global['$'] = {};
+	let responseData = null; 
+	if(responseFile) {
+		responseData = fs.readFileSync(responseFile).toString();
+		if(responseFile.endsWith('.json')) { responseData = JSON.parse(responseData); }
+		if(!responseData) { throw "couldn't read " + responseFile; }
+	}
+	if(!global.$) { global.$ = {}; }
 	const requestBuilder = {};
 	requestBuilder.done = f => {
 			f(responseData);
 			return requestBuilder;
 		};
 	requestBuilder.fail = () => {};
-	$.ajax = data => requestBuilder;
+	$.ajax = data => requestBuilder;		
 }
 
 module.exports = { include, fakeAjax };
