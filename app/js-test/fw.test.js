@@ -6,6 +6,8 @@ include('public/js/combine');
 global.setInterval = () => {};
 console.info = () => {};
 guidance = { jumpCostModifiers:[] };
+tripwire = { systemChange: () => {} };
+viewingSystemID = 30000001;
 fakeAjax();
 
 include('app/js/fw');

@@ -19,6 +19,7 @@ function _FactionWarfare() {
 				_this.data = data;
 				_this.parse(data);
 				tripwire.systemChange(viewingSystemID);
+				guidance.clearCache();
 			}
 		}).fail(function(xhr, status, error) {
 			console.warn('Failed to fetch FW data from ESI: ' + status, error);
