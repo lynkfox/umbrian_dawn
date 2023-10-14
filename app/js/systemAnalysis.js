@@ -14,6 +14,7 @@ const systemAnalysis = new function() {
 		r.baseSecurity = 1 * system.security;
 		r.pathSymbol = '■';
 		r.systemTypeModifiers = [];		
+		r.systemID = systemID;
 		
 		mutators.forEach(function(m) { m.mutate(r, systemID); });
 		

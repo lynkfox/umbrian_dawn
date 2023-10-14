@@ -1,6 +1,7 @@
 const assert = require('assert');
 const { include, fakeAjax } = require('./helpers/helpers');
 include('public/js/lodash');
+include('public/js/combine');
 
 global.setInterval = () => {};
 console.info = () => {};
@@ -33,4 +34,16 @@ describe('Faction warfare', () => {
 		assert.deepEqual(-1, fw.adjustJumpCost(45322, 3856));
 		assert.deepEqual(1, fw.adjustJumpCost(45322, 3840, 1));	// check a different jump isn't blocked
 	});	
+	
+	describe('Faction text', () => {
+		before(() => {
+			fakeAjax('cached_third_party.php?key=fw', 'app/js-test/testdata/fw.json');
+			fw.refresh();
+		});
+
+		it('Faction text for non-FW system', () => assert.deepEqual('Caldari State', fw.factionMarkup( { systemID: 1, factionID: 500001 })));
+		it('Faction text for non-faction system', () => assert.deepEqual('&nbsp;', fw.factionMarkup( { systemID: 1 })));
+		it('Faction text for uncontested FW system', () => assert.deepEqual('Gallente Federation (FW: uncontested)', fw.factionMarkup( { systemID: 30005298, factionID: 500004 })));
+		it('Faction text for contested FW system', () => assert.deepEqual('Gallente Federation (FW: 51% contested)', fw.factionMarkup( { systemID: 30005297, factionID: 500004 })));
+	});
 });

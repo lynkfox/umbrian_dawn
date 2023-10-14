@@ -103,7 +103,7 @@ tripwire.systemChange = function(systemID, mode) {
        $("#infoSecurity").addClass(system.systemTypeClass).html(securityText + " " + system.baseSecurity.toFixed(2) + system.systemTypeModifiers.join(' '));
 
         // Faction
-        $("#infoFaction").html(system.factionID ? tripwire.factions[system.factionID].name : "&nbsp;");
+        if(fw) { $("#infoFaction").html(fw.factionMarkup(system)); }
 		
 		// Gates
 		const connections = guidance.connections(tripwire.map.shortest, viewingSystemID);
@@ -140,4 +140,5 @@ tripwire.systemChange = function(systemID, mode) {
     // Reset delete signature icon
     $("#sigTable tr.selected").length == 0 ? $("#signaturesWidget #delete-signature").addClass("disabled") : $("#signaturesWidget #delete-signature").removeClass("disabled");
 }
-tripwire.systemChange(viewingSystemID, "init");
+
+setTimeout(() => tripwire.systemChange(viewingSystemID, "init"), 0);

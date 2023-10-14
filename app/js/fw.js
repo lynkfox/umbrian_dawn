@@ -4,6 +4,7 @@ function _FactionWarfare() {
 	const _this = this;
 	this.listeners = [];
 	this.data = null;
+	this.systems = {};
 	this.SamanuniAthounonGateOpen = true;
 	
 	/** Refresh the FW data from the public ESI endpoint */
@@ -17,7 +18,7 @@ function _FactionWarfare() {
 				console.info('Updating faction warfare status');
 				_this.data = data;
 				_this.parse(data);
-				//this.notify();
+				tripwire.systemChange(viewingSystemID);
 			}
 		}).fail(function(xhr, status, error) {
 			console.warn('Failed to fetch FW data from ESI: ' + status, error);
@@ -36,6 +37,17 @@ function _FactionWarfare() {
 		return gateOpen ? cost : -1;
 	}.bind(this);	// because it's called from outside
 	guidance.jumpCostModifiers.push(this.adjustJumpCost);
+	
+	/** Gets the markup for faction text for a system. If it's in FW, it will show contested status; if not it will just show the faction */
+	this.factionMarkup = function(system) {
+		return system.factionID ? (
+			_this.systems[system.systemID] ? 
+				appData.factions[_this.systems[system.systemID].occupier_faction_id].name + ' (FW: ' + 
+					(_this.systems[system.systemID].contested == 'uncontested' ? 'uncontested' : 
+						Math.floor(100 * _this.systems[system.systemID].victory_points / _this.systems[system.systemID].victory_points_threshold) + '% contested') + ')'
+				: appData.factions[system.factionID].name
+		) : "&nbsp;";
+	};
 	
 	setInterval(this.refresh, 3600000);
 	this.refresh();	
