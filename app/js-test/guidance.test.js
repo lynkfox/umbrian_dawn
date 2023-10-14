@@ -7,6 +7,11 @@ include('app/js/systemAnalysis');
 
 options = { chain: { routeIgnore: { enabled: false } } };
 
+afterEach(() => {
+	guidance.jumpCostModifiers = [];
+	guidance.clearCache();
+});
+
 describe('Pathfinding', () => {
 	it('System to itself', () => { assert.deepEqual( [ sid('Amygnon') ], guidance.findShortestPath(appData.map.shortest, sid('Amygnon'), sid('Amygnon'))); });
 	it('Unroutable systems', () => { assert.deepEqual( null, guidance.findShortestPath(appData.map.shortest, sid('Amygnon'), sid('J163225'))); });
@@ -20,7 +25,21 @@ describe('Pathfinding', () => {
 
 describe('Route to profile', () => {
 	it('System to blue loot', () => { assert.deepEqual( [ sid('Amygnon'), sid("Intaki"), sid("Agoze"), sid("Ostingele"), sid("Harroule"), sid("MHC-R3"), sid("2X-PQG") ], guidance.findShortestPath(appData.map.shortest, sid('Amygnon'), guidance_profiles.blueLootSystems)); });
-	
+});
+
+describe('Conditional gates', () => {
+	it('Athounon-Samanuni open', () => {
+		include('app/js/fw');
+		fw.SamanuniAthounonGateOpen = true;
+
+		assert.deepEqual( [ sid('Uuhulanen'), sid('Samanuni'), sid('Athounon'), sid("Mercomesier")], guidance.findShortestPath(appData.map.shortest, sid('Uuhulanen'), sid("Mercomesier"))); 
+	});
+	it('Athounon-Samanuni closed', () => {
+		include('app/js/fw');
+		fw.SamanuniAthounonGateOpen = false;
+		
+		assert.deepEqual( [ sid('Uuhulanen'), sid('Onnamon'), sid('Kinakka'), sid('Innia'), sid('Eha'), sid('Oicx'), sid('Vlillirier'), sid('Aldranette'), sid('Evaulon'), sid('Anchauttes'), sid('Odamia'), sid('Arderonne'), sid('Reschard'), sid("Mercomesier")], guidance.findShortestPath(appData.map.shortest, sid('Uuhulanen'), sid("Mercomesier"))); 
+	});
 });
 
 function sid(systemName) {

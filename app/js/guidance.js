@@ -1,11 +1,12 @@
 var guidance = (function (undefined) {
+	
 
 	var sorter = function (a, b) {
 		return parseFloat (a) - parseFloat (b);
 	}
 
-	function adjustCostForOptions(mapCost, system) {		
-		var system = systemAnalysis.analyse(30000000 + 1 * system);
+	function adjustCostForOptions(mapCost, toSystem) {		
+		var system = systemAnalysis.analyse(30000000 + 1 * toSystem);
 		if(!system) { return mapCost; }
 		if(options.chain.routeIgnore.enabled && options.chain.routeIgnore.systems.indexOf(system.name) >= 0) {
 			mapCost += 100;	// Penalty for an avoided system
@@ -15,7 +16,11 @@ var guidance = (function (undefined) {
 			case 'avoid-high': return mapCost + (system.security >= 0.45 ? 100 : 0);
 			case 'avoid-null': return mapCost + (system.security <= 0.0 ? 100 : 0);
 			default: return mapCost;	// in case of some invalid option, default to shortest
-		}
+		}	
+	}
+	
+	function adjustJumpCost(from, to, cost) {
+		return Guidance.jumpCostModifiers.reduce((cost, modifier) => modifier(from, to, cost), cost);
 	}
 
 	/** Find a path between the start and end nodes (which may be arrays), up to the path length limit */
@@ -62,8 +67,10 @@ var guidance = (function (undefined) {
 					var cost = 1 + adjustCostForOptions(adjacentNodes[vertex], vertex),
 					    totalCost = cost + currentCost,
 					    vertexCost = costs[vertex];
+					
+					cost = adjustJumpCost(node, vertex, cost);
 
-					if ((vertexCost === undefined) || (vertexCost > totalCost)) {
+					if ((cost > 0) && (vertexCost === undefined) || (vertexCost > totalCost)) {
 						costs[vertex] = totalCost;
 						addToOpen(totalCost, vertex);
 						predecessors[vertex] = node;
@@ -118,7 +125,7 @@ var guidance = (function (undefined) {
 		}
 	}
 	
-	var Guidance = { kSpaceCache: {} };
+	var Guidance = { kSpaceCache: {}, jumpCostModifiers: [] };
 	Guidance.clearCache = function() { Guidance.kSpaceCache = {}; }
 	
 	/** Find the shortest path between start and end nodes on the given map.
