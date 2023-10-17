@@ -34,6 +34,13 @@ tripwire.autoMapper = function(from, to) {
 		return false;
 	}
 	
+	// Not into a special system
+	const noMapSystems = [30000142, 30002187];	// Jita/Amarr
+	if(noMapSystems.indexOf(from) >= 0 || noMapSystems.indexOf(to) >= 0) {	
+		console.info('Not automapping into likely pod-out destination');
+		return false;
+	}
+
     // Is pilot in a station?
     if (tripwire.client.EVE && tripwire.client.EVE.stationID)
         return false;
