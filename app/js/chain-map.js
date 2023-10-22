@@ -416,7 +416,6 @@ var chain = new function() {
 		}
 
 		const systemsInChainMap = {};
-		var closestToViewing = null;
 		
 		for (var x in chainLinks) {
 			var node = chainLinks[x];
@@ -434,15 +433,21 @@ var chain = new function() {
 			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
 			if(node.thirdParty) { additionalClasses.push('third-party', 'third-party-' + node.thirdParty); }
 
+			// Connection modifiers
 			var modifiers = [];			
 			if (node.life == "critical") { modifiers.push('eol'); }
 			if (node.mass == "critical") { modifiers.push('critical'); }
 			else if (node.mass == "destab") { modifiers.push('destab'); }
 			
-			if($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1) { modifiers.push('frig'); }
+			const connectionWormhole = wormholeAnalysis.wormholeFromTypePair(node.parent.type, node.child.type) || 
+				wormholeAnalysis.likelyWormhole(node.parent.systemID, node.child.systemID);
+			if(connectionWormhole.jump) { 
+				modifiers.push('jm-' + (connectionWormhole.jump / 1e6) + 'kt'); 
+				if(connectionWormhole.jump == 5000000) { modifiers.push('frig'); }
+			}
 			
 			const parentModifiers = (systemsInChainMap[node.parent.systemID] || { chainModifiers:[]}).chainModifiers;
-			row.chainModifiers = modifiers.concat(parentModifiers);
+			row.chainModifiers = modifiers.concat(parentModifiers.filter(function(p) { return modifiers.indexOf(p) < 0; }));
 			
 			row.chainModifiers.forEach(function(cm) { modifiers.push(cm + '-chain')});
 			
@@ -453,31 +458,21 @@ var chain = new function() {
 
 			row.c.push(child, parent);
 			chain.rows.push(row);
-			if(modifiers.length) { connections.push(Array(child.v, parent.v, modifiers, node.id)); }
+			connections.push(Array(child.v, parent.v, modifiers, node.id));
 			
 			const parentPathHome = (systemsInChainMap[node.parent.systemID] || { pathHome:[]}).pathHome;
 			row.pathHome = parentPathHome.concat(node.child);
 			
 			if(!node.calculated) { 
 				systemsInChainMap[node.child.systemID] = row; // store for loops/chain modifiers
-				
-				// check for closest entrance/way home
-				const pathToViewed = guidance.findShortestPath(tripwire.map.shortest, viewingSystemID - 30000000, node.child.systemID - 30000000);
-				if(pathToViewed && (
-					(viewingSystemID == node.child.systemID) || 
-					(pathToViewed && (!closestToViewing || pathToViewed.length < closestToViewing.pathLength))
-				)) {
-					closestToViewing = { systemID: node.child.systemID, pathLength: pathToViewed.length, pathHome: row.pathHome };
-				}
 			}	
 		}
 
 		// Apply critical/destab line colors
 		connections.reverse(); // so we apply to outer systems first
 
-		//this.data.map = chain;
-		//this.data.lines = connections;
-		return {"map": chain, "lines": connections, "closestToViewing": closestToViewing};
+		const exits = Object.keys(systemsInChainMap).filter(function(x) { return x < 31000000; });
+		return {map: chain, lines: connections, systemsInChainMap: systemsInChainMap, exits: exits};
 	}
 
 
@@ -554,19 +549,9 @@ var chain = new function() {
 			WormholeRouteToolTips.attach($("#chainMap .path span[data-tooltip]"));
 			SystemActivityToolTips.attach($("#chainMap .nodeClass span[data-tooltip]"));
 			
-			// Update dependent controls: Path to chain/home
-			if(data.closestToViewing) {
-				const inChain = data.closestToViewing.pathLength <= 1;
-				const prefixText = inChain ? 'In chain: ' : (data.closestToViewing.pathLength - 1) + 'j from ' ;
-				const pathHomeText = data.closestToViewing.pathHome.slice().reverse()
-					.map(function(n) { return '<a href=".?system=' + tripwire.systems[n.systemID].name + '">' + (n.name || n.signatureID || '???') + '</a>'; })
-					.join(' &gt; ');
-				const pathToChainText = inChain ? '' : '<br/>' + systemRendering.renderPath(guidance.findShortestPath(tripwire.map.shortest, data.closestToViewing.systemID - 30000000, viewingSystemID - 30000000));
-				$("#infoExtra").html(prefixText + pathHomeText + pathToChainText);
-				Tooltips.attach($("#infoExtra [data-tooltip]"));
-			} else { $("#infoExtra").text(''); }
-			
 			this.drawing = false;
+			
+			systemPanel.update();
 		}
 
 		// Gather latest system activity

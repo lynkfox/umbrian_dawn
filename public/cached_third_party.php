@@ -10,7 +10,8 @@ if(!isset($_SESSION['userID'])) {
 
 $fetch_data = array(
 	'invasions' => array('url' => 'https://kybernaut.space/invasions.json', 'cache_file' => 'invasions.json', 'cache_for' => 3600),
-	'thera' => array('url' => 'https://www.eve-scout.com/api/wormholes', 'cache_file' => 'thera.json', 'cache_for' => 60)
+	'thera' => array('url' => 'https://www.eve-scout.com/api/wormholes', 'cache_file' => 'thera.json', 'cache_for' => 60),
+	'fw' => array('url' => 'https://esi.evetech.net/latest/fw/systems/?datasource=tranquility', 'cache_file' => 'fw.json', 'cache_for' => 3600),
 )[$_REQUEST['key']];
 
 if(!isset($fetch_data)) { 

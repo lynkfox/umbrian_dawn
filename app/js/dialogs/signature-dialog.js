@@ -44,15 +44,7 @@ sigDialog.openSignatureDialog = function(e) {
 				}
 			},
 			create: function() {
-				var dummyWormholes = {
-						"K162": { },
-						"GATE": { from: [ "Null-Sec", "Low-Sec", "High-Sec", "Triglavian"], leadsTo: [ "Null-Sec", "Low-Sec", "High-Sec", "Triglavian"] },
-						"SML": { "jump": 5000000 },
-						"MED": { "jump": 62000000 },
-						"LRG": { "jump": 375000000 },
-						"XLG": { "jump": 2000000000 }
-					};
-				var aSigWormholes = Object.assign({}, appData.wormholes, dummyWormholes);
+				var aSigWormholes = Object.assign({}, appData.wormholes, wormholeAnalysis.dummyWormholes, { K162: {} } );
 
 				$("#dialog-signature [name='signatureType'], #dialog-signature [name='signatureLife']").selectmenu({width: 100});
 				$("#dialog-signature [name='wormholeLife'], #dialog-signature [name='wormholeMass']").selectmenu({width: 80});

@@ -72,6 +72,7 @@ var activity = new function() {
 			gridlineColor: "#454545",
 			pointSize: 2,
 			lineWidth: 1,
+			height: 150,
 			chartArea: {left: "10%", top: "5%", width: "88%", height: "85%"},
 			legend: {position: "in", textStyle: {color: "#CCC", fontName: "Verdana", fontSize: 8.5}},
 			animation: {duration: 500, easing: "inAndout"},

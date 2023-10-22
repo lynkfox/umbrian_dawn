@@ -1,4 +1,4 @@
-var systemAnalysis = new function() {
+const systemAnalysis = new function() {
 	const mutators = [];
 	this.addMutator = function(m) { mutators.push(m); }
 	
@@ -14,6 +14,7 @@ var systemAnalysis = new function() {
 		r.baseSecurity = 1 * system.security;
 		r.pathSymbol = '■';
 		r.systemTypeModifiers = [];		
+		r.systemID = systemID;
 		
 		mutators.forEach(function(m) { m.mutate(r, systemID); });
 		

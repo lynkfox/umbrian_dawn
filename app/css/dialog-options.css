@@ -2,12 +2,7 @@
 	vertical-align: top;
 }
 
-#dialog-options #uiscale-slider {
-    width: 75%;
-    float: right;
-    margin-right: 10px;
-    margin-top: 3px;
-}
+div.ui-slider { display: inline-block; width: calc(75% - 3px); margin-right: 3px }
 
 #dialog-options input[type="text"], #dialog-options input[type="password"], #dialog-options select { width: 75% }
 
