@@ -30,6 +30,8 @@ var jsFiles = [
             'app/js/systemRendering.js',
             'app/js/chain-map-renderer*.js',
             'app/js/chain-map.js',
+            'app/js/guidance_profiles.js',
+            'app/js/systemPanel.js',
             'app/js/tripwire/*.js',
             'app/js/*.js',
             'app/js/**/*.js'
