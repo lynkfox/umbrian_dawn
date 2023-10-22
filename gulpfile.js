@@ -16,6 +16,7 @@ var jsFiles = [
         nameMin: 'app.min.js',
         src: [
             'app/js/helpers.js',
+			'app/js/data-mutators/*.js',
             'app/js/init.js',
             'app/js/options.js',
             'app/js/layout.js',
