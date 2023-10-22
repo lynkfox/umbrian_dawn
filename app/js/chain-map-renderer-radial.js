@@ -41,8 +41,8 @@ const ChainMapRendererRadial = function(owner) {
 	}
 	
 	const CIRCLE_SIZE = { x: 70, y: 60, first_ring_delta: 0.3,
-		ringX: function(ci) { return ci == 0 ? 0 : (ci + this.first_ring_delta) * this.x},
-		ringY: function(ci) { return ci == 0 ? 0 : (ci + this.first_ring_delta) * this.y},
+		ringX: function(ci) { return ci == 0 ? 0 : (ci + this.first_ring_delta) * this.x * options.chain.nodeSpacing.x},
+		ringY: function(ci) { return ci == 0 ? 0 : (ci + this.first_ring_delta) * this.y * options.chain.nodeSpacing.y},
 	 };
 
 	const _this = this;
@@ -68,7 +68,7 @@ const ChainMapRendererRadial = function(owner) {
 				parentNode.children.push(mapNode);
 				mapNode.parent = parentNode;
 				mapNode.connection = lines.filter(function(l) { return l[0] == id; })[0] || [id, parent, [], '?'];
-				mapNode.connection[2].unshift('connection');
+				mapNode.styles = ['connection'].concat(mapNode.connection[2]);
 				mapNode.map = parentNode.map;
 				mapNode.circle = parentNode.circle + 1;
 				if(mapNode.map.circles.length <= mapNode.circle) {
@@ -158,7 +158,7 @@ const ChainMapRendererRadial = function(owner) {
 			const ctx = canvas.getContext('2d');
 			ctx.scale(CANVAS_SCALE, CANVAS_SCALE);
 			ctx.translate(finalPositions.cx, finalPositions.cy);
-				
+			
 			for(var ci = map.bounds.maxCi; ci >= 1; ci--) {	// don't need to draw ring 0
 				if(options.chain.gridlines) {
 					ctx.beginPath();
@@ -172,11 +172,11 @@ const ChainMapRendererRadial = function(owner) {
 				}
 				if(ci >= map.circles.length) { continue; }
 				
+				ctx.save();
 				for(var ni = 0; ni < map.circles[ci].nodes.length; ni++) {
 					const node = map.circles[ci].nodes[ni];
 					if(!node.position) { continue; }	// not drawn on map
 					ctx.beginPath();
-					ctx.lineWidth = node.connection[2].reduce(function(w, c) { return c == 'frig' ? 1 : w; }, 3);
 					ctx.moveTo(node.position.x, node.position.y);
 					const cp1 = radToCartesian({ r: node.radPosition.r - 0.5, theta: (node.radPosition.theta + 2 * node.parent.radPosition.theta) / 3.0 });
 					const cp2 = radToCartesian({ r: node.radPosition.r - 0.5, theta: (2 * node.radPosition.theta + node.parent.radPosition.theta) / 3.0 });
@@ -187,10 +187,26 @@ const ChainMapRendererRadial = function(owner) {
 						ctx.lineTo(node.parent.position.x, node.parent.position.y);			
 					}
 					const dist2 = (node.position.y - node.parent.position);
-					ctx.strokeStyle = propertyFromCssClass(node.connection[2], 'border-top-color');
-					ctx.setLineDash ({ dashed: [3, 2] }[propertyFromCssClass(node.connection[2], 'border-top-style')] || []);
+					
+					// draw aura first
+					if(options.chain.aura) {
+						ctx.save();
+						ctx.lineWidth = 1;
+						const auraColor = propertyFromCssClass(node.styles, 'color');
+						ctx.shadowBlur = 11;
+						ctx.shadowColor = auraColor;
+						ctx.strokeStyle = 'black';
+						for(let ai = 0; ai < 8; ai++)
+							ctx.stroke();
+						ctx.restore();
+					}
+					
+					ctx.lineWidth = parseInt(propertyFromCssClass(node.styles, 'border-width')) || 2;
+					ctx.strokeStyle = propertyFromCssClass(node.styles, 'border-top-color');
+					ctx.setLineDash ({ dashed: [5, 3] }[propertyFromCssClass(node.styles, 'border-top-style')] || []);
 					ctx.stroke();
 				}
+				ctx.restore();
 			}	
 		}
 		
@@ -280,12 +296,12 @@ const ChainMapRendererRadial = function(owner) {
 		if(!elem) {
 		  elem = document.createElement("div");
 		  elem.id = 'temp-div-' + className;
-		  elem.style.cssText = "position:fixed;left:-100px;top:-100px;width:1px;height:1px";
+		  elem.style.cssText = "position:fixed;left:-100px;top:-100px;width:1px;height:1px;";
 		  elem.className = className + ' temp';
 		  document.body.appendChild(elem);  // required in some browsers
 		  }
-	  const color = getComputedStyle(elem).getPropertyValue(property);
+	  const prop = getComputedStyle(elem).getPropertyValue(property);
 	  //document.body.removeChild(tmp);
-	  return color;
+	  return prop;
 	}	
 };

@@ -246,7 +246,13 @@ $system = $_REQUEST['system'];
 					<span>|</span>
 					<i id="show-viewing" data-icon="eye" data-tooltip="Add viewing system to chain"></i>
 					<i id="show-favorite" data-icon="star" data-tooltip="Add favorite systems to chain"></i>
-					<i id="show-chainLegend" data-icon="tree" data-tooltip="<table id='guide'><tr><td><div class='guide stable'></td><td>Stable</td></tr><tr><td><div class='guide eol'></div></td><td>End of Life</td></tr><tr><td><div class='guide destab'></div></td><td>Mass Destabbed</td></tr><tr><td><div class='guide critical'></div></td><td>Mass Critical</td></tr><tr><td><div class='guide frig'></div></td><td>Frigate</td></tr></table>"></i>
+					<i id="show-chainLegend" data-icon="tree" data-tooltip="<table id='guide'>
+						<tr><td><div class='guide stable'></td><td>Stable</td><th>Auras</th></tr>
+						<tr><td><div class='guide eol'></div></td><td>End of Life</td><td><div class='guide aura jm-5kt frig'></div></td><td>Small</td></tr>
+						<tr><td><div class='guide destab'></div></td><td>Mass Destabbed</td><td><div class='guide aura jm-62kt'></div></td><td>Medium</td></tr>
+						<tr><td><div class='guide critical'></div></td><td>Mass Critical</td><td><div class='guide aura jm-375kt'></div></td><td>Large</td></tr>
+						<tr><td><div class='guide frig'></div></td><td>Frigate</td><td><div class='guide aura jm-2000kt'></div></td><td>X-Large</td></tr>
+					</table>"></i>
 					<div style="float: right;">
 						<button id="chain-zoom-reset" class="hidden">Reset Zoom</button>
 						<!-- <i class="tutorial" data-tooltip="Show tutorial for this section">?</i> -->
@@ -636,9 +642,18 @@ $system = $_REQUEST['system'];
 					<input type="button" id="pwChange" value="Change Password" />
 				</div>
 			</div>
-			<h3><a href="#">Preferences</a></h3>
+			<h3><a href="#">Chain Map Settings</a></h3>
 			<div>
 				<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
+					<tr>
+						<th>Chain Renderer:</th>
+						<td>
+							<select id="renderer">
+								<option value="orgChart">Org Chart</option>
+								<option value="radial">Radial (System in middle)</option>
+							</select>
+						</td>
+					</tr>
 					<!-- <tr>
 						<th>Chain Type format:</th>
 						<td><input type="text" id="typeFormat" size="4" maxlength="3" /></td>
@@ -652,6 +667,13 @@ $system = $_REQUEST['system'];
 						<td>
 							<input type="radio" name="gridlines" id="gridlines-yes" value="true" /><label for="gridlines-yes"> Yes</label>
 							<input type="radio" name="gridlines" id="gridlines-no" value="false" /><label for="gridlines-no"> No</label>
+						</td>
+					</tr>
+					<tr>
+						<th>Show Line Aura*:</th>
+						<td>
+							<input type="radio" name="aura" id="aura-yes" value="true" /><label for="aura-yes"> Yes</label>
+							<input type="radio" name="aura" id="aura-no" value="false" /><label for="aura-no"> No</label>
 						</td>
 					</tr>
 					<tr>
@@ -673,6 +695,19 @@ $system = $_REQUEST['system'];
 							</select>
 						</td>
 					</tr>
+					<tr>
+						<th>Node Spacing Factor*:</th>
+						<td>
+							X: <label for="node-spacing-x-slider"></label><div id="node-spacing-x-slider" class="spacing-slider"></div><br/>
+							Y: <label for="node-spacing-y-slider"></label><div id="node-spacing-y-slider" class="spacing-slider"></div>
+						</td>
+					</tr>
+					<tr><td colspan=2 style="font-size: 80%; text-align: left">*: No effect in old org chart renderer</td></tr>
+				</table>
+			</div>
+			<h3><a href="#">General Preferences</a></h3>
+			<div>
+				<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
 					<tr>
 						<th>Show Route as Blobs up to:</th>
 						<td>
@@ -732,15 +767,6 @@ $system = $_REQUEST['system'];
 						<th>Background Image:</th>
 						<td>
 							<input type="text" id="background-image" maxlength="200" />
-						</td>
-					</tr>
-					<tr>
-						<th>Chain Renderer:</th>
-						<td>
-							<select id="renderer">
-								<option value="orgChart">Org Chart</option>
-								<option value="radial">Radial (System in middle)</option>
-							</select>
 						</td>
 					</tr>
 					<tr>

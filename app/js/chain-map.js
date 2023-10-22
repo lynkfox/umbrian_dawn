@@ -434,15 +434,21 @@ var chain = new function() {
 			const additionalClasses = node.calculated ? ['calc'] : systemsInChainMap[node.child.systemID] ? [ 'loop' ] : [];
 			if(node.thirdParty) { additionalClasses.push('third-party', 'third-party-' + node.thirdParty); }
 
+			// Connection modifiers
 			var modifiers = [];			
 			if (node.life == "critical") { modifiers.push('eol'); }
 			if (node.mass == "critical") { modifiers.push('critical'); }
 			else if (node.mass == "destab") { modifiers.push('destab'); }
 			
-			if($.inArray(node.parent.type, frigTypes) != -1 || $.inArray(node.child.type, frigTypes) != -1) { modifiers.push('frig'); }
+			const connectionWormhole = wormholeAnalysis.wormholeFromTypePair(node.parent.type, node.child.type) || 
+				wormholeAnalysis.likelyWormhole(node.parent.systemID, node.child.systemID);
+			if(connectionWormhole.jump) { 
+				modifiers.push('jm-' + (connectionWormhole.jump / 1e6) + 'kt'); 
+				if(connectionWormhole.jump == 5000000) { modifiers.push('frig'); }
+			}
 			
 			const parentModifiers = (systemsInChainMap[node.parent.systemID] || { chainModifiers:[]}).chainModifiers;
-			row.chainModifiers = modifiers.concat(parentModifiers);
+			row.chainModifiers = modifiers.concat(parentModifiers.filter(function(p) { return modifiers.indexOf(p) < 0; }));
 			
 			row.chainModifiers.forEach(function(cm) { modifiers.push(cm + '-chain')});
 			
@@ -453,7 +459,7 @@ var chain = new function() {
 
 			row.c.push(child, parent);
 			chain.rows.push(row);
-			if(modifiers.length) { connections.push(Array(child.v, parent.v, modifiers, node.id)); }
+			connections.push(Array(child.v, parent.v, modifiers, node.id));
 			
 			const parentPathHome = (systemsInChainMap[node.parent.systemID] || { pathHome:[]}).pathHome;
 			row.pathHome = parentPathHome.concat(node.child);
