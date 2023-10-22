@@ -30,6 +30,7 @@ $("body").on("click", "#redo:not(.disabled)", function() {
 
 // Chain map zooming (Gets funky if you push things too far)
 $("#chainParent").on("mousewheel", function(e) {
+	if(!e.ctrlKey) { return; }
 	e.preventDefault();
 	var zoom = parseFloat($("#chainParent").css("zoom")) || 1.0;
 	var min = 0.6;
