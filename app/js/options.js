@@ -44,6 +44,7 @@ var options = new function() {
 		}
 
 		this.apply();
+		if(tripwire) { set_tracking_text(); }
 	};
 
 	// Gets options from this by exluding types == function

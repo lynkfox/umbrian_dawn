@@ -242,9 +242,21 @@ $("#track").on("click", ".tracking-clone", function() {
 
 		$("#removeESI").removeAttr("disabled");
 	}
-
+	set_tracking_text();
 	options.save();
 });
+
+/** Set UI text based on the current tracked character */
+function set_tracking_text() {
+	if(tripwire.esi.characters[options.tracking.active]) {
+		document.getElementById('user-track-name').textContent = tripwire.esi.characters[options.tracking.active].characterName;
+		document.getElementById('user-track').style.display = '';
+		document.getElementById('user-no-track').style.display = 'none';
+	} else {
+		document.getElementById('user-track').style.display = 'none';
+		document.getElementById('user-no-track').style.display = '';	
+	}
+}
 
 $("#login").on("click", "#removeESI", function() {
 	var characterID = options.tracking.active;
