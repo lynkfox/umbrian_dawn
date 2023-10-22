@@ -1,5 +1,5 @@
 /** Functions for rendering things relating to wormholes */
-wormholeRendering = new function() { 
+const wormholeRendering = new function() { 
 	/** Render a wormhole type (from appData.wormholes).
 	* @param type The type object e.g. appData.wormholes.B274
 	* @param key The wormhole type e.g. 'B274'
