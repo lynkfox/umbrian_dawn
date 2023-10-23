@@ -1,5 +1,5 @@
 # README
-
+testing auto-deploy
 Some things have changed, read carefully - also Docker has some isssues yet, recommend not using it or helping solve the issues.
 
 The landing page twitter feed won't work since the one I used requires a private token, I will have to find a new way to do it later.
