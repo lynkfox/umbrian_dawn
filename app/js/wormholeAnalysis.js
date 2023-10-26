@@ -74,7 +74,7 @@ const wormholeAnalysis = new function() {
 		const class1 = systemAnalysis.analyse(system1).class,
 			class2 = systemAnalysis.analyse(system2).class;
 		return this.dummyWormholes[
-			class1 == 13 || class2 == 13 ? 'SML' :
+			String(class1 + '/' + class2).indexOf('13') >= 0 ? 'SML' :
 			class1 == 1 || class2 == 1 ? 'MED' :
 			class1 >= 5 && class2 >= 5 ? 'XLG' :
 			'LRG'

@@ -79,6 +79,7 @@ describe('Wormhole analysis', () => {
 		it('specific C4/generic C1 should be medium', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, '3|2345'), wormholeAnalysis.dummyWormholes.MED));		
 		it('specific C4/specific C13 should be frig', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, 31002584), wormholeAnalysis.dummyWormholes.SML));		
 		it('specific C4/generic C13 should be frig', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, '9|5432'), wormholeAnalysis.dummyWormholes.SML));		
+		it('specific C4/generic Unknown (small) should be frig', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, '12|5432'), wormholeAnalysis.dummyWormholes.SML));		
 	});
 		
 });
