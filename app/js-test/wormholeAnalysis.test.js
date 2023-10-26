@@ -30,6 +30,7 @@ describe('Wormhole analysis', () => {
 		it('Specific system to type (chain format)', () => assert.deepEqual(extractNames(wormholeAnalysis.eligibleWormholeTypes(31001031, '2|12354')), { from: ['D845'], to: ['X702', 'Z006'] }));	// C3 to HS
 		it('Type to specific system', () => assert.deepEqual(extractNames(wormholeAnalysis.eligibleWormholeTypes(lowsec, 31001031)), { from: ['X702', 'Z006'], to: ['U210'] }));
 		it('Type to type', () => assert.deepEqual(extractNames(wormholeAnalysis.eligibleWormholeTypes(6, 4)), { from: ['N766', 'L005'], to: ['Y683', 'M001'] }));	// C4 to C2
+		it('Type to multi-class type', () => assert.deepEqual(extractNames(wormholeAnalysis.eligibleWormholeTypes(6, 13)), { from: ['H900', 'X877', 'C008', 'M001'], to: ['E175', 'X877', 'M001'] }));	// C4 to C4/5
 		it('Type to type - C1 doesn\'t show C13', () => assert.deepEqual(extractNames(wormholeAnalysis.eligibleWormholeTypes(6, 3)), { from: ['P060', 'E004'], to: ['M609', 'M001'] }));	// C4 to C1		
 		describe('Special systems', () => {
 			it('Type to Turnur', () => assert.deepEqual(extractNames(wormholeAnalysis.eligibleWormholeTypes(4, 30002086)), { from: ['A239', 'J377'], to: ['R943', 'L005'] }));	// C2 to Turnur

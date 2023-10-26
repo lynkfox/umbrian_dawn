@@ -56,6 +56,9 @@ const systemAnalysis = new function() {
 		: appData.genericSystemTypes[systemID];
 		const nodeClass = 
 			leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
+			'Dangerous' == leadsToPointer ? '4/5' :
+			'Unknown' == leadsToPointer ? '2/3' :
+			'Unknown (small)' == leadsToPointer ? '1/2/3/13' :
 			undefined;
 		const nodeSecurity = 
 			leadsToPointer == "High-Sec" ? 0.8 :

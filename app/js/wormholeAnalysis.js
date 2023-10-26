@@ -33,10 +33,14 @@ const wormholeAnalysis = new function() {
 		if(!source && !target) { return null; }
 		
 		const from = [], to = [];
+		const systemTypeMatch = function(possibleSystems, genericType) {
+			return possibleSystems.indexOf(genericType) >= 0 ||
+				(genericType.indexOf('/') >= 0 && _.some(genericType.substring('Class-'.length).split('/'), x => possibleSystems.indexOf('Class-' + x) >= 0));
+		};
 		const matches = function(possibleSystems, exclusions, system) {
 			if(typeof possibleSystems === 'string') { possibleSystems = [possibleSystems]; }
 			return (!system) || (
-				((!possibleSystems) || (possibleSystems.indexOf(system.name) >= 0 || possibleSystems.indexOf(system.genericSystemType) >= 0)) && 
+				((!possibleSystems) || (possibleSystems.indexOf(system.name) >= 0 || systemTypeMatch(possibleSystems, system.genericSystemType))) && 
 				((!exclusions) || exclusions.indexOf(system.genericSystemType) < 0)	// no exclusion
 			);
 		}
