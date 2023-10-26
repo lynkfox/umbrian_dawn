@@ -246,7 +246,8 @@ i.closeIcon:hover {
 /* Autocomplete */
 ul.ui-autocomplete {
 	max-height: 140px;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 td.leftAlign {
