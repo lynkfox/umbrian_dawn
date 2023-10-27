@@ -21,8 +21,8 @@ const wormholeRendering = new function() {
 		types = Array.isArray(types) ? types : [ types ];
 		
 		if(override) {
-			const overrideID = override && Object.index(appData.systems, "name", override, true) || override;	// look up real system ID first
-			const overrideSystem = override && systemAnalysis.analyse(overrideID);
+			const overrideSystem = override.name ? override :
+				systemAnalysis.analyse(Object.index(appData.systems, "name", override, true) || override);	// look up real system ID first
 			
 			const eligibleTypes = types.filter(function(type) {
 				return overrideSystem.name == type || overrideSystem.genericSystemType == type;

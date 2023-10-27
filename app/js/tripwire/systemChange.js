@@ -92,7 +92,7 @@ tripwire.systemChange = function(systemID, mode) {
                     break;
             }
 
-            $("#infoStatics").append("<div><span class='"+ color +"'>&#9679;</span> <b class='"+ color +"'>"+ wormhole.leadsTo +"</b> via <span>"+ wormholeRendering.renderWormholeType(wormhole, type, system.genericSystemType) +"</span></div>");
+            $("#infoStatics").append("<div><span class='"+ color +"'>&#9679;</span> <b class='"+ color +"'>"+ wormhole.leadsTo +"</b> via <span>"+ wormholeRendering.renderWormholeType(wormhole, type, system) +"</span></div>");
         }
 
         // Faction
