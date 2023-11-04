@@ -186,7 +186,7 @@ const ChainMapRendererOrgchart = function(owner) {
 		}
 
 		for (var x in lines) {
-			drawNodeLine(lines[x][0], lines[x][1], lines[x][2], lines[x][3]);
+			drawNodeLine(lines[x][0], lines[x][1], lines[x][2].concat(['connection']), lines[x][3]);
 		}
 	};
 

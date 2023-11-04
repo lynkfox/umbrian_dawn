@@ -195,7 +195,6 @@ div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivi
 }
 
 /* These styles need the specific selectors because they need to override presets */
-.connection { border-color: #004080; }
 .critical, #chainMap .critical, #guide .critical { border-color: #FF4747; }
 .destab, #chainMap .destab, #guide .destab { border-color: #F5B544; }
 .gate, #chainMap .gate, #guide .gate { border-color: darkgray; }
@@ -273,8 +272,14 @@ div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivi
 #guide div {
 	width: 20px;
 	border-width: 0;
-	border-bottom: 1px solid #38d;
+	border: 2px solid #38d;
+	border-top-style: none !important;	/* so we only get one border even when border style is overridden by eol */
+	border-left-style: none !important;
+	border-right-style: none !important;
 }
+
+#guide div.frig { border-width: 1px; }
+#guide div.aura { box-shadow: 0 0 5px 2px; }
 
 [data-icon="user"] + .badge {
 	position: absolute;

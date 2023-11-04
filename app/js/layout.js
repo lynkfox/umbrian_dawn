@@ -13,7 +13,6 @@ var grid = $(".gridster ul").gridster({
 	resize: {
     	enabled: true,
     	handle_class: "grid-resize",
-    	max_size: [30, 30],
     	min_size: [4, 4],
     	start: function(e) {
     		$("div.gridster").width($("div.gridster ul").width());

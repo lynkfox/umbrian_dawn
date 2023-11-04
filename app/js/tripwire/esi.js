@@ -557,6 +557,8 @@ tripwire.esi = function() {
 
             tripwire.esi.characters[characterID] = characters[characterID];
         }
+		
+		set_tracking_text();
 
         tripwire.esi.ship();
         tripwire.esi.location();
