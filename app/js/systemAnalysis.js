@@ -19,24 +19,25 @@ const systemAnalysis = new function() {
 		mutators.forEach(function(m) { m.mutate(r, systemID); });
 		
 		// Calculated final values
-		r.systemTypeClass = r.class ? 'wh class-' + r.class :
+		r.class = (!r.class || Array.isArray(r.class)) ? r.class : [r.class];
+		r.systemTypeClass = r.class ? 'wh class-' + r.class[0] :
 			r.factionID == 500026 ? 'triglavian' :
 			r.security >= 0.45 ? 'hisec' :
 			r.security > 0.0 ? 'lowsec' :
 			r.security <= 0.0 ? 'nullsec' :
 			'unknown';
-		r.systemTypeName = r.class ? 'C' + r.class :
+		r.systemTypeName = r.class ? 'C' + r.class.join('/') :
 			r.factionID == 500026 ? 'Trig' :
 			r.baseSecurity >= 0.45 ? 'HS' :
 			r.baseSecurity > 0.0 ? 'LS' :
 			r.baseSecurity <= 0.0 ? 'NS' :
 			' ';
-		r.genericSystemType = r.class ? 'Class-' + r.class :
-			r.factionID == 500026 ? 'Triglavian' :
-			r.baseSecurity >= 0.45 ? 'High-Sec' :
-			r.baseSecurity > 0.0 ? 'Low-Sec' :
-			r.baseSecurity <= 0.0 ? 'Null-Sec' :
-			' ';
+		r.genericSystemType = r.class ? r.class.map(x => 'Class-' + x) :
+			r.factionID == 500026 ? ['Triglavian'] :
+			r.baseSecurity >= 0.45 ? ['High-Sec'] :
+			r.baseSecurity > 0.0 ? ['Low-Sec'] :
+			r.baseSecurity <= 0.0 ? ['Null-Sec'] :
+			undefined;
 		r.effectClass = 
 			r.effect === 'Black Hole' ? 'blackhole' :
 			r.effect === 'Cataclysmic Variable' ? 'cataclysmic-variable' :
@@ -55,10 +56,10 @@ const systemAnalysis = new function() {
 		: appData.genericSystemTypes.indexOf(systemID) >= 0 ? systemID
 		: appData.genericSystemTypes[systemID];
 		const nodeClass = 
-			leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
-			'Dangerous' == leadsToPointer ? '4/5' :
-			'Unknown' == leadsToPointer ? '2/3' :
-			'Unknown (small)' == leadsToPointer ? '1/2/3/13' :
+			leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? [1 * leadsToPointer.substring(6)] :
+			'Dangerous' == leadsToPointer ? [4,5] :
+			'Unknown' == leadsToPointer ? [2,3] :
+			'Unknown (small)' == leadsToPointer ? [1,2,3,13] :
 			undefined;
 		const nodeSecurity = 
 			leadsToPointer == "High-Sec" ? 0.8 :
