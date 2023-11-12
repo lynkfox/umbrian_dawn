@@ -153,6 +153,8 @@ var chain = new function() {
 
 		function formatStatics(statics) {
 			if(!statics) { return ''; }
+			else if(statics.length > 4) { return '<span class="multi-static">+</span>'; }
+			
 			const shortCodeMap = { 'High-Sec': 'H', 'Low-Sec': 'L', 'Null-Sec': 'N', 'Triglavian':'▼',
 				'Class-1': '1', 'Class-2': '2', 'Class-3': '3', 'Class-4': '4', 'Class-5' : 5, 'Class-6': 6
 			};
