@@ -7,10 +7,6 @@ tripwire.autoMapper = function(from, to) {
 	
     var pods = [33328, 670];
     var undo = [];
-	
-    // Convert from & to from system name to system ID for diagnostic testing
-    // from = viewingSystemID;
-    // to = Object.index(tripwire.systems, 'name', to);
 
     // Make sure the automapper is turned on & not disabled
     if (!$("#toggle-automapper").hasClass("active") || $("#toggle-automapper").hasClass("disabled"))
@@ -82,16 +78,17 @@ tripwire.autoMapper = function(from, to) {
 	}	 
 
     var payload = {"signatures": {"add": [], "update": []}};
-    const toClass = systemAnalysis.analyse(to).genericSystemType;
+    const toClass = systemAnalysis.analyse(to).class[0];
 
     var wormholes = $.map(tripwire.client.wormholes, function(wormhole) {
         if ( ( tripwire.client.signatures[wormhole.initialID] !== undefined ) && ( tripwire.client.signatures[wormhole.secondaryID] !== undefined ) ) {
             // Find wormholes that have no set Leads To system, and their initial system is from the wormhole we just jumped from
             if (tripwire.client.signatures[wormhole.initialID].systemID == from && !tripwire.systems[tripwire.client.signatures[wormhole.secondaryID].systemID]) {
-                if (appData.genericSystemTypes[tripwire.client.signatures[wormhole.secondaryID].systemID] == toClass) {
+				const holeClasses = systemAnalysis.classForTypeName(appData.genericSystemTypes[tripwire.client.signatures[wormhole.secondaryID].systemID]);
+                if (0 <= holeClasses.indexOf(toClass)) {
                     // Find wormholes that Leads To is generically set to the class we just jumped into
                     return wormhole;
-                } else if (wormhole.type && appData.wormholes[wormhole.type] && appData.wormholes[wormhole.type].leadsTo.replace(' ', '-') == toClass) {
+                } else if (wormhole.type && appData.wormholes[wormhole.type] && appData.wormholes[wormhole.type].leadsTo == 'Class-' + toClass) {
                     // Find wormholes that Type is known to lead to the class we just jumped into
                     return wormhole;
                 } else if (tripwire.client.signatures[wormhole.secondaryID].systemID === null && (!wormhole.type || !appData.wormholes[wormhole.type])) {
