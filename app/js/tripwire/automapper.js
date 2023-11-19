@@ -78,17 +78,21 @@ tripwire.autoMapper = function(from, to) {
 	}	 
 
     var payload = {"signatures": {"add": [], "update": []}};
-    const toClass = systemAnalysis.analyse(to).class[0];
+    const toType = systemAnalysis.analyse(to).genericSystemType[0];
 
     var wormholes = $.map(tripwire.client.wormholes, function(wormhole) {
         if ( ( tripwire.client.signatures[wormhole.initialID] !== undefined ) && ( tripwire.client.signatures[wormhole.secondaryID] !== undefined ) ) {
             // Find wormholes that have no set Leads To system, and their initial system is from the wormhole we just jumped from
             if (tripwire.client.signatures[wormhole.initialID].systemID == from && !tripwire.systems[tripwire.client.signatures[wormhole.secondaryID].systemID]) {
-				const holeClasses = systemAnalysis.classForTypeName(appData.genericSystemTypes[tripwire.client.signatures[wormhole.secondaryID].systemID]);
-                if (holeClasses && 0 <= holeClasses.indexOf(toClass)) {
+				const holeTargetTypeName = appData.genericSystemTypes[tripwire.client.signatures[wormhole.secondaryID].systemID];
+				const holeClasses = systemAnalysis.classForTypeName(holeTargetTypeName);
+				if(holeTargetTypeName === toType) {
+					// Find wormholes where Leads To is the type we jumped into
+					return wormhole;
+                } else if (holeClasses && 0 <= holeClasses.indexOf(toClass)) {
                     // Find wormholes that Leads To is generically set to the class we just jumped into
                     return wormhole;
-                } else if (wormhole.type && appData.wormholes[wormhole.type] && appData.wormholes[wormhole.type].leadsTo == 'Class-' + toClass) {
+                } else if (wormhole.type && appData.wormholes[wormhole.type] && appData.wormholes[wormhole.type].leadsTo == toType) {
                     // Find wormholes that Type is known to lead to the class we just jumped into
                     return wormhole;
                 } else if (tripwire.client.signatures[wormhole.secondaryID].systemID === null && (!wormhole.type || !appData.wormholes[wormhole.type])) {
