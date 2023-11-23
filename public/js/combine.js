@@ -35198,6 +35198,13 @@ var appData = {
             "regionID": "10000069",
             "factionID": "500001"
         },
+        "30100000": {
+            "name": "Zarzakh",
+            "security": "-1",
+            "constellationID": "20010000",
+            "regionID": "10001000",
+            "factionID": "500029"
+        },
         "31000001": {
             "name": "J055520",
             "security": "-0.99",
@@ -57820,6 +57827,9 @@ var appData = {
         "10000070": {
             "name": "Pochven"
         },
+        "10001000": {
+            "name": "Yasna Zakh"
+        },
         "11000001": {
             "name": "A-R00001"
         },
@@ -58031,6 +58041,9 @@ var appData = {
         },
         "500028": {
             "name": "Association for Interdisciplinary Research"
+        },
+        "500029": {
+            "name": "Deathless Circle"
         }
     },
     "wormholes": {
@@ -63150,7 +63163,8 @@ var appData = {
                 "1020": 0,
                 "1036": 0,
                 "1038": 0,
-                "1039": 0
+                "1039": 0,
+                "100000": 0
             },
             "1042": {
                 "1037": 0,
@@ -64178,7 +64192,8 @@ var appData = {
             "1269": {
                 "1268": 0,
                 "1270": 0,
-                "1273": 0
+                "1273": 0,
+                "100000": 0
             },
             "1270": {
                 "1269": 0,
@@ -67422,7 +67437,8 @@ var appData = {
             "2086": {
                 "2083": 0,
                 "2084": 0,
-                "2087": 0
+                "2087": 0,
+                "100000": 0
             },
             "2087": {
                 "2084": 0,
@@ -75733,7 +75749,8 @@ var appData = {
             },
             "3841": {
                 "3836": 0,
-                "4046": 0
+                "4046": 0,
+                "100000": 0
             },
             "3842": {
                 "3840": 0
@@ -82984,6 +83001,12 @@ var appData = {
                 "45330": 0,
                 "45346": 0,
                 "45349": 0
+            },
+            "100000": {
+                "1041": 0,
+                "1269": 0,
+                "2086": 0,
+                "3841": 0
             }
         }
     },
@@ -84102,6 +84125,10 @@ var appData = {
             "typeName": "Komodo",
             "mass": "2300000000"
         },
+        "78576": {
+            "typeName": "Azariel",
+            "mass": "2200000000"
+        },
         "672": {
             "typeName": "Caldari Shuttle",
             "mass": "1600000"
@@ -84478,6 +84505,14 @@ var appData = {
             "typeName": "Prophecy Navy Issue",
             "mass": "15300000"
         },
+        "78366": {
+            "typeName": "Alligator",
+            "mass": "13500000"
+        },
+        "78369": {
+            "typeName": "Khizriel",
+            "mass": "11520000"
+        },
         "16236": {
             "typeName": "Coercer",
             "mass": "1650000"
@@ -84573,6 +84608,14 @@ var appData = {
         "73796": {
             "typeName": "Catalyst Navy Issue",
             "mass": "1550000"
+        },
+        "78333": {
+            "typeName": "Mekubal",
+            "mass": "1440000"
+        },
+        "78367": {
+            "typeName": "Mamba",
+            "mass": "1750000"
         },
         "17476": {
             "typeName": "Covetor",

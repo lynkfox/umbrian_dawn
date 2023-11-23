@@ -939,6 +939,10 @@
         "typeName": "Komodo",
         "mass": "2300000000"
     },
+    "78576": {
+        "typeName": "Azariel",
+        "mass": "2200000000"
+    },
     "672": {
         "typeName": "Caldari Shuttle",
         "mass": "1600000"
@@ -1315,6 +1319,14 @@
         "typeName": "Prophecy Navy Issue",
         "mass": "15300000"
     },
+    "78366": {
+        "typeName": "Alligator",
+        "mass": "13500000"
+    },
+    "78369": {
+        "typeName": "Khizriel",
+        "mass": "11520000"
+    },
     "16236": {
         "typeName": "Coercer",
         "mass": "1650000"
@@ -1410,6 +1422,14 @@
     "73796": {
         "typeName": "Catalyst Navy Issue",
         "mass": "1550000"
+    },
+    "78333": {
+        "typeName": "Mekubal",
+        "mass": "1440000"
+    },
+    "78367": {
+        "typeName": "Mamba",
+        "mass": "1750000"
     },
     "17476": {
         "typeName": "Covetor",
