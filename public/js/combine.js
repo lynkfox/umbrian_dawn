@@ -35211,7 +35211,15 @@ var appData = {
             "constellationID": "21000334",
             "regionID": "11000033",
             "class": "14",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "Z647",
+                "D382",
+                "O477",
+                "Y683",
+                "N062",
+                "R474"
+            ]
         },
         "31000002": {
             "name": "J110145",
@@ -35219,7 +35227,15 @@ var appData = {
             "constellationID": "21000334",
             "regionID": "11000033",
             "class": "15",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "Z647",
+                "D382",
+                "O477",
+                "Y683",
+                "N062",
+                "R474"
+            ]
         },
         "31000003": {
             "name": "J164710",
@@ -35227,7 +35243,15 @@ var appData = {
             "constellationID": "21000334",
             "regionID": "11000033",
             "class": "16",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "Z647",
+                "D382",
+                "O477",
+                "Y683",
+                "N062",
+                "R474"
+            ]
         },
         "31000004": {
             "name": "J200727",
@@ -35235,14 +35259,27 @@ var appData = {
             "constellationID": "21000334",
             "regionID": "11000033",
             "class": "17",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "Z647",
+                "D382",
+                "O477",
+                "Y683",
+                "N062",
+                "R474"
+            ]
         },
         "31000005": {
             "name": "Thera",
             "security": "-0.99",
             "constellationID": "21000324",
             "regionID": "11000031",
-            "class": "12"
+            "class": "12",
+            "statics": [
+                "Q063",
+                "V898",
+                "E587"
+            ]
         },
         "31000006": {
             "name": "J174618",
@@ -35250,14 +35287,25 @@ var appData = {
             "constellationID": "21000334",
             "regionID": "11000033",
             "class": "18",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Z647",
+                "D382",
+                "O477",
+                "Y683",
+                "N062",
+                "R474"
+            ]
         },
         "31000007": {
             "name": "J105443",
             "security": "-0.99",
             "constellationID": "21000311",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000008": {
             "name": "J100744",
@@ -35265,42 +35313,60 @@ var appData = {
             "constellationID": "21000311",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000009": {
             "name": "J225046",
             "security": "-0.99",
             "constellationID": "21000311",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000010": {
             "name": "J160837",
             "security": "-0.99",
             "constellationID": "21000311",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000011": {
             "name": "J114700",
             "security": "-0.99",
             "constellationID": "21000311",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000012": {
             "name": "J134914",
             "security": "-0.99",
             "constellationID": "21000311",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000013": {
             "name": "J102655",
             "security": "-0.99",
             "constellationID": "21000312",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000014": {
             "name": "J134312",
@@ -35308,21 +35374,30 @@ var appData = {
             "constellationID": "21000312",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000015": {
             "name": "J205818",
             "security": "-0.99",
             "constellationID": "21000312",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000016": {
             "name": "J113434",
             "security": "-0.99",
             "constellationID": "21000312",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000017": {
             "name": "J105711",
@@ -35330,14 +35405,20 @@ var appData = {
             "constellationID": "21000312",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000018": {
             "name": "J164218",
             "security": "-0.99",
             "constellationID": "21000312",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000019": {
             "name": "J154535",
@@ -35345,7 +35426,10 @@ var appData = {
             "constellationID": "21000312",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000020": {
             "name": "J111301",
@@ -35353,21 +35437,30 @@ var appData = {
             "constellationID": "21000312",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000021": {
             "name": "J135038",
             "security": "-0.99",
             "constellationID": "21000312",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000022": {
             "name": "J121358",
             "security": "-0.99",
             "constellationID": "21000312",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000023": {
             "name": "J222914",
@@ -35375,14 +35468,20 @@ var appData = {
             "constellationID": "21000312",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000024": {
             "name": "J155429",
             "security": "-0.99",
             "constellationID": "21000312",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000025": {
             "name": "J204640",
@@ -35390,21 +35489,30 @@ var appData = {
             "constellationID": "21000313",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000026": {
             "name": "J162604",
             "security": "-0.99",
             "constellationID": "21000313",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000027": {
             "name": "J164807",
             "security": "-0.99",
             "constellationID": "21000313",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000028": {
             "name": "J233317",
@@ -35412,14 +35520,20 @@ var appData = {
             "constellationID": "21000313",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000029": {
             "name": "J155023",
             "security": "-0.99",
             "constellationID": "21000313",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000030": {
             "name": "J112628",
@@ -35427,28 +35541,40 @@ var appData = {
             "constellationID": "21000313",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000031": {
             "name": "J153001",
             "security": "-0.99",
             "constellationID": "21000313",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000032": {
             "name": "J143204",
             "security": "-0.99",
             "constellationID": "21000313",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000033": {
             "name": "J101729",
             "security": "-0.99",
             "constellationID": "21000313",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000034": {
             "name": "J221203",
@@ -35456,14 +35582,20 @@ var appData = {
             "constellationID": "21000313",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "Z060"
+            ]
         },
         "31000035": {
             "name": "J125428",
             "security": "-0.99",
             "constellationID": "21000314",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000036": {
             "name": "J131854",
@@ -35471,42 +35603,60 @@ var appData = {
             "constellationID": "21000314",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "J244"
+            ]
         },
         "31000037": {
             "name": "J160534",
             "security": "-0.99",
             "constellationID": "21000314",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000038": {
             "name": "J144855",
             "security": "-0.99",
             "constellationID": "21000314",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000039": {
             "name": "J101453",
             "security": "-0.99",
             "constellationID": "21000314",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000040": {
             "name": "J144913",
             "security": "-0.99",
             "constellationID": "21000314",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000041": {
             "name": "J144530",
             "security": "-0.99",
             "constellationID": "21000314",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000042": {
             "name": "J135411",
@@ -35514,14 +35664,20 @@ var appData = {
             "constellationID": "21000314",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "J244"
+            ]
         },
         "31000043": {
             "name": "J125713",
             "security": "-0.99",
             "constellationID": "21000314",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000044": {
             "name": "J105521",
@@ -35529,14 +35685,20 @@ var appData = {
             "constellationID": "21000314",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "J244"
+            ]
         },
         "31000045": {
             "name": "J224324",
             "security": "-0.99",
             "constellationID": "21000315",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000046": {
             "name": "J163203",
@@ -35544,7 +35706,10 @@ var appData = {
             "constellationID": "21000315",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "J244"
+            ]
         },
         "31000047": {
             "name": "J171818",
@@ -35552,35 +35717,50 @@ var appData = {
             "constellationID": "21000315",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "J244"
+            ]
         },
         "31000048": {
             "name": "J145337",
             "security": "-0.99",
             "constellationID": "21000315",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000049": {
             "name": "J150131",
             "security": "-0.99",
             "constellationID": "21000315",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000050": {
             "name": "J130842",
             "security": "-0.99",
             "constellationID": "21000315",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000051": {
             "name": "J145406",
             "security": "-0.99",
             "constellationID": "21000315",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000052": {
             "name": "J103404",
@@ -35588,14 +35768,20 @@ var appData = {
             "constellationID": "21000315",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "J244"
+            ]
         },
         "31000053": {
             "name": "J112124",
             "security": "-0.99",
             "constellationID": "21000315",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000054": {
             "name": "J124926",
@@ -35603,28 +35789,40 @@ var appData = {
             "constellationID": "21000316",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "J244"
+            ]
         },
         "31000055": {
             "name": "J232605",
             "security": "-0.99",
             "constellationID": "21000316",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000056": {
             "name": "J144938",
             "security": "-0.99",
             "constellationID": "21000316",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000057": {
             "name": "J233828",
             "security": "-0.99",
             "constellationID": "21000316",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000058": {
             "name": "J130714",
@@ -35632,35 +35830,50 @@ var appData = {
             "constellationID": "21000316",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "J244"
+            ]
         },
         "31000059": {
             "name": "J142701",
             "security": "-0.99",
             "constellationID": "21000316",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000060": {
             "name": "J154226",
             "security": "-0.99",
             "constellationID": "21000316",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000061": {
             "name": "J125843",
             "security": "-0.99",
             "constellationID": "21000316",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000062": {
             "name": "J155459",
             "security": "-0.99",
             "constellationID": "21000316",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000063": {
             "name": "J225555",
@@ -35668,14 +35881,20 @@ var appData = {
             "constellationID": "21000317",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "J244"
+            ]
         },
         "31000064": {
             "name": "J115549",
             "security": "-0.99",
             "constellationID": "21000317",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000065": {
             "name": "J140741",
@@ -35683,14 +35902,20 @@ var appData = {
             "constellationID": "21000317",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "J244"
+            ]
         },
         "31000066": {
             "name": "J104140",
             "security": "-0.99",
             "constellationID": "21000317",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000067": {
             "name": "J101757",
@@ -35698,21 +35923,30 @@ var appData = {
             "constellationID": "21000317",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "J244"
+            ]
         },
         "31000068": {
             "name": "J100250",
             "security": "-0.99",
             "constellationID": "21000317",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000069": {
             "name": "J113721",
             "security": "-0.99",
             "constellationID": "21000317",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000070": {
             "name": "J105039",
@@ -35720,14 +35954,20 @@ var appData = {
             "constellationID": "21000317",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "J244"
+            ]
         },
         "31000071": {
             "name": "J233550",
             "security": "-0.99",
             "constellationID": "21000317",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000072": {
             "name": "J114033",
@@ -35735,7 +35975,10 @@ var appData = {
             "constellationID": "21000318",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "J244"
+            ]
         },
         "31000073": {
             "name": "J105936",
@@ -35743,7 +35986,10 @@ var appData = {
             "constellationID": "21000318",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "J244"
+            ]
         },
         "31000074": {
             "name": "J140121",
@@ -35751,14 +35997,20 @@ var appData = {
             "constellationID": "21000318",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "J244"
+            ]
         },
         "31000075": {
             "name": "J154029",
             "security": "-0.99",
             "constellationID": "21000318",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000076": {
             "name": "J101336",
@@ -35766,14 +36018,20 @@ var appData = {
             "constellationID": "21000318",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "J244"
+            ]
         },
         "31000077": {
             "name": "J160039",
             "security": "-0.99",
             "constellationID": "21000318",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000078": {
             "name": "J161257",
@@ -35781,14 +36039,20 @@ var appData = {
             "constellationID": "21000318",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "J244"
+            ]
         },
         "31000079": {
             "name": "J144303",
             "security": "-0.99",
             "constellationID": "21000318",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000080": {
             "name": "J121131",
@@ -35796,14 +36060,20 @@ var appData = {
             "constellationID": "21000318",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "J244"
+            ]
         },
         "31000081": {
             "name": "J113653",
             "security": "-0.99",
             "constellationID": "21000318",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000082": {
             "name": "J123454",
@@ -35811,14 +36081,20 @@ var appData = {
             "constellationID": "21000318",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "J244"
+            ]
         },
         "31000083": {
             "name": "J110750",
             "security": "-0.99",
             "constellationID": "21000318",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000084": {
             "name": "J151106",
@@ -35826,7 +36102,10 @@ var appData = {
             "constellationID": "21000319",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "J244"
+            ]
         },
         "31000085": {
             "name": "J100040",
@@ -35834,14 +36113,20 @@ var appData = {
             "constellationID": "21000319",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "J244"
+            ]
         },
         "31000086": {
             "name": "J223733",
             "security": "-0.99",
             "constellationID": "21000319",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000087": {
             "name": "J110431",
@@ -35849,28 +36134,40 @@ var appData = {
             "constellationID": "21000319",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "J244"
+            ]
         },
         "31000088": {
             "name": "J134446",
             "security": "-0.99",
             "constellationID": "21000319",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000089": {
             "name": "J143202",
             "security": "-0.99",
             "constellationID": "21000319",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000090": {
             "name": "J210436",
             "security": "-0.99",
             "constellationID": "21000319",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000091": {
             "name": "J133030",
@@ -35878,14 +36175,20 @@ var appData = {
             "constellationID": "21000319",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "J244"
+            ]
         },
         "31000092": {
             "name": "J170645",
             "security": "-0.99",
             "constellationID": "21000319",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000093": {
             "name": "J103151",
@@ -35893,119 +36196,170 @@ var appData = {
             "constellationID": "21000320",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "J244"
+            ]
         },
         "31000094": {
             "name": "J222206",
             "security": "-0.99",
             "constellationID": "21000320",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000095": {
             "name": "J130602",
             "security": "-0.99",
             "constellationID": "21000320",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000096": {
             "name": "J123708",
             "security": "-0.99",
             "constellationID": "21000320",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000097": {
             "name": "J123831",
             "security": "-0.99",
             "constellationID": "21000320",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000098": {
             "name": "J164927",
             "security": "-0.99",
             "constellationID": "21000320",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000099": {
             "name": "J134143",
             "security": "-0.99",
             "constellationID": "21000320",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000100": {
             "name": "J214534",
             "security": "-0.99",
             "constellationID": "21000320",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000101": {
             "name": "J135250",
             "security": "-0.99",
             "constellationID": "21000320",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000102": {
             "name": "J111707",
             "security": "-0.99",
             "constellationID": "21000320",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000103": {
             "name": "J135245",
             "security": "-0.99",
             "constellationID": "21000320",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000104": {
             "name": "J101408",
             "security": "-0.99",
             "constellationID": "21000320",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000105": {
             "name": "J215117",
             "security": "-0.99",
             "constellationID": "21000321",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000106": {
             "name": "J141019",
             "security": "-0.99",
             "constellationID": "21000321",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000107": {
             "name": "J102206",
             "security": "-0.99",
             "constellationID": "21000321",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000108": {
             "name": "J125903",
             "security": "-0.99",
             "constellationID": "21000321",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000109": {
             "name": "J134939",
             "security": "-0.99",
             "constellationID": "21000321",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000110": {
             "name": "J162641",
@@ -36013,7 +36367,10 @@ var appData = {
             "constellationID": "21000321",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "J244"
+            ]
         },
         "31000111": {
             "name": "J152537",
@@ -36021,7 +36378,10 @@ var appData = {
             "constellationID": "21000321",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "J244"
+            ]
         },
         "31000112": {
             "name": "J224442",
@@ -36029,7 +36389,10 @@ var appData = {
             "constellationID": "21000321",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "J244"
+            ]
         },
         "31000113": {
             "name": "J104138",
@@ -36037,63 +36400,90 @@ var appData = {
             "constellationID": "21000321",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "J244"
+            ]
         },
         "31000114": {
             "name": "J121516",
             "security": "-0.99",
             "constellationID": "21000321",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000115": {
             "name": "J114540",
             "security": "-0.99",
             "constellationID": "21000321",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000116": {
             "name": "J155013",
             "security": "-0.99",
             "constellationID": "21000321",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000117": {
             "name": "J144450",
             "security": "-0.99",
             "constellationID": "21000322",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000118": {
             "name": "J141239",
             "security": "-0.99",
             "constellationID": "21000322",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000119": {
             "name": "J115545",
             "security": "-0.99",
             "constellationID": "21000322",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000120": {
             "name": "J114905",
             "security": "-0.99",
             "constellationID": "21000322",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000121": {
             "name": "J120522",
             "security": "-0.99",
             "constellationID": "21000322",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000122": {
             "name": "J172907",
@@ -36101,7 +36491,10 @@ var appData = {
             "constellationID": "21000322",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "J244"
+            ]
         },
         "31000123": {
             "name": "J164550",
@@ -36109,35 +36502,50 @@ var appData = {
             "constellationID": "21000322",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "J244"
+            ]
         },
         "31000124": {
             "name": "J141812",
             "security": "-0.99",
             "constellationID": "21000322",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000125": {
             "name": "J134637",
             "security": "-0.99",
             "constellationID": "21000322",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000126": {
             "name": "J134132",
             "security": "-0.99",
             "constellationID": "21000322",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000127": {
             "name": "J125011",
             "security": "-0.99",
             "constellationID": "21000322",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000128": {
             "name": "J105942",
@@ -36145,28 +36553,40 @@ var appData = {
             "constellationID": "21000323",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "J244"
+            ]
         },
         "31000129": {
             "name": "J171653",
             "security": "-0.99",
             "constellationID": "21000323",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000130": {
             "name": "J110213",
             "security": "-0.99",
             "constellationID": "21000323",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000131": {
             "name": "J115048",
             "security": "-0.99",
             "constellationID": "21000323",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000132": {
             "name": "J174405",
@@ -36174,28 +36594,40 @@ var appData = {
             "constellationID": "21000323",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "J244"
+            ]
         },
         "31000133": {
             "name": "J123111",
             "security": "-0.99",
             "constellationID": "21000323",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000134": {
             "name": "J123047",
             "security": "-0.99",
             "constellationID": "21000323",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000135": {
             "name": "J231541",
             "security": "-0.99",
             "constellationID": "21000323",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000136": {
             "name": "J215900",
@@ -36203,21 +36635,30 @@ var appData = {
             "constellationID": "21000323",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "J244"
+            ]
         },
         "31000137": {
             "name": "J110651",
             "security": "-0.99",
             "constellationID": "21000323",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000138": {
             "name": "J140602",
             "security": "-0.99",
             "constellationID": "21000323",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244"
+            ]
         },
         "31000139": {
             "name": "J163804",
@@ -36225,7 +36666,10 @@ var appData = {
             "constellationID": "21000323",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "J244"
+            ]
         },
         "31000140": {
             "name": "J125209",
@@ -36233,126 +36677,180 @@ var appData = {
             "constellationID": "21000001",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000141": {
             "name": "J140831",
             "security": "-0.99",
             "constellationID": "21000001",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000142": {
             "name": "J161811",
             "security": "-0.99",
             "constellationID": "21000001",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000143": {
             "name": "J112913",
             "security": "-0.99",
             "constellationID": "21000001",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000144": {
             "name": "J105632",
             "security": "-0.99",
             "constellationID": "21000001",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000145": {
             "name": "J160710",
             "security": "-0.99",
             "constellationID": "21000001",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000146": {
             "name": "J160835",
             "security": "-0.99",
             "constellationID": "21000001",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000147": {
             "name": "J122659",
             "security": "-0.99",
             "constellationID": "21000001",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000148": {
             "name": "J130931",
             "security": "-0.99",
             "constellationID": "21000001",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000149": {
             "name": "J161115",
             "security": "-0.99",
             "constellationID": "21000001",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000150": {
             "name": "J120734",
             "security": "-0.99",
             "constellationID": "21000001",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000151": {
             "name": "J110906",
             "security": "-0.99",
             "constellationID": "21000002",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000152": {
             "name": "J121418",
             "security": "-0.99",
             "constellationID": "21000002",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000153": {
             "name": "J113820",
             "security": "-0.99",
             "constellationID": "21000002",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000154": {
             "name": "J113506",
             "security": "-0.99",
             "constellationID": "21000002",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000155": {
             "name": "J172240",
             "security": "-0.99",
             "constellationID": "21000002",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000156": {
             "name": "J110101",
             "security": "-0.99",
             "constellationID": "21000002",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000157": {
             "name": "J110108",
             "security": "-0.99",
             "constellationID": "21000002",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000158": {
             "name": "J213555",
@@ -36360,56 +36858,80 @@ var appData = {
             "constellationID": "21000002",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N110"
+            ]
         },
         "31000159": {
             "name": "J144704",
             "security": "-0.99",
             "constellationID": "21000002",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000160": {
             "name": "J115815",
             "security": "-0.99",
             "constellationID": "21000002",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000161": {
             "name": "J133653",
             "security": "-0.99",
             "constellationID": "21000002",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000162": {
             "name": "J171700",
             "security": "-0.99",
             "constellationID": "21000002",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000163": {
             "name": "J104628",
             "security": "-0.99",
             "constellationID": "21000003",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000164": {
             "name": "J114546",
             "security": "-0.99",
             "constellationID": "21000003",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000165": {
             "name": "J235419",
             "security": "-0.99",
             "constellationID": "21000003",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000166": {
             "name": "J204503",
@@ -36417,28 +36939,40 @@ var appData = {
             "constellationID": "21000003",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000167": {
             "name": "J215417",
             "security": "-0.99",
             "constellationID": "21000003",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000168": {
             "name": "J110545",
             "security": "-0.99",
             "constellationID": "21000003",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000169": {
             "name": "J153536",
             "security": "-0.99",
             "constellationID": "21000003",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000170": {
             "name": "J150407",
@@ -36446,126 +36980,180 @@ var appData = {
             "constellationID": "21000003",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N110"
+            ]
         },
         "31000171": {
             "name": "J153530",
             "security": "-0.99",
             "constellationID": "21000003",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000172": {
             "name": "J131232",
             "security": "-0.99",
             "constellationID": "21000003",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000173": {
             "name": "J101020",
             "security": "-0.99",
             "constellationID": "21000003",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000174": {
             "name": "J133613",
             "security": "-0.99",
             "constellationID": "21000004",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000175": {
             "name": "J165901",
             "security": "-0.99",
             "constellationID": "21000004",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000176": {
             "name": "J152006",
             "security": "-0.99",
             "constellationID": "21000004",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000177": {
             "name": "J160345",
             "security": "-0.99",
             "constellationID": "21000004",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000178": {
             "name": "J134330",
             "security": "-0.99",
             "constellationID": "21000004",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000179": {
             "name": "J213342",
             "security": "-0.99",
             "constellationID": "21000004",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000180": {
             "name": "J150745",
             "security": "-0.99",
             "constellationID": "21000004",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000181": {
             "name": "J165056",
             "security": "-0.99",
             "constellationID": "21000004",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000182": {
             "name": "J150827",
             "security": "-0.99",
             "constellationID": "21000004",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000183": {
             "name": "J144632",
             "security": "-0.99",
             "constellationID": "21000004",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000184": {
             "name": "J102630",
             "security": "-0.99",
             "constellationID": "21000004",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000185": {
             "name": "J133335",
             "security": "-0.99",
             "constellationID": "21000004",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000186": {
             "name": "J125925",
             "security": "-0.99",
             "constellationID": "21000005",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000187": {
             "name": "J142617",
             "security": "-0.99",
             "constellationID": "21000005",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000188": {
             "name": "J150818",
@@ -36573,28 +37161,40 @@ var appData = {
             "constellationID": "21000005",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000189": {
             "name": "J114420",
             "security": "-0.99",
             "constellationID": "21000005",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000190": {
             "name": "J112250",
             "security": "-0.99",
             "constellationID": "21000005",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000191": {
             "name": "J155935",
             "security": "-0.99",
             "constellationID": "21000005",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000192": {
             "name": "J115738",
@@ -36602,35 +37202,50 @@ var appData = {
             "constellationID": "21000005",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000193": {
             "name": "J232715",
             "security": "-0.99",
             "constellationID": "21000005",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000194": {
             "name": "J110051",
             "security": "-0.99",
             "constellationID": "21000005",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000195": {
             "name": "J152928",
             "security": "-0.99",
             "constellationID": "21000006",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000196": {
             "name": "J132216",
             "security": "-0.99",
             "constellationID": "21000006",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000197": {
             "name": "J132758",
@@ -36638,7 +37253,10 @@ var appData = {
             "constellationID": "21000006",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N110"
+            ]
         },
         "31000198": {
             "name": "J134145",
@@ -36646,21 +37264,30 @@ var appData = {
             "constellationID": "21000006",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000199": {
             "name": "J102849",
             "security": "-0.99",
             "constellationID": "21000006",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000200": {
             "name": "J120335",
             "security": "-0.99",
             "constellationID": "21000006",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000201": {
             "name": "J104439",
@@ -36668,21 +37295,30 @@ var appData = {
             "constellationID": "21000006",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N110"
+            ]
         },
         "31000202": {
             "name": "J122717",
             "security": "-0.99",
             "constellationID": "21000006",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000203": {
             "name": "J101817",
             "security": "-0.99",
             "constellationID": "21000006",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000204": {
             "name": "J131551",
@@ -36690,14 +37326,20 @@ var appData = {
             "constellationID": "21000006",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N110"
+            ]
         },
         "31000205": {
             "name": "J115200",
             "security": "-0.99",
             "constellationID": "21000007",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000206": {
             "name": "J155029",
@@ -36705,49 +37347,70 @@ var appData = {
             "constellationID": "21000007",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N110"
+            ]
         },
         "31000207": {
             "name": "J223703",
             "security": "-0.99",
             "constellationID": "21000007",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000208": {
             "name": "J233359",
             "security": "-0.99",
             "constellationID": "21000007",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000209": {
             "name": "J114107",
             "security": "-0.99",
             "constellationID": "21000007",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000210": {
             "name": "J152014",
             "security": "-0.99",
             "constellationID": "21000007",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000211": {
             "name": "J100211",
             "security": "-0.99",
             "constellationID": "21000007",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000212": {
             "name": "J104103",
             "security": "-0.99",
             "constellationID": "21000007",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000213": {
             "name": "J171019",
@@ -36755,35 +37418,50 @@ var appData = {
             "constellationID": "21000007",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N110"
+            ]
         },
         "31000214": {
             "name": "J114313",
             "security": "-0.99",
             "constellationID": "21000007",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000215": {
             "name": "J130542",
             "security": "-0.99",
             "constellationID": "21000008",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000216": {
             "name": "J114719",
             "security": "-0.99",
             "constellationID": "21000008",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000217": {
             "name": "J130322",
             "security": "-0.99",
             "constellationID": "21000008",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000218": {
             "name": "J161524",
@@ -36791,14 +37469,20 @@ var appData = {
             "constellationID": "21000008",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000219": {
             "name": "J162858",
             "security": "-0.99",
             "constellationID": "21000008",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000220": {
             "name": "J121158",
@@ -36806,28 +37490,40 @@ var appData = {
             "constellationID": "21000008",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N110"
+            ]
         },
         "31000221": {
             "name": "J113050",
             "security": "-0.99",
             "constellationID": "21000008",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000222": {
             "name": "J141514",
             "security": "-0.99",
             "constellationID": "21000008",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000223": {
             "name": "J220654",
             "security": "-0.99",
             "constellationID": "21000008",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000224": {
             "name": "J162118",
@@ -36835,7 +37531,10 @@ var appData = {
             "constellationID": "21000008",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N110"
+            ]
         },
         "31000225": {
             "name": "J231004",
@@ -36843,35 +37542,50 @@ var appData = {
             "constellationID": "21000008",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N110"
+            ]
         },
         "31000226": {
             "name": "J120621",
             "security": "-0.99",
             "constellationID": "21000008",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000227": {
             "name": "J151601",
             "security": "-0.99",
             "constellationID": "21000009",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000228": {
             "name": "J105837",
             "security": "-0.99",
             "constellationID": "21000009",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000229": {
             "name": "J143133",
             "security": "-0.99",
             "constellationID": "21000009",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000230": {
             "name": "J100422",
@@ -36879,7 +37593,10 @@ var appData = {
             "constellationID": "21000009",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N110"
+            ]
         },
         "31000231": {
             "name": "J104335",
@@ -36887,112 +37604,160 @@ var appData = {
             "constellationID": "21000009",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N110"
+            ]
         },
         "31000232": {
             "name": "J105700",
             "security": "-0.99",
             "constellationID": "21000009",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000233": {
             "name": "J215431",
             "security": "-0.99",
             "constellationID": "21000009",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000234": {
             "name": "J143628",
             "security": "-0.99",
             "constellationID": "21000009",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000235": {
             "name": "J141150",
             "security": "-0.99",
             "constellationID": "21000009",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000236": {
             "name": "J163743",
             "security": "-0.99",
             "constellationID": "21000009",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000237": {
             "name": "J161509",
             "security": "-0.99",
             "constellationID": "21000009",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000238": {
             "name": "J150629",
             "security": "-0.99",
             "constellationID": "21000009",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000239": {
             "name": "J141017",
             "security": "-0.99",
             "constellationID": "21000010",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000240": {
             "name": "J130045",
             "security": "-0.99",
             "constellationID": "21000010",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000241": {
             "name": "J123748",
             "security": "-0.99",
             "constellationID": "21000010",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000242": {
             "name": "J124051",
             "security": "-0.99",
             "constellationID": "21000010",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000243": {
             "name": "J151141",
             "security": "-0.99",
             "constellationID": "21000010",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000244": {
             "name": "J112129",
             "security": "-0.99",
             "constellationID": "21000010",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000245": {
             "name": "J213653",
             "security": "-0.99",
             "constellationID": "21000010",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000246": {
             "name": "J143649",
             "security": "-0.99",
             "constellationID": "21000010",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000247": {
             "name": "J223855",
@@ -37000,7 +37765,10 @@ var appData = {
             "constellationID": "21000010",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N110"
+            ]
         },
         "31000248": {
             "name": "J140019",
@@ -37008,14 +37776,20 @@ var appData = {
             "constellationID": "21000010",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N110"
+            ]
         },
         "31000249": {
             "name": "J110605",
             "security": "-0.99",
             "constellationID": "21000010",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000250": {
             "name": "J122843",
@@ -37023,21 +37797,30 @@ var appData = {
             "constellationID": "21000010",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000251": {
             "name": "J205004",
             "security": "-0.99",
             "constellationID": "21000011",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000252": {
             "name": "J122114",
             "security": "-0.99",
             "constellationID": "21000011",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000253": {
             "name": "J163533",
@@ -37045,21 +37828,30 @@ var appData = {
             "constellationID": "21000011",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000254": {
             "name": "J151518",
             "security": "-0.99",
             "constellationID": "21000011",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000255": {
             "name": "J122712",
             "security": "-0.99",
             "constellationID": "21000011",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000256": {
             "name": "J143002",
@@ -37067,7 +37859,10 @@ var appData = {
             "constellationID": "21000011",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N110"
+            ]
         },
         "31000257": {
             "name": "J160307",
@@ -37075,42 +37870,60 @@ var appData = {
             "constellationID": "21000011",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N110"
+            ]
         },
         "31000258": {
             "name": "J213932",
             "security": "-0.99",
             "constellationID": "21000011",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000259": {
             "name": "J102414",
             "security": "-0.99",
             "constellationID": "21000011",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000260": {
             "name": "J170949",
             "security": "-0.99",
             "constellationID": "21000011",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000261": {
             "name": "J235001",
             "security": "-0.99",
             "constellationID": "21000012",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000262": {
             "name": "J103320",
             "security": "-0.99",
             "constellationID": "21000012",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000263": {
             "name": "J141038",
@@ -37118,14 +37931,20 @@ var appData = {
             "constellationID": "21000012",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N110"
+            ]
         },
         "31000264": {
             "name": "J172003",
             "security": "-0.99",
             "constellationID": "21000012",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000265": {
             "name": "J124215",
@@ -37133,7 +37952,10 @@ var appData = {
             "constellationID": "21000012",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000266": {
             "name": "J215754",
@@ -37141,7 +37963,10 @@ var appData = {
             "constellationID": "21000012",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N110"
+            ]
         },
         "31000267": {
             "name": "J102837",
@@ -37149,28 +37974,40 @@ var appData = {
             "constellationID": "21000012",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N110"
+            ]
         },
         "31000268": {
             "name": "J130155",
             "security": "-0.99",
             "constellationID": "21000012",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000269": {
             "name": "J170544",
             "security": "-0.99",
             "constellationID": "21000012",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000270": {
             "name": "J142649",
             "security": "-0.99",
             "constellationID": "21000012",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000271": {
             "name": "J150539",
@@ -37178,14 +38015,20 @@ var appData = {
             "constellationID": "21000013",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N110"
+            ]
         },
         "31000272": {
             "name": "J163156",
             "security": "-0.99",
             "constellationID": "21000013",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000273": {
             "name": "J120338",
@@ -37193,7 +38036,10 @@ var appData = {
             "constellationID": "21000013",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N110"
+            ]
         },
         "31000274": {
             "name": "J142941",
@@ -37201,21 +38047,30 @@ var appData = {
             "constellationID": "21000013",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000275": {
             "name": "J110126",
             "security": "-0.99",
             "constellationID": "21000013",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000276": {
             "name": "J155504",
             "security": "-0.99",
             "constellationID": "21000013",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000277": {
             "name": "J144228",
@@ -37223,35 +38078,50 @@ var appData = {
             "constellationID": "21000013",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N110"
+            ]
         },
         "31000278": {
             "name": "J223650",
             "security": "-0.99",
             "constellationID": "21000013",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000279": {
             "name": "J102734",
             "security": "-0.99",
             "constellationID": "21000013",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000280": {
             "name": "J105232",
             "security": "-0.99",
             "constellationID": "21000013",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000281": {
             "name": "J133128",
             "security": "-0.99",
             "constellationID": "21000013",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000282": {
             "name": "J140135",
@@ -37259,28 +38129,40 @@ var appData = {
             "constellationID": "21000014",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000283": {
             "name": "J115216",
             "security": "-0.99",
             "constellationID": "21000014",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000284": {
             "name": "J153311",
             "security": "-0.99",
             "constellationID": "21000014",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000285": {
             "name": "J164756",
             "security": "-0.99",
             "constellationID": "21000014",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000286": {
             "name": "J165216",
@@ -37288,7 +38170,10 @@ var appData = {
             "constellationID": "21000014",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N110"
+            ]
         },
         "31000287": {
             "name": "J114914",
@@ -37296,7 +38181,10 @@ var appData = {
             "constellationID": "21000014",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N110"
+            ]
         },
         "31000288": {
             "name": "J212504",
@@ -37304,63 +38192,90 @@ var appData = {
             "constellationID": "21000014",
             "regionID": "11000002",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N110"
+            ]
         },
         "31000289": {
             "name": "J120256",
             "security": "-0.99",
             "constellationID": "21000014",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000290": {
             "name": "J143421",
             "security": "-0.99",
             "constellationID": "21000014",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000291": {
             "name": "J223026",
             "security": "-0.99",
             "constellationID": "21000014",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000292": {
             "name": "J102918",
             "security": "-0.99",
             "constellationID": "21000014",
             "regionID": "11000002",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000293": {
             "name": "J142136",
             "security": "-0.99",
             "constellationID": "21000015",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000294": {
             "name": "J134540",
             "security": "-0.99",
             "constellationID": "21000015",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000295": {
             "name": "J124451",
             "security": "-0.99",
             "constellationID": "21000015",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000296": {
             "name": "J102749",
             "security": "-0.99",
             "constellationID": "21000015",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000297": {
             "name": "J165741",
@@ -37368,21 +38283,30 @@ var appData = {
             "constellationID": "21000015",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N110"
+            ]
         },
         "31000298": {
             "name": "J142119",
             "security": "-0.99",
             "constellationID": "21000015",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000299": {
             "name": "J105642",
             "security": "-0.99",
             "constellationID": "21000015",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000300": {
             "name": "J154354",
@@ -37390,63 +38314,90 @@ var appData = {
             "constellationID": "21000015",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000301": {
             "name": "J102005",
             "security": "-0.99",
             "constellationID": "21000015",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000302": {
             "name": "J133052",
             "security": "-0.99",
             "constellationID": "21000015",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000303": {
             "name": "J103341",
             "security": "-0.99",
             "constellationID": "21000015",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000304": {
             "name": "J142114",
             "security": "-0.99",
             "constellationID": "21000015",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000305": {
             "name": "J152353",
             "security": "-0.99",
             "constellationID": "21000016",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000306": {
             "name": "J120431",
             "security": "-0.99",
             "constellationID": "21000016",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000307": {
             "name": "J103547",
             "security": "-0.99",
             "constellationID": "21000016",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000308": {
             "name": "J161107",
             "security": "-0.99",
             "constellationID": "21000016",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000309": {
             "name": "J160334",
@@ -37454,14 +38405,20 @@ var appData = {
             "constellationID": "21000016",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N110"
+            ]
         },
         "31000310": {
             "name": "J101845",
             "security": "-0.99",
             "constellationID": "21000016",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000311": {
             "name": "J171805",
@@ -37469,7 +38426,10 @@ var appData = {
             "constellationID": "21000016",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N110"
+            ]
         },
         "31000312": {
             "name": "J134610",
@@ -37477,14 +38437,20 @@ var appData = {
             "constellationID": "21000016",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N110"
+            ]
         },
         "31000313": {
             "name": "J173842",
             "security": "-0.99",
             "constellationID": "21000016",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000314": {
             "name": "J155203",
@@ -37492,14 +38458,20 @@ var appData = {
             "constellationID": "21000017",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N110"
+            ]
         },
         "31000315": {
             "name": "J121935",
             "security": "-0.99",
             "constellationID": "21000017",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000316": {
             "name": "J105013",
@@ -37507,14 +38479,20 @@ var appData = {
             "constellationID": "21000017",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N110"
+            ]
         },
         "31000317": {
             "name": "J161846",
             "security": "-0.99",
             "constellationID": "21000017",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000318": {
             "name": "J113632",
@@ -37522,77 +38500,110 @@ var appData = {
             "constellationID": "21000017",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000319": {
             "name": "J170106",
             "security": "-0.99",
             "constellationID": "21000017",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000320": {
             "name": "J123828",
             "security": "-0.99",
             "constellationID": "21000017",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000321": {
             "name": "J172147",
             "security": "-0.99",
             "constellationID": "21000017",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000322": {
             "name": "J164759",
             "security": "-0.99",
             "constellationID": "21000017",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000323": {
             "name": "J212957",
             "security": "-0.99",
             "constellationID": "21000018",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000324": {
             "name": "J212338",
             "security": "-0.99",
             "constellationID": "21000018",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000325": {
             "name": "J115823",
             "security": "-0.99",
             "constellationID": "21000018",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000326": {
             "name": "J112744",
             "security": "-0.99",
             "constellationID": "21000018",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000327": {
             "name": "J121941",
             "security": "-0.99",
             "constellationID": "21000018",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000328": {
             "name": "J125650",
             "security": "-0.99",
             "constellationID": "21000018",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000329": {
             "name": "J161344",
@@ -37600,14 +38611,20 @@ var appData = {
             "constellationID": "21000018",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N110"
+            ]
         },
         "31000330": {
             "name": "J134833",
             "security": "-0.99",
             "constellationID": "21000018",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000331": {
             "name": "J143517",
@@ -37615,7 +38632,10 @@ var appData = {
             "constellationID": "21000018",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N110"
+            ]
         },
         "31000332": {
             "name": "J133245",
@@ -37623,28 +38643,40 @@ var appData = {
             "constellationID": "21000018",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N110"
+            ]
         },
         "31000333": {
             "name": "J113918",
             "security": "-0.99",
             "constellationID": "21000018",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000334": {
             "name": "J161644",
             "security": "-0.99",
             "constellationID": "21000019",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000335": {
             "name": "J152257",
             "security": "-0.99",
             "constellationID": "21000019",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000336": {
             "name": "J155833",
@@ -37652,14 +38684,20 @@ var appData = {
             "constellationID": "21000019",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000337": {
             "name": "J151332",
             "security": "-0.99",
             "constellationID": "21000019",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000338": {
             "name": "J231306",
@@ -37667,14 +38705,20 @@ var appData = {
             "constellationID": "21000019",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N110"
+            ]
         },
         "31000339": {
             "name": "J171312",
             "security": "-0.99",
             "constellationID": "21000019",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000340": {
             "name": "J112406",
@@ -37682,77 +38726,110 @@ var appData = {
             "constellationID": "21000019",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N110"
+            ]
         },
         "31000341": {
             "name": "J212904",
             "security": "-0.99",
             "constellationID": "21000019",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000342": {
             "name": "J111811",
             "security": "-0.99",
             "constellationID": "21000019",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000343": {
             "name": "J104201",
             "security": "-0.99",
             "constellationID": "21000020",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000344": {
             "name": "J150216",
             "security": "-0.99",
             "constellationID": "21000020",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000345": {
             "name": "J112934",
             "security": "-0.99",
             "constellationID": "21000020",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000346": {
             "name": "J115808",
             "security": "-0.99",
             "constellationID": "21000020",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000347": {
             "name": "J121915",
             "security": "-0.99",
             "constellationID": "21000020",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000348": {
             "name": "J133259",
             "security": "-0.99",
             "constellationID": "21000020",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000349": {
             "name": "J150325",
             "security": "-0.99",
             "constellationID": "21000020",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000350": {
             "name": "J122224",
             "security": "-0.99",
             "constellationID": "21000020",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000351": {
             "name": "J131702",
@@ -37760,35 +38837,51 @@ var appData = {
             "constellationID": "21000020",
             "regionID": "11000003",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N110"
+            ]
         },
         "31000352": {
             "name": "J141807",
             "security": "-0.99",
             "constellationID": "21000020",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000353": {
             "name": "J142327",
             "security": "-0.99",
             "constellationID": "21000020",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000354": {
             "name": "J144822",
             "security": "-0.99",
             "constellationID": "21000020",
             "regionID": "11000003",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110"
+            ]
         },
         "31000355": {
             "name": "J164417",
             "security": "-0.99",
             "constellationID": "21000021",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000356": {
             "name": "J125227",
@@ -37796,56 +38889,88 @@ var appData = {
             "constellationID": "21000021",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000357": {
             "name": "J113057",
             "security": "-0.99",
             "constellationID": "21000021",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000358": {
             "name": "J101524",
             "security": "-0.99",
             "constellationID": "21000021",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000359": {
             "name": "J124508",
             "security": "-0.99",
             "constellationID": "21000021",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000360": {
             "name": "J141156",
             "security": "-0.99",
             "constellationID": "21000021",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000361": {
             "name": "J222822",
             "security": "-0.99",
             "constellationID": "21000021",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000362": {
             "name": "J104253",
             "security": "-0.99",
             "constellationID": "21000021",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000363": {
             "name": "J144153",
             "security": "-0.99",
             "constellationID": "21000021",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000364": {
             "name": "J103406",
@@ -37853,49 +38978,77 @@ var appData = {
             "constellationID": "21000022",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000365": {
             "name": "J133210",
             "security": "-0.99",
             "constellationID": "21000022",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000366": {
             "name": "J111740",
             "security": "-0.99",
             "constellationID": "21000022",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000367": {
             "name": "J125956",
             "security": "-0.99",
             "constellationID": "21000022",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000368": {
             "name": "J105951",
             "security": "-0.99",
             "constellationID": "21000022",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000369": {
             "name": "J141857",
             "security": "-0.99",
             "constellationID": "21000022",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000370": {
             "name": "J120726",
             "security": "-0.99",
             "constellationID": "21000022",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000371": {
             "name": "J155737",
@@ -37903,56 +39056,88 @@ var appData = {
             "constellationID": "21000022",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000372": {
             "name": "J144605",
             "security": "-0.99",
             "constellationID": "21000022",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000373": {
             "name": "J144218",
             "security": "-0.99",
             "constellationID": "21000022",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000374": {
             "name": "J114835",
             "security": "-0.99",
             "constellationID": "21000022",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000375": {
             "name": "J134006",
             "security": "-0.99",
             "constellationID": "21000023",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000376": {
             "name": "J160941",
             "security": "-0.99",
             "constellationID": "21000023",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000377": {
             "name": "J111557",
             "security": "-0.99",
             "constellationID": "21000023",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000378": {
             "name": "J124219",
             "security": "-0.99",
             "constellationID": "21000023",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000379": {
             "name": "J155620",
@@ -37960,14 +39145,22 @@ var appData = {
             "constellationID": "21000023",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000380": {
             "name": "J114346",
             "security": "-0.99",
             "constellationID": "21000023",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000381": {
             "name": "J153532",
@@ -37975,28 +39168,44 @@ var appData = {
             "constellationID": "21000023",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000382": {
             "name": "J211936",
             "security": "-0.99",
             "constellationID": "21000023",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000383": {
             "name": "J211036",
             "security": "-0.99",
             "constellationID": "21000023",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000384": {
             "name": "J145805",
             "security": "-0.99",
             "constellationID": "21000023",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000385": {
             "name": "J151548",
@@ -38004,7 +39213,11 @@ var appData = {
             "constellationID": "21000023",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000386": {
             "name": "J160412",
@@ -38012,21 +39225,33 @@ var appData = {
             "constellationID": "21000024",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000387": {
             "name": "J104008",
             "security": "-0.99",
             "constellationID": "21000024",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000388": {
             "name": "J145715",
             "security": "-0.99",
             "constellationID": "21000024",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000389": {
             "name": "J235321",
@@ -38034,42 +39259,66 @@ var appData = {
             "constellationID": "21000024",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000390": {
             "name": "J103339",
             "security": "-0.99",
             "constellationID": "21000024",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000391": {
             "name": "J132009",
             "security": "-0.99",
             "constellationID": "21000024",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000392": {
             "name": "J210548",
             "security": "-0.99",
             "constellationID": "21000024",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000393": {
             "name": "J235408",
             "security": "-0.99",
             "constellationID": "21000024",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000394": {
             "name": "J122821",
             "security": "-0.99",
             "constellationID": "21000024",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000395": {
             "name": "J121925",
@@ -38077,7 +39326,11 @@ var appData = {
             "constellationID": "21000024",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000396": {
             "name": "J151047",
@@ -38085,21 +39338,33 @@ var appData = {
             "constellationID": "21000024",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000397": {
             "name": "J111011",
             "security": "-0.99",
             "constellationID": "21000024",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000398": {
             "name": "J154212",
             "security": "-0.99",
             "constellationID": "21000025",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000399": {
             "name": "J130256",
@@ -38107,21 +39372,33 @@ var appData = {
             "constellationID": "21000025",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000400": {
             "name": "J113230",
             "security": "-0.99",
             "constellationID": "21000025",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000401": {
             "name": "J132557",
             "security": "-0.99",
             "constellationID": "21000025",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000402": {
             "name": "J233534",
@@ -38129,14 +39406,22 @@ var appData = {
             "constellationID": "21000025",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000403": {
             "name": "J232801",
             "security": "-0.99",
             "constellationID": "21000025",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000404": {
             "name": "J153627",
@@ -38144,70 +39429,110 @@ var appData = {
             "constellationID": "21000025",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000405": {
             "name": "J134800",
             "security": "-0.99",
             "constellationID": "21000025",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000406": {
             "name": "J111508",
             "security": "-0.99",
             "constellationID": "21000025",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000407": {
             "name": "J143639",
             "security": "-0.99",
             "constellationID": "21000025",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000408": {
             "name": "J160753",
             "security": "-0.99",
             "constellationID": "21000026",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000409": {
             "name": "J151231",
             "security": "-0.99",
             "constellationID": "21000026",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000410": {
             "name": "J142547",
             "security": "-0.99",
             "constellationID": "21000026",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000411": {
             "name": "J142306",
             "security": "-0.99",
             "constellationID": "21000026",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000412": {
             "name": "J210422",
             "security": "-0.99",
             "constellationID": "21000026",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000413": {
             "name": "J112137",
             "security": "-0.99",
             "constellationID": "21000026",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000414": {
             "name": "J160715",
@@ -38215,14 +39540,22 @@ var appData = {
             "constellationID": "21000026",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000415": {
             "name": "J145931",
             "security": "-0.99",
             "constellationID": "21000026",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000416": {
             "name": "J103217",
@@ -38230,14 +39563,22 @@ var appData = {
             "constellationID": "21000026",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000417": {
             "name": "J143505",
             "security": "-0.99",
             "constellationID": "21000026",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000418": {
             "name": "J142533",
@@ -38245,7 +39586,11 @@ var appData = {
             "constellationID": "21000027",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000419": {
             "name": "J112146",
@@ -38253,7 +39598,11 @@ var appData = {
             "constellationID": "21000027",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000420": {
             "name": "J103839",
@@ -38261,7 +39610,11 @@ var appData = {
             "constellationID": "21000027",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000421": {
             "name": "J152433",
@@ -38269,21 +39622,33 @@ var appData = {
             "constellationID": "21000027",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000422": {
             "name": "J110408",
             "security": "-0.99",
             "constellationID": "21000027",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000423": {
             "name": "J205546",
             "security": "-0.99",
             "constellationID": "21000027",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000424": {
             "name": "J152801",
@@ -38291,56 +39656,88 @@ var appData = {
             "constellationID": "21000027",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000425": {
             "name": "J120308",
             "security": "-0.99",
             "constellationID": "21000027",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000426": {
             "name": "J103948",
             "security": "-0.99",
             "constellationID": "21000027",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000427": {
             "name": "J112820",
             "security": "-0.99",
             "constellationID": "21000028",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000428": {
             "name": "J231837",
             "security": "-0.99",
             "constellationID": "21000028",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000429": {
             "name": "J110043",
             "security": "-0.99",
             "constellationID": "21000028",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000430": {
             "name": "J121454",
             "security": "-0.99",
             "constellationID": "21000028",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000431": {
             "name": "J230959",
             "security": "-0.99",
             "constellationID": "21000028",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000432": {
             "name": "J103408",
@@ -38348,7 +39745,11 @@ var appData = {
             "constellationID": "21000028",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000433": {
             "name": "J162720",
@@ -38356,14 +39757,22 @@ var appData = {
             "constellationID": "21000028",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000434": {
             "name": "J132418",
             "security": "-0.99",
             "constellationID": "21000028",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000435": {
             "name": "J164235",
@@ -38371,56 +39780,88 @@ var appData = {
             "constellationID": "21000028",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000436": {
             "name": "J143429",
             "security": "-0.99",
             "constellationID": "21000029",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000437": {
             "name": "J134654",
             "security": "-0.99",
             "constellationID": "21000029",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000438": {
             "name": "J112801",
             "security": "-0.99",
             "constellationID": "21000029",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000439": {
             "name": "J110656",
             "security": "-0.99",
             "constellationID": "21000029",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000440": {
             "name": "J134951",
             "security": "-0.99",
             "constellationID": "21000029",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000441": {
             "name": "J155307",
             "security": "-0.99",
             "constellationID": "21000029",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000442": {
             "name": "J131204",
             "security": "-0.99",
             "constellationID": "21000029",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000443": {
             "name": "J213737",
@@ -38428,21 +39869,33 @@ var appData = {
             "constellationID": "21000029",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000444": {
             "name": "J235117",
             "security": "-0.99",
             "constellationID": "21000029",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000445": {
             "name": "J164938",
             "security": "-0.99",
             "constellationID": "21000029",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000446": {
             "name": "J120310",
@@ -38450,70 +39903,110 @@ var appData = {
             "constellationID": "21000029",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000447": {
             "name": "J144838",
             "security": "-0.99",
             "constellationID": "21000029",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000448": {
             "name": "J101307",
             "security": "-0.99",
             "constellationID": "21000030",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000449": {
             "name": "J172354",
             "security": "-0.99",
             "constellationID": "21000030",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000450": {
             "name": "J235447",
             "security": "-0.99",
             "constellationID": "21000030",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000451": {
             "name": "J124023",
             "security": "-0.99",
             "constellationID": "21000030",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000452": {
             "name": "J171424",
             "security": "-0.99",
             "constellationID": "21000030",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000453": {
             "name": "J150921",
             "security": "-0.99",
             "constellationID": "21000030",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000454": {
             "name": "J171518",
             "security": "-0.99",
             "constellationID": "21000030",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000455": {
             "name": "J140012",
             "security": "-0.99",
             "constellationID": "21000030",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000456": {
             "name": "J155616",
@@ -38521,42 +40014,66 @@ var appData = {
             "constellationID": "21000030",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000457": {
             "name": "J234557",
             "security": "-0.99",
             "constellationID": "21000030",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000458": {
             "name": "J162700",
             "security": "-0.99",
             "constellationID": "21000030",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "O477"
+            ]
         },
         "31000459": {
             "name": "J103716",
             "security": "-0.99",
             "constellationID": "21000031",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000460": {
             "name": "J100640",
             "security": "-0.99",
             "constellationID": "21000031",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000461": {
             "name": "J151250",
             "security": "-0.99",
             "constellationID": "21000031",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000462": {
             "name": "J141332",
@@ -38564,7 +40081,11 @@ var appData = {
             "constellationID": "21000031",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000463": {
             "name": "J211915",
@@ -38572,7 +40093,11 @@ var appData = {
             "constellationID": "21000031",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000464": {
             "name": "J144546",
@@ -38580,14 +40105,22 @@ var appData = {
             "constellationID": "21000031",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000465": {
             "name": "J145759",
             "security": "-0.99",
             "constellationID": "21000031",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000466": {
             "name": "J103422",
@@ -38595,42 +40128,66 @@ var appData = {
             "constellationID": "21000031",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000467": {
             "name": "J130222",
             "security": "-0.99",
             "constellationID": "21000031",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000468": {
             "name": "J165357",
             "security": "-0.99",
             "constellationID": "21000032",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000469": {
             "name": "J105321",
             "security": "-0.99",
             "constellationID": "21000032",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000470": {
             "name": "J105803",
             "security": "-0.99",
             "constellationID": "21000032",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000471": {
             "name": "J130209",
             "security": "-0.99",
             "constellationID": "21000032",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000472": {
             "name": "J122832",
@@ -38638,14 +40195,22 @@ var appData = {
             "constellationID": "21000032",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000473": {
             "name": "J143359",
             "security": "-0.99",
             "constellationID": "21000032",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000474": {
             "name": "J100447",
@@ -38653,14 +40218,22 @@ var appData = {
             "constellationID": "21000032",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000475": {
             "name": "J115651",
             "security": "-0.99",
             "constellationID": "21000032",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000476": {
             "name": "J134323",
@@ -38668,7 +40241,11 @@ var appData = {
             "constellationID": "21000032",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000477": {
             "name": "J160014",
@@ -38676,7 +40253,11 @@ var appData = {
             "constellationID": "21000032",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000478": {
             "name": "J110823",
@@ -38684,49 +40265,77 @@ var appData = {
             "constellationID": "21000032",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000479": {
             "name": "J100246",
             "security": "-0.99",
             "constellationID": "21000033",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000480": {
             "name": "J131221",
             "security": "-0.99",
             "constellationID": "21000033",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000481": {
             "name": "J145155",
             "security": "-0.99",
             "constellationID": "21000033",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000482": {
             "name": "J114405",
             "security": "-0.99",
             "constellationID": "21000033",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000483": {
             "name": "J215537",
             "security": "-0.99",
             "constellationID": "21000033",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000484": {
             "name": "J172551",
             "security": "-0.99",
             "constellationID": "21000033",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000485": {
             "name": "J131107",
@@ -38734,21 +40343,33 @@ var appData = {
             "constellationID": "21000033",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000486": {
             "name": "J113108",
             "security": "-0.99",
             "constellationID": "21000033",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000487": {
             "name": "J172556",
             "security": "-0.99",
             "constellationID": "21000033",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000488": {
             "name": "J123450",
@@ -38756,7 +40377,11 @@ var appData = {
             "constellationID": "21000033",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000489": {
             "name": "J135809",
@@ -38764,7 +40389,11 @@ var appData = {
             "constellationID": "21000033",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000490": {
             "name": "J212319",
@@ -38772,7 +40401,11 @@ var appData = {
             "constellationID": "21000034",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000491": {
             "name": "J104210",
@@ -38780,7 +40413,11 @@ var appData = {
             "constellationID": "21000034",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000492": {
             "name": "J170038",
@@ -38788,14 +40425,22 @@ var appData = {
             "constellationID": "21000034",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000493": {
             "name": "J104115",
             "security": "-0.99",
             "constellationID": "21000034",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000494": {
             "name": "J114758",
@@ -38803,7 +40448,11 @@ var appData = {
             "constellationID": "21000034",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000495": {
             "name": "J231517",
@@ -38811,35 +40460,55 @@ var appData = {
             "constellationID": "21000034",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000496": {
             "name": "J114055",
             "security": "-0.99",
             "constellationID": "21000034",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000497": {
             "name": "J120619",
             "security": "-0.99",
             "constellationID": "21000034",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000498": {
             "name": "J213058",
             "security": "-0.99",
             "constellationID": "21000034",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000499": {
             "name": "J162430",
             "security": "-0.99",
             "constellationID": "21000035",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000500": {
             "name": "J120928",
@@ -38847,56 +40516,88 @@ var appData = {
             "constellationID": "21000035",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000501": {
             "name": "J132918",
             "security": "-0.99",
             "constellationID": "21000035",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000502": {
             "name": "J105203",
             "security": "-0.99",
             "constellationID": "21000035",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000503": {
             "name": "J104328",
             "security": "-0.99",
             "constellationID": "21000035",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000504": {
             "name": "J130854",
             "security": "-0.99",
             "constellationID": "21000035",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000505": {
             "name": "J164130",
             "security": "-0.99",
             "constellationID": "21000035",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000506": {
             "name": "J110316",
             "security": "-0.99",
             "constellationID": "21000035",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000507": {
             "name": "J122331",
             "security": "-0.99",
             "constellationID": "21000035",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000508": {
             "name": "J133419",
@@ -38904,35 +40605,55 @@ var appData = {
             "constellationID": "21000036",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000509": {
             "name": "J150137",
             "security": "-0.99",
             "constellationID": "21000036",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000510": {
             "name": "J140112",
             "security": "-0.99",
             "constellationID": "21000036",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000511": {
             "name": "J125721",
             "security": "-0.99",
             "constellationID": "21000036",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000512": {
             "name": "J154515",
             "security": "-0.99",
             "constellationID": "21000036",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000513": {
             "name": "J135703",
@@ -38940,14 +40661,22 @@ var appData = {
             "constellationID": "21000036",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000514": {
             "name": "J102347",
             "security": "-0.99",
             "constellationID": "21000036",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000515": {
             "name": "J234942",
@@ -38955,7 +40684,11 @@ var appData = {
             "constellationID": "21000036",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000516": {
             "name": "J134618",
@@ -38963,14 +40696,22 @@ var appData = {
             "constellationID": "21000036",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000517": {
             "name": "J154858",
             "security": "-0.99",
             "constellationID": "21000036",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000518": {
             "name": "J132052",
@@ -38978,7 +40719,11 @@ var appData = {
             "constellationID": "21000036",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000519": {
             "name": "J114046",
@@ -38986,14 +40731,22 @@ var appData = {
             "constellationID": "21000037",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000520": {
             "name": "J150859",
             "security": "-0.99",
             "constellationID": "21000037",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000521": {
             "name": "J151615",
@@ -39001,56 +40754,88 @@ var appData = {
             "constellationID": "21000037",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000522": {
             "name": "J122246",
             "security": "-0.99",
             "constellationID": "21000037",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000523": {
             "name": "J132559",
             "security": "-0.99",
             "constellationID": "21000037",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000524": {
             "name": "J230207",
             "security": "-0.99",
             "constellationID": "21000037",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000525": {
             "name": "J140308",
             "security": "-0.99",
             "constellationID": "21000037",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000526": {
             "name": "J140642",
             "security": "-0.99",
             "constellationID": "21000037",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000527": {
             "name": "J114306",
             "security": "-0.99",
             "constellationID": "21000037",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000528": {
             "name": "J154606",
             "security": "-0.99",
             "constellationID": "21000037",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000529": {
             "name": "J135910",
@@ -39058,49 +40843,77 @@ var appData = {
             "constellationID": "21000037",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000530": {
             "name": "J132024",
             "security": "-0.99",
             "constellationID": "21000038",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000531": {
             "name": "J160311",
             "security": "-0.99",
             "constellationID": "21000038",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000532": {
             "name": "J142239",
             "security": "-0.99",
             "constellationID": "21000038",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000533": {
             "name": "J101149",
             "security": "-0.99",
             "constellationID": "21000038",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000534": {
             "name": "J154538",
             "security": "-0.99",
             "constellationID": "21000038",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000535": {
             "name": "J144426",
             "security": "-0.99",
             "constellationID": "21000038",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000536": {
             "name": "J150341",
@@ -39108,21 +40921,33 @@ var appData = {
             "constellationID": "21000038",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000537": {
             "name": "J122124",
             "security": "-0.99",
             "constellationID": "21000038",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000538": {
             "name": "J112614",
             "security": "-0.99",
             "constellationID": "21000038",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000539": {
             "name": "J145316",
@@ -39130,7 +40955,11 @@ var appData = {
             "constellationID": "21000039",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000540": {
             "name": "J215736",
@@ -39138,7 +40967,11 @@ var appData = {
             "constellationID": "21000039",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000541": {
             "name": "J163138",
@@ -39146,42 +40979,66 @@ var appData = {
             "constellationID": "21000039",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000542": {
             "name": "J100033",
             "security": "-0.99",
             "constellationID": "21000039",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000543": {
             "name": "J170552",
             "security": "-0.99",
             "constellationID": "21000039",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000544": {
             "name": "J104820",
             "security": "-0.99",
             "constellationID": "21000039",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000545": {
             "name": "J131240",
             "security": "-0.99",
             "constellationID": "21000039",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000546": {
             "name": "J120442",
             "security": "-0.99",
             "constellationID": "21000039",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000547": {
             "name": "J105000",
@@ -39189,7 +41046,11 @@ var appData = {
             "constellationID": "21000039",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000548": {
             "name": "J164507",
@@ -39197,42 +41058,66 @@ var appData = {
             "constellationID": "21000039",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000549": {
             "name": "J144956",
             "security": "-0.99",
             "constellationID": "21000039",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000550": {
             "name": "J114712",
             "security": "-0.99",
             "constellationID": "21000040",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000551": {
             "name": "J211908",
             "security": "-0.99",
             "constellationID": "21000040",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000552": {
             "name": "J150700",
             "security": "-0.99",
             "constellationID": "21000040",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000553": {
             "name": "J164931",
             "security": "-0.99",
             "constellationID": "21000040",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000554": {
             "name": "J121412",
@@ -39240,7 +41125,11 @@ var appData = {
             "constellationID": "21000040",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000555": {
             "name": "J145211",
@@ -39248,21 +41137,33 @@ var appData = {
             "constellationID": "21000040",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000556": {
             "name": "J174449",
             "security": "-0.99",
             "constellationID": "21000040",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000557": {
             "name": "J133015",
             "security": "-0.99",
             "constellationID": "21000040",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000558": {
             "name": "J134534",
@@ -39270,14 +41171,22 @@ var appData = {
             "constellationID": "21000040",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000559": {
             "name": "J153229",
             "security": "-0.99",
             "constellationID": "21000040",
             "regionID": "11000005",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000560": {
             "name": "J133557",
@@ -39285,35 +41194,55 @@ var appData = {
             "constellationID": "21000040",
             "regionID": "11000005",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "Y683"
+            ]
         },
         "31000561": {
             "name": "J150807",
             "security": "-0.99",
             "constellationID": "21000041",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000562": {
             "name": "J110413",
             "security": "-0.99",
             "constellationID": "21000041",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000563": {
             "name": "J105352",
             "security": "-0.99",
             "constellationID": "21000041",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000564": {
             "name": "J161246",
             "security": "-0.99",
             "constellationID": "21000041",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000565": {
             "name": "J125927",
@@ -39321,7 +41250,11 @@ var appData = {
             "constellationID": "21000041",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000566": {
             "name": "J130650",
@@ -39329,7 +41262,11 @@ var appData = {
             "constellationID": "21000041",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000567": {
             "name": "J142826",
@@ -39337,7 +41274,11 @@ var appData = {
             "constellationID": "21000041",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000568": {
             "name": "J152737",
@@ -39345,7 +41286,11 @@ var appData = {
             "constellationID": "21000041",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000569": {
             "name": "J225316",
@@ -39353,7 +41298,11 @@ var appData = {
             "constellationID": "21000041",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000570": {
             "name": "J163146",
@@ -39361,42 +41310,66 @@ var appData = {
             "constellationID": "21000041",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000571": {
             "name": "J134107",
             "security": "-0.99",
             "constellationID": "21000042",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000572": {
             "name": "J104850",
             "security": "-0.99",
             "constellationID": "21000042",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000573": {
             "name": "J131124",
             "security": "-0.99",
             "constellationID": "21000042",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000574": {
             "name": "J123435",
             "security": "-0.99",
             "constellationID": "21000042",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000575": {
             "name": "J150853",
             "security": "-0.99",
             "constellationID": "21000042",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000576": {
             "name": "J170558",
@@ -39404,7 +41377,11 @@ var appData = {
             "constellationID": "21000042",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000577": {
             "name": "J214238",
@@ -39412,7 +41389,11 @@ var appData = {
             "constellationID": "21000042",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000578": {
             "name": "J110538",
@@ -39420,14 +41401,22 @@ var appData = {
             "constellationID": "21000042",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000579": {
             "name": "J143336",
             "security": "-0.99",
             "constellationID": "21000042",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000580": {
             "name": "J232044",
@@ -39435,7 +41424,11 @@ var appData = {
             "constellationID": "21000043",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000581": {
             "name": "J145225",
@@ -39443,28 +41436,44 @@ var appData = {
             "constellationID": "21000043",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000582": {
             "name": "J231210",
             "security": "-0.99",
             "constellationID": "21000043",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000583": {
             "name": "J223853",
             "security": "-0.99",
             "constellationID": "21000043",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000584": {
             "name": "J234542",
             "security": "-0.99",
             "constellationID": "21000043",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000585": {
             "name": "J115911",
@@ -39472,21 +41481,33 @@ var appData = {
             "constellationID": "21000043",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000586": {
             "name": "J135155",
             "security": "-0.99",
             "constellationID": "21000043",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000587": {
             "name": "J152825",
             "security": "-0.99",
             "constellationID": "21000043",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000588": {
             "name": "J115334",
@@ -39494,14 +41515,22 @@ var appData = {
             "constellationID": "21000043",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000589": {
             "name": "J114749",
             "security": "-0.99",
             "constellationID": "21000043",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000590": {
             "name": "J134730",
@@ -39509,7 +41538,11 @@ var appData = {
             "constellationID": "21000043",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000591": {
             "name": "J105544",
@@ -39517,14 +41550,22 @@ var appData = {
             "constellationID": "21000044",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000592": {
             "name": "J233129",
             "security": "-0.99",
             "constellationID": "21000044",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000593": {
             "name": "J114528",
@@ -39532,14 +41573,22 @@ var appData = {
             "constellationID": "21000044",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000594": {
             "name": "J103351",
             "security": "-0.99",
             "constellationID": "21000044",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000595": {
             "name": "J152322",
@@ -39547,28 +41596,44 @@ var appData = {
             "constellationID": "21000044",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000596": {
             "name": "J132617",
             "security": "-0.99",
             "constellationID": "21000044",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000597": {
             "name": "J104517",
             "security": "-0.99",
             "constellationID": "21000044",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000598": {
             "name": "J132401",
             "security": "-0.99",
             "constellationID": "21000044",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000599": {
             "name": "J142918",
@@ -39576,7 +41641,11 @@ var appData = {
             "constellationID": "21000044",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000600": {
             "name": "J163902",
@@ -39584,7 +41653,11 @@ var appData = {
             "constellationID": "21000044",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000601": {
             "name": "J214843",
@@ -39592,21 +41665,33 @@ var appData = {
             "constellationID": "21000044",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000602": {
             "name": "J173322",
             "security": "-0.99",
             "constellationID": "21000045",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000603": {
             "name": "J120252",
             "security": "-0.99",
             "constellationID": "21000045",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000604": {
             "name": "J232305",
@@ -39614,28 +41699,44 @@ var appData = {
             "constellationID": "21000045",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000605": {
             "name": "J123907",
             "security": "-0.99",
             "constellationID": "21000045",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000606": {
             "name": "J144057",
             "security": "-0.99",
             "constellationID": "21000045",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000607": {
             "name": "J223320",
             "security": "-0.99",
             "constellationID": "21000045",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000608": {
             "name": "J153247",
@@ -39643,21 +41744,33 @@ var appData = {
             "constellationID": "21000045",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000609": {
             "name": "J204623",
             "security": "-0.99",
             "constellationID": "21000045",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000610": {
             "name": "J223348",
             "security": "-0.99",
             "constellationID": "21000045",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000611": {
             "name": "J115734",
@@ -39665,14 +41778,22 @@ var appData = {
             "constellationID": "21000045",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000612": {
             "name": "J154735",
             "security": "-0.99",
             "constellationID": "21000045",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000613": {
             "name": "J115314",
@@ -39680,35 +41801,55 @@ var appData = {
             "constellationID": "21000045",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000614": {
             "name": "J164816",
             "security": "-0.99",
             "constellationID": "21000046",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000615": {
             "name": "J132712",
             "security": "-0.99",
             "constellationID": "21000046",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000616": {
             "name": "J124530",
             "security": "-0.99",
             "constellationID": "21000046",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000617": {
             "name": "J134949",
             "security": "-0.99",
             "constellationID": "21000046",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000618": {
             "name": "J132458",
@@ -39716,7 +41857,11 @@ var appData = {
             "constellationID": "21000046",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000619": {
             "name": "J160927",
@@ -39724,7 +41869,11 @@ var appData = {
             "constellationID": "21000046",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000620": {
             "name": "J150836",
@@ -39732,7 +41881,11 @@ var appData = {
             "constellationID": "21000046",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000621": {
             "name": "J102222",
@@ -39740,35 +41893,55 @@ var appData = {
             "constellationID": "21000046",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000622": {
             "name": "J103144",
             "security": "-0.99",
             "constellationID": "21000046",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000623": {
             "name": "J135629",
             "security": "-0.99",
             "constellationID": "21000047",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000624": {
             "name": "J115530",
             "security": "-0.99",
             "constellationID": "21000047",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000625": {
             "name": "J133111",
             "security": "-0.99",
             "constellationID": "21000047",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000626": {
             "name": "J150904",
@@ -39776,14 +41949,22 @@ var appData = {
             "constellationID": "21000047",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000627": {
             "name": "J111846",
             "security": "-0.99",
             "constellationID": "21000047",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000628": {
             "name": "J152950",
@@ -39791,14 +41972,22 @@ var appData = {
             "constellationID": "21000047",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000629": {
             "name": "J120704",
             "security": "-0.99",
             "constellationID": "21000047",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000630": {
             "name": "J104718",
@@ -39806,14 +41995,22 @@ var appData = {
             "constellationID": "21000047",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000631": {
             "name": "J131808",
             "security": "-0.99",
             "constellationID": "21000047",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000632": {
             "name": "J231644",
@@ -39821,63 +42018,99 @@ var appData = {
             "constellationID": "21000048",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000633": {
             "name": "J232147",
             "security": "-0.99",
             "constellationID": "21000048",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000634": {
             "name": "J132048",
             "security": "-0.99",
             "constellationID": "21000048",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000635": {
             "name": "J172350",
             "security": "-0.99",
             "constellationID": "21000048",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000636": {
             "name": "J145619",
             "security": "-0.99",
             "constellationID": "21000048",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000637": {
             "name": "J163446",
             "security": "-0.99",
             "constellationID": "21000048",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000638": {
             "name": "J140816",
             "security": "-0.99",
             "constellationID": "21000048",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000639": {
             "name": "J141015",
             "security": "-0.99",
             "constellationID": "21000048",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000640": {
             "name": "J101346",
             "security": "-0.99",
             "constellationID": "21000048",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000641": {
             "name": "J212238",
@@ -39885,7 +42118,11 @@ var appData = {
             "constellationID": "21000049",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000642": {
             "name": "J235852",
@@ -39893,7 +42130,11 @@ var appData = {
             "constellationID": "21000049",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000643": {
             "name": "J134349",
@@ -39901,49 +42142,77 @@ var appData = {
             "constellationID": "21000049",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000644": {
             "name": "J204221",
             "security": "-0.99",
             "constellationID": "21000049",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000645": {
             "name": "J110910",
             "security": "-0.99",
             "constellationID": "21000049",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000646": {
             "name": "J131753",
             "security": "-0.99",
             "constellationID": "21000049",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000647": {
             "name": "J113221",
             "security": "-0.99",
             "constellationID": "21000049",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000648": {
             "name": "J152941",
             "security": "-0.99",
             "constellationID": "21000049",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000649": {
             "name": "J144727",
             "security": "-0.99",
             "constellationID": "21000049",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000650": {
             "name": "J143320",
@@ -39951,21 +42220,33 @@ var appData = {
             "constellationID": "21000050",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000651": {
             "name": "J155551",
             "security": "-0.99",
             "constellationID": "21000050",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000652": {
             "name": "J162516",
             "security": "-0.99",
             "constellationID": "21000050",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000653": {
             "name": "J135827",
@@ -39973,7 +42254,11 @@ var appData = {
             "constellationID": "21000050",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000654": {
             "name": "J131706",
@@ -39981,28 +42266,44 @@ var appData = {
             "constellationID": "21000050",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000655": {
             "name": "J214854",
             "security": "-0.99",
             "constellationID": "21000050",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000656": {
             "name": "J150109",
             "security": "-0.99",
             "constellationID": "21000050",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000657": {
             "name": "J103512",
             "security": "-0.99",
             "constellationID": "21000050",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000658": {
             "name": "J121658",
@@ -40010,35 +42311,55 @@ var appData = {
             "constellationID": "21000050",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000659": {
             "name": "J143706",
             "security": "-0.99",
             "constellationID": "21000051",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000660": {
             "name": "J235924",
             "security": "-0.99",
             "constellationID": "21000051",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000661": {
             "name": "J103854",
             "security": "-0.99",
             "constellationID": "21000051",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000662": {
             "name": "J214725",
             "security": "-0.99",
             "constellationID": "21000051",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000663": {
             "name": "J101415",
@@ -40046,14 +42367,22 @@ var appData = {
             "constellationID": "21000051",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000664": {
             "name": "J122837",
             "security": "-0.99",
             "constellationID": "21000051",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000665": {
             "name": "J125727",
@@ -40061,7 +42390,11 @@ var appData = {
             "constellationID": "21000051",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000666": {
             "name": "J142847",
@@ -40069,28 +42402,44 @@ var appData = {
             "constellationID": "21000051",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000667": {
             "name": "J155035",
             "security": "-0.99",
             "constellationID": "21000051",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000668": {
             "name": "J102504",
             "security": "-0.99",
             "constellationID": "21000051",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000669": {
             "name": "J160305",
             "security": "-0.99",
             "constellationID": "21000052",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000670": {
             "name": "J151503",
@@ -40098,7 +42447,11 @@ var appData = {
             "constellationID": "21000052",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000671": {
             "name": "J142838",
@@ -40106,7 +42459,11 @@ var appData = {
             "constellationID": "21000052",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000672": {
             "name": "J131034",
@@ -40114,7 +42471,11 @@ var appData = {
             "constellationID": "21000052",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000673": {
             "name": "J214901",
@@ -40122,7 +42483,11 @@ var appData = {
             "constellationID": "21000052",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000674": {
             "name": "J113323",
@@ -40130,7 +42495,11 @@ var appData = {
             "constellationID": "21000052",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000675": {
             "name": "J112956",
@@ -40138,49 +42507,77 @@ var appData = {
             "constellationID": "21000052",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000676": {
             "name": "J104802",
             "security": "-0.99",
             "constellationID": "21000052",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000677": {
             "name": "J100808",
             "security": "-0.99",
             "constellationID": "21000052",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000678": {
             "name": "J100509",
             "security": "-0.99",
             "constellationID": "21000052",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000679": {
             "name": "J142055",
             "security": "-0.99",
             "constellationID": "21000052",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000680": {
             "name": "J135141",
             "security": "-0.99",
             "constellationID": "21000052",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000681": {
             "name": "J151902",
             "security": "-0.99",
             "constellationID": "21000053",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000682": {
             "name": "J235759",
@@ -40188,7 +42585,11 @@ var appData = {
             "constellationID": "21000053",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000683": {
             "name": "J164613",
@@ -40196,56 +42597,88 @@ var appData = {
             "constellationID": "21000053",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000684": {
             "name": "J225805",
             "security": "-0.99",
             "constellationID": "21000053",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000685": {
             "name": "J112916",
             "security": "-0.99",
             "constellationID": "21000053",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000686": {
             "name": "J115347",
             "security": "-0.99",
             "constellationID": "21000053",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000687": {
             "name": "J224217",
             "security": "-0.99",
             "constellationID": "21000053",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000688": {
             "name": "J110555",
             "security": "-0.99",
             "constellationID": "21000053",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000689": {
             "name": "J143455",
             "security": "-0.99",
             "constellationID": "21000053",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000690": {
             "name": "J111141",
             "security": "-0.99",
             "constellationID": "21000053",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000691": {
             "name": "J104606",
@@ -40253,7 +42686,11 @@ var appData = {
             "constellationID": "21000053",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000692": {
             "name": "J222830",
@@ -40261,21 +42698,33 @@ var appData = {
             "constellationID": "21000053",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000693": {
             "name": "J123249",
             "security": "-0.99",
             "constellationID": "21000054",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000694": {
             "name": "J115310",
             "security": "-0.99",
             "constellationID": "21000054",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000695": {
             "name": "J143702",
@@ -40283,35 +42732,55 @@ var appData = {
             "constellationID": "21000054",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000696": {
             "name": "J223538",
             "security": "-0.99",
             "constellationID": "21000054",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000697": {
             "name": "J131618",
             "security": "-0.99",
             "constellationID": "21000054",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000698": {
             "name": "J215944",
             "security": "-0.99",
             "constellationID": "21000054",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000699": {
             "name": "J121952",
             "security": "-0.99",
             "constellationID": "21000054",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000700": {
             "name": "J121928",
@@ -40319,21 +42788,33 @@ var appData = {
             "constellationID": "21000054",
             "regionID": "11000006",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000701": {
             "name": "J105439",
             "security": "-0.99",
             "constellationID": "21000054",
             "regionID": "11000006",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "D382"
+            ]
         },
         "31000702": {
             "name": "J150627",
             "security": "-0.99",
             "constellationID": "21000055",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000703": {
             "name": "J121745",
@@ -40341,35 +42822,55 @@ var appData = {
             "constellationID": "21000055",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000704": {
             "name": "J141438",
             "security": "-0.99",
             "constellationID": "21000055",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000705": {
             "name": "J214929",
             "security": "-0.99",
             "constellationID": "21000055",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000706": {
             "name": "J130709",
             "security": "-0.99",
             "constellationID": "21000055",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000707": {
             "name": "J103924",
             "security": "-0.99",
             "constellationID": "21000055",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000708": {
             "name": "J211000",
@@ -40377,14 +42878,22 @@ var appData = {
             "constellationID": "21000055",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000709": {
             "name": "J123555",
             "security": "-0.99",
             "constellationID": "21000055",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000710": {
             "name": "J151125",
@@ -40392,7 +42901,11 @@ var appData = {
             "constellationID": "21000055",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000711": {
             "name": "J123412",
@@ -40400,49 +42913,77 @@ var appData = {
             "constellationID": "21000055",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000712": {
             "name": "J112309",
             "security": "-0.99",
             "constellationID": "21000056",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000713": {
             "name": "J123850",
             "security": "-0.99",
             "constellationID": "21000056",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000714": {
             "name": "J163923",
             "security": "-0.99",
             "constellationID": "21000056",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000715": {
             "name": "J143546",
             "security": "-0.99",
             "constellationID": "21000056",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000716": {
             "name": "J130832",
             "security": "-0.99",
             "constellationID": "21000056",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000717": {
             "name": "J221337",
             "security": "-0.99",
             "constellationID": "21000056",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000718": {
             "name": "J113449",
@@ -40450,14 +42991,22 @@ var appData = {
             "constellationID": "21000056",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000719": {
             "name": "J212607",
             "security": "-0.99",
             "constellationID": "21000056",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000720": {
             "name": "J165157",
@@ -40465,28 +43014,44 @@ var appData = {
             "constellationID": "21000056",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000721": {
             "name": "J142937",
             "security": "-0.99",
             "constellationID": "21000057",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000722": {
             "name": "J120455",
             "security": "-0.99",
             "constellationID": "21000057",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000723": {
             "name": "J122638",
             "security": "-0.99",
             "constellationID": "21000057",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000724": {
             "name": "J161411",
@@ -40494,35 +43059,55 @@ var appData = {
             "constellationID": "21000057",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000725": {
             "name": "J124028",
             "security": "-0.99",
             "constellationID": "21000057",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000726": {
             "name": "J134735",
             "security": "-0.99",
             "constellationID": "21000057",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000727": {
             "name": "J142845",
             "security": "-0.99",
             "constellationID": "21000057",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000728": {
             "name": "J140750",
             "security": "-0.99",
             "constellationID": "21000057",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000729": {
             "name": "J104515",
@@ -40530,35 +43115,55 @@ var appData = {
             "constellationID": "21000057",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000730": {
             "name": "J113039",
             "security": "-0.99",
             "constellationID": "21000057",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000731": {
             "name": "J111159",
             "security": "-0.99",
             "constellationID": "21000057",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000732": {
             "name": "J105342",
             "security": "-0.99",
             "constellationID": "21000057",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000733": {
             "name": "J121728",
             "security": "-0.99",
             "constellationID": "21000058",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000734": {
             "name": "J115700",
@@ -40566,21 +43171,33 @@ var appData = {
             "constellationID": "21000058",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000735": {
             "name": "J143234",
             "security": "-0.99",
             "constellationID": "21000058",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000736": {
             "name": "J122524",
             "security": "-0.99",
             "constellationID": "21000058",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000737": {
             "name": "J124007",
@@ -40588,21 +43205,33 @@ var appData = {
             "constellationID": "21000058",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000738": {
             "name": "J150533",
             "security": "-0.99",
             "constellationID": "21000058",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000739": {
             "name": "J143933",
             "security": "-0.99",
             "constellationID": "21000058",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000740": {
             "name": "J225128",
@@ -40610,7 +43239,11 @@ var appData = {
             "constellationID": "21000058",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000741": {
             "name": "J133632",
@@ -40618,21 +43251,33 @@ var appData = {
             "constellationID": "21000058",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E545",
+                "N062"
+            ]
         },
         "31000742": {
             "name": "J131744",
             "security": "-0.99",
             "constellationID": "21000059",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "R474"
+            ]
         },
         "31000743": {
             "name": "J125923",
             "security": "-0.99",
             "constellationID": "21000059",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "R474"
+            ]
         },
         "31000744": {
             "name": "J161138",
@@ -40640,28 +43285,44 @@ var appData = {
             "constellationID": "21000059",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E545",
+                "R474"
+            ]
         },
         "31000745": {
             "name": "J125824",
             "security": "-0.99",
             "constellationID": "21000059",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "R474"
+            ]
         },
         "31000746": {
             "name": "J223511",
             "security": "-0.99",
             "constellationID": "21000059",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "R474"
+            ]
         },
         "31000747": {
             "name": "J134401",
             "security": "-0.99",
             "constellationID": "21000059",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "R474"
+            ]
         },
         "31000748": {
             "name": "J214739",
@@ -40669,14 +43330,22 @@ var appData = {
             "constellationID": "21000059",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "E545",
+                "R474"
+            ]
         },
         "31000749": {
             "name": "J104321",
             "security": "-0.99",
             "constellationID": "21000059",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "R474"
+            ]
         },
         "31000750": {
             "name": "J115327",
@@ -40684,49 +43353,77 @@ var appData = {
             "constellationID": "21000059",
             "regionID": "11000007",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "E545",
+                "R474"
+            ]
         },
         "31000751": {
             "name": "J154937",
             "security": "-0.99",
             "constellationID": "21000059",
             "regionID": "11000007",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "E545",
+                "R474"
+            ]
         },
         "31000752": {
             "name": "J112505",
             "security": "-0.99",
             "constellationID": "21000060",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000753": {
             "name": "J102739",
             "security": "-0.99",
             "constellationID": "21000060",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000754": {
             "name": "J171309",
             "security": "-0.99",
             "constellationID": "21000060",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000755": {
             "name": "J133417",
             "security": "-0.99",
             "constellationID": "21000060",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000756": {
             "name": "J124749",
             "security": "-0.99",
             "constellationID": "21000060",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000757": {
             "name": "J122137",
@@ -40734,21 +43431,33 @@ var appData = {
             "constellationID": "21000060",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000758": {
             "name": "J140353",
             "security": "-0.99",
             "constellationID": "21000060",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000759": {
             "name": "J104029",
             "security": "-0.99",
             "constellationID": "21000060",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000760": {
             "name": "J151348",
@@ -40756,14 +43465,22 @@ var appData = {
             "constellationID": "21000060",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000761": {
             "name": "J163522",
             "security": "-0.99",
             "constellationID": "21000060",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000762": {
             "name": "J131315",
@@ -40771,7 +43488,11 @@ var appData = {
             "constellationID": "21000061",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000763": {
             "name": "J114008",
@@ -40779,7 +43500,11 @@ var appData = {
             "constellationID": "21000061",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000764": {
             "name": "J233839",
@@ -40787,112 +43512,176 @@ var appData = {
             "constellationID": "21000061",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000765": {
             "name": "J112558",
             "security": "-0.99",
             "constellationID": "21000061",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000766": {
             "name": "J114308",
             "security": "-0.99",
             "constellationID": "21000061",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000767": {
             "name": "J130125",
             "security": "-0.99",
             "constellationID": "21000061",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000768": {
             "name": "J173213",
             "security": "-0.99",
             "constellationID": "21000061",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000769": {
             "name": "J160126",
             "security": "-0.99",
             "constellationID": "21000061",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000770": {
             "name": "J154813",
             "security": "-0.99",
             "constellationID": "21000061",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000771": {
             "name": "J215151",
             "security": "-0.99",
             "constellationID": "21000061",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000772": {
             "name": "J144739",
             "security": "-0.99",
             "constellationID": "21000062",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000773": {
             "name": "J102602",
             "security": "-0.99",
             "constellationID": "21000062",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000774": {
             "name": "J120924",
             "security": "-0.99",
             "constellationID": "21000062",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000775": {
             "name": "J212906",
             "security": "-0.99",
             "constellationID": "21000062",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000776": {
             "name": "J101719",
             "security": "-0.99",
             "constellationID": "21000062",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000777": {
             "name": "J101824",
             "security": "-0.99",
             "constellationID": "21000062",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000778": {
             "name": "J153003",
             "security": "-0.99",
             "constellationID": "21000062",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000779": {
             "name": "J105123",
             "security": "-0.99",
             "constellationID": "21000062",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000780": {
             "name": "J122635",
@@ -40900,49 +43689,77 @@ var appData = {
             "constellationID": "21000062",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000781": {
             "name": "J152624",
             "security": "-0.99",
             "constellationID": "21000062",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000782": {
             "name": "J224145",
             "security": "-0.99",
             "constellationID": "21000062",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000783": {
             "name": "J163318",
             "security": "-0.99",
             "constellationID": "21000063",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000784": {
             "name": "J144004",
             "security": "-0.99",
             "constellationID": "21000063",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000785": {
             "name": "J122931",
             "security": "-0.99",
             "constellationID": "21000063",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000786": {
             "name": "J173245",
             "security": "-0.99",
             "constellationID": "21000063",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000787": {
             "name": "J145246",
@@ -40950,7 +43767,11 @@ var appData = {
             "constellationID": "21000063",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000788": {
             "name": "J124526",
@@ -40958,35 +43779,55 @@ var appData = {
             "constellationID": "21000063",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000789": {
             "name": "J165648",
             "security": "-0.99",
             "constellationID": "21000063",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000790": {
             "name": "J134405",
             "security": "-0.99",
             "constellationID": "21000063",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000791": {
             "name": "J213111",
             "security": "-0.99",
             "constellationID": "21000063",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000792": {
             "name": "J135422",
             "security": "-0.99",
             "constellationID": "21000064",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000793": {
             "name": "J153030",
@@ -40994,28 +43835,44 @@ var appData = {
             "constellationID": "21000064",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000794": {
             "name": "J120634",
             "security": "-0.99",
             "constellationID": "21000064",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000795": {
             "name": "J102209",
             "security": "-0.99",
             "constellationID": "21000064",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000796": {
             "name": "J123540",
             "security": "-0.99",
             "constellationID": "21000064",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000797": {
             "name": "J112715",
@@ -41023,14 +43880,22 @@ var appData = {
             "constellationID": "21000064",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000798": {
             "name": "J162159",
             "security": "-0.99",
             "constellationID": "21000064",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000799": {
             "name": "J122118",
@@ -41038,7 +43903,11 @@ var appData = {
             "constellationID": "21000064",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000800": {
             "name": "J105244",
@@ -41046,7 +43915,11 @@ var appData = {
             "constellationID": "21000064",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000801": {
             "name": "J123958",
@@ -41054,7 +43927,11 @@ var appData = {
             "constellationID": "21000064",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000802": {
             "name": "J223552",
@@ -41062,98 +43939,154 @@ var appData = {
             "constellationID": "21000065",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000803": {
             "name": "J232359",
             "security": "-0.99",
             "constellationID": "21000065",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000804": {
             "name": "J171539",
             "security": "-0.99",
             "constellationID": "21000065",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000805": {
             "name": "J100102",
             "security": "-0.99",
             "constellationID": "21000065",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000806": {
             "name": "J154249",
             "security": "-0.99",
             "constellationID": "21000065",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000807": {
             "name": "J105311",
             "security": "-0.99",
             "constellationID": "21000065",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000808": {
             "name": "J210536",
             "security": "-0.99",
             "constellationID": "21000065",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000809": {
             "name": "J151248",
             "security": "-0.99",
             "constellationID": "21000065",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000810": {
             "name": "J131852",
             "security": "-0.99",
             "constellationID": "21000065",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000811": {
             "name": "J141611",
             "security": "-0.99",
             "constellationID": "21000066",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000812": {
             "name": "J113723",
             "security": "-0.99",
             "constellationID": "21000066",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000813": {
             "name": "J121323",
             "security": "-0.99",
             "constellationID": "21000066",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000814": {
             "name": "J144422",
             "security": "-0.99",
             "constellationID": "21000066",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000815": {
             "name": "J140722",
             "security": "-0.99",
             "constellationID": "21000066",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000816": {
             "name": "J141637",
@@ -41161,21 +44094,33 @@ var appData = {
             "constellationID": "21000066",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000817": {
             "name": "J112617",
             "security": "-0.99",
             "constellationID": "21000066",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000818": {
             "name": "J150754",
             "security": "-0.99",
             "constellationID": "21000066",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000819": {
             "name": "J102946",
@@ -41183,14 +44128,22 @@ var appData = {
             "constellationID": "21000066",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000820": {
             "name": "J115234",
             "security": "-0.99",
             "constellationID": "21000066",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000821": {
             "name": "J145145",
@@ -41198,56 +44151,88 @@ var appData = {
             "constellationID": "21000066",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000822": {
             "name": "J145426",
             "security": "-0.99",
             "constellationID": "21000066",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000823": {
             "name": "J122732",
             "security": "-0.99",
             "constellationID": "21000067",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000824": {
             "name": "J144203",
             "security": "-0.99",
             "constellationID": "21000067",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000825": {
             "name": "J140843",
             "security": "-0.99",
             "constellationID": "21000067",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000826": {
             "name": "J155631",
             "security": "-0.99",
             "constellationID": "21000067",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000827": {
             "name": "J235525",
             "security": "-0.99",
             "constellationID": "21000067",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000828": {
             "name": "J121749",
             "security": "-0.99",
             "constellationID": "21000067",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000829": {
             "name": "J162518",
@@ -41255,14 +44240,22 @@ var appData = {
             "constellationID": "21000067",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000830": {
             "name": "J132012",
             "security": "-0.99",
             "constellationID": "21000067",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000831": {
             "name": "J102038",
@@ -41270,7 +44263,11 @@ var appData = {
             "constellationID": "21000067",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000832": {
             "name": "J150234",
@@ -41278,21 +44275,33 @@ var appData = {
             "constellationID": "21000067",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000833": {
             "name": "J112520",
             "security": "-0.99",
             "constellationID": "21000067",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000834": {
             "name": "J165412",
             "security": "-0.99",
             "constellationID": "21000067",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000835": {
             "name": "J151102",
@@ -41300,35 +44309,55 @@ var appData = {
             "constellationID": "21000068",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000836": {
             "name": "J133049",
             "security": "-0.99",
             "constellationID": "21000068",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000837": {
             "name": "J161628",
             "security": "-0.99",
             "constellationID": "21000068",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000838": {
             "name": "J134306",
             "security": "-0.99",
             "constellationID": "21000068",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000839": {
             "name": "J131842",
             "security": "-0.99",
             "constellationID": "21000068",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000840": {
             "name": "J232329",
@@ -41336,7 +44365,11 @@ var appData = {
             "constellationID": "21000068",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000841": {
             "name": "J164921",
@@ -41344,21 +44377,33 @@ var appData = {
             "constellationID": "21000068",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000842": {
             "name": "J203814",
             "security": "-0.99",
             "constellationID": "21000068",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000843": {
             "name": "J151311",
             "security": "-0.99",
             "constellationID": "21000068",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000844": {
             "name": "J101650",
@@ -41366,14 +44411,22 @@ var appData = {
             "constellationID": "21000068",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000845": {
             "name": "J165006",
             "security": "-0.99",
             "constellationID": "21000068",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000846": {
             "name": "J103533",
@@ -41381,7 +44434,11 @@ var appData = {
             "constellationID": "21000069",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000847": {
             "name": "J101441",
@@ -41389,28 +44446,44 @@ var appData = {
             "constellationID": "21000069",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000848": {
             "name": "J124253",
             "security": "-0.99",
             "constellationID": "21000069",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000849": {
             "name": "J232200",
             "security": "-0.99",
             "constellationID": "21000069",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000850": {
             "name": "J144326",
             "security": "-0.99",
             "constellationID": "21000069",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000851": {
             "name": "J124449",
@@ -41418,56 +44491,88 @@ var appData = {
             "constellationID": "21000069",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000852": {
             "name": "J100642",
             "security": "-0.99",
             "constellationID": "21000069",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000853": {
             "name": "J133150",
             "security": "-0.99",
             "constellationID": "21000069",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000854": {
             "name": "J164126",
             "security": "-0.99",
             "constellationID": "21000069",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000855": {
             "name": "J171142",
             "security": "-0.99",
             "constellationID": "21000069",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000856": {
             "name": "J145634",
             "security": "-0.99",
             "constellationID": "21000069",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000857": {
             "name": "J151431",
             "security": "-0.99",
             "constellationID": "21000070",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000858": {
             "name": "J233555",
             "security": "-0.99",
             "constellationID": "21000070",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000859": {
             "name": "J100651",
@@ -41475,14 +44580,22 @@ var appData = {
             "constellationID": "21000070",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000860": {
             "name": "J132103",
             "security": "-0.99",
             "constellationID": "21000070",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000861": {
             "name": "J121720",
@@ -41490,21 +44603,33 @@ var appData = {
             "constellationID": "21000070",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000862": {
             "name": "J210355",
             "security": "-0.99",
             "constellationID": "21000070",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000863": {
             "name": "J125029",
             "security": "-0.99",
             "constellationID": "21000070",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000864": {
             "name": "J103619",
@@ -41512,21 +44637,33 @@ var appData = {
             "constellationID": "21000070",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000865": {
             "name": "J165014",
             "security": "-0.99",
             "constellationID": "21000070",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000866": {
             "name": "J124611",
             "security": "-0.99",
             "constellationID": "21000070",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000867": {
             "name": "J150418",
@@ -41534,35 +44671,55 @@ var appData = {
             "constellationID": "21000070",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000868": {
             "name": "J145440",
             "security": "-0.99",
             "constellationID": "21000070",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000869": {
             "name": "J113223",
             "security": "-0.99",
             "constellationID": "21000071",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000870": {
             "name": "J234915",
             "security": "-0.99",
             "constellationID": "21000071",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000871": {
             "name": "J162042",
             "security": "-0.99",
             "constellationID": "21000071",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000872": {
             "name": "J112019",
@@ -41570,21 +44727,33 @@ var appData = {
             "constellationID": "21000071",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000873": {
             "name": "J162332",
             "security": "-0.99",
             "constellationID": "21000071",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000874": {
             "name": "J125350",
             "security": "-0.99",
             "constellationID": "21000071",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000875": {
             "name": "J101710",
@@ -41592,42 +44761,65 @@ var appData = {
             "constellationID": "21000071",
             "regionID": "11000008",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000876": {
             "name": "J223029",
             "security": "-0.99",
             "constellationID": "21000072",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000877": {
             "name": "J234810",
             "security": "-0.99",
             "constellationID": "21000073",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000878": {
             "name": "J135230",
             "security": "-0.99",
             "constellationID": "21000074",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000879": {
             "name": "J111038",
             "security": "-0.99",
             "constellationID": "21000075",
             "regionID": "11000008",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647"
+            ]
         },
         "31000880": {
             "name": "J160650",
             "security": "-0.99",
             "constellationID": "21000076",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000881": {
             "name": "J114342",
@@ -41635,28 +44827,40 @@ var appData = {
             "constellationID": "21000076",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31000882": {
             "name": "J152031",
             "security": "-0.99",
             "constellationID": "21000076",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000883": {
             "name": "J113629",
             "security": "-0.99",
             "constellationID": "21000076",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000884": {
             "name": "J220301",
             "security": "-0.99",
             "constellationID": "21000076",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000885": {
             "name": "J102057",
@@ -41664,7 +44868,10 @@ var appData = {
             "constellationID": "21000076",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000886": {
             "name": "J124753",
@@ -41672,35 +44879,50 @@ var appData = {
             "constellationID": "21000077",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000887": {
             "name": "J114225",
             "security": "-0.99",
             "constellationID": "21000077",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000888": {
             "name": "J105002",
             "security": "-0.99",
             "constellationID": "21000077",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000889": {
             "name": "J111218",
             "security": "-0.99",
             "constellationID": "21000077",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000890": {
             "name": "J111634",
             "security": "-0.99",
             "constellationID": "21000077",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000891": {
             "name": "J105007",
@@ -41708,21 +44930,30 @@ var appData = {
             "constellationID": "21000077",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000892": {
             "name": "J205027",
             "security": "-0.99",
             "constellationID": "21000078",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000893": {
             "name": "J111355",
             "security": "-0.99",
             "constellationID": "21000078",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000894": {
             "name": "J101012",
@@ -41730,28 +44961,40 @@ var appData = {
             "constellationID": "21000078",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31000895": {
             "name": "J161338",
             "security": "-0.99",
             "constellationID": "21000078",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000896": {
             "name": "J170002",
             "security": "-0.99",
             "constellationID": "21000078",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000897": {
             "name": "J104654",
             "security": "-0.99",
             "constellationID": "21000078",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000898": {
             "name": "J124329",
@@ -41759,7 +45002,10 @@ var appData = {
             "constellationID": "21000078",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31000899": {
             "name": "J114648",
@@ -41767,7 +45013,10 @@ var appData = {
             "constellationID": "21000079",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000900": {
             "name": "J131228",
@@ -41775,14 +45024,20 @@ var appData = {
             "constellationID": "21000079",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31000901": {
             "name": "J110448",
             "security": "-0.99",
             "constellationID": "21000079",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000902": {
             "name": "J144621",
@@ -41790,35 +45045,50 @@ var appData = {
             "constellationID": "21000079",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31000903": {
             "name": "J153104",
             "security": "-0.99",
             "constellationID": "21000079",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000904": {
             "name": "J100932",
             "security": "-0.99",
             "constellationID": "21000079",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000905": {
             "name": "J114048",
             "security": "-0.99",
             "constellationID": "21000080",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000906": {
             "name": "J115706",
             "security": "-0.99",
             "constellationID": "21000080",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000907": {
             "name": "J123230",
@@ -41826,7 +45096,10 @@ var appData = {
             "constellationID": "21000080",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000908": {
             "name": "J152218",
@@ -41834,7 +45107,10 @@ var appData = {
             "constellationID": "21000080",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000909": {
             "name": "J123303",
@@ -41842,7 +45118,10 @@ var appData = {
             "constellationID": "21000080",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31000910": {
             "name": "J102856",
@@ -41850,7 +45129,10 @@ var appData = {
             "constellationID": "21000080",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31000911": {
             "name": "J151900",
@@ -41858,35 +45140,50 @@ var appData = {
             "constellationID": "21000080",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31000912": {
             "name": "J124646",
             "security": "-0.99",
             "constellationID": "21000081",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000913": {
             "name": "J153528",
             "security": "-0.99",
             "constellationID": "21000081",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000914": {
             "name": "J112850",
             "security": "-0.99",
             "constellationID": "21000081",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000915": {
             "name": "J102257",
             "security": "-0.99",
             "constellationID": "21000081",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000916": {
             "name": "J142414",
@@ -41894,7 +45191,10 @@ var appData = {
             "constellationID": "21000081",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31000917": {
             "name": "J165803",
@@ -41902,7 +45202,10 @@ var appData = {
             "constellationID": "21000081",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31000918": {
             "name": "J115918",
@@ -41910,35 +45213,50 @@ var appData = {
             "constellationID": "21000082",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000919": {
             "name": "J222104",
             "security": "-0.99",
             "constellationID": "21000082",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000920": {
             "name": "J124203",
             "security": "-0.99",
             "constellationID": "21000082",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000921": {
             "name": "J112608",
             "security": "-0.99",
             "constellationID": "21000082",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000922": {
             "name": "J161657",
             "security": "-0.99",
             "constellationID": "21000082",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000923": {
             "name": "J111805",
@@ -41946,14 +45264,20 @@ var appData = {
             "constellationID": "21000082",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31000924": {
             "name": "J113451",
             "security": "-0.99",
             "constellationID": "21000083",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000925": {
             "name": "J141007",
@@ -41961,21 +45285,30 @@ var appData = {
             "constellationID": "21000083",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31000926": {
             "name": "J164034",
             "security": "-0.99",
             "constellationID": "21000083",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000927": {
             "name": "J101750",
             "security": "-0.99",
             "constellationID": "21000083",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000928": {
             "name": "J165001",
@@ -41983,14 +45316,20 @@ var appData = {
             "constellationID": "21000083",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31000929": {
             "name": "J111619",
             "security": "-0.99",
             "constellationID": "21000083",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000930": {
             "name": "J140521",
@@ -41998,7 +45337,10 @@ var appData = {
             "constellationID": "21000084",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31000931": {
             "name": "J140752",
@@ -42006,21 +45348,30 @@ var appData = {
             "constellationID": "21000084",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31000932": {
             "name": "J143447",
             "security": "-0.99",
             "constellationID": "21000084",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000933": {
             "name": "J142018",
             "security": "-0.99",
             "constellationID": "21000084",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000934": {
             "name": "J105102",
@@ -42028,14 +45379,20 @@ var appData = {
             "constellationID": "21000084",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31000935": {
             "name": "J124630",
             "security": "-0.99",
             "constellationID": "21000084",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000936": {
             "name": "J165302",
@@ -42043,28 +45400,40 @@ var appData = {
             "constellationID": "21000085",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000937": {
             "name": "J143916",
             "security": "-0.99",
             "constellationID": "21000085",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000938": {
             "name": "J221414",
             "security": "-0.99",
             "constellationID": "21000085",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000939": {
             "name": "J153903",
             "security": "-0.99",
             "constellationID": "21000085",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000940": {
             "name": "J103955",
@@ -42072,21 +45441,30 @@ var appData = {
             "constellationID": "21000085",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31000941": {
             "name": "J210952",
             "security": "-0.99",
             "constellationID": "21000085",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000942": {
             "name": "J134102",
             "security": "-0.99",
             "constellationID": "21000086",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000943": {
             "name": "J140050",
@@ -42094,56 +45472,80 @@ var appData = {
             "constellationID": "21000086",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31000944": {
             "name": "J131757",
             "security": "-0.99",
             "constellationID": "21000086",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000945": {
             "name": "J140341",
             "security": "-0.99",
             "constellationID": "21000086",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000946": {
             "name": "J111856",
             "security": "-0.99",
             "constellationID": "21000086",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000947": {
             "name": "J102407",
             "security": "-0.99",
             "constellationID": "21000086",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000948": {
             "name": "J151341",
             "security": "-0.99",
             "constellationID": "21000086",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000949": {
             "name": "J110706",
             "security": "-0.99",
             "constellationID": "21000087",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000950": {
             "name": "J133651",
             "security": "-0.99",
             "constellationID": "21000087",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000951": {
             "name": "J123452",
@@ -42151,7 +45553,10 @@ var appData = {
             "constellationID": "21000087",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31000952": {
             "name": "J102143",
@@ -42159,7 +45564,10 @@ var appData = {
             "constellationID": "21000087",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31000953": {
             "name": "J220832",
@@ -42167,21 +45575,30 @@ var appData = {
             "constellationID": "21000087",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000954": {
             "name": "J160847",
             "security": "-0.99",
             "constellationID": "21000087",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000955": {
             "name": "J125949",
             "security": "-0.99",
             "constellationID": "21000088",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000956": {
             "name": "J164250",
@@ -42189,28 +45606,40 @@ var appData = {
             "constellationID": "21000088",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31000957": {
             "name": "J212329",
             "security": "-0.99",
             "constellationID": "21000088",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000958": {
             "name": "J112905",
             "security": "-0.99",
             "constellationID": "21000088",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000959": {
             "name": "J144447",
             "security": "-0.99",
             "constellationID": "21000088",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000960": {
             "name": "J113530",
@@ -42218,7 +45647,10 @@ var appData = {
             "constellationID": "21000088",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000961": {
             "name": "J103604",
@@ -42226,7 +45658,10 @@ var appData = {
             "constellationID": "21000088",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31000962": {
             "name": "J142038",
@@ -42234,28 +45669,40 @@ var appData = {
             "constellationID": "21000089",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000963": {
             "name": "J130403",
             "security": "-0.99",
             "constellationID": "21000089",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000964": {
             "name": "J132525",
             "security": "-0.99",
             "constellationID": "21000089",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000965": {
             "name": "J103653",
             "security": "-0.99",
             "constellationID": "21000089",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000966": {
             "name": "J154642",
@@ -42263,42 +45710,60 @@ var appData = {
             "constellationID": "21000089",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31000967": {
             "name": "J163526",
             "security": "-0.99",
             "constellationID": "21000089",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000968": {
             "name": "J212713",
             "security": "-0.99",
             "constellationID": "21000090",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000969": {
             "name": "J132635",
             "security": "-0.99",
             "constellationID": "21000090",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000970": {
             "name": "J114330",
             "security": "-0.99",
             "constellationID": "21000090",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000971": {
             "name": "J224926",
             "security": "-0.99",
             "constellationID": "21000090",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000972": {
             "name": "J113619",
@@ -42306,49 +45771,70 @@ var appData = {
             "constellationID": "21000090",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31000973": {
             "name": "J214654",
             "security": "-0.99",
             "constellationID": "21000090",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000974": {
             "name": "J151429",
             "security": "-0.99",
             "constellationID": "21000091",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000975": {
             "name": "J111214",
             "security": "-0.99",
             "constellationID": "21000091",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000976": {
             "name": "J113420",
             "security": "-0.99",
             "constellationID": "21000091",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000977": {
             "name": "J135526",
             "security": "-0.99",
             "constellationID": "21000091",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000978": {
             "name": "J164116",
             "security": "-0.99",
             "constellationID": "21000091",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000979": {
             "name": "J214227",
@@ -42356,7 +45842,10 @@ var appData = {
             "constellationID": "21000091",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000980": {
             "name": "J164342",
@@ -42364,7 +45853,10 @@ var appData = {
             "constellationID": "21000092",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31000981": {
             "name": "J151538",
@@ -42372,14 +45864,20 @@ var appData = {
             "constellationID": "21000092",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000982": {
             "name": "J125938",
             "security": "-0.99",
             "constellationID": "21000092",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000983": {
             "name": "J165806",
@@ -42387,7 +45885,10 @@ var appData = {
             "constellationID": "21000092",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31000984": {
             "name": "J122803",
@@ -42395,14 +45896,20 @@ var appData = {
             "constellationID": "21000092",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31000985": {
             "name": "J113243",
             "security": "-0.99",
             "constellationID": "21000092",
             "regionID": "11000010",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000986": {
             "name": "J134022",
@@ -42410,63 +45917,90 @@ var appData = {
             "constellationID": "21000092",
             "regionID": "11000010",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31000987": {
             "name": "J152143",
             "security": "-0.99",
             "constellationID": "21000093",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000988": {
             "name": "J170717",
             "security": "-0.99",
             "constellationID": "21000093",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000989": {
             "name": "J121452",
             "security": "-0.99",
             "constellationID": "21000093",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000990": {
             "name": "J124126",
             "security": "-0.99",
             "constellationID": "21000093",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000991": {
             "name": "J173230",
             "security": "-0.99",
             "constellationID": "21000093",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000992": {
             "name": "J164457",
             "security": "-0.99",
             "constellationID": "21000093",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000993": {
             "name": "J112944",
             "security": "-0.99",
             "constellationID": "21000093",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000994": {
             "name": "J115253",
             "security": "-0.99",
             "constellationID": "21000094",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000995": {
             "name": "J100118",
@@ -42474,14 +46008,20 @@ var appData = {
             "constellationID": "21000094",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000996": {
             "name": "J100620",
             "security": "-0.99",
             "constellationID": "21000094",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000997": {
             "name": "J145916",
@@ -42489,21 +46029,30 @@ var appData = {
             "constellationID": "21000094",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31000998": {
             "name": "J223207",
             "security": "-0.99",
             "constellationID": "21000094",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31000999": {
             "name": "J144646",
             "security": "-0.99",
             "constellationID": "21000094",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001000": {
             "name": "J142520",
@@ -42511,21 +46060,30 @@ var appData = {
             "constellationID": "21000094",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001001": {
             "name": "J230226",
             "security": "-0.99",
             "constellationID": "21000095",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001002": {
             "name": "J150704",
             "security": "-0.99",
             "constellationID": "21000095",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001003": {
             "name": "J225524",
@@ -42533,21 +46091,30 @@ var appData = {
             "constellationID": "21000095",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31001004": {
             "name": "J133234",
             "security": "-0.99",
             "constellationID": "21000095",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001005": {
             "name": "J125833",
             "security": "-0.99",
             "constellationID": "21000095",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001006": {
             "name": "J104459",
@@ -42555,35 +46122,50 @@ var appData = {
             "constellationID": "21000095",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31001007": {
             "name": "J164713",
             "security": "-0.99",
             "constellationID": "21000096",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001008": {
             "name": "J135355",
             "security": "-0.99",
             "constellationID": "21000096",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001009": {
             "name": "J220838",
             "security": "-0.99",
             "constellationID": "21000096",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001010": {
             "name": "J225949",
             "security": "-0.99",
             "constellationID": "21000096",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001011": {
             "name": "J130535",
@@ -42591,28 +46173,40 @@ var appData = {
             "constellationID": "21000096",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31001012": {
             "name": "J111255",
             "security": "-0.99",
             "constellationID": "21000096",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001013": {
             "name": "J121628",
             "security": "-0.99",
             "constellationID": "21000096",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001014": {
             "name": "J221117",
             "security": "-0.99",
             "constellationID": "21000097",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001015": {
             "name": "J115015",
@@ -42620,7 +46214,10 @@ var appData = {
             "constellationID": "21000097",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31001016": {
             "name": "J172751",
@@ -42628,7 +46225,10 @@ var appData = {
             "constellationID": "21000097",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31001017": {
             "name": "J134301",
@@ -42636,14 +46236,20 @@ var appData = {
             "constellationID": "21000097",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001018": {
             "name": "J104351",
             "security": "-0.99",
             "constellationID": "21000097",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001019": {
             "name": "J144408",
@@ -42651,28 +46257,40 @@ var appData = {
             "constellationID": "21000097",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31001020": {
             "name": "J220950",
             "security": "-0.99",
             "constellationID": "21000098",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001021": {
             "name": "J165815",
             "security": "-0.99",
             "constellationID": "21000098",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001022": {
             "name": "J120452",
             "security": "-0.99",
             "constellationID": "21000098",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001023": {
             "name": "J142026",
@@ -42680,7 +46298,10 @@ var appData = {
             "constellationID": "21000098",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001024": {
             "name": "J111031",
@@ -42688,7 +46309,10 @@ var appData = {
             "constellationID": "21000098",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001025": {
             "name": "J130116",
@@ -42696,35 +46320,50 @@ var appData = {
             "constellationID": "21000098",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001026": {
             "name": "J111309",
             "security": "-0.99",
             "constellationID": "21000099",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001027": {
             "name": "J122213",
             "security": "-0.99",
             "constellationID": "21000099",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001028": {
             "name": "J170740",
             "security": "-0.99",
             "constellationID": "21000099",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001029": {
             "name": "J113543",
             "security": "-0.99",
             "constellationID": "21000099",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001030": {
             "name": "J170817",
@@ -42732,21 +46371,30 @@ var appData = {
             "constellationID": "21000099",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31001031": {
             "name": "J123405",
             "security": "-0.99",
             "constellationID": "21000099",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001032": {
             "name": "J125741",
             "security": "-0.99",
             "constellationID": "21000099",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001033": {
             "name": "J114627",
@@ -42754,28 +46402,40 @@ var appData = {
             "constellationID": "21000100",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31001034": {
             "name": "J155117",
             "security": "-0.99",
             "constellationID": "21000100",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001035": {
             "name": "J165118",
             "security": "-0.99",
             "constellationID": "21000100",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001036": {
             "name": "J141004",
             "security": "-0.99",
             "constellationID": "21000100",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001037": {
             "name": "J174317",
@@ -42783,14 +46443,20 @@ var appData = {
             "constellationID": "21000100",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31001038": {
             "name": "J145040",
             "security": "-0.99",
             "constellationID": "21000100",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001039": {
             "name": "J171549",
@@ -42798,7 +46464,10 @@ var appData = {
             "constellationID": "21000100",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001040": {
             "name": "J100009",
@@ -42806,28 +46475,40 @@ var appData = {
             "constellationID": "21000101",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001041": {
             "name": "J124257",
             "security": "-0.99",
             "constellationID": "21000101",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001042": {
             "name": "J154530",
             "security": "-0.99",
             "constellationID": "21000101",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001043": {
             "name": "J152636",
             "security": "-0.99",
             "constellationID": "21000101",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001044": {
             "name": "J100728",
@@ -42835,21 +46516,30 @@ var appData = {
             "constellationID": "21000101",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31001045": {
             "name": "J115504",
             "security": "-0.99",
             "constellationID": "21000101",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001046": {
             "name": "J104905",
             "security": "-0.99",
             "constellationID": "21000102",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001047": {
             "name": "J125149",
@@ -42857,14 +46547,20 @@ var appData = {
             "constellationID": "21000102",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001048": {
             "name": "J172743",
             "security": "-0.99",
             "constellationID": "21000102",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001049": {
             "name": "J111421",
@@ -42872,7 +46568,10 @@ var appData = {
             "constellationID": "21000102",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31001050": {
             "name": "J152146",
@@ -42880,14 +46579,20 @@ var appData = {
             "constellationID": "21000102",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001051": {
             "name": "J111603",
             "security": "-0.99",
             "constellationID": "21000102",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001052": {
             "name": "J114127",
@@ -42895,28 +46600,40 @@ var appData = {
             "constellationID": "21000103",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31001053": {
             "name": "J113923",
             "security": "-0.99",
             "constellationID": "21000103",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001054": {
             "name": "J123837",
             "security": "-0.99",
             "constellationID": "21000103",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001055": {
             "name": "J125049",
             "security": "-0.99",
             "constellationID": "21000103",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001056": {
             "name": "J161455",
@@ -42924,7 +46641,10 @@ var appData = {
             "constellationID": "21000103",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001057": {
             "name": "J124715",
@@ -42932,7 +46652,10 @@ var appData = {
             "constellationID": "21000103",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31001058": {
             "name": "J124813",
@@ -42940,7 +46663,10 @@ var appData = {
             "constellationID": "21000103",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31001059": {
             "name": "J120945",
@@ -42948,14 +46674,20 @@ var appData = {
             "constellationID": "21000104",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001060": {
             "name": "J155541",
             "security": "-0.99",
             "constellationID": "21000104",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001061": {
             "name": "J105017",
@@ -42963,42 +46695,60 @@ var appData = {
             "constellationID": "21000104",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001062": {
             "name": "J154900",
             "security": "-0.99",
             "constellationID": "21000104",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001063": {
             "name": "J164951",
             "security": "-0.99",
             "constellationID": "21000104",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001064": {
             "name": "J162459",
             "security": "-0.99",
             "constellationID": "21000104",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001065": {
             "name": "J141832",
             "security": "-0.99",
             "constellationID": "21000104",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001066": {
             "name": "J115136",
             "security": "-0.99",
             "constellationID": "21000105",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001067": {
             "name": "J112854",
@@ -43006,14 +46756,20 @@ var appData = {
             "constellationID": "21000105",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31001068": {
             "name": "J222222",
             "security": "-0.99",
             "constellationID": "21000105",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001069": {
             "name": "J124654",
@@ -43021,42 +46777,60 @@ var appData = {
             "constellationID": "21000105",
             "regionID": "11000011",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31001070": {
             "name": "J132750",
             "security": "-0.99",
             "constellationID": "21000105",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001071": {
             "name": "J170511",
             "security": "-0.99",
             "constellationID": "21000105",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001072": {
             "name": "J155852",
             "security": "-0.99",
             "constellationID": "21000105",
             "regionID": "11000011",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001073": {
             "name": "J121856",
             "security": "-0.99",
             "constellationID": "21000106",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001074": {
             "name": "J131025",
             "security": "-0.99",
             "constellationID": "21000106",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001075": {
             "name": "J122854",
@@ -43064,28 +46838,40 @@ var appData = {
             "constellationID": "21000106",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "D845"
+            ]
         },
         "31001076": {
             "name": "J132222",
             "security": "-0.99",
             "constellationID": "21000106",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001077": {
             "name": "J203753",
             "security": "-0.99",
             "constellationID": "21000106",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001078": {
             "name": "J130835",
             "security": "-0.99",
             "constellationID": "21000106",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001079": {
             "name": "J134123",
@@ -43093,7 +46879,10 @@ var appData = {
             "constellationID": "21000106",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "D845"
+            ]
         },
         "31001080": {
             "name": "J133857",
@@ -43101,7 +46890,10 @@ var appData = {
             "constellationID": "21000107",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "D845"
+            ]
         },
         "31001081": {
             "name": "J171813",
@@ -43109,7 +46901,10 @@ var appData = {
             "constellationID": "21000107",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "D845"
+            ]
         },
         "31001082": {
             "name": "J143513",
@@ -43117,42 +46912,60 @@ var appData = {
             "constellationID": "21000107",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "D845"
+            ]
         },
         "31001083": {
             "name": "J112656",
             "security": "-0.99",
             "constellationID": "21000107",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001084": {
             "name": "J154357",
             "security": "-0.99",
             "constellationID": "21000107",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001085": {
             "name": "J154145",
             "security": "-0.99",
             "constellationID": "21000107",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001086": {
             "name": "J100129",
             "security": "-0.99",
             "constellationID": "21000107",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001087": {
             "name": "J155124",
             "security": "-0.99",
             "constellationID": "21000108",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001088": {
             "name": "J133207",
@@ -43160,14 +46973,20 @@ var appData = {
             "constellationID": "21000108",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "D845"
+            ]
         },
         "31001089": {
             "name": "J124830",
             "security": "-0.99",
             "constellationID": "21000108",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001090": {
             "name": "J144725",
@@ -43175,7 +46994,10 @@ var appData = {
             "constellationID": "21000108",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "D845"
+            ]
         },
         "31001091": {
             "name": "J170409",
@@ -43183,14 +47005,20 @@ var appData = {
             "constellationID": "21000108",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "D845"
+            ]
         },
         "31001092": {
             "name": "J103326",
             "security": "-0.99",
             "constellationID": "21000108",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001093": {
             "name": "J160739",
@@ -43198,7 +47026,10 @@ var appData = {
             "constellationID": "21000109",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "D845"
+            ]
         },
         "31001094": {
             "name": "J133041",
@@ -43206,14 +47037,20 @@ var appData = {
             "constellationID": "21000109",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "D845"
+            ]
         },
         "31001095": {
             "name": "J205412",
             "security": "-0.99",
             "constellationID": "21000109",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001096": {
             "name": "J145851",
@@ -43221,7 +47058,10 @@ var appData = {
             "constellationID": "21000109",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "D845"
+            ]
         },
         "31001097": {
             "name": "J132737",
@@ -43229,7 +47069,10 @@ var appData = {
             "constellationID": "21000109",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "D845"
+            ]
         },
         "31001098": {
             "name": "J130247",
@@ -43237,14 +47080,20 @@ var appData = {
             "constellationID": "21000109",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "D845"
+            ]
         },
         "31001099": {
             "name": "J151405",
             "security": "-0.99",
             "constellationID": "21000110",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001100": {
             "name": "J131802",
@@ -43252,63 +47101,90 @@ var appData = {
             "constellationID": "21000110",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "D845"
+            ]
         },
         "31001101": {
             "name": "J221515",
             "security": "-0.99",
             "constellationID": "21000110",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001102": {
             "name": "J142951",
             "security": "-0.99",
             "constellationID": "21000110",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001103": {
             "name": "J101736",
             "security": "-0.99",
             "constellationID": "21000110",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001104": {
             "name": "J233739",
             "security": "-0.99",
             "constellationID": "21000110",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001105": {
             "name": "J221447",
             "security": "-0.99",
             "constellationID": "21000110",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001106": {
             "name": "J145645",
             "security": "-0.99",
             "constellationID": "21000111",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001107": {
             "name": "J153051",
             "security": "-0.99",
             "constellationID": "21000111",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001108": {
             "name": "J141451",
             "security": "-0.99",
             "constellationID": "21000111",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001109": {
             "name": "J131859",
@@ -43316,21 +47192,30 @@ var appData = {
             "constellationID": "21000111",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "D845"
+            ]
         },
         "31001110": {
             "name": "J144553",
             "security": "-0.99",
             "constellationID": "21000111",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001111": {
             "name": "J145615",
             "security": "-0.99",
             "constellationID": "21000111",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001112": {
             "name": "J223109",
@@ -43338,49 +47223,70 @@ var appData = {
             "constellationID": "21000111",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "D845"
+            ]
         },
         "31001113": {
             "name": "J132721",
             "security": "-0.99",
             "constellationID": "21000112",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001114": {
             "name": "J103353",
             "security": "-0.99",
             "constellationID": "21000112",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001115": {
             "name": "J173223",
             "security": "-0.99",
             "constellationID": "21000112",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001116": {
             "name": "J104837",
             "security": "-0.99",
             "constellationID": "21000112",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001117": {
             "name": "J163745",
             "security": "-0.99",
             "constellationID": "21000112",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001118": {
             "name": "J101500",
             "security": "-0.99",
             "constellationID": "21000112",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001119": {
             "name": "J224826",
@@ -43388,21 +47294,30 @@ var appData = {
             "constellationID": "21000112",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "D845"
+            ]
         },
         "31001120": {
             "name": "J230905",
             "security": "-0.99",
             "constellationID": "21000113",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001121": {
             "name": "J110924",
             "security": "-0.99",
             "constellationID": "21000113",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001122": {
             "name": "J122220",
@@ -43410,7 +47325,10 @@ var appData = {
             "constellationID": "21000113",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "D845"
+            ]
         },
         "31001123": {
             "name": "J165153",
@@ -43418,70 +47336,100 @@ var appData = {
             "constellationID": "21000113",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "D845"
+            ]
         },
         "31001124": {
             "name": "J204030",
             "security": "-0.99",
             "constellationID": "21000113",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001125": {
             "name": "J134136",
             "security": "-0.99",
             "constellationID": "21000113",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001126": {
             "name": "J113334",
             "security": "-0.99",
             "constellationID": "21000113",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001127": {
             "name": "J125403",
             "security": "-0.99",
             "constellationID": "21000114",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001128": {
             "name": "J162437",
             "security": "-0.99",
             "constellationID": "21000114",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001129": {
             "name": "J235630",
             "security": "-0.99",
             "constellationID": "21000114",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001130": {
             "name": "J105409",
             "security": "-0.99",
             "constellationID": "21000114",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001131": {
             "name": "J163529",
             "security": "-0.99",
             "constellationID": "21000114",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001132": {
             "name": "J152931",
             "security": "-0.99",
             "constellationID": "21000114",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001133": {
             "name": "J131559",
@@ -43489,14 +47437,20 @@ var appData = {
             "constellationID": "21000114",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "D845"
+            ]
         },
         "31001134": {
             "name": "J143918",
             "security": "-0.99",
             "constellationID": "21000115",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001135": {
             "name": "J104643",
@@ -43504,7 +47458,10 @@ var appData = {
             "constellationID": "21000115",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "D845"
+            ]
         },
         "31001136": {
             "name": "J212304",
@@ -43512,7 +47469,10 @@ var appData = {
             "constellationID": "21000115",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "D845"
+            ]
         },
         "31001137": {
             "name": "J154634",
@@ -43520,7 +47480,10 @@ var appData = {
             "constellationID": "21000115",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "D845"
+            ]
         },
         "31001138": {
             "name": "J172052",
@@ -43528,7 +47491,10 @@ var appData = {
             "constellationID": "21000115",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "D845"
+            ]
         },
         "31001139": {
             "name": "J135036",
@@ -43536,42 +47502,60 @@ var appData = {
             "constellationID": "21000115",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "D845"
+            ]
         },
         "31001140": {
             "name": "J134431",
             "security": "-0.99",
             "constellationID": "21000116",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001141": {
             "name": "J121105",
             "security": "-0.99",
             "constellationID": "21000116",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001142": {
             "name": "J120357",
             "security": "-0.99",
             "constellationID": "21000116",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001143": {
             "name": "J101854",
             "security": "-0.99",
             "constellationID": "21000116",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001144": {
             "name": "J232826",
             "security": "-0.99",
             "constellationID": "21000116",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001145": {
             "name": "J154934",
@@ -43579,7 +47563,10 @@ var appData = {
             "constellationID": "21000116",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "D845"
+            ]
         },
         "31001146": {
             "name": "J170132",
@@ -43587,28 +47574,40 @@ var appData = {
             "constellationID": "21000117",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "D845"
+            ]
         },
         "31001147": {
             "name": "J114916",
             "security": "-0.99",
             "constellationID": "21000117",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001148": {
             "name": "J142400",
             "security": "-0.99",
             "constellationID": "21000117",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001149": {
             "name": "J115502",
             "security": "-0.99",
             "constellationID": "21000117",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001150": {
             "name": "J121300",
@@ -43616,49 +47615,70 @@ var appData = {
             "constellationID": "21000117",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "D845"
+            ]
         },
         "31001151": {
             "name": "J223658",
             "security": "-0.99",
             "constellationID": "21000117",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001152": {
             "name": "J124327",
             "security": "-0.99",
             "constellationID": "21000118",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001153": {
             "name": "J220438",
             "security": "-0.99",
             "constellationID": "21000118",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001154": {
             "name": "J144636",
             "security": "-0.99",
             "constellationID": "21000118",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001155": {
             "name": "J113347",
             "security": "-0.99",
             "constellationID": "21000118",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001156": {
             "name": "J150737",
             "security": "-0.99",
             "constellationID": "21000118",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001157": {
             "name": "J152044",
@@ -43666,7 +47686,10 @@ var appData = {
             "constellationID": "21000118",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "D845"
+            ]
         },
         "31001158": {
             "name": "J142443",
@@ -43674,28 +47697,40 @@ var appData = {
             "constellationID": "21000119",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "D845"
+            ]
         },
         "31001159": {
             "name": "J164104",
             "security": "-0.99",
             "constellationID": "21000119",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001160": {
             "name": "J155008",
             "security": "-0.99",
             "constellationID": "21000119",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001161": {
             "name": "J114358",
             "security": "-0.99",
             "constellationID": "21000119",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001162": {
             "name": "J122259",
@@ -43703,56 +47738,80 @@ var appData = {
             "constellationID": "21000119",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "D845"
+            ]
         },
         "31001163": {
             "name": "J125243",
             "security": "-0.99",
             "constellationID": "21000119",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001164": {
             "name": "J114508",
             "security": "-0.99",
             "constellationID": "21000119",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001165": {
             "name": "J125216",
             "security": "-0.99",
             "constellationID": "21000120",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001166": {
             "name": "J113143",
             "security": "-0.99",
             "constellationID": "21000120",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001167": {
             "name": "J101612",
             "security": "-0.99",
             "constellationID": "21000120",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001168": {
             "name": "J101354",
             "security": "-0.99",
             "constellationID": "21000120",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001169": {
             "name": "J100156",
             "security": "-0.99",
             "constellationID": "21000120",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001170": {
             "name": "J110425",
@@ -43760,21 +47819,30 @@ var appData = {
             "constellationID": "21000120",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "D845"
+            ]
         },
         "31001171": {
             "name": "J133121",
             "security": "-0.99",
             "constellationID": "21000121",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001172": {
             "name": "J165936",
             "security": "-0.99",
             "constellationID": "21000121",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001173": {
             "name": "J213411",
@@ -43782,7 +47850,10 @@ var appData = {
             "constellationID": "21000121",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "D845"
+            ]
         },
         "31001174": {
             "name": "J231545",
@@ -43790,28 +47861,40 @@ var appData = {
             "constellationID": "21000121",
             "regionID": "11000012",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "D845"
+            ]
         },
         "31001175": {
             "name": "J121603",
             "security": "-0.99",
             "constellationID": "21000121",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001176": {
             "name": "J222120",
             "security": "-0.99",
             "constellationID": "21000121",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001177": {
             "name": "J231240",
             "security": "-0.99",
             "constellationID": "21000121",
             "regionID": "11000012",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845"
+            ]
         },
         "31001178": {
             "name": "J164338",
@@ -43819,7 +47902,10 @@ var appData = {
             "constellationID": "21000122",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001179": {
             "name": "J142603",
@@ -43827,7 +47913,10 @@ var appData = {
             "constellationID": "21000122",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31001180": {
             "name": "J212812",
@@ -43835,21 +47924,30 @@ var appData = {
             "constellationID": "21000122",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31001181": {
             "name": "J164501",
             "security": "-0.99",
             "constellationID": "21000122",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001182": {
             "name": "J144751",
             "security": "-0.99",
             "constellationID": "21000122",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001183": {
             "name": "J214744",
@@ -43857,14 +47955,20 @@ var appData = {
             "constellationID": "21000122",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31001184": {
             "name": "J135304",
             "security": "-0.99",
             "constellationID": "21000123",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001185": {
             "name": "J223601",
@@ -43872,14 +47976,20 @@ var appData = {
             "constellationID": "21000123",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001186": {
             "name": "J103529",
             "security": "-0.99",
             "constellationID": "21000123",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001187": {
             "name": "J161051",
@@ -43887,56 +47997,80 @@ var appData = {
             "constellationID": "21000123",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31001188": {
             "name": "J224352",
             "security": "-0.99",
             "constellationID": "21000123",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001189": {
             "name": "J113048",
             "security": "-0.99",
             "constellationID": "21000123",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001190": {
             "name": "J140322",
             "security": "-0.99",
             "constellationID": "21000124",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001191": {
             "name": "J152741",
             "security": "-0.99",
             "constellationID": "21000124",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001192": {
             "name": "J222732",
             "security": "-0.99",
             "constellationID": "21000124",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001193": {
             "name": "J171542",
             "security": "-0.99",
             "constellationID": "21000124",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001194": {
             "name": "J205136",
             "security": "-0.99",
             "constellationID": "21000124",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001195": {
             "name": "J121706",
@@ -43944,14 +48078,20 @@ var appData = {
             "constellationID": "21000124",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001196": {
             "name": "J143110",
             "security": "-0.99",
             "constellationID": "21000125",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001197": {
             "name": "J110121",
@@ -43959,21 +48099,30 @@ var appData = {
             "constellationID": "21000125",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31001198": {
             "name": "J104626",
             "security": "-0.99",
             "constellationID": "21000125",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001199": {
             "name": "J212159",
             "security": "-0.99",
             "constellationID": "21000125",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001200": {
             "name": "J151733",
@@ -43981,7 +48130,10 @@ var appData = {
             "constellationID": "21000125",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31001201": {
             "name": "J103032",
@@ -43989,14 +48141,20 @@ var appData = {
             "constellationID": "21000125",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31001202": {
             "name": "J150048",
             "security": "-0.99",
             "constellationID": "21000126",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001203": {
             "name": "J113432",
@@ -44004,14 +48162,20 @@ var appData = {
             "constellationID": "21000126",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31001204": {
             "name": "J134629",
             "security": "-0.99",
             "constellationID": "21000126",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001205": {
             "name": "J113339",
@@ -44019,21 +48183,30 @@ var appData = {
             "constellationID": "21000126",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001206": {
             "name": "J122041",
             "security": "-0.99",
             "constellationID": "21000126",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001207": {
             "name": "J130719",
             "security": "-0.99",
             "constellationID": "21000126",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001208": {
             "name": "J204039",
@@ -44041,14 +48214,20 @@ var appData = {
             "constellationID": "21000127",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001209": {
             "name": "J101048",
             "security": "-0.99",
             "constellationID": "21000127",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001210": {
             "name": "J114119",
@@ -44056,42 +48235,60 @@ var appData = {
             "constellationID": "21000127",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31001211": {
             "name": "J110411",
             "security": "-0.99",
             "constellationID": "21000127",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001212": {
             "name": "J104903",
             "security": "-0.99",
             "constellationID": "21000127",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001213": {
             "name": "J151433",
             "security": "-0.99",
             "constellationID": "21000127",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001214": {
             "name": "J143040",
             "security": "-0.99",
             "constellationID": "21000128",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001215": {
             "name": "J133521",
             "security": "-0.99",
             "constellationID": "21000128",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001216": {
             "name": "J163911",
@@ -44099,14 +48296,20 @@ var appData = {
             "constellationID": "21000128",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31001217": {
             "name": "J204842",
             "security": "-0.99",
             "constellationID": "21000128",
             "regionID": "11000013",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001218": {
             "name": "J135214",
@@ -44114,7 +48317,10 @@ var appData = {
             "constellationID": "21000128",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001219": {
             "name": "J131716",
@@ -44122,7 +48328,10 @@ var appData = {
             "constellationID": "21000128",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31001220": {
             "name": "J225350",
@@ -44130,21 +48339,30 @@ var appData = {
             "constellationID": "21000128",
             "regionID": "11000013",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210"
+            ]
         },
         "31001221": {
             "name": "J105447",
             "security": "-0.99",
             "constellationID": "21000129",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001222": {
             "name": "J144103",
             "security": "-0.99",
             "constellationID": "21000129",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001223": {
             "name": "J165847",
@@ -44152,7 +48370,10 @@ var appData = {
             "constellationID": "21000129",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "K346"
+            ]
         },
         "31001224": {
             "name": "J121921",
@@ -44160,7 +48381,10 @@ var appData = {
             "constellationID": "21000129",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "K346"
+            ]
         },
         "31001225": {
             "name": "J212025",
@@ -44168,7 +48392,10 @@ var appData = {
             "constellationID": "21000129",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "K346"
+            ]
         },
         "31001226": {
             "name": "J145717",
@@ -44176,7 +48403,10 @@ var appData = {
             "constellationID": "21000129",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "K346"
+            ]
         },
         "31001227": {
             "name": "J113705",
@@ -44184,21 +48414,30 @@ var appData = {
             "constellationID": "21000130",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "K346"
+            ]
         },
         "31001228": {
             "name": "J132037",
             "security": "-0.99",
             "constellationID": "21000130",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001229": {
             "name": "J224401",
             "security": "-0.99",
             "constellationID": "21000130",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001230": {
             "name": "J152544",
@@ -44206,14 +48445,20 @@ var appData = {
             "constellationID": "21000130",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "K346"
+            ]
         },
         "31001231": {
             "name": "J114506",
             "security": "-0.99",
             "constellationID": "21000130",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001232": {
             "name": "J231245",
@@ -44221,7 +48466,10 @@ var appData = {
             "constellationID": "21000130",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "K346"
+            ]
         },
         "31001233": {
             "name": "J151804",
@@ -44229,14 +48477,20 @@ var appData = {
             "constellationID": "21000131",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "K346"
+            ]
         },
         "31001234": {
             "name": "J105033",
             "security": "-0.99",
             "constellationID": "21000131",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001235": {
             "name": "J214600",
@@ -44244,14 +48498,20 @@ var appData = {
             "constellationID": "21000131",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "K346"
+            ]
         },
         "31001236": {
             "name": "J152333",
             "security": "-0.99",
             "constellationID": "21000131",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001237": {
             "name": "J131245",
@@ -44259,21 +48519,30 @@ var appData = {
             "constellationID": "21000131",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "K346"
+            ]
         },
         "31001238": {
             "name": "J151045",
             "security": "-0.99",
             "constellationID": "21000131",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001239": {
             "name": "J160822",
             "security": "-0.99",
             "constellationID": "21000131",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001240": {
             "name": "J125944",
@@ -44281,21 +48550,30 @@ var appData = {
             "constellationID": "21000132",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "K346"
+            ]
         },
         "31001241": {
             "name": "J173330",
             "security": "-0.99",
             "constellationID": "21000132",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001242": {
             "name": "J115512",
             "security": "-0.99",
             "constellationID": "21000132",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001243": {
             "name": "J161854",
@@ -44303,7 +48581,10 @@ var appData = {
             "constellationID": "21000132",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "K346"
+            ]
         },
         "31001244": {
             "name": "J122442",
@@ -44311,14 +48592,20 @@ var appData = {
             "constellationID": "21000132",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "K346"
+            ]
         },
         "31001245": {
             "name": "J114010",
             "security": "-0.99",
             "constellationID": "21000132",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001246": {
             "name": "J153546",
@@ -44326,14 +48613,20 @@ var appData = {
             "constellationID": "21000132",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "K346"
+            ]
         },
         "31001247": {
             "name": "J141046",
             "security": "-0.99",
             "constellationID": "21000133",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001248": {
             "name": "J160111",
@@ -44341,28 +48634,40 @@ var appData = {
             "constellationID": "21000133",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "K346"
+            ]
         },
         "31001249": {
             "name": "J101243",
             "security": "-0.99",
             "constellationID": "21000133",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001250": {
             "name": "J214009",
             "security": "-0.99",
             "constellationID": "21000133",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001251": {
             "name": "J152757",
             "security": "-0.99",
             "constellationID": "21000133",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001252": {
             "name": "J164729",
@@ -44370,14 +48675,20 @@ var appData = {
             "constellationID": "21000133",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "K346"
+            ]
         },
         "31001253": {
             "name": "J171420",
             "security": "-0.99",
             "constellationID": "21000133",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001254": {
             "name": "J232441",
@@ -44385,14 +48696,20 @@ var appData = {
             "constellationID": "21000134",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "K346"
+            ]
         },
         "31001255": {
             "name": "J131656",
             "security": "-0.99",
             "constellationID": "21000134",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001256": {
             "name": "J135406",
@@ -44400,35 +48717,50 @@ var appData = {
             "constellationID": "21000134",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "K346"
+            ]
         },
         "31001257": {
             "name": "J230708",
             "security": "-0.99",
             "constellationID": "21000134",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001258": {
             "name": "J120124",
             "security": "-0.99",
             "constellationID": "21000134",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001259": {
             "name": "J132746",
             "security": "-0.99",
             "constellationID": "21000134",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001260": {
             "name": "J212207",
             "security": "-0.99",
             "constellationID": "21000135",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001261": {
             "name": "J104416",
@@ -44436,14 +48768,20 @@ var appData = {
             "constellationID": "21000135",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "K346"
+            ]
         },
         "31001262": {
             "name": "J104841",
             "security": "-0.99",
             "constellationID": "21000135",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001263": {
             "name": "J172701",
@@ -44451,21 +48789,30 @@ var appData = {
             "constellationID": "21000135",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "K346"
+            ]
         },
         "31001264": {
             "name": "J104835",
             "security": "-0.99",
             "constellationID": "21000135",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001265": {
             "name": "J113647",
             "security": "-0.99",
             "constellationID": "21000135",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001266": {
             "name": "J144316",
@@ -44473,28 +48820,40 @@ var appData = {
             "constellationID": "21000135",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "K346"
+            ]
         },
         "31001267": {
             "name": "J114612",
             "security": "-0.99",
             "constellationID": "21000136",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001268": {
             "name": "J130759",
             "security": "-0.99",
             "constellationID": "21000136",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001269": {
             "name": "J164751",
             "security": "-0.99",
             "constellationID": "21000136",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001270": {
             "name": "J131324",
@@ -44502,7 +48861,10 @@ var appData = {
             "constellationID": "21000136",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "K346"
+            ]
         },
         "31001271": {
             "name": "J230722",
@@ -44510,7 +48872,10 @@ var appData = {
             "constellationID": "21000136",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "K346"
+            ]
         },
         "31001272": {
             "name": "J134118",
@@ -44518,7 +48883,10 @@ var appData = {
             "constellationID": "21000136",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "K346"
+            ]
         },
         "31001273": {
             "name": "J164223",
@@ -44526,28 +48894,40 @@ var appData = {
             "constellationID": "21000137",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "K346"
+            ]
         },
         "31001274": {
             "name": "J154449",
             "security": "-0.99",
             "constellationID": "21000137",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001275": {
             "name": "J172815",
             "security": "-0.99",
             "constellationID": "21000137",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001276": {
             "name": "J151242",
             "security": "-0.99",
             "constellationID": "21000137",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001277": {
             "name": "J213423",
@@ -44555,49 +48935,70 @@ var appData = {
             "constellationID": "21000137",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "K346"
+            ]
         },
         "31001278": {
             "name": "J145555",
             "security": "-0.99",
             "constellationID": "21000137",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001279": {
             "name": "J101323",
             "security": "-0.99",
             "constellationID": "21000138",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001280": {
             "name": "J112954",
             "security": "-0.99",
             "constellationID": "21000138",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001281": {
             "name": "J133951",
             "security": "-0.99",
             "constellationID": "21000138",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001282": {
             "name": "J150444",
             "security": "-0.99",
             "constellationID": "21000138",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001283": {
             "name": "J153858",
             "security": "-0.99",
             "constellationID": "21000138",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001284": {
             "name": "J172422",
@@ -44605,21 +49006,30 @@ var appData = {
             "constellationID": "21000138",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "K346"
+            ]
         },
         "31001285": {
             "name": "J155545",
             "security": "-0.99",
             "constellationID": "21000139",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001286": {
             "name": "J161441",
             "security": "-0.99",
             "constellationID": "21000139",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001287": {
             "name": "J125449",
@@ -44627,35 +49037,50 @@ var appData = {
             "constellationID": "21000139",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "K346"
+            ]
         },
         "31001288": {
             "name": "J210445",
             "security": "-0.99",
             "constellationID": "21000139",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001289": {
             "name": "J123443",
             "security": "-0.99",
             "constellationID": "21000139",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001290": {
             "name": "J121422",
             "security": "-0.99",
             "constellationID": "21000139",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001291": {
             "name": "J155403",
             "security": "-0.99",
             "constellationID": "21000139",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001292": {
             "name": "J103724",
@@ -44663,7 +49088,10 @@ var appData = {
             "constellationID": "21000140",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "K346"
+            ]
         },
         "31001293": {
             "name": "J112948",
@@ -44671,28 +49099,40 @@ var appData = {
             "constellationID": "21000140",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "K346"
+            ]
         },
         "31001294": {
             "name": "J235330",
             "security": "-0.99",
             "constellationID": "21000140",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001295": {
             "name": "J121507",
             "security": "-0.99",
             "constellationID": "21000140",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001296": {
             "name": "J235712",
             "security": "-0.99",
             "constellationID": "21000140",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001297": {
             "name": "J125016",
@@ -44700,14 +49140,20 @@ var appData = {
             "constellationID": "21000140",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "K346"
+            ]
         },
         "31001298": {
             "name": "J151516",
             "security": "-0.99",
             "constellationID": "21000140",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001299": {
             "name": "J132226",
@@ -44715,28 +49161,40 @@ var appData = {
             "constellationID": "21000141",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "K346"
+            ]
         },
         "31001300": {
             "name": "J170656",
             "security": "-0.99",
             "constellationID": "21000141",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001301": {
             "name": "J155722",
             "security": "-0.99",
             "constellationID": "21000141",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001302": {
             "name": "J150135",
             "security": "-0.99",
             "constellationID": "21000141",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001303": {
             "name": "J151645",
@@ -44744,70 +49202,100 @@ var appData = {
             "constellationID": "21000141",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "K346"
+            ]
         },
         "31001304": {
             "name": "J211151",
             "security": "-0.99",
             "constellationID": "21000141",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001305": {
             "name": "J213109",
             "security": "-0.99",
             "constellationID": "21000142",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001306": {
             "name": "J233628",
             "security": "-0.99",
             "constellationID": "21000142",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001307": {
             "name": "J102433",
             "security": "-0.99",
             "constellationID": "21000142",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001308": {
             "name": "J111823",
             "security": "-0.99",
             "constellationID": "21000142",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001309": {
             "name": "J211805",
             "security": "-0.99",
             "constellationID": "21000142",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001310": {
             "name": "J172028",
             "security": "-0.99",
             "constellationID": "21000142",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001311": {
             "name": "J101833",
             "security": "-0.99",
             "constellationID": "21000143",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001312": {
             "name": "J104815",
             "security": "-0.99",
             "constellationID": "21000143",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001313": {
             "name": "J124635",
@@ -44815,42 +49303,60 @@ var appData = {
             "constellationID": "21000143",
             "regionID": "11000014",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "K346"
+            ]
         },
         "31001314": {
             "name": "J110738",
             "security": "-0.99",
             "constellationID": "21000143",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001315": {
             "name": "J170550",
             "security": "-0.99",
             "constellationID": "21000143",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001316": {
             "name": "J143704",
             "security": "-0.99",
             "constellationID": "21000143",
             "regionID": "11000014",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "K346"
+            ]
         },
         "31001317": {
             "name": "J143614",
             "security": "-0.99",
             "constellationID": "21000144",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001318": {
             "name": "J170236",
             "security": "-0.99",
             "constellationID": "21000144",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001319": {
             "name": "J153034",
@@ -44858,28 +49364,40 @@ var appData = {
             "constellationID": "21000144",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001320": {
             "name": "J220338",
             "security": "-0.99",
             "constellationID": "21000144",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001321": {
             "name": "J171828",
             "security": "-0.99",
             "constellationID": "21000144",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001322": {
             "name": "J112942",
             "security": "-0.99",
             "constellationID": "21000144",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001323": {
             "name": "J112709",
@@ -44887,14 +49405,20 @@ var appData = {
             "constellationID": "21000145",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31001324": {
             "name": "J161213",
             "security": "-0.99",
             "constellationID": "21000145",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001325": {
             "name": "J140739",
@@ -44902,7 +49426,10 @@ var appData = {
             "constellationID": "21000145",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001326": {
             "name": "J213534",
@@ -44910,21 +49437,30 @@ var appData = {
             "constellationID": "21000145",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31001327": {
             "name": "J165224",
             "security": "-0.99",
             "constellationID": "21000145",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001328": {
             "name": "J170144",
             "security": "-0.99",
             "constellationID": "21000145",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001329": {
             "name": "J162010",
@@ -44932,7 +49468,10 @@ var appData = {
             "constellationID": "21000146",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31001330": {
             "name": "J110226",
@@ -44940,7 +49479,10 @@ var appData = {
             "constellationID": "21000146",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31001331": {
             "name": "J104421",
@@ -44948,84 +49490,120 @@ var appData = {
             "constellationID": "21000146",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31001332": {
             "name": "J104330",
             "security": "-0.99",
             "constellationID": "21000146",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001333": {
             "name": "J170376",
             "security": "-0.99",
             "constellationID": "21000146",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001334": {
             "name": "J100338",
             "security": "-0.99",
             "constellationID": "21000146",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001335": {
             "name": "J110034",
             "security": "-0.99",
             "constellationID": "21000147",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001336": {
             "name": "J124207",
             "security": "-0.99",
             "constellationID": "21000147",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001337": {
             "name": "J132907",
             "security": "-0.99",
             "constellationID": "21000147",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001338": {
             "name": "J100015",
             "security": "-0.99",
             "constellationID": "21000147",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001339": {
             "name": "J144024",
             "security": "-0.99",
             "constellationID": "21000147",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001340": {
             "name": "J122806",
             "security": "-0.99",
             "constellationID": "21000147",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001341": {
             "name": "J133250",
             "security": "-0.99",
             "constellationID": "21000147",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001342": {
             "name": "J135852",
             "security": "-0.99",
             "constellationID": "21000148",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001343": {
             "name": "J130616",
@@ -45033,42 +49611,60 @@ var appData = {
             "constellationID": "21000148",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001344": {
             "name": "J204323",
             "security": "-0.99",
             "constellationID": "21000148",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001345": {
             "name": "J120742",
             "security": "-0.99",
             "constellationID": "21000148",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001346": {
             "name": "J105549",
             "security": "-0.99",
             "constellationID": "21000148",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001347": {
             "name": "J103237",
             "security": "-0.99",
             "constellationID": "21000148",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001348": {
             "name": "J215326",
             "security": "-0.99",
             "constellationID": "21000148",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001349": {
             "name": "J121700",
@@ -45076,21 +49672,30 @@ var appData = {
             "constellationID": "21000149",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31001350": {
             "name": "J124358",
             "security": "-0.99",
             "constellationID": "21000149",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001351": {
             "name": "J112420",
             "security": "-0.99",
             "constellationID": "21000149",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001352": {
             "name": "J130022",
@@ -45098,14 +49703,20 @@ var appData = {
             "constellationID": "21000149",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001353": {
             "name": "J155419",
             "security": "-0.99",
             "constellationID": "21000149",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001354": {
             "name": "J135723",
@@ -45113,7 +49724,10 @@ var appData = {
             "constellationID": "21000149",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210"
+            ]
         },
         "31001355": {
             "name": "J105201",
@@ -45121,7 +49735,10 @@ var appData = {
             "constellationID": "21000149",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210"
+            ]
         },
         "31001356": {
             "name": "J133218",
@@ -45129,49 +49746,70 @@ var appData = {
             "constellationID": "21000150",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001357": {
             "name": "J143345",
             "security": "-0.99",
             "constellationID": "21000150",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001358": {
             "name": "J115448",
             "security": "-0.99",
             "constellationID": "21000150",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001359": {
             "name": "J135642",
             "security": "-0.99",
             "constellationID": "21000150",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001360": {
             "name": "J205900",
             "security": "-0.99",
             "constellationID": "21000150",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001361": {
             "name": "J112747",
             "security": "-0.99",
             "constellationID": "21000150",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001362": {
             "name": "J121027",
             "security": "-0.99",
             "constellationID": "21000151",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001363": {
             "name": "J124744",
@@ -45179,42 +49817,60 @@ var appData = {
             "constellationID": "21000151",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001364": {
             "name": "J161303",
             "security": "-0.99",
             "constellationID": "21000151",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001365": {
             "name": "J141848",
             "security": "-0.99",
             "constellationID": "21000151",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001366": {
             "name": "J104001",
             "security": "-0.99",
             "constellationID": "21000151",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001367": {
             "name": "J102304",
             "security": "-0.99",
             "constellationID": "21000151",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001368": {
             "name": "J172852",
             "security": "-0.99",
             "constellationID": "21000152",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001369": {
             "name": "J131304",
@@ -45222,28 +49878,40 @@ var appData = {
             "constellationID": "21000152",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210"
+            ]
         },
         "31001370": {
             "name": "J145632",
             "security": "-0.99",
             "constellationID": "21000152",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001371": {
             "name": "J102515",
             "security": "-0.99",
             "constellationID": "21000152",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001372": {
             "name": "J160645",
             "security": "-0.99",
             "constellationID": "21000152",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001373": {
             "name": "J135129",
@@ -45251,21 +49919,31 @@ var appData = {
             "constellationID": "21000152",
             "regionID": "11000015",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210"
+            ]
         },
         "31001374": {
             "name": "J115909",
             "security": "-0.99",
             "constellationID": "21000152",
             "regionID": "11000015",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210"
+            ]
         },
         "31001375": {
             "name": "J160225",
             "security": "-0.99",
             "constellationID": "21000153",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001376": {
             "name": "J210458",
@@ -45273,7 +49951,11 @@ var appData = {
             "constellationID": "21000153",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001377": {
             "name": "J113925",
@@ -45281,28 +49963,44 @@ var appData = {
             "constellationID": "21000153",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001378": {
             "name": "J204815",
             "security": "-0.99",
             "constellationID": "21000153",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001379": {
             "name": "J104754",
             "security": "-0.99",
             "constellationID": "21000153",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001380": {
             "name": "J130518",
             "security": "-0.99",
             "constellationID": "21000153",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001381": {
             "name": "J142200",
@@ -45310,14 +50008,22 @@ var appData = {
             "constellationID": "21000153",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001382": {
             "name": "J103731",
             "security": "-0.99",
             "constellationID": "21000154",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001383": {
             "name": "J100046",
@@ -45325,14 +50031,22 @@ var appData = {
             "constellationID": "21000154",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001384": {
             "name": "J230301",
             "security": "-0.99",
             "constellationID": "21000154",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001385": {
             "name": "J165839",
@@ -45340,14 +50054,22 @@ var appData = {
             "constellationID": "21000154",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001386": {
             "name": "J235953",
             "security": "-0.99",
             "constellationID": "21000154",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001387": {
             "name": "J115018",
@@ -45355,77 +50077,121 @@ var appData = {
             "constellationID": "21000154",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001388": {
             "name": "J133458",
             "security": "-0.99",
             "constellationID": "21000154",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001389": {
             "name": "J221859",
             "security": "-0.99",
             "constellationID": "21000155",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001390": {
             "name": "J170215",
             "security": "-0.99",
             "constellationID": "21000155",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001391": {
             "name": "J165820",
             "security": "-0.99",
             "constellationID": "21000155",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001392": {
             "name": "J130253",
             "security": "-0.99",
             "constellationID": "21000155",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001393": {
             "name": "J120937",
             "security": "-0.99",
             "constellationID": "21000155",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001394": {
             "name": "J214811",
             "security": "-0.99",
             "constellationID": "21000155",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001395": {
             "name": "J160419",
             "security": "-0.99",
             "constellationID": "21000155",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "N766"
+            ]
         },
         "31001396": {
             "name": "J161752",
             "security": "-0.99",
             "constellationID": "21000156",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "N766"
+            ]
         },
         "31001397": {
             "name": "J112610",
             "security": "-0.99",
             "constellationID": "21000156",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "N766"
+            ]
         },
         "31001398": {
             "name": "J123726",
@@ -45433,14 +50199,22 @@ var appData = {
             "constellationID": "21000156",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "P060",
+                "N766"
+            ]
         },
         "31001399": {
             "name": "J124837",
             "security": "-0.99",
             "constellationID": "21000156",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "N766"
+            ]
         },
         "31001400": {
             "name": "J151643",
@@ -45448,14 +50222,22 @@ var appData = {
             "constellationID": "21000156",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "P060",
+                "N766"
+            ]
         },
         "31001401": {
             "name": "J160321",
             "security": "-0.99",
             "constellationID": "21000156",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "N766"
+            ]
         },
         "31001402": {
             "name": "J165308",
@@ -45463,14 +50245,22 @@ var appData = {
             "constellationID": "21000156",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "P060",
+                "N766"
+            ]
         },
         "31001403": {
             "name": "J171359",
             "security": "-0.99",
             "constellationID": "21000157",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001404": {
             "name": "J115547",
@@ -45478,21 +50268,33 @@ var appData = {
             "constellationID": "21000157",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001405": {
             "name": "J141055",
             "security": "-0.99",
             "constellationID": "21000157",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001406": {
             "name": "J153202",
             "security": "-0.99",
             "constellationID": "21000157",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001407": {
             "name": "J121845",
@@ -45500,21 +50302,33 @@ var appData = {
             "constellationID": "21000157",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001408": {
             "name": "J113456",
             "security": "-0.99",
             "constellationID": "21000157",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001409": {
             "name": "J144746",
             "security": "-0.99",
             "constellationID": "21000157",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001410": {
             "name": "J171554",
@@ -45522,21 +50336,33 @@ var appData = {
             "constellationID": "21000158",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001411": {
             "name": "J111029",
             "security": "-0.99",
             "constellationID": "21000158",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001412": {
             "name": "J145129",
             "security": "-0.99",
             "constellationID": "21000158",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001413": {
             "name": "J113730",
@@ -45544,21 +50370,33 @@ var appData = {
             "constellationID": "21000158",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001414": {
             "name": "J100956",
             "security": "-0.99",
             "constellationID": "21000158",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001415": {
             "name": "J134407",
             "security": "-0.99",
             "constellationID": "21000158",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001416": {
             "name": "J101507",
@@ -45566,7 +50404,11 @@ var appData = {
             "constellationID": "21000158",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001417": {
             "name": "J105546",
@@ -45574,14 +50416,22 @@ var appData = {
             "constellationID": "21000159",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "C247",
+                "N766"
+            ]
         },
         "31001418": {
             "name": "J123528",
             "security": "-0.99",
             "constellationID": "21000159",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "N766"
+            ]
         },
         "31001419": {
             "name": "J145318",
@@ -45589,21 +50439,33 @@ var appData = {
             "constellationID": "21000159",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "N766"
+            ]
         },
         "31001420": {
             "name": "J132611",
             "security": "-0.99",
             "constellationID": "21000159",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "N766"
+            ]
         },
         "31001421": {
             "name": "J153338",
             "security": "-0.99",
             "constellationID": "21000159",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "N766"
+            ]
         },
         "31001422": {
             "name": "J102534",
@@ -45611,7 +50473,11 @@ var appData = {
             "constellationID": "21000159",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "C247",
+                "N766"
+            ]
         },
         "31001423": {
             "name": "J144519",
@@ -45619,7 +50485,11 @@ var appData = {
             "constellationID": "21000160",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001424": {
             "name": "J141218",
@@ -45627,7 +50497,11 @@ var appData = {
             "constellationID": "21000160",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001425": {
             "name": "J152255",
@@ -45635,7 +50509,11 @@ var appData = {
             "constellationID": "21000160",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001426": {
             "name": "J142241",
@@ -45643,7 +50521,11 @@ var appData = {
             "constellationID": "21000160",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001427": {
             "name": "J131047",
@@ -45651,7 +50533,11 @@ var appData = {
             "constellationID": "21000160",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001428": {
             "name": "J100150",
@@ -45659,7 +50545,11 @@ var appData = {
             "constellationID": "21000160",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H900",
+                "N766"
+            ]
         },
         "31001429": {
             "name": "J104311",
@@ -45667,14 +50557,22 @@ var appData = {
             "constellationID": "21000161",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "N766"
+            ]
         },
         "31001430": {
             "name": "J111950",
             "security": "-0.99",
             "constellationID": "21000161",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "N766"
+            ]
         },
         "31001431": {
             "name": "J132754",
@@ -45682,21 +50580,33 @@ var appData = {
             "constellationID": "21000161",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "C247",
+                "N766"
+            ]
         },
         "31001432": {
             "name": "J101551",
             "security": "-0.99",
             "constellationID": "21000161",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "N766"
+            ]
         },
         "31001433": {
             "name": "J211027",
             "security": "-0.99",
             "constellationID": "21000161",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "N766"
+            ]
         },
         "31001434": {
             "name": "J105415",
@@ -45704,7 +50614,11 @@ var appData = {
             "constellationID": "21000161",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "C247",
+                "N766"
+            ]
         },
         "31001435": {
             "name": "J224148",
@@ -45712,28 +50626,44 @@ var appData = {
             "constellationID": "21000162",
             "regionID": "11000017",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H900",
+                "U574"
+            ]
         },
         "31001436": {
             "name": "J100806",
             "security": "-0.99",
             "constellationID": "21000162",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "U574"
+            ]
         },
         "31001437": {
             "name": "J133638",
             "security": "-0.99",
             "constellationID": "21000162",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "U574"
+            ]
         },
         "31001438": {
             "name": "J231614",
             "security": "-0.99",
             "constellationID": "21000162",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "U574"
+            ]
         },
         "31001439": {
             "name": "J103110",
@@ -45741,28 +50671,44 @@ var appData = {
             "constellationID": "21000162",
             "regionID": "11000017",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H900",
+                "U574"
+            ]
         },
         "31001440": {
             "name": "J101706",
             "security": "-0.99",
             "constellationID": "21000162",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "U574"
+            ]
         },
         "31001441": {
             "name": "J142214",
             "security": "-0.99",
             "constellationID": "21000163",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "U574"
+            ]
         },
         "31001442": {
             "name": "J155340",
             "security": "-0.99",
             "constellationID": "21000163",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "U574"
+            ]
         },
         "31001443": {
             "name": "J165326",
@@ -45770,14 +50716,22 @@ var appData = {
             "constellationID": "21000163",
             "regionID": "11000017",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "C247",
+                "U574"
+            ]
         },
         "31001444": {
             "name": "J133113",
             "security": "-0.99",
             "constellationID": "21000163",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "U574"
+            ]
         },
         "31001445": {
             "name": "J122656",
@@ -45785,14 +50739,22 @@ var appData = {
             "constellationID": "21000163",
             "regionID": "11000017",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "U574"
+            ]
         },
         "31001446": {
             "name": "J134716",
             "security": "-0.99",
             "constellationID": "21000163",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "U574"
+            ]
         },
         "31001447": {
             "name": "J171344",
@@ -45800,14 +50762,22 @@ var appData = {
             "constellationID": "21000163",
             "regionID": "11000017",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "C247",
+                "U574"
+            ]
         },
         "31001448": {
             "name": "J161119",
             "security": "-0.99",
             "constellationID": "21000164",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "U574"
+            ]
         },
         "31001449": {
             "name": "J111404",
@@ -45815,7 +50785,11 @@ var appData = {
             "constellationID": "21000164",
             "regionID": "11000017",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H900",
+                "U574"
+            ]
         },
         "31001450": {
             "name": "J105346",
@@ -45823,7 +50797,11 @@ var appData = {
             "constellationID": "21000164",
             "regionID": "11000017",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H900",
+                "U574"
+            ]
         },
         "31001451": {
             "name": "J154631",
@@ -45831,7 +50809,11 @@ var appData = {
             "constellationID": "21000164",
             "regionID": "11000017",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "U574"
+            ]
         },
         "31001452": {
             "name": "J150112",
@@ -45839,7 +50821,11 @@ var appData = {
             "constellationID": "21000164",
             "regionID": "11000017",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "U574"
+            ]
         },
         "31001453": {
             "name": "J104649",
@@ -45847,21 +50833,33 @@ var appData = {
             "constellationID": "21000164",
             "regionID": "11000017",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H900",
+                "U574"
+            ]
         },
         "31001454": {
             "name": "J234421",
             "security": "-0.99",
             "constellationID": "21000165",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "U574"
+            ]
         },
         "31001455": {
             "name": "J105726",
             "security": "-0.99",
             "constellationID": "21000165",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "U574"
+            ]
         },
         "31001456": {
             "name": "J111758",
@@ -45869,28 +50867,44 @@ var appData = {
             "constellationID": "21000165",
             "regionID": "11000017",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "X877",
+                "U574"
+            ]
         },
         "31001457": {
             "name": "J142923",
             "security": "-0.99",
             "constellationID": "21000165",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "U574"
+            ]
         },
         "31001458": {
             "name": "J114026",
             "security": "-0.99",
             "constellationID": "21000165",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "U574"
+            ]
         },
         "31001459": {
             "name": "J115118",
             "security": "-0.99",
             "constellationID": "21000165",
             "regionID": "11000017",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "U574"
+            ]
         },
         "31001460": {
             "name": "J162226",
@@ -45898,7 +50912,11 @@ var appData = {
             "constellationID": "21000166",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "C247",
+                "P060"
+            ]
         },
         "31001461": {
             "name": "J165020",
@@ -45906,14 +50924,22 @@ var appData = {
             "constellationID": "21000166",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "C247",
+                "P060"
+            ]
         },
         "31001462": {
             "name": "J125302",
             "security": "-0.99",
             "constellationID": "21000166",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "P060"
+            ]
         },
         "31001463": {
             "name": "J113754",
@@ -45921,7 +50947,11 @@ var appData = {
             "constellationID": "21000166",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "C247",
+                "P060"
+            ]
         },
         "31001464": {
             "name": "J153215",
@@ -45929,35 +50959,55 @@ var appData = {
             "constellationID": "21000166",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "C247",
+                "P060"
+            ]
         },
         "31001465": {
             "name": "J213820",
             "security": "-0.99",
             "constellationID": "21000166",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "P060"
+            ]
         },
         "31001466": {
             "name": "J111555",
             "security": "-0.99",
             "constellationID": "21000167",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001467": {
             "name": "J131553",
             "security": "-0.99",
             "constellationID": "21000167",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001468": {
             "name": "J143841",
             "security": "-0.99",
             "constellationID": "21000167",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001469": {
             "name": "J113250",
@@ -45965,35 +51015,55 @@ var appData = {
             "constellationID": "21000167",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001470": {
             "name": "J204635",
             "security": "-0.99",
             "constellationID": "21000167",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001471": {
             "name": "J212954",
             "security": "-0.99",
             "constellationID": "21000167",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001472": {
             "name": "J132309",
             "security": "-0.99",
             "constellationID": "21000168",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "P060"
+            ]
         },
         "31001473": {
             "name": "J231341",
             "security": "-0.99",
             "constellationID": "21000168",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "P060"
+            ]
         },
         "31001474": {
             "name": "J160800",
@@ -46001,35 +51071,55 @@ var appData = {
             "constellationID": "21000168",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H900",
+                "P060"
+            ]
         },
         "31001475": {
             "name": "J155338",
             "security": "-0.99",
             "constellationID": "21000168",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "P060"
+            ]
         },
         "31001476": {
             "name": "J132149",
             "security": "-0.99",
             "constellationID": "21000168",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "P060"
+            ]
         },
         "31001477": {
             "name": "J171937",
             "security": "-0.99",
             "constellationID": "21000168",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "P060"
+            ]
         },
         "31001478": {
             "name": "J152443",
             "security": "-0.99",
             "constellationID": "21000168",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "P060"
+            ]
         },
         "31001479": {
             "name": "J111329",
@@ -46037,21 +51127,33 @@ var appData = {
             "constellationID": "21000169",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001480": {
             "name": "J171334",
             "security": "-0.99",
             "constellationID": "21000169",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001481": {
             "name": "J115552",
             "security": "-0.99",
             "constellationID": "21000169",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001482": {
             "name": "J151520",
@@ -46059,28 +51161,44 @@ var appData = {
             "constellationID": "21000169",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001483": {
             "name": "J165920",
             "security": "-0.99",
             "constellationID": "21000169",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001484": {
             "name": "J145838",
             "security": "-0.99",
             "constellationID": "21000169",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001485": {
             "name": "J125031",
             "security": "-0.99",
             "constellationID": "21000169",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001486": {
             "name": "J110736",
@@ -46088,14 +51206,22 @@ var appData = {
             "constellationID": "21000170",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001487": {
             "name": "J165423",
             "security": "-0.99",
             "constellationID": "21000170",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001488": {
             "name": "J155521",
@@ -46103,14 +51229,22 @@ var appData = {
             "constellationID": "21000170",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001489": {
             "name": "J135508",
             "security": "-0.99",
             "constellationID": "21000170",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001490": {
             "name": "J103008",
@@ -46118,7 +51252,11 @@ var appData = {
             "constellationID": "21000170",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001491": {
             "name": "J103704",
@@ -46126,7 +51264,11 @@ var appData = {
             "constellationID": "21000170",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001492": {
             "name": "J104603",
@@ -46134,7 +51276,11 @@ var appData = {
             "constellationID": "21000170",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N766",
+                "P060"
+            ]
         },
         "31001493": {
             "name": "J163641",
@@ -46142,28 +51288,44 @@ var appData = {
             "constellationID": "21000171",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001494": {
             "name": "J203952",
             "security": "-0.99",
             "constellationID": "21000171",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001495": {
             "name": "J105411",
             "security": "-0.99",
             "constellationID": "21000171",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001496": {
             "name": "J101126",
             "security": "-0.99",
             "constellationID": "21000171",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001497": {
             "name": "J122155",
@@ -46171,7 +51333,11 @@ var appData = {
             "constellationID": "21000171",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001498": {
             "name": "J110016",
@@ -46179,7 +51345,11 @@ var appData = {
             "constellationID": "21000171",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001499": {
             "name": "J212417",
@@ -46187,7 +51357,11 @@ var appData = {
             "constellationID": "21000171",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "X877",
+                "P060"
+            ]
         },
         "31001500": {
             "name": "J142355",
@@ -46195,7 +51369,11 @@ var appData = {
             "constellationID": "21000172",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "C247",
+                "P060"
+            ]
         },
         "31001501": {
             "name": "J121347",
@@ -46203,28 +51381,44 @@ var appData = {
             "constellationID": "21000172",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "C247",
+                "P060"
+            ]
         },
         "31001502": {
             "name": "J172915",
             "security": "-0.99",
             "constellationID": "21000172",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "P060"
+            ]
         },
         "31001503": {
             "name": "J155416",
             "security": "-0.99",
             "constellationID": "21000172",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "P060"
+            ]
         },
         "31001504": {
             "name": "J211258",
             "security": "-0.99",
             "constellationID": "21000172",
             "regionID": "11000018",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "P060"
+            ]
         },
         "31001505": {
             "name": "J120643",
@@ -46232,7 +51426,11 @@ var appData = {
             "constellationID": "21000172",
             "regionID": "11000018",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "C247",
+                "P060"
+            ]
         },
         "31001506": {
             "name": "J143946",
@@ -46240,14 +51438,22 @@ var appData = {
             "constellationID": "21000173",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001507": {
             "name": "J125247",
             "security": "-0.99",
             "constellationID": "21000173",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001508": {
             "name": "J144732",
@@ -46255,7 +51461,11 @@ var appData = {
             "constellationID": "21000173",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001509": {
             "name": "J155711",
@@ -46263,14 +51473,22 @@ var appData = {
             "constellationID": "21000173",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001510": {
             "name": "J214308",
             "security": "-0.99",
             "constellationID": "21000173",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001511": {
             "name": "J134851",
@@ -46278,14 +51496,22 @@ var appData = {
             "constellationID": "21000173",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001512": {
             "name": "J145452",
             "security": "-0.99",
             "constellationID": "21000173",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001513": {
             "name": "J115026",
@@ -46293,14 +51519,22 @@ var appData = {
             "constellationID": "21000174",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001514": {
             "name": "J151720",
             "security": "-0.99",
             "constellationID": "21000174",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001515": {
             "name": "J151353",
@@ -46308,7 +51542,11 @@ var appData = {
             "constellationID": "21000174",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001516": {
             "name": "J113727",
@@ -46316,35 +51554,55 @@ var appData = {
             "constellationID": "21000174",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001517": {
             "name": "J130944",
             "security": "-0.99",
             "constellationID": "21000174",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001518": {
             "name": "J145238",
             "security": "-0.99",
             "constellationID": "21000174",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001519": {
             "name": "J235219",
             "security": "-0.99",
             "constellationID": "21000174",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001520": {
             "name": "J172512",
             "security": "-0.99",
             "constellationID": "21000175",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001521": {
             "name": "J141322",
@@ -46352,14 +51610,22 @@ var appData = {
             "constellationID": "21000175",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001522": {
             "name": "J210333",
             "security": "-0.99",
             "constellationID": "21000175",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001523": {
             "name": "J135836",
@@ -46367,7 +51633,11 @@ var appData = {
             "constellationID": "21000175",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001524": {
             "name": "J101915",
@@ -46375,7 +51645,11 @@ var appData = {
             "constellationID": "21000175",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001525": {
             "name": "J130203",
@@ -46383,14 +51657,22 @@ var appData = {
             "constellationID": "21000175",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001526": {
             "name": "J110719",
             "security": "-0.99",
             "constellationID": "21000175",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001527": {
             "name": "J131208",
@@ -46398,7 +51680,11 @@ var appData = {
             "constellationID": "21000176",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001528": {
             "name": "J121623",
@@ -46406,28 +51692,44 @@ var appData = {
             "constellationID": "21000176",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001529": {
             "name": "J150637",
             "security": "-0.99",
             "constellationID": "21000176",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001530": {
             "name": "J130332",
             "security": "-0.99",
             "constellationID": "21000176",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001531": {
             "name": "J1226-0",
             "security": "-0.99",
             "constellationID": "21000176",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001532": {
             "name": "J114355",
@@ -46435,7 +51737,11 @@ var appData = {
             "constellationID": "21000176",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001533": {
             "name": "J144401",
@@ -46443,7 +51749,11 @@ var appData = {
             "constellationID": "21000177",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001534": {
             "name": "J103242",
@@ -46451,14 +51761,22 @@ var appData = {
             "constellationID": "21000177",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001535": {
             "name": "J161815",
             "security": "-0.99",
             "constellationID": "21000177",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001536": {
             "name": "J132256",
@@ -46466,14 +51784,22 @@ var appData = {
             "constellationID": "21000177",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001537": {
             "name": "J162819",
             "security": "-0.99",
             "constellationID": "21000177",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001538": {
             "name": "J131004",
@@ -46481,28 +51807,44 @@ var appData = {
             "constellationID": "21000177",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001539": {
             "name": "J141931",
             "security": "-0.99",
             "constellationID": "21000177",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001540": {
             "name": "J112630",
             "security": "-0.99",
             "constellationID": "21000178",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001541": {
             "name": "J154109",
             "security": "-0.99",
             "constellationID": "21000178",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001542": {
             "name": "J153116",
@@ -46510,14 +51852,22 @@ var appData = {
             "constellationID": "21000178",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001543": {
             "name": "J160455",
             "security": "-0.99",
             "constellationID": "21000178",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001544": {
             "name": "J102439",
@@ -46525,7 +51875,11 @@ var appData = {
             "constellationID": "21000178",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001545": {
             "name": "J160459",
@@ -46533,14 +51887,22 @@ var appData = {
             "constellationID": "21000178",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001546": {
             "name": "J131712",
             "security": "-0.99",
             "constellationID": "21000178",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001547": {
             "name": "J140244",
@@ -46548,7 +51910,11 @@ var appData = {
             "constellationID": "21000179",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001548": {
             "name": "J150635",
@@ -46556,7 +51922,11 @@ var appData = {
             "constellationID": "21000179",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001549": {
             "name": "J125213",
@@ -46564,28 +51934,44 @@ var appData = {
             "constellationID": "21000179",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001550": {
             "name": "J154541",
             "security": "-0.99",
             "constellationID": "21000179",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001551": {
             "name": "J120409",
             "security": "-0.99",
             "constellationID": "21000179",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001552": {
             "name": "J140545",
             "security": "-0.99",
             "constellationID": "21000179",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001553": {
             "name": "J162251",
@@ -46593,7 +51979,11 @@ var appData = {
             "constellationID": "21000180",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001554": {
             "name": "J120450",
@@ -46601,21 +51991,33 @@ var appData = {
             "constellationID": "21000180",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001555": {
             "name": "J220151",
             "security": "-0.99",
             "constellationID": "21000180",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001556": {
             "name": "J104502",
             "security": "-0.99",
             "constellationID": "21000180",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001557": {
             "name": "J152654",
@@ -46623,42 +52025,66 @@ var appData = {
             "constellationID": "21000180",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001558": {
             "name": "J124727",
             "security": "-0.99",
             "constellationID": "21000180",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001559": {
             "name": "J151940",
             "security": "-0.99",
             "constellationID": "21000180",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001560": {
             "name": "J212129",
             "security": "-0.99",
             "constellationID": "21000181",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001561": {
             "name": "J141633",
             "security": "-0.99",
             "constellationID": "21000181",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001562": {
             "name": "J145604",
             "security": "-0.99",
             "constellationID": "21000181",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001563": {
             "name": "J212851",
@@ -46666,14 +52092,22 @@ var appData = {
             "constellationID": "21000181",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001564": {
             "name": "J145659",
             "security": "-0.99",
             "constellationID": "21000181",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001565": {
             "name": "J165719",
@@ -46681,14 +52115,22 @@ var appData = {
             "constellationID": "21000181",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001566": {
             "name": "J154706",
             "security": "-0.99",
             "constellationID": "21000182",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001567": {
             "name": "J141252",
@@ -46696,35 +52138,55 @@ var appData = {
             "constellationID": "21000182",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001568": {
             "name": "J112110",
             "security": "-0.99",
             "constellationID": "21000182",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001569": {
             "name": "J140912",
             "security": "-0.99",
             "constellationID": "21000182",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001570": {
             "name": "J165532",
             "security": "-0.99",
             "constellationID": "21000182",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001571": {
             "name": "J161037",
             "security": "-0.99",
             "constellationID": "21000182",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001572": {
             "name": "J130828",
@@ -46732,14 +52194,22 @@ var appData = {
             "constellationID": "21000182",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U574",
+                "X877"
+            ]
         },
         "31001573": {
             "name": "J122934",
             "security": "-0.99",
             "constellationID": "21000183",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001574": {
             "name": "J163435",
@@ -46747,7 +52217,11 @@ var appData = {
             "constellationID": "21000183",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001575": {
             "name": "J221855",
@@ -46755,7 +52229,11 @@ var appData = {
             "constellationID": "21000183",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001576": {
             "name": "J124109",
@@ -46763,14 +52241,22 @@ var appData = {
             "constellationID": "21000183",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001577": {
             "name": "J123458",
             "security": "-0.99",
             "constellationID": "21000183",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001578": {
             "name": "J134527",
@@ -46778,7 +52264,11 @@ var appData = {
             "constellationID": "21000183",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001579": {
             "name": "J133157",
@@ -46786,14 +52276,22 @@ var appData = {
             "constellationID": "21000183",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001580": {
             "name": "J141342",
             "security": "-0.99",
             "constellationID": "21000184",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001581": {
             "name": "J145757",
@@ -46801,7 +52299,11 @@ var appData = {
             "constellationID": "21000184",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001582": {
             "name": "J130343",
@@ -46809,7 +52311,11 @@ var appData = {
             "constellationID": "21000184",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001583": {
             "name": "J152628",
@@ -46817,28 +52323,44 @@ var appData = {
             "constellationID": "21000184",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001584": {
             "name": "J112928",
             "security": "-0.99",
             "constellationID": "21000184",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001585": {
             "name": "J133358",
             "security": "-0.99",
             "constellationID": "21000184",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001586": {
             "name": "J102844",
             "security": "-0.99",
             "constellationID": "21000185",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001587": {
             "name": "J134732",
@@ -46846,7 +52368,11 @@ var appData = {
             "constellationID": "21000185",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001588": {
             "name": "J213615",
@@ -46854,21 +52380,33 @@ var appData = {
             "constellationID": "21000185",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001589": {
             "name": "J131037",
             "security": "-0.99",
             "constellationID": "21000185",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001590": {
             "name": "J154724",
             "security": "-0.99",
             "constellationID": "21000185",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001591": {
             "name": "J213139",
@@ -46876,7 +52414,11 @@ var appData = {
             "constellationID": "21000185",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001592": {
             "name": "J103104",
@@ -46884,7 +52426,11 @@ var appData = {
             "constellationID": "21000185",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001593": {
             "name": "J121116",
@@ -46892,7 +52438,11 @@ var appData = {
             "constellationID": "21000186",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001594": {
             "name": "J142822",
@@ -46900,21 +52450,33 @@ var appData = {
             "constellationID": "21000186",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001595": {
             "name": "J102521",
             "security": "-0.99",
             "constellationID": "21000186",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001596": {
             "name": "J215935",
             "security": "-0.99",
             "constellationID": "21000186",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001597": {
             "name": "J162303",
@@ -46922,14 +52484,22 @@ var appData = {
             "constellationID": "21000186",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001598": {
             "name": "J102409",
             "security": "-0.99",
             "constellationID": "21000186",
             "regionID": "11000019",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001599": {
             "name": "J104714",
@@ -46937,7 +52507,11 @@ var appData = {
             "constellationID": "21000186",
             "regionID": "11000019",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001600": {
             "name": "J171225",
@@ -46945,56 +52519,88 @@ var appData = {
             "constellationID": "21000187",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001601": {
             "name": "J124306",
             "security": "-0.99",
             "constellationID": "21000187",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001602": {
             "name": "J135908",
             "security": "-0.99",
             "constellationID": "21000187",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001603": {
             "name": "J124930",
             "security": "-0.99",
             "constellationID": "21000187",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001604": {
             "name": "J162632",
             "security": "-0.99",
             "constellationID": "21000187",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001605": {
             "name": "J155313",
             "security": "-0.99",
             "constellationID": "21000187",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001606": {
             "name": "J211328",
             "security": "-0.99",
             "constellationID": "21000188",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001607": {
             "name": "J204506",
             "security": "-0.99",
             "constellationID": "21000188",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001608": {
             "name": "J133957",
@@ -47002,35 +52608,55 @@ var appData = {
             "constellationID": "21000188",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001609": {
             "name": "J115304",
             "security": "-0.99",
             "constellationID": "21000188",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001610": {
             "name": "J112150",
             "security": "-0.99",
             "constellationID": "21000188",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001611": {
             "name": "J131252",
             "security": "-0.99",
             "constellationID": "21000188",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "X877"
+            ]
         },
         "31001612": {
             "name": "J133936",
             "security": "-0.99",
             "constellationID": "21000189",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001613": {
             "name": "J143140",
@@ -47038,28 +52664,44 @@ var appData = {
             "constellationID": "21000189",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001614": {
             "name": "J154833",
             "security": "-0.99",
             "constellationID": "21000189",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001615": {
             "name": "J101331",
             "security": "-0.99",
             "constellationID": "21000189",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001616": {
             "name": "J151359",
             "security": "-0.99",
             "constellationID": "21000189",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001617": {
             "name": "J150951",
@@ -47067,28 +52709,44 @@ var appData = {
             "constellationID": "21000189",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001618": {
             "name": "J140215",
             "security": "-0.99",
             "constellationID": "21000189",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001619": {
             "name": "J152421",
             "security": "-0.99",
             "constellationID": "21000190",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001620": {
             "name": "J130554",
             "security": "-0.99",
             "constellationID": "21000190",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001621": {
             "name": "J101604",
@@ -47096,7 +52754,11 @@ var appData = {
             "constellationID": "21000190",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001622": {
             "name": "J150320",
@@ -47104,21 +52766,33 @@ var appData = {
             "constellationID": "21000190",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001623": {
             "name": "J134414",
             "security": "-0.99",
             "constellationID": "21000190",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001624": {
             "name": "J131113",
             "security": "-0.99",
             "constellationID": "21000190",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001625": {
             "name": "J124933",
@@ -47126,49 +52800,77 @@ var appData = {
             "constellationID": "21000191",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001626": {
             "name": "J150044",
             "security": "-0.99",
             "constellationID": "21000191",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001627": {
             "name": "J155200",
             "security": "-0.99",
             "constellationID": "21000191",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001628": {
             "name": "J145944",
             "security": "-0.99",
             "constellationID": "21000191",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001629": {
             "name": "J145535",
             "security": "-0.99",
             "constellationID": "21000191",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001630": {
             "name": "J141021",
             "security": "-0.99",
             "constellationID": "21000191",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001631": {
             "name": "J223312",
             "security": "-0.99",
             "constellationID": "21000192",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001632": {
             "name": "J212028",
@@ -47176,7 +52878,11 @@ var appData = {
             "constellationID": "21000192",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001633": {
             "name": "J164835",
@@ -47184,28 +52890,44 @@ var appData = {
             "constellationID": "21000192",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001634": {
             "name": "J115528",
             "security": "-0.99",
             "constellationID": "21000192",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001635": {
             "name": "J143922",
             "security": "-0.99",
             "constellationID": "21000192",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001636": {
             "name": "J225234",
             "security": "-0.99",
             "constellationID": "21000192",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001637": {
             "name": "J165645",
@@ -47213,21 +52935,33 @@ var appData = {
             "constellationID": "21000192",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N766",
+                "X877"
+            ]
         },
         "31001638": {
             "name": "J100142",
             "security": "-0.99",
             "constellationID": "21000193",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001639": {
             "name": "J101129",
             "security": "-0.99",
             "constellationID": "21000193",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001640": {
             "name": "J141220",
@@ -47235,42 +52969,66 @@ var appData = {
             "constellationID": "21000193",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001641": {
             "name": "J112450",
             "security": "-0.99",
             "constellationID": "21000193",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001642": {
             "name": "J121558",
             "security": "-0.99",
             "constellationID": "21000193",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001643": {
             "name": "J104404",
             "security": "-0.99",
             "constellationID": "21000193",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "X877"
+            ]
         },
         "31001644": {
             "name": "J152633",
             "security": "-0.99",
             "constellationID": "21000194",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001645": {
             "name": "J104624",
             "security": "-0.99",
             "constellationID": "21000194",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001646": {
             "name": "J113227",
@@ -47278,7 +53036,11 @@ var appData = {
             "constellationID": "21000194",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001647": {
             "name": "J211817",
@@ -47286,28 +53048,44 @@ var appData = {
             "constellationID": "21000194",
             "regionID": "11000020",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001648": {
             "name": "J144329",
             "security": "-0.99",
             "constellationID": "21000194",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001649": {
             "name": "J154102",
             "security": "-0.99",
             "constellationID": "21000194",
             "regionID": "11000020",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31001650": {
             "name": "J162231",
             "security": "-0.99",
             "constellationID": "21000195",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001651": {
             "name": "J151303",
@@ -47315,7 +53093,11 @@ var appData = {
             "constellationID": "21000195",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001652": {
             "name": "J145848",
@@ -47323,7 +53105,11 @@ var appData = {
             "constellationID": "21000195",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001653": {
             "name": "J152720",
@@ -47331,14 +53117,22 @@ var appData = {
             "constellationID": "21000195",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001654": {
             "name": "J123753",
             "security": "-0.99",
             "constellationID": "21000195",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001655": {
             "name": "J101042",
@@ -47346,35 +53140,55 @@ var appData = {
             "constellationID": "21000195",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001656": {
             "name": "J223824",
             "security": "-0.99",
             "constellationID": "21000195",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001657": {
             "name": "J125929",
             "security": "-0.99",
             "constellationID": "21000196",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001658": {
             "name": "J225111",
             "security": "-0.99",
             "constellationID": "21000196",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001659": {
             "name": "J135346",
             "security": "-0.99",
             "constellationID": "21000196",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001660": {
             "name": "J144120",
@@ -47382,21 +53196,33 @@ var appData = {
             "constellationID": "21000196",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001661": {
             "name": "J215743",
             "security": "-0.99",
             "constellationID": "21000196",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001662": {
             "name": "J111007",
             "security": "-0.99",
             "constellationID": "21000196",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001663": {
             "name": "J231710",
@@ -47404,21 +53230,33 @@ var appData = {
             "constellationID": "21000197",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001664": {
             "name": "J141001",
             "security": "-0.99",
             "constellationID": "21000197",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001665": {
             "name": "J163444",
             "security": "-0.99",
             "constellationID": "21000197",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001666": {
             "name": "J103141",
@@ -47426,21 +53264,33 @@ var appData = {
             "constellationID": "21000197",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001667": {
             "name": "J112215",
             "security": "-0.99",
             "constellationID": "21000197",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001668": {
             "name": "J215758",
             "security": "-0.99",
             "constellationID": "21000197",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001669": {
             "name": "J101145",
@@ -47448,42 +53298,66 @@ var appData = {
             "constellationID": "21000197",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001670": {
             "name": "J212838",
             "security": "-0.99",
             "constellationID": "21000198",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001671": {
             "name": "J111458",
             "security": "-0.99",
             "constellationID": "21000198",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001672": {
             "name": "J115554",
             "security": "-0.99",
             "constellationID": "21000198",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001673": {
             "name": "J170445",
             "security": "-0.99",
             "constellationID": "21000198",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001674": {
             "name": "J162831",
             "security": "-0.99",
             "constellationID": "21000198",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001675": {
             "name": "J124236",
@@ -47491,7 +53365,11 @@ var appData = {
             "constellationID": "21000198",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001676": {
             "name": "J101535",
@@ -47499,7 +53377,11 @@ var appData = {
             "constellationID": "21000198",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001677": {
             "name": "J113551",
@@ -47507,14 +53389,22 @@ var appData = {
             "constellationID": "21000199",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001678": {
             "name": "J162656",
             "security": "-0.99",
             "constellationID": "21000199",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001679": {
             "name": "J114530",
@@ -47522,28 +53412,44 @@ var appData = {
             "constellationID": "21000199",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001680": {
             "name": "J155214",
             "security": "-0.99",
             "constellationID": "21000199",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001681": {
             "name": "J102336",
             "security": "-0.99",
             "constellationID": "21000199",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001682": {
             "name": "J123352",
             "security": "-0.99",
             "constellationID": "21000199",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001683": {
             "name": "J100937",
@@ -47551,42 +53457,66 @@ var appData = {
             "constellationID": "21000200",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001684": {
             "name": "J100107",
             "security": "-0.99",
             "constellationID": "21000200",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001685": {
             "name": "J204230",
             "security": "-0.99",
             "constellationID": "21000200",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001686": {
             "name": "J233909",
             "security": "-0.99",
             "constellationID": "21000200",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001687": {
             "name": "J134354",
             "security": "-0.99",
             "constellationID": "21000200",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001688": {
             "name": "J160046",
             "security": "-0.99",
             "constellationID": "21000200",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001689": {
             "name": "J162816",
@@ -47594,7 +53524,11 @@ var appData = {
             "constellationID": "21000201",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001690": {
             "name": "J170305",
@@ -47602,7 +53536,11 @@ var appData = {
             "constellationID": "21000201",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001691": {
             "name": "J102045",
@@ -47610,21 +53548,33 @@ var appData = {
             "constellationID": "21000201",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001692": {
             "name": "J100830",
             "security": "-0.99",
             "constellationID": "21000201",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001693": {
             "name": "J115658",
             "security": "-0.99",
             "constellationID": "21000201",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001694": {
             "name": "J123947",
@@ -47632,28 +53582,44 @@ var appData = {
             "constellationID": "21000201",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001695": {
             "name": "J224754",
             "security": "-0.99",
             "constellationID": "21000202",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001696": {
             "name": "J140246",
             "security": "-0.99",
             "constellationID": "21000202",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001697": {
             "name": "J214440",
             "security": "-0.99",
             "constellationID": "21000202",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001698": {
             "name": "J144135",
@@ -47661,14 +53627,22 @@ var appData = {
             "constellationID": "21000202",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001699": {
             "name": "J151021",
             "security": "-0.99",
             "constellationID": "21000202",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001700": {
             "name": "J114133",
@@ -47676,7 +53650,11 @@ var appData = {
             "constellationID": "21000202",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001701": {
             "name": "J130810",
@@ -47684,49 +53662,77 @@ var appData = {
             "constellationID": "21000203",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001702": {
             "name": "J141425",
             "security": "-0.99",
             "constellationID": "21000203",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001703": {
             "name": "J121847",
             "security": "-0.99",
             "constellationID": "21000203",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001704": {
             "name": "J150805",
             "security": "-0.99",
             "constellationID": "21000203",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001705": {
             "name": "J140810",
             "security": "-0.99",
             "constellationID": "21000203",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001706": {
             "name": "J141104",
             "security": "-0.99",
             "constellationID": "21000203",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001707": {
             "name": "J114735",
             "security": "-0.99",
             "constellationID": "21000204",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001708": {
             "name": "J205922",
@@ -47734,21 +53740,33 @@ var appData = {
             "constellationID": "21000204",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001709": {
             "name": "J215101",
             "security": "-0.99",
             "constellationID": "21000204",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001710": {
             "name": "J144131",
             "security": "-0.99",
             "constellationID": "21000204",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001711": {
             "name": "J213429",
@@ -47756,7 +53774,11 @@ var appData = {
             "constellationID": "21000204",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001712": {
             "name": "J121006",
@@ -47764,7 +53786,11 @@ var appData = {
             "constellationID": "21000204",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001713": {
             "name": "J111644",
@@ -47772,14 +53798,22 @@ var appData = {
             "constellationID": "21000205",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001714": {
             "name": "J164031",
             "security": "-0.99",
             "constellationID": "21000205",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001715": {
             "name": "J155249",
@@ -47787,21 +53821,33 @@ var appData = {
             "constellationID": "21000205",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001716": {
             "name": "J103228",
             "security": "-0.99",
             "constellationID": "21000205",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001717": {
             "name": "J164025",
             "security": "-0.99",
             "constellationID": "21000205",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001718": {
             "name": "J163217",
@@ -47809,35 +53855,55 @@ var appData = {
             "constellationID": "21000205",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001719": {
             "name": "J103631",
             "security": "-0.99",
             "constellationID": "21000205",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001720": {
             "name": "J145739",
             "security": "-0.99",
             "constellationID": "21000206",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001721": {
             "name": "J114408",
             "security": "-0.99",
             "constellationID": "21000206",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001722": {
             "name": "J131704",
             "security": "-0.99",
             "constellationID": "21000206",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001723": {
             "name": "J112404",
@@ -47845,7 +53911,11 @@ var appData = {
             "constellationID": "21000206",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001724": {
             "name": "J104723",
@@ -47853,14 +53923,22 @@ var appData = {
             "constellationID": "21000206",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001725": {
             "name": "J123746",
             "security": "-0.99",
             "constellationID": "21000206",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001726": {
             "name": "J225441",
@@ -47868,7 +53946,11 @@ var appData = {
             "constellationID": "21000206",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001727": {
             "name": "J111629",
@@ -47876,7 +53958,11 @@ var appData = {
             "constellationID": "21000207",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001728": {
             "name": "J140154",
@@ -47884,7 +53970,11 @@ var appData = {
             "constellationID": "21000207",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001729": {
             "name": "J144743",
@@ -47892,14 +53982,22 @@ var appData = {
             "constellationID": "21000207",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001730": {
             "name": "J210247",
             "security": "-0.99",
             "constellationID": "21000207",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001731": {
             "name": "J133013",
@@ -47907,7 +54005,11 @@ var appData = {
             "constellationID": "21000207",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001732": {
             "name": "J160032",
@@ -47915,35 +54017,55 @@ var appData = {
             "constellationID": "21000207",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001733": {
             "name": "J111009",
             "security": "-0.99",
             "constellationID": "21000207",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001734": {
             "name": "J142117",
             "security": "-0.99",
             "constellationID": "21000208",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001735": {
             "name": "J110417",
             "security": "-0.99",
             "constellationID": "21000208",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001736": {
             "name": "J204853",
             "security": "-0.99",
             "constellationID": "21000208",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001737": {
             "name": "J132144",
@@ -47951,35 +54073,55 @@ var appData = {
             "constellationID": "21000208",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001738": {
             "name": "J160016",
             "security": "-0.99",
             "constellationID": "21000208",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001739": {
             "name": "J142335",
             "security": "-0.99",
             "constellationID": "21000208",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001740": {
             "name": "J105835",
             "security": "-0.99",
             "constellationID": "21000209",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001741": {
             "name": "J102055",
             "security": "-0.99",
             "constellationID": "21000209",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001742": {
             "name": "J140932",
@@ -47987,21 +54129,33 @@ var appData = {
             "constellationID": "21000209",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001743": {
             "name": "J134333",
             "security": "-0.99",
             "constellationID": "21000209",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001744": {
             "name": "J160156",
             "security": "-0.99",
             "constellationID": "21000209",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001745": {
             "name": "J150944",
@@ -48009,21 +54163,33 @@ var appData = {
             "constellationID": "21000209",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001746": {
             "name": "J113508",
             "security": "-0.99",
             "constellationID": "21000210",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001747": {
             "name": "J151757",
             "security": "-0.99",
             "constellationID": "21000210",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001748": {
             "name": "J142800",
@@ -48031,7 +54197,11 @@ var appData = {
             "constellationID": "21000210",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001749": {
             "name": "J170642",
@@ -48039,7 +54209,11 @@ var appData = {
             "constellationID": "21000210",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001750": {
             "name": "J130451",
@@ -48047,7 +54221,11 @@ var appData = {
             "constellationID": "21000210",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001751": {
             "name": "J113158",
@@ -48055,7 +54233,11 @@ var appData = {
             "constellationID": "21000210",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001752": {
             "name": "J225133",
@@ -48063,21 +54245,33 @@ var appData = {
             "constellationID": "21000210",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H900",
+                "C247"
+            ]
         },
         "31001753": {
             "name": "J100001",
             "security": "-0.99",
             "constellationID": "21000211",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "C247"
+            ]
         },
         "31001754": {
             "name": "J155831",
             "security": "-0.99",
             "constellationID": "21000211",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "C247"
+            ]
         },
         "31001755": {
             "name": "J145749",
@@ -48085,28 +54279,44 @@ var appData = {
             "constellationID": "21000211",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U574",
+                "C247"
+            ]
         },
         "31001756": {
             "name": "J164659",
             "security": "-0.99",
             "constellationID": "21000211",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "C247"
+            ]
         },
         "31001757": {
             "name": "J135543",
             "security": "-0.99",
             "constellationID": "21000211",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "C247"
+            ]
         },
         "31001758": {
             "name": "J132735",
             "security": "-0.99",
             "constellationID": "21000211",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "C247"
+            ]
         },
         "31001759": {
             "name": "J141740",
@@ -48114,21 +54324,33 @@ var appData = {
             "constellationID": "21000212",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001760": {
             "name": "J101315",
             "security": "-0.99",
             "constellationID": "21000212",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001761": {
             "name": "J123345",
             "security": "-0.99",
             "constellationID": "21000212",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001762": {
             "name": "J105621",
@@ -48136,7 +54358,11 @@ var appData = {
             "constellationID": "21000212",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001763": {
             "name": "J113813",
@@ -48144,28 +54370,44 @@ var appData = {
             "constellationID": "21000212",
             "regionID": "11000021",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001764": {
             "name": "J135807",
             "security": "-0.99",
             "constellationID": "21000212",
             "regionID": "11000021",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001765": {
             "name": "J122728",
             "security": "-0.99",
             "constellationID": "21000213",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001766": {
             "name": "J110915",
             "security": "-0.99",
             "constellationID": "21000213",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001767": {
             "name": "J171430",
@@ -48173,14 +54415,22 @@ var appData = {
             "constellationID": "21000213",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001768": {
             "name": "J154321",
             "security": "-0.99",
             "constellationID": "21000213",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001769": {
             "name": "J104729",
@@ -48188,7 +54438,11 @@ var appData = {
             "constellationID": "21000213",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001770": {
             "name": "J111753",
@@ -48196,14 +54450,22 @@ var appData = {
             "constellationID": "21000213",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001771": {
             "name": "J140823",
             "security": "-0.99",
             "constellationID": "21000214",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001772": {
             "name": "J161357",
@@ -48211,42 +54473,66 @@ var appData = {
             "constellationID": "21000214",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001773": {
             "name": "J162205",
             "security": "-0.99",
             "constellationID": "21000214",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001774": {
             "name": "J113950",
             "security": "-0.99",
             "constellationID": "21000214",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001775": {
             "name": "J124224",
             "security": "-0.99",
             "constellationID": "21000214",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001776": {
             "name": "J155959",
             "security": "-0.99",
             "constellationID": "21000214",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001777": {
             "name": "J103213",
             "security": "-0.99",
             "constellationID": "21000215",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001778": {
             "name": "J105858",
@@ -48254,14 +54540,22 @@ var appData = {
             "constellationID": "21000215",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001779": {
             "name": "J172502",
             "security": "-0.99",
             "constellationID": "21000215",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001780": {
             "name": "J170151",
@@ -48269,21 +54563,33 @@ var appData = {
             "constellationID": "21000215",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001781": {
             "name": "J165058",
             "security": "-0.99",
             "constellationID": "21000215",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001782": {
             "name": "J173638",
             "security": "-0.99",
             "constellationID": "21000215",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001783": {
             "name": "J130330",
@@ -48291,14 +54597,22 @@ var appData = {
             "constellationID": "21000216",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001784": {
             "name": "J132740",
             "security": "-0.99",
             "constellationID": "21000216",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001785": {
             "name": "J133931",
@@ -48306,14 +54620,22 @@ var appData = {
             "constellationID": "21000216",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001786": {
             "name": "J143902",
             "security": "-0.99",
             "constellationID": "21000216",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001787": {
             "name": "J165105",
@@ -48321,21 +54643,33 @@ var appData = {
             "constellationID": "21000216",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001788": {
             "name": "J141316",
             "security": "-0.99",
             "constellationID": "21000216",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001789": {
             "name": "J113152",
             "security": "-0.99",
             "constellationID": "21000217",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001790": {
             "name": "J113453",
@@ -48343,21 +54677,33 @@ var appData = {
             "constellationID": "21000217",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001791": {
             "name": "J144845",
             "security": "-0.99",
             "constellationID": "21000217",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001792": {
             "name": "J140053",
             "security": "-0.99",
             "constellationID": "21000217",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001793": {
             "name": "J151416",
@@ -48365,7 +54711,11 @@ var appData = {
             "constellationID": "21000217",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001794": {
             "name": "J100846",
@@ -48373,7 +54723,11 @@ var appData = {
             "constellationID": "21000217",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001795": {
             "name": "J165943",
@@ -48381,21 +54735,33 @@ var appData = {
             "constellationID": "21000218",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001796": {
             "name": "J103538",
             "security": "-0.99",
             "constellationID": "21000218",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001797": {
             "name": "J154854",
             "security": "-0.99",
             "constellationID": "21000218",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001798": {
             "name": "J212627",
@@ -48403,7 +54769,11 @@ var appData = {
             "constellationID": "21000218",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001799": {
             "name": "J150656",
@@ -48411,7 +54781,11 @@ var appData = {
             "constellationID": "21000218",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001800": {
             "name": "J224031",
@@ -48419,21 +54793,33 @@ var appData = {
             "constellationID": "21000218",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001801": {
             "name": "J215455",
             "security": "-0.99",
             "constellationID": "21000219",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001802": {
             "name": "J122503",
             "security": "-0.99",
             "constellationID": "21000219",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001803": {
             "name": "J103120",
@@ -48441,7 +54827,11 @@ var appData = {
             "constellationID": "21000219",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001804": {
             "name": "J164528",
@@ -48449,7 +54839,11 @@ var appData = {
             "constellationID": "21000219",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001805": {
             "name": "J125316",
@@ -48457,14 +54851,22 @@ var appData = {
             "constellationID": "21000219",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001806": {
             "name": "J113131",
             "security": "-0.99",
             "constellationID": "21000219",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001807": {
             "name": "J144038",
@@ -48472,14 +54874,22 @@ var appData = {
             "constellationID": "21000220",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001808": {
             "name": "J172926",
             "security": "-0.99",
             "constellationID": "21000220",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001809": {
             "name": "J154610",
@@ -48487,14 +54897,22 @@ var appData = {
             "constellationID": "21000220",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001810": {
             "name": "J103412",
             "security": "-0.99",
             "constellationID": "21000220",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001811": {
             "name": "J150318",
@@ -48502,14 +54920,22 @@ var appData = {
             "constellationID": "21000220",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001812": {
             "name": "J211504",
             "security": "-0.99",
             "constellationID": "21000220",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001813": {
             "name": "J111617",
@@ -48517,14 +54943,22 @@ var appData = {
             "constellationID": "21000220",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001814": {
             "name": "J100346",
             "security": "-0.99",
             "constellationID": "21000221",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001815": {
             "name": "J143557",
@@ -48532,35 +54966,55 @@ var appData = {
             "constellationID": "21000221",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001816": {
             "name": "J130001",
             "security": "-0.99",
             "constellationID": "21000221",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001817": {
             "name": "J101142",
             "security": "-0.99",
             "constellationID": "21000221",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001818": {
             "name": "J155002",
             "security": "-0.99",
             "constellationID": "21000221",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001819": {
             "name": "J154232",
             "security": "-0.99",
             "constellationID": "21000221",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001820": {
             "name": "J142506",
@@ -48568,42 +55022,66 @@ var appData = {
             "constellationID": "21000222",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001821": {
             "name": "J155506",
             "security": "-0.99",
             "constellationID": "21000222",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001822": {
             "name": "J163754",
             "security": "-0.99",
             "constellationID": "21000222",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001823": {
             "name": "J100357",
             "security": "-0.99",
             "constellationID": "21000222",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001824": {
             "name": "J115031",
             "security": "-0.99",
             "constellationID": "21000222",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001825": {
             "name": "J122706",
             "security": "-0.99",
             "constellationID": "21000222",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "H900"
+            ]
         },
         "31001826": {
             "name": "J114318",
@@ -48611,28 +55089,44 @@ var appData = {
             "constellationID": "21000223",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001827": {
             "name": "J150625",
             "security": "-0.99",
             "constellationID": "21000223",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001828": {
             "name": "J113437",
             "security": "-0.99",
             "constellationID": "21000223",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001829": {
             "name": "J213924",
             "security": "-0.99",
             "constellationID": "21000223",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001830": {
             "name": "J152711",
@@ -48640,7 +55134,11 @@ var appData = {
             "constellationID": "21000223",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001831": {
             "name": "J160929",
@@ -48648,7 +55146,11 @@ var appData = {
             "constellationID": "21000223",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001832": {
             "name": "J153110",
@@ -48656,21 +55158,33 @@ var appData = {
             "constellationID": "21000223",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "C247",
+                "H900"
+            ]
         },
         "31001833": {
             "name": "J132532",
             "security": "-0.99",
             "constellationID": "21000224",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001834": {
             "name": "J114031",
             "security": "-0.99",
             "constellationID": "21000224",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001835": {
             "name": "J120316",
@@ -48678,7 +55192,11 @@ var appData = {
             "constellationID": "21000224",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001836": {
             "name": "J151610",
@@ -48686,7 +55204,11 @@ var appData = {
             "constellationID": "21000224",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001837": {
             "name": "J145937",
@@ -48694,7 +55216,11 @@ var appData = {
             "constellationID": "21000224",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001838": {
             "name": "J122056",
@@ -48702,14 +55228,22 @@ var appData = {
             "constellationID": "21000224",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001839": {
             "name": "J170127",
             "security": "-0.99",
             "constellationID": "21000224",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "H900"
+            ]
         },
         "31001840": {
             "name": "J145424",
@@ -48717,7 +55251,11 @@ var appData = {
             "constellationID": "21000225",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "P060",
+                "H900"
+            ]
         },
         "31001841": {
             "name": "J101835",
@@ -48725,21 +55263,33 @@ var appData = {
             "constellationID": "21000225",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "P060",
+                "H900"
+            ]
         },
         "31001842": {
             "name": "J103907",
             "security": "-0.99",
             "constellationID": "21000225",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "H900"
+            ]
         },
         "31001843": {
             "name": "J130237",
             "security": "-0.99",
             "constellationID": "21000225",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "H900"
+            ]
         },
         "31001844": {
             "name": "J104948",
@@ -48747,14 +55297,22 @@ var appData = {
             "constellationID": "21000225",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "P060",
+                "H900"
+            ]
         },
         "31001845": {
             "name": "J120844",
             "security": "-0.99",
             "constellationID": "21000225",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "H900"
+            ]
         },
         "31001846": {
             "name": "J154824",
@@ -48762,7 +55320,11 @@ var appData = {
             "constellationID": "21000226",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U574",
+                "H900"
+            ]
         },
         "31001847": {
             "name": "J134216",
@@ -48770,14 +55332,22 @@ var appData = {
             "constellationID": "21000226",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U574",
+                "H900"
+            ]
         },
         "31001848": {
             "name": "J120131",
             "security": "-0.99",
             "constellationID": "21000226",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "H900"
+            ]
         },
         "31001849": {
             "name": "J120134",
@@ -48785,21 +55355,33 @@ var appData = {
             "constellationID": "21000226",
             "regionID": "11000022",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U574",
+                "H900"
+            ]
         },
         "31001850": {
             "name": "J224558",
             "security": "-0.99",
             "constellationID": "21000226",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "H900"
+            ]
         },
         "31001851": {
             "name": "J161029",
             "security": "-0.99",
             "constellationID": "21000226",
             "regionID": "11000022",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U574",
+                "H900"
+            ]
         },
         "31001852": {
             "name": "J225530",
@@ -48807,21 +55389,33 @@ var appData = {
             "constellationID": "21000227",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001853": {
             "name": "J154407",
             "security": "-0.99",
             "constellationID": "21000227",
             "regionID": "11000023",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001854": {
             "name": "J140720",
             "security": "-0.99",
             "constellationID": "21000227",
             "regionID": "11000023",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001855": {
             "name": "J222125",
@@ -48829,14 +55423,22 @@ var appData = {
             "constellationID": "21000227",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001856": {
             "name": "J152502",
             "security": "-0.99",
             "constellationID": "21000227",
             "regionID": "11000023",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001857": {
             "name": "J220215",
@@ -48844,14 +55446,22 @@ var appData = {
             "constellationID": "21000227",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001858": {
             "name": "J141647",
             "security": "-0.99",
             "constellationID": "21000228",
             "regionID": "11000023",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001859": {
             "name": "J101957",
@@ -48859,7 +55469,11 @@ var appData = {
             "constellationID": "21000228",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001860": {
             "name": "J223808",
@@ -48867,14 +55481,22 @@ var appData = {
             "constellationID": "21000228",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001861": {
             "name": "J105433",
             "security": "-0.99",
             "constellationID": "21000228",
             "regionID": "11000023",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001862": {
             "name": "J153722",
@@ -48882,7 +55504,11 @@ var appData = {
             "constellationID": "21000228",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001863": {
             "name": "J105348",
@@ -48890,21 +55516,33 @@ var appData = {
             "constellationID": "21000228",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N766",
+                "C247"
+            ]
         },
         "31001864": {
             "name": "J113133",
             "security": "-0.99",
             "constellationID": "21000229",
             "regionID": "11000023",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001865": {
             "name": "J105319",
             "security": "-0.99",
             "constellationID": "21000229",
             "regionID": "11000023",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001866": {
             "name": "J162828",
@@ -48912,14 +55550,22 @@ var appData = {
             "constellationID": "21000229",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001867": {
             "name": "J233449",
             "security": "-0.99",
             "constellationID": "21000229",
             "regionID": "11000023",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001868": {
             "name": "J150026",
@@ -48927,7 +55573,11 @@ var appData = {
             "constellationID": "21000229",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001869": {
             "name": "J125629",
@@ -48935,7 +55585,11 @@ var appData = {
             "constellationID": "21000229",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001870": {
             "name": "J123246",
@@ -48943,7 +55597,11 @@ var appData = {
             "constellationID": "21000229",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001871": {
             "name": "J215615",
@@ -48951,7 +55609,11 @@ var appData = {
             "constellationID": "21000230",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001872": {
             "name": "J152404",
@@ -48959,28 +55621,44 @@ var appData = {
             "constellationID": "21000230",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001873": {
             "name": "J132152",
             "security": "-0.99",
             "constellationID": "21000230",
             "regionID": "11000023",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001874": {
             "name": "J145335",
             "security": "-0.99",
             "constellationID": "21000230",
             "regionID": "11000023",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001875": {
             "name": "J162255",
             "security": "-0.99",
             "constellationID": "21000230",
             "regionID": "11000023",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001876": {
             "name": "J112722",
@@ -48988,14 +55666,22 @@ var appData = {
             "constellationID": "21000230",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "X877",
+                "C247"
+            ]
         },
         "31001877": {
             "name": "J134459",
             "security": "-0.99",
             "constellationID": "21000231",
             "regionID": "11000023",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001878": {
             "name": "J131624",
@@ -49003,7 +55689,11 @@ var appData = {
             "constellationID": "21000231",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001879": {
             "name": "J165611",
@@ -49011,7 +55701,11 @@ var appData = {
             "constellationID": "21000231",
             "regionID": "11000023",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "P060",
+                "C247"
+            ]
         },
         "31001880": {
             "name": "J152820",
@@ -49019,14 +55713,20 @@ var appData = {
             "constellationID": "21000232",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H296"
+            ]
         },
         "31001881": {
             "name": "J135100",
             "security": "-0.99",
             "constellationID": "21000232",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001882": {
             "name": "J122515",
@@ -49034,28 +55734,40 @@ var appData = {
             "constellationID": "21000232",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31001883": {
             "name": "J172943",
             "security": "-0.99",
             "constellationID": "21000232",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001884": {
             "name": "J205738",
             "security": "-0.99",
             "constellationID": "21000232",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001885": {
             "name": "J134242",
             "security": "-0.99",
             "constellationID": "21000232",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001886": {
             "name": "J103251",
@@ -49063,14 +55775,20 @@ var appData = {
             "constellationID": "21000232",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31001887": {
             "name": "J111220",
             "security": "-0.99",
             "constellationID": "21000232",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001888": {
             "name": "J170540",
@@ -49078,7 +55796,10 @@ var appData = {
             "constellationID": "21000232",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31001889": {
             "name": "J102446",
@@ -49086,21 +55807,30 @@ var appData = {
             "constellationID": "21000233",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001890": {
             "name": "J141137",
             "security": "-0.99",
             "constellationID": "21000233",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001891": {
             "name": "J164147",
             "security": "-0.99",
             "constellationID": "21000233",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001892": {
             "name": "J100702",
@@ -49108,7 +55838,10 @@ var appData = {
             "constellationID": "21000233",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001893": {
             "name": "J133119",
@@ -49116,7 +55849,10 @@ var appData = {
             "constellationID": "21000233",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001894": {
             "name": "J124730",
@@ -49124,14 +55860,20 @@ var appData = {
             "constellationID": "21000233",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001895": {
             "name": "J132823",
             "security": "-0.99",
             "constellationID": "21000233",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001896": {
             "name": "J100724",
@@ -49139,7 +55881,10 @@ var appData = {
             "constellationID": "21000233",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001897": {
             "name": "J162638",
@@ -49147,14 +55892,20 @@ var appData = {
             "constellationID": "21000233",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001898": {
             "name": "J230257",
             "security": "-0.99",
             "constellationID": "21000234",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001899": {
             "name": "J223018",
@@ -49162,7 +55913,10 @@ var appData = {
             "constellationID": "21000234",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "D364"
+            ]
         },
         "31001900": {
             "name": "J135449",
@@ -49170,7 +55924,10 @@ var appData = {
             "constellationID": "21000234",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "D364"
+            ]
         },
         "31001901": {
             "name": "J133537",
@@ -49178,7 +55935,10 @@ var appData = {
             "constellationID": "21000234",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "D364"
+            ]
         },
         "31001902": {
             "name": "J155714",
@@ -49186,7 +55946,10 @@ var appData = {
             "constellationID": "21000234",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "D364"
+            ]
         },
         "31001903": {
             "name": "J112325",
@@ -49194,7 +55957,10 @@ var appData = {
             "constellationID": "21000234",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "D364"
+            ]
         },
         "31001904": {
             "name": "J150606",
@@ -49202,14 +55968,20 @@ var appData = {
             "constellationID": "21000234",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "D364"
+            ]
         },
         "31001905": {
             "name": "J110550",
             "security": "-0.99",
             "constellationID": "21000234",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001906": {
             "name": "J205659",
@@ -49217,21 +55989,30 @@ var appData = {
             "constellationID": "21000234",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "D364"
+            ]
         },
         "31001907": {
             "name": "J100120",
             "security": "-0.99",
             "constellationID": "21000235",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001908": {
             "name": "J151057",
             "security": "-0.99",
             "constellationID": "21000235",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001909": {
             "name": "J213245",
@@ -49239,14 +56020,20 @@ var appData = {
             "constellationID": "21000235",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "D364"
+            ]
         },
         "31001910": {
             "name": "J121230",
             "security": "-0.99",
             "constellationID": "21000235",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001911": {
             "name": "J145203",
@@ -49254,7 +56041,10 @@ var appData = {
             "constellationID": "21000235",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "D364"
+            ]
         },
         "31001912": {
             "name": "J111106",
@@ -49262,42 +56052,60 @@ var appData = {
             "constellationID": "21000235",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "D364"
+            ]
         },
         "31001913": {
             "name": "J222834",
             "security": "-0.99",
             "constellationID": "21000235",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001914": {
             "name": "J232336",
             "security": "-0.99",
             "constellationID": "21000236",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001915": {
             "name": "J161032",
             "security": "-0.99",
             "constellationID": "21000236",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001916": {
             "name": "J154733",
             "security": "-0.99",
             "constellationID": "21000236",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001917": {
             "name": "J153144",
             "security": "-0.99",
             "constellationID": "21000236",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001918": {
             "name": "J122721",
@@ -49305,42 +56113,60 @@ var appData = {
             "constellationID": "21000236",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31001919": {
             "name": "J133440",
             "security": "-0.99",
             "constellationID": "21000236",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001920": {
             "name": "J103727",
             "security": "-0.99",
             "constellationID": "21000237",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001921": {
             "name": "J152739",
             "security": "-0.99",
             "constellationID": "21000237",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001922": {
             "name": "J140717",
             "security": "-0.99",
             "constellationID": "21000237",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001923": {
             "name": "J205205",
             "security": "-0.99",
             "constellationID": "21000237",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001924": {
             "name": "J130026",
@@ -49348,14 +56174,20 @@ var appData = {
             "constellationID": "21000237",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "D364"
+            ]
         },
         "31001925": {
             "name": "J151035",
             "security": "-0.99",
             "constellationID": "21000237",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001926": {
             "name": "J112603",
@@ -49363,7 +56195,10 @@ var appData = {
             "constellationID": "21000237",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "D364"
+            ]
         },
         "31001927": {
             "name": "J151811",
@@ -49371,14 +56206,20 @@ var appData = {
             "constellationID": "21000238",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "D364"
+            ]
         },
         "31001928": {
             "name": "J105441",
             "security": "-0.99",
             "constellationID": "21000238",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001929": {
             "name": "J124949",
@@ -49386,7 +56227,10 @@ var appData = {
             "constellationID": "21000238",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "D364"
+            ]
         },
         "31001930": {
             "name": "J130711",
@@ -49394,14 +56238,20 @@ var appData = {
             "constellationID": "21000238",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "D364"
+            ]
         },
         "31001931": {
             "name": "J131948",
             "security": "-0.99",
             "constellationID": "21000238",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001932": {
             "name": "J132814",
@@ -49409,14 +56259,20 @@ var appData = {
             "constellationID": "21000238",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "D364"
+            ]
         },
         "31001933": {
             "name": "J213734",
             "security": "-0.99",
             "constellationID": "21000238",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "D364"
+            ]
         },
         "31001934": {
             "name": "J140608",
@@ -49424,7 +56280,10 @@ var appData = {
             "constellationID": "21000239",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001935": {
             "name": "J212336",
@@ -49432,7 +56291,10 @@ var appData = {
             "constellationID": "21000239",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001936": {
             "name": "J104448",
@@ -49440,7 +56302,10 @@ var appData = {
             "constellationID": "21000239",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001937": {
             "name": "J164846",
@@ -49448,21 +56313,30 @@ var appData = {
             "constellationID": "21000239",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001938": {
             "name": "J161354",
             "security": "-0.99",
             "constellationID": "21000239",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001939": {
             "name": "J103959",
             "security": "-0.99",
             "constellationID": "21000239",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001940": {
             "name": "J114353",
@@ -49470,7 +56344,10 @@ var appData = {
             "constellationID": "21000239",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001941": {
             "name": "J171622",
@@ -49478,7 +56355,10 @@ var appData = {
             "constellationID": "21000239",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001942": {
             "name": "J143123",
@@ -49486,28 +56366,40 @@ var appData = {
             "constellationID": "21000239",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "Y790"
+            ]
         },
         "31001943": {
             "name": "J125023",
             "security": "-0.99",
             "constellationID": "21000240",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001944": {
             "name": "J122116",
             "security": "-0.99",
             "constellationID": "21000240",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001945": {
             "name": "J151718",
             "security": "-0.99",
             "constellationID": "21000240",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001946": {
             "name": "J153335",
@@ -49515,14 +56407,20 @@ var appData = {
             "constellationID": "21000240",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31001947": {
             "name": "J170122",
             "security": "-0.99",
             "constellationID": "21000240",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001948": {
             "name": "J150515",
@@ -49530,21 +56428,30 @@ var appData = {
             "constellationID": "21000240",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31001949": {
             "name": "J104216",
             "security": "-0.99",
             "constellationID": "21000240",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001950": {
             "name": "J111000",
             "security": "-0.99",
             "constellationID": "21000240",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001951": {
             "name": "J155600",
@@ -49552,7 +56459,10 @@ var appData = {
             "constellationID": "21000240",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31001952": {
             "name": "J132601",
@@ -49560,14 +56470,20 @@ var appData = {
             "constellationID": "21000241",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31001953": {
             "name": "J132258",
             "security": "-0.99",
             "constellationID": "21000241",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001954": {
             "name": "J221512",
@@ -49575,7 +56491,10 @@ var appData = {
             "constellationID": "21000241",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31001955": {
             "name": "J125853",
@@ -49583,14 +56502,20 @@ var appData = {
             "constellationID": "21000241",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31001956": {
             "name": "J141609",
             "security": "-0.99",
             "constellationID": "21000241",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001957": {
             "name": "J134096",
@@ -49598,14 +56523,20 @@ var appData = {
             "constellationID": "21000241",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31001958": {
             "name": "J121146",
             "security": "-0.99",
             "constellationID": "21000241",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001959": {
             "name": "J121649",
@@ -49613,21 +56544,30 @@ var appData = {
             "constellationID": "21000241",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31001960": {
             "name": "J135559",
             "security": "-0.99",
             "constellationID": "21000241",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001961": {
             "name": "J130735",
             "security": "-0.99",
             "constellationID": "21000242",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001962": {
             "name": "J144115",
@@ -49635,7 +56575,10 @@ var appData = {
             "constellationID": "21000242",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31001963": {
             "name": "J112241",
@@ -49643,7 +56586,10 @@ var appData = {
             "constellationID": "21000242",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31001964": {
             "name": "J141204",
@@ -49651,49 +56597,70 @@ var appData = {
             "constellationID": "21000242",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31001965": {
             "name": "J131401",
             "security": "-0.99",
             "constellationID": "21000242",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001966": {
             "name": "J170231",
             "security": "-0.99",
             "constellationID": "21000242",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001967": {
             "name": "J164430",
             "security": "-0.99",
             "constellationID": "21000242",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001968": {
             "name": "J143740",
             "security": "-0.99",
             "constellationID": "21000243",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001969": {
             "name": "J115517",
             "security": "-0.99",
             "constellationID": "21000243",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001970": {
             "name": "J230936",
             "security": "-0.99",
             "constellationID": "21000243",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001971": {
             "name": "J133525",
@@ -49701,35 +56668,50 @@ var appData = {
             "constellationID": "21000243",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31001972": {
             "name": "J215338",
             "security": "-0.99",
             "constellationID": "21000243",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001973": {
             "name": "J112003",
             "security": "-0.99",
             "constellationID": "21000243",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001974": {
             "name": "J214318",
             "security": "-0.99",
             "constellationID": "21000244",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001975": {
             "name": "J110938",
             "security": "-0.99",
             "constellationID": "21000244",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001976": {
             "name": "J103453",
@@ -49737,7 +56719,10 @@ var appData = {
             "constellationID": "21000244",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31001977": {
             "name": "J101000",
@@ -49745,14 +56730,20 @@ var appData = {
             "constellationID": "21000244",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31001978": {
             "name": "J110117",
             "security": "-0.99",
             "constellationID": "21000244",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001979": {
             "name": "J100328",
@@ -49760,21 +56751,30 @@ var appData = {
             "constellationID": "21000244",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31001980": {
             "name": "J155845",
             "security": "-0.99",
             "constellationID": "21000244",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001981": {
             "name": "J152703",
             "security": "-0.99",
             "constellationID": "21000244",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001982": {
             "name": "J110628",
@@ -49782,7 +56782,10 @@ var appData = {
             "constellationID": "21000244",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31001983": {
             "name": "J142438",
@@ -49790,21 +56793,30 @@ var appData = {
             "constellationID": "21000245",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31001984": {
             "name": "J153054",
             "security": "-0.99",
             "constellationID": "21000245",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001985": {
             "name": "J114019",
             "security": "-0.99",
             "constellationID": "21000245",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001986": {
             "name": "J233255",
@@ -49812,14 +56824,20 @@ var appData = {
             "constellationID": "21000245",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31001987": {
             "name": "J135046",
             "security": "-0.99",
             "constellationID": "21000245",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001988": {
             "name": "J145322",
@@ -49827,7 +56845,10 @@ var appData = {
             "constellationID": "21000245",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31001989": {
             "name": "J112844",
@@ -49835,7 +56856,10 @@ var appData = {
             "constellationID": "21000245",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H296"
+            ]
         },
         "31001990": {
             "name": "J120816",
@@ -49843,14 +56867,20 @@ var appData = {
             "constellationID": "21000245",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31001991": {
             "name": "J165340",
             "security": "-0.99",
             "constellationID": "21000246",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001992": {
             "name": "J124409",
@@ -49858,42 +56888,60 @@ var appData = {
             "constellationID": "21000246",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31001993": {
             "name": "J124733",
             "security": "-0.99",
             "constellationID": "21000246",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001994": {
             "name": "J173645",
             "security": "-0.99",
             "constellationID": "21000246",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001995": {
             "name": "J165743",
             "security": "-0.99",
             "constellationID": "21000246",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001996": {
             "name": "J171013",
             "security": "-0.99",
             "constellationID": "21000246",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001997": {
             "name": "J155905",
             "security": "-0.99",
             "constellationID": "21000246",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31001998": {
             "name": "J213055",
@@ -49901,7 +56949,10 @@ var appData = {
             "constellationID": "21000247",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31001999": {
             "name": "J212224",
@@ -49909,7 +56960,10 @@ var appData = {
             "constellationID": "21000247",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002000": {
             "name": "J234252",
@@ -49917,21 +56971,30 @@ var appData = {
             "constellationID": "21000247",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002001": {
             "name": "J150036",
             "security": "-0.99",
             "constellationID": "21000247",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002002": {
             "name": "J172431",
             "security": "-0.99",
             "constellationID": "21000247",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002003": {
             "name": "J114154",
@@ -49939,21 +57002,30 @@ var appData = {
             "constellationID": "21000247",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002004": {
             "name": "J115127",
             "security": "-0.99",
             "constellationID": "21000247",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002005": {
             "name": "J233658",
             "security": "-0.99",
             "constellationID": "21000247",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002006": {
             "name": "J114403",
@@ -49961,7 +57033,10 @@ var appData = {
             "constellationID": "21000247",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002007": {
             "name": "J165946",
@@ -49969,14 +57044,20 @@ var appData = {
             "constellationID": "21000248",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002008": {
             "name": "J124046",
             "security": "-0.99",
             "constellationID": "21000248",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002009": {
             "name": "J102736",
@@ -49984,42 +57065,60 @@ var appData = {
             "constellationID": "21000248",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002010": {
             "name": "J133252",
             "security": "-0.99",
             "constellationID": "21000248",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002011": {
             "name": "J140600",
             "security": "-0.99",
             "constellationID": "21000248",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002012": {
             "name": "J163701",
             "security": "-0.99",
             "constellationID": "21000248",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002013": {
             "name": "J115041",
             "security": "-0.99",
             "constellationID": "21000249",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002014": {
             "name": "J154726",
             "security": "-0.99",
             "constellationID": "21000249",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002015": {
             "name": "J123602",
@@ -50027,14 +57126,20 @@ var appData = {
             "constellationID": "21000249",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002016": {
             "name": "J100549",
             "security": "-0.99",
             "constellationID": "21000249",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002017": {
             "name": "J124100",
@@ -50042,28 +57147,40 @@ var appData = {
             "constellationID": "21000249",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002018": {
             "name": "J113701",
             "security": "-0.99",
             "constellationID": "21000249",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002019": {
             "name": "J164327",
             "security": "-0.99",
             "constellationID": "21000250",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002020": {
             "name": "J110018",
             "security": "-0.99",
             "constellationID": "21000250",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002021": {
             "name": "J164511",
@@ -50071,7 +57188,10 @@ var appData = {
             "constellationID": "21000250",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002022": {
             "name": "J130037",
@@ -50079,21 +57199,30 @@ var appData = {
             "constellationID": "21000250",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002023": {
             "name": "J101028",
             "security": "-0.99",
             "constellationID": "21000250",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002024": {
             "name": "J100858",
             "security": "-0.99",
             "constellationID": "21000250",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002025": {
             "name": "J151813",
@@ -50101,14 +57230,20 @@ var appData = {
             "constellationID": "21000250",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002026": {
             "name": "J113758",
             "security": "-0.99",
             "constellationID": "21000251",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002027": {
             "name": "J153802",
@@ -50116,7 +57251,10 @@ var appData = {
             "constellationID": "21000251",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002028": {
             "name": "J130401",
@@ -50124,14 +57262,20 @@ var appData = {
             "constellationID": "21000251",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002029": {
             "name": "J130241",
             "security": "-0.99",
             "constellationID": "21000251",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002030": {
             "name": "J232934",
@@ -50139,14 +57283,20 @@ var appData = {
             "constellationID": "21000251",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002031": {
             "name": "J213642",
             "security": "-0.99",
             "constellationID": "21000251",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002032": {
             "name": "J144107",
@@ -50154,7 +57304,10 @@ var appData = {
             "constellationID": "21000251",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002033": {
             "name": "J140336",
@@ -50162,14 +57315,20 @@ var appData = {
             "constellationID": "21000252",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002034": {
             "name": "J214712",
             "security": "-0.99",
             "constellationID": "21000252",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002035": {
             "name": "J170809",
@@ -50177,14 +57336,20 @@ var appData = {
             "constellationID": "21000252",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002036": {
             "name": "J220924",
             "security": "-0.99",
             "constellationID": "21000252",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002037": {
             "name": "J142624",
@@ -50192,21 +57357,30 @@ var appData = {
             "constellationID": "21000252",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002038": {
             "name": "J150306",
             "security": "-0.99",
             "constellationID": "21000252",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002039": {
             "name": "J100425",
             "security": "-0.99",
             "constellationID": "21000252",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002040": {
             "name": "J161745",
@@ -50214,35 +57388,50 @@ var appData = {
             "constellationID": "21000252",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002041": {
             "name": "J131718",
             "security": "-0.99",
             "constellationID": "21000253",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002042": {
             "name": "J151319",
             "security": "-0.99",
             "constellationID": "21000253",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002043": {
             "name": "J113059",
             "security": "-0.99",
             "constellationID": "21000253",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002044": {
             "name": "J142234",
             "security": "-0.99",
             "constellationID": "21000253",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002045": {
             "name": "J113636",
@@ -50250,7 +57439,10 @@ var appData = {
             "constellationID": "21000253",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002046": {
             "name": "J142858",
@@ -50258,7 +57450,10 @@ var appData = {
             "constellationID": "21000253",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002047": {
             "name": "J135540",
@@ -50266,14 +57461,20 @@ var appData = {
             "constellationID": "21000253",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002048": {
             "name": "J155739",
             "security": "-0.99",
             "constellationID": "21000254",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002049": {
             "name": "J132427",
@@ -50281,35 +57482,50 @@ var appData = {
             "constellationID": "21000254",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002050": {
             "name": "J114337",
             "security": "-0.99",
             "constellationID": "21000254",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002051": {
             "name": "J121842",
             "security": "-0.99",
             "constellationID": "21000254",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002052": {
             "name": "J100415",
             "security": "-0.99",
             "constellationID": "21000254",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002053": {
             "name": "J143057",
             "security": "-0.99",
             "constellationID": "21000254",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002054": {
             "name": "J165953",
@@ -50317,7 +57533,10 @@ var appData = {
             "constellationID": "21000254",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002055": {
             "name": "J102753",
@@ -50325,7 +57544,10 @@ var appData = {
             "constellationID": "21000255",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002056": {
             "name": "J221325",
@@ -50333,7 +57555,10 @@ var appData = {
             "constellationID": "21000255",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002057": {
             "name": "J114443",
@@ -50341,14 +57566,20 @@ var appData = {
             "constellationID": "21000255",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002058": {
             "name": "J125990",
             "security": "-0.99",
             "constellationID": "21000255",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002059": {
             "name": "J114518",
@@ -50356,7 +57587,10 @@ var appData = {
             "constellationID": "21000255",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002060": {
             "name": "J102623",
@@ -50364,14 +57598,20 @@ var appData = {
             "constellationID": "21000255",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002061": {
             "name": "J164900",
             "security": "-0.99",
             "constellationID": "21000256",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002062": {
             "name": "J122049",
@@ -50379,7 +57619,10 @@ var appData = {
             "constellationID": "21000256",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "V753"
+            ]
         },
         "31002063": {
             "name": "J154846",
@@ -50387,14 +57630,20 @@ var appData = {
             "constellationID": "21000256",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "V753"
+            ]
         },
         "31002064": {
             "name": "J115522",
             "security": "-0.99",
             "constellationID": "21000256",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002065": {
             "name": "J145844",
@@ -50402,21 +57651,30 @@ var appData = {
             "constellationID": "21000256",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V753"
+            ]
         },
         "31002066": {
             "name": "J121704",
             "security": "-0.99",
             "constellationID": "21000256",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002067": {
             "name": "J121959",
             "security": "-0.99",
             "constellationID": "21000256",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002068": {
             "name": "J105849",
@@ -50424,14 +57682,20 @@ var appData = {
             "constellationID": "21000256",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "V753"
+            ]
         },
         "31002069": {
             "name": "J122610",
             "security": "-0.99",
             "constellationID": "21000257",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002070": {
             "name": "J152912",
@@ -50439,14 +57703,20 @@ var appData = {
             "constellationID": "21000257",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "V753"
+            ]
         },
         "31002071": {
             "name": "J145359",
             "security": "-0.99",
             "constellationID": "21000257",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002072": {
             "name": "J154906",
@@ -50454,7 +57724,10 @@ var appData = {
             "constellationID": "21000257",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V753"
+            ]
         },
         "31002073": {
             "name": "J160547",
@@ -50462,7 +57735,10 @@ var appData = {
             "constellationID": "21000257",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V753"
+            ]
         },
         "31002074": {
             "name": "J111150",
@@ -50470,14 +57746,20 @@ var appData = {
             "constellationID": "21000257",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "V753"
+            ]
         },
         "31002075": {
             "name": "J111935",
             "security": "-0.99",
             "constellationID": "21000258",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002076": {
             "name": "J100237",
@@ -50485,14 +57767,20 @@ var appData = {
             "constellationID": "21000258",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "V753"
+            ]
         },
         "31002077": {
             "name": "J145735",
             "security": "-0.99",
             "constellationID": "21000258",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002078": {
             "name": "J103600",
@@ -50500,7 +57788,10 @@ var appData = {
             "constellationID": "21000258",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "V753"
+            ]
         },
         "31002079": {
             "name": "J211517",
@@ -50508,7 +57799,10 @@ var appData = {
             "constellationID": "21000258",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "V753"
+            ]
         },
         "31002080": {
             "name": "J131128",
@@ -50516,7 +57810,10 @@ var appData = {
             "constellationID": "21000258",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V753"
+            ]
         },
         "31002081": {
             "name": "J143107",
@@ -50524,7 +57821,10 @@ var appData = {
             "constellationID": "21000258",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "V753"
+            ]
         },
         "31002082": {
             "name": "J213125",
@@ -50532,7 +57832,10 @@ var appData = {
             "constellationID": "21000258",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "V753"
+            ]
         },
         "31002083": {
             "name": "J152325",
@@ -50540,7 +57843,10 @@ var appData = {
             "constellationID": "21000258",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V753"
+            ]
         },
         "31002084": {
             "name": "J114014",
@@ -50548,14 +57854,20 @@ var appData = {
             "constellationID": "21000259",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "V753"
+            ]
         },
         "31002085": {
             "name": "J215215",
             "security": "-0.99",
             "constellationID": "21000259",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002086": {
             "name": "J143718",
@@ -50563,7 +57875,10 @@ var appData = {
             "constellationID": "21000259",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "V753"
+            ]
         },
         "31002087": {
             "name": "J134141",
@@ -50571,14 +57886,20 @@ var appData = {
             "constellationID": "21000259",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V753"
+            ]
         },
         "31002088": {
             "name": "J114842",
             "security": "-0.99",
             "constellationID": "21000259",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002089": {
             "name": "J105504",
@@ -50586,7 +57907,10 @@ var appData = {
             "constellationID": "21000259",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "V753"
+            ]
         },
         "31002090": {
             "name": "J130302",
@@ -50594,14 +57918,20 @@ var appData = {
             "constellationID": "21000259",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V753"
+            ]
         },
         "31002091": {
             "name": "J170327",
             "security": "-0.99",
             "constellationID": "21000260",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002092": {
             "name": "J120823",
@@ -50609,7 +57939,10 @@ var appData = {
             "constellationID": "21000260",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V753"
+            ]
         },
         "31002093": {
             "name": "J153449",
@@ -50617,7 +57950,10 @@ var appData = {
             "constellationID": "21000260",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "V753"
+            ]
         },
         "31002094": {
             "name": "J164621",
@@ -50625,42 +57961,60 @@ var appData = {
             "constellationID": "21000260",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V753"
+            ]
         },
         "31002095": {
             "name": "J142631",
             "security": "-0.99",
             "constellationID": "21000260",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002096": {
             "name": "J134652",
             "security": "-0.99",
             "constellationID": "21000260",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002097": {
             "name": "J123628",
             "security": "-0.99",
             "constellationID": "21000260",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002098": {
             "name": "J130621",
             "security": "-0.99",
             "constellationID": "21000260",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002099": {
             "name": "J171158",
             "security": "-0.99",
             "constellationID": "21000261",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002100": {
             "name": "J163930",
@@ -50668,21 +58022,30 @@ var appData = {
             "constellationID": "21000261",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V753"
+            ]
         },
         "31002101": {
             "name": "J113907",
             "security": "-0.99",
             "constellationID": "21000261",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002102": {
             "name": "J164610",
             "security": "-0.99",
             "constellationID": "21000261",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002103": {
             "name": "J145512",
@@ -50690,14 +58053,20 @@ var appData = {
             "constellationID": "21000261",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V753"
+            ]
         },
         "31002104": {
             "name": "J133833",
             "security": "-0.99",
             "constellationID": "21000261",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002105": {
             "name": "J141250",
@@ -50705,7 +58074,10 @@ var appData = {
             "constellationID": "21000261",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "V753"
+            ]
         },
         "31002106": {
             "name": "J105623",
@@ -50713,14 +58085,20 @@ var appData = {
             "constellationID": "21000261",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V753"
+            ]
         },
         "31002107": {
             "name": "J120010",
             "security": "-0.99",
             "constellationID": "21000262",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002108": {
             "name": "J233630",
@@ -50728,7 +58106,10 @@ var appData = {
             "constellationID": "21000262",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "V753"
+            ]
         },
         "31002109": {
             "name": "J162007",
@@ -50736,28 +58117,40 @@ var appData = {
             "constellationID": "21000262",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "V753"
+            ]
         },
         "31002110": {
             "name": "J215124",
             "security": "-0.99",
             "constellationID": "21000262",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002111": {
             "name": "J141615",
             "security": "-0.99",
             "constellationID": "21000262",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002112": {
             "name": "J133222",
             "security": "-0.99",
             "constellationID": "21000262",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002113": {
             "name": "J105822",
@@ -50765,14 +58158,20 @@ var appData = {
             "constellationID": "21000262",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "V753"
+            ]
         },
         "31002114": {
             "name": "J171136",
             "security": "-0.99",
             "constellationID": "21000263",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002115": {
             "name": "J152111",
@@ -50780,7 +58179,10 @@ var appData = {
             "constellationID": "21000263",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "V753"
+            ]
         },
         "31002116": {
             "name": "J104846",
@@ -50788,14 +58190,20 @@ var appData = {
             "constellationID": "21000263",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "V753"
+            ]
         },
         "31002117": {
             "name": "J123440",
             "security": "-0.99",
             "constellationID": "21000263",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002118": {
             "name": "J121416",
@@ -50803,7 +58211,10 @@ var appData = {
             "constellationID": "21000263",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V753"
+            ]
         },
         "31002119": {
             "name": "J161635",
@@ -50811,14 +58222,20 @@ var appData = {
             "constellationID": "21000263",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "V753"
+            ]
         },
         "31002120": {
             "name": "J141043",
             "security": "-0.99",
             "constellationID": "21000264",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002121": {
             "name": "J163408",
@@ -50826,14 +58243,20 @@ var appData = {
             "constellationID": "21000264",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V753"
+            ]
         },
         "31002122": {
             "name": "J135204",
             "security": "-0.99",
             "constellationID": "21000264",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002123": {
             "name": "J133913",
@@ -50841,7 +58264,10 @@ var appData = {
             "constellationID": "21000264",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V753"
+            ]
         },
         "31002124": {
             "name": "J153447",
@@ -50849,14 +58275,20 @@ var appData = {
             "constellationID": "21000264",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V753"
+            ]
         },
         "31002125": {
             "name": "J145313",
             "security": "-0.99",
             "constellationID": "21000264",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002126": {
             "name": "J162753",
@@ -50864,7 +58296,10 @@ var appData = {
             "constellationID": "21000265",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "M267"
+            ]
         },
         "31002127": {
             "name": "J135301",
@@ -50872,7 +58307,10 @@ var appData = {
             "constellationID": "21000265",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "M267"
+            ]
         },
         "31002128": {
             "name": "J125254",
@@ -50880,7 +58318,10 @@ var appData = {
             "constellationID": "21000265",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "M267"
+            ]
         },
         "31002129": {
             "name": "J145320",
@@ -50888,28 +58329,40 @@ var appData = {
             "constellationID": "21000265",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "M267"
+            ]
         },
         "31002130": {
             "name": "J103116",
             "security": "-0.99",
             "constellationID": "21000265",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002131": {
             "name": "J120437",
             "security": "-0.99",
             "constellationID": "21000265",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002132": {
             "name": "J100252",
             "security": "-0.99",
             "constellationID": "21000265",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002133": {
             "name": "J153919",
@@ -50917,7 +58370,10 @@ var appData = {
             "constellationID": "21000265",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "M267"
+            ]
         },
         "31002134": {
             "name": "J115520",
@@ -50925,7 +58381,10 @@ var appData = {
             "constellationID": "21000266",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "M267"
+            ]
         },
         "31002135": {
             "name": "J100919",
@@ -50933,7 +58392,10 @@ var appData = {
             "constellationID": "21000266",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "M267"
+            ]
         },
         "31002136": {
             "name": "J115933",
@@ -50941,14 +58403,20 @@ var appData = {
             "constellationID": "21000266",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "M267"
+            ]
         },
         "31002137": {
             "name": "J133529",
             "security": "-0.99",
             "constellationID": "21000266",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002138": {
             "name": "J131549",
@@ -50956,70 +58424,100 @@ var appData = {
             "constellationID": "21000266",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "M267"
+            ]
         },
         "31002139": {
             "name": "J205517",
             "security": "-0.99",
             "constellationID": "21000266",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002140": {
             "name": "J220546",
             "security": "-0.99",
             "constellationID": "21000267",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002141": {
             "name": "J102853",
             "security": "-0.99",
             "constellationID": "21000267",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002142": {
             "name": "J115418",
             "security": "-0.99",
             "constellationID": "21000267",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002143": {
             "name": "J155040",
             "security": "-0.99",
             "constellationID": "21000267",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002144": {
             "name": "J172937",
             "security": "-0.99",
             "constellationID": "21000267",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002145": {
             "name": "J122757",
             "security": "-0.99",
             "constellationID": "21000267",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002146": {
             "name": "J100759",
             "security": "-0.99",
             "constellationID": "21000268",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002147": {
             "name": "J145416",
             "security": "-0.99",
             "constellationID": "21000268",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002148": {
             "name": "J152034",
@@ -51027,7 +58525,10 @@ var appData = {
             "constellationID": "21000268",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "M267"
+            ]
         },
         "31002149": {
             "name": "J125544",
@@ -51035,21 +58536,30 @@ var appData = {
             "constellationID": "21000268",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "M267"
+            ]
         },
         "31002150": {
             "name": "J123235",
             "security": "-0.99",
             "constellationID": "21000268",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002151": {
             "name": "J151204",
             "security": "-0.99",
             "constellationID": "21000268",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002152": {
             "name": "J104537",
@@ -51057,7 +58567,10 @@ var appData = {
             "constellationID": "21000268",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "M267"
+            ]
         },
         "31002153": {
             "name": "J162047",
@@ -51065,21 +58578,30 @@ var appData = {
             "constellationID": "21000268",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "M267"
+            ]
         },
         "31002154": {
             "name": "J140514",
             "security": "-0.99",
             "constellationID": "21000268",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002155": {
             "name": "J154152",
             "security": "-0.99",
             "constellationID": "21000269",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002156": {
             "name": "J143626",
@@ -51087,7 +58609,10 @@ var appData = {
             "constellationID": "21000269",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "M267"
+            ]
         },
         "31002157": {
             "name": "J161737",
@@ -51095,21 +58620,30 @@ var appData = {
             "constellationID": "21000269",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "M267"
+            ]
         },
         "31002158": {
             "name": "J142110",
             "security": "-0.99",
             "constellationID": "21000269",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002159": {
             "name": "J112042",
             "security": "-0.99",
             "constellationID": "21000269",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002160": {
             "name": "J105719",
@@ -51117,14 +58651,20 @@ var appData = {
             "constellationID": "21000269",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "M267"
+            ]
         },
         "31002161": {
             "name": "J101556",
             "security": "-0.99",
             "constellationID": "21000269",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002162": {
             "name": "J230047",
@@ -51132,7 +58672,10 @@ var appData = {
             "constellationID": "21000269",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "M267"
+            ]
         },
         "31002163": {
             "name": "J213226",
@@ -51140,14 +58683,20 @@ var appData = {
             "constellationID": "21000269",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "M267"
+            ]
         },
         "31002164": {
             "name": "J104218",
             "security": "-0.99",
             "constellationID": "21000270",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002165": {
             "name": "J115308",
@@ -51155,7 +58704,10 @@ var appData = {
             "constellationID": "21000270",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "M267"
+            ]
         },
         "31002166": {
             "name": "J140418",
@@ -51163,7 +58715,10 @@ var appData = {
             "constellationID": "21000270",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "M267"
+            ]
         },
         "31002167": {
             "name": "J101343",
@@ -51171,7 +58726,10 @@ var appData = {
             "constellationID": "21000270",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "M267"
+            ]
         },
         "31002168": {
             "name": "J105135",
@@ -51179,7 +58737,10 @@ var appData = {
             "constellationID": "21000270",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "M267"
+            ]
         },
         "31002169": {
             "name": "J111818",
@@ -51187,28 +58748,40 @@ var appData = {
             "constellationID": "21000270",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "M267"
+            ]
         },
         "31002170": {
             "name": "J110841",
             "security": "-0.99",
             "constellationID": "21000270",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002171": {
             "name": "J134024",
             "security": "-0.99",
             "constellationID": "21000271",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002172": {
             "name": "J142349",
             "security": "-0.99",
             "constellationID": "21000271",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002173": {
             "name": "J212203",
@@ -51216,7 +58789,10 @@ var appData = {
             "constellationID": "21000271",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "M267"
+            ]
         },
         "31002174": {
             "name": "J124942",
@@ -51224,7 +58800,10 @@ var appData = {
             "constellationID": "21000271",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "M267"
+            ]
         },
         "31002175": {
             "name": "J131747",
@@ -51232,7 +58811,10 @@ var appData = {
             "constellationID": "21000271",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "M267"
+            ]
         },
         "31002176": {
             "name": "J133553",
@@ -51240,35 +58822,50 @@ var appData = {
             "constellationID": "21000271",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "M267"
+            ]
         },
         "31002177": {
             "name": "J115422",
             "security": "-0.99",
             "constellationID": "21000271",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002178": {
             "name": "J103448",
             "security": "-0.99",
             "constellationID": "21000272",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002179": {
             "name": "J161301",
             "security": "-0.99",
             "constellationID": "21000272",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002180": {
             "name": "J130334",
             "security": "-0.99",
             "constellationID": "21000272",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002181": {
             "name": "J172125",
@@ -51276,7 +58873,10 @@ var appData = {
             "constellationID": "21000272",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "M267"
+            ]
         },
         "31002182": {
             "name": "J114537",
@@ -51284,14 +58884,20 @@ var appData = {
             "constellationID": "21000272",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "M267"
+            ]
         },
         "31002183": {
             "name": "J134440",
             "security": "-0.99",
             "constellationID": "21000272",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002184": {
             "name": "J101912",
@@ -51299,7 +58905,10 @@ var appData = {
             "constellationID": "21000272",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "M267"
+            ]
         },
         "31002185": {
             "name": "J214006",
@@ -51307,14 +58916,20 @@ var appData = {
             "constellationID": "21000272",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "M267"
+            ]
         },
         "31002186": {
             "name": "J235108",
             "security": "-0.99",
             "constellationID": "21000273",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002187": {
             "name": "J124538",
@@ -51322,7 +58937,10 @@ var appData = {
             "constellationID": "21000273",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "M267"
+            ]
         },
         "31002188": {
             "name": "J125641",
@@ -51330,14 +58948,20 @@ var appData = {
             "constellationID": "21000273",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "M267"
+            ]
         },
         "31002189": {
             "name": "J141728",
             "security": "-0.99",
             "constellationID": "21000273",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002190": {
             "name": "J100616",
@@ -51345,14 +58969,20 @@ var appData = {
             "constellationID": "21000273",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "M267"
+            ]
         },
         "31002191": {
             "name": "J204350",
             "security": "-0.99",
             "constellationID": "21000273",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002192": {
             "name": "J151300",
@@ -51360,21 +58990,30 @@ var appData = {
             "constellationID": "21000273",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "M267"
+            ]
         },
         "31002193": {
             "name": "J114041",
             "security": "-0.99",
             "constellationID": "21000273",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002194": {
             "name": "J115644",
             "security": "-0.99",
             "constellationID": "21000274",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002195": {
             "name": "J103328",
@@ -51382,7 +59021,10 @@ var appData = {
             "constellationID": "21000274",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002196": {
             "name": "J143127",
@@ -51390,21 +59032,30 @@ var appData = {
             "constellationID": "21000274",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002197": {
             "name": "J121459",
             "security": "-0.99",
             "constellationID": "21000274",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002198": {
             "name": "J114441",
             "security": "-0.99",
             "constellationID": "21000274",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002199": {
             "name": "J102345",
@@ -51412,21 +59063,30 @@ var appData = {
             "constellationID": "21000274",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002200": {
             "name": "J161609",
             "security": "-0.99",
             "constellationID": "21000274",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002201": {
             "name": "J131646",
             "security": "-0.99",
             "constellationID": "21000274",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002202": {
             "name": "J144543",
@@ -51434,49 +59094,70 @@ var appData = {
             "constellationID": "21000274",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002203": {
             "name": "J123658",
             "security": "-0.99",
             "constellationID": "21000275",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002204": {
             "name": "J121450",
             "security": "-0.99",
             "constellationID": "21000275",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002205": {
             "name": "J145753",
             "security": "-0.99",
             "constellationID": "21000275",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002206": {
             "name": "J130510",
             "security": "-0.99",
             "constellationID": "21000275",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002207": {
             "name": "J135402",
             "security": "-0.99",
             "constellationID": "21000275",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002208": {
             "name": "J165220",
             "security": "-0.99",
             "constellationID": "21000275",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002209": {
             "name": "J124152",
@@ -51484,7 +59165,10 @@ var appData = {
             "constellationID": "21000276",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002210": {
             "name": "J162349",
@@ -51492,7 +59176,10 @@ var appData = {
             "constellationID": "21000276",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002211": {
             "name": "J210750",
@@ -51500,7 +59187,10 @@ var appData = {
             "constellationID": "21000276",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002212": {
             "name": "J235305",
@@ -51508,7 +59198,10 @@ var appData = {
             "constellationID": "21000276",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002213": {
             "name": "J120546",
@@ -51516,7 +59209,10 @@ var appData = {
             "constellationID": "21000276",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002214": {
             "name": "J105059",
@@ -51524,21 +59220,30 @@ var appData = {
             "constellationID": "21000276",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002215": {
             "name": "J140249",
             "security": "-0.99",
             "constellationID": "21000277",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002216": {
             "name": "J154551",
             "security": "-0.99",
             "constellationID": "21000277",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002217": {
             "name": "J151530",
@@ -51546,14 +59251,20 @@ var appData = {
             "constellationID": "21000277",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002218": {
             "name": "J122520",
             "security": "-0.99",
             "constellationID": "21000277",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002219": {
             "name": "J151200",
@@ -51561,14 +59272,20 @@ var appData = {
             "constellationID": "21000277",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002220": {
             "name": "J143245",
             "security": "-0.99",
             "constellationID": "21000277",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002221": {
             "name": "J124722",
@@ -51576,7 +59293,10 @@ var appData = {
             "constellationID": "21000277",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002222": {
             "name": "J173506",
@@ -51584,7 +59304,10 @@ var appData = {
             "constellationID": "21000277",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002223": {
             "name": "J121747",
@@ -51592,7 +59315,10 @@ var appData = {
             "constellationID": "21000277",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002224": {
             "name": "J235456",
@@ -51600,7 +59326,10 @@ var appData = {
             "constellationID": "21000278",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002225": {
             "name": "J113712",
@@ -51608,7 +59337,10 @@ var appData = {
             "constellationID": "21000278",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002226": {
             "name": "J165940",
@@ -51616,28 +59348,40 @@ var appData = {
             "constellationID": "21000278",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002227": {
             "name": "J165520",
             "security": "-0.99",
             "constellationID": "21000278",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002228": {
             "name": "J135653",
             "security": "-0.99",
             "constellationID": "21000278",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002229": {
             "name": "J132946",
             "security": "-0.99",
             "constellationID": "21000278",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002230": {
             "name": "J134702",
@@ -51645,14 +59389,20 @@ var appData = {
             "constellationID": "21000279",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002231": {
             "name": "J111249",
             "security": "-0.99",
             "constellationID": "21000279",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002232": {
             "name": "J105607",
@@ -51660,14 +59410,20 @@ var appData = {
             "constellationID": "21000279",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002233": {
             "name": "J100551",
             "security": "-0.99",
             "constellationID": "21000279",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002234": {
             "name": "J140524",
@@ -51675,7 +59431,10 @@ var appData = {
             "constellationID": "21000279",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002235": {
             "name": "J234152",
@@ -51683,14 +59442,20 @@ var appData = {
             "constellationID": "21000279",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002236": {
             "name": "J164732",
             "security": "-0.99",
             "constellationID": "21000279",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002237": {
             "name": "J131505",
@@ -51698,14 +59463,20 @@ var appData = {
             "constellationID": "21000279",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002238": {
             "name": "J115405",
             "security": "-0.99",
             "constellationID": "21000280",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002239": {
             "name": "J215009",
@@ -51713,28 +59484,40 @@ var appData = {
             "constellationID": "21000280",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002240": {
             "name": "J161940",
             "security": "-0.99",
             "constellationID": "21000280",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002241": {
             "name": "J145825",
             "security": "-0.99",
             "constellationID": "21000280",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002242": {
             "name": "J132605",
             "security": "-0.99",
             "constellationID": "21000280",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002243": {
             "name": "J115907",
@@ -51742,14 +59525,20 @@ var appData = {
             "constellationID": "21000280",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002244": {
             "name": "J125634",
             "security": "-0.99",
             "constellationID": "21000281",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002245": {
             "name": "J110530",
@@ -51757,14 +59546,20 @@ var appData = {
             "constellationID": "21000281",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002246": {
             "name": "J100854",
             "security": "-0.99",
             "constellationID": "21000281",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002247": {
             "name": "J102053",
@@ -51772,35 +59567,50 @@ var appData = {
             "constellationID": "21000281",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002248": {
             "name": "J111518",
             "security": "-0.99",
             "constellationID": "21000281",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002249": {
             "name": "J145349",
             "security": "-0.99",
             "constellationID": "21000281",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002250": {
             "name": "J145846",
             "security": "-0.99",
             "constellationID": "21000281",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002251": {
             "name": "J215554",
             "security": "-0.99",
             "constellationID": "21000282",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002252": {
             "name": "J115950",
@@ -51808,14 +59618,20 @@ var appData = {
             "constellationID": "21000282",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002253": {
             "name": "J100109",
             "security": "-0.99",
             "constellationID": "21000282",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002254": {
             "name": "J161838",
@@ -51823,28 +59639,40 @@ var appData = {
             "constellationID": "21000282",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002255": {
             "name": "J173052",
             "security": "-0.99",
             "constellationID": "21000282",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002256": {
             "name": "J170807",
             "security": "-0.99",
             "constellationID": "21000282",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002257": {
             "name": "J105246",
             "security": "-0.99",
             "constellationID": "21000282",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002258": {
             "name": "J144944",
@@ -51852,14 +59680,20 @@ var appData = {
             "constellationID": "21000282",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002259": {
             "name": "J170930",
             "security": "-0.99",
             "constellationID": "21000283",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002260": {
             "name": "J130039",
@@ -51867,14 +59701,20 @@ var appData = {
             "constellationID": "21000283",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002261": {
             "name": "J103615",
             "security": "-0.99",
             "constellationID": "21000283",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002262": {
             "name": "J111227",
@@ -51882,7 +59722,10 @@ var appData = {
             "constellationID": "21000283",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002263": {
             "name": "J153222",
@@ -51890,7 +59733,10 @@ var appData = {
             "constellationID": "21000283",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002264": {
             "name": "J144434",
@@ -51898,14 +59744,20 @@ var appData = {
             "constellationID": "21000283",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002265": {
             "name": "J230842",
             "security": "-0.99",
             "constellationID": "21000283",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002266": {
             "name": "J172139",
@@ -51913,7 +59765,10 @@ var appData = {
             "constellationID": "21000283",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002267": {
             "name": "J232741",
@@ -51921,7 +59776,10 @@ var appData = {
             "constellationID": "21000284",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002268": {
             "name": "J110634",
@@ -51929,7 +59787,10 @@ var appData = {
             "constellationID": "21000284",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002269": {
             "name": "J124058",
@@ -51937,7 +59798,10 @@ var appData = {
             "constellationID": "21000284",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002270": {
             "name": "J123432",
@@ -51945,7 +59809,10 @@ var appData = {
             "constellationID": "21000284",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002271": {
             "name": "J151909",
@@ -51953,7 +59820,10 @@ var appData = {
             "constellationID": "21000284",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002272": {
             "name": "J145706",
@@ -51961,7 +59831,10 @@ var appData = {
             "constellationID": "21000284",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002273": {
             "name": "J230242",
@@ -51969,14 +59842,20 @@ var appData = {
             "constellationID": "21000284",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002274": {
             "name": "J172840",
             "security": "-0.99",
             "constellationID": "21000285",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002275": {
             "name": "J131450",
@@ -51984,21 +59863,30 @@ var appData = {
             "constellationID": "21000285",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002276": {
             "name": "J125101",
             "security": "-0.99",
             "constellationID": "21000285",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002277": {
             "name": "J142910",
             "security": "-0.99",
             "constellationID": "21000285",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002278": {
             "name": "J131142",
@@ -52006,7 +59894,10 @@ var appData = {
             "constellationID": "21000285",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002279": {
             "name": "J152827",
@@ -52014,14 +59905,20 @@ var appData = {
             "constellationID": "21000285",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "H296"
+            ]
         },
         "31002280": {
             "name": "J115901",
             "security": "-0.99",
             "constellationID": "21000285",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002281": {
             "name": "J114100",
@@ -52029,14 +59926,20 @@ var appData = {
             "constellationID": "21000285",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "H296"
+            ]
         },
         "31002282": {
             "name": "J162132",
             "security": "-0.99",
             "constellationID": "21000285",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002283": {
             "name": "J171722",
@@ -52044,35 +59947,50 @@ var appData = {
             "constellationID": "21000286",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002284": {
             "name": "J135554",
             "security": "-0.99",
             "constellationID": "21000286",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002285": {
             "name": "J214212",
             "security": "-0.99",
             "constellationID": "21000286",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002286": {
             "name": "J130305",
             "security": "-0.99",
             "constellationID": "21000286",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002287": {
             "name": "J111543",
             "security": "-0.99",
             "constellationID": "21000286",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002288": {
             "name": "J160623",
@@ -52080,7 +59998,10 @@ var appData = {
             "constellationID": "21000286",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002289": {
             "name": "J234722",
@@ -52088,7 +60009,10 @@ var appData = {
             "constellationID": "21000286",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002290": {
             "name": "J133513",
@@ -52096,14 +60020,20 @@ var appData = {
             "constellationID": "21000287",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "E175"
+            ]
         },
         "31002291": {
             "name": "J104704",
             "security": "-0.99",
             "constellationID": "21000287",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002292": {
             "name": "J120354",
@@ -52111,28 +60041,40 @@ var appData = {
             "constellationID": "21000287",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "E175"
+            ]
         },
         "31002293": {
             "name": "J165312",
             "security": "-0.99",
             "constellationID": "21000287",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002294": {
             "name": "J103812",
             "security": "-0.99",
             "constellationID": "21000287",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002295": {
             "name": "J143525",
             "security": "-0.99",
             "constellationID": "21000287",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002296": {
             "name": "J125716",
@@ -52140,7 +60082,10 @@ var appData = {
             "constellationID": "21000288",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002297": {
             "name": "J143845",
@@ -52148,7 +60093,10 @@ var appData = {
             "constellationID": "21000288",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "E175"
+            ]
         },
         "31002298": {
             "name": "J135626",
@@ -52156,7 +60104,10 @@ var appData = {
             "constellationID": "21000288",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "E175"
+            ]
         },
         "31002299": {
             "name": "J115905",
@@ -52164,7 +60115,10 @@ var appData = {
             "constellationID": "21000288",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002300": {
             "name": "J233917",
@@ -52172,21 +60126,30 @@ var appData = {
             "constellationID": "21000288",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002301": {
             "name": "J140343",
             "security": "-0.99",
             "constellationID": "21000288",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002302": {
             "name": "J114315",
             "security": "-0.99",
             "constellationID": "21000288",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002303": {
             "name": "J142653",
@@ -52194,14 +60157,20 @@ var appData = {
             "constellationID": "21000289",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E175"
+            ]
         },
         "31002304": {
             "name": "J132546",
             "security": "-0.99",
             "constellationID": "21000289",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002305": {
             "name": "J165205",
@@ -52209,14 +60178,20 @@ var appData = {
             "constellationID": "21000289",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "E175"
+            ]
         },
         "31002306": {
             "name": "J122518",
             "security": "-0.99",
             "constellationID": "21000289",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002307": {
             "name": "J153825",
@@ -52224,7 +60199,10 @@ var appData = {
             "constellationID": "21000289",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E175"
+            ]
         },
         "31002308": {
             "name": "J101435",
@@ -52232,14 +60210,20 @@ var appData = {
             "constellationID": "21000289",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "E175"
+            ]
         },
         "31002309": {
             "name": "J143819",
             "security": "-0.99",
             "constellationID": "21000289",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002310": {
             "name": "J170417",
@@ -52247,21 +60231,30 @@ var appData = {
             "constellationID": "21000289",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E175"
+            ]
         },
         "31002311": {
             "name": "J115727",
             "security": "-0.99",
             "constellationID": "21000289",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002312": {
             "name": "J115124",
             "security": "-0.99",
             "constellationID": "21000290",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002313": {
             "name": "J135533",
@@ -52269,14 +60262,20 @@ var appData = {
             "constellationID": "21000290",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "E175"
+            ]
         },
         "31002314": {
             "name": "J230745",
             "security": "-0.99",
             "constellationID": "21000290",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002315": {
             "name": "J112918",
@@ -52284,7 +60283,10 @@ var appData = {
             "constellationID": "21000290",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "E175"
+            ]
         },
         "31002316": {
             "name": "J111640",
@@ -52292,14 +60294,20 @@ var appData = {
             "constellationID": "21000290",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "E175"
+            ]
         },
         "31002317": {
             "name": "J231137",
             "security": "-0.99",
             "constellationID": "21000290",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002318": {
             "name": "J111613",
@@ -52307,14 +60315,20 @@ var appData = {
             "constellationID": "21000290",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "E175"
+            ]
         },
         "31002319": {
             "name": "J145131",
             "security": "-0.99",
             "constellationID": "21000290",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002320": {
             "name": "J111003",
@@ -52322,14 +60336,20 @@ var appData = {
             "constellationID": "21000291",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "E175"
+            ]
         },
         "31002321": {
             "name": "J131520",
             "security": "-0.99",
             "constellationID": "21000291",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002322": {
             "name": "J120922",
@@ -52337,7 +60357,10 @@ var appData = {
             "constellationID": "21000291",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E175"
+            ]
         },
         "31002323": {
             "name": "J142138",
@@ -52345,7 +60368,10 @@ var appData = {
             "constellationID": "21000291",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002324": {
             "name": "J153106",
@@ -52353,7 +60379,10 @@ var appData = {
             "constellationID": "21000291",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E175"
+            ]
         },
         "31002325": {
             "name": "J111939",
@@ -52361,28 +60390,40 @@ var appData = {
             "constellationID": "21000291",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "E175"
+            ]
         },
         "31002326": {
             "name": "J173550",
             "security": "-0.99",
             "constellationID": "21000291",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002327": {
             "name": "J145310",
             "security": "-0.99",
             "constellationID": "21000291",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002328": {
             "name": "J155928",
             "security": "-0.99",
             "constellationID": "21000291",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002329": {
             "name": "J234208",
@@ -52390,28 +60431,40 @@ var appData = {
             "constellationID": "21000292",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "E175"
+            ]
         },
         "31002330": {
             "name": "J105722",
             "security": "-0.99",
             "constellationID": "21000292",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002331": {
             "name": "J123546",
             "security": "-0.99",
             "constellationID": "21000292",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002332": {
             "name": "J210235",
             "security": "-0.99",
             "constellationID": "21000292",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002333": {
             "name": "J170736",
@@ -52419,21 +60472,30 @@ var appData = {
             "constellationID": "21000292",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E175"
+            ]
         },
         "31002334": {
             "name": "J170240",
             "security": "-0.99",
             "constellationID": "21000292",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002335": {
             "name": "J125532",
             "security": "-0.99",
             "constellationID": "21000292",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002336": {
             "name": "J133923",
@@ -52441,14 +60503,20 @@ var appData = {
             "constellationID": "21000292",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E175"
+            ]
         },
         "31002337": {
             "name": "J131509",
             "security": "-0.99",
             "constellationID": "21000292",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002338": {
             "name": "J210519",
@@ -52456,21 +60524,30 @@ var appData = {
             "constellationID": "21000293",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "E175"
+            ]
         },
         "31002339": {
             "name": "J233517",
             "security": "-0.99",
             "constellationID": "21000293",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002340": {
             "name": "J162612",
             "security": "-0.99",
             "constellationID": "21000293",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002341": {
             "name": "J123055",
@@ -52478,7 +60555,10 @@ var appData = {
             "constellationID": "21000293",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002342": {
             "name": "J212302",
@@ -52486,14 +60566,20 @@ var appData = {
             "constellationID": "21000293",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002343": {
             "name": "J102103",
             "security": "-0.99",
             "constellationID": "21000293",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002344": {
             "name": "J213956",
@@ -52501,14 +60587,20 @@ var appData = {
             "constellationID": "21000293",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "E175"
+            ]
         },
         "31002345": {
             "name": "J161944",
             "security": "-0.99",
             "constellationID": "21000293",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002346": {
             "name": "J135705",
@@ -52516,21 +60608,30 @@ var appData = {
             "constellationID": "21000294",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E175"
+            ]
         },
         "31002347": {
             "name": "J103215",
             "security": "-0.99",
             "constellationID": "21000294",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002348": {
             "name": "J141032",
             "security": "-0.99",
             "constellationID": "21000294",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002349": {
             "name": "J135306",
@@ -52538,7 +60639,10 @@ var appData = {
             "constellationID": "21000294",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E175"
+            ]
         },
         "31002350": {
             "name": "J155256",
@@ -52546,7 +60650,10 @@ var appData = {
             "constellationID": "21000294",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "E175"
+            ]
         },
         "31002351": {
             "name": "J162853",
@@ -52554,7 +60661,10 @@ var appData = {
             "constellationID": "21000294",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E175"
+            ]
         },
         "31002352": {
             "name": "J104809",
@@ -52562,7 +60672,10 @@ var appData = {
             "constellationID": "21000294",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "E175"
+            ]
         },
         "31002353": {
             "name": "J144454",
@@ -52570,14 +60683,20 @@ var appData = {
             "constellationID": "21000294",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "E175"
+            ]
         },
         "31002354": {
             "name": "J110759",
             "security": "-0.99",
             "constellationID": "21000295",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002355": {
             "name": "J215304",
@@ -52585,14 +60704,20 @@ var appData = {
             "constellationID": "21000295",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "E175"
+            ]
         },
         "31002356": {
             "name": "J110946",
             "security": "-0.99",
             "constellationID": "21000295",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002357": {
             "name": "J230221",
@@ -52600,21 +60725,30 @@ var appData = {
             "constellationID": "21000295",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "E175"
+            ]
         },
         "31002358": {
             "name": "J140133",
             "security": "-0.99",
             "constellationID": "21000295",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002359": {
             "name": "J105531",
             "security": "-0.99",
             "constellationID": "21000295",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002360": {
             "name": "J213502",
@@ -52622,14 +60756,20 @@ var appData = {
             "constellationID": "21000296",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "E175"
+            ]
         },
         "31002361": {
             "name": "J101647",
             "security": "-0.99",
             "constellationID": "21000296",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002362": {
             "name": "J133023",
@@ -52637,21 +60777,30 @@ var appData = {
             "constellationID": "21000296",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002363": {
             "name": "J164553",
             "security": "-0.99",
             "constellationID": "21000296",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002364": {
             "name": "J232959",
             "security": "-0.99",
             "constellationID": "21000296",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002365": {
             "name": "J152106",
@@ -52659,14 +60808,20 @@ var appData = {
             "constellationID": "21000296",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002366": {
             "name": "J142535",
             "security": "-0.99",
             "constellationID": "21000296",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002367": {
             "name": "J104859",
@@ -52674,14 +60829,20 @@ var appData = {
             "constellationID": "21000297",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "G024"
+            ]
         },
         "31002368": {
             "name": "J155838",
             "security": "-0.99",
             "constellationID": "21000297",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "G024"
+            ]
         },
         "31002369": {
             "name": "J164745",
@@ -52689,7 +60850,10 @@ var appData = {
             "constellationID": "21000297",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "G024"
+            ]
         },
         "31002370": {
             "name": "J135504",
@@ -52697,14 +60861,20 @@ var appData = {
             "constellationID": "21000297",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "G024"
+            ]
         },
         "31002371": {
             "name": "J115923",
             "security": "-0.99",
             "constellationID": "21000297",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "G024"
+            ]
         },
         "31002372": {
             "name": "J151325",
@@ -52712,7 +60882,10 @@ var appData = {
             "constellationID": "21000297",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "G024"
+            ]
         },
         "31002373": {
             "name": "J105705",
@@ -52720,35 +60893,50 @@ var appData = {
             "constellationID": "21000297",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "G024"
+            ]
         },
         "31002374": {
             "name": "J141434",
             "security": "-0.99",
             "constellationID": "21000298",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "W237"
+            ]
         },
         "31002375": {
             "name": "J115844",
             "security": "-0.99",
             "constellationID": "21000298",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "W237"
+            ]
         },
         "31002376": {
             "name": "J133906",
             "security": "-0.99",
             "constellationID": "21000298",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "W237"
+            ]
         },
         "31002377": {
             "name": "J115855",
             "security": "-0.99",
             "constellationID": "21000298",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "W237"
+            ]
         },
         "31002378": {
             "name": "J150020",
@@ -52756,21 +60944,30 @@ var appData = {
             "constellationID": "21000298",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "W237"
+            ]
         },
         "31002379": {
             "name": "J142528",
             "security": "-0.99",
             "constellationID": "21000298",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "W237"
+            ]
         },
         "31002380": {
             "name": "J130900",
             "security": "-0.99",
             "constellationID": "21000299",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002381": {
             "name": "J222045",
@@ -52778,7 +60975,10 @@ var appData = {
             "constellationID": "21000299",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002382": {
             "name": "J111450",
@@ -52786,7 +60986,10 @@ var appData = {
             "constellationID": "21000299",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V911"
+            ]
         },
         "31002383": {
             "name": "J103800",
@@ -52794,21 +60997,30 @@ var appData = {
             "constellationID": "21000299",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "V911"
+            ]
         },
         "31002384": {
             "name": "J144420",
             "security": "-0.99",
             "constellationID": "21000299",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002385": {
             "name": "J152550",
             "security": "-0.99",
             "constellationID": "21000299",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002386": {
             "name": "J114003",
@@ -52816,14 +61028,20 @@ var appData = {
             "constellationID": "21000299",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002387": {
             "name": "J143751",
             "security": "-0.99",
             "constellationID": "21000299",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002388": {
             "name": "J215930",
@@ -52831,7 +61049,10 @@ var appData = {
             "constellationID": "21000299",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "V911"
+            ]
         },
         "31002389": {
             "name": "J120512",
@@ -52839,14 +61060,20 @@ var appData = {
             "constellationID": "21000300",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "L477"
+            ]
         },
         "31002390": {
             "name": "J145939",
             "security": "-0.99",
             "constellationID": "21000300",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "L477"
+            ]
         },
         "31002391": {
             "name": "J135623",
@@ -52854,7 +61081,10 @@ var appData = {
             "constellationID": "21000300",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "L477"
+            ]
         },
         "31002392": {
             "name": "J111918",
@@ -52862,7 +61092,10 @@ var appData = {
             "constellationID": "21000300",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "L477"
+            ]
         },
         "31002393": {
             "name": "J162614",
@@ -52870,14 +61103,20 @@ var appData = {
             "constellationID": "21000300",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "L477"
+            ]
         },
         "31002394": {
             "name": "J104921",
             "security": "-0.99",
             "constellationID": "21000300",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "L477"
+            ]
         },
         "31002395": {
             "name": "J230049",
@@ -52885,14 +61124,20 @@ var appData = {
             "constellationID": "21000300",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "L477"
+            ]
         },
         "31002396": {
             "name": "J115935",
             "security": "-0.99",
             "constellationID": "21000300",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "L477"
+            ]
         },
         "31002397": {
             "name": "J151920",
@@ -52900,21 +61145,30 @@ var appData = {
             "constellationID": "21000301",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "Q317"
+            ]
         },
         "31002398": {
             "name": "J160855",
             "security": "-0.99",
             "constellationID": "21000301",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "Q317"
+            ]
         },
         "31002399": {
             "name": "J155311",
             "security": "-0.99",
             "constellationID": "21000301",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "Q317"
+            ]
         },
         "31002400": {
             "name": "J101553",
@@ -52922,7 +61176,10 @@ var appData = {
             "constellationID": "21000301",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "Q317"
+            ]
         },
         "31002401": {
             "name": "J110421",
@@ -52930,14 +61187,20 @@ var appData = {
             "constellationID": "21000301",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q317"
+            ]
         },
         "31002402": {
             "name": "J155207",
             "security": "-0.99",
             "constellationID": "21000301",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "Q317"
+            ]
         },
         "31002403": {
             "name": "J143200",
@@ -52945,14 +61208,20 @@ var appData = {
             "constellationID": "21000302",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002404": {
             "name": "J110834",
             "security": "-0.99",
             "constellationID": "21000302",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002405": {
             "name": "J142247",
@@ -52960,7 +61229,10 @@ var appData = {
             "constellationID": "21000302",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002406": {
             "name": "J112028",
@@ -52968,7 +61240,10 @@ var appData = {
             "constellationID": "21000302",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002407": {
             "name": "J111520",
@@ -52976,21 +61251,30 @@ var appData = {
             "constellationID": "21000302",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002408": {
             "name": "J161335",
             "security": "-0.99",
             "constellationID": "21000302",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002409": {
             "name": "J170118",
             "security": "-0.99",
             "constellationID": "21000302",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002410": {
             "name": "J160722",
@@ -52998,7 +61282,10 @@ var appData = {
             "constellationID": "21000302",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002411": {
             "name": "J124504",
@@ -53006,14 +61293,20 @@ var appData = {
             "constellationID": "21000303",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "W237"
+            ]
         },
         "31002412": {
             "name": "J212612",
             "security": "-0.99",
             "constellationID": "21000303",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "W237"
+            ]
         },
         "31002413": {
             "name": "J154829",
@@ -53021,14 +61314,20 @@ var appData = {
             "constellationID": "21000303",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "W237"
+            ]
         },
         "31002414": {
             "name": "J144436",
             "security": "-0.99",
             "constellationID": "21000303",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "W237"
+            ]
         },
         "31002415": {
             "name": "J165641",
@@ -53036,14 +61335,20 @@ var appData = {
             "constellationID": "21000303",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "W237"
+            ]
         },
         "31002416": {
             "name": "J145510",
             "security": "-0.99",
             "constellationID": "21000303",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "W237"
+            ]
         },
         "31002417": {
             "name": "J110810",
@@ -53051,14 +61356,20 @@ var appData = {
             "constellationID": "21000304",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "L477"
+            ]
         },
         "31002418": {
             "name": "J131916",
             "security": "-0.99",
             "constellationID": "21000304",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "L477"
+            ]
         },
         "31002419": {
             "name": "J120103",
@@ -53066,7 +61377,10 @@ var appData = {
             "constellationID": "21000304",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "L477"
+            ]
         },
         "31002420": {
             "name": "J171404",
@@ -53074,14 +61388,20 @@ var appData = {
             "constellationID": "21000304",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "L477"
+            ]
         },
         "31002421": {
             "name": "J104632",
             "security": "-0.99",
             "constellationID": "21000304",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "L477"
+            ]
         },
         "31002422": {
             "name": "J103400",
@@ -53089,7 +61409,10 @@ var appData = {
             "constellationID": "21000304",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "L477"
+            ]
         },
         "31002423": {
             "name": "J154021",
@@ -53097,7 +61420,10 @@ var appData = {
             "constellationID": "21000304",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "L477"
+            ]
         },
         "31002424": {
             "name": "J122249",
@@ -53105,7 +61431,10 @@ var appData = {
             "constellationID": "21000304",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "L477"
+            ]
         },
         "31002425": {
             "name": "J213753",
@@ -53113,28 +61442,40 @@ var appData = {
             "constellationID": "21000304",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "L477"
+            ]
         },
         "31002426": {
             "name": "J155650",
             "security": "-0.99",
             "constellationID": "21000305",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002427": {
             "name": "J152722",
             "security": "-0.99",
             "constellationID": "21000305",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002428": {
             "name": "J100501",
             "security": "-0.99",
             "constellationID": "21000305",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002429": {
             "name": "J140918",
@@ -53142,7 +61483,10 @@ var appData = {
             "constellationID": "21000305",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002430": {
             "name": "J103414",
@@ -53150,28 +61494,40 @@ var appData = {
             "constellationID": "21000305",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002431": {
             "name": "J223432",
             "security": "-0.99",
             "constellationID": "21000305",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002432": {
             "name": "J100409",
             "security": "-0.99",
             "constellationID": "21000305",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002433": {
             "name": "J141502",
             "security": "-0.99",
             "constellationID": "21000305",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002434": {
             "name": "J115008",
@@ -53179,14 +61535,20 @@ var appData = {
             "constellationID": "21000305",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "Z457"
+            ]
         },
         "31002435": {
             "name": "J112829",
             "security": "-0.99",
             "constellationID": "21000306",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002436": {
             "name": "J105801",
@@ -53194,7 +61556,10 @@ var appData = {
             "constellationID": "21000306",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002437": {
             "name": "J105023",
@@ -53202,7 +61567,10 @@ var appData = {
             "constellationID": "21000306",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "V911"
+            ]
         },
         "31002438": {
             "name": "J101652",
@@ -53210,7 +61578,10 @@ var appData = {
             "constellationID": "21000306",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "V911"
+            ]
         },
         "31002439": {
             "name": "J163225",
@@ -53218,7 +61589,10 @@ var appData = {
             "constellationID": "21000306",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002440": {
             "name": "J135220",
@@ -53226,7 +61600,10 @@ var appData = {
             "constellationID": "21000306",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V911"
+            ]
         },
         "31002441": {
             "name": "J114430",
@@ -53234,21 +61611,30 @@ var appData = {
             "constellationID": "21000306",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002442": {
             "name": "J103504",
             "security": "-0.99",
             "constellationID": "21000306",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002443": {
             "name": "J123940",
             "security": "-0.99",
             "constellationID": "21000307",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002444": {
             "name": "J104857",
@@ -53256,14 +61642,20 @@ var appData = {
             "constellationID": "21000307",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002445": {
             "name": "J112417",
             "security": "-0.99",
             "constellationID": "21000307",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002446": {
             "name": "J205141",
@@ -53271,21 +61663,30 @@ var appData = {
             "constellationID": "21000307",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002447": {
             "name": "J104037",
             "security": "-0.99",
             "constellationID": "21000307",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002448": {
             "name": "J144902",
             "security": "-0.99",
             "constellationID": "21000307",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002449": {
             "name": "J122818",
@@ -53293,7 +61694,10 @@ var appData = {
             "constellationID": "21000308",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002450": {
             "name": "J211353",
@@ -53301,14 +61705,20 @@ var appData = {
             "constellationID": "21000308",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "V911"
+            ]
         },
         "31002451": {
             "name": "J104136",
             "security": "-0.99",
             "constellationID": "21000308",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002452": {
             "name": "J172842",
@@ -53316,7 +61726,10 @@ var appData = {
             "constellationID": "21000308",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V911"
+            ]
         },
         "31002453": {
             "name": "J122452",
@@ -53324,7 +61737,10 @@ var appData = {
             "constellationID": "21000308",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002454": {
             "name": "J140200",
@@ -53332,21 +61748,30 @@ var appData = {
             "constellationID": "21000308",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002455": {
             "name": "J232246",
             "security": "-0.99",
             "constellationID": "21000308",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002456": {
             "name": "J101748",
             "security": "-0.99",
             "constellationID": "21000308",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002457": {
             "name": "J133241",
@@ -53354,7 +61779,10 @@ var appData = {
             "constellationID": "21000309",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V911"
+            ]
         },
         "31002458": {
             "name": "J151817",
@@ -53362,14 +61790,20 @@ var appData = {
             "constellationID": "21000309",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "V911"
+            ]
         },
         "31002459": {
             "name": "J124201",
             "security": "-0.99",
             "constellationID": "21000309",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002460": {
             "name": "J125111",
@@ -53377,7 +61811,10 @@ var appData = {
             "constellationID": "21000309",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002461": {
             "name": "J101755",
@@ -53385,14 +61822,20 @@ var appData = {
             "constellationID": "21000309",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "V911"
+            ]
         },
         "31002462": {
             "name": "J101708",
             "security": "-0.99",
             "constellationID": "21000309",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002463": {
             "name": "J135031",
@@ -53400,14 +61843,20 @@ var appData = {
             "constellationID": "21000309",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002464": {
             "name": "J152117",
             "security": "-0.99",
             "constellationID": "21000310",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002465": {
             "name": "J164701",
@@ -53415,7 +61864,10 @@ var appData = {
             "constellationID": "21000310",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "V911"
+            ]
         },
         "31002466": {
             "name": "J132106",
@@ -53423,7 +61875,10 @@ var appData = {
             "constellationID": "21000310",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002467": {
             "name": "J141319",
@@ -53431,35 +61886,50 @@ var appData = {
             "constellationID": "21000310",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "V911"
+            ]
         },
         "31002468": {
             "name": "J170845",
             "security": "-0.99",
             "constellationID": "21000310",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002469": {
             "name": "J161215",
             "security": "-0.99",
             "constellationID": "21000310",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002470": {
             "name": "J111447",
             "security": "-0.99",
             "constellationID": "21000310",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002471": {
             "name": "J222408",
             "security": "-0.99",
             "constellationID": "21000291",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002472": {
             "name": "J161747",
@@ -53467,7 +61937,10 @@ var appData = {
             "constellationID": "21000275",
             "regionID": "11000028",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "H296"
+            ]
         },
         "31002473": {
             "name": "J132328",
@@ -53475,14 +61948,20 @@ var appData = {
             "constellationID": "21000296",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002474": {
             "name": "J153217",
             "security": "-0.99",
             "constellationID": "21000307",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002475": {
             "name": "J142814",
@@ -53490,14 +61969,20 @@ var appData = {
             "constellationID": "21000292",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "E175"
+            ]
         },
         "31002476": {
             "name": "J101248",
             "security": "-0.99",
             "constellationID": "21000259",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002477": {
             "name": "J135825",
@@ -53505,42 +61990,60 @@ var appData = {
             "constellationID": "21000290",
             "regionID": "11000029",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "E175"
+            ]
         },
         "31002478": {
             "name": "J151838",
             "security": "-0.99",
             "constellationID": "21000299",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002479": {
             "name": "J100820",
             "security": "-0.99",
             "constellationID": "21000282",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002480": {
             "name": "J213344",
             "security": "-0.99",
             "constellationID": "21000296",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002481": {
             "name": "J103701",
             "security": "-0.99",
             "constellationID": "21000244",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002482": {
             "name": "J171246",
             "security": "-0.99",
             "constellationID": "21000254",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002483": {
             "name": "J170158",
@@ -53548,7 +62051,10 @@ var appData = {
             "constellationID": "21000238",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "D364"
+            ]
         },
         "31002484": {
             "name": "J230559",
@@ -53556,14 +62062,20 @@ var appData = {
             "constellationID": "21000307",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "V911"
+            ]
         },
         "31002485": {
             "name": "J145208",
             "security": "-0.99",
             "constellationID": "21000248",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002486": {
             "name": "J224721",
@@ -53571,7 +62083,10 @@ var appData = {
             "constellationID": "21000233",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "Y790"
+            ]
         },
         "31002487": {
             "name": "J105934",
@@ -53579,7 +62094,10 @@ var appData = {
             "constellationID": "21000298",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "W237"
+            ]
         },
         "31002488": {
             "name": "J130818",
@@ -53587,28 +62105,40 @@ var appData = {
             "constellationID": "21000245",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "H296"
+            ]
         },
         "31002489": {
             "name": "J140555",
             "security": "-0.99",
             "constellationID": "21000303",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "W237"
+            ]
         },
         "31002490": {
             "name": "J221356",
             "security": "-0.99",
             "constellationID": "21000265",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002491": {
             "name": "J111245",
             "security": "-0.99",
             "constellationID": "21000278",
             "regionID": "11000028",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002492": {
             "name": "J102834",
@@ -53616,21 +62146,30 @@ var appData = {
             "constellationID": "21000310",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "V911"
+            ]
         },
         "31002493": {
             "name": "J154509",
             "security": "-0.99",
             "constellationID": "21000261",
             "regionID": "11000026",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "V753"
+            ]
         },
         "31002494": {
             "name": "J234928",
             "security": "-0.99",
             "constellationID": "21000251",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002495": {
             "name": "J222604",
@@ -53638,7 +62177,10 @@ var appData = {
             "constellationID": "21000310",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "V911"
+            ]
         },
         "31002496": {
             "name": "J133011",
@@ -53646,21 +62188,30 @@ var appData = {
             "constellationID": "21000249",
             "regionID": "11000025",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "H296"
+            ]
         },
         "31002497": {
             "name": "J125245",
             "security": "-0.99",
             "constellationID": "21000290",
             "regionID": "11000029",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "E175"
+            ]
         },
         "31002498": {
             "name": "J145523",
             "security": "-0.99",
             "constellationID": "21000309",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "V911"
+            ]
         },
         "31002499": {
             "name": "J143605",
@@ -53668,14 +62219,20 @@ var appData = {
             "constellationID": "21000269",
             "regionID": "11000027",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "M267"
+            ]
         },
         "31002500": {
             "name": "J120750",
             "security": "-0.99",
             "constellationID": "21000239",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "Y790"
+            ]
         },
         "31002501": {
             "name": "J104617",
@@ -53683,7 +62240,10 @@ var appData = {
             "constellationID": "21000258",
             "regionID": "11000026",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V753"
+            ]
         },
         "31002502": {
             "name": "J125122",
@@ -53691,21 +62251,30 @@ var appData = {
             "constellationID": "21000299",
             "regionID": "11000030",
             "class": "6",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "V911"
+            ]
         },
         "31002503": {
             "name": "J114809",
             "security": "-0.99",
             "constellationID": "21000248",
             "regionID": "11000025",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "H296"
+            ]
         },
         "31002504": {
             "name": "J125657",
             "security": "-0.99",
             "constellationID": "21000268",
             "regionID": "11000027",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "M267"
+            ]
         },
         "31002505": {
             "name": "J015092",
@@ -53713,7 +62282,11 @@ var appData = {
             "constellationID": "21000325",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "N110",
+                "Z060"
+            ]
         },
         "31002506": {
             "name": "J005834",
@@ -53721,7 +62294,11 @@ var appData = {
             "constellationID": "21000325",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "N110",
+                "Z060"
+            ]
         },
         "31002507": {
             "name": "J012402",
@@ -53729,7 +62306,11 @@ var appData = {
             "constellationID": "21000325",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "N110",
+                "Z060"
+            ]
         },
         "31002508": {
             "name": "J005926",
@@ -53737,7 +62318,11 @@ var appData = {
             "constellationID": "21000325",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "N110",
+                "J244"
+            ]
         },
         "31002509": {
             "name": "J010569",
@@ -53745,42 +62330,66 @@ var appData = {
             "constellationID": "21000325",
             "regionID": "11000001",
             "class": "1",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "N110",
+                "J244"
+            ]
         },
         "31002510": {
             "name": "J012157",
             "security": "-0.99",
             "constellationID": "21000325",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244",
+                "Z060"
+            ]
         },
         "31002511": {
             "name": "J002757",
             "security": "-0.99",
             "constellationID": "21000325",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110",
+                "Z060"
+            ]
         },
         "31002512": {
             "name": "J004791",
             "security": "-0.99",
             "constellationID": "21000325",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110",
+                "J244"
+            ]
         },
         "31002513": {
             "name": "J004317",
             "security": "-0.99",
             "constellationID": "21000325",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "N110",
+                "J244"
+            ]
         },
         "31002514": {
             "name": "J002216",
             "security": "-0.99",
             "constellationID": "21000325",
             "regionID": "11000001",
-            "class": "1"
+            "class": "1",
+            "statics": [
+                "J244",
+                "Z060"
+            ]
         },
         "31002515": {
             "name": "J005482",
@@ -53788,7 +62397,12 @@ var appData = {
             "constellationID": "21000326",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "B274",
+                "A239",
+                "Z647"
+            ]
         },
         "31002516": {
             "name": "J005900",
@@ -53796,7 +62410,12 @@ var appData = {
             "constellationID": "21000326",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "A239",
+                "E545",
+                "Y683"
+            ]
         },
         "31002517": {
             "name": "J013070",
@@ -53804,7 +62423,12 @@ var appData = {
             "constellationID": "21000326",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "A239",
+                "E545",
+                "R474"
+            ]
         },
         "31002518": {
             "name": "J001057",
@@ -53812,7 +62436,12 @@ var appData = {
             "constellationID": "21000326",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "B274",
+                "E545",
+                "D382"
+            ]
         },
         "31002519": {
             "name": "J011321",
@@ -53820,56 +62449,95 @@ var appData = {
             "constellationID": "21000326",
             "regionID": "11000004",
             "class": "2",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "B274",
+                "E545",
+                "Y683"
+            ]
         },
         "31002520": {
             "name": "J013123",
             "security": "-0.99",
             "constellationID": "21000326",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "A239",
+                "D382"
+            ]
         },
         "31002521": {
             "name": "J012735",
             "security": "-0.99",
             "constellationID": "21000326",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "E545",
+                "O477"
+            ]
         },
         "31002522": {
             "name": "J012635",
             "security": "-0.99",
             "constellationID": "21000326",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "A239"
+            ]
         },
         "31002523": {
             "name": "J010000",
             "security": "-0.99",
             "constellationID": "21000326",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "Z647",
+                "D382"
+            ]
         },
         "31002524": {
             "name": "J001890",
             "security": "-0.99",
             "constellationID": "21000326",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "B274",
+                "A239",
+                "Z647"
+            ]
         },
         "31002525": {
             "name": "J002964",
             "security": "-0.99",
             "constellationID": "21000326",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "E545",
+                "N062"
+            ]
         },
         "31002526": {
             "name": "J004686",
             "security": "-0.99",
             "constellationID": "21000326",
             "regionID": "11000004",
-            "class": "2"
+            "class": "2",
+            "statics": [
+                "A239",
+                "E545",
+                "O477"
+            ]
         },
         "31002527": {
             "name": "J011563",
@@ -53877,7 +62545,11 @@ var appData = {
             "constellationID": "21000327",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "D845",
+                "U210"
+            ]
         },
         "31002528": {
             "name": "J001348",
@@ -53885,7 +62557,11 @@ var appData = {
             "constellationID": "21000327",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "D845",
+                "U210"
+            ]
         },
         "31002529": {
             "name": "J002838",
@@ -53893,7 +62569,11 @@ var appData = {
             "constellationID": "21000327",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210",
+                "K346"
+            ]
         },
         "31002530": {
             "name": "J001670",
@@ -53901,7 +62581,11 @@ var appData = {
             "constellationID": "21000327",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210",
+                "K346"
+            ]
         },
         "31002531": {
             "name": "J014348",
@@ -53909,49 +62593,77 @@ var appData = {
             "constellationID": "21000327",
             "regionID": "11000009",
             "class": "3",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "D845",
+                "U210"
+            ]
         },
         "31002532": {
             "name": "J003789",
             "security": "-0.99",
             "constellationID": "21000327",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845",
+                "U210"
+            ]
         },
         "31002533": {
             "name": "J012794",
             "security": "-0.99",
             "constellationID": "21000327",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210",
+                "K346"
+            ]
         },
         "31002534": {
             "name": "J005923",
             "security": "-0.99",
             "constellationID": "21000327",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210",
+                "K346"
+            ]
         },
         "31002535": {
             "name": "J001398",
             "security": "-0.99",
             "constellationID": "21000327",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210",
+                "K346"
+            ]
         },
         "31002536": {
             "name": "J011339",
             "security": "-0.99",
             "constellationID": "21000327",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "D845",
+                "U210"
+            ]
         },
         "31002537": {
             "name": "J004283",
             "security": "-0.99",
             "constellationID": "21000327",
             "regionID": "11000009",
-            "class": "3"
+            "class": "3",
+            "statics": [
+                "U210",
+                "K346"
+            ]
         },
         "31002538": {
             "name": "J002625",
@@ -53959,7 +62671,12 @@ var appData = {
             "constellationID": "21000328",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210",
+                "C247",
+                "X877"
+            ]
         },
         "31002539": {
             "name": "J004470",
@@ -53967,7 +62684,12 @@ var appData = {
             "constellationID": "21000328",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "U210",
+                "C247",
+                "X877"
+            ]
         },
         "31002540": {
             "name": "J011824",
@@ -53975,7 +62697,12 @@ var appData = {
             "constellationID": "21000328",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "K346",
+                "C247",
+                "X877"
+            ]
         },
         "31002541": {
             "name": "J010247",
@@ -53983,7 +62710,12 @@ var appData = {
             "constellationID": "21000328",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "U210",
+                "N766",
+                "X877"
+            ]
         },
         "31002542": {
             "name": "J002423",
@@ -53991,7 +62723,12 @@ var appData = {
             "constellationID": "21000328",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "D845",
+                "P060",
+                "N766"
+            ]
         },
         "31002543": {
             "name": "J001302",
@@ -53999,7 +62736,12 @@ var appData = {
             "constellationID": "21000328",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "K346",
+                "H900",
+                "U574"
+            ]
         },
         "31002544": {
             "name": "J010556",
@@ -54007,7 +62749,12 @@ var appData = {
             "constellationID": "21000328",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "D845",
+                "P060",
+                "N766"
+            ]
         },
         "31002545": {
             "name": "J011778",
@@ -54015,7 +62762,12 @@ var appData = {
             "constellationID": "21000328",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "D845",
+                "P060",
+                "C247"
+            ]
         },
         "31002546": {
             "name": "J005259",
@@ -54023,7 +62775,12 @@ var appData = {
             "constellationID": "21000328",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "D845",
+                "C247",
+                "X877"
+            ]
         },
         "31002547": {
             "name": "J005969",
@@ -54031,7 +62788,12 @@ var appData = {
             "constellationID": "21000328",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "K346",
+                "H900",
+                "U574"
+            ]
         },
         "31002548": {
             "name": "J001769",
@@ -54039,7 +62801,12 @@ var appData = {
             "constellationID": "21000328",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "K346",
+                "X877",
+                "H900"
+            ]
         },
         "31002549": {
             "name": "J004150",
@@ -54047,49 +62814,83 @@ var appData = {
             "constellationID": "21000328",
             "regionID": "11000016",
             "class": "4",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "D845",
+                "N766",
+                "C247"
+            ]
         },
         "31002550": {
             "name": "J005872",
             "security": "-0.99",
             "constellationID": "21000328",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U210",
+                "P060",
+                "C247"
+            ]
         },
         "31002551": {
             "name": "J011376",
             "security": "-0.99",
             "constellationID": "21000328",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U210",
+                "X877",
+                "H900"
+            ]
         },
         "31002552": {
             "name": "J005299",
             "security": "-0.99",
             "constellationID": "21000328",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "K346",
+                "C247",
+                "H900"
+            ]
         },
         "31002553": {
             "name": "J011355",
             "security": "-0.99",
             "constellationID": "21000328",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "C247",
+                "X877"
+            ]
         },
         "31002554": {
             "name": "J011195",
             "security": "-0.99",
             "constellationID": "21000328",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U210",
+                "X877",
+                "H900"
+            ]
         },
         "31002555": {
             "name": "J005280",
             "security": "-0.99",
             "constellationID": "21000328",
             "regionID": "11000016",
-            "class": "4"
+            "class": "4",
+            "statics": [
+                "U210",
+                "C247",
+                "X877"
+            ]
         },
         "31002556": {
             "name": "J010811",
@@ -54097,7 +62898,11 @@ var appData = {
             "constellationID": "21000329",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "K346",
+                "V753"
+            ]
         },
         "31002557": {
             "name": "J001694",
@@ -54105,7 +62910,11 @@ var appData = {
             "constellationID": "21000329",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Black Hole"
+            "effect": "Black Hole",
+            "statics": [
+                "K346",
+                "H296"
+            ]
         },
         "31002558": {
             "name": "J003941",
@@ -54113,7 +62922,11 @@ var appData = {
             "constellationID": "21000329",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "K346",
+                "H296"
+            ]
         },
         "31002559": {
             "name": "J011790",
@@ -54121,7 +62934,11 @@ var appData = {
             "constellationID": "21000329",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Cataclysmic Variable"
+            "effect": "Cataclysmic Variable",
+            "statics": [
+                "K346",
+                "M267"
+            ]
         },
         "31002560": {
             "name": "J013146",
@@ -54129,7 +62946,11 @@ var appData = {
             "constellationID": "21000329",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "K346",
+                "H296"
+            ]
         },
         "31002561": {
             "name": "J004998",
@@ -54137,7 +62958,11 @@ var appData = {
             "constellationID": "21000329",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Magnetar"
+            "effect": "Magnetar",
+            "statics": [
+                "U210",
+                "H296"
+            ]
         },
         "31002562": {
             "name": "J003382",
@@ -54145,7 +62970,11 @@ var appData = {
             "constellationID": "21000329",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210",
+                "D364"
+            ]
         },
         "31002563": {
             "name": "J003546",
@@ -54153,7 +62982,11 @@ var appData = {
             "constellationID": "21000329",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Pulsar"
+            "effect": "Pulsar",
+            "statics": [
+                "U210",
+                "M267"
+            ]
         },
         "31002564": {
             "name": "J001820",
@@ -54161,7 +62994,11 @@ var appData = {
             "constellationID": "21000329",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210",
+                "H296"
+            ]
         },
         "31002565": {
             "name": "J012578",
@@ -54169,7 +63006,11 @@ var appData = {
             "constellationID": "21000329",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Red Giant"
+            "effect": "Red Giant",
+            "statics": [
+                "U210",
+                "H296"
+            ]
         },
         "31002566": {
             "name": "J012773",
@@ -54177,7 +63018,11 @@ var appData = {
             "constellationID": "21000329",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "K346",
+                "E175"
+            ]
         },
         "31002567": {
             "name": "J005223",
@@ -54185,91 +63030,142 @@ var appData = {
             "constellationID": "21000329",
             "regionID": "11000024",
             "class": "5",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "U210",
+                "E175"
+            ]
         },
         "31002568": {
             "name": "J005663",
             "security": "-0.99",
             "constellationID": "21000329",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "U210"
+            ]
         },
         "31002569": {
             "name": "J003793",
             "security": "-0.99",
             "constellationID": "21000329",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "K346",
+                "E175"
+            ]
         },
         "31002570": {
             "name": "J004128",
             "security": "-0.99",
             "constellationID": "21000329",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "U210",
+                "H296"
+            ]
         },
         "31002571": {
             "name": "J005070",
             "security": "-0.99",
             "constellationID": "21000329",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "K346",
+                "V753"
+            ]
         },
         "31002572": {
             "name": "J001025",
             "security": "-0.99",
             "constellationID": "21000329",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "U210",
+                "M267"
+            ]
         },
         "31002573": {
             "name": "J005724",
             "security": "-0.99",
             "constellationID": "21000329",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "K346",
+                "H296"
+            ]
         },
         "31002574": {
             "name": "J004921",
             "security": "-0.99",
             "constellationID": "21000329",
             "regionID": "11000024",
-            "class": "5"
+            "class": "5",
+            "statics": [
+                "K346",
+                "H296"
+            ]
         },
         "31002575": {
             "name": "J012686",
             "security": "-0.99",
             "constellationID": "21000330",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "K346",
+                "V911"
+            ]
         },
         "31002576": {
             "name": "J010366",
             "security": "-0.99",
             "constellationID": "21000330",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "K346",
+                "W237"
+            ]
         },
         "31002577": {
             "name": "J012475",
             "security": "-0.99",
             "constellationID": "21000330",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "K346",
+                "V911"
+            ]
         },
         "31002578": {
             "name": "J015227",
             "security": "-0.99",
             "constellationID": "21000330",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "K346",
+                "W237"
+            ]
         },
         "31002579": {
             "name": "J010951",
             "security": "-0.99",
             "constellationID": "21000330",
             "regionID": "11000030",
-            "class": "6"
+            "class": "6",
+            "statics": [
+                "K346",
+                "V911"
+            ]
         },
         "31002580": {
             "name": "J000895",
@@ -54277,7 +63173,11 @@ var appData = {
             "constellationID": "21000331",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "C008"
+            ]
         },
         "31002581": {
             "name": "J000487",
@@ -54285,7 +63185,12 @@ var appData = {
             "constellationID": "21000331",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "Z006",
+                "C008"
+            ]
         },
         "31002582": {
             "name": "J000621",
@@ -54293,7 +63198,11 @@ var appData = {
             "constellationID": "21000331",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "L005"
+            ]
         },
         "31002583": {
             "name": "J000551",
@@ -54301,7 +63210,11 @@ var appData = {
             "constellationID": "21000331",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "E004"
+            ]
         },
         "31002584": {
             "name": "J000630",
@@ -54309,7 +63222,12 @@ var appData = {
             "constellationID": "21000332",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "E004",
+                "M001"
+            ]
         },
         "31002585": {
             "name": "J000452",
@@ -54317,7 +63235,12 @@ var appData = {
             "constellationID": "21000332",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "Z006",
+                "M001"
+            ]
         },
         "31002586": {
             "name": "J000327",
@@ -54325,7 +63248,12 @@ var appData = {
             "constellationID": "21000332",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "L005",
+                "C008"
+            ]
         },
         "31002587": {
             "name": "J000186",
@@ -54333,7 +63261,12 @@ var appData = {
             "constellationID": "21000332",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "L005",
+                "C008"
+            ]
         },
         "31002588": {
             "name": "J000528",
@@ -54341,7 +63274,12 @@ var appData = {
             "constellationID": "21000332",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "Z006",
+                "M001"
+            ]
         },
         "31002589": {
             "name": "J000353",
@@ -54349,7 +63287,12 @@ var appData = {
             "constellationID": "21000332",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "L005",
+                "M001"
+            ]
         },
         "31002590": {
             "name": "J000461",
@@ -54357,7 +63300,11 @@ var appData = {
             "constellationID": "21000332",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "Z006"
+            ]
         },
         "31002591": {
             "name": "J000522",
@@ -54365,7 +63312,12 @@ var appData = {
             "constellationID": "21000332",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "L005",
+                "Z006"
+            ]
         },
         "31002592": {
             "name": "J000965",
@@ -54373,7 +63325,11 @@ var appData = {
             "constellationID": "21000332",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "Z006"
+            ]
         },
         "31002593": {
             "name": "J000304",
@@ -54381,7 +63337,12 @@ var appData = {
             "constellationID": "21000332",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "M001",
+                "C008"
+            ]
         },
         "31002594": {
             "name": "J000595",
@@ -54389,7 +63350,12 @@ var appData = {
             "constellationID": "21000332",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "L005",
+                "C008"
+            ]
         },
         "31002595": {
             "name": "J000685",
@@ -54397,7 +63363,11 @@ var appData = {
             "constellationID": "21000333",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "M001"
+            ]
         },
         "31002596": {
             "name": "J000844",
@@ -54405,7 +63375,11 @@ var appData = {
             "constellationID": "21000333",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "L005"
+            ]
         },
         "31002597": {
             "name": "J000719",
@@ -54413,7 +63387,11 @@ var appData = {
             "constellationID": "21000333",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "M001"
+            ]
         },
         "31002598": {
             "name": "J000726",
@@ -54421,7 +63399,11 @@ var appData = {
             "constellationID": "21000333",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "E004"
+            ]
         },
         "31002599": {
             "name": "J000214",
@@ -54429,7 +63411,11 @@ var appData = {
             "constellationID": "21000333",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "C008"
+            ]
         },
         "31002600": {
             "name": "J000652",
@@ -54437,7 +63423,11 @@ var appData = {
             "constellationID": "21000333",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "G008"
+            ]
         },
         "31002601": {
             "name": "J000313",
@@ -54445,7 +63435,11 @@ var appData = {
             "constellationID": "21000333",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "C008"
+            ]
         },
         "31002602": {
             "name": "J000687",
@@ -54453,7 +63447,11 @@ var appData = {
             "constellationID": "21000333",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "E004"
+            ]
         },
         "31002603": {
             "name": "J000427",
@@ -54461,7 +63459,11 @@ var appData = {
             "constellationID": "21000333",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "Z006"
+            ]
         },
         "31002604": {
             "name": "J000102",
@@ -54469,7 +63471,11 @@ var appData = {
             "constellationID": "21000333",
             "regionID": "11000032",
             "class": "13",
-            "effect": "Wolf-Rayet Star"
+            "effect": "Wolf-Rayet Star",
+            "statics": [
+                "Q003",
+                "Z006"
+            ]
         },
         "32000001": {
             "name": "AD001",
