@@ -2,9 +2,9 @@ const assert = require('assert');
 const { include, fakeAjax } = require('../helpers/helpers');
 
 fakeAjax();
-//include('app/js/map-data-suppliers/eve-scout');
-include('app/js/map-data-suppliers/old-thera');
-const eveScout = thera;
+include('app/js/map-data-suppliers/eve-scout');
+//include('app/js/map-data-suppliers/old-thera');
+//const eveScout = thera;
 
 describe('EvE-Scout data', () => {
 	describe('Thera', () => { 
@@ -24,35 +24,35 @@ describe('EvE-Scout data', () => {
 		it('Links from Thera', () => {			
 			const result = eveScout.findLinks(31000005, ids);
 			assert.deepEqual( result, [{
-			  "id": "T-135",
+			  "id": "ES-135",
 			  "life": "critical",
 			  "mass": "stable",
 			  "parent": {
 				"id": 100,
-				"signatureID": "IFN",
+				"signatureID": "IFN-322",
 				"systemID": 31000005,
-				"type": "T458"
+				"type": "K162"
 			  },
 			  "child": {
 				"id": 200,
-				"signatureID": "TVK",
+				"signatureID": "TVK-336",
 				"systemID": 30003880,
-				"type": "K162",
+				"type": "T458",
 			  }
 			},
 			{
-			  "id": "T-136",
+			  "id": "ES-136",
 			  "life": "stable",
 			  "mass": "stable",
 			  "parent": {
 				"id": 100,
-				"signatureID": "CVD",
+				"signatureID": "AOX-264",
 				"systemID": 31000005,
 				"type": "V898"
 			  },
 			  "child": {
 				"id": 201,
-				"signatureID": "AOX",
+				"signatureID": "CVD-320",
 				"systemID": 30003486,
 				"type": "K162",
 			  }
@@ -62,24 +62,45 @@ describe('EvE-Scout data', () => {
 		it('Links from system with hole to Thera', () => {			
 			const result = eveScout.findLinks(30003880, ids);
 			assert.deepEqual( result, [{
-			  "id": "T-135",
+			  "id": "ES-135",
 			  "life": "critical",
 			  "mass": "stable",
 			  "child": {
 				"id": 200,
-				"signatureID": "IFN",
+				"signatureID": "IFN-322",
 				"systemID": 31000005,
-				"type": "T458"
+				"type": "K162"
 			  },
 			  "parent": {
 				"id": 100,
-				"signatureID": "TVK",
+				"signatureID": "TVK-336",
 				"systemID": 30003880,
-				"type": "K162",
+				"type": "T458",
 			  }
 			}], 'sigs');
 			assert.deepEqual(ids, { parentID: 100, nextChildID: 201 }, 'ids' );
 		});		
+		it('Links from system with hole from Thera', () => {			
+			const result = eveScout.findLinks(30003486, ids);
+			assert.deepEqual( result, [{
+			  "id": "ES-136",
+			  "life": "stable",
+			  "mass": "stable",
+			  "child": {
+				"id": 200,
+				"signatureID": "AOX-264",
+				"systemID": 31000005,
+				"type": "V898"
+			  },
+			  "parent": {
+				"id": 100,
+				"signatureID": "CVD-320",
+				"systemID": 30003486,
+				"type": "K162",
+			  }
+			}], 'sigs');
+			assert.deepEqual(ids, { parentID: 100, nextChildID: 201 }, 'ids' );
+		});	
 	});
 });
 	

@@ -16,43 +16,42 @@ function _EveScoutSignatureConnection() {
 		
 		const r = [];
 		for(var ti = 0; ti < this.links.length; ti++) {
-			var theraNode;
-			const theraLink = this.links[ti];
-			const theraID = 'T-' + theraLink.id;
+			const eveScoutLink = this.links[ti];
+			const eveScoutID = 'ES-' + eveScoutLink.id;
 			
 			const nodeDefaults = {
-				life: theraLink.wormholeEol,
-				mass: theraLink.wormholeMass,
-				id: theraID,
+				life: eveScoutLink.remaining_hours >= 4 ? 'stable' : 'critical',
+				mass: 'stable',	// they no longer attempt to track mass
+				id: eveScoutID,
 			};
 			
-			if(theraLink.solarSystemId == systemID) {	// Connection from this hole
+			if(eveScoutLink.out_system_id == systemID) {	// Connection from this hole
 				r.push(Object.assign({
 					
 					parent: {
 						id: ids.parentID,
 						systemID: systemID,
-						signatureID: theraLink.wormholeDestinationSignatureId,
-						type: theraLink.sourceWormholeType.name,
+						signatureID: eveScoutLink.out_signature,
+						type: eveScoutLink.wh_exits_outward ? eveScoutLink.wh_type : 'K162'
 					},	child: {
 						id: ids.nextChildID++,
-						systemID: theraLink.wormholeDestinationSolarSystemId,
-						signatureID: theraLink.signatureId,
-						type: theraLink.destinationWormholeType.name,								
+						systemID: eveScoutLink.in_system_id,
+						signatureID: eveScoutLink.in_signature,
+						type: eveScoutLink.wh_exits_outward ? 'K162' : eveScoutLink.wh_type
 					}
 				}, nodeDefaults));
-			} else if(theraLink.wormholeDestinationSolarSystemId == systemID) { // Connection to this hole
+			} else if(eveScoutLink.in_system_id == systemID) { // Connection to this hole
 				r.push(Object.assign({
 					parent: {
 						id: ids.parentID,
 						systemID: systemID,
-						signatureID: theraLink.signatureId,
-						type: theraLink.destinationWormholeType.name,
+						signatureID: eveScoutLink.in_signature,
+						type: eveScoutLink.wh_exits_outward ? 'K162' : eveScoutLink.wh_type
 					},	child: {
 						id: ids.nextChildID++,
-						systemID: theraLink.solarSystemId,
-						signatureID: theraLink.wormholeDestinationSignatureId,
-						type: theraLink.sourceWormholeType.name,								
+						systemID: eveScoutLink.out_system_id,
+						signatureID: eveScoutLink.out_signature,
+						type: eveScoutLink.wh_exits_outward ? eveScoutLink.wh_type : 'K162'
 					}
 				}, nodeDefaults));				
 			}
