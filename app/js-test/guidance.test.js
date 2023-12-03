@@ -5,7 +5,9 @@ include('app/js/guidance');
 include('app/js/guidance_profiles');
 include('app/js/systemAnalysis');
 
-options = { chain: { routeIgnore: { enabled: false } } };
+beforeEach(() => {
+	options = { chain: { routeIgnore: { enabled: false } } };
+});
 
 afterEach(() => {
 	guidance.jumpCostModifiers = [];

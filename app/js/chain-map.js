@@ -2,6 +2,9 @@ var chain = new function() {
 	var chain = this;
 	this.map, this.view, this.drawing, this.data = {};
 	
+	// Third party suppliers should have:
+	//  findLinks(systemId, ids) - Find links from the given system coming from the third party. ids contain a parent and a child ID; the child ID should be incremented for every new connection
+	
 	thirdPartySuppliers = [ /*thera*/ ];
 
 	// Renderer should have:
