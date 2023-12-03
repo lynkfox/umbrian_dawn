@@ -31,12 +31,12 @@ function _EveScoutSignatureConnection() {
 					parent: {
 						id: ids.parentID,
 						systemID: systemID,
-						signatureID: eveScoutLink.out_signature,
+						signatureID: eveScoutLink.in_signature,
 						type: eveScoutLink.wh_exits_outward ? eveScoutLink.wh_type : 'K162'
 					},	child: {
 						id: ids.nextChildID++,
 						systemID: eveScoutLink.in_system_id,
-						signatureID: eveScoutLink.in_signature,
+						signatureID: eveScoutLink.out_signature,
 						type: eveScoutLink.wh_exits_outward ? 'K162' : eveScoutLink.wh_type
 					}
 				}, nodeDefaults));
@@ -45,12 +45,12 @@ function _EveScoutSignatureConnection() {
 					parent: {
 						id: ids.parentID,
 						systemID: systemID,
-						signatureID: eveScoutLink.in_signature,
+						signatureID: eveScoutLink.out_signature,
 						type: eveScoutLink.wh_exits_outward ? 'K162' : eveScoutLink.wh_type
 					},	child: {
 						id: ids.nextChildID++,
 						systemID: eveScoutLink.out_system_id,
-						signatureID: eveScoutLink.out_signature,
+						signatureID: eveScoutLink.in_signature,
 						type: eveScoutLink.wh_exits_outward ? eveScoutLink.wh_type : 'K162'
 					}
 				}, nodeDefaults));				
@@ -82,5 +82,5 @@ function _EveScoutSignatureConnection() {
 	};
 	
 	setInterval(this.refresh, 60000);
-	this.refresh();
+	setTimeout(this.refresh, 0);
 }

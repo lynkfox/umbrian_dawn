@@ -5,7 +5,7 @@ var chain = new function() {
 	// Third party suppliers should have:
 	//  findLinks(systemId, ids) - Find links from the given system coming from the third party. ids contain a parent and a child ID; the child ID should be incremented for every new connection
 	
-	thirdPartySuppliers = [ /*thera*/ ];
+	thirdPartySuppliers = [ eveScout ];
 
 	// Renderer should have:
 	//  ready() - Whether the renderer is initialised and can accept draw calls

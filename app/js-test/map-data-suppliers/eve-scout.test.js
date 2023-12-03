@@ -29,13 +29,13 @@ describe('EvE-Scout data', () => {
 			  "mass": "stable",
 			  "parent": {
 				"id": 100,
-				"signatureID": "IFN-322",
+				"signatureID": "TVK-336",
 				"systemID": 31000005,
 				"type": "K162"
 			  },
 			  "child": {
 				"id": 200,
-				"signatureID": "TVK-336",
+				"signatureID": "IFN-322",
 				"systemID": 30003880,
 				"type": "T458",
 			  }
@@ -46,13 +46,13 @@ describe('EvE-Scout data', () => {
 			  "mass": "stable",
 			  "parent": {
 				"id": 100,
-				"signatureID": "AOX-264",
+				"signatureID": "CVD-320",
 				"systemID": 31000005,
 				"type": "V898"
 			  },
 			  "child": {
 				"id": 201,
-				"signatureID": "CVD-320",
+				"signatureID": "AOX-264",
 				"systemID": 30003486,
 				"type": "K162",
 			  }
@@ -67,13 +67,13 @@ describe('EvE-Scout data', () => {
 			  "mass": "stable",
 			  "child": {
 				"id": 200,
-				"signatureID": "IFN-322",
+				"signatureID": "TVK-336",
 				"systemID": 31000005,
 				"type": "K162"
 			  },
 			  "parent": {
 				"id": 100,
-				"signatureID": "TVK-336",
+				"signatureID": "IFN-322",
 				"systemID": 30003880,
 				"type": "T458",
 			  }
@@ -88,13 +88,13 @@ describe('EvE-Scout data', () => {
 			  "mass": "stable",
 			  "child": {
 				"id": 200,
-				"signatureID": "AOX-264",
+				"signatureID": "CVD-320",
 				"systemID": 31000005,
 				"type": "V898"
 			  },
 			  "parent": {
 				"id": 100,
-				"signatureID": "CVD-320",
+				"signatureID": "AOX-264",
 				"systemID": 30003486,
 				"type": "K162",
 			  }
