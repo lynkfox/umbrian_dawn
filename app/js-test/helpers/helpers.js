@@ -12,22 +12,42 @@ function include(f) {
 	]);
 }
 
-/** Fake out a call to $.ajax with static data from the given source */
+/** Fake out a call to $.ajax with static data from the given source.
+Can call with no arguments to set up the $.ajax infrastructure.
+The action in done() will be dispatched synchronously to simplify testing */
 function fakeAjax(url, responseFile) {
 	let responseData = null; 
-	if(responseFile) {
+	if(url || responseFile) {
+		console.debug('faking URL ' + url);
 		responseData = fs.readFileSync(responseFile).toString();
 		if(responseFile.endsWith('.json')) { responseData = JSON.parse(responseData); }
 		if(!responseData) { throw "couldn't read " + responseFile; }
+		fakeAjaxRequestMap[url] = responseData;
 	}
+	
+	// Create a fake $.ajax that will look up previously faked requests
 	if(!global.$) { global.$ = {}; }
-	const requestBuilder = {};
-	requestBuilder.done = f => {
-			f(responseData);
-			return requestBuilder;
+	if(!$.ajax) {
+		const requestBuilder = {};
+		let fakeRequestUrl;
+		requestBuilder.done = f => {
+				if(fakeAjaxRequestMap[fakeRequestUrl] !== undefined) {
+					f(fakeAjaxRequestMap[fakeRequestUrl]);
+				}
+				return requestBuilder;
+			};
+		requestBuilder.fail = f => {
+			if(fakeAjaxRequestMap[fakeRequestUrl] === undefined) {
+				f(null, 404, 'Unfaked request ' + fakeRequestUrl);
+			}
 		};
-	requestBuilder.fail = () => {};
-	$.ajax = data => requestBuilder;		
+		$.ajax = data => {
+			fakeRequestUrl = data.url;
+			console.debug('intercepting URL ' + data.url);
+			return requestBuilder;
+		}
+	}
 }
+const fakeAjaxRequestMap = {};
 
 module.exports = { include, fakeAjax };
