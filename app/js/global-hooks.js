@@ -28,6 +28,14 @@ $("body").on("click", "#redo:not(.disabled)", function() {
 	tripwire.redo();
 });
 
+// Bind class=copy to copy the text of the previous element
+$(".copy").on('click', function(e) {
+	e.preventDefault();
+	const source = e.target.previousElementSibling;
+	if(source) { navigator.clipboard.writeText(source.innerText); }
+	else { console.warn('Copy event couldn\'t find a source', e); }
+});
+
 // Chain map zooming (Gets funky if you push things too far)
 $("#chainParent").on("mousewheel", function(e) {
 	if(!e.ctrlKey) { return; }
