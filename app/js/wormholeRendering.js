@@ -1,5 +1,5 @@
 /** Functions for rendering things relating to wormholes */
-wormholeRendering = new function() { 
+const wormholeRendering = new function() { 
 	/** Render a wormhole type (from appData.wormholes).
 	* @param type The type object e.g. appData.wormholes.B274
 	* @param key The wormhole type e.g. 'B274'
@@ -9,17 +9,20 @@ wormholeRendering = new function() {
 	this.renderWormholeType = function(type, key, from, target) {
 		return ((key || type.key) ? '<b>' + (key || type.key || '') + '</b>: ' : '') +
 			formatEndTypes(type.from, from) + '➔' + formatEndTypes(type.leadsTo, target) +
-			(type.jump ? ' (' + (type.jump / 1e6) + 'kt)' : '')
+			(type.jump ? ' (' + this.renderMass(type.jump) + ')' : '')
 			;
 	};
+	
+	/** Render a mass number. */
+	this.renderMass = function(mass) { return (mass / 1e6) + 'kt'; }
 	
 	function formatEndTypes(types, override) {
 		if(!types) { return '?'; }
 		types = Array.isArray(types) ? types : [ types ];
 		
 		if(override) {
-			const overrideID = override && Object.index(appData.systems, "name", override, true) || override;	// look up real system ID first
-			const overrideSystem = override && systemAnalysis.analyse(overrideID);
+			const overrideSystem = override.name ? override :
+				systemAnalysis.analyse(Object.index(appData.systems, "name", override, true) || override);	// look up real system ID first
 			
 			const eligibleTypes = types.filter(function(type) {
 				return overrideSystem.name == type || overrideSystem.genericSystemType == type;

@@ -227,6 +227,9 @@ i.closeIcon:hover {
 	color: darkorange;
 }
 
+#activityGraph { padding-top: 8px; }
+#activityGraphControls { padding-bottom: 8px; }
+
 #activityGraph svg > g:nth-child(3) > g > path {
 	fill: rgba(10, 10, 10, 0.6);
 	stroke: rgba(40, 40, 40, 0.8);

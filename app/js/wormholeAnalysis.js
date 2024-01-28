@@ -1,4 +1,4 @@
-wormholeAnalysis = new function() {
+const wormholeAnalysis = new function() {
 	/** Finds the ID for a target system or system type for the given system name text and wormhole type.
 	@param systemText The name of a system, or a system class from appData.genericSystemTypes, e.g. 'Low-Sec'
 	@param wormholeType The type text of a wormhole e.g. 'U210'
@@ -42,9 +42,38 @@ wormholeAnalysis = new function() {
 		}
 		Object.entries(dataSource || appData.wormholes).forEach(function(e) {
 			const wt = e[1], key = e[0];
-			if(matches(wt.from, wt.notFrom, source) && matches(wt.leadsTo, wt.notLeadsTo, target)) { from.push(Object.assign( { key: key}, wt)); }
-			if(matches(wt.from, wt.notFrom, target) && matches(wt.leadsTo, wt.notLeadsTo, source)) { to.push(Object.assign( { key: key}, wt)); }
+			if(matches(wt.from, wt.notFrom, source) && matches(wt.leadsTo, wt.notLeadsTo, target)) { from.push(objAndKey(wt, key)); }
+			if(matches(wt.from, wt.notFrom, target) && matches(wt.leadsTo, wt.notLeadsTo, source)) { to.push(objAndKey(wt, key)); }
 		});
 		return { from: from, to: to };
+	}
+	
+	function objAndKey(o, k) { return o && Object.assign({key: k}, o); }
+	
+	/** Placeholder wormholes which don't have an exact known type, but still provide some information */
+	this.dummyWormholes = {
+		"GATE": { from: [ "Null-Sec", "Low-Sec", "High-Sec", "Triglavian"], leadsTo: [ "Null-Sec", "Low-Sec", "High-Sec", "Triglavian"] },
+		"SML": { "jump": 5000000 },
+		"MED": { "jump": 62000000 },
+		"LRG": { "jump": 375000000 },
+		"XLG": { "jump": 2000000000 }
+	};
+	
+	/** Get the wormhole type object from the type names for a sig pair. One of the types is probably K162 */
+	this.wormholeFromTypePair = function(type1, type2) {
+		return appData.wormholes[type1] || appData.wormholes[type2] ||
+			this.dummyWormholes[type1] || this.dummyWormholes[type2] ||
+			undefined;	// we don't know anything
+	}
+	
+	this.likelyWormhole = function(system1, system2) {
+		const class1 = systemAnalysis.analyse(system1).class,
+			class2 = systemAnalysis.analyse(system2).class;
+		return this.dummyWormholes[
+			class1 == 13 || class2 == 13 ? 'SML' :
+			class1 == 1 || class2 == 1 ? 'MED' :
+			class1 >= 5 && class2 >= 5 ? 'XLG' :
+			'LRG'
+		];
 	}
 }

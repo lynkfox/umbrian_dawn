@@ -92,7 +92,7 @@ tripwire.systemChange = function(systemID, mode) {
                     break;
             }
 
-            $("#infoStatics").append("<div><span class='"+ color +"'>&#9679;</span> <b class='"+ color +"'>"+ wormhole.leadsTo +"</b> via <span>"+ wormholeRendering.renderWormholeType(wormhole, type, system.genericSystemType) +"</span></div>");
+            $("#infoStatics").append("<div><span class='"+ color +"'>&#9679;</span> <b class='"+ color +"'>"+ wormhole.leadsTo +"</b> via <span>"+ wormholeRendering.renderWormholeType(wormhole, type, system) +"</span></div>");
         }
 
         // Faction
@@ -103,12 +103,21 @@ tripwire.systemChange = function(systemID, mode) {
        $("#infoSecurity").addClass(system.systemTypeClass).html(securityText + " " + system.baseSecurity.toFixed(2) + system.systemTypeModifiers.join(' '));
 
         // Faction
-        $("#infoFaction").html(system.factionID ? tripwire.factions[system.factionID].name : "&nbsp;");
+        if(fw) { $("#infoFaction").html(fw.factionMarkup(system)); }
+		
+		// Gates
+		const connections = guidance.connections(tripwire.map.shortest, viewingSystemID);
+		if(connections.length) {
+			$('#infoStatics').append('<p><b>Gates</b>: ' + connections.map(c => {
+				const system = systemAnalysis.analyse(c.systemID);
+				return c.closed ? '<s>' + system.name + '</s> (closed)' : systemRendering.renderSystem(system); 
+			}).join(', ') + '</p>');
+		}
 		
 		// Route to favourites
 		for (var fi in options.favorites) {
 			const f = options.favorites[fi];
-			const path = guidance.findShortestPath(tripwire.map.shortest, f - 30000000, viewingSystemID - 30000000);
+			const path = guidance.findShortestPath(tripwire.map.shortest, f, viewingSystemID);
 			if(path) { $('#infoStatics').append('<p><b><a href=".?system=' + tripwire.systems[f].name + '">' +tripwire.systems[f].name + '</a></b>: ' + systemRendering.renderPath(path) + '</p>'); }
 		}
     }
@@ -131,4 +140,5 @@ tripwire.systemChange = function(systemID, mode) {
     // Reset delete signature icon
     $("#sigTable tr.selected").length == 0 ? $("#signaturesWidget #delete-signature").addClass("disabled") : $("#signaturesWidget #delete-signature").removeClass("disabled");
 }
-tripwire.systemChange(viewingSystemID, "init");
+
+setTimeout(() => tripwire.systemChange(viewingSystemID, "init"), 0);

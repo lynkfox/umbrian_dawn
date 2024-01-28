@@ -34,7 +34,7 @@ if(isset($_REQUEST['map'])) {
 	}
 
 	if ($file = fopen(dirname(__FILE__).'/map.json', 'w')) {
-		fwrite($file, json_encode(array('shortest' => $shortest)));
+		fwrite($file, json_encode(array('shortest' => $shortest), JSON_PRETTY_PRINT));
 		fclose($file);
 	}
 }
@@ -46,7 +46,7 @@ if(isset($_REQUEST['mass'])) {
 
 	$mass = $stmt->fetchAll(PDO::FETCH_UNIQUE | PDO::FETCH_ASSOC);
 	if ($file = fopen(dirname(__FILE__).'/mass.json', 'w')) {
-		fwrite($file, json_encode($mass));
+		fwrite($file, json_encode($mass, JSON_PRETTY_PRINT));
 		fclose($file);
 	}
 }
@@ -102,7 +102,7 @@ if (isset($_REQUEST['combine'])) {
 		$output['mass'] = json_decode(file_get_contents(dirname(__FILE__).'/mass.json'));
 
 		fwrite($file, 'var appData = ');
-		fwrite($file, json_encode($output));
+		fwrite($file, json_encode($output, JSON_PRETTY_PRINT));
 		fclose($file);
 	}
 }

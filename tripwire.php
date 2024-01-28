@@ -59,7 +59,7 @@ $system = $_REQUEST['system'];
 		</span>
 		<span class="align-right">
 			<span id="login">
-				<h3><a id="user" href=""><?= $_SESSION['characterName'] ?></a></h3>
+				<h3><a id="user" href=""><span id="user-no-track"><?= $_SESSION['characterName'] ?></span><span id="user-track" style="display:none"><i data-icon="follow" data-tooltip="Tracking"></i><span id="user-track-name">...</span></span></a></h3>
 				<div id="panel">
 					<div id="content">
 						<div id="triangle"></div>
@@ -161,14 +161,12 @@ $system = $_REQUEST['system'];
 					<br clear="all"/>
 					<div id="activityGraph"></div>
 					<div id="activityGraphControls" style="text-align: center;"><a href="javascript: activity.time(168);">Week</a> - <a href="javascript: activity.time(48);">48Hour</a> - <a href="javascript: activity.time(24);">24Hour</a></div>
-					<div id="infoStatics" class="pointer" style="float: left; width: 50%; text-align: left;"></div>
-					<div id="infoLinks" style="float: right; width: 50%; text-align: right;">
-						<!-- <a class="infoLink" data-href='http://wh.pasta.gg/$systemName' href="" target="_blank">wormhol.es</a><br/> -->
-						<a class="infoLink" data-href="http://anoik.is/systems/$systemName" href="" target="_blank">Anoik.is</a><br/>
-						<a class="infoLink" data-href="http://evemaps.dotlan.net/search?q=$systemName" href="" target="_blank">dotlan</a><br/>
-						<!--<a class="infoLink" style="float: right;" data-href='http://eve-kill.net/?a=system_detail&sys_name=$systemName' href="" target="_blank">Eve-kill.net&nbsp;&nbsp;</a>-->
+					<div id="infoLinks" style="text-align: center;">
+						<a class="infoLink" data-href="http://anoik.is/systems/$systemName" href="" target="_blank">Anoik.is</a> - 
+						<a class="infoLink" data-href="https://evemaps.dotlan.net/search?q=$systemName" href="" target="_blank">dotlan</a> - 
 						<a class="infoLink" data-href='https://zkillboard.com/system/$systemID/' href="" target="_blank">zKillboard</a>
 					</div>
+					<div id="infoStatics" class="pointer"></div>
 				</div>
 			</li>
 			<li id="signaturesWidget" class="gridWidget" data-row="1" data-col="8" data-sizex="7" data-sizey="6" data-min-sizex="5" data-min-sizey="2" style="width: 410px; height: 350px;">
@@ -246,7 +244,13 @@ $system = $_REQUEST['system'];
 					<span>|</span>
 					<i id="show-viewing" data-icon="eye" data-tooltip="Add viewing system to chain"></i>
 					<i id="show-favorite" data-icon="star" data-tooltip="Add favorite systems to chain"></i>
-					<i id="show-chainLegend" data-icon="tree" data-tooltip="<table id='guide'><tr><td><div class='guide stable'></td><td>Stable</td></tr><tr><td><div class='guide eol'></div></td><td>End of Life</td></tr><tr><td><div class='guide destab'></div></td><td>Mass Destabbed</td></tr><tr><td><div class='guide critical'></div></td><td>Mass Critical</td></tr><tr><td><div class='guide frig'></div></td><td>Frigate</td></tr></table>"></i>
+					<i id="show-chainLegend" data-icon="tree" data-tooltip="<table id='guide'>
+						<tr><td><div class='guide stable'></td><td>Stable</td><th>Auras</th></tr>
+						<tr><td><div class='guide eol'></div></td><td>End of Life</td><td><div class='guide aura jm-5kt frig'></div></td><td>Small</td></tr>
+						<tr><td><div class='guide destab'></div></td><td>Mass Destabbed</td><td><div class='guide aura jm-62kt'></div></td><td>Medium</td></tr>
+						<tr><td><div class='guide critical'></div></td><td>Mass Critical</td><td><div class='guide aura jm-375kt'></div></td><td>Large</td></tr>
+						<tr><td><div class='guide frig'></div></td><td>Frigate</td><td><div class='guide aura jm-2000kt'></div></td><td>X-Large</td></tr>
+					</table>"></i>
 					<div style="float: right;">
 						<button id="chain-zoom-reset" class="hidden">Reset Zoom</button>
 						<!-- <i class="tutorial" data-tooltip="Show tutorial for this section">?</i> -->
@@ -339,7 +343,7 @@ $system = $_REQUEST['system'];
 			<a href="https://www.patreon.com/bePatron?u=3551109" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
 		</form>
 		<?php printf("<span id='pageTime'>Page generated in %.3f seconds.</span>", microtime(true) - $startTime); ?>
-		<p>All Eve Related Materials are Property Of <a href="http://www.ccpgames.com" target="_blank">CCP Games</a></p>
+		<p>All Eve Related Materials are Property Of <a href="https://www.ccpgames.com" target="_blank">CCP Games</a></p>
 		<p id="legal" class="pointer">EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf. CCP is in no way responsible for the content on or functioning of this website, nor can it be liable for any damage arising from the use of this website.</p>
 	</div>
 	</div>
@@ -636,9 +640,18 @@ $system = $_REQUEST['system'];
 					<input type="button" id="pwChange" value="Change Password" />
 				</div>
 			</div>
-			<h3><a href="#">Preferences</a></h3>
+			<h3><a href="#">Chain Map Settings</a></h3>
 			<div>
 				<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
+					<tr>
+						<th>Chain Renderer:</th>
+						<td>
+							<select id="renderer">
+								<option value="orgChart">Org Chart</option>
+								<option value="radial">Radial (System in middle)</option>
+							</select>
+						</td>
+					</tr>
 					<!-- <tr>
 						<th>Chain Type format:</th>
 						<td><input type="text" id="typeFormat" size="4" maxlength="3" /></td>
@@ -652,6 +665,13 @@ $system = $_REQUEST['system'];
 						<td>
 							<input type="radio" name="gridlines" id="gridlines-yes" value="true" /><label for="gridlines-yes"> Yes</label>
 							<input type="radio" name="gridlines" id="gridlines-no" value="false" /><label for="gridlines-no"> No</label>
+						</td>
+					</tr>
+					<tr>
+						<th>Show Line Aura*:</th>
+						<td>
+							<input type="radio" name="aura" id="aura-yes" value="true" /><label for="aura-yes"> Yes</label>
+							<input type="radio" name="aura" id="aura-no" value="false" /><label for="aura-no"> No</label>
 						</td>
 					</tr>
 					<tr>
@@ -673,6 +693,19 @@ $system = $_REQUEST['system'];
 							</select>
 						</td>
 					</tr>
+					<tr>
+						<th>Node Spacing Factor*:</th>
+						<td>
+							X: <label for="node-spacing-x-slider"></label><div id="node-spacing-x-slider" class="spacing-slider"></div><br/>
+							Y: <label for="node-spacing-y-slider"></label><div id="node-spacing-y-slider" class="spacing-slider"></div>
+						</td>
+					</tr>
+					<tr><td colspan=2 style="font-size: 80%; text-align: left">*: No effect in old org chart renderer</td></tr>
+				</table>
+			</div>
+			<h3><a href="#">General Preferences</a></h3>
+			<div>
+				<table class="optionsTable" width="100%" cellpadding="1" cellspacing="0">
 					<tr>
 						<th>Show Route as Blobs up to:</th>
 						<td>
@@ -732,15 +765,6 @@ $system = $_REQUEST['system'];
 						<th>Background Image:</th>
 						<td>
 							<input type="text" id="background-image" maxlength="200" />
-						</td>
-					</tr>
-					<tr>
-						<th>Chain Renderer:</th>
-						<td>
-							<select id="renderer">
-								<option value="orgChart">Org Chart</option>
-								<option value="radial">Radial (System in middle)</option>
-							</select>
 						</td>
 					</tr>
 					<tr>
