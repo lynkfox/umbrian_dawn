@@ -47,7 +47,9 @@ sigDialog.openSignatureDialog = function(e) {
 				var aSigWormholes = Object.assign({}, appData.wormholes, wormholeAnalysis.dummyWormholes, { K162: {} } );
 				
 				function system_select_item_mapper(items) {
-					return items.concat(appData.genericSystemTypes).map(systemAnalysis.analyse);
+					return items.concat(appData.genericSystemTypes).map(function(name) {
+						return Object.assign({name:name}, systemAnalysis.analyse(name)); 
+					});
 				}
 
 				$("#dialog-signature [name='signatureType'], #dialog-signature [name='signatureLife']").selectmenu({width: 100});
