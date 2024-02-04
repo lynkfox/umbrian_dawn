@@ -8,8 +8,6 @@ $startTime = microtime(true);
 // header('Pragma: cache');
 // header('Content-Type: text/html; charset=UTF-8');
 
-// setcookie('loadedFromBrowserCache','false');
-
 require_once('config.php');
 require_once('settings.php');
 require('lib.inc.php');
@@ -652,14 +650,6 @@ $system = $_REQUEST['system'];
 							</select>
 						</td>
 					</tr>
-					<!-- <tr>
-						<th>Chain Type format:</th>
-						<td><input type="text" id="typeFormat" size="4" maxlength="3" /></td>
-					</tr> -->
-					<!-- <tr>
-						<th>Chain Class format:</th>
-						<td><input type="text" id="classFormat" size="4" maxlength="3" /></td>
-					</tr> -->
 					<tr>
 						<th>Show Chain Map Gridlines:</th>
 						<td>
