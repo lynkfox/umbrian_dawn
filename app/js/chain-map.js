@@ -313,8 +313,6 @@ var chain = new function() {
 					node.parent.systemID = tripwire.systems[parent.systemID] ? parent.systemID : parent.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
 					node.parent.name = child.name;
 					node.parent.type = parentType;
-					node.parent.typeBM = null;
-					node.parent.classBM = null;
 					node.parent.nth = null;
 					node.parent.signatureID = child.signatureID;
 					node.parent.sigIndex = child.id;
@@ -324,8 +322,6 @@ var chain = new function() {
 					node.child.systemID = tripwire.systems[child.systemID] ? child.systemID : child.systemID + "|" + Math.floor(Math.random() * Math.floor(10000));
 					node.child.name = parent.name;
 					node.child.type = childType;
-					node.child.typeBM = null;
-					node.child.classBM = null;
 					node.child.nth = null;
 					node.child.signatureID = parent.signatureID;
 					node.child.sigIndex = parent.id;
@@ -427,7 +423,7 @@ var chain = new function() {
 			var row = {c: []};
 			
 			const sigText = options.chain["node-reference"] == "id" ? (node.child.signatureID ? node.child.signatureID.substring(0, 3) : "???") :
-					(node.child.type || "(?)") + sigFormat(node.child.typeBM, "type");
+					(node.child.type || "(?)");
 			const nodeTypeMarkup = node.child.path ? 
 				systemRendering.renderPath(node.child.path) :
 				(node.child.sigIndex ? "<a href='#' onclick='sigDialog.openSignatureDialog({data: { signature: " + node.child.sigIndex + ", mode: \"update\" }}); return false;'>" : '') + _.escape(

@@ -112,36 +112,6 @@ var letterToNumbers = function(string) {
     return sum;
 };
 
-var sigFormat = function(input, type) {
-	if (!input) return "";
-
-	var alpha = /^[a-zA-Z]+$/;
-	var numeric = /^[0-9]+$/;
-	var format = type == "type" ? options.chain.typeFormat || "" : options.chain.classFormat || "";
-
-	for (var x = 0, l = format.length; x < l; x++) {
-		if (format[x].match(alpha)) {
-			if (format[x].toUpperCase() == "B" && input == "a") {
-				return "";
-			} else {
-				if (format[x] == format[x].toUpperCase()) {
-					format = format.substr(0, x) + input.toUpperCase() + format.substr(x + 1, l);
-				} else {
-					format = format.substr(0, x) + input + format.substr(x + 1, l);
-				}
-			}
-		} else if (format[x].match(numeric)) {
-			if (format[x] == 2 && input == "a") {
-				return "";
-			} else {
-				format = format.substr(0, x) + letterToNumbers(input) + format.substr(x +1, l);
-			}
-		}
-	}
-
-	return format;
-};
-
 /** Find the relative position of one element within the hierarchy tree of another */
 function positionRelativeTo(elem, ancestor) {
 	const elemPos = elem.getBoundingClientRect(),

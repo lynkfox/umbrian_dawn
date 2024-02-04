@@ -16,9 +16,6 @@ $(".options").click(function(e) {
 				var maskChange = false;
 
 				$("#dialog-options").parent().find(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", true).addClass("ui-state-disabled");
-
-				options.chain.typeFormat = $("#dialog-options #typeFormat").val();
-				options.chain.classFormat = $("#dialog-options #classFormat").val();
 				
 				options.chain.sigNameLocation = $("#dialog-options #chainSigNameLocation").val();
 				options.chain.routingLimit = 1 * $("#dialog-options #chainRoutingLimit").val();
@@ -158,14 +155,12 @@ $(".options").click(function(e) {
 			$("#dialog-options #editType").val(options.signatures.editType);
 			$("#dialog-options #pasteLife").val(options.signatures.pasteLife);
 			$("#dialog-options #copySeparator").val(options.signatures.copySeparator);
-			$("#dialog-options #typeFormat").val(options.chain.typeFormat);
 			$("#dialog-options #chainRoutingLimit").val(options.chain.routingLimit);
 			$("#dialog-options #chainSigNameLocation").val(options.chain.sigNameLocation);
 			$("#dialog-options #chainRouteSecurity").val(options.chain.routeSecurity);
 			$("#dialog-options #route-ignore-enabled").prop('checked', options.chain.routeIgnore.enabled);
 			$("#dialog-options #route-ignore").val(options.chain.routeIgnore.systems.join(','));
 			$("#dialog-options #renderer").val(options.chain.renderer);
-			$("#dialog-options #classFormat").val(options.chain.classFormat);
 			$("#dialog-options input[name='node-reference'][value='"+options.chain["node-reference"]+"']").prop("checked", true);
 			$("#dialog-options input[name='gridlines'][value='"+options.chain.gridlines+"']").prop("checked", true);
 			$("#dialog-options input[name='aura'][value='"+options.chain.aura+"']").prop("checked", true);
