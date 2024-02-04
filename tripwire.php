@@ -398,17 +398,7 @@ $system = $_REQUEST['system'];
 						<span data-autocomplete="sigSystems">
 							<input name="leadsTo" type="text" maxlength="20" size="20" class="leadsTo" autocomplete="off" />
 							<select>
-								<option value="Null-Sec">Null-Sec</option>
-								<option value="Low-Sec">Low-Sec</option>
-								<option value="High-Sec">High-Sec</option>
-								<option value="Class-#">Class-#</option>
-								<!-- <option value="Class-1">Class-1</option>
-								<option value="Class-2">Class-2</option>
-								<option value="Class-2">Class-2</option>
-								<option value="Class-3">Class-3</option>
-								<option value="Class-4">Class-4</option>
-								<option value="Class-5">Class-5</option>
-								<option value="Class-6">Class-6</option> -->
+								<!-- Values filled in by signature dialog JS -->
 							</select>
 						</span>
 					</div>

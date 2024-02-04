@@ -159,8 +159,9 @@ i.disabled {
 		scrollbar-width: thin;
 		scrollbar-color: #444 #111;
 	}
+	
+	.ui-dialog { scrollbar-color: #444 #999; }
 }
-.ui-dialog { scrollbar-color: #444 #999; }
 
 ::-webkit-scrollbar {
     width: 5px;

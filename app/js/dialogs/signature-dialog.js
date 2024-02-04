@@ -45,10 +45,14 @@ sigDialog.openSignatureDialog = function(e) {
 			},
 			create: function() {
 				var aSigWormholes = Object.assign({}, appData.wormholes, wormholeAnalysis.dummyWormholes, { K162: {} } );
+				
+				function system_select_item_mapper(items) {
+					return items.concat(appData.genericSystemTypes).map(systemAnalysis.analyse);
+				}
 
 				$("#dialog-signature [name='signatureType'], #dialog-signature [name='signatureLife']").selectmenu({width: 100});
 				$("#dialog-signature [name='wormholeLife'], #dialog-signature [name='wormholeMass']").selectmenu({width: 80});
-				$("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete({source: tripwire.aSigSystems, renderer: 'system', maxSize: 10, delay: 0});
+				$("#dialog-signature [data-autocomplete='sigSystems']").inlinecomplete({source: tripwire.aSigSystems, renderer: 'system', select_item_mapper: system_select_item_mapper, maxSize: 10, delay: 0});
 				
 				function getTargetName() { return $("#dialog-signature .leadsTo:visible").val(); }
 				function getTargetSystem() {

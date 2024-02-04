@@ -86,7 +86,8 @@ $.widget("custom.inlinecomplete", $.ui.autocomplete, {
 		this.select = this.wrapper.find("select:first").remove();
 
 		this.options.input_source = this.options.source;
-		this.options.select_source = this.select.children("option[value!='']").map(function() { return $.trim(this.text); }).toArray();
+		const selectItemMapper = this.options.select_item_mapper || function(x) { return x; };
+		this.options.select_source = selectItemMapper(this.select.children("option[value!='']").map(function() { return $.trim(this.text); }).toArray());
 
 		this._createShowAllButton();
 	},
