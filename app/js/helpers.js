@@ -34,27 +34,6 @@ Object.find = function(obj, prop, val, cs) {
 	}
 
 	return false;
-}
-
-Object.maxTime = function(obj, prop) {
-	var maxTimeString = "", maxTime;
-
-	for (var key in obj) {
-		if (!maxTime || maxTime < new Date(obj[key][prop])) {
-			maxTime = new Date(obj[key][prop]);
-			maxTimeString = obj[key][prop];
-		}
-	}
-	return maxTimeString;
-}
-
-Object.time = function(obj) {
-	var dates = [], key;
-	for (key in obj) {
-		dates.push(new Date(obj[key].time));
-	}
-
-	return dates.length ? dates.sort()[dates.length -1].getTime() /1000 : 0;
 };
 
 (function($){
@@ -191,38 +170,6 @@ function lookupMultiple(map, propertyName, lookupString, suppress) {
 	}
 	return results.join(',');
 }
-
-var getCookie = function(c_name) {
-	var c_value = document.cookie;
-
-	var c_start = c_value.indexOf(" " + c_name + "=");
-	if (c_start == -1) {
-		c_start = c_value.indexOf(c_name + "=");
-	}
-
-	if (c_start == -1) {
-		c_value = null;
-	} else {
-		c_start = c_value.indexOf("=", c_start) + 1;
-		var c_end = c_value.indexOf(";", c_start);
-
-		if (c_end == -1) {
-			c_end = c_value.length;
-		}
-
-		c_value = unescape(c_value.substring(c_start, c_end));
-	}
-
-	return c_value;
-};
-
-var setCookie = function(c_name, value, exdays) {
-	var exdate = new Date();
-	exdate.setDate(exdate.getDate() + exdays);
-	var c_value = escape(value) + ((exdays == null) ? "" : "; expires="+exdate.toUTCString());
-
-	document.cookie = c_name + "=" + c_value + ";" + (document.location.protocol == "https:" ? "secure;" : "");
-};
 
 // Global CSS class change event
 (function($) {
