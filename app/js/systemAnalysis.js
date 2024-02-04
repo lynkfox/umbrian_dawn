@@ -19,24 +19,25 @@ const systemAnalysis = new function() {
 		mutators.forEach(function(m) { m.mutate(r, systemID); });
 		
 		// Calculated final values
-		r.systemTypeClass = r.class ? 'wh class-' + r.class :
+		r.class = (!r.class || Array.isArray(r.class)) ? r.class : [1 * r.class];
+		r.systemTypeClass = r.class ? 'wh class-' + r.class[0] :
 			r.factionID == 500026 ? 'triglavian' :
 			r.security >= 0.45 ? 'hisec' :
 			r.security > 0.0 ? 'lowsec' :
 			r.security <= 0.0 ? 'nullsec' :
 			'unknown';
-		r.systemTypeName = r.class ? 'C' + r.class :
+		r.systemTypeName = r.class ? 'C' + r.class.join('/') :
 			r.factionID == 500026 ? 'Trig' :
 			r.baseSecurity >= 0.45 ? 'HS' :
 			r.baseSecurity > 0.0 ? 'LS' :
 			r.baseSecurity <= 0.0 ? 'NS' :
 			' ';
-		r.genericSystemType = r.class ? 'Class-' + r.class :
-			r.factionID == 500026 ? 'Triglavian' :
-			r.baseSecurity >= 0.45 ? 'High-Sec' :
-			r.baseSecurity > 0.0 ? 'Low-Sec' :
-			r.baseSecurity <= 0.0 ? 'Null-Sec' :
-			' ';
+		r.genericSystemType = r.class ? r.class.map(x => 'Class-' + x) :
+			r.factionID == 500026 ? ['Triglavian'] :
+			r.baseSecurity >= 0.45 ? ['High-Sec'] :
+			r.baseSecurity > 0.0 ? ['Low-Sec'] :
+			r.baseSecurity <= 0.0 ? ['Null-Sec'] :
+			undefined;
 		r.effectClass = 
 			r.effect === 'Black Hole' ? 'blackhole' :
 			r.effect === 'Cataclysmic Variable' ? 'cataclysmic-variable' :
@@ -49,14 +50,22 @@ const systemAnalysis = new function() {
 		return r;
 	};
 	
+	/** Get the classes possible for a 'leads to' text e.g. 'Class-2', 'Dangerous', 'Triglavian' */
+	function classForTypeName(leadsTo) {
+		return leadsTo && leadsTo.substring(0, 6) == 'Class-' ? [1 * leadsTo.substring(6)] :
+			'Dangerous' == leadsTo ? [4,5] :
+			'Unknown' == leadsTo ? [2,3] :
+			'Unknown (small)' == leadsTo ? [1,2,3,13] :
+			undefined;
+	};
+	this.classForTypeName = classForTypeName;	// expose public
+	
 	/** Create a dummy system object for fake IDs like 'Null-Sec', 'Class-5' etc */
 	function getDummySystem(systemID) {
 		const leadsToPointer = typeof(systemID) === "string" && systemID.indexOf("|") >= 0 ? appData.genericSystemTypes[systemID.substring(0, systemID.indexOf("|"))]
 		: appData.genericSystemTypes.indexOf(systemID) >= 0 ? systemID
 		: appData.genericSystemTypes[systemID];
-		const nodeClass = 
-			leadsToPointer && leadsToPointer.substring(0, 6) == 'Class-' ? 1 * leadsToPointer.substring(6) :
-			undefined;
+		const nodeClass = classForTypeName(leadsToPointer);
 		const nodeSecurity = 
 			leadsToPointer == "High-Sec" ? 0.8 :
 			leadsToPointer == "Low-Sec" ? 0.4 :
