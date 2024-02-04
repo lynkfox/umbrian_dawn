@@ -1,6 +1,7 @@
 <?php
 
 require_once('config.php');
+require_once('settings.php');
 
 ?>
 <!DOCTYPE html>
@@ -41,23 +42,8 @@ require_once('config.php');
 	<!-- Start Header -->
 	<header>
 		<div class="container">
-			<!-- Start Social Icons -->
-			<aside>
-				<ul class="social">
-					<li class="google"><a href="https://plus.google.com/u/2/111892856662048727481">Google</a></li>
-					<li class="twitter"><a href="https://twitter.com/DaimianMercer">Twitter</a></li>
-					<li class="email"><a href="mailto:daimian.mercer@gmail.com" title="daimian.mercer@gmail.com">Email</a></li>
-
-					<!-- More Social Icons:
-					<li class="rss"><a href="" title="App Updates">RSS</a></li>
-					<li class="facebook"><a href="">Facebook</a></li>
-					<li class="dribbble"><a href="">Dribbble</a></li>
-					<li class="flickr"><a href="">Flickr</a></li>
-					-->
-				</ul>
-			</aside>
-			<!-- End Social Icons -->
-
+			<aside id="version-panel"><?= APP_NAME ?> <?= VERSION ?></aside>			
+			
 			<!-- Start Navigation -->
 			<nav>
 				<ul>

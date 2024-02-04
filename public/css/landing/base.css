@@ -98,20 +98,21 @@ header {
 	/* Main Navigation */
 	header .select-menu { display: none; }
 	header nav { position: relative; }
+	header nav, header aside { 
+		padding: 22px 0; 
+		font-size: 12px;
+	}
 	header nav ul {
 		list-style: none;
 		float: right;
-		padding: 22px 0px 0px 0px;
 	}
 		header nav ul li {
 			float: left;
 			margin-left: 30px;
 			position: relative;
-			padding-bottom: 22px;
 		}
 			header nav ul li a{
 				color: #b5b5b5;
-				font-size: 12px;
 				-webkit-transition:color 0.2s ease-in;
 		    -moz-transition:color 0.2s ease-in;
 		    -o-transition:color 0.2s ease-in;
@@ -127,71 +128,7 @@ header {
 				position: absolute;
 				top: 58px;
 			}
-			/* Sub Nav */
-			header nav ul li ul{
-				list-style: none;
-				position: absolute;
-				z-index: 999999;
-				top: 14px;
-				left: -75px;
-				width: 100px;
-				text-align: left;
-				border-top: none;
-				padding: 23px 0px 5px 0px;
-				display: none;
-				margin: 0;
-				text-align: center;
-			}
-				header nav ul li ul li {
-					display: block;
-					width: 100%;
-					margin-bottom: 0px;
-					padding-bottom: 0px;
-					padding: 0px 15px 0px 15px;
-					background: #F6F6F6;
-					border-left: 1px solid #eaeaea;
-					border-right: 1px solid #eaeaea;
-				}
-				header nav ul li ul li:last-child {
-					-webkit-border-bottom-right-radius: 3px;
-					-webkit-border-bottom-left-radius: 3px;
-					-moz-border-radius-bottomright: 3px;
-					-moz-border-radius-bottomleft: 3px;
-					border-bottom-right-radius: 3px;
-					border-bottom-left-radius: 3px;
-					border-bottom: 1px solid #eaeaea;
-				}
-				header nav ul li ul li a,
-				header nav ul li.current ul li a{
-					display: block;
-					padding: 8px 0px 8px 0px;
-					font-size: 11px;
-					font-weight: normal;
-					color: #b5b5b5;
-					font-family: "Helvetica Neue", helvetica, sans-serif;
-					-webkit-border-radius: 0px;
-					-moz-border-radius: 0px;
-					border-radius: 0px;
-				}
-				header nav ul li.current ul li a{
-					background: none;
-					border-top: none;
-					border-left: none;
-					border-right: none;
-					border-color: #ddd;
-					box-shadow: none;
-					color: #b5b5b5;
-				}
-					header nav ul li ul li a:hover {
-						background: none;
-						color: #777;
-					}
-			header nav ul li ul li ul {
-				left: 190px;
-				top: 0;
-				padding-top: 0;
-				display: none;
-			}
+
 	header nav select {
 		float: right;
 		margin: 17px 10px 0px 0px;
@@ -212,6 +149,11 @@ header {
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
 		border-radius: 3px;
+	}
+	
+	header aside {
+		float: left;
+		color: #777;
 	}
 /*--------------------------------------------
 3. App Info
