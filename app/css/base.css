@@ -152,10 +152,13 @@ i.disabled {
 
 /* Scrollbar. Body properties are standards-compliant but only work in Firefox.
 -webkit-* works in Chrome/Safari/etc */
-body {
-	/* Standards - Firefox. Use slightly less contrasty colours because the bar will be wider */
-	scrollbar-width: thin;
-	scrollbar-color: #444 #111;
+/* We must tell Chrome not to use these or it will disable all the -webkit-scrollbar things - https://stackoverflow.com/questions/77893503 */
+@supports not selector(::-webkit-scrollbar) {
+	body {
+		/* Standards - Firefox. Use slightly less contrasty colours because the bar will be wider */
+		scrollbar-width: thin;
+		scrollbar-color: #444 #111;
+	}
 }
 
 ::-webkit-scrollbar {
