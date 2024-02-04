@@ -42,6 +42,7 @@ require_once('settings.php');
 	<!-- Start Header -->
 	<header>
 		<div class="container">
+			<aside id="partner-panel" style="padding: 0"><img src="images/landing/ccp_PartnerBadge2.png" height="58" alt="CCP Partner"/></aside>
 			<aside id="version-panel"><?= APP_NAME ?> <?= VERSION ?></aside>			
 			
 			<!-- Start Navigation -->
@@ -69,7 +70,7 @@ require_once('settings.php');
 			<h1 style="font-size: 4.3em;"><img src="//<?= CDN_DOMAIN ?>/images/landing/tripwire-logo.png" alt="Tripwire" style="vertical-align: text-top;" /> Tripwire</h1>
 			<!-- End Logo -->
 			<span class="tagline">The greatest wormhole mapper ever.</span>
-			<p>Tripwire is an open source wormhole mapping tool, hosted for free to the public, built for use with <a href="https://www.eveonline.com" target="_blank">EVE Online</a>. Using the latest in internet security standards it is the most secure tool in New Eden.</p>
+			<p>Tripwire is an open source wormhole mapping tool, hosted for free to the public, built for use with <a href="https://www.eveonline.com" target="_blank">EVE Online</a>.</p>
 
 			<div class="buttons">
 				<a href="#register#admin" class="large_button corp">
@@ -105,6 +106,13 @@ require_once('settings.php');
 				<h1>News</h1>
 				<div id="news">
 					<!-- Self hosters will probably want to put your own news items here -->
+					<h2>Tripwire in 2024</h2>
+					<p>Detailed information about Tripwire updates will be posted on the Tripwire Discord and in the <a href="https://forums.eveonline.com/t/tripwire-signature-mapping-tool/6024/184">update thread on the Eve Online forums</a>.</p>
+					
+					<p>Some highlights from 2023 releases: improvements to automapping, wormhole selection dropdown (1.22), FW data, map and options updates (1.23), Thera and Turnur data from Eve Scout (1.24). As well as all of the map changes and new ships that CCP add.</p>
+					
+					<p>Tripwire is also now an <b>official CCP Partner Programme</b> community app!</p>
+					
 					<h2>Tripwire in 2023</h2>
 					<p>Tripwire continues to receive feature updates (in 1.20, it got one click return, an EVE time indicator and closest way home cues from K space) and maintenance (when CCP change how ESI works, or changes the map).</p>
 					
@@ -378,13 +386,9 @@ require_once('settings.php');
 	<footer class="container">
 		<!--<p>Eon Studios &copy; 2014. All Rights Reserved.</p>-->
 		<p><a href="#privacy">Privacy Policy</a> | <a href="#ccp_copyright">CCP Copyright</a></p>
-		<form id="donate_form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="padding: 15px 0;">
-			<input type="hidden" name="cmd" value="_s-xclick">
-			<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
-			<img id="donate" src="//<?= CDN_DOMAIN ?>/images/landing/donate.jpg" onclick="document.getElementById('donate_form').submit();" alt="PayPal - The safer, easier way to pay online!">
-			<a href="https://www.patreon.com/bePatron?u=3551109" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
-		</form>
+		<?php include 'donation_panel.inc'; ?>
 	</footer>
+	
 	<!-- End Footer -->
 
 	</div>

@@ -52,9 +52,6 @@ a.fancybox {
 article.release 						{ border-bottom-color: #444; } 
 	article.release span.date { color: #666; }
 	article.release ul li	    { color: #a6a6a6; }
-/* Footer */
-footer p 				 { background: rgba(255,255,255,0.05); color: #777; }
-	footer p:hover { background: rgba(255,255,255,0.06); color: #aaa; }
 /* Press */
 div.press_mentions ul li .logo { border-color: #333; }
 div.press_mentions ul li address 				 { color: #666; }
