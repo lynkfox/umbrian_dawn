@@ -29,7 +29,7 @@ $("body").on("click", "#redo:not(.disabled)", function() {
 });
 
 // Chain map zooming (Gets funky if you push things too far)
-$("#chainParent").on("mousewheel", function(e) {
+$("#chainParent").on("wheel", function(e) {
 	if(!(options.chain.scrollWithoutCtrl || e.ctrlKey)) { return; }
 	e.preventDefault();
 	var zoom = parseFloat($("#chainParent").css("zoom")) || 1.0;
