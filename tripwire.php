@@ -660,6 +660,13 @@ $system = $_REQUEST['system'];
 						</td>
 					</tr>
 					<tr>
+						<th>Allow Scroll Without Ctrl Key:</th>
+						<td>
+							<input type="radio" name="scrollWithoutCtrl" id="scrollWithoutCtrl-yes" value="true" /><label for="scrollWithoutCtrl-yes"> Yes</label>
+							<input type="radio" name="scrollWithoutCtrl" id="scrollWithoutCtrl-no" value="false" /><label for="scrollWithoutCtrl-no"> No</label>
+						</td>
+					</tr>
+					<tr>
 						<th>Chain Map Node Reference:</th>
 						<td>
 							<input type="radio" name="node-reference" id="node-reference-type" value="type" /><label for="node-reference-type"> Wormhole Type</label>
