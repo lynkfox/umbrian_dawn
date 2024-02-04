@@ -219,6 +219,8 @@ i.closeIcon:hover {
 	color: darkorange;
 }
 
+.whEffect { padding-right: 2px; }
+
 #activityGraph { padding-top: 8px; }
 #activityGraphControls { padding-bottom: 8px; }
 
