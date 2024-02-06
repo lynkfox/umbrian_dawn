@@ -221,6 +221,9 @@ i.closeIcon:hover {
 
 .whEffect { padding-right: 2px; }
 
+.copy { font-size: 75%; margin: 0 3px; padding: 2px }
+.copy::after { content: '\01F4C4\00FE0E' }
+
 #activityGraph { padding-top: 8px; }
 #activityGraphControls { padding-bottom: 8px; }
 
