@@ -7,10 +7,6 @@ tripwire.autoMapper = function(from, to) {
 	
     var pods = [33328, 670];
     var undo = [];
-	
-    // Convert from & to from system name to system ID for diagnostic testing
-    // from = viewingSystemID;
-    // to = Object.index(tripwire.systems, 'name', to);
 
     // Make sure the automapper is turned on & not disabled
     if (!$("#toggle-automapper").hasClass("active") || $("#toggle-automapper").hasClass("disabled"))
@@ -82,26 +78,9 @@ tripwire.autoMapper = function(from, to) {
 	}	 
 
     var payload = {"signatures": {"add": [], "update": []}};
-    const toClass = systemAnalysis.analyse(to).genericSystemType;
 
-    var wormholes = $.map(tripwire.client.wormholes, function(wormhole) {
-        if ( ( tripwire.client.signatures[wormhole.initialID] !== undefined ) && ( tripwire.client.signatures[wormhole.secondaryID] !== undefined ) ) {
-            // Find wormholes that have no set Leads To system, and their initial system is from the wormhole we just jumped from
-            if (tripwire.client.signatures[wormhole.initialID].systemID == from && !tripwire.systems[tripwire.client.signatures[wormhole.secondaryID].systemID]) {
-                if (appData.genericSystemTypes[tripwire.client.signatures[wormhole.secondaryID].systemID] == toClass) {
-                    // Find wormholes that Leads To is generically set to the class we just jumped into
-                    return wormhole;
-                } else if (wormhole.type && appData.wormholes[wormhole.type] && appData.wormholes[wormhole.type].leadsTo.replace(' ', '-') == toClass) {
-                    // Find wormholes that Type is known to lead to the class we just jumped into
-                    return wormhole;
-                } else if (tripwire.client.signatures[wormhole.secondaryID].systemID === null && (!wormhole.type || !appData.wormholes[wormhole.type])) {
-                    // Find wormholes that don't have a Type or any kind of Leads To entered
-                    return wormhole;
-                }
-            }
-        }
-    });
-
+    var wormholes = wormholesForJump(from, to, tripwire.client.wormholes, tripwire.client.signatures);
+	
     if (wormholes.length) {
         if (wormholes.length > 1) {
 			console.log('Automapper: Multiple sigs matched, asking which one to update');
@@ -250,3 +229,31 @@ tripwire.autoMapper = function(from, to) {
         tripwire.refresh('refresh', payload, success);
     }
 }
+
+function wormholesForJump(from, to, wormholes, signatures) {
+	const toSystem = systemAnalysis.analyse(to);
+    const toType = toSystem.genericSystemType[0];
+	const toClass = (toSystem.class || [])[0];
+	return Object.values(wormholes).filter(function(wormhole) {
+        if ( ( signatures[wormhole.initialID] !== undefined ) && ( signatures[wormhole.secondaryID] !== undefined ) ) {
+            // Find wormholes that have no set Leads To system, and their initial system is from the wormhole we just jumped from
+            if (signatures[wormhole.initialID].systemID == from && !appData.systems[signatures[wormhole.secondaryID].systemID]) {
+				const holeTargetTypeName = appData.genericSystemTypes[signatures[wormhole.secondaryID].systemID];
+				const holeClasses = systemAnalysis.classForTypeName(holeTargetTypeName);
+				if(holeTargetTypeName === toType) {
+					// Find wormholes where Leads To is the type we jumped into
+					return true;
+                } else if (holeClasses && 0 <= holeClasses.indexOf(toClass)) {
+                    // Find wormholes that Leads To is generically set to the class we just jumped into
+                    return true;
+                } else if (wormhole.type && appData.wormholes[wormhole.type] && appData.wormholes[wormhole.type].leadsTo == toType) {
+                    // Find wormholes that Type is known to lead to the class we just jumped into
+                    return true;
+                } else if (signatures[wormhole.secondaryID].systemID === null && (!wormhole.type || !appData.wormholes[wormhole.type])) {
+                    // Find wormholes that don't have a Type or any kind of Leads To entered
+                    return true;
+                }
+            }
+        }
+    });
+}	

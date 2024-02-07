@@ -8,7 +8,7 @@ include('app/js/map-data-suppliers/eve-scout');
 
 describe('EvE-Scout data', () => {
 	describe('Thera', () => { 
-		fakeAjax('cached_third_party.php?key=thera', 'app/js-test/testdata/old-thera-modified.json');
+//		fakeAjax('cached_third_party.php?key=thera', 'app/js-test/testdata/old-thera-modified.json');
 		fakeAjax('cached_third_party.php?key=eve-scout-signatures', 'app/js-test/testdata/eve-scout-sigs-small.json');
 		
 		let ids;

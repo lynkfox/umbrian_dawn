@@ -43,7 +43,7 @@ tripwire.systemChange = function(systemID, mode) {
 	
     if (system.class) {
         // Security
-        $("#infoSecurity").html("<span class='wh pointer'>Class " + system.class + "</span>");
+        $("#infoSecurity").html("<span class='" + system.systemTypeClass+" pointer'>Class " + system.class + "</span>");
 
         // Effects
         if (system.effect) {

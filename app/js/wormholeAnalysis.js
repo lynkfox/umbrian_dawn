@@ -33,10 +33,15 @@ const wormholeAnalysis = new function() {
 		if(!source && !target) { return null; }
 		
 		const from = [], to = [];
+		const systemTypeMatch = function(possibleSystems, genericTypes) {
+			return genericTypes.some(genericType => possibleSystems.indexOf(genericType) >= 0 ||
+				(genericType.indexOf('/') >= 0 && _.some(genericType.substring('Class-'.length).split('/'), x => possibleSystems.indexOf('Class-' + x) >= 0))
+			);
+		};
 		const matches = function(possibleSystems, exclusions, system) {
 			if(typeof possibleSystems === 'string') { possibleSystems = [possibleSystems]; }
 			return (!system) || (
-				((!possibleSystems) || (possibleSystems.indexOf(system.name) >= 0 || possibleSystems.indexOf(system.genericSystemType) >= 0)) && 
+				((!possibleSystems) || (possibleSystems.indexOf(system.name) >= 0 || systemTypeMatch(possibleSystems, system.genericSystemType))) && 
 				((!exclusions) || exclusions.indexOf(system.genericSystemType) < 0)	// no exclusion
 			);
 		}
@@ -70,7 +75,7 @@ const wormholeAnalysis = new function() {
 		const class1 = systemAnalysis.analyse(system1).class,
 			class2 = systemAnalysis.analyse(system2).class;
 		return this.dummyWormholes[
-			class1 == 13 || class2 == 13 ? 'SML' :
+			String(class1 + '/' + class2).indexOf('13') >= 0 ? 'SML' :
 			class1 == 1 || class2 == 1 ? 'MED' :
 			class1 >= 5 && class2 >= 5 ? 'XLG' :
 			'LRG'

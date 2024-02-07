@@ -149,7 +149,7 @@ $("body").on("click", ".commentSticky", function(e) {
 function commentSortHandler(sortOrder) {
 	const sortElem = document.getElementById('comment-sort');
 	const containerElem = document.getElementById('comment-container');
-	sortOrder = sortOrder || sortElem.nextSort || getCookie('commentSort') || 'asc';
+	sortOrder = sortOrder || sortElem.nextSort || tripwire.cookies.getCookie('commentSort') || 'asc';
 	
 	switch(sortOrder) {
 		case 'asc':
@@ -165,7 +165,7 @@ function commentSortHandler(sortOrder) {
 		default: throw 'sort order somehow wrong';
 	}
 	
-	setCookie('commentSort', sortOrder, 3650);
+	tripwire.cookies.setCookie('commentSort', sortOrder, 3650);
 }
 
 $("body").on("click", "#comment-sort", function(e) {
