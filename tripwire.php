@@ -1018,6 +1018,7 @@ $system = $_REQUEST['system'];
 	</div>
 
 	<div id="dialog-mass" title="" class="hidden">
+		<p id="mass-systems">-</p>
 		<table id="massTable">
 			<thead>
 				<tr>

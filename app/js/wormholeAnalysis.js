@@ -58,10 +58,10 @@ const wormholeAnalysis = new function() {
 	/** Placeholder wormholes which don't have an exact known type, but still provide some information */
 	this.dummyWormholes = {
 		"GATE": { from: [ "Null-Sec", "Low-Sec", "High-Sec", "Triglavian"], leadsTo: [ "Null-Sec", "Low-Sec", "High-Sec", "Triglavian"] },
-		"SML": { "jump": 5000000 },
-		"MED": { "jump": 62000000 },
-		"LRG": { "jump": 375000000 },
-		"XLG": { "jump": 2000000000 }
+		"SML": { "key": "SML", "jump": 5000000 },
+		"MED": { "key": "MED", "jump": 62000000 },
+		"LRG": { "key": "LRG", "jump": 375000000 },
+		"XLG": { "key": "XLG", "jump": 2000000000 }
 	};
 	
 	/** Get the wormhole type object from the type names for a sig pair. One of the types is probably K162 */
