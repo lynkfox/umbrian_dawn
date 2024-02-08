@@ -1,4 +1,4 @@
-tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
+tripwire.sync = function(mode, data, successCallback, alwaysCallback) {	
     var data = typeof(data) === "object" ? $.extend(true, {}, data) : {};
 
     // Grab any pending changes
@@ -15,13 +15,13 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
 
     if (mode == 'refresh' || mode == 'change') {
         data.signatureCount = tripwire.serverSignatureCount;
-        data.signatureTime = Object.maxTime(this.client.signatures, "modifiedTime");
+        data.signatureTime = maxTimeByProperty(this.client.signatures, "modifiedTime");
 
         data.flareCount = chain.data.flares ? chain.data.flares.flares.length : 0;
         data.flareTime = chain.data.flares ? chain.data.flares.last_modified : 0;
 
         data.commentCount = Object.keys(this.comments.data||{}).length;
-        data.commentTime = Object.maxTime(this.comments.data, "modified");
+        data.commentTime = maxTimeByProperty(this.comments.data, "modified");
 
         data.activity = this.activity;
     } else {
@@ -134,5 +134,18 @@ tripwire.sync = function(mode, data, successCallback, alwaysCallback) {
 	this.xhr.data = data;
 	
     return true;
+};
+
+function maxTimeByProperty(obj, prop) {
+	var maxTimeString = "", maxTime;
+
+	for (var key in obj) {
+		if (!maxTime || maxTime < new Date(obj[key][prop])) {
+			maxTime = new Date(obj[key][prop]);
+			maxTimeString = obj[key][prop];
+		}
+	}
+	return maxTimeString;
 }
+
 tripwire.sync("init");

@@ -16,9 +16,6 @@ $(".options").click(function(e) {
 				var maskChange = false;
 
 				$("#dialog-options").parent().find(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", true).addClass("ui-state-disabled");
-
-				options.chain.typeFormat = $("#dialog-options #typeFormat").val();
-				options.chain.classFormat = $("#dialog-options #classFormat").val();
 				
 				options.chain.sigNameLocation = $("#dialog-options #chainSigNameLocation").val();
 				options.chain.routingLimit = 1 * $("#dialog-options #chainRoutingLimit").val();
@@ -26,8 +23,9 @@ $(".options").click(function(e) {
 				options.chain.routeIgnore.enabled = $("#dialog-options #route-ignore-enabled").prop('checked');
 				options.chain.routeIgnore.systems = $("#dialog-options #route-ignore").val().split(",").map(x => x.trim());
 
-				options.chain.gridlines = JSON.parse($("#dialog-options input[name=gridlines]:checked").val());
-				options.chain.aura = JSON.parse($("#dialog-options input[name=aura]:checked").val());
+				options.chain.gridlines = 'true' == $("#dialog-options input[name=gridlines]:checked").val();
+				options.chain.aura = 'true' == $("#dialog-options input[name=aura]:checked").val();
+				options.chain.scrollWithoutCtrl = 'true' == $("#dialog-options input[name=scrollWithoutCtrl]:checked").val();
 
 				options.chain.nodeSpacing.x = $("#dialog-options #node-spacing-x-slider").slider("value");
 				options.chain.nodeSpacing.y = $("#dialog-options #node-spacing-y-slider").slider("value");
@@ -158,17 +156,16 @@ $(".options").click(function(e) {
 			$("#dialog-options #editType").val(options.signatures.editType);
 			$("#dialog-options #pasteLife").val(options.signatures.pasteLife);
 			$("#dialog-options #copySeparator").val(options.signatures.copySeparator);
-			$("#dialog-options #typeFormat").val(options.chain.typeFormat);
 			$("#dialog-options #chainRoutingLimit").val(options.chain.routingLimit);
 			$("#dialog-options #chainSigNameLocation").val(options.chain.sigNameLocation);
 			$("#dialog-options #chainRouteSecurity").val(options.chain.routeSecurity);
 			$("#dialog-options #route-ignore-enabled").prop('checked', options.chain.routeIgnore.enabled);
 			$("#dialog-options #route-ignore").val(options.chain.routeIgnore.systems.join(','));
 			$("#dialog-options #renderer").val(options.chain.renderer);
-			$("#dialog-options #classFormat").val(options.chain.classFormat);
 			$("#dialog-options input[name='node-reference'][value='"+options.chain["node-reference"]+"']").prop("checked", true);
 			$("#dialog-options input[name='gridlines'][value='"+options.chain.gridlines+"']").prop("checked", true);
 			$("#dialog-options input[name='aura'][value='"+options.chain.aura+"']").prop("checked", true);
+			$("#dialog-options input[name='scrollWithoutCtrl'][value='"+options.chain.scrollWithoutCtrl+"']").prop("checked", true);
 			$("#dialog-options #node-spacing-x-slider").slider("value", options.chain.nodeSpacing.x);
 			$("#dialog-options #node-spacing-y-slider").slider("value", options.chain.nodeSpacing.y);
 			$("#dialog-options #background-image").val(options.background);
