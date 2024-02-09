@@ -59,7 +59,7 @@ $system = $_REQUEST['system'];
 			<span id="login">
 				<h3><a id="user" href=""><span id="user-no-track"><?= $_SESSION['characterName'] ?></span><span id="user-track" style="display:none"><i data-icon="follow" data-tooltip="Tracking"></i><span id="user-track-name">...</span></span></a></h3>
 				<div id="panel">
-					<div id="content">
+					<div id="content" class="dialog-like">
 						<div id="triangle"></div>
 
 						<table id="logoutTable">
