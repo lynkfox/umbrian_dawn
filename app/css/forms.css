@@ -1,6 +1,5 @@
 input[type="text"], input[type="password"], select, textarea {
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#888), to(#FFF));
-    background-image: linear-gradient(to bottom, #888 0%,#FFF 100%);
+    background-image: linear-gradient(to bottom, #000 0%, #222 80%, #444 100%);
 
     border: none;
     -webkit-border-radius: 3px;
@@ -13,27 +12,16 @@ input[type="text"], input[type="password"], select, textarea {
     padding-left: 5px;
     margin-left: 2px;
 
-    -webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.4) inset, 0 -1px 0 rgba(0,0,0,0.1) inset;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.4) inset, 0 -1px 0 rgba(0,0,0,0.1) inset;
-
     transition: all 0.2s linear;
-    color: #444;
+    color: #bbb;
     font-weight: bold;
     position: relative;
-
-    &::-webkit-input-placeholder {
-       color: #999999;
-    }
-
-    &:-moz-placeholder {
-       color: #999999;
-    }
-
-    &:focus{
-        box-shadow: 0 1px 0 #2392F3 inset, 0 -1px 0 #2392F3 inset, 1px 0 0 #2392F3 inset, -1px 0 0 #2392F3 inset, 0 0 4px rgba(35,146,243,0.5);
-        outline: none;
-    }
+	
+	outline-color: #980;
+	outline-width: thin;
 }
+
+*:focus-visible { outline-style: inset  }
 
 input[type="button"], input[type="submit"], .ui-button.ui-widget {
 	font-family: Verdana;
@@ -46,19 +34,16 @@ input[type="button"], input[type="submit"], .ui-button.ui-widget {
 	-o-border-radius: 4px;
 	border-radius: 4px;
 
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#EEE), to(#CCC));
-	background-image: -moz-linear-gradient(#FFF, #EEE 1px, #CCC);
-	background-image: -o-linear-gradient(#FFF, #EEE 1px, #CCC);
-	background-image: linear-gradient(#FFF, #EEE 1px, #CCC);
+	background-image: linear-gradient(#444 0, #222 20%, #000);
 
 	-webkit-background-clip: padding-box;
 	-o-background-clip: padding-box;
 	background-clip: padding-box;
 
 	border: 1px solid;
-	border-color: #DDD #BBB #999;
+	border-color: #555 #333 #000;
 
-	color: #333;
+	color: #bbb;
 	font-weight: bold;
 	font-size: 1em;
 	text-decoration: none;
@@ -79,24 +64,14 @@ input[type="button"]:not([disabled]):focus, input[type="submit"]:not([disabled])
 }
 
 input[type="button"]:not([disabled]):hover, input[type="submit"]:not([disabled]):hover, .ui-button:hover:not([disabled]) {
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#FFF), to(#DDD));
-	background-image: -moz-linear-gradient(#FFF, #DDD);
-	background-image: -o-linear-gradient(#FFF, #DDD);
-	background-image: linear-gradient(#FFF, #DDD);
-
-	text-decoration: none;
+	background-image: linear-gradient(#555 0, #282828 20%, #000);
 }
 
 input[type="button"]:not([disabled]):active, input[type="submit"]:not([disabled]):active, .ui-button:active:not([disabled]) {
 	color: #CCC;
 
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#444), to(#777));
-	background-image: -moz-linear-gradient(#444, #777);
-	background-image: -o-linear-gradient(#444, #777);
 	background-image: linear-gradient(#444, #777);
 
-	webkit-box-shadow: inset rgba(0, 0, 0, .25) 0 1px 2px 0;
-	-moz-box-shadow: inset rgba(0, 0, 0, .25) 0 1px 2px 0;
 	box-shadow: inset rgba(0, 0, 0, .25) 0 1px 2px 0;
 
 	border-color: #999 #BBB #DDD;
@@ -112,10 +87,6 @@ input.selector {
 }
 
 input.selector+label img {
-	-webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
     border-radius: 3px;
 
 	width: 64px;
@@ -132,10 +103,6 @@ input.selector+label .selector_label {
 	font-size: 0.8em;
 	background: rgba(0,0,0,0.7);
 
-	-webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
     border-radius: 3px;
 }
 
@@ -148,10 +115,6 @@ input.selector+label {
 	padding: 3px;
 	margin: 3px 3px;
 	border: 2px solid #888;
-	-webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
     border-radius: 5px;
 
 	cursor: pointer;
@@ -186,3 +149,6 @@ input[type=checkbox]:not(.selector) + label {
 	vertical-align:top;
 	cursor:pointer;
 }
+
+input[type='radio'], input[type='checkbox'] {	filter: invert(1);}
+input[type='checkbox'] { accent-color: #ddd; }
