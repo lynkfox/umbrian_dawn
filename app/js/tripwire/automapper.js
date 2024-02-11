@@ -77,7 +77,7 @@ tripwire.autoMapper = function(from, to) {
 		return false;
 	}	 
 
-    var payload = {"signatures": {"add": [], "update": []}};
+    var payload = {"signatures": {"add": [], "update": []}, "automap": { "character": tripwire.client.EVE.characterID } };
 
     var wormholes = wormholesForJump(from, to, tripwire.client.wormholes, tripwire.client.signatures);
 	
