@@ -37,15 +37,30 @@
 					dataType: "JSON"
 				}).done(function(data) {
 					if (data && data.jumps) {
-                        var totalMass = 0;
-						for (x in data.jumps) {
-							if(!appData.mass[data.jumps[x].shipTypeID]) { continue; }	// sometimes ship is not recorded, or ship isn't in SDE dump yet
-							const jumpMass = parseFloat(appData.mass[data.jumps[x].shipTypeID].mass);
-                            totalMass += jumpMass;
-							$("#dialog-mass #massTable tbody").append("<tr><td>"+data.jumps[x].characterName+"</td><td>"+(data.jumps[x].toID == systemID ? "In" : "Return")+"</td><td>"+appData.mass[data.jumps[x].shipTypeID].typeName+"</td><td>"+wormholeRendering.renderMass(jumpMass)+"</td><td>"+data.jumps[x].time+"</td></tr>");
+						const massData = parseMassData(data.jumps);
+						for (x in massData.jumps) {
+							const j = massData.jumps[x];
+							$("#dialog-mass #massTable tbody").append("<tr><td>"+j.characterName+"</td><td>"+(j.targetSystem == systemID ? "Into " + systemRendering.renderSystem(toSystem, 'span') : "Return to " + systemRendering.renderSystem(fromSystem, 'span'))+"</td><td>"+j.shipName+"</td><td>"+wormholeRendering.renderMass(j.mass)+"</td><td>"+j.time+"</td></tr>");
 						}
-                        $("#dialog-mass #massTable tbody").append("<tr><td></td><td></td><td></td><th>"+ wormholeRendering.renderMass(totalMass) +"</th><td></td></tr>");
+                        $("#dialog-mass #massTable tbody").append("<tr><td></td><td></td><td></td><th>"+ wormholeRendering.renderMass(massData.totalMass) +"</th><td></td></tr>");
 					}
 				});
 			}
 		});
+
+function parseMassData(jumps) {
+	const result = { totalMass: 0, jumps: [] };
+	for (x in jumps) {
+		const shipData = appData.mass[jumps[x].shipTypeID];
+		if(!shipData) { continue; }	// sometimes ship is not recorded, or ship isn't in SDE dump yet
+		const jumpMass = parseFloat(shipData.mass);
+		result.totalMass += jumpMass;
+		result.jumps.push( { 
+			mass: jumpMass, higgs: false, prop: false, shipName: shipData.typeName,
+			targetSystem: jumps[x].toID, 
+			characterName: jumps[x].characterName,
+			time: jumps[x].time 
+		});
+	}
+	return result;
+}
