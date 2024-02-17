@@ -1018,7 +1018,8 @@ $system = $_REQUEST['system'];
 	</div>
 
 	<div id="dialog-mass" title="" class="hidden">
-		<p id="mass-systems">-</p>
+		<p><span id="mass-systems">-</span><span id="mass-placeholder-desc" data-tooltip="Based on system types.<br>Enter the actual hole type in the Edit Signature panel for accurate mass values."> (Inferred hole type)</span></p>
+		<p>Total recorded: <b id="mass-jumped">?</b> of ~<span id="mass-capacity">?</span> [<span data-tooltip="Wormhole mass can be ±10%, and there might be unrecorded jumps.">?</span>]</p>
 		<table id="massTable">
 			<thead>
 				<tr>

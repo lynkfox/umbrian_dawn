@@ -27,6 +27,8 @@
 				" via "+wormholeRendering.renderWormholeType(wormholeType, wormhole.type, fromSystem, toSystem);
 
 				$("#dialog-mass #massTable tbody tr").remove();
+				document.getElementById('mass-jumped').innerText = '?';
+				document.getElementById('mass-capacity').innerText = '?';
 
 				var payload = {wormholeID: wormhole.id};
 
@@ -38,6 +40,9 @@
 				}).done(function(data) {
 					if (data && data.jumps) {
 						const massData = parseMassData(data.jumps);
+						document.getElementById('mass-jumped').innerText = wormholeRendering.renderMass(massData.totalMass);
+						document.getElementById('mass-capacity').innerText = wormholeType.mass ? wormholeRendering.renderMass(wormholeType.mass) : 'Unknown';
+						document.getElementById('mass-placeholder-desc').style.display = wormholeType.dummy ? '' : 'none';
 						for (x in massData.jumps) {
 							const j = massData.jumps[x];
 							$("#dialog-mass #massTable tbody").append("<tr><td>"+j.characterName+"</td><td>"+(j.targetSystem == systemID ? "Into " + systemRendering.renderSystem(toSystem, 'span') : "Return to " + systemRendering.renderSystem(fromSystem, 'span'))+"</td><td>"+j.shipName+"</td><td>"+wormholeRendering.renderMass(j.mass)+"</td><td>"+j.time+"</td></tr>");
