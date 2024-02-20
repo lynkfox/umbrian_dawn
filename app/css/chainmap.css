@@ -201,7 +201,12 @@ div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivi
 .eol, #chainMap .eol, #guide .eol { border-style: dashed; }
 .frig, #chainMap .frig, #guide .frig { border-color: #50D25A; }
 
-#massTable { text-wrap: nowrap; margin-top: 1em }
+#massTableContainer {
+	text-wrap: nowrap;
+	margin-top: 1em;
+	max-height: 200px;
+	overflow-y: auto;
+}
 
 #massTable td:nth-child(1) {
 	min-width: 12em;
