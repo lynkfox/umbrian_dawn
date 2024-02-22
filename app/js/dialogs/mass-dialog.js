@@ -45,21 +45,38 @@
 						document.getElementById('mass-placeholder-desc').style.display = wormholeType.dummy ? '' : 'none';
 						for (x in massData.jumps) {
 							const j = massData.jumps[x];
-							$("#dialog-mass #massTable tbody").append("<tr><td>"+j.characterName+"</td><td>"+(j.targetSystem == systemID ? "Into " + systemRendering.renderSystem(toSystem, 'span') : "Return to " + systemRendering.renderSystem(fromSystem, 'span'))+"</td><td>"+j.shipName+"</td><td>"+wormholeRendering.renderMass(j.mass)+"</td><td>"+j.time+"</td></tr>");
+							$("#dialog-mass #massTable tbody").append("<tr class='mass-" + getMassClass(j.mass) + "'><td>"+j.characterName+"</td><td>"+(j.targetSystem == systemID ? "Into " + systemRendering.renderSystem(toSystem, 'span') : "Return to " + systemRendering.renderSystem(fromSystem, 'span'))+"</td><td>"+j.shipName+"</td><td>"+wormholeRendering.renderMass(j.mass)+"</td><td>"+j.time+"</td></tr>");
 						}
+						// Summary rows
+                        $("#dialog-mass #massTable tbody").append("<tr id='small-mass'><td></td><td></td><td>Small jumps</td><td>"+ wormholeRendering.renderMass(massData.smallMass) +"</td><td></td></tr>");
+                        $("#dialog-mass #massTable tbody").append("<tr id='medium-mass'><td></td><td></td><td>Medium jumps</td><td>"+ wormholeRendering.renderMass(massData.mediumMass) +"</td><td></td></tr>");
+                        $("#dialog-mass #massTable tbody").append("<tr id='large-mass'><td></td><td></td><td>Large jumps</td><td>"+ wormholeRendering.renderMass(massData.largeMass) +"</td><td></td></tr>");
                         $("#dialog-mass #massTable tbody").append("<tr><td></td><td></td><td></td><th>"+ wormholeRendering.renderMass(massData.totalMass) +"</th><td></td></tr>");
 					}
 				});
 			}
 		});
 
+function getMassClass(jumpMass) {
+	return jumpMass <= 5e6 ? 'Small' :
+	 jumpMass <= 80e6 ? 'Medium' :
+	 jumpMass <= 300e6 ? 'Large' :
+	 'X-Large';
+}
+
 function parseMassData(jumps) {
-	const result = { totalMass: 0, jumps: [] };
+	const result = { totalMass: 0, smallMass: 0, mediumMass: 0, largeMass: 0, xlMass: 0, jumps: [] };
 	for (x in jumps) {
 		const shipData = appData.mass[jumps[x].shipTypeID];
 		if(!shipData) { continue; }	// sometimes ship is not recorded, or ship isn't in SDE dump yet
 		const jumpMass = parseFloat(shipData.mass);
 		result.totalMass += jumpMass;
+		switch(getMassClass(jumpMass)) {
+			case 'Small': result.smallMass += jumpMass; break;
+			case 'Medium': result.mediumMass += jumpMass; break;
+			case 'Large': result.largeMass += jumpMass; break;
+			case 'X-Large': result.xlMass += jumpMass; break;
+		}
 		result.jumps.push( { 
 			mass: jumpMass, higgs: false, prop: false, shipName: shipData.typeName,
 			targetSystem: jumps[x].toID, 
