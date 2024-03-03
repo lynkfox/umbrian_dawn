@@ -60,7 +60,7 @@
 function getMassClass(jumpMass) {
 	return jumpMass <= 5e6 ? 'Small' :
 	 jumpMass <= 80e6 ? 'Medium' :
-	 jumpMass <= 300e6 ? 'Large' :
+	 jumpMass <= 500e6 ? 'Large' :
 	 'X-Large';
 }
 
@@ -69,16 +69,19 @@ function parseMassData(jumps) {
 	for (x in jumps) {
 		const shipData = appData.mass[jumps[x].shipTypeID];
 		if(!shipData) { continue; }	// sometimes ship is not recorded, or ship isn't in SDE dump yet
-		const jumpMass = parseFloat(shipData.mass);
+		const originalMass = parseFloat(shipData.mass);
+		const shipType = Object.assign({ higgs: false, prop: false }, (jumps[x].shipType[0] == '{') ? JSON.parse(jumps[x].shipType) : {});
+		const massClass = getMassClass(originalMass);
+		const jumpMass = (originalMass + (shipType.prop ? (massClass === 'X-Large' ? 500e6 : 50e6) : 0)) * (shipType.higgs ? 2 : 1);
 		result.totalMass += jumpMass;
-		switch(getMassClass(jumpMass)) {
+		switch(massClass) {
 			case 'Small': result.smallMass += jumpMass; break;
 			case 'Medium': result.mediumMass += jumpMass; break;
 			case 'Large': result.largeMass += jumpMass; break;
 			case 'X-Large': result.xlMass += jumpMass; break;
 		}
 		result.jumps.push( { 
-			mass: jumpMass, higgs: false, prop: false, shipName: shipData.typeName,
+			originalMass: originalMass, mass: jumpMass, higgs: shipType.higgs, prop: shipType.prop, shipName: shipData.typeName,
 			targetSystem: jumps[x].toID, 
 			characterName: jumps[x].characterName,
 			time: jumps[x].time 

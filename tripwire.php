@@ -1021,10 +1021,10 @@ $system = $_REQUEST['system'];
 		<p><span id="mass-systems">-</span><span id="mass-placeholder-desc" data-tooltip="Based on system types.<br>Enter the actual hole type in the Edit Signature panel for accurate mass values."> (Inferred hole type)</span></p>
 		<p>Total recorded: <b id="mass-jumped">?</b> of ~<span id="mass-capacity">?</span> [<span data-tooltip="Wormhole mass can be ±10%, and there might be unrecorded jumps.">?</span>]</p>
 		<p>Show jumps down to: 
-			<label><input type="radio" name="show-mass" value="capital">Capital only</label>
-			<label><input type="radio" name="show-mass" value="battleship">Battleships</label>
-			<label><input type="radio" name="show-mass" value="cruiser">Cruisers</label>
-			<label><input type="radio" name="show-mass" value="all" checked>All jumps</label>
+			<label><input type="radio" name="show-mass" value="capital"> Capital only</label>
+			<label><input type="radio" name="show-mass" value="battleship"> Battleships</label>
+			<label><input type="radio" name="show-mass" value="cruiser"> Cruisers</label>
+			<label><input type="radio" name="show-mass" value="all" checked> All jumps</label>
 		</p>
 		<div id="massTableContainer"><table id="massTable">
 			<thead>
