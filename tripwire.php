@@ -1035,7 +1035,7 @@ $system = $_REQUEST['system'];
 					<th>Character</th>
 					<th>Direction</th>
 					<th>Ship Type</th>
-					<th>Mass [<span data-tooltip="Hot jumps <i data-icon=prop-mod></i> add prop mod (50kt except for caps) to mass<br>Higgs <i data-icon=anchor></i> doubles jump mass<br>Click to toggle for your jumps">?</span>]</th>
+					<th>Mass [<span data-tooltip="Hot jumps <i data-icon=prop-mod></i> add prop mod (50kt except for caps) to mass<br>Higgs <i data-icon=anchor></i> doubles jump mass">?</span>]</th>
 					<th>Time</th>
 				</tr>
 			</thead>
