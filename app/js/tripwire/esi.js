@@ -142,7 +142,7 @@ tripwire.esi = function() {
 
                     if (character.shipID != data.ship_item_id) {
                         character.shipID = data.ship_item_id || null;
-						tripwire.massOptions.reset();
+						tripwire.resetMassOptions();
 						updateTracking(character);
                     }
 
