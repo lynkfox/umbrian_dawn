@@ -14,6 +14,24 @@ tripwire.esi = function() {
 		return moment.utc(tokenExpire).subtract(5, "minutes").isBefore(moment());
 	}
 
+	function updateTracking(character) {
+	// Send to Tripwire server on next refresh call
+	tripwire.data.tracking[character.characterID] = {
+		characterID: character.characterID,
+		characterName: character.characterName,
+		systemID: character.systemID,
+		systemName: character.systemName,
+		stationID: character.stationID,
+		stationName: character.stationName,
+		shipID: character.shipID,
+		shipName: character.shipName,
+		shipTypeID: character.shipTypeID,
+		shipTypeName: character.shipTypeName,
+		massOptions: tripwire.massOptions
+	};				
+}
+
+
     this.esi.location = function() {
         clearTimeout(locationTimer);
 
@@ -44,19 +62,8 @@ tripwire.esi = function() {
                         character.systemName = system ? system.name : null;
 
                         $("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".system").html(systemRendering.renderSystem(system) || "&nbsp;");
-
-                        // Send to Tripwire server on next refresh call
-                        tripwire.data.tracking[this.characterID] = {
-                            characterID: character.characterID,
-                            characterName: character.characterName,
-                            systemID: character.systemID,
-                            systemName: character.systemName,
-                            stationID: character.stationID,
-                            stationName: character.stationName,
-                            shipID: character.shipID,
-                            shipName: character.shipName,
-                            shipTypeID: character.shipTypeID,
-                            shipTypeName: character.shipTypeName};
+						
+						updateTracking(character);
                     }
 
                     if (character.stationID != data.station_id) {
@@ -71,36 +78,13 @@ tripwire.esi = function() {
                                     $("#tracking .tracking-clone[data-characterid='"+ this.reference +"']").find(".station").html(data.name.substring(0, 17) + "..." || "&nbsp;").attr("data-tooltip", data.name);
                                     Tooltips.attach($("#tracking .tracking-clone[data-characterid='"+ this.reference +"'] .station[data-tooltip]"));
 
-                                    // Send to Tripwire server on next refresh call
-                                    tripwire.data.tracking[this.reference] = {
-                                        characterID: character.characterID,
-                                        characterName: character.characterName,
-                                        systemID: character.systemID,
-                                        systemName: character.systemName,
-                                        stationID: character.stationID,
-                                        stationName: character.stationName,
-                                        shipID: character.shipID,
-                                        shipName: character.shipName,
-                                        shipTypeID: character.shipTypeID,
-                                        shipTypeName: character.shipTypeName};
+                                    updateTracking(character);
                                 });
                         } else {
                             character.stationName = null;
                             // $("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".station").html("&nbsp;").attr("data-tooltip", "&nbsp;");
                             Tooltips.detach($("#tracking .tracking-clone[data-characterid='"+ this.characterID +"'] .station[data-tooltip]"));
-
-                            // Send to Tripwire server on next refresh call
-                            tripwire.data.tracking[this.characterID] = {
-                                characterID: character.characterID,
-                                characterName: character.characterName,
-                                systemID: character.systemID,
-                                systemName: character.systemName,
-                                stationID: character.stationID,
-                                stationName: character.stationName,
-                                shipID: character.shipID,
-                                shipName: character.shipName,
-                                shipTypeID: character.shipTypeID,
-                                shipTypeName: character.shipTypeName};
+							updateTracking(character);
                         }
                     }
 
@@ -158,37 +142,14 @@ tripwire.esi = function() {
 
                     if (character.shipID != data.ship_item_id) {
                         character.shipID = data.ship_item_id || null;
-
-                        // Send to Tripwire server on next refresh call
-                        tripwire.data.tracking[this.characterID] = {
-                            characterID: character.characterID,
-                            characterName: character.characterName,
-                            systemID: character.systemID,
-                            systemName: character.systemName,
-                            stationID: character.stationID,
-                            stationName: character.stationName,
-                            shipID: character.shipID,
-                            shipName: character.shipName,
-                            shipTypeID: character.shipTypeID,
-                            shipTypeName: character.shipTypeName};
+						tripwire.massOptions.reset();
+						updateTracking(character);
                     }
 
                     if (character.shipName != data.ship_name) {
                         character.shipName = data.ship_name || null;
                         $("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".shipname").html(data.ship_name || "&nbsp;");
-
-                        // Send to Tripwire server on next refresh call
-                        tripwire.data.tracking[this.characterID] = {
-                            characterID: character.characterID,
-                            characterName: character.characterName,
-                            systemID: character.systemID,
-                            systemName: character.systemName,
-                            stationID: character.stationID,
-                            stationName: character.stationName,
-                            shipID: character.shipID,
-                            shipName: character.shipName,
-                            shipTypeID: character.shipTypeID,
-                            shipTypeName: character.shipTypeName};
+						updateTracking(character);
                     }
 
                     if (character.shipTypeID != data.ship_type_id) {
@@ -201,36 +162,12 @@ tripwire.esi = function() {
 
                                     character.shipTypeName = data.name || null;
                                     $("#tracking .tracking-clone[data-characterid='"+ this.reference +"']").find(".ship").html(data.name || "&nbsp;");
-
-                                    // Send to Tripwire server on next refresh call
-                                    tripwire.data.tracking[this.reference] = {
-                                        characterID: character.characterID,
-                                        characterName: character.characterName,
-                                        systemID: character.systemID,
-                                        systemName: character.systemName,
-                                        stationID: character.stationID,
-                                        stationName: character.stationName,
-                                        shipID: character.shipID,
-                                        shipName: character.shipName,
-                                        shipTypeID: character.shipTypeID,
-                                        shipTypeName: character.shipTypeName};
+									updateTracking(character);
                                 });
                         } else {
                             character.shipTypeName = null;
                             $("#tracking .tracking-clone[data-characterid='"+ this.characterID +"']").find(".ship").html("&nbsp;");
-
-                            // Send to Tripwire server on next refresh call
-                            tripwire.data.tracking[this.characterID] = {
-                                characterID: character.characterID,
-                                characterName: character.characterName,
-                                systemID: character.systemID,
-                                systemName: character.systemName,
-                                stationID: character.stationID,
-                                stationName: character.stationName,
-                                shipID: character.shipID,
-                                shipName: character.shipName,
-                                shipTypeID: character.shipTypeID,
-                                shipTypeName: character.shipTypeName};
+							updateTracking(character);
                         }
                     }
                 }
