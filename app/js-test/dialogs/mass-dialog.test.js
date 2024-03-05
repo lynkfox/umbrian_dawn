@@ -14,6 +14,7 @@ describe('Mass panel', () => {
 			assert.deepEqual({
 				originalMass: 1430000,
 				mass: 1430000,
+				massClass: 'Small',
 				higgs: false, prop: false,
 				shipName: 'Cheetah',
 				targetSystem: 31002437,
@@ -21,10 +22,11 @@ describe('Mass panel', () => {
 				time: "2024-03-03 18:35:29"
 			}, massData.jumps[0]);
 		});
-		it('should parse JSON records (hot)', () => {
+		it('should parse complex records (hot)', () => {
 			assert.deepEqual({
 				originalMass: 19200000,
 				mass: 69200000,
+				massClass: 'Medium',
 				higgs: false, prop: true,
 				shipName: 'Mastodon',
 				targetSystem: 31002358,
@@ -32,10 +34,11 @@ describe('Mass panel', () => {
 				time: "2024-03-03 15:07:52"
 			}, massData.jumps[2]);
 		});
-		it('should parse JSON records (hot + higgs)', () => {
+		it('should parse complex records (hot + higgs)', () => {
 			assert.deepEqual({
 				originalMass: 98400000,
 				mass: 296800000,
+				massClass: 'Large',
 				higgs: true, prop: true,
 				shipName: 'Megathron',
 				targetSystem: 31002437,

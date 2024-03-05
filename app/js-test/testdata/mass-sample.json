@@ -18,14 +18,14 @@
             "characterName": "Marcus Domitius",
             "toID": "31002358",
             "shipTypeID": "12747",
-            "shipType": "{\"name\": \"Mastodon\", \"prop\": true}",
+            "shipType": "Mastodon|p",
             "time": "2024-03-03 15:07:52"
         },
         {
             "characterName": "Mars Retribution",
             "toID": "31002437",
             "shipTypeID": "641",
-            "shipType": "{\"name\": \"Megathron\", \"prop\": true, \"higgs\": true}",
+            "shipType": "Megathron|ph",
             "time": "2024-03-03 15:04:31"
         },
         {

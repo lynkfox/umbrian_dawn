@@ -45,7 +45,12 @@
 						document.getElementById('mass-placeholder-desc').style.display = wormholeType.dummy ? '' : 'none';
 						for (x in massData.jumps) {
 							const j = massData.jumps[x];
-							$("#dialog-mass #massTable tbody").append("<tr class='mass-" + getMassClass(j.mass) + "'><td>"+j.characterName+"</td><td>"+(j.targetSystem == systemID ? "Into " + systemRendering.renderSystem(toSystem, 'span') : "Return to " + systemRendering.renderSystem(fromSystem, 'span'))+"</td><td>"+j.shipName+"</td><td>"+wormholeRendering.renderMass(j.mass)+"</td><td>"+j.time+"</td></tr>");
+							
+							const massMarkup = (j.massClass === 'Small' ? '' :
+									'<i data-icon="prop-mod" class="' + (j.prop ? ' active' : 'inactive') + '"></i>' +
+									'<i data-icon="anchor" class="' + (j.higgs ? ' active' : 'inactive') + '"></i> '
+								) + wormholeRendering.renderMass(j.mass);
+							$("#dialog-mass #massTable tbody").append("<tr class='mass-" + getMassClass(j.mass) + "'><td>"+j.characterName+"</td><td>"+(j.targetSystem == systemID ? "Into " + systemRendering.renderSystem(toSystem, 'span') : "Return to " + systemRendering.renderSystem(fromSystem, 'span'))+"</td><td>"+j.shipName+"</td><td>"+massMarkup+"</td><td>"+j.time+"</td></tr>");
 						}
 						// Summary rows
                         $("#dialog-mass #massTable tbody").append("<tr id='small-mass'><td></td><td></td><td>Small jumps</td><td>"+ wormholeRendering.renderMass(massData.smallMass) +"</td><td></td></tr>");
@@ -70,9 +75,10 @@ function parseMassData(jumps) {
 		const shipData = appData.mass[jumps[x].shipTypeID];
 		if(!shipData) { continue; }	// sometimes ship is not recorded, or ship isn't in SDE dump yet
 		const originalMass = parseFloat(shipData.mass);
-		const shipType = Object.assign({ higgs: false, prop: false }, (jumps[x].shipType[0] == '{') ? JSON.parse(jumps[x].shipType) : {});
+		const shipFlagsText = jumps[x].shipType.split('|', 2)[1] || '';
+		const shipFlags = { higgs: shipFlagsText.indexOf('h') >= 0, prop: shipFlagsText.indexOf('p') >= 0 };
 		const massClass = getMassClass(originalMass);
-		const jumpMass = (originalMass + (shipType.prop ? (massClass === 'X-Large' ? 500e6 : 50e6) : 0)) * (shipType.higgs ? 2 : 1);
+		const jumpMass = (originalMass + (shipFlags.prop ? (massClass === 'X-Large' ? 500e6 : 50e6) : 0)) * (shipFlags.higgs ? 2 : 1);
 		result.totalMass += jumpMass;
 		switch(massClass) {
 			case 'Small': result.smallMass += jumpMass; break;
@@ -81,7 +87,8 @@ function parseMassData(jumps) {
 			case 'X-Large': result.xlMass += jumpMass; break;
 		}
 		result.jumps.push( { 
-			originalMass: originalMass, mass: jumpMass, higgs: shipType.higgs, prop: shipType.prop, shipName: shipData.typeName,
+			originalMass: originalMass, mass: jumpMass, massClass: massClass,
+			higgs: shipFlags.higgs, prop: shipFlags.prop, shipName: shipData.typeName,
 			targetSystem: jumps[x].toID, 
 			characterName: jumps[x].characterName,
 			time: jumps[x].time 

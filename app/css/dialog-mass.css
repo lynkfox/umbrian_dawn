@@ -15,6 +15,9 @@
 #dialog-mass:has(input[value='capital']:checked) tr.mass-Medium, 
 #dialog-mass:has(input[value='capital']:checked) tr.mass-Large { display: none }
 
+/* Mod selectors */
+.inactive { opacity: 0.5 }
+
 /* Table alignment and spacing */
 #massTableContainer {
 	text-wrap: nowrap;
