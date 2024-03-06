@@ -1,3 +1,5 @@
+const deleteDialogVM = {};
+
 $("#signaturesWidget").on("click", "#delete-signature", function(e) {
 	e.preventDefault();
 
@@ -9,6 +11,10 @@ $("#signaturesWidget").on("click", "#delete-signature", function(e) {
 		$("#dialog-sigEdit").parent().effect("shake", 300);
 		return false;
 	}
+	
+	deleteDialogVM.signatures = $.map($("#sigTable tr.selected"), function(n) {
+		return tripwire.client.signatures[$(n).data("id")];
+	});
 
 	// check if dialog is open
 	if (!$("#dialog-deleteSig").hasClass("ui-dialog-content")) {
@@ -23,8 +29,7 @@ $("#signaturesWidget").on("click", "#delete-signature", function(e) {
 					var payload = {"signatures": {"remove": []}, "systemID": viewingSystemID};
 					var undo = [];
 
-					var signatures = $.map($("#sigTable tr.selected"), function(n) {
-						var signature = tripwire.client.signatures[$(n).data("id")];
+					var signaturePayload = $.map(deleteDialogVM.signatures, function(signature) {
 						if (signature.type != "wormhole") {
 							undo.push(signature);
 							return signature.id;
@@ -34,7 +39,7 @@ $("#signaturesWidget").on("click", "#delete-signature", function(e) {
 							return wormhole;
 						}
 					});
-					payload.signatures.remove = signatures;
+					payload.signatures.remove = signaturePayload;
 
 					var success = function(data) {
 						if (data.resultSet && data.resultSet[0].result == true) {
@@ -60,6 +65,12 @@ $("#signaturesWidget").on("click", "#delete-signature", function(e) {
 				Cancel: function() {
 					$(this).dialog("close");
 				}
+			},
+			open: function() {
+				const sigs = deleteDialogVM.signatures;
+				$("#dialog-deleteSig").dialog("option", "title", sigs.length == 1 ? 'Delete Signature ' + formatSignatureID(sigs[0].signatureID) : 'Delete Multiple Signatures');
+				document.getElementById('deleteSigText').innerText = sigs.length == 1 ? 'The ' + sigs[0].type + ' signature ' + formatSignatureID(sigs[0].signatureID) 
+					: 'The signatures ' + sigs.map(s => formatSignatureID(s.signatureID)).join(', ');
 			},
 			close: function() {
 				$("#sigTable tr.selected").removeClass("selected");
