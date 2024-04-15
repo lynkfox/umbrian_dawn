@@ -22,6 +22,22 @@ const ChainMapRendererRadial = function(owner) {
 		node.position = radToCartesian(node.radPosition);		
 	}
 	
+	this.drawConnection = function(ctx, node) {
+		const cp1 = radToCartesian({ r: node.radPosition.r - 0.5, theta: (node.radPosition.theta + 2 * node.parent.radPosition.theta) / 3.0 });
+		const cp2 = radToCartesian({ r: node.radPosition.r - 0.5, theta: (2 * node.radPosition.theta + node.parent.radPosition.theta) / 3.0 });
+		
+		if(node.circle > 1) {				
+			ctx.bezierCurveTo(cp2.x, cp2.y, cp1.x, cp1.y, node.parent.position.x, node.parent.position.y);
+		} else {
+			ctx.lineTo(node.parent.position.x, node.parent.position.y);			
+		}
+	}
+	
+	this.adjustAlignmentDelta = function(ci, rad_centre) {
+		return ci == 1 ? -rad_centre	// First node on first ring should be axis aligned
+		: 0;
+	}
+	
 	this.drawGridlines = function(ctx, ci) {
 		ctx.beginPath();
 		if(ctx.ellipse) {

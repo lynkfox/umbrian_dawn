@@ -171,14 +171,7 @@ const ChainMapRendererBase = function(owner) {
 					if(!node.position) { continue; }	// not drawn on map
 					ctx.beginPath();
 					ctx.moveTo(node.position.x, node.position.y);
-/*	todo				const cp1 = radToCartesian({ r: node.radPosition.r - 0.5, theta: (node.radPosition.theta + 2 * node.parent.radPosition.theta) / 3.0 });
-					const cp2 = radToCartesian({ r: node.radPosition.r - 0.5, theta: (2 * node.radPosition.theta + node.parent.radPosition.theta) / 3.0 });
-					
-					if(ci > 1) {				
-						ctx.bezierCurveTo(cp2.x, cp2.y, cp1.x, cp1.y, node.parent.position.x, node.parent.position.y);
-					} else {
-	*/					ctx.lineTo(node.parent.position.x, node.parent.position.y);			
-//					}
+					_this.drawConnection(ctx, node);
 					
 					// draw aura first
 					if(options.chain.aura) {
@@ -214,13 +207,18 @@ const ChainMapRendererBase = function(owner) {
 	this.skipLevels = function(ci, nodes, minRad, maxRad, parentCollapsed) { return 0; }
 	
 	/** Set the position of this node based on its level and radial position within the level
-	A "position" property with x and y must be set. Other values used in getLineControlPoints may also be set */
+	A "position" property with x and y must be set. Other values used in drawConnection may also be set */
 	this.setPosition = function(node, ci, rad_centre) { throw 'must define setPosition'; }
 	
-//todo	this.getLineControlPoints = 
+	/** Draw the connection from this node to its parent. The current point will be the node's position. By default, draws a line */
+	this.drawConnection = function(ctx, node) {
+		ctx.lineTo(node.parent.position.x, node.parent.position.y);			
+	}
 
 	/** Draw grid lines for this level */
 	this.drawGridlines = function(ctx, ci) { }
+	
+	this.adjustAlignmentDelta = function(ci, rad_centre) { return 0; }
 	
 	/** Add the nodes for this ring/level and all further rings to the container, and return the bounds of the space used by it
 	Called recursively for chain sub-sections
@@ -234,11 +232,18 @@ const ChainMapRendererBase = function(owner) {
 		const bounds = { x: [0, 0], y: [0, 0], maxCi: ci };
 		if(!nodes.length) { return bounds; }
 		const parentCollapsed = collapsed.indexOf(1 * (nodes[0].parent || {}).systemID) >= 0;
-		ci += _this.skipLevels(ci, nodes, minRad, maxRad, parentCollapsed);
 		const totalArc = parentCollapsed ? nodes.length : nodes.reduce(function(acc, x) { return acc + x.minArc; }, 0);
 		const rads_per_arc = (maxRad - minRad) / totalArc;
 		var rad_offset = minRad;
-		var alignment_delta = 0;
+		function getNodeRadialPosition(node) {
+			const dr = (parentCollapsed ? 1 : node.minArc) * rads_per_arc,
+				rad_centre = rad_offset + (dr / 2);
+			return { dr: dr, rad_centre: rad_centre };
+		}
+		var alignment_delta = _this.adjustAlignmentDelta(ci, getNodeRadialPosition(nodes[0]).rad_centre);
+		
+		ci += _this.skipLevels(ci, nodes, minRad, maxRad, parentCollapsed);
+
 		
 		for(var ni = 0; ni < nodes.length; ni++) {
 			const node = nodes[ni];	
@@ -251,14 +256,9 @@ const ChainMapRendererBase = function(owner) {
 			$(node.domNode).dblclick(() => _this.collapse(systemID, collapsed.indexOf(systemID) < 0));
 			
 			// Position the node
-			const dr = (parentCollapsed ? 1 : node.minArc) * rads_per_arc;
-			const rad_centre = rad_offset + (dr / 2);
+			const nodeRadialPosition = getNodeRadialPosition(node);
 			
-			if(ci == 1 && ni == 0) { // First node on first ring should be axis aligned
-				//todo alignment_delta -= rad_centre;
-			}
-			
-			_this.setPosition(node, ci, rad_centre + alignment_delta);
+			_this.setPosition(node, ci, nodeRadialPosition.rad_centre + alignment_delta);
 			
 			if(node.position.x < bounds.x[0]) { bounds.x[0] = node.position.x; }
 			if(node.position.x > bounds.x[1]) { bounds.x[1] = node.position.x; }
@@ -272,9 +272,9 @@ const ChainMapRendererBase = function(owner) {
 				node.domNode.style.display = 'none';
 			} else {				
 				// Do the segment of the next circle
-				const excess = (ci > 0 && dr > node.minArc * ci) ? dr - node.minArc * ci : 0;
+				const excess = (ci > 0 && nodeRadialPosition.dr > node.minArc * ci) ? nodeRadialPosition.dr - node.minArc * ci : 0;
 				if(node.children.length) {
-					const nextBounds = makeDivsForRing(innerContainer, ci + 1, node.children, rad_offset + (0.5 * excess) + alignment_delta, rad_offset - (0.5 * excess) + alignment_delta + dr, collapsed);
+					const nextBounds = makeDivsForRing(innerContainer, ci + 1, node.children, rad_offset + (0.5 * excess) + alignment_delta, rad_offset - (0.5 * excess) + alignment_delta + nodeRadialPosition.dr, collapsed);
 					if(nextBounds.x[0] < bounds.x[0]) { bounds.x[0] = nextBounds.x[0]; }
 					if(nextBounds.x[1] > bounds.x[1]) { bounds.x[1] = nextBounds.x[1]; }
 					if(nextBounds.y[0] < bounds.y[0]) { bounds.y[0] = nextBounds.y[0]; }
@@ -282,7 +282,7 @@ const ChainMapRendererBase = function(owner) {
 					if(nextBounds.maxCi > bounds.maxCi) { bounds.maxCi = nextBounds.maxCi; }
 				}
 			}
-			rad_offset += dr;
+			rad_offset += nodeRadialPosition.dr;
 		}
 		
 		return bounds;
