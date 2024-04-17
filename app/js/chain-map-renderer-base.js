@@ -106,7 +106,8 @@ const ChainMapRendererBase = function(owner) {
 			const innerContainer = mapDiv.firstChild.firstChild;
 			document.getElementById('map-container').appendChild(mapDiv);
 
-			map.bounds = makeDivsForRing(innerContainer, 0, map.circles[0].nodes, 0, Math.PI * 2, collapsed);
+			const range = _this.initialRads(map.circles[0].nodes[0].minArc);
+			map.bounds = makeDivsForRing(innerContainer, 0, map.circles[0].nodes, -range, range, collapsed);
 			map.domNode = mapDiv;
 			map.innerContainer = innerContainer;
 		}
@@ -166,15 +167,8 @@ const ChainMapRendererBase = function(owner) {
 				if(ci >= map.circles.length) { continue; }
 				
 				ctx.save();
-				for(var ni = 0; ni < map.circles[ci].nodes.length; ni++) {
-					const node = map.circles[ci].nodes[ni];
-					if(!node.position) { continue; }	// not drawn on map
-					ctx.beginPath();
-					ctx.moveTo(node.position.x, node.position.y);
-					_this.drawConnection(ctx, node);
-					
-					// draw aura first
-					if(options.chain.aura) {
+				if(options.chain.aura) { // draw aura first
+					drawConnections(ctx, map.circles[ci].nodes, function(node) {
 						ctx.save();
 						ctx.lineWidth = 1;
 						const auraColor = propertyFromCssClass(node.styles, 'color');
@@ -183,14 +177,17 @@ const ChainMapRendererBase = function(owner) {
 						ctx.strokeStyle = 'black';
 						for(let ai = 0; ai < 8; ai++)
 							ctx.stroke();
-						ctx.restore();
-					}
-					
+						ctx.restore();					
+					});
+				}
+				
+				drawConnections(ctx, map.circles[ci].nodes, function(node) {		
 					ctx.lineWidth = parseInt(propertyFromCssClass(node.styles, 'border-width')) || 2;
 					ctx.strokeStyle = propertyFromCssClass(node.styles, 'border-top-color');
 					ctx.setLineDash ({ dashed: [5, 3] }[propertyFromCssClass(node.styles, 'border-top-style')] || []);
 					ctx.stroke();
-				}
+				});					
+
 				ctx.restore();
 			}	
 		}
@@ -202,6 +199,20 @@ const ChainMapRendererBase = function(owner) {
 			else { break; }
 		}
 	}
+	
+	function drawConnections(ctx, nodes, drawFunction) {
+		for(var ni = 0; ni < nodes.length; ni++) {
+			const node = nodes[ni];
+			if(!node.position) { continue; }	// not drawn on map
+			ctx.beginPath();
+			ctx.moveTo(node.position.x, node.position.y);
+			_this.drawConnection(ctx, node);
+			drawFunction(node);
+		}		
+	}
+	
+	/** The coordinate space for the full range. May be based on the total requested arc */
+	this.initialRads = function(minArc) { return Math.PI; }
 	
 	/** How many levels to skip to allow more space for the nodes. Only makes sense if each level is "wider" than the previous so it will have more space. */
 	this.skipLevels = function(ci, nodes, minRad, maxRad, parentCollapsed) { return 0; }

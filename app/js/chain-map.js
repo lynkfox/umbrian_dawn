@@ -17,6 +17,7 @@ var chain = new function() {
 	
 	const renderers = { 
 		orgChart: new ChainMapRendererOrgchart(this),
+		orgChartTop: new ChainMapRendererOrgchartTop(this),
 		radial: new ChainMapRendererRadial(this)
 	};
 	
@@ -25,11 +26,11 @@ var chain = new function() {
 	
 	this.useRenderer = function(name) {
 		if(!renderers[name]) { throw 'Unknown renderer ' + name; }
-		if(this.renderer != renderers[name]) {
-			this.renderer.switchFrom();
-			this.renderer = renderers[name];
-			this.renderer.switchTo();
-			this.redraw();
+		if(chain.renderer != renderers[name]) {
+			chain.renderer.switchFrom();
+			chain.renderer = renderers[name];
+			chain.renderer.switchTo();
+			chain.redraw();
 		}
 	}
 
