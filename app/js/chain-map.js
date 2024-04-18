@@ -18,6 +18,7 @@ var chain = new function() {
 	const renderers = { 
 		orgChart: new ChainMapRendererOrgchart(this),
 		orgChartTop: new ChainMapRendererOrgchartTop(this),
+		orgChartSide: new ChainMapRendererOrgchartSide(this),
 		radial: new ChainMapRendererRadial(this)
 	};
 	
