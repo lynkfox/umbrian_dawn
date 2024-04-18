@@ -630,8 +630,10 @@ $system = $_REQUEST['system'];
 						<th>Chain Renderer:</th>
 						<td>
 							<select id="renderer">
-								<option value="orgChart">Org Chart</option>
+								<option value="orgChartTop">New Org Chart (System at top)</option>
+								<option value="orgChartSide">New Org Chart (System at left)</option>
 								<option value="radial">Radial (System in middle)</option>
+								<option value="orgChart">Old legacy org chart</option>
 							</select>
 						</td>
 					</tr>
