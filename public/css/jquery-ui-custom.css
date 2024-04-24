@@ -1,3 +1,4 @@
+/* Control styling */
 .ui-widget {
     font-family: Verdana,Arial,sans-serif;
     font-size: 1.1em;
@@ -8,23 +9,42 @@
     font-size: 1em;
 }
 
-.ui-widget-content {
+.ui-widget.ui-widget-content, .ui-widget-content {
     border: 1px solid #404040;
 }
 
-.ui-widget.ui-widget-content {
-    border: none;
+.ui-widget {
+	background: #111;
 }
 
 .ui-state-hover .ui-icon, .ui-state-focus .ui-icon, .ui-button:hover .ui-icon, .ui-button:focus .ui-icon, .ui-state-active .ui-icon {
     background-image: url("images/ui-icons_c98000_256x240.png");
 }
 
+.ui-widget-content .ui-accordion-header {
+    border: 1px solid #000;
+	background-color: rgba(40,40,40, 1);
+	background-image: linear-gradient(to top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0) 100%);
+    font-weight: normal;
+    color: #ccc;
+}	
+
 .ui-widget-content .ui-accordion-header-active {
     border: 1px solid #000;
-    background: #121212 url("images/ui-bg_inset-soft_15_121212_1x100.png") 50% 50% repeat-x;
-    font-weight: normal;
     color: #fff;
+	font-weight: bold;
+}
+
+.ui-widget .ui-state-default {
+	background: #111;
+    font-weight: normal;
+    color: #999;
+}
+
+.ui-widget .ui-state-hover {
+	background: #333;
+    font-weight: normal;
+    color: #aaa;
 }
 
 .ui-selectmenu-text {
@@ -39,11 +59,11 @@
 /** Menu Styling **/
 .ui-menu {
 	padding: 2px;
-	background: rgba(229, 229, 229, 1);
+	background: rgba(29, 29, 29, 1);
 	background-image: none;
 
 	min-width: 7em;
-	color: #333;
+	color: #BBB;
 
 	border: none;
     border-radius: 3px;
@@ -61,13 +81,13 @@
     padding: 2px .4em;
     display: inline-block;
     width: 100%;
-    color: #333;
+    color: #BBB;
     box-sizing: border-box;
 }
 
 .ui-menu-item .ui-menu-item-wrapper:hover, .ui-menu-item .ui-menu-item-wrapper.ui-state-active {
     background: #222;
-    color: #aaa;
+    color: #CCC;
 }
 
 .ui-menu-item:last-child .ui-menu-item-wrapper:hover, .ui-menu-item:last-child .ui-menu-item-wrapper.ui-state-active {
@@ -76,7 +96,7 @@
 }
 
 .ui-menu li.ui-menu-item a {
-	color: #333;
+	color: #BBB;
 	font-weight: normal;
 	text-decoration: none;
 }
@@ -87,7 +107,7 @@
 }
 
 li.ui-menu-item.ui-state-focus > a, li.ui-menu-item.ui-state-active > a {
-	color: #aaa;
+	color: #CCC;
 }
 
 .ui-menu .ui-menu-divider, .ui-menu .ui-state-disabled {
@@ -98,37 +118,37 @@ li.ui-menu-item.ui-state-focus > a, li.ui-menu-item.ui-state-active > a {
 
 .ui-menu-item.ui-state-focus {
 	border: none;
-	background: #222;
+	background: #CCC;
 }
 
 .ui-menu-item.ui-state-active {
 	border: none;
-	background: #555;
+	background: #AAA;
 }
 /** Menu Styling  **/
 
 /** Dialog Styling **/
 .ui-dialog {
-	color: #555;
+	overflow: visible;
+}
+
+.ui-dialog, .dialog-like {
+	color: #AAA;
 	width: auto;
 	height: auto;
-	overflow: visible;
 
-	border: none;
-	-webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
+	border: 1px solid #444;
     border-radius: 5px;
 
-	background-color: rgba(170, 170, 170, 1);
-	background-image: linear-gradient(to bottom,rgba(255,255,255,0.7) 0,rgba(255,255,255,0) 100%);
-	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(255,255,255,0.7)),color-stop(100%,rgba(255,255,255,0)));
+	background-color: rgba(40,40,40, 1);
+	background-image: linear-gradient(to bottom,rgba(0,0,0,0.7) 0,rgba(0,0,0,0) 100%);
 }
 
 .ui-widget-overlay {
 	background: none;
 }
+
+.ui-widget.ui-widget-content a { color: #ccc }
 
 .ui-dialog .ui-dialog-title {
     padding-bottom: 3px;
@@ -137,7 +157,7 @@ li.ui-menu-item.ui-state-focus > a, li.ui-menu-item.ui-state-active > a {
 .ui-dialog .ui-dialog-titlebar {
 	background: none;
 	border: none;
-	color: #444;
+	color: #CA7;
 }
 
 .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
@@ -149,8 +169,8 @@ li.ui-menu-item.ui-state-focus > a, li.ui-menu-item.ui-state-active > a {
 	padding: 1px;
 }
 
-.ui-dialog .ui-dialog-content {
-	color: #555;
+.ui-dialog .ui-dialog-content, .ui-widget-content {
+	color: #AAA;
 	overflow: visible;
 }
 
@@ -173,4 +193,6 @@ li.ui-menu-item.ui-state-focus > a, li.ui-menu-item.ui-state-active > a {
 	-moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
+
+.ui-dialog hr { border-color: black }
 /** Dialog Styling **/
