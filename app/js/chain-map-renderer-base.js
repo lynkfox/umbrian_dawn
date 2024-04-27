@@ -172,6 +172,7 @@ const ChainMapRendererBase = function(owner) {
 					_this.drawGridlines(ctx, ci, map.radRange);
 				}
 			}
+			const lineWeightFactor = options.chain.lineWeight || 1.0;
 			for(var ci = map.bounds.maxCi; ci >= 1; ci--) {
 				if(ci >= map.circles.length) { continue; }
 				
@@ -179,9 +180,9 @@ const ChainMapRendererBase = function(owner) {
 				if(options.chain.aura) { // draw aura first
 					drawConnections(ctx, map.circles[ci].nodes, function(node) {
 						ctx.save();
-						ctx.lineWidth = 1;
+						ctx.lineWidth = lineWeightFactor;
 						const auraColor = propertyFromCssClass(node.styles, 'color');
-						ctx.shadowBlur = 11;
+						ctx.shadowBlur = 11 * lineWeightFactor;
 						ctx.shadowColor = auraColor;
 						ctx.strokeStyle = 'black';
 						for(let ai = 0; ai < 8; ai++)
@@ -191,7 +192,7 @@ const ChainMapRendererBase = function(owner) {
 				}
 				
 				drawConnections(ctx, map.circles[ci].nodes, function(node) {		
-					ctx.lineWidth = parseInt(propertyFromCssClass(node.styles, 'border-width')) || 2;
+					ctx.lineWidth = lineWeightFactor * parseInt(propertyFromCssClass(node.styles, 'border-width')) || 2;
 					ctx.strokeStyle = propertyFromCssClass(node.styles, 'border-top-color');
 					ctx.setLineDash ({ dashed: [5, 3] }[propertyFromCssClass(node.styles, 'border-top-style')] || []);
 					ctx.stroke();

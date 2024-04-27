@@ -652,6 +652,12 @@ $system = $_REQUEST['system'];
 						</td>
 					</tr>
 					<tr>
+						<th>Line Weight Factor*:</th>
+						<td>
+							<label for="node-spacing-line-weight-slider"></label><div id="node-spacing-line-weight-slider" class="spacing-slider"></div>
+						</td>
+					</tr>
+					<tr>
 						<th>Allow Scroll Without Ctrl Key:</th>
 						<td>
 							<input type="radio" name="scrollWithoutCtrl" id="scrollWithoutCtrl-yes" value="true" /><label for="scrollWithoutCtrl-yes"> Yes</label>
