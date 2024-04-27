@@ -108,6 +108,7 @@ const ChainMapRendererBase = function(owner) {
 
 			const range = _this.initialRads(map.circles[0].nodes[0].minArc);
 			map.bounds = makeDivsForRing(innerContainer, 0, map.circles[0].nodes, -range, range, collapsed);
+			map.radRange = { min: -range, max: range };
 			map.domNode = mapDiv;
 			map.innerContainer = innerContainer;
 		}
@@ -162,7 +163,7 @@ const ChainMapRendererBase = function(owner) {
 			
 			for(var ci = map.bounds.maxCi; ci >= 1; ci--) {	// don't need to draw ring 0
 				if(options.chain.gridlines) {
-					_this.drawGridlines(ctx, ci);
+					_this.drawGridlines(ctx, ci, map.radRange);
 				}
 				if(ci >= map.circles.length) { continue; }
 				
@@ -227,7 +228,7 @@ const ChainMapRendererBase = function(owner) {
 	}
 
 	/** Draw grid lines for this level */
-	this.drawGridlines = function(ctx, ci) { }
+	this.drawGridlines = function(ctx, ci, radRange) { }
 	
 	this.adjustAlignmentDelta = function(ci, rad_centre) { return 0; }
 	
