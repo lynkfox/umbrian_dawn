@@ -117,6 +117,9 @@ const ChainMapRendererBase = function(owner) {
 		const CANVAS_SCALE = 1;
 		for(var mi = 0; mi < maps.length; mi++) {
 			const map = maps[mi];
+			// Reset the width overrides so previous expansions aren't persisted if not needed any more
+			map.domNode.style.width = null;
+			map.domNode.style.height = null;
 			const finalPositions = {
 				w: 200 + map.bounds.x[1] - map.bounds.x[0],
 				h: 100 + map.bounds.y[1] - map.bounds.y[0],
@@ -125,24 +128,27 @@ const ChainMapRendererBase = function(owner) {
 			}
 			
 			// Fill the space available, if we didn't already
-			if(maps.length == 1) {
+			const centringOptions = _this.centringOptions;
+			if(centringOptions.x && maps.length == 1) {	// only centre in X if it's the only map, otherwise let them flow	
 				const parentWidth = -38 + _this.container.offsetWidth;	// 20px for map margins, 18 for scrollbar
 				if(finalPositions.w < parentWidth) {
 					finalPositions.cx += 0.5 * (parentWidth - finalPositions.w);
 					finalPositions.w = parentWidth;
 				}
 			}			
-			const parentHeight = document.getElementById('chainParent').offsetHeight;
-			if(finalPositions.h < parentHeight) {
-				finalPositions.cy += 0.5 * (parentHeight - finalPositions.h);
-				finalPositions.h = parentHeight;
+			if(centringOptions.y) {
+				const parentHeight = document.getElementById('chainParent').offsetHeight;
+				if(finalPositions.h < parentHeight) {
+					finalPositions.cy += 0.5 * (parentHeight - finalPositions.h);
+					finalPositions.h = parentHeight;
+				}
 			}
 			
 			// If there's enough space to centre the top level node now, do it
-			if(finalPositions.h >= 2 * (map.bounds.y[1] > -map.bounds.y[0] ? map.bounds.y[1] : -map.bounds.y[0])) {
+			if(centringOptions.y && centringOptions.rootNode && finalPositions.h >= 2 * (map.bounds.y[1] > -map.bounds.y[0] ? map.bounds.y[1] : -map.bounds.y[0])) {
 				finalPositions.cy = finalPositions.h / 2;
 			}
-			if(finalPositions.w >= 2 * (map.bounds.x[1] > -map.bounds.x[0] ? map.bounds.x[1] : -map.bounds.x[0])) {
+			if(centringOptions.x && centringOptions.rootNode && finalPositions.w >= 2 * (map.bounds.x[1] > -map.bounds.x[0] ? map.bounds.x[1] : -map.bounds.x[0])) {
 				finalPositions.cx = finalPositions.w / 2;
 			}			
 			map.domNode.style.width = finalPositions.w + 'px';
@@ -165,6 +171,8 @@ const ChainMapRendererBase = function(owner) {
 				if(options.chain.gridlines) {
 					_this.drawGridlines(ctx, ci, map.radRange);
 				}
+			}
+			for(var ci = map.bounds.maxCi; ci >= 1; ci--) {
 				if(ci >= map.circles.length) { continue; }
 				
 				ctx.save();
@@ -231,6 +239,9 @@ const ChainMapRendererBase = function(owner) {
 	this.drawGridlines = function(ctx, ci, radRange) { }
 	
 	this.adjustAlignmentDelta = function(ci, rad_centre) { return 0; }
+	
+	/** Override to not centre the map and centre node */
+	this.centringOptions = { x: true, y: true, root_node: true };
 	
 	/** Add the nodes for this ring/level and all further rings to the container, and return the bounds of the space used by it
 	Called recursively for chain sub-sections
