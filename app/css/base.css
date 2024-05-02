@@ -33,6 +33,8 @@ a:hover {
 	color: #FFF;
 }
 
+hr.bar { border-style: solid }
+
 i {
 	cursor: pointer;
 }

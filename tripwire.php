@@ -72,10 +72,14 @@ $system = $_REQUEST['system'];
 												<table id="tracking-clone" class="hidden">
 													<tr>
 														<td rowspan="5" class="avatar"><img src="" />
-															<i data-icon="red-giant" class="online critical" data-tooltip="Online status"></i>
-															<i data-icon="alert" class="alert hidden" data-tooltip="Re-add character to fix missing permissions"></i>
+															<hr class="bar online critical" style="margin-bottom: 2px" data-tooltip="Online status" />
+															<span class="control-group">
+																<i data-icon="eye" class="public active" data-tooltip="Visible on chain"></i>
+																<i data-icon="prop-mod" class="ship-shown active" data-tooltip="Ship shown on chain"></i>
+															</span>
 														</td>
 														<td class="name text">&nbsp;</td>
+														<i data-icon="alert" class="alert hidden" data-tooltip="Re-add character to fix missing permissions"></i>
 													</tr>
 													<tr>
 														<td class="system text">&nbsp;</td>

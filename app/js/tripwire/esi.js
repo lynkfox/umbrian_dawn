@@ -27,10 +27,11 @@ tripwire.esi = function() {
 		shipName: character.shipName,
 		shipTypeID: character.shipTypeID,
 		shipTypeName: character.shipTypeName,
-		massOptions: tripwire.massOptions
+		massOptions: tripwire.massOptions,
+		characterOptions: options.tracking.characterOptions[character.characterID]
 	};				
 }
-
+this.esi.updateTracking = updateTracking;	// so it can be called outside
 
     this.esi.location = function() {
         clearTimeout(locationTimer);
@@ -489,7 +490,7 @@ tripwire.esi = function() {
                     $("#removeESI").removeAttr("disabled");				}
 
                 $("#tracking").append($clone);
-                // Tooltips.attach($clone.find("[data-tooltip]"));
+                Tooltips.attach($clone.find(".avatar [data-tooltip]"));
             }
 
             tripwire.esi.characters[characterID] = characters[characterID];
