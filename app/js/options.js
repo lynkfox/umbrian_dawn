@@ -65,9 +65,10 @@ var options = new function() {
 		for (var prop in data) {
 			if (data[prop] && data[prop].constructor && data[prop].constructor === Object) {
 				if (local) {
+					if(typeof(local[prop]) === 'undefined') { local[prop] = {}; }
 					this.set(local[prop], data[prop]);
 				}
-			} else if (local && typeof(local[prop]) != "undefined") {
+			} else if (local) {
 				local[prop] = data[prop];
 			}
 		}

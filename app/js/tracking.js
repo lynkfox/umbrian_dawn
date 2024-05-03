@@ -1,3 +1,29 @@
+const tracking = {
+	remove: function(characterID) {
+		$("#tracking .tracking-clone[data-characterid='"+ characterID +"']").remove();		
+	},
+	add: function(character) {
+		var $clone = $("#tracking-clone").clone();
+		$clone.attr("data-characterid", characterID);
+		$clone.find(".avatar img").attr("src", "https://image.eveonline.com/Character/"+ character.characterID +"_32.jpg");
+		$clone.find(".name").html(character.characterName);
+		$clone.removeAttr("id");
+		$clone.removeClass("hidden");
+		$clone.addClass("tracking-clone");
+
+		$("#tracking").append($clone);
+		Tooltips.attach($clone.find(".avatar [data-tooltip]"));
+		
+		const charOptions = options.tracking.characterOptions[character.characterID] || tracking.defaultCharacterOptions;
+		if(charOptions.show) { $clone.find('.show').addClass('active'); }
+		if(charOptions.showShip) { $clone.find('.show-ship').addClass('active'); }
+		
+		return $clone;
+	},
+	defaultCharacterOptions: { show: true, showShip: true }
+	
+};
+
 $("#track").on("click", ".tracking-clone", function() {
 	var characterID =$(this).attr("data-characterid");
 	$("#tracking .tracking-clone").removeClass("active");
@@ -18,6 +44,24 @@ $("#track").on("click", ".tracking-clone", function() {
 	}
 	set_tracking_text();
 	options.save();
+});
+
+$("#track").on("click", ".tracking-clone i.interactable", function(e) {
+	const elem = e.target;
+	const container = $(elem).closest('.tracking-clone')[0];
+	const characterID = container.dataset.characterid;
+	const wasActive = $(elem).hasClass('active');
+	if(wasActive) {
+		$(elem).removeClass('active');
+	} else {
+		$(elem).addClass('active');
+	}
+	e.stopPropagation();
+	
+	if(!options.tracking.characterOptions[characterID]) { options.tracking.characterOptions[characterID] = tracking.defaultCharacterOptions; }
+	
+	options.tracking.characterOptions[characterID][elem.dataset.property] = !wasActive;
+	tripwire.esi.updateTracking(tripwire.esi.characters[characterID]);
 });
 
 $("#login").on("click", "#removeESI", function() {

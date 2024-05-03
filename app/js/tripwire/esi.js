@@ -463,7 +463,7 @@ this.esi.updateTracking = updateTracking;	// so it can be called outside
         for (characterID in tripwire.esi.characters) {
             if (!(characterID in characters)) {
                 delete tripwire.esi.characters[characterID];
-                $("#tracking .tracking-clone[data-characterid='"+ characterID +"']").remove();
+				tracking.remove(characterID);
                 if (options.tracking.active == characterID) {
                     tripwire.EVE(false, true);
                     $("#removeESI").attr("disabled", "disabled");
@@ -477,20 +477,13 @@ this.esi.updateTracking = updateTracking;	// so it can be called outside
             }
 
             if (!(characterID in tripwire.esi.characters)) {
-                var $clone = $("#tracking-clone").clone();
-                $clone.attr("data-characterid", characterID);
-                $clone.find(".avatar img").attr("src", "https://image.eveonline.com/Character/"+ characterID +"_32.jpg");
-                $clone.find(".name").html(characters[characterID].characterName);
-                $clone.removeAttr("id");
-                $clone.removeClass("hidden");
-                $clone.addClass("tracking-clone");
-
+				var $clone = tracking.add(characters[characterID]);
+				
                 if (options.tracking.active == characterID) {
                     $clone.addClass("active");
-                    $("#removeESI").removeAttr("disabled");				}
+                    $("#removeESI").removeAttr("disabled");		
+				}
 
-                $("#tracking").append($clone);
-                Tooltips.attach($clone.find(".avatar [data-tooltip]"));
             }
 
             tripwire.esi.characters[characterID] = characters[characterID];

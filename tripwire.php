@@ -74,8 +74,8 @@ $system = $_REQUEST['system'];
 														<td rowspan="5" class="avatar"><img src="" />
 															<hr class="bar online critical" style="margin-bottom: 2px" data-tooltip="Online status" />
 															<span class="control-group">
-																<i data-icon="eye" class="public active" data-tooltip="Visible on chain"></i>
-																<i data-icon="prop-mod" class="ship-shown active" data-tooltip="Ship shown on chain"></i>
+																<i data-icon="eye" class="show interactable" data-property="show" data-tooltip="Visible on chain"></i>
+																<i data-icon="prop-mod" class="show-ship interactable" data-property="showShip" data-tooltip="Ship shown on chain"></i>
 															</span>
 														</td>
 														<td class="name text">&nbsp;</td>
