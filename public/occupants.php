@@ -27,7 +27,7 @@ header('Content-Type: application/json');
 $systemID = $_REQUEST['systemID'];
 $maskID = $_SESSION['mask'];
 
-$query = 'SELECT characterName, shipTypeName FROM tracking WHERE systemID = :systemID AND maskID = :maskID';
+$query = 'SELECT characterName, shipTypeName FROM tracking WHERE systemID = :systemID AND maskID = :maskID AND characterName NOT LIKE \'%|x%\'';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':systemID', $systemID);
 $stmt->bindValue(':maskID', $maskID);

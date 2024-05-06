@@ -138,11 +138,21 @@ if (isset($_REQUEST['tracking'])) {
 			$mods = ($track['massOptions']['higgs'] == 'true' ? 'h' : '') . ($track['massOptions']['prop'] == 'true' ? 'p' : '');
 			if(strlen($mods) > 0) { $track['shipTypeName'] .= '|' . $mods; }
 		}
+		
+		// ... and tracking mods
+		$mods = !isset($track['characterOptions']) ? 'P' : (
+			$track['characterOptions']['show'] == 'true' ? (
+				$track['characterOptions']['showShip'] == 'true' ? 'P' : 'p'
+			) : 'x');
+		$track['characterName'] .= '|' . $mods;
+
 
 		$query = 'INSERT INTO tracking (userID, characterID, characterName, systemID, systemName, stationID, stationName, shipID, shipName, shipTypeID, shipTypeName, maskID)
 		VALUES (:userID, :characterID, :characterName, :systemID, :systemName, :stationID, :stationName, :shipID, :shipName, :shipTypeID, :shipTypeName, :maskID)
 		ON DUPLICATE KEY UPDATE
-		systemID = :systemID, systemName = :systemName, stationID = :stationID, stationName = :stationName, shipID = :shipID, shipName = :shipName, shipTypeID = :shipTypeID, shipTypeName = :shipTypeName';
+		systemID = :systemID, systemName = :systemName, stationID = :stationID, stationName = :stationName, 
+		characterName = :characterName,
+		shipID = :shipID, shipName = :shipName, shipTypeID = :shipTypeID, shipTypeName = :shipTypeName';
 		$stmt = $mysql->prepare($query);
 		$stmt->bindValue(':userID', $userID);
 		$stmt->bindValue(':characterID', $track['characterID']);
@@ -282,13 +292,6 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		$output['wormholes'][$row->id] = $row;
 	}
 
-	// Get occupied systems
-	$query = 'SELECT systemID, COUNT(characterID) AS count FROM tracking WHERE maskID = :maskID GROUP BY systemID';
-	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':maskID', $maskID);
-	$stmt->execute();
-	$output['occupied'] = $stmt->fetchAll(PDO::FETCH_CLASS);
-
 	// Get flares
 	$query = 'SELECT systemID, flare, time FROM flares WHERE maskID = :maskID';
 	$stmt = $mysql->prepare($query);
@@ -372,15 +375,6 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		}
 	}
 
-	// Get occupied systems
-	$query = 'SELECT systemID, COUNT(characterID) AS count FROM tracking WHERE maskID = :maskID GROUP BY systemID';
-	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':maskID', $maskID);
-	$stmt->execute();
-	if ($result = $stmt->fetchAll(PDO::FETCH_CLASS)) {
-		$output['occupied'] = $result;
-	}
-
 	// Check Comments
 	$query = 'SELECT COUNT(id) AS count, MAX(modified) AS modified FROM comments WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID';
 	$stmt = $mysql->prepare($query);
@@ -401,6 +395,18 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		}
 	}
 }
+
+// Values that we always want to return
+
+// Get occupied systems
+$query = 'SELECT systemID, COUNT(characterID) AS count FROM tracking WHERE maskID = :maskID AND characterName NOT LIKE \'%|x%\' GROUP BY systemID';
+$stmt = $mysql->prepare($query);
+$stmt->bindValue(':maskID', $maskID);
+$stmt->execute();
+if ($result = $stmt->fetchAll(PDO::FETCH_CLASS)) {
+	$output['occupied'] = $result;
+}
+
 
 $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
 
