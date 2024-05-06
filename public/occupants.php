@@ -33,7 +33,15 @@ $stmt->bindValue(':systemID', $systemID);
 $stmt->bindValue(':maskID', $maskID);
 $stmt->execute();
 
-$output['occupants'] = $stmt->fetchAll(PDO::FETCH_CLASS);
+$raw = $stmt->fetchAll(PDO::FETCH_CLASS);
+$output['occupants'] = array();
+foreach($raw as $row) {
+	$splitName = explode('|', $row->characterName);
+	switch($splitName[1]) {
+		case 'p': $output['occupants'][] = array('characterName' => $splitName[0], 'shipTypeName' => '-'); break;
+		default: $output['occupants'][] = array('characterName' => $splitName[0], 'shipTypeName' => $row->shipTypeName); break;
+	}
+}
 
 $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
 

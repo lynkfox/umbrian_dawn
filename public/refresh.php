@@ -292,15 +292,6 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		$output['wormholes'][$row->id] = $row;
 	}
 
-	// Get flares
-	$query = 'SELECT systemID, flare, time FROM flares WHERE maskID = :maskID';
-	$stmt = $mysql->prepare($query);
-	$stmt->bindValue(':maskID', $maskID);
-	$stmt->execute();
-	$result = $stmt->fetchAll(PDO::FETCH_CLASS);
-	$output['flares']['flares'] = $result;
-	$output['flares']['last_modified'] = date('m/d/Y H:i:s e', $result ? strtotime($result[0]->time) : time());
-
 	// Get Comments
 	$query = 'SELECT id, comment, created AS createdDate, createdByName, modified AS modifiedDate, modifiedByName, systemID FROM comments WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID ORDER BY systemID ASC, modified ASC';
 	$stmt = $mysql->prepare($query);
@@ -362,19 +353,6 @@ if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'init') {
 		}
 	}
 
-	// Get flares
-	if ($flareCount != null && $flareTime != null) {
-		$query = 'SELECT systemID, flare, time FROM flares WHERE maskID = :maskID ORDER BY time DESC';
-		$stmt = $mysql->prepare($query);
-		$stmt->bindValue(':maskID', $maskID);
-		$stmt->execute();
-		$result = $stmt->fetchAll(PDO::FETCH_CLASS);
-		if (count($result) != $flareCount || ($result && strtotime($result[0]->time) < strtotime($flareTime))) {
-			$output['flares']['flares'] = $result;
-			$output['flares']['last_modified'] = date('m/d/Y H:i:s e', $result ? strtotime($result[0]->time) : time());
-		}
-	}
-
 	// Check Comments
 	$query = 'SELECT COUNT(id) AS count, MAX(modified) AS modified FROM comments WHERE (systemID = :systemID OR systemID = 0) AND maskID = :maskID';
 	$stmt = $mysql->prepare($query);
@@ -407,6 +385,14 @@ if ($result = $stmt->fetchAll(PDO::FETCH_CLASS)) {
 	$output['occupied'] = $result;
 }
 
+// Get flares
+$query = 'SELECT systemID, flare, time FROM flares WHERE maskID = :maskID';
+$stmt = $mysql->prepare($query);
+$stmt->bindValue(':maskID', $maskID);
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_CLASS);
+$output['flares']['flares'] = $result;
+$output['flares']['last_modified'] = date('m/d/Y H:i:s e', $result ? strtotime($result[0]->time) : time());
 
 $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
 
