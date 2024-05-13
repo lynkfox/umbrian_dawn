@@ -90,7 +90,7 @@ function parseMassData(jumps) {
 			originalMass: originalMass, mass: jumpMass, massClass: massClass,
 			higgs: shipFlags.higgs, prop: shipFlags.prop, shipName: shipData.typeName,
 			targetSystem: jumps[x].toID, 
-			characterName: jumps[x].characterName,
+			characterName: jumps[x].characterName.split('|')[0],
 			time: jumps[x].time 
 		});
 	}
