@@ -347,7 +347,7 @@ $system = $_REQUEST['system'];
 	</div>
 
 	<div id="dialog-deleteSig" title="Delete Signature(s)" class="hidden">
-		<i data-icon="alert"></i> <span id="deleteSigText">This signature</span> will be removed from this system. Are you sure?
+		<i data-icon="alert"></i> <span id="deleteSigText">This signature</span> will be removed from <span id="deleteSigSystem">this system</span>. Are you sure?
 	</div>
 
 	<div id="dialog-signature" title="Add Signature" class="hidden">
