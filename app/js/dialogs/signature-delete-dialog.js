@@ -48,7 +48,7 @@ function openDeleteDialog(vm, successFunction) {
 					var success = function(data) {
 						if (data.resultSet && data.resultSet[0].result == true) {
 							$("#dialog-deleteSig").dialog("close");
-							successFunction();
+							if(successFunction) { successFunction(); }
 
 							$("#undo").removeClass("disabled");
 							if (viewingSystemID in tripwire.signatures.undo) {
