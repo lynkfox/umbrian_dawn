@@ -173,7 +173,7 @@ if ($mode == 'create') {
 	$output['masks'][] = array('mask' => $_SESSION['corporationID'].'.2', 'label' => 'Corp', 'owner' => false, 'admin' => checkAdmin($_SESSION['corporationID'].'.2'), 'type' => 'default', 'img' => '//image.eveonline.com/Corporation/'.$_SESSION['corporationID'].'_64.png');
 
 	// Custom masks
-	$query = 'SELECT DISTINCT masks.maskID, name, ownerID, ownerType, eveID, eveType, admin, joined FROM masks LEFT JOIN `groups` ON `groups`.maskID = masks.maskID INNER JOIN characters ON characterID = :characterID WHERE (ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373 AND joined = 1) OR (eveID = :corporationID AND eveType = 2 AND joined = 1) GROUP BY masks.maskID';
+	$query = 'SELECT DISTINCT masks.maskID, max(name) as name, max(ownerID) as ownerID, max(ownerType) as ownerType, max(eveID) as eveID, max(eveType) as eveType, max(admin) as admin, max(joined) as joined FROM masks LEFT JOIN `groups` ON `groups`.maskID = masks.maskID INNER JOIN characters ON characterID = :characterID WHERE (ownerID = :characterID AND ownerType = 1373) OR (ownerID = :corporationID AND ownerType = 2) OR (eveID = :characterID AND eveType = 1373 AND joined = 1) OR (eveID = :corporationID AND eveType = 2 AND joined = 1) GROUP BY masks.maskID';
 	$stmt = $mysql->prepare($query);
 	$stmt->bindValue(':characterID', $_SESSION['characterID']);
 	$stmt->bindValue(':corporationID', $_SESSION['corporationID']);
