@@ -33,6 +33,10 @@ sigDialog.openSignatureDialog = function(e) {
 			dialogClass: "dialog-noeffect ui-dialog-shadow",
 			position: {my: "center", at: "center", of: $("#signaturesWidget")},
 			buttons: {
+				Delete: function() {
+					const d = $(this);
+					openDeleteDialog({ signatures: [tripwire.client.signatures[sigDialogVM.sigId]] }, () => d.dialog('close') );
+				},
 				Save: function() {
 					$("#form-signature").submit();
 				},
@@ -113,6 +117,9 @@ sigDialog.openSignatureDialog = function(e) {
 						this.value = this.value.substring(0, this.value.length -1);
 					}
 				});
+				
+				// Positioning hack to separate delete button visually
+				$("#dialog-signature").parent().find("button:contains('Delete')").css( { position: 'absolute', left: '30px' } );
 
 				// Select value on click
 				$("#dialog-signature .signatureID, #dialog-signature .wormholeType").on("click", function() {
@@ -382,6 +389,7 @@ sigDialog.openSignatureDialog = function(e) {
 					// Change the dialog buttons
 					$("#dialog-signature").parent().find("button:contains('Add')").hide();
 					$("#dialog-signature").parent().find("button:contains('Save')").show();
+					$("#dialog-signature").parent().find("button:contains('Delete')").show();
 
 					// Change the dialog title
 					$("#dialog-signature").dialog("option", "title", "Edit Signature");
@@ -430,6 +438,7 @@ sigDialog.openSignatureDialog = function(e) {
 				} else {
 					// Change the dialog buttons
 					$("#dialog-signature").parent().find("button:contains('Add')").show();
+					$("#dialog-signature").parent().find("button:contains('Delete')").hide();
 					$("#dialog-signature").parent().find("button:contains('Save')").hide();
 
 					// Change the dialog title
