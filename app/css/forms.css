@@ -21,6 +21,8 @@ input[type="text"], input[type="password"], select, textarea {
 	outline-width: thin;
 }
 
+option { background-color: #222; }  /* to align with gradient on the select */
+
 *:focus-visible { outline-style: inset  }
 
 input[type="button"], input[type="submit"], .ui-button.ui-widget {

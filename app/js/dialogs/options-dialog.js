@@ -30,6 +30,8 @@ $(".options").click(function(e) {
 				options.chain.nodeSpacing.x = $("#dialog-options #node-spacing-x-slider").slider("value");
 				options.chain.nodeSpacing.y = $("#dialog-options #node-spacing-y-slider").slider("value");
 				
+				options.chain.lineWeight = $("#dialog-options #node-spacing-line-weight-slider").slider("value");
+				
 				options.chain["node-reference"] = $("#dialog-options input[name=node-reference]:checked").val();
 				
 				options.chain.renderer = $("#dialog-options #renderer").val();
@@ -168,15 +170,17 @@ $(".options").click(function(e) {
 			$("#dialog-options input[name='scrollWithoutCtrl'][value='"+options.chain.scrollWithoutCtrl+"']").prop("checked", true);
 			$("#dialog-options #node-spacing-x-slider").slider("value", options.chain.nodeSpacing.x);
 			$("#dialog-options #node-spacing-y-slider").slider("value", options.chain.nodeSpacing.y);
+			$("#dialog-options #node-spacing-line-weight-slider").slider("value", options.chain.lineWeight);
 			$("#dialog-options #background-image").val(options.background);
 		},
 		create: function() {
 			$("#optionsAccordion").accordion({heightStyle: "content", collapsible: true, active: false});
-			function setUpSlider(id, value, change) {
+			function setUpSlider(id, value, change, range) {
+				range = Object.assign({min: 0.7, max:1.4, step:0.05}, range);
 				$("#" + id).slider({
-					min: 0.7,
-					max: 1.4,
-					step: 0.05,
+					min: range.min,
+					max: range.max,
+					step: range.step,
 					value: value || 1.0,
 					change: change,
 					slide: function(e, ui) {
@@ -191,6 +195,7 @@ $(".options").click(function(e) {
 					});
 			setUpSlider('node-spacing-x-slider', options.chain.nodeSpacing.x);
 			setUpSlider('node-spacing-y-slider', options.chain.nodeSpacing.y);
+			setUpSlider('node-spacing-line-weight-slider', options.chain.lineWeight, undefined, { min: 0.5, max: 1.5 });
 
 			$("#dialog-pwChange").dialog({
 				autoOpen: false,

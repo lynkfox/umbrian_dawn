@@ -630,8 +630,10 @@ $system = $_REQUEST['system'];
 						<th>Chain Renderer:</th>
 						<td>
 							<select id="renderer">
-								<option value="orgChart">Org Chart</option>
+								<option value="orgChartTop">New Org Chart (System at top)</option>
+								<option value="orgChartSide">New Org Chart (System at left)</option>
 								<option value="radial">Radial (System in middle)</option>
+								<option value="orgChart">Old legacy org chart</option>
 							</select>
 						</td>
 					</tr>
@@ -647,6 +649,12 @@ $system = $_REQUEST['system'];
 						<td>
 							<input type="radio" name="aura" id="aura-yes" value="true" /><label for="aura-yes"> Yes</label>
 							<input type="radio" name="aura" id="aura-no" value="false" /><label for="aura-no"> No</label>
+						</td>
+					</tr>
+					<tr>
+						<th>Line Weight Factor*:</th>
+						<td>
+							<label for="node-spacing-line-weight-slider"></label><div id="node-spacing-line-weight-slider" class="spacing-slider"></div>
 						</td>
 					</tr>
 					<tr>
