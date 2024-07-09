@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icon';
-	src:url('../fonts/icon.eot?w81bs6');
-	src:url('../fonts/icon.eot?#iefixw81bs6') format('embedded-opentype'),
-		url('../fonts/icon.woff?w81bs6') format('woff'),
-		url('../fonts/icon.ttf?w81bs6') format('truetype'),
-		url('../fonts/icon.svg?w81bs6#icon') format('svg');
+	src:url('../fonts/tripwire.eot?w81bs6');
+	src:url('../fonts/tripwire.eot?#iefixw81bs6') format('embedded-opentype'),
+		url('../fonts/tripwire.woff?w81bs6') format('woff'),
+		url('../fonts/tripwire.ttf?w81bs6') format('truetype'),
+		url('../fonts/tripwire.svg?w81bs6#icon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -152,6 +152,12 @@
 }
 [data-icon="tree"]:before {
 	content: "\e019";
+}
+[data-icon="anchor"]:before {
+	content: "\e020";
+}
+[data-icon="prop-mod"]:before {
+	content: "\e021";
 }
 [data-icon="follow"]:before {
 	content: "\e60f";

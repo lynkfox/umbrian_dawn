@@ -71,14 +71,18 @@ describe('Wormhole analysis', () => {
 	});
 	
 	describe('Likely wormhole from system', () => {
-		it('specific C4/C6 should be large', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, 31002439), wormholeAnalysis.dummyWormholes.LRG));
+		it('specific C4/C6 should be large', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, 31002439), wormholeAnalysis.dummyWormholes.LRG));		
+		it('specific C4/generic C3 should be large', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, '5|1243'), wormholeAnalysis.dummyWormholes.LRG));		
 		it('specific C4/generic C5 should be large', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, '7|1243'), wormholeAnalysis.dummyWormholes.LRG));		
 		it('specific C6/generic C5 should be xlarge', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31002439, '7|1243'), wormholeAnalysis.dummyWormholes.XLG));		
+		it('specific C6/generic NS should be xlarge', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31002439, '0|1243'), wormholeAnalysis.dummyWormholes.XLG));		
 		it('specific C1/generic should be medium', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31000071, 'null|1243'), wormholeAnalysis.dummyWormholes.MED));
+		it('specific C1/generic LS should be medium', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31000071, '1|1243'), wormholeAnalysis.dummyWormholes.MED));
 		it('specific C4/C1 should be medium', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, 31000071), wormholeAnalysis.dummyWormholes.MED));		
 		it('specific C4/generic C1 should be medium', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, '3|2345'), wormholeAnalysis.dummyWormholes.MED));		
 		it('specific C4/specific C13 should be frig', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, 31002584), wormholeAnalysis.dummyWormholes.SML));		
 		it('specific C4/generic C13 should be frig', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, '9|5432'), wormholeAnalysis.dummyWormholes.SML));		
+		it('specific C4/generic NS should be large', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, '0|1243'), wormholeAnalysis.dummyWormholes.LRG));		
 		it('specific C4/generic Unknown (small) should be frig', () => assert.deepEqual(wormholeAnalysis.likelyWormhole(31001585, '12|5432'), wormholeAnalysis.dummyWormholes.SML));		
 	});
 		

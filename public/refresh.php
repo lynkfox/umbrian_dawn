@@ -132,6 +132,12 @@ if (isset($_REQUEST['tracking'])) {
 		$track['shipName'] 			= isset($track['shipName']) ? $track['shipName'] : null;
 		$track['shipTypeID'] 		= isset($track['shipTypeID']) ? $track['shipTypeID'] : null;
 		$track['shipTypeName'] 		= isset($track['shipTypeName']) ? $track['shipTypeName'] : null;
+		
+		// Tracking mass mods
+		if($track['shipTypeName'] != null) {			
+			$mods = ($track['massOptions']['higgs'] == 'true' ? 'h' : '') . ($track['massOptions']['prop'] == 'true' ? 'p' : '');
+			if(strlen($mods) > 0) { $track['shipTypeName'] .= '|' . $mods; }
+		}
 
 		$query = 'INSERT INTO tracking (userID, characterID, characterName, systemID, systemName, stationID, stationName, shipID, shipName, shipTypeID, shipTypeName, maskID)
 		VALUES (:userID, :characterID, :characterName, :systemID, :systemName, :stationID, :stationName, :shipID, :shipName, :shipTypeID, :shipTypeName, :maskID)

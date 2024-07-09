@@ -242,13 +242,16 @@ $system = $_REQUEST['system'];
 					<span>|</span>
 					<i id="show-viewing" data-icon="eye" data-tooltip="Add viewing system to chain"></i>
 					<i id="show-favorite" data-icon="star" data-tooltip="Add favorite systems to chain"></i>
-					<i id="show-chainLegend" data-icon="tree" data-tooltip="<table id='guide'>
+					<i id="show-chainLegend" data-tooltip="<table id='guide'>
 						<tr><td><div class='guide stable'></td><td>Stable</td><th>Auras</th></tr>
 						<tr><td><div class='guide eol'></div></td><td>End of Life</td><td><div class='guide aura jm-5kt frig'></div></td><td>Small</td></tr>
 						<tr><td><div class='guide destab'></div></td><td>Mass Destabbed</td><td><div class='guide aura jm-62kt'></div></td><td>Medium</td></tr>
 						<tr><td><div class='guide critical'></div></td><td>Mass Critical</td><td><div class='guide aura jm-375kt'></div></td><td>Large</td></tr>
 						<tr><td><div class='guide frig'></div></td><td>Frigate</td><td><div class='guide aura jm-2000kt'></div></td><td>X-Large</td></tr>
-					</table>"></i>
+					</table>">&equiv;</i>
+					<span>|</span>
+					<i id="hot-jump" data-icon="prop-mod" data-tooltip="Jumping hot (prop on)"></i>
+					<i id="higgs-jump" data-icon="anchor" data-tooltip="Higgs Anchor fitted"></i>
 					<div style="float: right;">
 						<button id="chain-zoom-reset" class="hidden">Reset Zoom</button>
 						<!-- <i class="tutorial" data-tooltip="Show tutorial for this section">?</i> -->
@@ -1026,18 +1029,26 @@ $system = $_REQUEST['system'];
 	</div>
 
 	<div id="dialog-mass" title="" class="hidden">
-		<table id="massTable">
+		<p><span id="mass-systems">-</span><span id="mass-placeholder-desc" data-tooltip="Based on system types.<br>Enter the actual hole type in the Edit Signature panel for accurate mass values."> (Inferred hole type)</span></p>
+		<p>Total recorded: <b id="mass-jumped">?</b> of ~<span id="mass-capacity">?</span> [<span data-tooltip="Wormhole mass can be ±10%, and there might be unrecorded jumps.">?</span>]</p>
+		<p>Show jumps down to: 
+			<label><input type="radio" name="show-mass" value="capital"> Capital only</label>
+			<label><input type="radio" name="show-mass" value="battleship"> Battleships</label>
+			<label><input type="radio" name="show-mass" value="cruiser"> Cruisers</label>
+			<label><input type="radio" name="show-mass" value="all" checked> All jumps</label>
+		</p>
+		<div id="massTableContainer"><table id="massTable">
 			<thead>
 				<tr>
 					<th>Character</th>
 					<th>Direction</th>
 					<th>Ship Type</th>
-					<th>Mass</th>
+					<th>Mass [<span data-tooltip="Hot jumps <i data-icon=prop-mod></i> add prop mod (50kt except for caps) to mass<br>Higgs <i data-icon=anchor></i> doubles jump mass">?</span>]</th>
 					<th>Time</th>
 				</tr>
 			</thead>
 			<tbody></tbody>
-		</table>
+		</table></div>
 	</div>
 
 	<div id="dialog-ping" title="" class="hidden" style="width:300px">

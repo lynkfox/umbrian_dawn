@@ -17,7 +17,7 @@ $wormholeID = $_REQUEST['wormholeID'];
 $maskID = $_SESSION['mask'];
 $output = null;
 
-$query = 'SELECT characterName, toID, shipTypeID, time FROM jumps WHERE maskID = :maskID AND wormholeID = :wormholeID ORDER BY time DESC';
+$query = 'SELECT characterName, toID, shipTypeID, shipType, time FROM jumps WHERE maskID = :maskID AND wormholeID = :wormholeID ORDER BY time DESC';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':wormholeID', $wormholeID);
 $stmt->bindValue(':maskID', $maskID);

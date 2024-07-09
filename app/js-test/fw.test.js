@@ -1,7 +1,7 @@
 const assert = require('assert');
 const { include, fakeAjax } = require('./helpers/helpers');
 include('public/js/lodash');
-include('public/js/combine');
+//include('public/js/combine');
 
 global.setInterval = () => {};
 console.info = () => {};

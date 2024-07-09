@@ -58,10 +58,10 @@ const wormholeAnalysis = new function() {
 	/** Placeholder wormholes which don't have an exact known type, but still provide some information */
 	this.dummyWormholes = {
 		"GATE": { from: [ "Null-Sec", "Low-Sec", "High-Sec", "Triglavian"], leadsTo: [ "Null-Sec", "Low-Sec", "High-Sec", "Triglavian"] },
-		"SML": { "jump": 5000000 },
-		"MED": { "jump": 62000000 },
-		"LRG": { "jump": 375000000 },
-		"XLG": { "jump": 2000000000 }
+		"SML": { "key": "SML", "jump": 5000000, "dummy": true },
+		"MED": { "key": "MED", "jump": 62000000, "mass": 500000000, "dummy": true },
+		"LRG": { "key": "LRG", "jump": 375000000, "mass": 2000000000, "dummy": true },
+		"XLG": { "key": "XLG", "jump": 2000000000, "mass": 3300000000, "dummy": true },
 	};
 	
 	/** Get the wormhole type object from the type names for a sig pair. One of the types is probably K162 */
@@ -72,12 +72,22 @@ const wormholeAnalysis = new function() {
 	}
 	
 	this.likelyWormhole = function(system1, system2) {
-		const class1 = systemAnalysis.analyse(system1).class,
-			class2 = systemAnalysis.analyse(system2).class;
+		const class1 = systemAnalysis.analyse(system1).genericSystemType,
+			class2 = systemAnalysis.analyse(system2).genericSystemType;
+		
+		function isHighClass(classes) { return classes && classes.some(c => ['Class-5', 'Class-6' ].indexOf(c) >= 0); }
+		function isKSpace(classes) { return classes && classes.toString().indexOf('-Sec') >= 0; }
+		function inferKSpace(genericTypes) {
+			return isHighClass(genericTypes) ? 'XLG' :
+			genericTypes == 'Class-1' ? 'MED' :
+			'LRG';
+		}
+		
 		return this.dummyWormholes[
-			String(class1 + '/' + class2).indexOf('13') >= 0 ? 'SML' :
-			class1 == 1 || class2 == 1 ? 'MED' :
-			class1 >= 5 && class2 >= 5 ? 'XLG' :
+			isKSpace(class1) ? inferKSpace(class2) : isKSpace(class2) ? inferKSpace(class1) :
+			String(class1 + '/' + class2).indexOf('-13') >= 0 ? 'SML' :
+			class1 == 'Class-1' || class2 == 'Class-1' ? 'MED' :
+			isHighClass(class1) && isHighClass(class2) ? 'XLG' :
 			'LRG'
 		];
 	}

@@ -201,30 +201,6 @@ div.loop .nodeIcons, div.loop .nodeType, div.loop .statics, div.loop .nodeActivi
 .eol, #chainMap .eol, #guide .eol { border-style: dashed; }
 .frig, #chainMap .frig, #guide .frig { border-color: #50D25A; }
 
-#massTable td:nth-child(1) {
-	min-width: 12em;
-}
-
-#massTable td:nth-child(2) {
-	width: 2em;
-	text-align: center;
-}
-
-#massTable td:nth-child(3) {
-	width: 12em;
-	text-align: center;
-}
-
-#massTable td:nth-child(4) {
-	width: 8em;
-	text-align: right;
-}
-
-#massTable td:nth-child(5) {
-	width: 14em;
-	text-align: right;
-}
-
 .tab {
 	display: inline-block;
 	min-width: 75px;
