@@ -71,13 +71,6 @@ require_once('settings.php');
 			<!-- End Logo -->
 			<span class="tagline">The greatest wormhole mapper ever.</span>
 			
-			<div class="warning" style="background: #400000; border: #ffc800 3px solid; border-radius: 10px; padding: 10px">
-				<h2>Public Tripwire is moving!</h2>
-				<p>The Tripwire on eve-apps.com is being closed down.</p>
-				<p>But a new instance is being hosted by Pasha Cracken here: <a href="https://tripwiremap.app/">tripwiremap.app</a>! It's up now, so go get set up there!</p>
-				<p>You won't be able to take your data with you, so take a note of anything important and re-enter it into the new site.</p>
-			</div>
-			
 			<p>Tripwire is an open source wormhole mapping tool, hosted for free to the public, built for use with <a href="https://www.eveonline.com" target="_blank">EVE Online</a>.</p>
 
 			<div class="buttons">
