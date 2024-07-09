@@ -27,13 +27,21 @@ header('Content-Type: application/json');
 $systemID = $_REQUEST['systemID'];
 $maskID = $_SESSION['mask'];
 
-$query = 'SELECT characterName, shipTypeName FROM tracking WHERE systemID = :systemID AND maskID = :maskID';
+$query = 'SELECT characterName, shipTypeName FROM tracking WHERE systemID = :systemID AND maskID = :maskID AND characterName NOT LIKE \'%|x%\'';
 $stmt = $mysql->prepare($query);
 $stmt->bindValue(':systemID', $systemID);
 $stmt->bindValue(':maskID', $maskID);
 $stmt->execute();
 
-$output['occupants'] = $stmt->fetchAll(PDO::FETCH_CLASS);
+$raw = $stmt->fetchAll(PDO::FETCH_CLASS);
+$output['occupants'] = array();
+foreach($raw as $row) {
+	$splitName = explode('|', $row->characterName);
+	switch($splitName[1]) {
+		case 'p': $output['occupants'][] = array('characterName' => $splitName[0], 'shipTypeName' => '-'); break;
+		default: $output['occupants'][] = array('characterName' => $splitName[0], 'shipTypeName' => $row->shipTypeName); break;
+	}
+}
 
 $output['proccessTime'] = sprintf('%.4f', microtime(true) - $startTime);
 

@@ -22,6 +22,18 @@ describe('Mass panel', () => {
 				time: "2024-03-03 18:35:29"
 			}, massData.jumps[0]);
 		});
+		it('should parse character name with flags', () => {
+			assert.deepEqual({
+				originalMass: 1430000,
+				mass: 1430000,
+				massClass: 'Small',
+				higgs: false, prop: false,
+				shipName: 'Cheetah',
+				targetSystem: 31002358,
+				characterName: 'Sublime Endeavor',
+				time: "2024-03-03 18:34:05"
+			}, massData.jumps[1]);
+		});		
 		it('should parse complex records (hot)', () => {
 			assert.deepEqual({
 				originalMass: 19200000,
