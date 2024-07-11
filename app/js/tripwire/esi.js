@@ -15,23 +15,23 @@ tripwire.esi = function() {
 	}
 
 	function updateTracking(character) {
-	// Send to Tripwire server on next refresh call
-	tripwire.data.tracking[character.characterID] = {
-		characterID: character.characterID,
-		characterName: character.characterName,
-		systemID: character.systemID,
-		systemName: character.systemName,
-		stationID: character.stationID,
-		stationName: character.stationName,
-		shipID: character.shipID,
-		shipName: character.shipName,
-		shipTypeID: character.shipTypeID,
-		shipTypeName: character.shipTypeName,
-		massOptions: tripwire.massOptions,
-		characterOptions: options.tracking.characterOptions[character.characterID]
-	};				
-}
-this.esi.updateTracking = updateTracking;	// so it can be called outside
+		// Send to Tripwire server on next refresh call
+		tripwire.data.tracking[character.characterID] = {
+			characterID: character.characterID,
+			characterName: character.characterName,
+			systemID: character.systemID,
+			systemName: character.systemName,
+			stationID: character.stationID,
+			stationName: character.stationName,
+			shipID: character.shipID,
+			shipName: character.shipName,
+			shipTypeID: character.shipTypeID,
+			shipTypeName: character.shipTypeName,
+			massOptions: tripwire.massOptions,
+			characterOptions: options.tracking.characterOptions[character.characterID]
+		};				
+	}
+	this.esi.updateTracking = updateTracking;	// so it can be called outside
 
     this.esi.location = function() {
         clearTimeout(locationTimer);
@@ -463,7 +463,7 @@ this.esi.updateTracking = updateTracking;	// so it can be called outside
         for (characterID in tripwire.esi.characters) {
             if (!(characterID in characters)) {
                 delete tripwire.esi.characters[characterID];
-				tracking.remove(characterID);
+                tracking.remove(characterID);
                 if (options.tracking.active == characterID) {
                     tripwire.EVE(false, true);
                     $("#removeESI").attr("disabled", "disabled");
@@ -477,12 +477,12 @@ this.esi.updateTracking = updateTracking;	// so it can be called outside
             }
 
             if (!(characterID in tripwire.esi.characters)) {
-				var $clone = tracking.add(characters[characterID]);
+                var $clone = tracking.add(characters[characterID]);
 				
                 if (options.tracking.active == characterID) {
                     $clone.addClass("active");
-                    $("#removeESI").removeAttr("disabled");		
-				}
+                    $("#removeESI").removeAttr("disabled");
+                }
 
             }
 

@@ -22,7 +22,6 @@ describe('Wormhole rendering', () => {
 		assert.equal(result, '<b>D382</b>: <span class="wh class-15">J110145</span>➔<span class="wh class-2">C2</span> (375kt)');
 	});		
 	it('should render with the exact system object if in valid list', () => {
-console.log(appData.genericSystemTypes);		
 		const result = wormholeRendering.renderWormholeType(D382, 'D382', { name: 'J110145' });
 		assert.equal(result, '<b>D382</b>: <span class="wh class-15">J110145</span>➔<span class="wh class-2">C2</span> (375kt)');
 	});	
