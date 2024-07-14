@@ -14,7 +14,7 @@ const wormholeRendering = new function() {
 	};
 	
 	/** Render a mass number. */
-	this.renderMass = function(mass) { return (mass / 1e6) + 'kt'; }
+	this.renderMass = function(mass) { return Math.trunc(mass / 1e6) + 'kt'; }
 	
 	function formatEndTypes(types, override) {
 		if(!types) { return '?'; }

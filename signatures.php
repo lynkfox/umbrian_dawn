@@ -257,6 +257,7 @@ function addWormhole($wormhole, $mysql) {
     $stmt->bindValue(':mass', $wormhole->mass);
     $stmt->bindValue(':maskID', $wormhole->maskID);
     $success = $stmt->execute();
+    $wormhole->id = $mysql->lastInsertId();
 
     if ($success) {
         // Log the user stats
@@ -268,7 +269,6 @@ function addWormhole($wormhole, $mysql) {
         $stmt->bindValue(':maskID', $wormhole->maskID);
         $success = $stmt->execute();
 
-        $wormhole->id = $mysql->lastInsertId();
         return array(true, $wormhole, null);
     }
 
@@ -418,6 +418,34 @@ function removeWormhole($wormhole, $mysql) {
     return array(false, null, $stmt->errorInfo());
 }
 
+function addAutomapMass($wormhole, $sig1, $sig2, $automap, $mysql) {
+    // Just automapped a new hole, so add a mass record as the tracking event won't have matched it
+    // $automap is in the payload (see automap.js), the other objects have been db-resolved
+    $maskID = $_SESSION['mask'];
+
+    $query = 'SELECT characterName, shipTypeID, shipTypeName FROM tracking WHERE characterID = :characterID AND maskID = :maskID';
+    $stmt = $mysql->prepare($query);
+    $stmt->bindValue(':characterID', $automap['character']);
+    $stmt->bindValue(':maskID', $maskID);
+    $stmt->execute();
+
+    $tracking = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if($tracking['shipTypeID']) {
+        $query = 'insert into jumps (wormholeID, characterID, characterName, fromID, toID, shipTypeID, shipType, maskID) values (:wormholeID, :characterID, :characterName, :fromID, :toID, :shipTypeID, :shipType, :maskID)';
+        $stmt = $mysql->prepare($query);
+        $stmt->bindValue(':wormholeID', $wormhole->id);
+        $stmt->bindValue(':characterID', $automap['character']);
+        $stmt->bindValue(':characterName', $tracking['characterName']);
+        $stmt->bindValue(':fromID', $sig1->systemID);
+        $stmt->bindValue(':toID', $sig2->systemID);
+        $stmt->bindValue(':shipTypeID', $tracking['shipTypeID']);
+        $stmt->bindValue(':shipType', $tracking['shipTypeName']);
+        $stmt->bindValue(':maskID', $maskID);
+        $success = $stmt->execute();
+    }
+}
+
 if (isset($_POST['signatures'])) {
     // Add signatures
     if (isset($_POST['signatures']['add'])) {
@@ -440,6 +468,9 @@ if (isset($_POST['signatures'])) {
                             $child = $signature2;
                             $request['wormhole']['secondaryID'] = $signature2->id;
                             list($result, $wormhole, $msg) = addWormhole($request['wormhole'], $mysql);
+                            if(isset($_REQUEST['automap'])) {
+                                addAutomapMass($wormhole, $signature, $signature2, $_REQUEST['automap'], $mysql);
+                            }
                         } else {
                             list($failedResult, $signature, $msg) = fetchSignature($request['wormhole']['initialID'], $mysql);
                             removeSignature($signature, $mysql);
@@ -543,6 +574,10 @@ if (isset($_POST['signatures'])) {
                             $request['wormhole']['initialID'] = $signature->id;
                             $request['wormhole']['secondaryID'] = $signature2->id;
                             list($result, $wormhole, $msg) = addWormhole($request['wormhole'], $mysql);
+                        }
+                        
+                        if(isset($_REQUEST['automap'])) {
+                            addAutomapMass($wormhole, $signature, $signature2, $_REQUEST['automap'], $mysql);
                         }
                     }
 

@@ -9,9 +9,9 @@ var options = new function() {
 	this.uiscale = 1.0;
 	this.favorites = [];
 	this.grid = {};
-	this.tracking = {active: "new"};
+	this.tracking = {active: "new", characterOptions: {}};
 	this.masks = {active: init.corporationID + ".2"};
-	this.chain = {gridlines: true, aura: true, scrollWithoutCtrl: false, active: 0, tabs: [], "node-reference": "type", zoom: 1.0, sigNameLocation: 'name', routingLimit: 15, routeSecurity: 'shortest', routeIgnore: { enabled: false, systems: [ 'Tama', 'Rancer' ] }, renderer: 'radial', nodeSpacing: { x: 1.0, y: 1.0 } };
+	this.chain = {gridlines: true, aura: true, lineWeight: 1.0, scrollWithoutCtrl: false, active: 0, tabs: [], "node-reference": "type", zoom: 1.0, sigNameLocation: 'name', routingLimit: 15, routeSecurity: 'shortest', routeIgnore: { enabled: false, systems: [ 'Tama', 'Rancer' ] }, renderer: 'radial', nodeSpacing: { x: 1.0, y: 1.0 } };
 	this.signatures = {editType: "unknown", copySeparator: ",", pasteLife: 72, alignment: {sigID: "centerAlign", sigType: "centerAlign", sigAge: "centerAlign", leadsTo: "centerAlign", sigLife: "centerAlign", sigMass: "centerAlign"}};
 	this.buttons = {follow: false, chainWidget: {viewing: false, favorites: false}, signaturesWidget: {autoMapper: false}};
 
@@ -65,9 +65,10 @@ var options = new function() {
 		for (var prop in data) {
 			if (data[prop] && data[prop].constructor && data[prop].constructor === Object) {
 				if (local) {
+					if(typeof(local[prop]) === 'undefined') { local[prop] = {}; }
 					this.set(local[prop], data[prop]);
 				}
-			} else if (local && typeof(local[prop]) != "undefined") {
+			} else if (local) {
 				local[prop] = data[prop];
 			}
 		}

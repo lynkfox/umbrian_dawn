@@ -72,10 +72,14 @@ $system = $_REQUEST['system'];
 												<table id="tracking-clone" class="hidden">
 													<tr>
 														<td rowspan="5" class="avatar"><img src="" />
-															<i data-icon="red-giant" class="online critical" data-tooltip="Online status"></i>
-															<i data-icon="alert" class="alert hidden" data-tooltip="Re-add character to fix missing permissions"></i>
+															<hr class="bar online critical" style="margin-bottom: 2px" data-tooltip="Online status" />
+															<span class="control-group">
+																<i data-icon="eye" class="show interactable" data-property="show" data-tooltip="Visible on chain"></i>
+																<i data-icon="prop-mod" class="show-ship interactable" data-property="showShip" data-tooltip="Ship shown on chain"></i>
+															</span>
 														</td>
 														<td class="name text">&nbsp;</td>
+														<i data-icon="alert" class="alert hidden" data-tooltip="Re-add character to fix missing permissions"></i>
 													</tr>
 													<tr>
 														<td class="system text">&nbsp;</td>
@@ -242,13 +246,16 @@ $system = $_REQUEST['system'];
 					<span>|</span>
 					<i id="show-viewing" data-icon="eye" data-tooltip="Add viewing system to chain"></i>
 					<i id="show-favorite" data-icon="star" data-tooltip="Add favorite systems to chain"></i>
-					<i id="show-chainLegend" data-icon="tree" data-tooltip="<table id='guide'>
+					<i id="show-chainLegend" data-tooltip="<table id='guide'>
 						<tr><td><div class='guide stable'></td><td>Stable</td><th>Auras</th></tr>
 						<tr><td><div class='guide eol'></div></td><td>End of Life</td><td><div class='guide aura jm-5kt frig'></div></td><td>Small</td></tr>
 						<tr><td><div class='guide destab'></div></td><td>Mass Destabbed</td><td><div class='guide aura jm-62kt'></div></td><td>Medium</td></tr>
 						<tr><td><div class='guide critical'></div></td><td>Mass Critical</td><td><div class='guide aura jm-375kt'></div></td><td>Large</td></tr>
 						<tr><td><div class='guide frig'></div></td><td>Frigate</td><td><div class='guide aura jm-2000kt'></div></td><td>X-Large</td></tr>
-					</table>"></i>
+					</table>">&equiv;</i>
+					<span>|</span>
+					<i id="hot-jump" data-icon="prop-mod" data-tooltip="Jumping hot (prop on)"></i>
+					<i id="higgs-jump" data-icon="anchor" data-tooltip="Higgs Anchor fitted"></i>
 					<div style="float: right;">
 						<button id="chain-zoom-reset" class="hidden">Reset Zoom</button>
 						<!-- <i class="tutorial" data-tooltip="Show tutorial for this section">?</i> -->
@@ -347,7 +354,7 @@ $system = $_REQUEST['system'];
 	</div>
 
 	<div id="dialog-deleteSig" title="Delete Signature(s)" class="hidden">
-		<i data-icon="alert"></i> This signature will be removed from this system. Are you sure?
+		<i data-icon="alert"></i> <span id="deleteSigText">This signature</span> will be removed from <span id="deleteSigSystem">this system</span>. Are you sure?
 	</div>
 
 	<div id="dialog-signature" title="Add Signature" class="hidden">
@@ -630,8 +637,10 @@ $system = $_REQUEST['system'];
 						<th>Chain Renderer:</th>
 						<td>
 							<select id="renderer">
-								<option value="orgChart">Org Chart</option>
+								<option value="orgChartTop">New Org Chart (System at top)</option>
+								<option value="orgChartSide">New Org Chart (System at left)</option>
 								<option value="radial">Radial (System in middle)</option>
+								<option value="orgChart">Old legacy org chart</option>
 							</select>
 						</td>
 					</tr>
@@ -647,6 +656,12 @@ $system = $_REQUEST['system'];
 						<td>
 							<input type="radio" name="aura" id="aura-yes" value="true" /><label for="aura-yes"> Yes</label>
 							<input type="radio" name="aura" id="aura-no" value="false" /><label for="aura-no"> No</label>
+						</td>
+					</tr>
+					<tr>
+						<th>Line Weight Factor*:</th>
+						<td>
+							<label for="node-spacing-line-weight-slider"></label><div id="node-spacing-line-weight-slider" class="spacing-slider"></div>
 						</td>
 					</tr>
 					<tr>
@@ -1018,18 +1033,26 @@ $system = $_REQUEST['system'];
 	</div>
 
 	<div id="dialog-mass" title="" class="hidden">
-		<table id="massTable">
+		<p><span id="mass-systems">-</span><span id="mass-placeholder-desc" data-tooltip="Based on system types.<br>Enter the actual hole type in the Edit Signature panel for accurate mass values."> (Inferred hole type)</span></p>
+		<p>Total recorded: <b id="mass-jumped">?</b> of ~<span id="mass-capacity">?</span> [<span data-tooltip="Wormhole mass can be ±10%, and there might be unrecorded jumps.">?</span>]</p>
+		<p>Show jumps down to: 
+			<label><input type="radio" name="show-mass" value="capital"> Capital only</label>
+			<label><input type="radio" name="show-mass" value="battleship"> Battleships</label>
+			<label><input type="radio" name="show-mass" value="cruiser"> Cruisers</label>
+			<label><input type="radio" name="show-mass" value="all" checked> All jumps</label>
+		</p>
+		<div id="massTableContainer"><table id="massTable">
 			<thead>
 				<tr>
 					<th>Character</th>
 					<th>Direction</th>
 					<th>Ship Type</th>
-					<th>Mass</th>
+					<th>Mass [<span data-tooltip="Hot jumps <i data-icon=prop-mod></i> add prop mod (50kt except for caps) to mass<br>Higgs <i data-icon=anchor></i> doubles jump mass">?</span>]</th>
 					<th>Time</th>
 				</tr>
 			</thead>
 			<tbody></tbody>
-		</table>
+		</table></div>
 	</div>
 
 	<div id="dialog-ping" title="" class="hidden" style="width:300px">

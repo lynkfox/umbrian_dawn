@@ -232,58 +232,6 @@ $("#toggle-automapper").click(function(e) {
 	options.save();
 });
 
-$("#track").on("click", ".tracking-clone", function() {
-	var characterID =$(this).attr("data-characterid");
-	$("#tracking .tracking-clone").removeClass("active");
-
-	if (options.tracking.active == characterID) {
-		options.tracking.active = null;
-		tripwire.EVE(false, true);
-		$("#removeESI").attr("disabled", "disabled");
-	} else {
-		options.tracking.active = characterID;
-
-		if (tripwire.esi.characters[options.tracking.active]) {
-			$("#tracking .tracking-clone[data-characterid='"+ options.tracking.active +"']").addClass("active");
-			tripwire.EVE(tripwire.esi.characters[options.tracking.active], true);
-		}
-
-		$("#removeESI").removeAttr("disabled");
-	}
-	set_tracking_text();
-	options.save();
-});
-
-/** Set UI text based on the current tracked character */
-function set_tracking_text() {
-	if(tripwire.esi.characters[options.tracking.active]) {
-		document.getElementById('user-track-name').textContent = tripwire.esi.characters[options.tracking.active].characterName;
-		document.getElementById('user-track').style.display = '';
-		document.getElementById('user-no-track').style.display = 'none';
-	} else {
-		document.getElementById('user-track').style.display = 'none';
-		document.getElementById('user-no-track').style.display = '';	
-	}
-}
-
-$("#login").on("click", "#removeESI", function() {
-	var characterID = options.tracking.active;
-
-	options.tracking.active = null;
-	tripwire.EVE(false, true);
-	options.save();
-
-	$("#tracking .tracking-clone[data-characterid='"+ characterID +"']").remove();
-
-	$("#removeESI").attr("disabled", "disabled");
-
-	if ($.isArray(tripwire.data.esi.delete)) {
-		tripwire.data.esiDelete.push(characterID);
-	} else {
-		tripwire.data.esiDelete = [characterID];
-	}
-});
-
 $("#user").click(function(e) {
 	e.preventDefault();
 
@@ -812,48 +760,6 @@ $("#chainParent").contextmenu({
 		// Fix some bad CSS from jQuery Position
 		$(this).find(".ui-front").css("width", "10em");
 		$(this).find(".ui-front").css("position", "");
-
-		$("#dialog-mass").dialog({
-			autoOpen: false,
-			width: "auto",
-			height: "auto",
-			dialogClass: "dialog-noeffect ui-dialog-shadow",
-			buttons: {
-				Close: function() {
-					$(this).dialog("close");
-				}
-			},
-			open: function() {
-				var wormholeID = $(this).data("id");
-				var systemID = $(this).data("systemID");
-				var wormhole = tripwire.client.wormholes[wormholeID];
-				var signature = tripwire.client.signatures[wormhole.initialID];
-				var otherSignature = tripwire.client.signatures[wormhole.secondaryID];
-
-				$("#dialog-mass").dialog("option", "title", "From "+tripwire.systems[signature.systemID].name+" to "+tripwire.systems[otherSignature.systemID].name);
-
-				$("#dialog-mass #massTable tbody tr").remove();
-
-				var payload = {wormholeID: wormhole.id};
-
-				$.ajax({
-					url: "mass.php",
-					type: "POST",
-					data: payload,
-					dataType: "JSON"
-				}).done(function(data) {
-					if (data && data.jumps) {
-                        var totalMass = 0;
-						for (x in data.jumps) {
-							const jumpMass = parseFloat(appData.mass[data.jumps[x].shipTypeID].mass);
-                            totalMass += jumpMass;
-							$("#dialog-mass #massTable tbody").append("<tr><td>"+data.jumps[x].characterName+"</td><td>"+(data.jumps[x].toID == systemID ? "In" : "Return")+"</td><td>"+appData.mass[data.jumps[x].shipTypeID].typeName+"</td><td>"+Intl.NumberFormat().format(jumpMass)+"Kg</td><td>"+data.jumps[x].time+"</td></tr>");
-						}
-                        $("#dialog-mass #massTable tbody").append("<tr><td></td><td></td><td></td><th>"+ Intl.NumberFormat().format(totalMass) +"Kg</th><td></td></tr>");
-					}
-				});
-			}
-		});
 
 		$.moogle.contextmenu.prototype.setFlare = function(systemID, flare, ui) {
 			var data = {"systemID": systemID, "flare": flare};

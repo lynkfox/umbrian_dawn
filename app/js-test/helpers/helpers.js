@@ -3,6 +3,7 @@ var fs = require("fs");
 
 function read(f) {
   return fs.readFileSync(f).toString()
+	.replace(/^var /, '')
 	.replace(/^const /, '')
 	.replace(/\nconst /, '');
 }
@@ -10,6 +11,13 @@ function include(f) {
 	return eval.apply(global, [
 		read(f + '.js') + '\n//# sourceURL=' + f
 	]);
+}
+function loadJSON(f) {
+	return JSON.parse(fs.readFileSync(f + '.json').toString());
+}
+function fake$(prop, fn) {
+	if(!global.$) { global.$ = () => global.$; }	// this construction allows $.xyz and $('...').xyz to resolve
+	if(!global.$[prop]) { global.$[prop] = fn; }
 }
 
 /** Fake out a call to $.ajax with static data from the given source.
@@ -26,7 +34,7 @@ function fakeAjax(url, responseFile) {
 	}
 	
 	// Create a fake $.ajax that will look up previously faked requests
-	if(!global.$) { global.$ = {}; }
+	fake$();
 	if(!$.ajax) {
 		const requestBuilder = {};
 		let fakeRequestUrl;
@@ -50,4 +58,4 @@ function fakeAjax(url, responseFile) {
 }
 const fakeAjaxRequestMap = {};
 
-module.exports = { include, fakeAjax };
+module.exports = { include, fakeAjax, loadJSON, fake$ };

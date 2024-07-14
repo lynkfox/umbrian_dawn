@@ -21,7 +21,9 @@ input[type="text"], input[type="password"], select, textarea {
 	outline-width: thin;
 }
 
-*:focus-visible { outline-style: inset  }
+option { background-color: #222; }  /* to align with gradient on the select */
+
+*:focus-visible { outline-style: inset; outline-offset: 0  }
 
 input[type="button"], input[type="submit"], .ui-button.ui-widget {
 	font-family: Verdana;
@@ -57,6 +59,10 @@ input[type="button"], input[type="submit"], .ui-button.ui-widget {
 	vertical-align: top;
 	display: inline-block;
 	overflow: visible;
+}
+
+input[type='radio'], input[type='checkbox'] {
+	vertical-align: middle;
 }
 
 input[type="button"]:not([disabled]):focus, input[type="submit"]:not([disabled]):focus, .ui-button:focus:not([disabled]) {
