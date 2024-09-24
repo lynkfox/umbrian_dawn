@@ -1,7 +1,7 @@
 FROM centos:7
 
-# Update repository URL. 
-COPY ./.docker/mysql/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
+# # Update repository URL. 
+# COPY ./.docker/mysql/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
 
 # Update package and install MySQL.
 RUN yum update -y && \
