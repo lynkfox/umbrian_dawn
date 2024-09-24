@@ -10,11 +10,11 @@ COPY --chown=mysql:mysql ./.docker/mysql/init.sh /tmp/init.sh
 
 # Create init directory and permissions
 RUN mkdir -p /docker-entrypoint-initdb.d/ && \
-    touch /docker-entrypoint-initdb.d/init.sql && \
-    chmod 777 /docker-entrypoint-initdb.d && \
-    chmod 777 /docker-entrypoint-initdb.d/init.sql && \
-    chmod +x /docker-entrypoint.sh && \
-    chmod +x /tmp/init.sh
+    touch /docker-entrypoint-initdb.d/init.sql
+    # chmod 777 /docker-entrypoint-initdb.d && \
+    # chmod 777 /docker-entrypoint-initdb.d/init.sql && \
+    # chmod +x /docker-entrypoint.sh && \
+    # chmod +x /tmp/init.sh
 
 # Switch to mysql user
 USER mysql
