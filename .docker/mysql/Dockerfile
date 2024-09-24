@@ -12,9 +12,9 @@ RUN yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rp
     yum install -y Percona-Server-server-57 wget bzip2 && \
     yum -y update
 
-# Create the mysql user and group
-RUN groupadd -g 999 mysql && \
-    useradd -u 999 -g mysql mysql
+# Create the mysql group and user if they don't exist
+RUN getent group mysql || groupadd mysql && \
+    getent passwd mysql || useradd -g mysql mysql
 
 # Check that the user was created successfully
 RUN id mysql  # This command is for debugging; you can check logs to see the output
