@@ -12,34 +12,32 @@ RUN yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rp
     yum install -y Percona-Server-server-57 wget bzip2 && \
     yum -y update
 
-# Create mysql user and group if they don't exist
+# Create the mysql group and user if they don't exist
 RUN getent group mysql || groupadd mysql && \
     getent passwd mysql || useradd -g mysql mysql
 
-# Ensure that mysqld is available
-RUN which mysqld || echo "mysqld not found"
+# Check that the user was created successfully
+RUN id mysql  # This command is for debugging; you can check logs to see the output
 
 # Copy MySQL configuration file.
 COPY ./.docker/mysql/my.cnf /etc/my.cnf
 
-# Clean up and set permissions
-RUN yum clean all && \
-    chmod +x /docker-entrypoint.sh && \
-    chmod +x /tmp/init.sh
-
-# Copy entrypoint scripts
+# Clean and run.
+RUN yum clean all
 COPY --chown=mysql:mysql ./.docker/mysql/docker-entrypoint.sh /docker-entrypoint.sh
 COPY --chown=mysql:mysql ./.docker/mysql/init.sh /tmp/init.sh
 
-# Create initialization directory and permissions
+# Create init directory and permissions
 RUN mkdir -p /docker-entrypoint-initdb.d/ && \
     touch /docker-entrypoint-initdb.d/init.sql && \
     chmod 777 /docker-entrypoint-initdb.d && \
-    chmod 777 /docker-entrypoint-initdb.d/init.sql
+    chmod 777 /docker-entrypoint-initdb.d/init.sql && \
+    chmod +x /docker-entrypoint.sh && \
+    chmod +x /tmp/init.sh
 
-# Set the user to mysql
+# Switch to mysql user
 USER mysql
 
 # Set the entrypoint for the MySQL server
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+CMD ["mysql"]
