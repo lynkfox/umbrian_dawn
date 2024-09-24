@@ -1,4 +1,5 @@
-
+config.php
+db.inc.php
 .idea
 node_modules
 tweetie/config.php
