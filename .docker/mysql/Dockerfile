@@ -40,4 +40,4 @@ USER mysql
 
 # Set the entrypoint for the MySQL server
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["mysqld"]
+CMD ["mysql"]
