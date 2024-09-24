@@ -7,7 +7,7 @@ COPY ./.docker/mysql/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
 RUN yum update -y && \
     yum install -y epel-release
 
-Install Percona MySQL 5.7.
+# Install Percona MySQL 5.7.
 RUN yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rpm && \
     yum install -y Percona-Server-server-57 wget bzip2 && \
     yum -y update
