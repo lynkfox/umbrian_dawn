@@ -35,9 +35,7 @@ RUN mkdir -p /docker-entrypoint-initdb.d/ && \
     chmod +x /docker-entrypoint.sh && \
     chmod +x /tmp/init.sh
 
-# Switch to mysql user
-USER mysql
-
 # Set the entrypoint for the MySQL server
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["mysqld"]
+# Use the full path to the mysqld binary if necessary
+CMD ["/usr/bin/mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
