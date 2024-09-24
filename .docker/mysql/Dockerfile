@@ -3,10 +3,11 @@ FROM mysql:8.0
 
 # Copy MySQL configuration file.
 COPY ./.docker/mysql/my.cnf /etc/my.cnf
-
+COPY ../tmp /tmp/"$SDE_DATABASE"
 
 COPY --chown=mysql:mysql ./.docker/mysql/docker-entrypoint.sh /docker-entrypoint.sh
 COPY --chown=mysql:mysql ./.docker/mysql/init.sh /tmp/init.sh
+
 
 RUN cd /tmp
 RUN	wget --no-verbose https://www.fuzzwork.co.uk/dump/mysql-latest.tar.bz2
