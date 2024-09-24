@@ -33,9 +33,7 @@ datediff() {
 # Downloads fuzzworks SDE and cat it to the init.sql
 
 download_import_sde () {
-	cd /tmp
-	wget --no-verbose https://www.fuzzwork.co.uk/dump/mysql-latest.tar.bz2
-	tar jxf mysql-latest.tar.bz2 -C /tmp/"$SDE_DATABASE" --strip-components 1
+	
 	{
 		echo "CREATE DATABASE IF NOT EXISTS $SDE_DATABASE;"
 		echo "USE $SDE_DATABASE;"

@@ -8,6 +8,10 @@ COPY ./.docker/mysql/my.cnf /etc/my.cnf
 COPY --chown=mysql:mysql ./.docker/mysql/docker-entrypoint.sh /docker-entrypoint.sh
 COPY --chown=mysql:mysql ./.docker/mysql/init.sh /tmp/init.sh
 
+RUN cd /tmp
+RUN	wget --no-verbose https://www.fuzzwork.co.uk/dump/mysql-latest.tar.bz2
+RUN	tar jxf mysql-latest.tar.bz2 -C /tmp/"$SDE_DATABASE" --strip-components 1
+
 # Create init directory and permissions
 RUN mkdir -p /docker-entrypoint-initdb.d/ && \
     touch /docker-entrypoint-initdb.d/init.sql && \
