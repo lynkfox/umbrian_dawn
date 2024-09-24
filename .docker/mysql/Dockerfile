@@ -1,4 +1,4 @@
-FROM centos:7
+FROM percona
 
 # Update repository URL. 
 COPY ./.docker/mysql/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
