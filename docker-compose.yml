@@ -23,9 +23,9 @@ services:
       - tripwire
     volumes:
       - "./:/opt/app"
-
+   
   mysql:
-    image: percona
+    image: mysql:8.0
     build:
       context: .
       dockerfile: .docker/mysql/Dockerfile
