@@ -12,7 +12,11 @@ RUN yum update -y && \
 #     yum install -y Percona-Server-server-57 wget bzip2 && \
 #     yum -y update
 
-RUN yum install -y mysql-server 
+# Install MySQL repository
+RUN yum localinstall -y https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+
+# Install MySQL server
+RUN yum install -y mysql-community-server
 
 # Create the mysql group and user if they don't exist
 RUN getent group mysql || groupadd mysql && \
