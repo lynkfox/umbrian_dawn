@@ -2,14 +2,12 @@
 set -eo pipefail
 shopt -s nullglob
 
-which mysqld
-
-# if command starts with an option, prepend mysqld
+# if command starts with an option, prepend mysql
 if [ "${1:0:1}" = '-' ]; then
-	set -- mysqld "$@"
+	set -- mysql "$@"
 fi
 
-# skip setup if they want an option that stops mysqld
+# skip setup if they want an option that stops mysql
 wantHelp=
 for arg; do
 	case "$arg" in
@@ -65,7 +63,7 @@ _check_config() {
 	if ! errors="$("${toRun[@]}" 2>&1 >/dev/null)"; then
 		cat >&2 <<-EOM
 
-			ERROR: mysqld failed while attempting to check config
+			ERROR: mysql failed while attempting to check config
 			command was: "${toRun[*]}"
 
 			$errors
@@ -75,7 +73,7 @@ _check_config() {
 }
 
 # Fetch value from server config
-# We use mysqld --verbose --help instead of my_print_defaults because the
+# We use mysql --verbose --help instead of my_print_defaults because the
 # latter only show values present in config files, and not server defaults
 _get_config() {
 	local conf="$1"; shift
@@ -83,7 +81,7 @@ _get_config() {
 }
 
 # allow the container to be started with `--user`
-if [ "$1" = 'mysqld' -a -z "$wantHelp" -a "$(id -u)" = '0' ]; then
+if [ "$1" = 'mysql' -a -z "$wantHelp" -a "$(id -u)" = '0' ]; then
 	_check_config "$@"
 	DATADIR="$(_get_config 'datadir' "$@")"
 	mkdir -p "$DATADIR"
@@ -91,7 +89,7 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" -a "$(id -u)" = '0' ]; then
 	exec gosu mysql "$BASH_SOURCE" "$@"
 fi
 
-if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
+if [ "$1" = 'mysql' -a -z "$wantHelp" ]; then
 	# still need to check config, container may have started with --user
 	_check_config "$@"
 	# Get config
