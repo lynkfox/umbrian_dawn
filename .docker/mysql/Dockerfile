@@ -16,6 +16,9 @@ RUN yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rp
 RUN groupadd -g 999 mysql && \
     useradd -u 999 -g mysql mysql
 
+# Check that the user was created successfully
+RUN id mysql  # This command is for debugging; you can check logs to see the output
+
 # Copy MySQL configuration file.
 COPY ./.docker/mysql/my.cnf /etc/my.cnf
 
@@ -24,6 +27,7 @@ RUN yum clean all
 COPY --chown=mysql:mysql ./.docker/mysql/docker-entrypoint.sh /docker-entrypoint.sh
 COPY --chown=mysql:mysql ./.docker/mysql/init.sh /tmp/init.sh
 
+# Create init directory and permissions
 RUN mkdir -p /docker-entrypoint-initdb.d/ && \
     touch /docker-entrypoint-initdb.d/init.sql && \
     chmod 777 /docker-entrypoint-initdb.d && \
@@ -31,6 +35,7 @@ RUN mkdir -p /docker-entrypoint-initdb.d/ && \
     chmod +x /docker-entrypoint.sh && \
     chmod +x /tmp/init.sh
 
+# Switch to mysql user
 USER mysql
 
 # Set the entrypoint for the MySQL server
