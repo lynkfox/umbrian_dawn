@@ -25,7 +25,7 @@ services:
       - "./:/opt/app"
 
   mysql:
-    # image: percona
+    image: percona
     build:
       context: .
       dockerfile: .docker/mysql/Dockerfile
