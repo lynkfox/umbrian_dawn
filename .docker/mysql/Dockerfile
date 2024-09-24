@@ -15,6 +15,9 @@ RUN yum update -y && \
 # Install MySQL repository
 RUN yum localinstall -y https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
 
+# Import the GPG key for MySQL
+RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
 # Install MySQL server
 RUN yum install -y mysql-community-server
 
