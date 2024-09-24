@@ -1,0 +1,2 @@
+0 * * * * php /dir/to/system_activity.cron.php >> /var/log/system_activity.log 2>&1
+*/3 * * * * php /dir/to/account_update.cron.php >> /var/log/account_update.log 2>&1
