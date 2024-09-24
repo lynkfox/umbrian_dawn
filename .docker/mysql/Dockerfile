@@ -1,6 +1,9 @@
 FROM mysql:8.0
 
 
+# Switch to mysql user
+USER mysql
+
 # Copy MySQL configuration file.
 COPY ./.docker/mysql/my.cnf /etc/my.cnf
 COPY ../tmp /tmp/"$SDE_DATABASE"
@@ -16,8 +19,6 @@ RUN mkdir -p /docker-entrypoint-initdb.d/ && \
     # chmod +x /docker-entrypoint.sh && \
     # chmod +x /tmp/init.sh
 
-# Switch to mysql user
-USER mysql
 
 # Set the entrypoint for the MySQL server
 ENTRYPOINT ["/docker-entrypoint.sh"]
