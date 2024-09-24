@@ -12,6 +12,10 @@ RUN yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rp
     yum install -y Percona-Server-server-57 wget bzip2 && \
     yum -y update
 
+# Create the mysql user and group
+RUN groupadd -g 999 mysql && \
+    useradd -u 999 -g mysql mysql
+
 # Copy MySQL configuration file.
 COPY ./.docker/mysql/my.cnf /etc/my.cnf
 
@@ -28,3 +32,7 @@ RUN mkdir -p /docker-entrypoint-initdb.d/ && \
     chmod +x /tmp/init.sh
 
 USER mysql
+
+# Set the entrypoint for the MySQL server
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["mysqld"]
